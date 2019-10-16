@@ -1,0 +1,296 @@
+---
+layout: post
+title: Evaluación del nivel y madurez de integración de Message Brokers opensource
+  con WSO2 ESB
+date: 2015-01-25 20:16:31.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Broker
+- EIP
+tags:
+- Apache ActiveMQ
+- Apache Qpid
+- HornetQ
+- RabbitMQ
+- WSO2 ESB
+- WSO2 MB
+meta:
+  _wpcom_is_markdown: '1'
+  sharing_disabled: '1'
+  _wpas_skip_facebook: '1'
+  _wpas_skip_tumblr: '1'
+  _wpas_skip_path: '1'
+  _oembed_88ce5d30e00cf15e609199635804c7b6: "{{unknown}}"
+  _oembed_e0030a459c979acc18d5388b6a46476e: "{{unknown}}"
+  _oembed_9aaf06da2102769149da2bc60b789d0d: "{{unknown}}"
+  _oembed_7de08b661612edc736d510a5fee2df1b: "{{unknown}}"
+  _oembed_f7ab8d6f5a93e93bed398d561159f6ad: "{{unknown}}"
+  _edit_last: '578869'
+  geo_public: '0'
+  _oembed_776098137f33d093f966b9d5729dec09: "{{unknown}}"
+  _publicize_pending: '1'
+  publicize_google_plus_url: https://plus.google.com/113031469837757886298/posts/F1zesMJWgsD
+  _rest_api_published: '1'
+  _rest_api_client_id: "-1"
+  _wpas_done_5053089: '1'
+  _publicize_done_external: a:1:{s:11:"google_plus";a:1:{s:21:"113031469837757886298";b:1;}}
+  publicize_twitter_user: Chilcano
+  publicize_twitter_url: http://t.co/CdlpGJc1oi
+  _wpas_done_13849: '1'
+  publicize_linkedin_url: https://www.linkedin.com/updates?discuss=&scope=6985267&stype=M&topic=5965195346991673344&type=U&a=t7Z0
+  _wpas_done_5053092: '1'
+  _oembed_85f63eef8996a57060a33834b58f19f6: "{{unknown}}"
+  _oembed_2b8e29bc29e736f3b8e4471f13f86854: "{{unknown}}"
+  _oembed_ae6010763fe1630bd780fb3815cf5468: "{{unknown}}"
+  _oembed_c1c3eca4cc3bdb1a7a77f69bcbf1757c: "{{unknown}}"
+  _oembed_95763bb253eed032eeb0dbdfc98e4a58: "{{unknown}}"
+  _oembed_f071ac4ea6f3425e22c4159a4d9d438d: "{{unknown}}"
+  _oembed_e285ace0f51127e114b200b6b460ad53: "{{unknown}}"
+  _oembed_bf74224cbaa589248da2d89d2aca29ef: "{{unknown}}"
+  _oembed_f19616645113c5c62bf2cfd13d92d7b2: "{{unknown}}"
+  _oembed_277265b7012faa56ebf266c89d6751cb: "{{unknown}}"
+  _oembed_c49637b09b8301420576a7d5a3bf38b8: "{{unknown}}"
+  _oembed_229f5f013969c052a92a458bdb895cb0: "{{unknown}}"
+  _oembed_1bdf42da9d8a9ae60cd24feb17e54fbf: "{{unknown}}"
+  _oembed_8565e4e248709c4504984901fae55838: "{{unknown}}"
+  _oembed_5ed16e3a12657a69fd88c77ee7b939a2: "{{unknown}}"
+  _oembed_8e3b1dbc0db7deb528a7aa7fa47fa654: "{{unknown}}"
+  _oembed_a43580ac6aec2efe997804de7887da78: "{{unknown}}"
+  _oembed_0262cfe5b5b483c03d3cefe6bfbfe2cd: "{{unknown}}"
+  _oembed_b9ae30045a96bbd6c3e72fec25d9e46c: "{{unknown}}"
+  _oembed_aca42689ef431e036d84fc5ca38cd30d: "{{unknown}}"
+  _oembed_3bd55e6c600cbaa1905fad5ff295982b: "{{unknown}}"
+  _oembed_745d29ed543cf32e07cba385c7b1d6db: "{{unknown}}"
+author:
+  login: rcarhuatocto
+  email: roger@intix.info
+  display_name: Roger CARHUATOCTO
+  first_name: ''
+  last_name: ''
+permalink: "/2015/01/25/evaluacion-nivel-madurez-integracion-message-brokers-opensource-wso2-esb/"
+---
+<h2>I. Introducción</h2>
+<p>En mi anterior post expliqué como usar Apache Qpid junto con WSO2 ESB (https://holisticsecurity.wordpress.com/2014/12/03/wso2-message-broker-vs-apache-qpid-messaging-eip), un message broker ligero, potente y compatible con JMS y AMQP, en lugar de WSO2 Message Broker, un message broker potente, rápido, estándar y perfectamente integrable a WSO2 ESB. Pues ahora, me gustaría compartir la comparación que hice previamente para seleccionar <a title="Apache Qpid" href="http://qpid.apache.org" target="_blank">Apache Qpid</a>.</p>
+<p>[caption id="" align="alignnone" width="711"]<img class="" src="{{ site.baseurl }}/assets/00-foss-brokers-wso2-esb-activemq-qpid-rabbitmq-hornetq.png" alt="Integración de Message Brokers opensource con WSO2 ESB" width="711" height="338" /> Integración de Message Brokers opensource con WSO2 ESB[/caption]</p>
+<p>Claro, vosotros preguntaréis, porqué no usar Apache ActiveMQ sabiendo que es un producto opensource, maduro, muy bien integrado a WSO2 ESB y a otros ESB y Mediators Engines como Apache Camel?, pues, en base a mis requerimientos en proyectos, buscaba por algún message broker fiel a los estándares y con una arquitectura capaz de crear complejos y críticos escenarios, pero muy orientado a los usos clásicos del message broker (comunicación asíncrona, desacoplamiento, integrable con legacy systems), y en este caso Apache Qpid y Apache ActiveMQ lo son, sin embargo me incliné por Apache Qpid porque pude integrarlo en poco minutos con WSO2 ESB e implementar los EIPs otros minutos más.</p>
+<p>[caption id="" align="alignnone" width="590"]<img class="" src="{{ site.baseurl }}/assets/02-foss-brokers-wso2-esb-2015-google-trends.png" alt="Google Trends 2015: Apache ActiveMQ, RabbitMQ, Apache Qpid y JBoss HornetQ" width="590" height="344" /> Google Trends 2015: Apache ActiveMQ, RabbitMQ, Apache Qpid y JBoss HornetQ[/caption]</p>
+<p>Revisando alguna información de Apache ActiveMQ, me encontré con algunos comentarios indicando que su arquitectura estaba quedando rezagada imposibilitando su uso en escenarios complejos como BigData e IoT, sofisticados brokers como Apache Kafka y ZeroMQ, por ejemplo. Aquí unos comentarios.</p>
+<blockquote><p>Disadvantages in ActiveMQ:<br />
+* Complex algorithmic architecture for design and implement. Large cluster configuration for invoking simple message passing services.<br />
+* Message blocks happens when the duplex network connected in between two JMS Borker.<br />
+* When we want to set up interoperable network we should have to do alot of configuration due to heavy traffic flow.</p>
+<p>Referencia: http://bipinkunjumon.blogspot.co.uk/2013/05/zeromq-and-activemq-comparison.html</p></blockquote>
+<p>Y</p>
+<blockquote><p>ActiveMQ is still a very good choice for Enterprise Messaging. But ActiveMQ has gotten some competition, which is arriving with newer architectures, better performance, and with the support of standardized protocols in the area of the space deer.</p>
+<p>Referencia: http://predic8.com/activemq-hornetq-rabbitmq-apollo-qpid-comparison.htm</p></blockquote>
+<h2>II. Message Brokers</h2>
+<p>La lista de Message Brokers opensource a considerar son los siguientes:</p>
+<p>[caption id="" align="alignnone" width="2254"]<img src="{{ site.baseurl }}/assets/01-foss-brokers-wso2-esb-activemq-qpid-rabbitmq-hornetq-zeromq-kafka-storm.png" alt="Lista de Message Brokers opensource a considerar (Qpid, ActiveMQ, RabbitMQ, HornetQ, WSO2 MB, ZeroMQ, Apache Kafka, Apache Storm, OpenAMQP)" width="2254" height="1585" /> Lista de Message Brokers opensource a considerar (Qpid, ActiveMQ, RabbitMQ, HornetQ, WSO2 MB, ZeroMQ, Apache Kafka, Apache Storm, OpenAMQP)[/caption]</p>
+<table width="295">
+<tbody>
+<tr>
+<td colspan="3" width="295"><b>Standard Message Brokers</b></td>
+</tr>
+<tr>
+<td width="20"></td>
+<td width="110">Name</td>
+<td width="165">Website</td>
+</tr>
+<tr>
+<td width="20">1</td>
+<td width="110">RabbitMQ</td>
+<td width="165"><a href="https://www.rabbitmq.com/">https://www.rabbitmq.com </a></td>
+</tr>
+<tr>
+<td width="20">2</td>
+<td width="110">Apache Qpid</td>
+<td width="165"><a href="https://qpid.apache.org/">https://qpid.apache.org</a></td>
+</tr>
+<tr>
+<td width="20">3</td>
+<td width="110">WSO2 Message Broker</td>
+<td width="165"><a href="http://wso2.com/products/message-broker">http://wso2.com/products/message-broker</a></td>
+</tr>
+<tr>
+<td width="20">4</td>
+<td width="110">Apache ActiveMQ</td>
+<td width="165"><a href="http://activemq.apache.org/">http://activemq.apache.org</a></td>
+</tr>
+<tr>
+<td width="20">5</td>
+<td width="110">JBoss HornetQ</td>
+<td width="165"><a href="http://hornetq.jboss.org/">http://hornetq.jboss.org</a></td>
+</tr>
+<tr>
+<td width="20">6</td>
+<td width="110">Apache Kafka</td>
+<td width="165"><a href="http://kafka.apache.org/">http://kafka.apache.org</a></td>
+</tr>
+<tr>
+<td width="20">7</td>
+<td width="110">Apache Storm</td>
+<td width="165"><a href="http://storm.apache.org/">http://storm.apache.org</a></td>
+</tr>
+<tr>
+<td width="20">8</td>
+<td width="110">OpenAMQP</td>
+<td width="165"><a href="http://www.openamq.org/">http://www.openamq.org</a></td>
+</tr>
+</tbody>
+</table>
+<table width="295">
+<tbody>
+<tr>
+<td colspan="3" width="295"><b>Especialized Message Brokers</b></td>
+</tr>
+<tr>
+<td width="20"></td>
+<td width="110">Name</td>
+<td width="165">Website</td>
+</tr>
+<tr>
+<td width="20">9</td>
+<td width="110">OpenMAMA</td>
+<td width="165"><a href="http://www.openmama.org/">http://www.openmama.org</a></td>
+</tr>
+<tr>
+<td width="20">10</td>
+<td width="110">ZebroGaMQ</td>
+<td width="165"><a href="https://github.com/simatic/ZebroGaMQ">https://github.com/simatic/ZebroGaMQ</a></td>
+</tr>
+<tr>
+<td width="20">11</td>
+<td width="110">ZeroMQ</td>
+<td width="165"><a href="http://zeromq.org/">http://zeromq.org</a></td>
+</tr>
+</tbody>
+</table>
+<h2>III. Criterios de evaluación</h2>
+<p>Dentro de los criterios de evaluación considero el nivel de integración con WSO2 ESB. Para mi fue de vital importancial su facilidad de integración. No quería "matar moscas a cañonazos", usar WSO2 Message Broker o Apache ActiveMQ lo eran.</p>
+<p>A continuación listo los criterios de evaluación.</p>
+<table width="328">
+<tbody>
+<tr>
+<td colspan="2" width="20"><strong>Features/functionalities to be considered</strong></td>
+<td width="53"><strong>Weight</strong></td>
+</tr>
+<tr>
+<td>1.-</td>
+<td>Support of JMS</td>
+<td>5/5</td>
+</tr>
+<tr>
+<td>2.-</td>
+<td>Support of AMQP</td>
+<td>5/5</td>
+</tr>
+<tr>
+<td>3.-</td>
+<td>Message Store backend</td>
+<td>3/5</td>
+</tr>
+<tr>
+<td>4.-</td>
+<td>Reliability &amp; Clustering</td>
+<td>3/5</td>
+</tr>
+<tr>
+<td><strong>5.-</strong></td>
+<td><strong>Maturity level of WSO2 integration</strong></td>
+<td><strong>5/5</strong></td>
+</tr>
+<tr>
+<td>6.-</td>
+<td>Performance</td>
+<td>3/5</td>
+</tr>
+<tr>
+<td>7.-</td>
+<td>Quality of documentation</td>
+<td>4/5</td>
+</tr>
+<tr>
+<td>8.-</td>
+<td>Community behind</td>
+<td>4/5</td>
+</tr>
+<tr>
+<td>9.-</td>
+<td>Successfully cases/Where is used?</td>
+<td>4/5</td>
+</tr>
+</tbody>
+</table>
+<h2>IV. Resultados</h2>
+<p>Los resultados son los siguientes:</p>
+<table width="244">
+<tbody>
+<tr>
+<td width="18"></td>
+<td width="192"><strong>Message Broker</strong></td>
+<td width="34"><strong>Total</strong></td>
+</tr>
+<tr>
+<td width="18">1</td>
+<td width="192">RabbitMQ</td>
+<td width="34">28</td>
+</tr>
+<tr>
+<td width="18">2</td>
+<td width="192">Apache Qpid</td>
+<td width="34"><strong>38</strong></td>
+</tr>
+<tr>
+<td width="18">3</td>
+<td width="192">ZeroMQ</td>
+<td width="34">23</td>
+</tr>
+<tr>
+<td width="18">4</td>
+<td width="192">OpenAMQP</td>
+<td width="34">22</td>
+</tr>
+<tr>
+<td width="18">5</td>
+<td width="192">JBoss HornetMQ</td>
+<td width="34">27</td>
+</tr>
+<tr>
+<td width="18">6</td>
+<td width="192">Apache ActiveMQ</td>
+<td width="34"><strong>40</strong></td>
+</tr>
+</tbody>
+</table>
+<p>[caption id="" align="alignnone" width="860"]<img class="" src="{{ site.baseurl }}/assets/04-foss-brokers-wso2-esb-maturity-level-result.png" alt="Nivel de madurez e integración con WSO2 ESB - resultados" width="860" height="429" /> Nivel de madurez e integración con WSO2 ESB - resultados[/caption]</p>
+<p>Y el análisis a mayor detalle aquí:</p>
+<p>[caption id="" align="alignnone" width="3418"]<img class="" src="{{ site.baseurl }}/assets/03-foss-brokers-wso2-esb-maturity-level-list.png" alt="Comparación entre RabbitMQ, Apache Qpid, ZeroMQ, OpenAMQP,  JBoss HornetQ y Apache ActiveMQ - detalles" width="3418" height="1797" /> Comparación entre RabbitMQ, Apache Qpid, ZeroMQ, OpenAMQP, JBoss HornetQ y Apache ActiveMQ - detalles[/caption]</p>
+<h2>V. Conclusiones</h2>
+<ul>
+<li>Resultado de la comparación, en la introducción ya os adelanté, Apache Qpid fue el broker ideal que cumplía mis requerimientos: facilidad de integración con WSO2 ESB y facilidad de implementar los EIP relacionados a mensajería.</li>
+<li>WSO2 ESB como motor de mediación y Apache Qpid como motor de enrutamiento puedo implementar de manera fácil y de manera rápida todos <a title="Enterprise Integration Patterns with WSO2 ESB" href="https://docs.wso2.com/display/IntegrationPatterns/Enterprise+Integration+Patterns+with+WSO2+ESB" target="_blank">los escenarios y patrones de integración</a>, siguiendo las recientes tendencias de composición de Microservicios. Esto sí que es ágil y "ligero", es una mínima infraestructura para poder implementar y gobernar <a title="Merging microservices architecture with SOA Practices" href="http://www.slideshare.net/wso2.org/microservices-20140915v11" target="_blank">microservices</a>.</li>
+<li>Apache Kafka, ZeroMQ y WSO2 Message Broker, son message brokers de "alto rendimiento", cada uno resuelve la complejidad a su manera, ellos fueron sacados de esta lista. Están pensados para escenarios complejos, críticos y de grandes volúmenes de mensajes y grandes tamaños. Más adelante escribiré sobre Apache Kafka.</li>
+<li>Apache ActiveMQ sigue siendo el message broker más usado, sin embargo su uso ha decrecido mucho en el último año, parece que RabbitMQ, aunque sólo implemente AMQP y no JMS, tiene más demanda. El gráfico de Google Trends lo corrobora.</li>
+<li>RabbitMQ tiene un gran interés, se ve en las tendencias, y realmente es muy robusto, pero para mis requerimientos de integrabilidad con WSO2 ESB no está al nivel de Apache ActiveMQ y Apache Qpid, además el que no implemente AMQP 1.0 o JMS 1.1 dificulta mucho más su integración con WSO2 ESB. En un posterior artículo os explicaré cómo lo resolví y liberaré el código fuente resultado de esa integración. Ah, no me refiero a una integración como lo explica Luis en su entrada (https://luispenarrubia.wordpress.com/2014/12/10/integrate-wso2-esb-and-rabbitmq-using-amqp-transport), me refiero a una integración siguiendo los EIPs (<a title="Messaging EIP" href="https://docs.wso2.com/display/IntegrationPatterns/Messaging+Channels" target="_blank">Dead Letter Queue, Retry Queue, Wire Tap, Throttling, etc.</a>).</li>
+<li>Apache Qpid tiene un buen nivel de soporte, lo viví en carne propia, los foros son bien activos, para mi fue una sorpresa muy grata. Por otro lado también pude comprobar que el producto y los clientes son muy buenos, ellos son usados por otros proyectos, desde el mismo Apache ActiveMQ, WSO2 Message Broker y RedHat Enterprise MRTG.</li>
+<li>Sobre JBoss HornetQ, pues muy poco tengo que decir, su interés según Google Trends es muy bajo, sin embargo tiene mucha información, incluso he visto un libro sobre él, pero por otro lado, RedHat usa Apache ActiveMQ en lugar de HornetQ, a pensar de ser un proyecto patrocinado por ellos.</li>
+<li>La integración de Apache Qpid y WSO2 ESB sería total si desde WSO2 ESB pudiese también gestionar las colas y los mensajes, pero esto no es posible ni con Apache ActiveMQ, hay algunos "work arounds" pero no va bien completamente (http://stackoverflow.com/questions/21761265/cant-browse-messages-in-an-activemq-based-message-store-with-wso2-esb-console). En otro artículo escribiré sobre ello y también compartiré el código.</li>
+</ul>
+<h2>VI. Referencias</h2>
+<ul>
+<li>Broker wars: ActiveMQ, Qpid, HornetQ and RabbitMQ in Comparison<br />
+(http://predic8.com/activemq-hornetq-rabbitmq-apollo-qpid-comparison.htm)</li>
+<li>A quick message queue benchmark: ActiveMQ, RabbitMQ, HornetQ, QPID, Apollo…<br />
+(http://blog.x-aeon.com/2013/04/10/a-quick-message-queue-benchmark-activemq-rabbitmq-hornetq-qpid-apollo)</li>
+<li>JMS speed test: ActiveMQ vs HornetQ<br />
+(http://integr8consulting.blogspot.co.uk/2011/02/jms-speed-test-activemq-vs-hornetq.html)</li>
+<li>Middleware trends and market leaders 2011<br />
+(http://zeromq.wdfiles.com/local--files/intro%3Aread-the-manual/Middleware%20Trends%20and%20Market%20Leaders%202011.pdf , https://www-acc.gsi.de/wiki/pub/Frontend/MeetingCMW130425/CHEP-2012-NewCERNcontrolsMiddleware.pdf)</li>
+<li>Apache Kafka: Next Generation Distributed Messaging System (comparison with RabbitMQ and ActiveMQ - http://www.infoq.com/articles/apache-kafka)</li>
+<li>Apache Kafka: powered by<br />
+(https://cwiki.apache.org/confluence/display/KAFKA/Powered+By)</li>
+</ul>

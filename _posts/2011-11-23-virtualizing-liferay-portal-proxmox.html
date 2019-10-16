@@ -1,0 +1,165 @@
+---
+layout: post
+title: Virtualizing Liferay Portal with Proxmox VE
+date: 2011-11-23 18:50:25.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Security
+tags: []
+meta:
+  _wpas_done_twitter: '1'
+  _edit_last: '578869'
+  _oembed_134b02cdd756a5004754470bdbbdcc33: "{{unknown}}"
+  _oembed_c98faa8352096ff682c31154d0833882: "{{unknown}}"
+  _oembed_f8f6062966e5732814a9b0e67e8cabeb: "{{unknown}}"
+  _oembed_03f54d97db98aa23799079e00e27cd15: "{{unknown}}"
+  _oembed_42acac702323b1ab1b6569b3d60f1804: "{{unknown}}"
+  _oembed_8418bc9ea51d714baa1d3c8ccdedc897: "{{unknown}}"
+author:
+  login: rcarhuatocto
+  email: roger@intix.info
+  display_name: Roger CARHUATOCTO
+  first_name: ''
+  last_name: ''
+permalink: "/2011/11/23/virtualizing-liferay-portal-proxmox/"
+---
+<p>Some days ago I had to deploy a Liferay Portal in a hosting provider where Proxmox Virtual Environment (PVE) was necessary to use.</p>
+<p><a href="http://pve.proxmox.com/wiki/Network_Model">Proxmox Virtual Environment</a> is a Debian distro with pre-installed packages ready to use when you want to create virtualization platform for running Virtual Appliances and Virtual Machines based on OpenVZ and KVM.</p>
+<p>But, What is difference between tradicional hosting and hosting based on Proxmox VE?, really does not exist differences because with Proxmox VE you can virtualize all (network, server, vlan, etc.).</p>
+<p>Then, I did create a virtualized network with 2 servers based on Proxmox, the first server runs a Linux Debian with Apache HTTP server as web-proxy, the second server will be a private server with Liferay Portal.</p>
+<p>The architecture final is as follow:</p>
+<p>[caption id="" align="alignnone" width="462" caption="Architecture - Liferay in an environment virtualized with Proxmox"]<a href="http://dl.dropbox.com/u/2961879/blog20111108_proxmoxliferay/www.intix.info_proxmox_liferay_arquitectura.png"><img class="   " title="Architecture - Liferay in an environment virtualized with Proxmox" src="{{ site.baseurl }}/assets/www.intix.info_proxmox_liferay_arquitectura.png" alt="Architecture - Liferay in an environment virtualized with Proxmox" width="462" height="369" /></a>[/caption]</p>
+<h2>1. Installation first server with Proxmox / Apache2 HTTP Server (In Host)</h2>
+<p>When installing Proxmox in your hosting provider you will have as principal public server a first server with Debian Linux,<br />
+its initial configuration is as follow:</p>
+<p>[sourcecode language="text" gutter="true" wraplines="false" highlight="1"]<br />
+root@kns ~ # nano /etc/network/interfaces</p>
+<p>### Hetzner Online AG - installimage<br />
+# Loopback device:<br />
+auto lo<br />
+iface lo inet loopback</p>
+<p># device: eth0<br />
+auto  eth0<br />
+iface eth0 inet static<br />
+  address   176.9.30.36<br />
+  broadcast 176.9.30.63<br />
+  netmask   255.255.255.224<br />
+  gateway   176.9.30.33<br />
+  pointopoint 176.9.30.33<br />
+  post-up mii-tool -F 100baseTx-FD eth0</p>
+<p># default route to access subnet<br />
+up route add -net 176.9.30.32 netmask 255.255.255.224 gw 176.9.30.33 eth0<br />
+[/sourcecode]<br />
+[sourcecode language="text" gutter="true" wraplines="false" highlight="1"]<br />
+root@kns ~ # more /etc/resolv.conf</p>
+<p>search<br />
+nameserver 213.133.100.100<br />
+nameserver 213.133.98.98<br />
+nameserver 213.133.99.99<br />
+[/sourcecode]</p>
+<p>After of installing Proxmox, you have to create virtual network with a private IP range, in this case I will use 10.10.10.x.</p>
+<h3>1.1. Creating Virtual Network with Proxmox</h3>
+<p>[sourcecode language="text" gutter="true" wraplines="false" highlight="1"]<br />
+root@kns ~ # nano /etc/network/interfaces</p>
+<p># Loopback device:<br />
+auto lo<br />
+iface lo inet loopback</p>
+<p># device: eth0<br />
+auto  eth0<br />
+iface eth0 inet static<br />
+  address   176.9.30.36<br />
+  broadcast 176.9.30.63<br />
+  netmask   255.255.255.224<br />
+  gateway   176.9.30.33<br />
+  pointopoint 176.9.30.33<br />
+  post-up mii-tool -F 100baseTx-FD eth0<br />
+  post-up echo 1 &gt; /proc/sys/net/ipv4/conf/eth0/proxy_arp</p>
+<p>#### my new virtual network<br />
+auto vmbr0<br />
+iface vmbr0 inet static<br />
+    address  10.10.10.1<br />
+    netmask  255.255.255.0<br />
+    bridge_ports none<br />
+    bridge_stp off<br />
+    bridge_fd 0<br />
+    post-up echo 1 &gt; /proc/sys/net/ipv4/ip_forward<br />
+    post-up iptables -t nat -A POSTROUTING -s '10.10.10.0/24' -o eth0 -j MASQUERADE<br />
+    post-down iptables -t nat -D POSTROUTING -s '10.10.10.0/24' -o eth0 -j MASQUERADE<br />
+[/sourcecode]<br />
+[sourcecode language="text" gutter="true" wraplines="false" highlight="1"]<br />
+root@kns ~ # nano /etc/sysctl.d/10-no-icmp-redirects.conf</p>
+<p>#### my bridge to VM<br />
+net.ipv4.conf.all.send_redirects = 0<br />
+[/sourcecode]<br />
+[sourcecode language="text" gutter="true" wraplines="false" highlight="1"]<br />
+root@kns ~ # nano /etc/sysctl.conf</p>
+<p>### Hetzner Online AG installimage<br />
+# sysctl config<br />
+net.ipv4.conf.all.rp_filter=1<br />
+net.ipv4.icmp_echo_ignore_broadcasts=1<br />
+net.ipv4.ip_forward=1<br />
+[/sourcecode]</p>
+<h2>2. Installation of second server with Liferay 6.0.6 CE (a Guest VM)</h2>
+<h3>2.1. Install your prefered Linux distro in your new VM</h3>
+<p>With Proxmox VE is easy and quickly to create VM from ISO image.<br />
+You can change VM parameters as RAM, HD, type of Network interface, MAC, etc. all from Proxmox VE web interface, or if you know Proxmox's commands you could do from SSH terminal.</p>
+<h3>2.2. Configure eth0 in Guest</h3>
+<p>After of creating your VM with Proxmox, you will need to asign private IP or customize your VM, in this case you will need a VNC terminal to apply these changes.<br />
+With Proxmox you can get a shell/terminal to Guest VM without connection to virtualized network.</p>
+<p>Then, from Proxmox VE (interface web) go to your recently VM created and open a VNC terminal, then here runs following commands:</p>
+<p>[sourcecode language="text" gutter="true" wraplines="false" highlight="1"]<br />
+[root@pisco ~]# nano /etc/sysconfig/network-scripts/ifcfg-eth0</p>
+<p>DEVICE=&quot;eth0&quot;<br />
+NM_CONTROLLED=&quot;yes&quot;<br />
+ONBOOT=yes<br />
+HWADDR=3E:DB:61:48:63:88<br />
+TYPE=Ethernet<br />
+BOOTPROTO=none<br />
+IPADDR=10.10.10.12<br />
+PREFIX=24<br />
+GATEWAY=10.10.10.1<br />
+DNS1=213.133.99.99<br />
+DEFROUTE=yes<br />
+IPV4_FAILURE_FATAL=yes<br />
+IPV6INIT=no<br />
+NAME=&quot;System eth0&quot;<br />
+UUID=5fb06bd0-0bb0-7ffb-45f1-d6edd65f3e03<br />
+[/sourcecode]<br />
+[sourcecode language="text" gutter="true" wraplines="false" highlight="1"]<br />
+[root@pisco ~]# more /etc/resolv.conf</p>
+<p>search local<br />
+nameserver 213.133.99.99<br />
+[/sourcecode]</p>
+<p>...add gateway</p>
+<p>[sourcecode language="text" gutter="true" wraplines="false" highlight="1"]<br />
+[root@pisco ~]# ip route add 176.9.30.36 dev eth0<br />
+[/sourcecode]</p>
+<p>..add default path</p>
+<p>[sourcecode language="text" gutter="true" wraplines="false" highlight="1"]<br />
+[root@pisco ~]# ip route add default via 176.9.30.36<br />
+[/sourcecode]</p>
+<h3>2.3. Re-start VM and test configuration</h3>
+<p>[sourcecode language="text" gutter="true" wraplines="false" highlight="1"]<br />
+[root@pisco ~]# ping www.google.com</p>
+<p>PING www.l.google.com (74.125.39.103) 56(84) bytes of data.<br />
+64 bytes from fx-in-f103.1e100.net (74.125.39.103): icmp_seq=1 ttl=55 time=6.77 ms<br />
+64 bytes from fx-in-f103.1e100.net (74.125.39.103): icmp_seq=2 ttl=53 time=6.81 ms<br />
+[/sourcecode]</p>
+<h3>2.4. Install Liferay, then move Liferay to non-root context</h3>
+<p>Liferay will be running with this URL: http://10.10.10.12:8080/kns</p>
+<h2>3. Move Proxmox Virtual Environment 1.9 (proxmox's website) from 80 port to 8080 port.</h2>
+<p>Next blog post.</p>
+<h2>4. Configure first server as Reverse Web Proxy</h2>
+<p>Next blog post.</p>
+<h2>5. Test installation</h2>
+<p>From Internet you can call this URL: <strong>http://myliferay.intix.info/kns</strong>, <strong>http://176.9.30.36/kns</strong> or http://${YOUR-PUBLIC-IP}/kns</p>
+<p>Bye.</p>
+<h2>References</h2>
+<ul>
+<li>Proxmox - Network model:<br />
+<a href="http://pve.proxmox.com/wiki/Network_Model">http://pve.proxmox.com/wiki/Network_Model</a></li>
+</ul>

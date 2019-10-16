@@ -1,0 +1,61 @@
+---
+layout: post
+title: Detener la sincronización de tiempo/fechas entre Host y Guest en Virtual Box
+date: 2009-11-27 10:10:33.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Linux
+tags: []
+meta:
+  _edit_last: '578869'
+  _wpas_skip_twitter: '1'
+  _oembed_341dd1c7e9bdecfac2b63bc3695228dc: "{{unknown}}"
+  _oembed_4a0cb52f5e242084b9ab7ec8fc2ed55e: "{{unknown}}"
+  _oembed_89d487b1f6b02d10aaa375b8a6057b6c: "{{unknown}}"
+  _oembed_e94f115cb62e3d647f0da6527b9a3bb9: "{{unknown}}"
+  _oembed_a6bfdfafb590bc16793de774433c538c: "{{unknown}}"
+  _oembed_e5eb140aa32ee41061eb32e591996d0d: "{{unknown}}"
+  _oembed_1cf9c59d7d136d1a21a7ce58a3826112: "{{unknown}}"
+  _oembed_6d5e7969628515544c4977a9595f31a5: "{{unknown}}"
+  _oembed_1107578f523ed71bbf686b7dc27c497a: "{{unknown}}"
+  _oembed_29a86cd67f3270ac8600018d6a75e73a: "{{unknown}}"
+author:
+  login: rcarhuatocto
+  email: roger@intix.info
+  display_name: Roger CARHUATOCTO
+  first_name: ''
+  last_name: ''
+permalink: "/2009/11/27/detener-la-sincronizacion-de-tiempofechas-entre-host-y-guest-en-virtual-box/"
+---
+<p>Desde la versión 3.0.6 de VirtualBox existe la posibilidad de sincronizar el tiempo entre el host y el guest, y si los "Guest Additions" están instalados es posible cambiar su comportamiento, inclusive detener el servicio. Si es linux es posible usar lo siguiente para detener el servicio de sincronización de tiempo.</p>
+<p>Ejecutar lo siguiente desde el guest:</p>
+<blockquote><p>/etc/init.d/vboxadd-timesync stop</p></blockquote>
+<p>Mientras que para guest Windows XP, debería ser:</p>
+<blockquote><p>C:\WINDOWS\system32&gt;VBoxService --disable-timesync</p></blockquote>
+<p>Sin embargo, esto parece que no funciona.  Deteniendo o eliminando el servicio VBoxService en el guest tampoco funciona:</p>
+<blockquote><p>C:\WINDOWS\system32&gt;VBoxService -u</p></blockquote>
+<p>También probé lo siguiente desde el host, tampoco funcionó:</p>
+<blockquote><p>VBoxManage setextradata &lt;nombrevm&gt; "VBoxInternal/Devices/VMMDev/0/Config/GetHostTimeDisabled" "1"</p></blockquote>
+<p>donde &lt;nombrevm&gt; es el nombre de la máquina virtual o guest.<br />
+Parece que la sincronización entre el host y guest es necesaria, suena lógico. Finalmente, probé una recomendación del foro de VirtualBox, dice que existe una funcionalidad no documentada para hacer un offset de tiempos durante el booteo de la vm y parece que sí funciona. Desde el host hacer los siguiente:</p>
+<blockquote><p>VBoxManage setextradata &lt;nombrevm&gt; "VBoxInternal/TM/UTCOffset" &lt;nanoSeconds&gt;</p></blockquote>
+<p>Para atrasar 1 día el tiempo del guest respecto al host, nanoSeconds = -86400000000000<br />
+Para atrasar 365 (1 año) el tiempo, nanoSeconds = -31536000000000000</p>
+<p>He probado hacer un offset y sí parece que funciona, tengo como Host a Windows XP, como Guest a otro Windows XP y en el Guest tengo los "Guest Additions" instalada.</p>
+<p>Hasta el momento es la única alternativa que he encontrado que funciona ya que deshabilitar la sincronización de tiempos es imposible, al menos en este momento, aún no lo he probado en Linux como host.</p>
+<p>Algunas referencias:</p>
+<ul>
+<li>(2009.Nov.19) Disable Guest Clock Sync<br />
+<a href="http://forums.virtualbox.org/viewtopic.php?f=2&amp;p=110547">http://forums.virtualbox.org/viewtopic.php?f=2&amp;p=110547</a></li>
+<li>(2009.Jun.08) VirtualBox: Disable time sync between host and client<br />
+<a href="http://rickguyer.com/virtualbox-disable-time-sync-between-host-and-client/">http://rickguyer.com/virtualbox-disable-time-sync-between-host-and-client/</a></li>
+<li>(2008.Ago.08) How to disable time sync between host and guest<br />
+<a href="http://forums.virtualbox.org/viewtopic.php?t=8535">http://forums.virtualbox.org/viewtopic.php?t=8535</a></li>
+<li>(2009.Nov.02) 3.0.10 can't change guest system time<br />
+<a href="http://forums.virtualbox.org/viewtopic.php?t=24057">http://forums.virtualbox.org/viewtopic.php?t=24057</a></li>
+</ul>
+<p>Bye.</p>

@@ -1,0 +1,73 @@
+---
+layout: post
+title: Testing Alfresco Webservices with soapUI
+date: 2010-07-26 16:11:09.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- ECM
+tags: []
+meta:
+  _edit_last: '578869'
+  _wpas_done_twitter: '1'
+  _wp_old_slug: ''
+  _wpas_skip_5053092: '1'
+  _wpas_skip_13849: '1'
+  _wpas_skip_5053089: '1'
+  _oembed_e1f286feac6b02ed8dd1c8e962bff059: "{{unknown}}"
+  _oembed_bf89e3b7e3e82d294670205526ae84b3: "{{unknown}}"
+author:
+  login: rcarhuatocto
+  email: roger@intix.info
+  display_name: Roger CARHUATOCTO
+  first_name: ''
+  last_name: ''
+permalink: "/2010/07/26/testing-alfresco-webservices-with-soapui/"
+---
+<p><strong>Introduction</strong></p>
+<p>Alfresco ECM has a WS layer that implement all content management services as upload, search, transform, checkin/checkout, etc of any content stored in the repository.</p>
+<p>This WS layer enables to Business Application easier integration of content management functionalities. It is only necessary to invoke the Alfresco's WS for the desired functionality. Alfresco has two types of WS set, one set implements WS of specific way and the other WS layer follows the CMIS standard, in the end, both layers offer the same services in an equivalent manner.</p>
+<p><strong>Design of Test Master Plan: Define the scope</strong></p>
+<p>For testing purposes, I recommend that you first define the scope of testing:</p>
+<ul>
+<li>What do you want to test?:</li>
+<li>How much you want to test?: type of test, i.e. regression, load test, etc.</li>
+</ul>
+<p>Then, you create a Test Suite with several test cases as many as you want to execute functionalities or WS.</p>
+<p><strong>Implement Test Suite with soapUI</strong></p>
+<ol>
+<li>Identify URL/endpoints for each functionality to be tested</li>
+<li>Create test-cases for all functionality to be tested</li>
+<li>Automates each test case with soapUI by programming with groovy (soapUI scripting)</li>
+<li>Add indicators to measure the performance</li>
+</ol>
+<p><strong>Run Test Suite</strong></p>
+<p>Define the initial conditions to execute the test, for example, time of execution, ignore errors, etc.</p>
+<p>[caption id="attachment_142" align="alignnone" width="480"]<a href="http://holisticsecurity.wordpress.com/2010/07/26/testing-alfresco-webservices-with-soapui/soapui_alf33ce_1_testrunner/" rel="attachment wp-att-142"><img class="size-full wp-image-142" title="soapui_alf33ce_1_testrunner" alt="" src="{{ site.baseurl }}/assets/soapui_alf33ce_1_testrunner.png" width="480" height="419" /></a> soapUI Launch TestRunner settings[/caption]</p>
+<p>Alter a quick introduction, now will test Alfresco ECM, firstly, we will do queries to Alfresco’s Dictionary, after, and we will automate the creation of content in Alfresco.</p>
+<p><strong>Test Suite sample: "Testing Alfresco’s Dictionary Service"</strong></p>
+<p>[caption id="attachment_143" align="alignnone" width="377"]<a href="http://holisticsecurity.files.wordpress.com/2010/07/soapui_alf33ce_2_testsuite_dictionaryservice.png"><img class="size-full wp-image-143" title="soapui_alf33ce_2_testsuite_dictionaryservice" alt="" src="{{ site.baseurl }}/assets/soapui_alf33ce_2_testsuite_dictionaryservice.png" width="377" height="232" /></a> soapUI Test Suite - Alfresco's DictionaryService[/caption]</p>
+<p>Steps in the test suite:</p>
+<ul>
+<li>startSession:</li>
+</ul>
+<p>We must be authenticated before accessing resources Alfresco. We must invoke the URL (<a href="http://localhost:8080/alfresco/api/AuthenticationService">http://localhost:8080/alfresco/api/AuthenticationService</a> and startSession method/service) passing username/password, Alfresco should respond by sending a TICKET_ID.</p>
+<p>[caption id="attachment_144" align="alignnone" width="480"]<a href="http://holisticsecurity.files.wordpress.com/2010/07/soapui_alf33ce_3_startsession_req.png"><img class="size-full wp-image-144" title="soapui_alf33ce_3_startsession_req" alt="" src="{{ site.baseurl }}/assets/soapui_alf33ce_3_startsession_req.png" width="480" height="230" /></a> StartSession SOAP request in Alfresco[/caption]</p>
+<p>[caption id="attachment_146" align="alignnone" width="480"]<a href="http://holisticsecurity.files.wordpress.com/2010/07/soapui_alf33ce_4_startsession_res.png"><img class="size-full wp-image-146" title="soapui_alf33ce_4_startsession_res" alt="" src="{{ site.baseurl }}/assets/soapui_alf33ce_4_startsession_res.png" width="480" height="275" /></a> StartSession SOAP response in Alfresco[/caption]</p>
+<ul>
+<li>Queries: getAssociations, getClasses, getProperties, …</li>
+</ul>
+<p>For each SOAP query, we must identify SOAP endpoint (for example, <a href="http://localhost:8080/alfresco/api/DirectoryService">http://localhost:8080/alfresco/api/DirectoryService</a> and getAssociations) and method/service, then web have to pass a valid TICKET_ID.</p>
+<p>[caption id="attachment_147" align="alignnone" width="480"]<a href="http://holisticsecurity.files.wordpress.com/2010/07/soapui_alf33ce_5_getassociations.png"><img class="size-full wp-image-147" title="soapui_alf33ce_5_getassociations" alt="" src="{{ site.baseurl }}/assets/soapui_alf33ce_5_getassociations.png" width="480" height="266" /></a> GetAssociations SOAP request in Alfresco[/caption]</p>
+<p>This process we must repeat for each step (SOAP endpoint and method/service) that we identify in our tests.</p>
+<ul>
+<li>endSession:</li>
+</ul>
+<p>For close session we have to invoke to <a href="http://localhost:8080/alfresco/api/AuthenticationService">http://localhost:8080/alfresco/api/AuthenticationService</a> and endSession method using the initial TICKET_ID created in step 1.</p>
+<p>I have created two Test Suites with soapUI that you can import to workspace.</p>
+<p>The first make several queries to Alfresco’s Dictionary (in this case you need to modify the standard content model of Alfresco or simply edit each test step of this soapUI project). The second test suite creates new content in the guest_home space and then transform to PDF.</p>
+<p>* Download <a href="https://dl.dropboxusercontent.com/u/2961879/blog20111203_alf34_ws_rest_testing/alf34dce_ws_rest_soapui_prj.zip">soapUI project for Alfresco v. 3.4d</a></p>
+<p>I hope that is useful.</p>

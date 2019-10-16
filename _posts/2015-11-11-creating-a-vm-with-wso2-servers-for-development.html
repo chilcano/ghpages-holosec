@@ -1,0 +1,66 @@
+---
+layout: post
+title: Creating a VM with WSO2 servers for development with Vagrant & Puppet
+date: 2015-11-11 23:43:38.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Cloud
+- Linux
+- SOA
+tags:
+- Puppet
+- Ubuntu
+- Vagrant
+- Virtual Box
+- Wiremock
+- WSO2
+meta:
+  _wpcom_is_markdown: '1'
+  _edit_last: '578869'
+  _wpas_skip_5053092: '1'
+  geo_public: '0'
+  publicize_google_plus_url: https://plus.google.com/+RogerCarhuatocto/posts/1mo73BXHEDj
+  _publicize_job_id: '16766883004'
+  _publicize_done_5110107: '1'
+  _wpas_done_5053089: '1'
+  _publicize_failed_5110110: |-
+    O:13:"Keyring_Error":2:{s:6:"errors";a:1:{s:21:"keyring-request-error";a:1:{i:0;a:5:{s:7:"headers";a:11:{s:6:"server";s:17:"Apache-Coyote/1.1";s:15:"x-li-request-id";s:10:"8NMDJT19YV";s:4:"date";s:29:"Wed, 11 Nov 2015 22:43:44 GMT";s:4:"vary";s:1:"*";s:11:"x-li-format";s:4:"json";s:12:"content-type";s:30:"application/json;charset=UTF-8";s:16:"content-encoding";s:4:"gzip";s:11:"x-li-fabric";s:9:"prod-ltx1";s:8:"x-li-pop";s:9:"prod-ltx1";s:9:"x-li-uuid";s:24:"iCO99SbHFRQAnG59TSsAAA==";s:10:"set-cookie";s:155:"lidc="b=TB67:g=171:u=137:i=1447281825:t=1447286402:s=AQHsP1uvgXUBGdwgXFAaVXdxOcYrG5MQ"; Expires=Thu, 12 Nov 2015 00:00:02 GMT; domain=.linkedin.com; Path=/";}s:4:"body";s:175:"{
+      "errorCode": 0,
+      "message": "[unauthorized]. Expired access token. Timestamp: 1441324554499",
+      "requestId": "8NMDJT19YV",
+      "status": 401,
+      "timestamp": 1447281825457
+    }";s:8:"response";a:2:{s:4:"code";i:401;s:7:"message";s:12:"Unauthorized";}s:7:"cookies";a:1:{i:0;O:14:"WP_Http_Cookie":5:{s:4:"name";s:4:"lidc";s:5:"value";s:81:""b=TB67:g=171:u=137:i=1447281825:t=1447286402:s=AQHsP1uvgXUBGdwgXFAaVXdxOcYrG5MQ"";s:7:"expires";i:1447286402;s:4:"path";s:1:"/";s:6:"domain";s:13:".linkedin.com";}}s:8:"filename";N;}}}s:10:"error_data";a:0:{}}
+  _publicize_done_external: a:1:{s:7:"twitter";a:1:{i:13849;s:54:"https://twitter.com/Chilcano/status/664574265283338244";}}
+  _publicize_done_17477: '1'
+  _wpas_done_13849: '1'
+  publicize_twitter_user: Chilcano
+  _wpas_skip_5053089: '1'
+  _wpas_skip_13849: '1'
+author:
+  login: rcarhuatocto
+  email: roger@intix.info
+  display_name: Roger CARHUATOCTO
+  first_name: ''
+  last_name: ''
+permalink: "/2015/11/11/creating-a-vm-with-wso2-servers-for-development/"
+---
+<p>This VM is suitable to develop with WSO2 products and puts focus only in the <em>server side</em> (WSO2 servers, mock server and different tools to host our micro/services) and not in <i>desktop side</i> (Eclipse, SoapUI, Maven, etc.).</p>
+<p>[caption id="attachment_1344" align="aligncenter" width="800"]<img class="wp-image-1344 size-large" src="{{ site.baseurl }}/assets/chilcano-box-vagrant-wso2-dev-srv-map1.png?w=800" alt="Vagrant box - WSO2 Development Server Map" width="800" height="497" /> Vagrant box - WSO2 Development Server Map[/caption]</p>
+<p>The main objetive is to have a VM with all WSO2 products installed and configured to be ready for development and following the most common Middleware infrastructure pattern used to create (Micro)services.</p>
+<p>The <i>naming</i> used in <i>hostnames</i> tries to use pre-defined values what also will be used in Integration and Production Environments. The <i>ports</i> and <i>offsets</i> used do not follow any special rule.</p>
+<p>The WSO2 servers and tools installed and configured are:</p>
+<ul>
+<li>wiremock-1.57-standalone.jar</li>
+<li>wso2am-1.8.0.zip</li>
+<li>wso2dss-3.5.0.zip</li>
+<li>wso2esb-4.8.1.zip</li>
+<li>wso2greg-5.1.0.zip</li>
+</ul>
+<p>And they are deployed following the above map.</p>
+<p>For further details can be found in my <a href="https://github.com/Chilcano/box-vagrant-wso2-dev-srv" target="_blank">repository of Github for this project</a>.</p>
+<p>Enjoy it.</p>

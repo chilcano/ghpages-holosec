@@ -1,0 +1,707 @@
+---
+layout: post
+title: Squeezing the Sample 100 (Using WS-Security for Outgoing Messages) of WSO2
+  ESB 4.8.1
+date: 2015-03-18 01:35:59.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Security
+- SOA
+tags:
+- WS-Policy
+- WS-Security
+- WSO2 ESB
+meta:
+  _wpcom_is_markdown: '1'
+  _edit_last: '578869'
+  geo_public: '0'
+  _oembed_c1bbfcbfba2d1ef61da0b5719371c559: "{{unknown}}"
+  _oembed_462ea0478d8637b7805c8f68fdd25a20: "{{unknown}}"
+  _publicize_pending: '1'
+  publicize_google_plus_url: https://plus.google.com/+RogerCarhuatocto/posts/8BcbV9d5zgG
+  _oembed_adcc9cc06418ef4f250b779460164549: "{{unknown}}"
+  _wp_old_slug: squeezing-sample100-using-ws-security-outgoing-messages-wso2-esb-481
+  _wpas_done_5053089: '1'
+  _publicize_done_external: a:1:{s:11:"google_plus";a:1:{s:21:"113031469837757886298";b:1;}}
+  publicize_twitter_user: Chilcano
+  publicize_twitter_url: http://t.co/AJDXLFvt8B
+  _wpas_done_13849: '1'
+  publicize_linkedin_url: https://www.linkedin.com/updates?discuss=&scope=6985267&stype=M&topic=5983757527454666752&type=U&a=peWk
+  _wpas_done_5053092: '1'
+  _oembed_53609622360fe6990dc3d9579dabb5d7: "{{unknown}}"
+  _wpas_skip_5053089: '1'
+  _wpas_skip_13849: '1'
+  _wpas_skip_5053092: '1'
+  _oembed_e3cb4dbb5c435e3285902079b8ad40b1: "{{unknown}}"
+  _oembed_9ab52539e26faee53b6f0eb22cacdf01: "{{unknown}}"
+  _oembed_568f35220ced9c1627a869b3828b0c71: "{{unknown}}"
+  _oembed_e0b815803ccb79f24103a6373e55950c: "{{unknown}}"
+  _oembed_18eef5386dbcafe4df7d155e1454dbc5: "{{unknown}}"
+  _oembed_59e26b5274ffc1d9d36ec9d9b3ab3109: "{{unknown}}"
+  _oembed_adbd5ea91646d5fde9fe12e91461505b: "{{unknown}}"
+  _oembed_fbcf87833197fa9ac05657b073fdf4cd: "{{unknown}}"
+  _oembed_6de1f1fc68585f5228c222701b15fea3: "{{unknown}}"
+  _oembed_11ab0e3fa234247ecda3a9ec38d02e66: "{{unknown}}"
+  _oembed_768c6aeab8d6923c2d4cf500784620ae: "{{unknown}}"
+  _oembed_91df33a97829c38a001d1ae43a0bd5a4: "{{unknown}}"
+author:
+  login: rcarhuatocto
+  email: roger@intix.info
+  display_name: Roger CARHUATOCTO
+  first_name: ''
+  last_name: ''
+permalink: "/2015/03/18/squeezing-sample100-ws-security-outgoing-messages-wso2-esb-481/"
+---
+<p></p>
+<p>The "<a title="Sample 100: Using WS-Security for Outgoing Messages" href="https://docs.wso2.com/display/ESB481/Sample+100%3A+Using+WS-Security+for+Outgoing+Messages" target="_blank">Sample 100: Using WS-Security for Outgoing Messages</a>" is a great example to start learning with WS-Security, WS-Policy and how to deal with the security of SOAP webservices ..... but the problem is that this example does not work, also that this example is not very well explained. You could get run successfully this example and not understand what happen behind of it.</p>
+<p>[caption width="1420" align="alignnone"]<img src="{{ site.baseurl }}/assets/wso2esb-sample100-secure-backend-axis2-01-architecture.png" width="1420" height="602" alt="WSO2 ESB 4.8.1 - Sample 100: Using WS-Security for Outgoing Messages" class /> WSO2 ESB 4.8.1 - Sample 100: Using WS-Security for Outgoing Messages<br />
+[/caption]</p>
+<p>Anyway, here I will explain how to fix it and I will review each followed step to get it.</p>
+<p></p>
+<h2>I. The problem.</h2>
+<p></p>
+<p>In the 21st century we still have restricted access to strong cryptography (<a title="http://en.wikipedia.org/wiki/Export_of_cryptography_from_the_United_States" href="http://en.wikipedia.org/wiki/Export_of_cryptography_from_the_United_States" target="_blank">http://en.wikipedia.org/wiki/Export_of_cryptography_from_the_United_States</a>), for this reason the Java compiler required for our applications can not use strong cryptography (large key length, new algorithms or cryptographic providers). In this example we need 2 things:</p>
+<ul>
+<li>To install the Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files in our box. If this is done, then my applications (my service or backend implementation in Axis2 and the WSO2 ESB) will work perfectly.</li>
+<li>To share the Bouncy Castle library (cryptographic provider) existing in WSO2 ESB with the Axis2 Client application (not share with Axis2 Server because Axis2 Server and WSO2 ESB already use).</li>
+</ul>
+<p>If We do apply the above points, might only execute the secure service deployed in the Axis2 Server with the Axis2 client for this backend. But if We want to expose a unsecure service interface pointing to the secure backend, then we should deploy the WSO2 ESB Proxy correctly. To do that, We should deploy this Proxy in WSO2 ESB and load correctly the policy file (policy_3.xml) using Local 2Entry or the WSO2 ESB Registry.</p>
+<p>Then, come to do it.</p>
+<p></p>
+<h2>II. Fixing the sample.</h2>
+<p></p>
+<h3>II.1. Installing Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files</h3>
+<p></p>
+<p>I am using Java 1.7.0_51, then I should download this JCE files from <a title="http://www.oracle.com/technetwork/java/javase/downloads/jce-7-download-432124.html" href="http://www.oracle.com/technetwork/java/javase/downloads/jce-7-download-432124.html" target="_blank">http://www.oracle.com/technetwork/java/javase/downloads/jce-7-download-432124.html</a>, after that, unzip It and copy (or overwrite) the local_policy.jar and US_export_policy.jar to $JAVA_HOME/jre/lib/security</p>
+<p>[code language="powershell" gutter="true" wraplines="false"]<br />
+$ java -version<br />
+java version &quot;1.7.0_51&quot;<br />
+Java(TM) SE Runtime Environment (build 1.7.0_51-b13)<br />
+Java HotSpot(TM) 64-Bit Server VM (build 24.51-b03, mixed mode)</p>
+<p>$ echo $JAVA_HOME<br />
+/Library/Java/JavaVirtualMachines/jdk1.7.0_51.jdk/Contents/Home<br />
+[/code]</p>
+<p>Remember, by installing the JCE, the WSO2 ESB and Axis2 Server or any Java Application in the same box will not have cryptographic restrictions.</p>
+<p></p>
+<h3>II.2. Install the Bouncy Castle library required for the Axis2 Client.</h3>
+<p></p>
+<p>By default, the Axis2 Client does not work because the Rampart (Axis2 module) requires an encryption algorithm provided for Bouncy Castle library (<code>bcprov-jdk15.jar</code>).<br />
+To solve it, copy the <code>$WSO2ESB_HOME/repository/axis2/client/lib/bcprov-jdk15.jar</code> to <code>$WSO2ESB_HOME/repository/components/plugins/</code> folder.</p>
+<p>If you do not copy this library, probably you get this error when executing the Axis2 Client StockQuoteClient.java</p>
+<p>[code language="powershell" gutter="true" wraplines="false"]<br />
+[...]<br />
+     [java] Using WS-Security<br />
+     [java] org.apache.axis2.AxisFault: Error in encryption<br />
+     [java]     at org.apache.rampart.handler.RampartSender.invoke(RampartSender.java:76)<br />
+     [java]     at org.apache.axis2.engine.Phase.invokeHandler(Phase.java:340)<br />
+     [java]     at org.apache.axis2.engine.Phase.invoke(Phase.java:313)<br />
+     [java]     at org.apache.axis2.engine.AxisEngine.invoke(AxisEngine.java:261)<br />
+     [java]     at org.apache.axis2.engine.AxisEngine.send(AxisEngine.java:426)<br />
+     [java]     at org.apache.axis2.description.OutInAxisOperationClient.send(OutInAxisOperation.java:430)<br />
+     [java]     at org.apache.axis2.description.OutInAxisOperationClient.executeImpl(OutInAxisOperation.java:225)<br />
+     [java]     at org.apache.axis2.client.OperationClient.execute(OperationClient.java:149)<br />
+     [java]     at org.apache.axis2.client.ServiceClient.sendReceive(ServiceClient.java:554)<br />
+     [java]     at org.apache.axis2.client.ServiceClient.sendReceive(ServiceClient.java:530)<br />
+     [java]     at samples.userguide.StockQuoteClient.executeClient(Unknown Source)<br />
+     [java]     at samples.userguide.StockQuoteClient.main(Unknown Source)<br />
+     [java] Caused by: org.apache.rampart.RampartException: Error in encryption<br />
+     [java]     at org.apache.rampart.builder.AsymmetricBindingBuilder.doSignBeforeEncrypt(AsymmetricBindingBuilder.java:612)<br />
+     [java]     at org.apache.rampart.builder.AsymmetricBindingBuilder.build(AsymmetricBindingBuilder.java:97)<br />
+     [java]     at org.apache.rampart.MessageBuilder.build(MessageBuilder.java:147)<br />
+     [java]     at org.apache.rampart.handler.RampartSender.invoke(RampartSender.java:65)<br />
+     [java]     ... 11 more<br />
+     [java] Caused by: org.apache.ws.security.WSSecurityException: An unsupported signature or encryption algorithm was used (unsupported key transport encryption algorithm: No such algorithm: http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p); nested exception is:<br />
+     [java]     java.security.NoSuchAlgorithmException: Cannot find any provider supporting RSA/ECB/OAEPPadding<br />
+     [java]     at org.apache.ws.security.util.WSSecurityUtil.getCipherInstance(WSSecurityUtil.java:785)<br />
+     [java]     at org.apache.ws.security.message.WSSecEncryptedKey.prepareInternal(WSSecEncryptedKey.java:205)<br />
+     [java]     at org.apache.ws.security.message.WSSecEncrypt.prepare(WSSecEncrypt.java:259)<br />
+     [java]     at org.apache.rampart.builder.AsymmetricBindingBuilder.doSignBeforeEncrypt(AsymmetricBindingBuilder.java:578)<br />
+     [java]     ... 14 more<br />
+     [java] Caused by: java.security.NoSuchAlgorithmException: Cannot find any provider supporting RSA/ECB/OAEPPadding<br />
+     [java]     at javax.crypto.Cipher.getInstance(Cipher.java:524)<br />
+     [java]     at org.apache.ws.security.util.WSSecurityUtil.getCipherInstance(WSSecurityUtil.java:777)<br />
+     [java]     ... 17 more</p>
+<p>BUILD SUCCESSFUL<br />
+Total time: 4 seconds<br />
+[/code]</p>
+<p></p>
+<h3>II.3. Deploying the Proxy Service and Policy correctly in WSO2 ESB.</h3>
+<p></p>
+<p>The Proxy Service used for the Sample 100 is placed in <code>$WSO2ESB_HOME/repository/samples/synapse_sample_100.xml</code> and if you open the <code>synapse_sample_100.xml</code> you can check that it uses <code>policy_3.xml</code> as definition of the Security Policy.</p>
+<p>To deploy it and start the WSO2 ESB we have to execute from $WSO2ESB_HOME/bin/ the following:</p>
+<p>[code language="powershell" gutter="true" wraplines="false"]<br />
+$ ./wso2esb-samples.sh -sn 100<br />
+[/code]</p>
+<p>After of deploying it, we can check if the Proxy Service was deployed successfully in WSO2 ESB. Open <code>https://localhost:9443/carbon</code> and go to Service Bus &gt; Source View, there is an unique Synapse definitions and its content is:</p>
+<p>[code language="xml" gutter="true" wraplines="false"]<br />
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;<br />
+&lt;definitions xmlns=&quot;http://ws.apache.org/ns/synapse&quot;&gt;<br />
+   &lt;localEntry key=&quot;sec_policy&quot;<br />
+               src=&quot;file:repository/samples/resources/policy/policy_3.xml&quot;/&gt;<br />
+   &lt;sequence name=&quot;fault&quot;&gt;<br />
+      &lt;log level=&quot;full&quot;&gt;<br />
+         &lt;property name=&quot;MESSAGE&quot; value=&quot;Executing default &quot;fault&quot; sequence&quot;/&gt;<br />
+         &lt;property name=&quot;ERROR_CODE&quot; expression=&quot;get-property('ERROR_CODE')&quot;/&gt;<br />
+         &lt;property name=&quot;ERROR_MESSAGE&quot; expression=&quot;get-property('ERROR_MESSAGE')&quot;/&gt;<br />
+      &lt;/log&gt;<br />
+      &lt;drop/&gt;<br />
+   &lt;/sequence&gt;<br />
+   &lt;sequence name=&quot;main&quot;&gt;<br />
+      &lt;in&gt;<br />
+         &lt;send&gt;<br />
+            &lt;endpoint name=&quot;secure&quot;&gt;<br />
+               &lt;address uri=&quot;http://localhost:9000/services/SecureStockQuoteService&quot;&gt;<br />
+                  &lt;enableAddressing/&gt;<br />
+                  &lt;enableSec policy=&quot;sec_policy&quot;/&gt;<br />
+               &lt;/address&gt;<br />
+            &lt;/endpoint&gt;<br />
+         &lt;/send&gt;<br />
+      &lt;/in&gt;<br />
+      &lt;out&gt;<br />
+         &lt;header xmlns:wsse=&quot;http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd&quot;<br />
+                 name=&quot;wsse:Security&quot;<br />
+                 action=&quot;remove&quot;/&gt;<br />
+         &lt;send/&gt;<br />
+      &lt;/out&gt;<br />
+   &lt;/sequence&gt;<br />
+&lt;/definitions&gt;<br />
+[/code]</p>
+<p>Where:</p>
+<ul>
+<li>There is a "localEntry", where sec_policy" is the key of the security policy placed in "<code>file:repository/samples/resources/policy/policy_3.xml</code>"</li>
+<li>The backend service is "<code>http://localhost:9000/services/SecureStockQuoteService</code>", has "enableAddressing" enabled and also requires the security policy enabled (sec_policy).</li>
+<li>The Proxy Service removes the special Headers related to encryption in the Out Sequence. This is perfect for us because we will see in text plain the SOAP response message.</li>
+</ul>
+<p></p>
+<h2>III. Executing the Sample 100.</h2>
+<p></p>
+<p>Now, we are ready to run the sample 100.</p>
+<p></p>
+<h3>III.1. Compile and deploy the SecureStockQuoteService (backend service)</h3>
+<p></p>
+<p>[code language="powershell" gutter="true" wraplines="false"]<br />
+$ cd ~/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/src/SecureStockQuoteService<br />
+$ ant<br />
+Buildfile: /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/src/SecureStockQuoteService/build.xml</p>
+<p>clean:<br />
+   [delete] Deleting directory /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/src/SecureStockQuoteService/temp</p>
+<p>init:<br />
+    [mkdir] Created dir: /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/src/SecureStockQuoteService/temp<br />
+    [mkdir] Created dir: /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/src/SecureStockQuoteService/temp/classes</p>
+<p>compile-all:<br />
+    [javac] /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/src/SecureStockQuoteService/build.xml:47: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds<br />
+    [javac] Compiling 9 source files to /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/src/SecureStockQuoteService/temp/classes</p>
+<p>build-service:<br />
+    [mkdir] Created dir: /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/src/SecureStockQuoteService/temp/SecureStockQuoteService<br />
+    [mkdir] Created dir: /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/src/SecureStockQuoteService/temp/SecureStockQuoteService/META-INF<br />
+     [copy] Copying 1 file to /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/src/SecureStockQuoteService/temp/SecureStockQuoteService/META-INF<br />
+     [copy] Copying 1 file to /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/src/SecureStockQuoteService/temp/SecureStockQuoteService<br />
+     [copy] Copying 9 files to /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/src/SecureStockQuoteService/temp/SecureStockQuoteService<br />
+      [jar] Building jar: /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/repository/services/SecureStockQuoteService.aar</p>
+<p>BUILD SUCCESSFUL<br />
+Total time: 1 second<br />
+[/code]</p>
+<p></p>
+<h3>III.2. Run the Axis2 Server</h3>
+<p></p>
+<p>[code language="powershell" gutter="true" wraplines="false"]<br />
+$ cd ~/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server<br />
+$ ./axis2server.sh<br />
+ Using JAVA_HOME:   /Library/Java/JavaVirtualMachines/jdk1.7.0_51.jdk/Contents/Home<br />
+ Using AXIS2 Repository :   /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/repository<br />
+ Using AXIS2 Configuration :   /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/repository/conf/axis2.xml<br />
+15/03/06 20:38:40 INFO util.SampleAxis2ServerManager: [SimpleAxisServer] Starting<br />
+[SimpleAxisServer] Using the Axis2 Repository : /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/repository<br />
+[SimpleAxisServer] Using the Axis2 Configuration File : /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/repository/conf/axis2.xml<br />
+15/03/06 20:38:41 INFO deployment.ModuleDeployer: Deploying module: addressing - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/repository/modules/addressing.mar<br />
+15/03/06 20:38:41 INFO deployment.ModuleDeployer: Deploying module: rampart - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/repository/modules/rampart.mar<br />
+15/03/06 20:38:41 INFO deployment.ModuleDeployer: Deploying module: sandesha2 - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/repository/modules/sandesha2.mar<br />
+15/03/06 20:38:41 INFO deployment.ModuleDeployer: Deploying module: addressing - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.addressing_4.2.0.jar<br />
+15/03/06 20:38:41 INFO deployment.ModuleDeployer: Deploying module: wso2caching - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.caching.core_4.2.0.jar<br />
+15/03/06 20:38:41 INFO deployment.ModuleDeployer: Deploying module: ComponentMgtModule - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.feature.mgt.services_4.2.0.jar<br />
+15/03/06 20:38:41 INFO deployment.ModuleDeployer: Deploying module: wso2mex - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.mex_4.2.0.jar<br />
+15/03/06 20:38:41 INFO deployment.ModuleDeployer: Deploying module: pagination - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.registry.server_4.2.0.jar<br />
+15/03/06 20:38:41 INFO deployment.ModuleDeployer: Deploying module: relay - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.relay.module_4.2.0.jar<br />
+15/03/06 20:38:41 INFO deployment.ModuleDeployer: Deploying module: sandesha2 - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.rm_4.2.0.jar<br />
+15/03/06 20:38:41 INFO deployment.ModuleDeployer: Deploying module: POXSecurityModule - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.security.mgt_4.2.2.jar<br />
+15/03/06 20:38:41 INFO deployment.ModuleDeployer: Deploying module: ServerAdminModule - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.server.admin_4.2.0.jar<br />
+15/03/06 20:38:41 INFO deployment.ModuleDeployer: Deploying module: wso2statistics - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.statistics_4.2.2.jar<br />
+15/03/06 20:38:41 INFO deployment.ModuleDeployer: Deploying module: wso2throttle - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.throttle.core_4.2.0.jar<br />
+15/03/06 20:38:41 INFO deployment.ModuleDeployer: Deploying module: usagethrottling - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.throttling.agent_2.2.0.jar<br />
+15/03/06 20:38:41 INFO deployment.ModuleDeployer: Deploying module: wso2tracer - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.tracer_4.2.0.jar<br />
+15/03/06 20:38:41 INFO deployment.ModuleDeployer: Deploying module: metering - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.usage.agent_2.2.0.jar<br />
+15/03/06 20:38:41 INFO deployment.ModuleDeployer: Deploying module: wso2xfer - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.xfer_4.2.0.jar<br />
+15/03/06 20:38:41 INFO deployment.ModuleDeployer: Deploying module: rampart - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/rampart-core_1.6.1.wso2v12.jar<br />
+15/03/06 20:38:41 INFO deployment.ModuleDeployer: Deploying module: rahas - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/rampart-trust_1.6.1.wso2v12.jar<br />
+15/03/06 20:38:41 ERROR sandesha2.SandeshaModule: Could not load module policies. Using default values.<br />
+15/03/06 20:38:41 INFO config.ClientConnFactoryBuilder: HTTPS Loading Identity Keystore from : ../../repository/resources/security/wso2carbon.jks<br />
+15/03/06 20:38:41 INFO config.ClientConnFactoryBuilder: HTTPS Loading Trust Keystore from : ../../repository/resources/security/client-truststore.jks<br />
+15/03/06 20:38:41 INFO nhttp.HttpCoreNIOSender: HTTPS Sender starting<br />
+15/03/06 20:38:41 INFO nhttp.HttpCoreNIOSender: HTTP Sender starting<br />
+15/03/06 20:38:41 INFO jms.JMSSender: JMS Sender started<br />
+15/03/06 20:38:41 INFO jms.JMSSender: JMS Transport Sender initialized...<br />
+15/03/06 20:38:41 INFO deployment.DeploymentEngine: Deploying Web service: FastStockQuoteService.aar - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/repository/services/FastStockQuoteService.aar<br />
+15/03/06 20:38:41 INFO deployment.DeploymentEngine: Deploying Web service: LBService1.aar - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/repository/services/LBService1.aar<br />
+15/03/06 20:38:41 INFO deployment.DeploymentEngine: Deploying Web service: LBService2.aar - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/repository/services/LBService2.aar<br />
+15/03/06 20:38:41 INFO deployment.DeploymentEngine: Deploying Web service: MTOMSwASampleService.aar - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/repository/services/MTOMSwASampleService.aar<br />
+15/03/06 20:38:41 INFO deployment.DeploymentEngine: Deploying Web service: ReliableStockQuoteService.aar - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/repository/services/ReliableStockQuoteService.aar<br />
+15/03/06 20:38:41 INFO deployment.DeploymentEngine: Deploying Web service: SecureStockQuoteService.aar - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/repository/services/SecureStockQuoteService.aar<br />
+15/03/06 20:38:41 INFO deployment.DeploymentEngine: Deploying Web service: SimpleStockQuoteService.aar - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/repository/services/SimpleStockQuoteService.aar<br />
+15/03/06 20:38:42 INFO nhttp.HttpCoreNIOListener: HTTPS Listener started on 0:0:0:0:0:0:0:0:9002<br />
+15/03/06 20:38:42 INFO nhttp.HttpCoreNIOListener: HTTP Listener started on 0:0:0:0:0:0:0:0:9000<br />
+15/03/06 20:38:42 INFO util.SampleAxis2ServerManager: [SimpleAxisServer] Started<br />
+[/code]</p>
+<p></p>
+<h3>III.3. Check if backend was deployed successfully in Axis2 Server</h3>
+<p></p>
+<p>Open Axis2 Server (<code>http://localhost:9000/services</code>) to list the deployed services. You should see the following:</p>
+<p>[caption width="1208" align="alignnone"]<img src="{{ site.baseurl }}/assets/wso2esb-sample100-secure-backend-axis2-02-axis2server.png" width="1208" height="1520" alt="SecureStockQuoteService deployed successfully on Axis2 Server" class /> SecureStockQuoteService deployed successfully on Axis2 Server[/caption]</p>
+<p>Also, check the WSDL:</p>
+<p><code>http://localhost:9000/services/SecureStockQuoteService?wsdl</code></p>
+<p></p>
+<h3>III.4. Run the Axis2 Client for the Sample 100</h3>
+<p></p>
+<p>The idea behind of this sample is that the Axis2 Client calls to Proxy Service (the <code>StockQuoteProxy</code> in WSO2 ESB) and sends a SOAP unsecure message, the Proxy Service receives the SOAP message and adds specials Headers required for the backend and also defined for the <code>policy_3.xml</code></p>
+<p>[code language="powershell" gutter="true" wraplines="false"]<br />
+$ cd ~/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Client<br />
+$ ant stockquote -Dtrpurl=http://localhost:8280/<br />
+Buildfile: /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Client/build.xml</p>
+<p>init:</p>
+<p>compile:</p>
+<p>stockquote:<br />
+     [java] 15/03/07 19:23:46 INFO deployment.DeploymentEngine: No services directory was found under /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Client/client_repo.<br />
+     [java] 15/03/07 19:23:46 INFO deployment.ModuleDeployer: Deploying module: addressing - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Client/client_repo/modules/addressing.mar<br />
+     [java] 15/03/07 19:23:46 INFO deployment.ModuleDeployer: Deploying module: rampart - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Client/client_repo/modules/rampart.mar<br />
+     [java] 15/03/07 19:23:46 INFO deployment.ModuleDeployer: Deploying module: sandesha2 - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Client/client_repo/modules/sandesha2.mar<br />
+     [java] 15/03/07 19:23:46 INFO deployment.ModuleDeployer: Deploying module: addressing - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.addressing_4.2.0.jar<br />
+     [java] 15/03/07 19:23:46 INFO deployment.ModuleDeployer: Deploying module: wso2caching - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.caching.core_4.2.0.jar<br />
+     [java] 15/03/07 19:23:46 INFO deployment.ModuleDeployer: Deploying module: ComponentMgtModule - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.feature.mgt.services_4.2.0.jar<br />
+     [java] 15/03/07 19:23:46 INFO deployment.ModuleDeployer: Deploying module: wso2mex - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.mex_4.2.0.jar<br />
+     [java] 15/03/07 19:23:46 INFO deployment.ModuleDeployer: Deploying module: pagination - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.registry.server_4.2.0.jar<br />
+     [java] 15/03/07 19:23:46 INFO deployment.ModuleDeployer: Deploying module: relay - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.relay.module_4.2.0.jar<br />
+     [java] 15/03/07 19:23:46 INFO deployment.ModuleDeployer: Deploying module: sandesha2 - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.rm_4.2.0.jar<br />
+     [java] 15/03/07 19:23:46 INFO deployment.ModuleDeployer: Deploying module: POXSecurityModule - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.security.mgt_4.2.2.jar<br />
+     [java] 15/03/07 19:23:46 INFO deployment.ModuleDeployer: Deploying module: ServerAdminModule - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.server.admin_4.2.0.jar<br />
+     [java] 15/03/07 19:23:46 INFO deployment.ModuleDeployer: Deploying module: wso2statistics - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.statistics_4.2.2.jar<br />
+     [java] 15/03/07 19:23:46 INFO deployment.ModuleDeployer: Deploying module: wso2throttle - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.throttle.core_4.2.0.jar<br />
+     [java] 15/03/07 19:23:46 INFO deployment.ModuleDeployer: Deploying module: usagethrottling - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.throttling.agent_2.2.0.jar<br />
+     [java] 15/03/07 19:23:46 INFO deployment.ModuleDeployer: Deploying module: wso2tracer - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.tracer_4.2.0.jar<br />
+     [java] 15/03/07 19:23:46 INFO deployment.ModuleDeployer: Deploying module: metering - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.usage.agent_2.2.0.jar<br />
+     [java] 15/03/07 19:23:46 INFO deployment.ModuleDeployer: Deploying module: wso2xfer - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.xfer_4.2.0.jar<br />
+     [java] 15/03/07 19:23:46 INFO deployment.ModuleDeployer: Deploying module: rampart - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/rampart-core_1.6.1.wso2v12.jar<br />
+     [java] 15/03/07 19:23:46 INFO deployment.ModuleDeployer: Deploying module: rahas - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/rampart-trust_1.6.1.wso2v12.jar<br />
+     [java] 15/03/07 19:23:46 ERROR sandesha2.SandeshaModule: Could not load module policies. Using default values.<br />
+     [java] 15/03/07 19:23:46 INFO mail.MailTransportSender: MAILTO Sender started<br />
+     [java] 15/03/07 19:23:46 INFO jms.JMSSender: JMS Sender started<br />
+     [java] 15/03/07 19:23:46 INFO jms.JMSSender: JMS Transport Sender initialized...<br />
+     [java] Standard :: Stock price = $93.14887399516581</p>
+<p>BUILD SUCCESSFUL<br />
+Total time: 3 seconds<br />
+[/code]</p>
+<p>Lines above you can see the next:</p>
+<p>[code language="powershell" gutter="true" wraplines="false"]<br />
+[...]<br />
+     [java] Standard :: Stock price = $93.14887399516581</p>
+<p>BUILD SUCCESSFUL<br />
+Total time: 3 seconds<br />
+[/code]</p>
+<p>That indicates that everything goes well.</p>
+<p>Now What?. Well, we are ready to understand what are happening behind of this Sample 100.</p>
+<p></p>
+<h2>IV. What use case are we implementing?</h2>
+<p></p>
+<p>Above, in the first diagram we can see the scenario being implemented with the Sample 100, where we are using a WSO2 Synapse Proxy to hide the complex part related with cryptography.<br />
+But if we uncover this scenario and do see in depth, then we could play further more.</p>
+<p>Below in the diagram you will see what we can do further with this sample.</p>
+<p>[caption width="1420" align="alignnone"]<img src="{{ site.baseurl }}/assets/wso2esb-sample100-secure-backend-axis2-03-extended-scenarios.png" width="1420" height="508" alt="Going beyond with WSO2 ESB Sample 100" class /> Going beyond with WSO2 ESB Sample 100[/caption]</p>
+<p>We could try 3 new flows:</p>
+<ol>
+<li>Send a SOAP request to SecureStockQuoteService using the new standalone Service Proxy (MyProxySample100) instead of the Synapse Sample 100 definition.
+  </li>
+<li>Send a SOAP request to SecureStockQuoteService using the existing Axis2 Client (stockquote) using the new Proxy EndPoint.
+  </li>
+<li>Send a Secure SOAP request directly to SecureStockQuoteService using the existing Axis2 Client (stockquote) using the client_policy_3.xml.
+</li>
+</ol>
+<p>But even you do want to go further, I recommend the blog post of Sagara Gunathunga (Technical Leader of WSO2 Inc). There, Sagara explains in the first part the different use cases to apply WS-Security in Backend.</p>
+<p>http://ssagara.blogspot.co.uk/2013/07/wso2-esb-set-ws-security-ut-user-names.html</p>
+<p>I think that this post is great to get starting with WS-Security and WS-Policy in WSO2 ESB and hope this is also useful for you.</p>
+<p></p>
+<h2>V. Using a standalone Service Proxy instead of run WSO2 ESB with the Synapse definition</h2>
+<p></p>
+<p>WSO2 ESB has a lot of samples, more than 100 synapse samples, you can check them here <code>$WSO2ESB_HOME/repository/samples/</code> and here https://docs.wso2.com/display/ESB481/Samples for further details.<br />
+But what I hate about this is run every time WSO2 ESB to load a single sample. Said that, why not convert the existing synapse-sample to a standalone synapse proxy where it can be deployed in runtime.<br />
+This will avoid restart the WSO2 ESB and update the standalone directly on WSO2 ESB.</p>
+<p>Well, doing this is easy, below you can see the existing synapse proxy definition (check point II.3 or check synapse_sample_100.xml) and a little below the final standalone proxy.</p>
+<p>[code language="xml" gutter="true" wraplines="false"]<br />
+&lt;!-- synapse_sample_100.xml                  --&gt;<br />
+&lt;!-- Using WS-Security for outgoing messages --&gt;<br />
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;<br />
+&lt;definitions xmlns=&quot;http://ws.apache.org/ns/synapse&quot;&gt;<br />
+    &lt;localEntry key=&quot;sec_policy&quot; src=&quot;file:repository/samples/resources/policy/policy_3.xml&quot;/&gt;<br />
+    &lt;sequence name=&quot;main&quot;&gt;<br />
+        &lt;in&gt;<br />
+            &lt;send&gt;<br />
+                &lt;endpoint name=&quot;secure&quot;&gt;<br />
+                    &lt;address uri=&quot;http://localhost:9000/services/SecureStockQuoteService&quot;&gt;<br />
+                        &lt;enableAddressing/&gt;<br />
+                        &lt;enableSec policy=&quot;sec_policy&quot;/&gt;<br />
+                    &lt;/address&gt;<br />
+                &lt;/endpoint&gt;<br />
+            &lt;/send&gt;<br />
+        &lt;/in&gt;<br />
+        &lt;out&gt;<br />
+            &lt;header xmlns:wsse=&quot;http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd&quot;<br />
+                    name=&quot;wsse:Security&quot;<br />
+                    action=&quot;remove&quot;/&gt;<br />
+            &lt;send/&gt;<br />
+        &lt;/out&gt;<br />
+    &lt;/sequence&gt;<br />
+&lt;/definitions&gt;<br />
+[/code]</p>
+<p>This Synapse Proxy is the new standalone Proxy create from synapse_sample_100.xml.</p>
+<p>[code language="xml" gutter="true" wraplines="false"]<br />
+&lt;!-- MyProxySample100 created from synapse_sample_100.xml --&gt;<br />
+&lt;!-- Using WS-Security for outgoing messages              --&gt;<br />
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;<br />
+&lt;proxy xmlns=&quot;http://ws.apache.org/ns/synapse&quot;<br />
+       name=&quot;MyProxySample100&quot;<br />
+       transports=&quot;http&quot;<br />
+       statistics=&quot;disable&quot;<br />
+       trace=&quot;disable&quot;<br />
+       startOnLoad=&quot;true&quot;&gt;<br />
+   &lt;target&gt;<br />
+      &lt;inSequence&gt;<br />
+         &lt;log level=&quot;custom&quot;&gt;<br />
+            &lt;property name=&quot;[MyProxySample100]&quot; value=&quot;===== inSeq ===== [MyProxySample100]&quot;/&gt;<br />
+         &lt;/log&gt;<br />
+         &lt;log level=&quot;custom&quot;&gt;<br />
+            &lt;property name=&quot;[Body IN]&quot; expression=&quot;$body/*[1]&quot;/&gt;<br />
+         &lt;/log&gt;<br />
+         &lt;header name=&quot;Action&quot; value=&quot;urn:getQuote&quot;/&gt;<br />
+         &lt;send&gt;<br />
+            &lt;endpoint&gt;<br />
+               &lt;address uri=&quot;http://localhost:9000/services/SecureStockQuoteService&quot;&gt;<br />
+                  &lt;enableAddressing/&gt;<br />
+                  &lt;enableSec policy=&quot;my_sec_policy&quot;/&gt;<br />
+               &lt;/address&gt;<br />
+            &lt;/endpoint&gt;<br />
+         &lt;/send&gt;<br />
+      &lt;/inSequence&gt;<br />
+      &lt;outSequence&gt;<br />
+         &lt;log level=&quot;custom&quot;&gt;<br />
+            &lt;property name=&quot;[MyProxySample100]&quot; value=&quot;===== outSeq ===== [MyProxySample100]&quot;/&gt;<br />
+         &lt;/log&gt;<br />
+         &lt;log level=&quot;custom&quot;&gt;<br />
+            &lt;property name=&quot;[Header OUT]&quot; expression=&quot;$header/*[1]&quot;/&gt;<br />
+         &lt;/log&gt;<br />
+         &lt;log level=&quot;custom&quot;&gt;<br />
+            &lt;property name=&quot;[Body OUT]&quot; expression=&quot;$body/*[1]&quot;/&gt;<br />
+         &lt;/log&gt;<br />
+         &lt;header xmlns:wsse=&quot;http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd&quot;<br />
+                 name=&quot;wsse:Security&quot;<br />
+                 action=&quot;remove&quot;/&gt;<br />
+         &lt;send/&gt;<br />
+      &lt;/outSequence&gt;<br />
+   &lt;/target&gt;<br />
+   &lt;description&gt;Proxy created from synapse_sample_100.xml&lt;/description&gt;<br />
+&lt;/proxy&gt;<br />
+[/code]</p>
+<p>I have changed/updated the following:</p>
+<ul>
+<li> "in" for "inSequence"
+</li>
+<li> "out" for "outSequence"
+</li>
+<li> Added a reference for Security Policy definition to be used for MyProxySample100.xml. In this Proxy, the Security Policy is loaded as a Local Entry <code>my_sec_policy</code>.
+<p>   <code>&lt;localEntry key="my_sec_policy" src="file:repository/samples/resources/policy/policy_3.xml"/&gt;</code></p>
+<p>Also this could be also loaded as a resource stored in WSO2 ESB Local Registry.
+</li>
+<li> Added a Header Property for SOAP Action.
+<p>  <code>&lt;header name="Action" value="urn:getQuote"/&gt;</code></p>
+</li>
+<li> Added a Log Mediator for tracking purposes.
+</li>
+</ul>
+<p></p>
+<h2>VI. Calling to the Backend from SoapUI using the new Proxy</h2>
+<p></p>
+<p>Using the new proxy, we gain flexibility and reduce complexity when creating SOAP messages where the backend requires WS-Security.</p>
+<p>Now, we can create a simple SOAP request message and the WSO2 ESB will add the required WS-Security headers and also will remove WS-Security headers to the SOAP response message.</p>
+<p>Then, create a new Project in SoapUI using the WSDL of Backend, remember, the backend is deployed in Axis2 Server and its WSDL is http://localhost:9000/services/SecureStockQuoteService?wsdl, for further details check the point III.3. (Check if backend was deployed successfully in Axis2 Server). The idea is to know how to create SOAP request messages to be sent to backend (Axis2 Server).</p>
+<p><img src="{{ site.baseurl }}/assets/wso2esb-sample100-secure-backend-axis2-04-soapui-axis2.png" width="2028" height="1464" class="alignnone" /></p>
+<p>Below you can see the request and response messages sent and received from backend.</p>
+<p><img src="{{ site.baseurl }}/assets/wso2esb-sample100-secure-backend-axis2-05-soapui-axis2-req-resp.png" width="2358" height="2088" class="alignnone" /></p>
+<p>And in the Axis2 Server side you will get an error as shown below:</p>
+<p>[code language="text" gutter="true" wraplines="false"]<br />
+15/03/15 12:42:18 INFO util.SampleAxis2ServerManager: [SimpleAxisServer] Started<br />
+15/03/15 12:42:26 ERROR engine.AxisEngine: Missing wsse:Security header in request<br />
+org.apache.axis2.AxisFault: Missing wsse:Security header in request<br />
+  at org.apache.rampart.handler.RampartReceiver.setFaultCodeAndThrowAxisFault(RampartReceiver.java:180)<br />
+  at org.apache.rampart.handler.RampartReceiver.invoke(RampartReceiver.java:99)<br />
+  at org.apache.axis2.engine.Phase.invokeHandler(Phase.java:340)<br />
+  at org.apache.axis2.engine.Phase.invoke(Phase.java:313)<br />
+  at org.apache.axis2.engine.AxisEngine.invoke(AxisEngine.java:261)<br />
+  at org.apache.axis2.engine.AxisEngine.receive(AxisEngine.java:167)<br />
+  at org.apache.axis2.transport.http.HTTPTransportUtils.processHTTPPostRequest(HTTPTransportUtils.java:172)<br />
+  at org.apache.synapse.transport.nhttp.ServerWorker.processEntityEnclosingMethod(ServerWorker.java:459)<br />
+  at org.apache.synapse.transport.nhttp.ServerWorker.run(ServerWorker.java:279)<br />
+  at org.apache.axis2.transport.base.threads.NativeWorkerPool$1.run(NativeWorkerPool.java:172)<br />
+  at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)<br />
+  at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)<br />
+  at java.lang.Thread.run(Thread.java:744)<br />
+Caused by: org.apache.rampart.RampartException: Missing wsse:Security header in request<br />
+  at org.apache.rampart.RampartEngine.process(RampartEngine.java:146)<br />
+  at org.apache.rampart.handler.RampartReceiver.invoke(RampartReceiver.java:92)<br />
+  ... 11 more<br />
+15/03/15 12:42:26 ERROR nhttp.ServerWorker: Error processing POST request<br />
+org.apache.axis2.AxisFault: Missing wsse:Security header in request<br />
+  at org.apache.rampart.handler.RampartReceiver.setFaultCodeAndThrowAxisFault(RampartReceiver.java:180)<br />
+  at org.apache.rampart.handler.RampartReceiver.invoke(RampartReceiver.java:99)<br />
+  at org.apache.axis2.engine.Phase.invokeHandler(Phase.java:340)<br />
+  at org.apache.axis2.engine.Phase.invoke(Phase.java:313)<br />
+  at org.apache.axis2.engine.AxisEngine.invoke(AxisEngine.java:261)<br />
+  at org.apache.axis2.engine.AxisEngine.receive(AxisEngine.java:167)<br />
+  at org.apache.axis2.transport.http.HTTPTransportUtils.processHTTPPostRequest(HTTPTransportUtils.java:172)<br />
+  at org.apache.synapse.transport.nhttp.ServerWorker.processEntityEnclosingMethod(ServerWorker.java:459)<br />
+  at org.apache.synapse.transport.nhttp.ServerWorker.run(ServerWorker.java:279)<br />
+  at org.apache.axis2.transport.base.threads.NativeWorkerPool$1.run(NativeWorkerPool.java:172)<br />
+  at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)<br />
+  at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)<br />
+  at java.lang.Thread.run(Thread.java:744)<br />
+Caused by: org.apache.rampart.RampartException: Missing wsse:Security header in request<br />
+  at org.apache.rampart.RampartEngine.process(RampartEngine.java:146)<br />
+  at org.apache.rampart.handler.RampartReceiver.invoke(RampartReceiver.java:92)<br />
+  ... 11 more<br />
+[/code]</p>
+<p>This happens because we are sending a SOAP request message without WS-Security Header well formatted. Keys to hashing, timestamps, etc. are missing, this is the reason of the Proxy in WSO2 ESB, it solves this cryptography issues.</p>
+<p>Well, now we will use SoapUI to send a SOAP request to backend via Synapse Proxy. Before, we will add the WSO2 ESB Proxy EndPoint or WSDL to SoapUI project and send and receive the messages.<br />
+Remember, the new WSO2 ESB Proxy is MyProxySample100 and has this WSDL http://localhost:8280/services/MyProxySample100?wsdl and this EndPoint http://localhost:8280/services/MyProxySample100</p>
+<p><img src="{{ site.baseurl }}/assets/wso2esb-sample100-secure-backend-axis2-06-soapui-proxy.png" width="1946" height="1380" class="alignnone" /></p>
+<p>After adding a new EndPoint / WSDL, now if you send a SOAP request from SoapUI, you will receive a plain (unsecure) SOAP response from the new Proxy, as shown below:</p>
+<p><img src="{{ site.baseurl }}/assets/wso2esb-sample100-secure-backend-axis2-07-soapui-proxy-ok.png" width="2810" height="1664" class="alignnone" /></p>
+<p>The successfully messages in WSO2 ESB side:</p>
+<p>[code language="text" gutter="true" wraplines="false"]<br />
+2015-03-18 00:02:22,752]  INFO - LogMediator [MyProxySample100] = ===== inSeq ===== [MyProxySample100]<br />
+[2015-03-18 00:02:22,754]  INFO - LogMediator [Body IN] = &lt;m0:getQuote xmlns:m0=&quot;http://services.samples&quot;&gt;<br />
+        &lt;m0:request&gt;<br />
+    &lt;m0:symbol&gt;IBM&lt;/m0:symbol&gt;<br />
+     &lt;/m0:request&gt;<br />
+  &lt;/m0:getQuote&gt;<br />
+[2015-03-18 00:02:22,807]  INFO - LogMediator [MyProxySample100] = ===== outSeq ===== [MyProxySample100]<br />
+[2015-03-18 00:02:22,808]  INFO - LogMediator [Header OUT] = &lt;wsse:Security xmlns:wsse=&quot;http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd&quot; xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; soapenv:mustUnderstand=&quot;1&quot;&gt;&lt;wsu:Timestamp xmlns:wsu=&quot;http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd&quot; wsu:Id=&quot;Timestamp-49&quot;&gt;&lt;wsu:Created&gt;2015-03-18T00:02:22.787Z&lt;/wsu:Created&gt;&lt;wsu:Expires&gt;2015-03-18T00:07:22.787Z&lt;/wsu:Expires&gt;&lt;/wsu:Timestamp&gt;&lt;xenc:EncryptedKey xmlns:xenc=&quot;http://www.w3.org/2001/04/xmlenc#&quot; Id=&quot;EncKeyId-6AFA2EA8E349AA0F54142663694279285&quot;&gt;&lt;xenc:EncryptionMethod Algorithm=&quot;http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p&quot;&gt;&lt;/xenc:EncryptionMethod&gt;&lt;ds:KeyInfo xmlns:ds=&quot;http://www.w3.org/2000/09/xmldsig#&quot;&gt;<br />
+&lt;wsse:SecurityTokenReference&gt;&lt;wsse:KeyIdentifier EncodingType=&quot;http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary&quot; ValueType=&quot;http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509SubjectKeyIdentifier&quot;&gt;Xeg55vRyK3ZhAEhEf+YT0z986L0=&lt;/wsse:KeyIdentifier&gt;&lt;/wsse:SecurityTokenReference&gt;<br />
+&lt;/ds:KeyInfo&gt;&lt;xenc:CipherData&gt;&lt;xenc:CipherValue&gt;MKh6EptMTgOBuw8eMwGpx+g2tzI2JjeBXGsjNCp5q4V9PC1mP0KxiHc4Kw9kF3iycKY9+Xfo+SMLbt7cVumAxylpiNy4lrlNwBDL/P3dBzDIi/mPG3OkuGS6TD/qz0v3ggQDi6QnzvJ97ZvGEUX+szQ/onnsAmtjIVSuOoYBehU=&lt;/xenc:CipherValue&gt;&lt;/xenc:CipherData&gt;&lt;xenc:ReferenceList&gt;&lt;xenc:DataReference URI=&quot;#EncDataId-51&quot;&gt;&lt;/xenc:DataReference&gt;&lt;/xenc:ReferenceList&gt;&lt;/xenc:EncryptedKey&gt;&lt;ds:Signature xmlns:ds=&quot;http://www.w3.org/2000/09/xmldsig#&quot; Id=&quot;Signature-50&quot;&gt;<br />
+&lt;ds:SignedInfo&gt;<br />
+&lt;ds:CanonicalizationMethod Algorithm=&quot;http://www.w3.org/2001/10/xml-exc-c14n#&quot;&gt;&lt;/ds:CanonicalizationMethod&gt;<br />
+&lt;ds:SignatureMethod Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#rsa-sha1&quot;&gt;&lt;/ds:SignatureMethod&gt;<br />
+&lt;ds:Reference URI=&quot;#Id-1182881922&quot;&gt;<br />
+&lt;ds:Transforms&gt;<br />
+&lt;ds:Transform Algorithm=&quot;http://www.w3.org/2001/10/xml-exc-c14n#&quot;&gt;&lt;/ds:Transform&gt;<br />
+&lt;/ds:Transforms&gt;<br />
+&lt;ds:DigestMethod Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#sha1&quot;&gt;&lt;/ds:DigestMethod&gt;<br />
+&lt;ds:DigestValue&gt;81sPsUuNFAhrmLmb4nbfBDbNuj0=&lt;/ds:DigestValue&gt;<br />
+&lt;/ds:Reference&gt;<br />
+&lt;ds:Reference URI=&quot;#Timestamp-49&quot;&gt;<br />
+&lt;ds:Transforms&gt;<br />
+&lt;ds:Transform Algorithm=&quot;http://www.w3.org/2001/10/xml-exc-c14n#&quot;&gt;&lt;/ds:Transform&gt;<br />
+&lt;/ds:Transforms&gt;<br />
+&lt;ds:DigestMethod Algorithm=&quot;http://www.w3.org/2000/09/xmldsig#sha1&quot;&gt;&lt;/ds:DigestMethod&gt;<br />
+&lt;ds:DigestValue&gt;UlzoM6XGNsWviJUaLGYjj/WqaGk=&lt;/ds:DigestValue&gt;<br />
+&lt;/ds:Reference&gt;<br />
+&lt;/ds:SignedInfo&gt;<br />
+&lt;ds:SignatureValue&gt;<br />
+QAkjh4QqmkGNdjg1kGphtKtpDXPy9DOfA8e53bCU4h7jc+bi6tKTxJ1Ld3N7rfWxCb0dNnkB/2Mt<br />
+P3ZrLqFBUSOrZUVx4faHBoX2Wyd0CVDMgT+S9XxDN+y88Bkyftep1I3j77rvX0eoTwbCrcoVB/KY<br />
+OruuM37y92qDjrI6sew=<br />
+&lt;/ds:SignatureValue&gt;<br />
+&lt;ds:KeyInfo Id=&quot;KeyId-6AFA2EA8E349AA0F54142663694278882&quot;&gt;<br />
+&lt;wsse:SecurityTokenReference xmlns:wsu=&quot;http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd&quot; wsu:Id=&quot;STRId-6AFA2EA8E349AA0F54142663694278883&quot;&gt;&lt;wsse:KeyIdentifier EncodingType=&quot;http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary&quot; ValueType=&quot;http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509SubjectKeyIdentifier&quot;&gt;CuJdE1B2dUFd1dkLZSzQ5vj6MYg=&lt;/wsse:KeyIdentifier&gt;&lt;/wsse:SecurityTokenReference&gt;<br />
+&lt;/ds:KeyInfo&gt;<br />
+&lt;/ds:Signature&gt;&lt;/wsse:Security&gt;<br />
+[2015-03-18 00:02:22,809]  INFO - LogMediator [Body OUT] = &lt;ns:getQuoteResponse xmlns:ns=&quot;http://services.samples&quot;&gt;&lt;ns:return xmlns:ax23=&quot;http://services.samples/xsd&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:type=&quot;ax23:GetQuoteResponse&quot;&gt;&lt;ax23:change&gt;-2.427092238886098&lt;/ax23:change&gt;&lt;ax23:earnings&gt;-8.594640198504722&lt;/ax23:earnings&gt;&lt;ax23:high&gt;-85.41697924761516&lt;/ax23:high&gt;&lt;ax23:last&gt;85.45769312029174&lt;/ax23:last&gt;&lt;ax23:lastTradeTimestamp&gt;Wed Mar 18 00:02:22 GMT 2015&lt;/ax23:lastTradeTimestamp&gt;&lt;ax23:low&gt;88.84901052393411&lt;/ax23:low&gt;&lt;ax23:marketCap&gt;-5312065.376447097&lt;/ax23:marketCap&gt;&lt;ax23:name&gt;IBM Company&lt;/ax23:name&gt;&lt;ax23:open&gt;89.06565721533335&lt;/ax23:open&gt;&lt;ax23:peRatio&gt;-17.80304620448777&lt;/ax23:peRatio&gt;&lt;ax23:percentageChange&gt;3.0694536514961186&lt;/ax23:percentageChange&gt;&lt;ax23:prevClose&gt;-79.07245114136454&lt;/ax23:prevClose&gt;&lt;ax23:symbol&gt;IBM&lt;/ax23:symbol&gt;&lt;ax23:volume&gt;9040&lt;/ax23:volume&gt;&lt;/ns:return&gt;&lt;/ns:getQuoteResponse&gt;<br />
+[/code]</p>
+<p>And the successfully messages in Axis2 Server side:</p>
+<p>[code language="xml" gutter="true" wraplines="false"]<br />
+Wed Mar 18 00:02:22 GMT 2015 SecureStockQuoteService :: Generating quote for : IBM<br />
+[/code]</p>
+<p></p>
+<h2>VII. Calling to Backend directly from the Axis2 Client</h2>
+<p></p>
+<p>Sometimes It is necessary to call directly to the secured backend without using WSO2 Proxy Service because maybe I like to know how to compose a request message using WS-Security or to check the health of this service or simply to learn how to create a Axis2 Client using WS-Security.<br />
+So if that is the case, below I explain how to run the Axis2 Client to call to the secured backend and setting a new security policy and EndPoint.</p>
+<p>It is very important for this section you have deployed the Bouncly Castle library (cryptographic provider) to avoid errors.<br />
+After that, run the Axis2 Server.</p>
+<p>[code language="powershell" gutter="true" wraplines="false"]<br />
+$ cd ~/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server<br />
+$ ./axis2server.sh<br />
+[/code]</p>
+<p>...and now, run the Axis2 client.</p>
+<p>[code language="powershell" gutter="true" wraplines="false"]<br />
+$ cd ~/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Client<br />
+$ ant stockquote -Daddurl=http://localhost:9000/services/SecureStockQuoteService -Dmode=quote -Dsymbol=IBM -Dpolicy=../../repository/samples/resources/policy/client_policy_3.xml<br />
+[/code]</p>
+<p>Where:</p>
+<ul>
+<li>"-Daddurl=http://localhost:9000/services/SecureStockQuoteService" is the secured backend deployed in Axis2 Server.</li>
+<li>"-Dmode=quote" with this parameter the Axis2 Client will call the SOAP Action / Operation correctly.</li>
+<li>"-Dsymbol=IBM" with this the Axis2 Client will create a adequate payload expected for the backend.</li>
+<li>"-Dpolicy=../../repository/samples/resources/policy/client_policy_3.xml" is the new security policy suitable for this example because has the correct paths a configurations.</li>
+</ul>
+<p>Above you can see client_policy_3.xml, where the unique difference with policy_3.xml is the line 62 (the path <code>repository/samples/resources/security/store.jks</code>).</p>
+<p>[code language="xml" gutter="true" wraplines="false" highlight="62"]<br />
+&lt;wsp:Policy wsu:Id=&quot;SigEncr&quot;<br />
+            xmlns:wsu=&quot;http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd&quot;<br />
+            xmlns:wsp=&quot;http://schemas.xmlsoap.org/ws/2004/09/policy&quot;&gt;<br />
+    &lt;wsp:ExactlyOne&gt;<br />
+        &lt;wsp:All&gt;<br />
+            &lt;sp:AsymmetricBinding xmlns:sp=&quot;http://schemas.xmlsoap.org/ws/2005/07/securitypolicy&quot;&gt;<br />
+                &lt;wsp:Policy&gt;<br />
+                    &lt;sp:InitiatorToken&gt;<br />
+                        &lt;wsp:Policy&gt;<br />
+                            &lt;sp:X509Token<br />
+                                    sp:IncludeToken=&quot;http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient&quot;&gt;<br />
+                                &lt;wsp:Policy&gt;<br />
+                                    &lt;sp:WssX509V3Token10/&gt;<br />
+                                &lt;/wsp:Policy&gt;<br />
+                            &lt;/sp:X509Token&gt;<br />
+                        &lt;/wsp:Policy&gt;<br />
+                    &lt;/sp:InitiatorToken&gt;<br />
+                    &lt;sp:RecipientToken&gt;<br />
+                        &lt;wsp:Policy&gt;<br />
+                            &lt;sp:X509Token<br />
+                                    sp:IncludeToken=&quot;http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/Never&quot;&gt;<br />
+                                &lt;wsp:Policy&gt;<br />
+                                    &lt;sp:WssX509V3Token10/&gt;<br />
+                                &lt;/wsp:Policy&gt;<br />
+                            &lt;/sp:X509Token&gt;<br />
+                        &lt;/wsp:Policy&gt;<br />
+                    &lt;/sp:RecipientToken&gt;<br />
+                    &lt;sp:AlgorithmSuite&gt;<br />
+                        &lt;wsp:Policy&gt;<br />
+                            &lt;sp:Basic256/&gt;<br />
+                        &lt;/wsp:Policy&gt;<br />
+                    &lt;/sp:AlgorithmSuite&gt;<br />
+                    &lt;sp:Layout&gt;<br />
+                        &lt;wsp:Policy&gt;<br />
+                            &lt;sp:Strict/&gt;<br />
+                        &lt;/wsp:Policy&gt;<br />
+                    &lt;/sp:Layout&gt;<br />
+                    &lt;sp:IncludeTimestamp/&gt;<br />
+                    &lt;sp:OnlySignEntireHeadersAndBody/&gt;<br />
+                &lt;/wsp:Policy&gt;<br />
+            &lt;/sp:AsymmetricBinding&gt;<br />
+            &lt;sp:Wss10 xmlns:sp=&quot;http://schemas.xmlsoap.org/ws/2005/07/securitypolicy&quot;&gt;<br />
+                &lt;wsp:Policy&gt;<br />
+                    &lt;sp:MustSupportRefKeyIdentifier/&gt;<br />
+                    &lt;sp:MustSupportRefIssuerSerial/&gt;<br />
+                &lt;/wsp:Policy&gt;<br />
+            &lt;/sp:Wss10&gt;<br />
+            &lt;sp:SignedParts xmlns:sp=&quot;http://schemas.xmlsoap.org/ws/2005/07/securitypolicy&quot;&gt;<br />
+                &lt;sp:Body/&gt;<br />
+            &lt;/sp:SignedParts&gt;<br />
+            &lt;sp:EncryptedParts xmlns:sp=&quot;http://schemas.xmlsoap.org/ws/2005/07/securitypolicy&quot;&gt;<br />
+                &lt;sp:Body/&gt;<br />
+            &lt;/sp:EncryptedParts&gt;<br />
+            &lt;ramp:RampartConfig xmlns:ramp=&quot;http://ws.apache.org/rampart/policy&quot;&gt;<br />
+                &lt;ramp:user&gt;alice&lt;/ramp:user&gt;<br />
+                &lt;ramp:encryptionUser&gt;bob&lt;/ramp:encryptionUser&gt;<br />
+                &lt;ramp:passwordCallbackClass&gt;samples.userguide.PWCallback&lt;/ramp:passwordCallbackClass&gt;<br />
+                &lt;ramp:signatureCrypto&gt;<br />
+                    &lt;ramp:crypto provider=&quot;org.apache.ws.security.components.crypto.Merlin&quot;&gt;<br />
+                        &lt;ramp:property name=&quot;org.apache.ws.security.crypto.merlin.keystore.type&quot;&gt;JKS&lt;/ramp:property&gt;<br />
+                        &lt;ramp:property name=&quot;org.apache.ws.security.crypto.merlin.file&quot;&gt;<br />
+                            ../../repository/samples/resources/security/store.jks<br />
+                        &lt;/ramp:property&gt;<br />
+                        &lt;ramp:property name=&quot;org.apache.ws.security.crypto.merlin.keystore.password&quot;&gt;password<br />
+                        &lt;/ramp:property&gt;<br />
+                    &lt;/ramp:crypto&gt;<br />
+                &lt;/ramp:signatureCrypto&gt;<br />
+                &lt;ramp:encryptionCypto&gt;<br />
+                    &lt;ramp:crypto provider=&quot;org.apache.ws.security.components.crypto.Merlin&quot;&gt;<br />
+                        &lt;ramp:property name=&quot;org.apache.ws.security.crypto.merlin.keystore.type&quot;&gt;JKS&lt;/ramp:property&gt;<br />
+                        &lt;ramp:property name=&quot;org.apache.ws.security.crypto.merlin.file&quot;&gt;<br />
+                            ../../repository/samples/resources/security/store.jks<br />
+                        &lt;/ramp:property&gt;<br />
+                        &lt;ramp:property name=&quot;org.apache.ws.security.crypto.merlin.keystore.password&quot;&gt;password<br />
+                        &lt;/ramp:property&gt;<br />
+                    &lt;/ramp:crypto&gt;<br />
+                &lt;/ramp:encryptionCypto&gt;<br />
+            &lt;/ramp:RampartConfig&gt;<br />
+        &lt;/wsp:All&gt;<br />
+    &lt;/wsp:ExactlyOne&gt;<br />
+&lt;/wsp:Policy&gt;<br />
+[/code]</p>
+<p>If everything goes well, the following is shown:</p>
+<p>[code language="powershell" gutter="true" wraplines="false"]<br />
+Buildfile: /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Client/build.xml</p>
+<p>init:</p>
+<p>compile:</p>
+<p>stockquote:<br />
+     [java] 15/03/09 23:15:57 INFO deployment.DeploymentEngine: No services directory was found under /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Client/client_repo.<br />
+     [java] 15/03/09 23:15:57 INFO deployment.ModuleDeployer: Deploying module: addressing - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Client/client_repo/modules/addressing.mar<br />
+     [java] 15/03/09 23:15:57 INFO deployment.ModuleDeployer: Deploying module: rampart - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Client/client_repo/modules/rampart.mar<br />
+     [java] 15/03/09 23:15:57 INFO deployment.ModuleDeployer: Deploying module: sandesha2 - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Client/client_repo/modules/sandesha2.mar<br />
+     [java] 15/03/09 23:15:57 INFO deployment.ModuleDeployer: Deploying module: addressing - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.addressing_4.2.0.jar<br />
+     [java] 15/03/09 23:15:57 INFO deployment.ModuleDeployer: Deploying module: wso2caching - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.caching.core_4.2.0.jar<br />
+     [java] 15/03/09 23:15:57 INFO deployment.ModuleDeployer: Deploying module: ComponentMgtModule - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.feature.mgt.services_4.2.0.jar<br />
+     [java] 15/03/09 23:15:57 INFO deployment.ModuleDeployer: Deploying module: wso2mex - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.mex_4.2.0.jar<br />
+     [java] 15/03/09 23:15:57 INFO deployment.ModuleDeployer: Deploying module: pagination - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.registry.server_4.2.0.jar<br />
+     [java] 15/03/09 23:15:57 INFO deployment.ModuleDeployer: Deploying module: relay - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.relay.module_4.2.0.jar<br />
+     [java] 15/03/09 23:15:57 INFO deployment.ModuleDeployer: Deploying module: sandesha2 - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.rm_4.2.0.jar<br />
+     [java] 15/03/09 23:15:57 INFO deployment.ModuleDeployer: Deploying module: POXSecurityModule - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.security.mgt_4.2.2.jar<br />
+     [java] 15/03/09 23:15:57 INFO deployment.ModuleDeployer: Deploying module: ServerAdminModule - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.server.admin_4.2.0.jar<br />
+     [java] 15/03/09 23:15:57 INFO deployment.ModuleDeployer: Deploying module: wso2statistics - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.statistics_4.2.2.jar<br />
+     [java] 15/03/09 23:15:57 INFO deployment.ModuleDeployer: Deploying module: wso2throttle - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.throttle.core_4.2.0.jar<br />
+     [java] 15/03/09 23:15:57 INFO deployment.ModuleDeployer: Deploying module: usagethrottling - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.throttling.agent_2.2.0.jar<br />
+     [java] 15/03/09 23:15:57 INFO deployment.ModuleDeployer: Deploying module: wso2tracer - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.tracer_4.2.0.jar<br />
+     [java] 15/03/09 23:15:57 INFO deployment.ModuleDeployer: Deploying module: metering - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.usage.agent_2.2.0.jar<br />
+     [java] 15/03/09 23:15:57 INFO deployment.ModuleDeployer: Deploying module: wso2xfer - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/org.wso2.carbon.xfer_4.2.0.jar<br />
+     [java] 15/03/09 23:15:57 INFO deployment.ModuleDeployer: Deploying module: rampart - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/rampart-core_1.6.1.wso2v12.jar<br />
+     [java] 15/03/09 23:15:57 INFO deployment.ModuleDeployer: Deploying module: rahas - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/repository/components/plugins/rampart-trust_1.6.1.wso2v12.jar<br />
+     [java] 15/03/09 23:15:57 ERROR sandesha2.SandeshaModule: Could not load module policies. Using default values.<br />
+     [java] Using WS-Security<br />
+     [java] 15/03/09 23:15:57 INFO mail.MailTransportSender: MAILTO Sender started<br />
+     [java] 15/03/09 23:15:57 INFO jms.JMSSender: JMS Sender started<br />
+     [java] 15/03/09 23:15:57 INFO jms.JMSSender: JMS Transport Sender initialized...<br />
+     [java] Standard :: Stock price = $67.01769988611447</p>
+<p>BUILD SUCCESSFUL<br />
+Total time: 3 seconds<br />
+[/code]</p>
+<p>And in the Axis2 Server side is shown:</p>
+<p>[code language="powershell" gutter="true" wraplines="false"]<br />
+$ ./axis2server.sh<br />
+ Using JAVA_HOME:   /Library/Java/JavaVirtualMachines/jdk1.7.0_51.jdk/Contents/Home<br />
+ Using AXIS2 Repository :   /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/repository<br />
+ Using AXIS2 Configuration :   /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/repository/conf/axis2.xml<br />
+15/03/09 23:15:19 INFO util.SampleAxis2ServerManager: [SimpleAxisServer] Starting<br />
+[SimpleAxisServer] Using the Axis2 Repository : /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/repository<br />
+[SimpleAxisServer] Using the Axis2 Configuration File : /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/repository/conf/axis2.xml<br />
+[...]<br />
+15/03/09 23:15:19 INFO config.ClientConnFactoryBuilder: HTTPS Loading Identity Keystore from : ../../repository/resources/security/wso2carbon.jks<br />
+15/03/09 23:15:19 INFO config.ClientConnFactoryBuilder: HTTPS Loading Trust Keystore from : ../../repository/resources/security/client-truststore.jks<br />
+15/03/09 23:15:20 INFO nhttp.HttpCoreNIOSender: HTTPS Sender starting<br />
+15/03/09 23:15:20 INFO nhttp.HttpCoreNIOSender: HTTP Sender starting<br />
+15/03/09 23:15:20 INFO jms.JMSSender: JMS Sender started<br />
+[...]<br />
+15/03/09 23:15:20 INFO deployment.DeploymentEngine: Deploying Web service: SecureStockQuoteService.aar - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/repository/services/SecureStockQuoteService.aar<br />
+15/03/09 23:15:21 INFO nhttp.HttpCoreNIOListener: HTTPS Listener started on 0:0:0:0:0:0:0:0:9002<br />
+15/03/09 23:15:21 INFO nhttp.HttpCoreNIOListener: HTTP Listener started on 0:0:0:0:0:0:0:0:9000<br />
+15/03/09 23:15:21 INFO util.SampleAxis2ServerManager: [SimpleAxisServer] Started<br />
+Mon Mar 09 23:15:59 GMT 2015 SecureStockQuoteService :: Generating quote for : IBM<br />
+[/code]</p>
+<p></p>
+<h2>IIX. Conclusions</h2>
+<p></p>
+<p>I hope this has been useful and you were able to understand what is happening behind the execution of this example and can improve the security of their web services.<br />
+Now, you are ready to play with:</p>
+<ul>
+<li>WS-Security with UserToken over Transport.</li>
+<li>Creation of WS-Policy for other scenarios: digital signature, encryption, etc.</li>
+<li>Security in REST Services.</li>
+<li>Learn about the importance of the HandlerCallbacks for Apache Rampart.</li>
+</ul>

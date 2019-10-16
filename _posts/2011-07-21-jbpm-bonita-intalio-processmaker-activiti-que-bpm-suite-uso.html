@@ -1,0 +1,155 @@
+---
+layout: post
+title: jBPM, Bonita, Intalio, ProcessMaker, Activiti. Qué BPM Suite uso?
+date: 2011-07-21 01:09:05.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- BPM
+tags:
+- activiti
+- Bonita
+- Intalio
+- jbpm
+- processmaker
+meta:
+  _edit_last: '578869'
+  _wpas_done_twitter: '1'
+  _oembed_77296142b808119578ebdfd12555073f: "{{unknown}}"
+  _oembed_19cb5a273224f8fdb318332718e3bc0a: "{{unknown}}"
+  _oembed_cc2fde1a91280667bf892d8c4a9b0123: "{{unknown}}"
+  _oembed_7f6a9b771678ea00fe5f50158b48ea5f: "{{unknown}}"
+  _oembed_3e577475b7d4d50ab996e17317716c0b: "{{unknown}}"
+  _oembed_1b3829572cd4bfd086ef872c51315dbd: "{{unknown}}"
+  _oembed_b4a47b0afbc418b0d87f5442d3c9a40e: "{{unknown}}"
+  _oembed_9c8cfd1fcd534606dee56dd8750ef5b7: "{{unknown}}"
+  _oembed_1c5efd756f870b2adc4c6c714f8f9d72: "{{unknown}}"
+  _oembed_ee3650009916d6fc59f8efc5b2786006: "{{unknown}}"
+  _oembed_7a0a8e14ca74d2df48514f113e7d371b: "{{unknown}}"
+  _oembed_d9533cedc391d0a16533ac7550ebd8c6: "{{unknown}}"
+  _oembed_f996c78894fe1c637f2050701d863896: "{{unknown}}"
+  _oembed_2729d91479f1e399c2e8e985dc7c5a76: "{{unknown}}"
+  _oembed_9c6b4ad0d417600450eedde13c6f4bf2: "{{unknown}}"
+  _oembed_28784ea39046d07ea6c9b0533206c33b: "{{unknown}}"
+  twitter_cards_summary_img_size: a:6:{i:0;i:556;i:1;i:241;i:2;i:3;i:3;s:24:"width="556"
+    height="241"";s:4:"bits";i:8;s:4:"mime";s:9:"image/png";}
+  _oembed_0a302a92826678830ba80a2499c822a6: "{{unknown}}"
+  _oembed_2c0a601a299218ea81a4e8092772f809: "{{unknown}}"
+  _oembed_26110a03e522379fc82951873b21c89a: "{{unknown}}"
+  _oembed_63a553b779ff24b43185ae3e4ede6c47: "{{unknown}}"
+  _oembed_905599294898ee40274740a0f09cc2f9: "{{unknown}}"
+  _oembed_8417ca4ec914bfc1043414910b6ab618: "{{unknown}}"
+  _oembed_570499fe69aa474b873b8f47499eb562: "{{unknown}}"
+  _oembed_029427e74be104155d46ac6ee9254cb1: "{{unknown}}"
+  _oembed_3af7ca1affca50abad595e541194397f: "{{unknown}}"
+  _oembed_e3c0a8ecd1625da6bc2a4bcbf581f629: "{{unknown}}"
+  _oembed_23b3ebe93c6be948c8828d09c4b9593a: "{{unknown}}"
+  _oembed_5eee5c885bafefc4b7f605fcea6070f3: "{{unknown}}"
+  _oembed_3ddeb438098f6bf5b6d52ed18118ea1b: "{{unknown}}"
+  _oembed_47301ec0d8a7de2481f01cd3bade11da: "{{unknown}}"
+  _oembed_aec926a353615904dde671ca88b0e297: "{{unknown}}"
+author:
+  login: rcarhuatocto
+  email: roger@intix.info
+  display_name: Roger CARHUATOCTO
+  first_name: ''
+  last_name: ''
+permalink: "/2011/07/21/jbpm-bonita-intalio-processmaker-activiti-que-bpm-suite-uso/"
+---
+<p>Ultimamente, en los cursos que suelo impartir o durante la etapa de consultoría con algún cliente me preguntan ¿Qué BPM me recomendarías? o, he comprado un CMS y viene con un Workflow, podría crear un Sistema de Gestión de Expedientes?<br />
+Y mi respuesta siempre es, sabes qué es un BPM?, sabes lo que implicaría construir aplicaciones siguiendo BPM en tu organización?. Pues la respuesta es muchas veces "no". En esta situación, siempre lo mejor es aclarar los conceptos e<br />
+iniciar algún proceso de evaluación de tecnologías, casos de éxitos, costes económicos y las consecuencias.</p>
+<p>[caption id="" align="alignnone" width="389" caption="jBPM, Bonita, Intalio, ProcessMaker and Activiti"]<a href="http://dl.dropbox.com/u/2961879/blog20110708_bpmfoss/bpmsfoss_0logos.png"><img class=" " title="jBPM, Bonita, Intalio, ProcessMaker and Activiti" src="{{ site.baseurl }}/assets/bpmsfoss_0logos.png" alt="jBPM, Bonita, Intalio, ProcessMaker and Activiti" width="389" height="169" /></a>[/caption]</p>
+<p>Este post es el primero de una serie de posts relacionados con BPM Free/Open Source. En este primero haremos una presentación rápida de las alternativas tecnológicas de los BPMs free/open source de mayor actividad y hacernos una idea<br />
+de cuál o cuáles son los más adecuado para cada escenario que nos encontremos en nuestras Organizaciones.<br />
+En los siguientes posts entraremos en detalle en cada uno de las herramientas BPM, inclusive haciendo alguna prueba de concepto con cada uno de ellos.</p>
+<p>Antes de iniciar con la revisión, describiré qué elementos o componentes importantes existen en una Suite BPM y unas definiciones.</p>
+<h2>1. Definiciones y conceptos</h2>
+<p><strong>BPM: Business Process Management.</strong></p>
+<p>Metodología que permite analizar el comportamiento de la organización a través de los procesos.<br />
+De Wikipedia (http://es.wikipedia.org/wiki/Gesti%C3%B3n_de_procesos_de_negocio)<br />
+"Se llama Gestión de procesos de negocio (Business Process Management o BPM en inglés) a la metodología corporativa cuyo objetivo es mejorar la eficiencia a través de la gestión de los procesos de negocio, que se deben modelar, organizar, documentar y optimizar de forma continua. Como su nombre sugiere, BPM se enfoca en la administración de los procesos dentro de una organización."</p>
+<p><strong>BPMS: Buiness Process Management System or Suite.</strong></p>
+<p>Un conjunto de herramientas o componentes que busca automatizar la construcción de aplicaciones siguiendo la metodología BPM.</p>
+<h2>2. Componentes en una Suite BPM</h2>
+<p><strong>1. Workflow:</strong><br />
+Es el motor que ejecuta/orquesta los procesos de negocio definidos, lo hace siguiendo un lenguaje que el motor entiende, comunmente es BPEL.</p>
+<p><strong>2. Process Designer:</strong><br />
+Es la herramienta que permite definir los procesos de negocio usando una simbología o lenguaje natural propio de BPM.<br />
+Este lenguaje puede ser BPMN o XPDL, algunos también suelen considerar BPEL.</p>
+<p><strong>3. Form Creator: </strong><br />
+La herramienta que me permite definir los formularios de interacción humana, es decir, formularios donde el usuario/persona puede iniciar, rechazar, aprobar, etc, es decir, interactuar con una instancia de un proceso de negocio.</p>
+<p><strong>4. Business Activity Monitoring (BAM): </strong><br />
+De la Wikipedia (http://en.wikipedia.org/wiki/Business_activity_monitoring):<br />
+"... is software that aids in monitoring of business activities, as those activities are implemented in computer systems."</p>
+<p>Los elementos de un BAM son: KPI's (indicadores claves de rendimiento), Dashboard (consola que permite monitorizar en tiempo real el valor actual de los KPI's para tomar decisiones).<br />
+En mi opinión, el concepto de BI (Business Intelligence) engloba a BAM. Mientras que BAM aplica a las Organizaciones, BI es una disciplina y conjunto de herramientas que aplica a diferentes escenarios.</p>
+<p><strong>5. Business Rules Engine (BRE): </strong><br />
+De la Wikipedia (http://en.wikipedia.org/wiki/Business_rules_engine):<br />
+"... is a software system that executes one or more business rules in a runtime production environment. The rules might come from legal regulation ("An employee can be fired for any reason or no reason but not for an illegal reason"), company policy ("All customers that spend more than $100 at one time will receive a 10% discount"), or other sources. A business rule system enables these company policies and other operational decisions to be defined, tested, executed and maintained separately from application code."</p>
+<p><strong>6. Connectors: </strong><br />
+- Para ECM<br />
+- Para LDAP<br />
+- Para ESB, etc.</p>
+<p>Son aquellos componentes que hacen que los BPMS tengan más sentido dentro de la Organización, por ejemplo, un sistema de gestión de expedientes donde su motor sea un workflow no tiene sentido sin un repositorio documental para alojar los documentos entrantes y salientes.</p>
+<h2>3. BPMS/Workflows Free/Open Source</h2>
+<p>Existen muchos Workflows engine, BPMs free/open source y comerciales, nos centraremos únicamente en los proyectos FOSS y que de alguna forma están formados por los componentes antes indicados.</p>
+<p>Pero por si os de interés, la lista de BPMS/Workflows FOSS actualizada (basada en "Open Source Workflow Engines in Java" - http://java-source.net/open-source/workflow-engines) al 2009 es esta:</p>
+<p>[caption id="" align="alignnone" width="405" caption="BPMS FOSS list - 2009"]<a href="http://dl.dropbox.com/u/2961879/blog20110708_bpmfoss/www.INTIX.info-LIST-BPMS-FOSS-2009.png"><img class="  " title="BPMS FOSS list - 2009" src="{{ site.baseurl }}/assets/www.INTIX.info-LIST-BPMS-FOSS-2009.png" alt="BPMS FOSS list - 2009" width="405" height="262" /></a>[/caption]</p>
+<p><a href="http://dl.dropbox.com/u/2961879/blog20110708_bpmfoss/www.INTIX.info-LIST-BPMS-FOSS-2009.xls">Download (XLS) Lista aquí</a>.</p>
+<h2>4. BPMS Free/Open Source</h2>
+<p>Iniciaré una revisión con los BPMS siguientes, ya que en mi opinión, estos son los proyectos más activos en este momento:</p>
+<ul>
+<li>1. jBPMEs el BPMS más veterano, Red Hat está detrás de esta iniciativa y en el 2010 hubo un cambio en el equipo de proyecto, esto dio paso al uso de Drools como BPM engine dentro de la versión 5.<br />
+También dió paso al nacimiento de otro proyecto BPMS llamado Activiti.<br />
+Aunque es un proyecto relativamente de un uso muy intensivo, la versión 5, es muy joven.</li>
+<li>2. BonitaBPMS que sin mucho aspavientos, resuelve con creces los objetivos de cualquier BPMS de esta época: Social, Colaboración y Zero Code.</li>
+<li>3. IntalioOtro proyecto veterano y equiparable a los BPMS comerciales, aunque la fuerza de su comunidad es muy baja.</li>
+<li>4. ProcessMakerEs BPMS muy versátil y eficaz. Hace lo que la gran mayoría de las PYMES necesitan. Es el único en esta lista construída en PHP.</li>
+<li>5. ActivitiEs el proyecto más joven de los evaluados, a nivel técnico el proyecto es muy prometedor aunque le falta posicionarse en el sector de los BPMS.</li>
+</ul>
+<p>Para tener una noción de qué BPMS es la más adecuada para nuestra organización, es necesario revisar y valorar cuantitativamente cada una de ellas.<br />
+La valoración cuantitativa la hago con una escala de 0 (no tiene o no existe) a 5 (cumple al 100%) para la existencia de ciertas características y funcionalidades de la tabla siguiente:</p>
+<p>[caption id="" align="alignnone" width="350" caption="List of BPMS features to evaluate"]<a href="http://dl.dropbox.com/u/2961879/blog20110708_bpmfoss/bpmsfoss_1featureslist.png"><img title="List of BPMS features to evaluate" src="{{ site.baseurl }}/assets/bpmsfoss_1featureslist.png" alt="List of BPMS features to evaluate" width="350" height="406" /></a>[/caption]</p>
+<p>Entonces, la valoración quedaría así:</p>
+<p>[caption id="" align="alignnone" width="428" caption="Evaluation of jBPM"]<a href="http://dl.dropbox.com/u/2961879/blog20110708_bpmfoss/bpmsfoss_2eval-jbpm-rev2.png"><img class="      " title="Evaluation of jBPM" src="{{ site.baseurl }}/assets/bpmsfoss_2eval-jbpm-rev2.png" alt="Evaluation of jBPM" width="428" height="519" /></a>[/caption]</p>
+<p>[caption id="" align="alignnone" width="426" caption="Evaluation of Bonita Open Solution"]<a href="http://dl.dropbox.com/u/2961879/blog20110708_bpmfoss/bpmsfoss_3eval-bonita.png"><img class=" " title="Evaluation of Bonita Open Solution" src="{{ site.baseurl }}/assets/bpmsfoss_3eval-bonita.png" alt="Evaluation of Bonita Open Solution" width="426" height="484" /></a>[/caption]</p>
+<p>[caption id="" align="alignnone" width="427" caption="Evaluation of Intalio|BPMS Community Edition"]<a href="http://dl.dropbox.com/u/2961879/blog20110708_bpmfoss/bpmsfoss_4eval-intalio.png"><img class=" " title="Evaluation of Intalio|BPMS Community Edition" src="{{ site.baseurl }}/assets/bpmsfoss_4eval-intalio.png" alt="Evaluation of Intalio|BPMS Community Edition" width="427" height="568" /></a>[/caption]</p>
+<p>[caption id="" align="alignnone" width="426" caption="Evaluation of ProcessMaker"]<a href="http://dl.dropbox.com/u/2961879/blog20110708_bpmfoss/bpmsfoss_5eval-processmaker.png"><img class=" " title="Evaluation of ProcessMaker" src="{{ site.baseurl }}/assets/bpmsfoss_5eval-processmaker.png" alt="Evaluation of ProcessMaker" width="426" height="431" /></a>[/caption]</p>
+<p>[caption id="" align="alignnone" width="431" caption="Evaluation of Activiti"]<a href="http://dl.dropbox.com/u/2961879/blog20110708_bpmfoss/bpmsfoss_6eval-activiti.png"><img class=" " title="Evaluation of Activiti" src="{{ site.baseurl }}/assets/bpmsfoss_6eval-activiti.png" alt="Evaluation of Activiti" width="431" height="463" /></a>[/caption]</p>
+<h2>Conclusiones</h2>
+<p>Después de valorar cuantitativamente cada una de los BPMS, concluímos:</p>
+<ol>
+<li>Si el día de mañana tenemos que iniciar un proyecto siguiendo BPM que requiera el uso de los estándares, que sea posible integrarlo a las diferentes aplicaciones legadas y que el volumen de usuarios es muy alto, entonces Bonita Open Solution es nuestra alternativa.<br />
+Partimos también que si iniciamos un proyecto nuevo dentro de la organización, es necesario contar con información técnica actualizada y abundantes ejemplos que puedan ayudar a cómo se construir rápidamente aplicaciones BPM.</li>
+<li>Si nuestra organización es una PYME, Bonita Open Solution y el resto de BPMS quedan algo grande excepto ProcessMaker. Al usarlo no se pierde nada valioso, todas las funcionalidades que BPMS comerciales y las otras analizadas, ProcessMaker las tiene.<br />
+Si el volumen de usuarios se ve incrementado, no hay problema, ProcessMaker puede ser escalado sin ningún problema o si deseas puedes contratar la versión SaaS alojado en Amazon EC2.</li>
+<li>Para usar jBPM debemos esperar que la fuerza de su comunidad crezca, abundante y exacta información técnica exista, aunque si las organizaciones valoran la buena integración con Drools, entonces jBPM es la mejor alternativa.</li>
+<li>Activiti, al igual que jBPM, aunque inicien con versiones superiores o iguales a 5.1, los pocos o ninguno casos de éxitos, la poca documentación técnica del producto se traduce en poca confianza en el producto, pues Activiti no es una buena alternativa.<br />
+Técnicamente, Activiti es de lo mejor, al ser parte del proyecto Alfresco ECM, es una cuestión de tiempo para que se convierta en el BPM de referencia.</li>
+<li>Intalio comparado a los 4 BPMS restantes es otra buena alternativa, aunque la incorporación de funcionalidades muy importantes en la versión Enteprise Edition disuade su uso.<br />
+Por otro lado, al igual que la gran mayoría de productos con licenciamiento dual (Open Source y Comercial) no tiene documentación exacta, quedando únicamente los foros públicos como medio para solventar dudas.</li>
+</ol>
+<p>[caption id="" align="alignnone" width="349" caption="jBPM vs. Bonita vs. Intalio vs. ProcessMaker vs. Activiti"]<a href="http://dl.dropbox.com/u/2961879/blog20110708_bpmfoss/bpmsfoss_7resultado_rev2.png"><img class="   " title="jBPM vs. Bonita vs. Intalio vs. ProcessMaker vs. Activiti" src="{{ site.baseurl }}/assets/bpmsfoss_7resultado_rev2.png" alt="jBPM vs. Bonita vs. Intalio vs. ProcessMaker vs. Activiti" width="349" height="331" /></a>[/caption]</p>
+<h2>Observaciones</h2>
+<p>Este artículo expresa mi personal opinión acerca de estos proyectos resultado de haber pasado por varios procesos de revisión y conocimiento de cada BPMS antes de iniciar un proyecto de desarrollo.</p>
+<p>Entender que esta revisión pretende ser una forma rápida para identificar la solución BPMS que se ajusta a mis necesidades.</p>
+<p>No pretender ser una referencia absoluta, ni nunca lo será.</p>
+<p>El resultado de la evaluación está relacionado a mi conocimiento del producto, que es fruto de haber usado dichas suites en proyectos reales y pruebas de concepto.</p>
+<p>En los siguientes artículos entraré en mayor detalle en cada uno de ellos, comparando características concretas como por ejemplo, el nivel de implementación de BPMN2 o la tecnología usada para generación automática de formularios, etc.</p>
+<p>Entonces, espero que este os haya servido de algo.</p>
+<p>End.</p>
+<p><strong>Referencias:</strong></p>
+<ul>
+<li>Open Source Power on BPM - A Comparison of JBoss jBPM and Intalio BPMS (By Pin Nie, Riku Seppälä, Måns Hafrén) - <a href="http://jannekorhonen.fi/project_report_final_BPMS.pdf">http://jannekorhonen.fi/project_report_final_BPMS.pdf</a></li>
+<li>Gestión de Expedientes con Alfresco ECM - <a href="http://holisticsecurity.wordpress.com/2010/10/08/gestion-de-expedientes-con-alfresco-ecm">http://holisticsecurity.wordpress.com/2010/10/08/gestion-de-expedientes-con-alfresco-ecm</a></li>
+<li>Open Source Workflow Engines in Java - <a href="http://java-source.net/open-source/workflow-engines">http://java-source.net/open-source/workflow-engines</a></li>
+<li>jBPM5 vs Activiti5? dumb question? - <a href="http://salaboy.wordpress.com/2011/01/19/jbpm5-vs-activiti5-dumb-question">http://salaboy.wordpress.com/2011/01/19/jbpm5-vs-activiti5-dumb-question</a></li>
+<li>Activiti or jBPM, which should I use in my next project? - <a href="http://www.activiti.org/faq.html#ActivitiOrJbpm">http://www.activiti.org/faq.html#ActivitiOrJbpm</a></li>
+<li>jBPM Form Builder follow-up - <a href="http://blog.athico.com/2011/07/jbpm-form-builder-follow-up.html">http://blog.athico.com/2011/07/jbpm-form-builder-follow-up.html</a></li>
+<li>Business Process Simulation versus Emulation - <a href="http://onbpms.com/2007/07/18/business-process-simulation-versus-emulation">http://onbpms.com/2007/07/18/business-process-simulation-versus-emulation</a></li>
+<li>Process Simulation - <a href="http://community.intalio.com/bpms-screencasts/process-simulation.html">http://community.intalio.com/bpms-screencasts/process-simulation.html</a></li>
+</ul>

@@ -1,0 +1,94 @@
+---
+layout: post
+title: Creando túneles SSH a SSH Server, MySQL Server y a LDAP Server desde Windows
+  y con Tunnelier
+date: 2013-03-14 19:54:56.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Linux
+- Security
+tags:
+- LDAP
+- mysql
+- port forwarding
+- ssh
+- tunnel
+- windows
+meta:
+  publicize_reach: a:2:{s:7:"twitter";a:1:{i:13849;i:439;}s:2:"wp";a:1:{i:0;i:20;}}
+  _edit_last: '578869'
+  tagazine-media: a:7:{s:7:"primary";s:0:"";s:6:"images";a:0:{}s:6:"videos";a:0:{}s:11:"image_count";i:0;s:6:"author";s:6:"578869";s:7:"blog_id";s:7:"2005905";s:9:"mod_stamp";s:19:"2013-03-14
+    18:54:56";}
+  publicize_twitter_user: Chilcano
+  _wpas_done_13849: '1'
+  _publicize_done_external: a:1:{s:7:"twitter";a:1:{i:91440493;b:1;}}
+  twitter_cards_summary_img_size: a:6:{i:0;i:819;i:1;i:460;i:2;i:3;i:3;s:24:"width="819"
+    height="460"";s:4:"bits";i:8;s:4:"mime";s:9:"image/png";}
+author:
+  login: rcarhuatocto
+  email: roger@intix.info
+  display_name: Roger CARHUATOCTO
+  first_name: ''
+  last_name: ''
+permalink: "/2013/03/14/creando-tuneles-ssh-mysql-ldap-windows-tunnelier/"
+---
+<p>He tenido que administrar varios servidores virtuales (Proxmox) que exponen diferentes servicios como SSH server, MySQL server y LDAP server, pero al que no podemos acceder directamente, lo tuve que hacer accediendo remotamente desde un cliente SSH y luego haciendo el "salto" hacia el servidor deseado. Esto es lo que se llama "tunel ssh". Evidentemente, es un proceso muy lento sobretodo cuando necesitamos operar dichos servicios de manera rápida, crear un usuario, ver logs, clonar una VM, desplegar nuevos servicios, en fin. Esta situación se complica aún más si desde el servidor que nos sirve de puente tiene un Firewall que cierra o filtra muchos de los puertos, como es natural en un entorno productivo.</p>
+<p>En fin, la herramienta más usada para hacer esto en Windows es Putty, además de ser un cliente SSH, permite crear túneles (port forwarding) de manera fácil.</p>
+<p>Quizás lo más difícil es entender cómo se crean los túneles, aquí lo explicaremos y además emplearemos <a title="Tunnelier" href="http://www.bitvise.com/tunnelier" target="_blank">Tunnelier</a>, otro cliente SSH de Btivise que además tiene unas características mejoradas en comparación a Putty.</p>
+<p><strong>1. Escenario donde crearemos túneles SSH</strong></p>
+<p>[caption id="" align="alignnone" width="491"]<a href="https://dl.dropbox.com/u/2961879/blog20130314_ssh_tunnel_win/env-tunnel-ssh-1.png"><img class="  " alt="Escenario - Creando 3 túneles SSH hacia SSH server, MySQL server y LDAP server" src="{{ site.baseurl }}/assets/env-tunnel-ssh-1.png" width="491" height="276" /></a> Escenario - Creando 3 túneles SSH hacia SSH server, MySQL server y LDAP server[/caption]</p>
+<ul>
+<li><span style="line-height:13px;"><strong>kns </strong>: representa al servidor SSH público que expone el servicio en el puerto <strong>2121</strong>. También podéis usar el FQDN o la IP.<br />
+</span></li>
+<li><strong>kns-lfry0, kns-db1, kns-ldap0</strong> : representan los Hostnames o IPs privados o internos. Sólo pueden ser resueltos desde <strong>kns</strong>.</li>
+</ul>
+<p><strong>2. Creando túnel hacia SSH server</strong></p>
+<p>Una vez descargado e instalado Tunnelier, configurémoslo de esta forma.</p>
+<ul>
+<li>En la pestaña "<strong>C2S</strong>" crear un tunel hacia el servidor <strong>kns-lfry0:22</strong>, tal como se indica en la figura.</li>
+</ul>
+<p>[caption id="" align="alignnone" width="452"]<a href="https://dl.dropbox.com/u/2961879/blog20130314_ssh_tunnel_win/env-tunnel-ssh-2.png"><img class=" " title="Creando tunel SSH" alt="Creando tunel SSH" src="{{ site.baseurl }}/assets/env-tunnel-ssh-2.png" width="452" height="326" /></a> Creando tunel SSH[/caption]</p>
+<ul>
+<li>En la pestaña "<strong>Options</strong>", bajo "<strong>On Login</strong>" deshabilitar "<strong>Open Termina</strong>l" y "<strong>Open SFTP</strong>" (opcional, esto hace que no se abran consolas ssh ni el cliente SFTP).</li>
+<li>En la pestaña <strong>Login</strong> introducir las credenciales para hacer SSH a <strong>kns</strong> bajo el puerto <strong>2121</strong>, tal como se muestra en la figura.</li>
+</ul>
+<p>[caption id="" align="alignnone" width="452"]<a href="https://dl.dropbox.com/u/2961879/blog20130314_ssh_tunnel_win/env-tunnel-ssh-3.png"><img class=" " title="Creando tunel SSH - haciendo Login" alt="Creando tunel SSH - haciendo Login" src="{{ site.baseurl }}/assets/env-tunnel-ssh-3.png" width="452" height="326" /></a> Creando tunel SSH - haciendo Login[/caption]</p>
+<ul>
+<li>Luego hacemos "<strong>Login</strong>", con ello nos traemos el puerto <strong>22</strong> remoto al puerto <strong>2122</strong> del <strong>localhost</strong>.</li>
+</ul>
+<p>En estos momentos ya hemos creado el túnel, ahora como estamos haciendo "port forwarding" hacia <strong>kns-lfry0</strong> que tiene abierto el puerto <strong>22</strong> del SSH server, entonces podemos usar cualquier cliente SSH para conectarnos a dicho servidor remoto como si fuese un servicio local, pero en este caso debemos conectarnos a <strong>localhost</strong> en el puerto <strong>2122</strong>. Podemos usar Putty o abrir nuevamente el programa Tunnelier (no añadir nuevos túneles, sólo usarlo como cliente SSH para conectarnos a <strong>localhost:2122</strong>).</p>
+<p>[caption id="" align="alignnone" width="452"]<a href="https://dl.dropbox.com/u/2961879/blog20130314_ssh_tunnel_win/env-tunnel-ssh-4.png"><img class=" " title="Abriendo 2 sesiones de Tunnelier, el primero para crear el tunel y el segundo para hacer la conexión SSH a kns-lfry0:22 (localhost:2122)" alt="Abriendo 2 sesiones de Tunnelier, el primero para crear el tunel y el segundo para hacer la conexión SSH a kns-lfry0:22 (localhost:2122)" src="{{ site.baseurl }}/assets/env-tunnel-ssh-4.png" width="452" height="482" /></a> Abriendo 2 sesiones de Tunnelier, el primero para crear el tunel y el segundo para hacer la conexión SSH a kns-lfry0:22 (localhost:2122)[/caption]</p>
+<p><strong>3. Creando túnel hacia MySQL server</strong></p>
+<p>Este escenario es algo más difícil que el anterior, pero se resuelve haciendo un segundo túnel sobre el anterior, esto hace que cuando nos conectemos con un cliente MySQL, MySQL server no nos deniegue la conexión. Esto se debe a que por defecto MySQL deniega la conexión si lo hacemos desde un Host diferente al localhost. Al hacer el segundo túnel, nos conectamos directamente al MySQL server y establecemos la conexión desde el mismo host donde está instalado MySQL server.</p>
+<p><strong>Primer túnel ssh-mysql:</strong></p>
+<p>[caption id="" align="alignnone" width="452"]<a href="https://dl.dropbox.com/u/2961879/blog20130314_ssh_tunnel_win/tunnel-mysql-1-ssh-01-.png"><img class=" " title="Primer túnel SSH-MySQL (1/2)" alt="Primer túnel SSH-MySQL (1/2)" src="{{ site.baseurl }}/assets/tunnel-mysql-1-ssh-01-.png" width="452" height="328" /></a> Primer túnel SSH-MySQL (1/2)[/caption]</p>
+<p>[caption id="" align="alignnone" width="452"]<a href="https://dl.dropbox.com/u/2961879/blog20130314_ssh_tunnel_win/tunnel-mysql-1-ssh-02-.png"><img class=" " title="Primer túnel SSH-MySQL (2/2)" alt="Primer túnel SSH-MySQL (2/2)" src="{{ site.baseurl }}/assets/tunnel-mysql-1-ssh-02-.png" width="452" height="326" /></a> Primer túnel SSH-MySQL (2/2)[/caption]</p>
+<p>Una vez configurado el primer túnel, hacer click en Login.</p>
+<p><strong>Segundo túnel SSH-MySQL:</strong></p>
+<p>[caption id="" align="alignnone" width="452"]<a href="https://dl.dropbox.com/u/2961879/blog20130314_ssh_tunnel_win/tunnel-mysql-2-01-.png"><img class=" " title="Segundo túnel SSH-MySQL (1/2)" alt="Segundo túnel SSH-MySQL (1/2)" src="{{ site.baseurl }}/assets/tunnel-mysql-2-01-.png" width="452" height="326" /></a> Segundo túnel SSH-MySQL (1/2)[/caption]</p>
+<p>[caption id="" align="alignnone" width="452"]<a href="https://dl.dropbox.com/u/2961879/blog20130314_ssh_tunnel_win/tunnel-mysql-2-02-.png"><img class=" " title="Segundo túnel SSH-MySQL (2/2)" alt="Segundo túnel SSH-MySQL (2/2)" src="{{ site.baseurl }}/assets/tunnel-mysql-2-02-.png" width="452" height="335" /></a> Segundo túnel SSH-MySQL (2/2)[/caption]</p>
+<p>Una vez configurado el segundo túnel, hacer click en Login.</p>
+<p>Ahora, usar cualquier cliente MySQL para conectarse al MySQL server, yo suelo usar <a title="HeidiSQL" href="http://www.heidisql.com/download.php" target="_blank">HeidiSQL</a>. Configurarlo de esta forma:</p>
+<p>[caption id="" align="alignnone" width="371"]<a href="https://dl.dropbox.com/u/2961879/blog20130314_ssh_tunnel_win/tunnel-mysql-3-cnx.png"><img class=" " alt="Usando HeidiSQL para conectarse a MySQL a través de un túnel SSH" src="{{ site.baseurl }}/assets/tunnel-mysql-3-cnx.png" width="371" height="267" /></a> Usando HeidiSQL para conectarse a MySQL a través de un túnel SSH[/caption]</p>
+<p><strong>4. Creando túnel hacia LDAP server</strong></p>
+<p>Este escenario es similar al primer escenario donde nos conectábamos a un segundo SSH server llamado "<strong>kns-lfry0</strong>", puerto "<strong>22</strong>". Ahora nos conectaremos a "<strong>kns-ldap0</strong>", puerto "<strong>389</strong>", según la primera figura mostrada líneas arriba.</p>
+<p>La diferencia estriba en que en el primer escenario usábamos un cliente SSH (Putty o Tunnerlier) para conectarnos al servidor, mientras que en este nuevo escenario usaremos un cliente LDAP (<a title="LDAP Browser Editor" href="http://www.novell.com/communities/node/8652/gawors-excellent-ldap-browsereditor-v282" target="_blank">LDAP Browser Editor</a>).</p>
+<p>Otra pequeña diferencia con respecto a los anteriores escenarios es que usaremos un sólo Tunnelier para configurar todos los primeros túneles, aunque sólo vayamos a usar el relacionado a <strong>kns-ldap0:389</strong>. Esto es sólo por comodidad.</p>
+<p>Túnel SSH-LDAP</p>
+<p>[caption id="" align="alignnone" width="452"]<a href="https://dl.dropbox.com/u/2961879/blog20130314_ssh_tunnel_win/tunnel-ldap-01.png"><img class=" " title="Túnel SSH-LDAP (1/2)" alt="Túnel SSH-LDAP (1/2)" src="{{ site.baseurl }}/assets/tunnel-ldap-01.png" width="452" height="326" /></a> Túnel SSH-LDAP (1/2)[/caption]</p>
+<p>[caption id="" align="alignnone" width="452"]<a href="https://dl.dropbox.com/u/2961879/blog20130314_ssh_tunnel_win/tunnel-ldap-02.png"><img class=" " title="Túnel SSH-LDAP (2/2)" alt="Túnel SSH-LDAP (2/2)" src="{{ site.baseurl }}/assets/tunnel-ldap-02.png" width="452" height="326" /></a> Túnel SSH-LDAP (2/2)[/caption]</p>
+<p>Una vez configurado el túnel, usando LDAP Browser Editor crear una conexión hacia el túnel LDAP, es decir, <strong>localhost:2124</strong>.</p>
+<p>[caption id="" align="alignnone" width="531"]<a href="https://dl.dropbox.com/u/2961879/blog20130314_ssh_tunnel_win/tunnel-ldap-03-cnx.png"><img class=" " alt="LDAP Browser Editor - conectándonos al túnel SSH-LDAP" src="{{ site.baseurl }}/assets/tunnel-ldap-03-cnx.png" width="531" height="280" /></a> LDAP Browser Editor - conectándonos al túnel SSH-LDAP[/caption]</p>
+<p><strong>5. Conclusiones</strong></p>
+<ul>
+<li><span style="line-height:14px;">El servicio de SSH abre un el puerto <strong>22</strong> por defecto, muchos ports scanners o durante el proceso de pen-testing, el puerto 22 es uno de los más  atacados. Lo recomendable es cambiar el puerto, no permitir conectarse usando usuario ROOT y aplicar alguna técnica de ocultamiento de servicio como <a title="Port Knocking" href="http://en.wikipedia.org/wiki/Port_knocking" target="_blank">Port-Knocking</a>. Crear túneles en este escenario no cambia nada, únicamente hay que conocer el nuevo puerto del SSH server.</span></li>
+<li>Algunos servicios como SSH, MySQL, etc. permite incorporar mecanismos extras de seguridad basadas en IP/Hostname desde donde te conectas. Además de restringir desde dónde se establece la conexión usando Firewalling con iptables. Pues, lo recomiendo usar. En este post, MySQL tiene ese comportamiento y para acceder a él desde un cliente MySQL nos obliga crear dos túneles.</li>
+<li>Es importante que el servidor SSH desde donde hacemos el salto tenga visibilidad al resto de servidores pero desde la interfaz de red interna.</li>
+<li>Si quieres crear túneles desde Linux, lo puedes hacer desde línea de comando, ya que por defecto Linux tiene cliente y servidor SSH instalado o también puedes usar <a title="Gnome SSH Tunnel Manager" href="http://sourceforge.net/projects/gstm/" target="_blank">gSTM (Gnome SSH Tunnel Manager)</a>, es un front-end para gestionar tus túneles.</li>
+<li>Y para Mac OSX, de manera similar a Linux, puedes hacer uso del cliente SSH de línea de comandos, aunque habrá que leer la ayuda del cliente ya que algunos parámetros cambian. Por otro lado, también puedes usar cualquier aplicación/front-end que te facilite crear uno o muchos túneles. Yo solía usar <a title="SSH Tunnel Manager para Mac OSX" href="http://projects.tynsoe.org/en/stm/" target="_blank">STM (SSH Tunnel Manager)</a>.</li>
+</ul>
+<p>End.</p>

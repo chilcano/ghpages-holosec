@@ -1,0 +1,43 @@
+---
+layout: post
+title: Execute Liferay Portal on non ROOT context
+date: 2010-07-19 17:24:34.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Portal
+tags: []
+meta:
+  _edit_last: '578869'
+  _wpas_done_twitter: '1'
+  _oembed_a06eb6873642936c58580050a263cbcd: "{{unknown}}"
+  _oembed_5021165d862e95339052423a676293c7: "{{unknown}}"
+  _oembed_d4d5d0c49a5230e58b51346003ae0fe7: "{{unknown}}"
+  _oembed_28253835a3296c3355546d64a878e540: "{{unknown}}"
+  _oembed_be973dac5e2cbf562467514fcd6b5b25: "{{unknown}}"
+author:
+  login: rcarhuatocto
+  email: roger@intix.info
+  display_name: Roger CARHUATOCTO
+  first_name: ''
+  last_name: ''
+permalink: "/2010/07/19/execute-liferay-root-context/"
+---
+<p>Sometime we need to execute Liferay Portal in a different web context, for example in http://www.intix.info/<strong>myportal</strong> instead of http://www.intix.info/</p>
+<p>Then, in this scenario we have to follow next steps:</p>
+<ol>
+<li>Rename &lt;LIFERAY_HOME&gt;/&lt;TOMCAT_HOME&gt;/webapps/ROOT   to &lt;LIFERAY_HOME&gt;/&lt;TOMCAT_HOME&gt;/webapps/myportal</li>
+<li>Edit or create portal-ext.properties (&lt;LIFERAY_HOME&gt;/&lt;TOMCAT_HOME&gt;/webapps/myportal/WEB-INF/classes/portal-ext.properties) :</li>
+<blockquote><p>...<br />
+portal.ctx=/myportal<br />
+....</p></blockquote>
+<li>Rename &lt;LIFERAY_HOME&gt;/&lt;TOMCAT_HOME&gt;/conf/Catalina/localhost/ROOT.xml TO &lt;LIFERAY_HOME&gt;/&lt;TOMCAT_HOME&gt;/conf/Catalina/localhost/myportal.xml</li>
+<li><span style="color:#0000ff;"><span style="color:#000000;">Restart Liferay and go to  <strong>http://www.intix.info/myportal , </strong></span></span>should be possible to browser around liferay without errors, if you found broken links you must change absolut URL/Path adding to begin "/myportal", for example:  update "http://www.intix.info/image/image_gallery?xyzx" with "http://www.intix.info<strong>/myportal</strong>/image/image_gallery?xyz"</li>
+</ol>
+<p>Bye.</p>
+<p><em>Links:</em></p>
+<p style="text-align:left;">Run liferay on non root context:</p>
+<p style="text-align:left;">http://www.liferay.com/es/community/forums/-/message_boards/message/1041350</p>

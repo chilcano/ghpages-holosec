@@ -1,0 +1,442 @@
+---
+layout: post
+title: Calling Alfresco's Webscripts from a Liferay Portlet using Ajax
+date: 2011-09-26 13:42:59.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- ECM
+- Portal
+tags:
+- ajax
+- Alfresco
+- jquery
+- jsr-286
+- Liferay
+- portlet
+- rest
+- serveresource
+- surf
+- webscript
+meta:
+  _edit_last: '578869'
+  _wpas_done_twitter: '1'
+  _oembed_1cd9c59f24c4767d634426c36beb3658: "{{unknown}}"
+  _oembed_fa29fc6772869699f13df94c023fc7ad: "{{unknown}}"
+  _oembed_c47e925c95d18d52860a4dbbbef1ad96: "{{unknown}}"
+  _oembed_936757981070f042512749ce11c834d7: "{{unknown}}"
+author:
+  login: rcarhuatocto
+  email: roger@intix.info
+  display_name: Roger CARHUATOCTO
+  first_name: ''
+  last_name: ''
+permalink: "/2011/09/26/alfresco-webscript-liferay-portlet-ajax/"
+---
+<p>I think that we are reaching the maturity level in Liferay and Alfresco, because we can create applications on top of them of fastly and easy way.</p>
+<p>Alfresco ECM has functionalities exposed as a RESTful API, as know as Alfresco Webscripts, built on the basis of Spring Surf.<br />
+Liferay Portal has Liferay IDE based on Eclipse where we can create from scratch different types of Portlets. Also Liferay allows to include external libraries as jQuery, ExtJS, Vaadin, etc. that allows to develop highly customized portlets.</p>
+<p>Right now, when several people ask me how to integrate Alfresco into Liferay, after I ask them what does mean when you said *integrate*?. Well I say that implies several thing as:</p>
+<p>Integration mean:</p>
+<ol>
+<li>User and roles, SSO ?</li>
+<li>Include Alfresco Explorer or Share as a Portlet?</li>
+<li>Include Alfresco Explorer inside iFrame Portlet?</li>
+<li>Call any Alfresco's functionality from a Portlet?</li>
+<li>...</li>
+</ol>
+<p>Well, everything is possible to do, but to create applications from scratch following point 5 was very difficult, but now I think is the quickest way to do it, also the best from an architectural point of view.</p>
+<p>This post explain how to do a portlet calling to Alfresco's Webscripts (REST URIs) via ajax using jQuery. I also give some recommendations.</p>
+<p>[caption id="" align="alignnone" width="374" caption="Ajax Portlet calls Alfresco Webscripts"]<a href="http://dl.dropbox.com/u/2961879/blog20110920_ajaxalfrescoliferayportlet/ajaxalflfry_1arch.png"><img class="  " title="Ajax Portlet calls Alfresco Webscripts" src="{{ site.baseurl }}/assets/ajaxalflfry_1arch.png" alt="Ajax Portlet calls Alfresco Webscripts" width="374" height="222" /></a>[/caption]</p>
+<h2>Requeriments</h2>
+<ol>
+<li>Liferay IDE version 1.3.1 as IDE</li>
+<li>Liferay Portal version 6.0.6 installed into IDE</li>
+<li>Liferay SDK version 6.0.6 installed into IDE</li>
+<li>Alfresco ECM version 3.4d CE installed</li>
+<li>Identify and verify Alfresco Webscripts:
+<ul>
+<li>Login and get Ticket: http://${ALFRESCO}/alfresco/service/api/login?u=${USR}&amp;pw=${PWD}</li>
+<li>Folder browser: http://${ALFRESCO}/alfresco/service/sample/folder${INITIAL_FOLDER}</li>
+</ul>
+</li>
+<li>jQuery version 1.6.3 added to new portlet</li>
+</ol>
+<h2>Process</h2>
+<p>1. From Liferay IDE create a new Liferay Project that implement GenericPortlet as follow:</p>
+<p>[caption id="" align="alignnone" width="322" caption="Liferay IDE - creating new Liferay Project (1/6)"]<a href="http://dl.dropbox.com/u/2961879/blog20110920_ajaxalfrescoliferayportlet/ajaxalflfry_2newproj.png"><img class="    " title="Liferay IDE - creating new Liferay Project (1/6)" src="{{ site.baseurl }}/assets/ajaxalflfry_2newproj.png" alt="Liferay IDE - creating new Liferay Project (1/6)" width="322" height="313" /></a>[/caption]</p>
+<p>[caption id="" align="alignnone" width="360" caption="Liferay IDE - creating new Liferay Project (2/6)"]<a href="http://dl.dropbox.com/u/2961879/blog20110920_ajaxalfrescoliferayportlet/ajaxalflfry_3newproj.png"><img class="   " title="Liferay IDE - creating new Liferay Project (2/6)" src="{{ site.baseurl }}/assets/ajaxalflfry_3newproj.png" alt="Liferay IDE - creating new Liferay Project (2/6)" width="360" height="335" /></a>[/caption]</p>
+<p>[caption id="" align="alignnone" width="274" caption="Liferay IDE - creating new Liferay Project (3/6)"]<a href="http://dl.dropbox.com/u/2961879/blog20110920_ajaxalfrescoliferayportlet/ajaxalflfry_4newproj.png"><img class="   " title="Liferay IDE - creating new Liferay Project (3/6) " src="{{ site.baseurl }}/assets/ajaxalflfry_4newproj.png" alt="Liferay IDE - creating new Liferay Project (3/6) " width="274" height="167" /></a>[/caption]</p>
+<p>[caption id="" align="alignnone" width="298" caption="Liferay IDE - creating new Liferay Project (4/6)"]<a href="http://dl.dropbox.com/u/2961879/blog20110920_ajaxalfrescoliferayportlet/ajaxalflfry_5newproj.png"><img class="    " title="Liferay IDE - creating new Liferay Project (4/6) " src="{{ site.baseurl }}/assets/ajaxalflfry_5newproj.png" alt="Liferay IDE - creating new Liferay Project (4/6) " width="298" height="339" /></a>[/caption]</p>
+<p>[caption id="" align="alignnone" width="368" caption="Liferay IDE - creating new Liferay Project (5/6)"]<a href="http://dl.dropbox.com/u/2961879/blog20110920_ajaxalfrescoliferayportlet/ajaxalflfry_6newproj.png"><img class="   " title="Liferay IDE - creating new Liferay Project (5/6) " src="{{ site.baseurl }}/assets/ajaxalflfry_6newproj.png" alt="Liferay IDE - creating new Liferay Project (5/6) " width="368" height="332" /></a>[/caption]</p>
+<p>[caption id="" align="alignnone" width="344" caption="Liferay IDE - creating new Liferay Project (6/6)"]<a href="http://dl.dropbox.com/u/2961879/blog20110920_ajaxalfrescoliferayportlet/ajaxalflfry_7newproj.png"><img class="  " title="Liferay IDE - creating new Liferay Project (6/6) " src="{{ site.baseurl }}/assets/ajaxalflfry_7newproj.png" alt="Liferay IDE - creating new Liferay Project (6/6) " width="344" height="358" /></a>[/caption]</p>
+<p>2. The structure of Project in Liferay IDE will be as follow:</p>
+<p>[caption id="" align="alignnone" width="378" caption="Liferay IDE - folder structure of new project"]<a href="http://dl.dropbox.com/u/2961879/blog20110920_ajaxalfrescoliferayportlet/ajaxalflfry_8structureproj.png"><img title="Liferay IDE - folder structure of new project" src="{{ site.baseurl }}/assets/ajaxalflfry_8structureproj.png" alt="Liferay IDE - folder structure of new project" width="378" height="454" /></a>[/caption]</p>
+<p>3. Add code in view.jsp to call serverResource method and to do ajax call to Alfresco. Also, in view.jsp you will add JavaScript code (jQuery) for parsing HTML/XML ajax responses.</p>
+<p>[sourcecode language="html" gutter="true" wraplines="false"]<br />
+&lt;%@ taglib uri=&quot;http://java.sun.com/portlet_2_0&quot; prefix=&quot;portlet&quot; %&gt;</p>
+<p>&lt;portlet:defineObjects /&gt;</p>
+<p>This is the &lt;b&gt;Ajax Alfresco Folder Browser&lt;/b&gt; portlet in View mode.<br />
+&lt;hr/&gt;</p>
+<p>&lt;%<br />
+// &quot;http://192.168.56.101:8080&quot;;<br />
+String strUrlAlfIP = renderRequest.getAttribute(&quot;alfServer&quot;).toString();<br />
+// &quot;/alfresco/service/api/login?u=admin&amp;pw=admin&quot;;<br />
+String strUrlAlfLogin = renderRequest.getAttribute(&quot;alfTicketSvc&quot;).toString() + &quot;?&quot; + renderRequest.getAttribute(&quot;alfTicketSvcParams&quot;);<br />
+// &quot;/alfresco/service/sample/folder/Company%20Home&quot;;<br />
+String strUrlAlfDir = renderRequest.getAttribute(&quot;alfWebscriptBrowserURL&quot;).toString();<br />
+%&gt;<br />
+&lt;portlet:resourceURL var=&quot;resourceUrlAlfIP&quot; id=&quot;&lt;%=strUrlAlfIP%&gt;&quot; escapeXml=&quot;false&quot; /&gt;<br />
+&lt;portlet:resourceURL var=&quot;resource1AlfLogin&quot; id=&quot;&lt;%=strUrlAlfIP.concat(strUrlAlfLogin.trim()).trim()%&gt;&quot; escapeXml=&quot;false&quot; /&gt;<br />
+&lt;portlet:resourceURL var=&quot;resource2AlfFolderBrowser&quot; id=&quot;&lt;%=strUrlAlfIP.concat(strUrlAlfDir.trim()).trim()%&gt;&quot; escapeXml=&quot;false&quot; /&gt;</p>
+<p>&lt;script type=&quot;text/javascript&quot;&gt;<br />
+jQuery(document).ready(function() {</p>
+<p>	var urlAlfIP = &quot;&lt;%=strUrlAlfIP%&gt;&quot;;<br />
+	var currentAlfTicket = jQuery(&quot;#&lt;portlet:namespace/&gt;alfrescoticket&quot;).text();<br />
+	$(&quot;#&lt;portlet:namespace/&gt;buttonAlfLoginAndTicket&quot;).click(function(){<br />
+		if (currentAlfTicket == &quot;&quot;) {<br />
+			jQuery(&quot;#&lt;portlet:namespace/&gt;loading&quot;).html(&quot;&lt;img src='&lt;%=request.getContextPath()%&gt;/images/2-1.gif' border='0'&gt; loading ...&quot;);<br />
+			jQuery(&quot;#&lt;portlet:namespace/&gt;errormsg&quot;).html(&quot;&quot;);<br />
+			jQuery.get( '&lt;%=renderResponse.encodeURL(resource1AlfLogin)%&gt;',<br />
+					function (data1, textStatus1, jqXHR1) {<br />
+							jQuery(&quot;#&lt;portlet:namespace/&gt;alfrescoticket&quot;).html(data1.getElementsByTagName(&quot;ticket&quot;)[0].childNodes[0].nodeValue);<br />
+							jQuery.get( '&lt;%=renderResponse.encodeURL(resource2AlfFolderBrowser)%&gt;',<br />
+								'alf_ticket=' + data1.getElementsByTagName(&quot;ticket&quot;)[0].childNodes[0].nodeValue,<br />
+								function (data2, textStatus2, jqXHR2) {<br />
+									jQuery(&quot;#&lt;portlet:namespace/&gt;loading&quot;).html(&quot;&quot;);<br />
+									jQuery(&quot;#&lt;portlet:namespace/&gt;alfrescowscontent&quot;).html(&quot;&lt;b&gt;&lt;font color='blue'&gt;Folder:&lt;/font&gt;&lt;/b&gt; &quot; + $(data2).filter(&quot;title&quot;).text() + &quot;&lt;br&gt;&lt;table&gt;&quot;);<br />
+									var i=1;<br />
+									$(data2).find(&quot;a&quot;).each(<br />
+										function() {<br />
+											$(&quot;#&lt;portlet:namespace/&gt;alfrescowscontent&quot;).append( &quot;&lt;tr&gt;&lt;td&gt;&quot; +  i++  + &quot;&amp;nbsp;&amp;gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&lt;a href='&quot; + $(this).attr(&quot;href&quot;) + &quot;' id='IdLinkAlfPath'&gt;&quot; + $(this).text() + &quot;&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;&quot;);<br />
+										}<br />
+									);<br />
+									jQuery(&quot;#&lt;portlet:namespace/&gt;alfrescowscontent&quot;).append(&quot;&lt;/table&gt;&lt;hr/&gt;&quot;);<br />
+									jQuery(&quot;#&lt;portlet:namespace/&gt;errormsg&quot;).append(&quot;&lt;font color='green'&gt;* textStatus2: &quot; + textStatus2  + &quot;&lt;/font&gt;&lt;br/&gt;&quot;);<br />
+									jQuery(&quot;#&lt;portlet:namespace/&gt;errormsg&quot;).append(&quot;&lt;font color='green'&gt;* jqXHR2: &quot; + jqXHR2.status  + &quot;&lt;/font&gt;&lt;br/&gt;&quot;);<br />
+									jQuery(&quot;#&lt;portlet:namespace/&gt;loading&quot;).html(&quot;&quot;);<br />
+								},<br />
+								'html'<br />
+							).error(function() { //alert(&quot;2nd ajax error&quot;);<br />
+												}); // 2nd end-jquery-get<br />
+							jQuery(&quot;#&lt;portlet:namespace/&gt;errormsg&quot;).append(&quot;&lt;font color='green'&gt;* textStatus1: &quot; + textStatus1  + &quot;&lt;/font&gt;&lt;br/&gt;&quot;);<br />
+							jQuery(&quot;#&lt;portlet:namespace/&gt;errormsg&quot;).append(&quot;&lt;font color='green'&gt;* jqXHR1: &quot; + jqXHR1.status  + &quot;&lt;/font&gt;&lt;br/&gt;&quot;);<br />
+					} // end-function-data<br />
+			).error(function() { //alert(&quot;1st ajax error&quot;);<br />
+								}); // 1st end-jquery-get<br />
+		} // end-if<br />
+	}); // end-click-button</p>
+<p>	$('a#IdLinkAlfPath').live('click', function(event) {<br />
+		jQuery(&quot;#&lt;portlet:namespace/&gt;loading&quot;).html(&quot;&lt;img src='&lt;%=request.getContextPath()%&gt;/images/2-1.gif' border='0'&gt; loading ...&quot;);<br />
+		var urlAlfGeneric = &quot;&quot; + &quot;&lt;%=renderResponse.encodeURL(resourceUrlAlfIP)%&gt;&quot;;<br />
+		urlAlfGeneric = urlAlfGeneric.replace(encodeURIComponent(urlAlfIP), encodeURIComponent(urlAlfIP + $(this).attr(&quot;href&quot;)));</p>
+<p> 		jQuery.get( urlAlfGeneric,<br />
+ 			'alf_ticket=' + jQuery(&quot;#&lt;portlet:namespace/&gt;alfrescoticket&quot;).text(),<br />
+ 			function (data3, textStatus3, jqXHR3) {<br />
+ 				jQuery(&quot;#&lt;portlet:namespace/&gt;loading&quot;).html(&quot;&quot;);<br />
+ 				jQuery(&quot;#&lt;portlet:namespace/&gt;alfrescowscontent&quot;).html(&quot;&lt;b&gt;&lt;font color='blue'&gt;Folder:&lt;/font&gt;&lt;/b&gt; &quot; + $(data3).filter(&quot;title&quot;).text() + &quot;&lt;br&gt;&lt;table&gt;&quot;);<br />
+ 				var i=1;<br />
+ 				$(data3).find(&quot;a&quot;).each( function() {<br />
+ 					$(&quot;#&lt;portlet:namespace/&gt;alfrescowscontent&quot;).append( &quot;&lt;tr&gt;&lt;td&gt;&quot; +  i++  + &quot;&amp;nbsp;&amp;gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&lt;a href='&quot; + $(this).attr(&quot;href&quot;) + &quot;' id='IdLinkAlfPath'&gt;&quot; + $(this).text() + &quot;&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;&quot;);<br />
+ 				});<br />
+ 				jQuery(&quot;&lt;portlet:namespace/&gt;alfrescowscontent&quot;).append(&quot;&lt;/table&gt;&quot;);</p>
+<p>				jQuery(&quot;#&lt;portlet:namespace/&gt;errormsg&quot;).append(&quot;&lt;font color='green'&gt;* textStatus3: &quot; + textStatus3  + &quot;&lt;/font&gt;&lt;br/&gt;&quot;);<br />
+				jQuery(&quot;#&lt;portlet:namespace/&gt;errormsg&quot;).append(&quot;&lt;font color='green'&gt;* jqXHR3: &quot; + jqXHR3.status  + &quot;&lt;/font&gt;&lt;br/&gt;&quot;);				</p>
+<p> 				jQuery(&quot;#&lt;portlet:namespace/&gt;loading&quot;).html(&quot;&quot;);<br />
+ 			},<br />
+ 			'html'<br />
+ 		).error(function() { //alert(&quot;3rd ajax error&quot;);<br />
+ 							}); // 3rd end jQuery.get<br />
+		return false; 	// works, does not propagate<br />
+    });<br />
+    $('a#IdLinkAlfPath').trigger('click');</p>
+<p>    // jquery error management<br />
+	jQuery(&quot;#&lt;portlet:namespace/&gt;errormsg&quot;).ajaxError(<br />
+		function (event, jqXHR, ajaxSettings, thrownError) {<br />
+			jQuery(&quot;#&lt;portlet:namespace/&gt;errormsg&quot;).html(&quot;&quot;);<br />
+			jQuery(&quot;#&lt;portlet:namespace/&gt;errormsg&quot;).append(&quot;&lt;font color='red'&gt;* Status Code jqXHR: &quot; + jqXHR.status  + &quot;&lt;/font&gt;&lt;br/&gt;&quot;);<br />
+			jQuery(&quot;#&lt;portlet:namespace/&gt;errormsg&quot;).append(&quot;&lt;font color='red'&gt;* Status Text jqXHR: &quot; + jqXHR.statusText  + &quot;&lt;/font&gt;&lt;br/&gt;&quot;);<br />
+			jQuery(&quot;#&lt;portlet:namespace/&gt;errormsg&quot;).append(&quot;&lt;font color='red'&gt;* URL: &quot; + ajaxSettings.url  + &quot;&lt;/font&gt;&lt;br/&gt;&quot;);<br />
+			jQuery(&quot;#&lt;portlet:namespace/&gt;errormsg&quot;).append(&quot;&lt;font color='red'&gt;* thrownError: &quot; + jqXHR.statusText  + &quot;&lt;/font&gt;&lt;br/&gt;&quot;);</p>
+<p>			// intix: does not work HTTP_STATUS_CODE in 6.0.6 CE<br />
+            // http://issues.liferay.com/browse/LPS-13039<br />
+ 			// for this reason, bellow messages will not be show<br />
+			if(jqXHR.status == 0) {<br />
+				// a status of 0 indicates a failure to connect to alfresco<br />
+				jQuery(&quot;#&lt;portlet:namespace/&gt;errormsg&quot;).append(&quot;&lt;font color='red'&gt;* Message: Unable to reach the Alfresco server, check your network connection&lt;/font&gt;&quot;);<br />
+			}else if(jqXHR.status == 403) {<br />
+				// a 403 indicates that the login via the alfresco ticket service has failed.<br />
+				// display the &quot;access denied&quot; div<br />
+				jQuery(&quot;#&lt;portlet:namespace/&gt;errormsg&quot;).append(&quot;&lt;font color='red'&gt;* Message: An authentication error has occurred loading content from Alfresco, check login params&lt;/font&gt;&quot;);<br />
+			}else if(jqXHR.status == 500) {<br />
+				// we shouldn't see many 500 errors from Alfrsco services if they<br />
+				// have been properly configured.<br />
+				jQuery(&quot;#&lt;portlet:namespace/&gt;errormsg&quot;).append(&quot;&lt;font color='red'&gt;* Message: A server error has occurred loading content from Alfresco&lt;/font&gt;&quot;);<br />
+			}else {<br />
+				// report timeouts to the user<br />
+				jQuery(&quot;#&lt;portlet:namespace/&gt;errormsg&quot;).append(&quot;&lt;font color='red'&gt;* Message: Request to Alfresco server has timed out&lt;/font&gt;&quot;);<br />
+			}<br />
+			jQuery(&quot;#&lt;portlet:namespace/&gt;loading&quot;).html(&quot;&quot;);<br />
+		}<br />
+	); //end-ajax-error </p>
+<p>	// toggles the slickbox on clicking the noted link  <br />
+	$('#alf-error-slick-toggle').click(function() {<br />
+		$('#&lt;portlet:namespace/&gt;errormsg').toggle(400);<br />
+		return false;<br />
+	});</p>
+<p>	// toggles the slickbox on clicking the noted link  <br />
+	$('#alf-content-slick-toggle').click(function() {<br />
+		$('#&lt;portlet:namespace/&gt;alfrescowscontent').toggle(400);<br />
+		return false;<br />
+	});<br />
+});<br />
+&lt;/script&gt;</p>
+<p>&lt;input type=&quot;button&quot; id=&quot;&lt;portlet:namespace/&gt;buttonAlfLoginAndTicket&quot; value=&quot;Login Alfresco and get Ticket&quot;&gt;<br />
+&lt;hr&gt;</p>
+<p>&lt;!-- div to contain ticket retrieved from Alfresco Login web script --&gt;<br />
+&lt;div id=&quot;&lt;portlet:namespace/&gt;alfrescoticket&quot;&gt;&lt;/div&gt;</p>
+<p>&lt;!-- Div to hold loading image --&gt;<br />
+&lt;div id=&quot;&lt;portlet:namespace/&gt;loading&quot;&gt;&lt;img src=&quot;&lt;%=request.getContextPath()%&gt;/images/2-1.gif&quot; border=&quot;0&quot;&gt; ...click on above button to start or change params in portlet menu preferences!&lt;/div&gt;</p>
+<p>&lt;br/&gt;<br />
+&lt;!-- Div to hold error messages --&gt;<br />
+&lt;a href=&quot;#&quot; id=&quot;alf-error-slick-toggle&quot;&gt;[+] Toggle error console&lt;/a&gt;<br />
+&lt;div id=&quot;&lt;portlet:namespace/&gt;errormsg&quot; class=&quot;div_bg_white&quot; &gt; :) &lt;/div&gt;</p>
+<p>&lt;!-- Div to hold logs --&gt;<br />
+&lt;div id=&quot;&lt;portlet:namespace/&gt;logs&quot;&gt;&lt;/div&gt;</p>
+<p>&lt;br/&gt;<br />
+&lt;!-- Div to hold alfresco content --&gt;<br />
+&lt;a href=&quot;#&quot; id=&quot;alf-content-slick-toggle&quot;&gt;[+] Toggle Alfresco content&lt;/a&gt;<br />
+&lt;div class=&quot;div_bg_white&quot; id=&quot;&lt;portlet:namespace/&gt;alfrescowscontent&quot;&gt;:)&lt;/div&gt;<br />
+[/sourcecode]</p>
+<p>4. AjaxAlfrescoFolderBrowser.java extends GenericPortlet, in the serverResource method manages ajax calls and returns ResourceResponse to be parsed in view.jsp</p>
+<p>[sourcecode language="java" gutter="true" wraplines="false"]<br />
+package info.intix.lfry.samples;</p>
+<p>import com.liferay.portal.kernel.log.Log;<br />
+import com.liferay.portal.kernel.log.LogFactoryUtil;</p>
+<p>import java.io.BufferedInputStream;<br />
+import java.io.BufferedOutputStream;<br />
+import java.io.IOException;<br />
+import java.io.InputStream;<br />
+import java.net.HttpURLConnection;<br />
+import java.net.URL;<br />
+import java.util.Iterator;<br />
+import java.util.List;<br />
+import java.util.Map;<br />
+import java.util.Map.Entry;</p>
+<p>import javax.portlet.ActionRequest;<br />
+import javax.portlet.ActionResponse;<br />
+import javax.portlet.GenericPortlet;<br />
+import javax.portlet.PortletException;<br />
+import javax.portlet.PortletMode;<br />
+import javax.portlet.PortletPreferences;<br />
+import javax.portlet.PortletRequestDispatcher;<br />
+import javax.portlet.RenderRequest;<br />
+import javax.portlet.RenderResponse;<br />
+import javax.portlet.ResourceRequest;<br />
+import javax.portlet.ResourceResponse;</p>
+<p>/**<br />
+ * Portlet implementation class AjaxAlfrescoFolderBrowser<br />
+ */<br />
+public class AjaxAlfrescoFolderBrowser extends GenericPortlet {</p>
+<p>    public void init() {<br />
+        editJSP = getInitParameter(&quot;edit-jsp&quot;);<br />
+        helpJSP = getInitParameter(&quot;help-jsp&quot;);<br />
+        viewJSP = getInitParameter(&quot;view-jsp&quot;);<br />
+    }</p>
+<p>	/**<br />
+	 * intix: Changes are persisted when the store method is called.<br />
+	 * The store method can only be invoked within the scope of a processAction call.<br />
+	 * Changes that are not persisted are discarded when the processAction or render method ends.<br />
+	 */<br />
+    public void processAction(<br />
+            ActionRequest actionRequest, ActionResponse actionResponse)<br />
+        throws IOException, PortletException {</p>
+<p>        //super.processAction(actionRequest, actionResponse);<br />
+		PortletPreferences prefs = actionRequest.getPreferences();<br />
+		prefs.setValue(&quot;ticketUrl&quot;, actionRequest.getParameter(&quot;ticketUrl&quot;));<br />
+		prefs.setValue(&quot;alfServer&quot;, actionRequest.getParameter(&quot;alfServer&quot;));<br />
+		prefs.setValue(&quot;alfTicketSvc&quot;, actionRequest.getParameter(&quot;alfTicketSvc&quot;));<br />
+		prefs.setValue(&quot;alfTicketSvcParams&quot;, actionRequest.getParameter(&quot;alfTicketSvcParams&quot;));<br />
+		prefs.setValue(&quot;alfWebscriptBrowserURL&quot;, actionRequest.getParameter(&quot;alfWebscriptBrowserURL&quot;));<br />
+		prefs.setValue(&quot;alfWebscriptBrowserURLParams&quot;, actionRequest.getParameter(&quot;alfWebscriptBrowserURLParams&quot;));<br />
+		prefs.setValue(&quot;jQuery&quot;, actionRequest.getParameter(&quot;jQuery&quot;));<br />
+		prefs.store();<br />
+		actionResponse.setPortletMode(PortletMode.EDIT);<br />
+    }</p>
+<p>    /**<br />
+     * intix:<br />
+     */<br />
+    public void doEdit(<br />
+            RenderRequest renderRequest, RenderResponse renderResponse)<br />
+        throws IOException, PortletException {<br />
+		if (renderRequest.getPreferences() == null) {<br />
+			//super.doEdit(renderRequest, renderResponse);<br />
+		} else {<br />
+			// get editable preferences<br />
+			PortletPreferences prefs = renderRequest.getPreferences();</p>
+<p>			// intix: these values will override options in portlet.xml<br />
+			renderRequest.setAttribute(&quot;alfServer&quot;, (prefs.getValue(&quot;alfServer&quot;, &quot;&quot;)));<br />
+			renderRequest.setAttribute(&quot;alfTicketSvc&quot;, (prefs.getValue(&quot;alfTicketSvc&quot;, &quot;&quot;)));<br />
+			renderRequest.setAttribute(&quot;alfTicketSvcParams&quot;, (prefs.getValue(&quot;alfTicketSvcParams&quot;, &quot;&quot;)));<br />
+			renderRequest.setAttribute(&quot;alfWebscriptBrowserURL&quot;, (prefs.getValue(&quot;alfWebscriptBrowserURL&quot;, &quot;&quot;)));<br />
+			renderRequest.setAttribute(&quot;alfWebscriptBrowserURLParams&quot;, (prefs.getValue(&quot;alfWebscriptBrowserURLParams&quot;, &quot;&quot;)));<br />
+			renderRequest.setAttribute(&quot;jQuery&quot;, (prefs.getValue(&quot;jQuery&quot;, &quot;&quot;)));<br />
+			include(editJSP, renderRequest, renderResponse);<br />
+		}<br />
+    }</p>
+<p>    public void doHelp(<br />
+            RenderRequest renderRequest, RenderResponse renderResponse)<br />
+        throws IOException, PortletException {</p>
+<p>        include(helpJSP, renderRequest, renderResponse);<br />
+    }</p>
+<p>    /**<br />
+     * intix:<br />
+     */<br />
+    public void doView(<br />
+            RenderRequest renderRequest, RenderResponse renderResponse)<br />
+        throws IOException, PortletException {</p>
+<p>		try {<br />
+			// get portlet prefs<br />
+			PortletPreferences prefs = renderRequest.getPreferences();	</p>
+<p>			String alfServer = prefs.getValue(&quot;alfServer&quot;, &quot;&quot;);<br />
+			String alfTicketSvc = prefs.getValue(&quot;alfTicketSvc&quot;, &quot;&quot;);<br />
+			String alfTicketSvcParams = prefs.getValue(&quot;alfTicketSvcParams&quot;, &quot;&quot;);<br />
+			String alfWebscriptBrowserURL= prefs.getValue(&quot;alfWebscriptBrowserURL&quot;, &quot;&quot;);<br />
+			String alfWebscriptBrowserURLParams = prefs.getValue(&quot;alfWebscriptBrowserURLParams&quot;, &quot;&quot;);<br />
+			String jQuery = prefs.getValue(&quot;jQuery&quot;, &quot;&quot;);<br />
+			String ticketUrl = alfServer + alfTicketSvc + &quot;?&quot; + alfTicketSvcParams;</p>
+<p>			renderRequest.setAttribute(&quot;ticketUrl&quot;, ticketUrl);<br />
+			renderRequest.setAttribute(&quot;alfServer&quot;, alfServer);<br />
+			renderRequest.setAttribute(&quot;alfTicketSvc&quot;, alfTicketSvc);<br />
+			renderRequest.setAttribute(&quot;alfTicketSvcParams&quot;, alfTicketSvcParams);<br />
+			renderRequest.setAttribute(&quot;alfWebscriptBrowserURL&quot;, alfWebscriptBrowserURL);<br />
+			renderRequest.setAttribute(&quot;alfWebscriptBrowserURLParams&quot;, alfWebscriptBrowserURLParams);<br />
+			renderRequest.setAttribute(&quot;jQuery&quot;, jQuery);<br />
+		}catch(Exception ex) {<br />
+			_log.error(ex);<br />
+		}<br />
+        include(viewJSP, renderRequest, renderResponse);<br />
+    }</p>
+<p>    protected void include(<br />
+            String path, RenderRequest renderRequest,<br />
+            RenderResponse renderResponse)<br />
+        throws IOException, PortletException {</p>
+<p>        PortletRequestDispatcher portletRequestDispatcher =<br />
+            getPortletContext().getRequestDispatcher(path);</p>
+<p>        if (portletRequestDispatcher == null) {<br />
+            _log.error(path + &quot; is not a valid include&quot;);<br />
+        }<br />
+        else {<br />
+            portletRequestDispatcher.include(renderRequest, renderResponse);<br />
+        }<br />
+    }</p>
+<p>    /**<br />
+     * intix: serveResource does HTTP and Ajax call behind of Liferay<br />
+     */<br />
+    public void serveResource(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {<br />
+    	response.setContentType(&quot;text/xml&quot;);<br />
+		String strAlfTicket= request.getParameter(&quot;alf_ticket&quot;);<br />
+        String strQueryString = &quot;&quot;;<br />
+        if (strAlfTicket != null) {<br />
+			// intix: if alf_ticket exists, then user was authenticate with alfresco<br />
+			Map&lt;String, String[]&gt; mapParameters = request.getParameterMap();<br />
+			for (Entry&lt;String, String[]&gt; entryParameter : mapParameters.entrySet()) {<br />
+			    System.out.println(&quot;&gt;&gt; Key = &quot; + entryParameter.getKey() + &quot;, Value = &quot; + entryParameter.getValue()[0]);<br />
+			    strQueryString = strQueryString + entryParameter.getKey() + &quot;=&quot; + entryParameter.getValue()[0] + &quot;&amp;&quot;;<br />
+			}<br />
+		} else {<br />
+			// intix: ticket is null<br />
+			String strUser = request.getParameter(&quot;u&quot;);<br />
+			String strPw = request.getParameter(&quot;pw&quot;);<br />
+			strQueryString = &quot;u=&quot; + strUser + &quot;&amp;pw=&quot; + strPw;<br />
+		}<br />
+		String requestUrl = request.getResourceID();<br />
+    	BufferedInputStream web2ProxyBuffer = null;<br />
+        BufferedOutputStream proxy2ClientBuffer = null;<br />
+        HttpURLConnection con;<br />
+        URL url = null;<br />
+        try {<br />
+            int oneByte = 0;<br />
+            String methodName;<br />
+            if (strAlfTicket != null) {<br />
+            	url = new URL(requestUrl + &quot;?&quot; + strQueryString);<br />
+            } else {<br />
+            	url = new URL(requestUrl);<br />
+            }<br />
+            con = (HttpURLConnection) url.openConnection();<br />
+            methodName = request.getMethod();<br />
+            System.out.println(&quot;&gt;&gt; methodName: &quot; + methodName);</p>
+<p>            con.setRequestMethod(methodName);<br />
+            con.setDoOutput(true);<br />
+            con.setDoInput(true);<br />
+            con.setFollowRedirects(false);<br />
+            con.setUseCaches(true);<br />
+            con.connect();</p>
+<p>            // does not work in 6.0.6 CE<br />
+            // http://issues.liferay.com/browse/LPS-13039<br />
+            int httpRespCode = con.getResponseCode();<br />
+            response.setProperty(ResourceResponse.HTTP_STATUS_CODE, Integer.toString(httpRespCode));<br />
+            System.out.println(&quot;&gt;&gt; HTTP_STATUS_CODE: &quot; + httpRespCode);</p>
+<p>            if(methodName.equals(&quot;POST&quot;)) {<br />
+                BufferedInputStream clientToProxyBuf = new BufferedInputStream(request.getPortletInputStream());<br />
+                BufferedOutputStream proxyToWebBuf     = new BufferedOutputStream(con.getOutputStream());<br />
+                while ((oneByte = clientToProxyBuf.read()) != -1) {<br />
+                    proxyToWebBuf.write(oneByte);<br />
+                }<br />
+                proxyToWebBuf.flush();<br />
+                proxyToWebBuf.close();<br />
+                clientToProxyBuf.close();<br />
+            }</p>
+<p>            for( Iterator i = con.getHeaderFields().entrySet().iterator() ; i.hasNext() ;) {<br />
+                Map.Entry mapEntry = (Map.Entry)i.next();<br />
+                if(mapEntry.getKey()!=null) {<br />
+                    //response.setHeader(mapEntry.getKey().toString(), ((List)mapEntry.getValue()).get(0).toString());<br />
+                    System.out.println(&quot;&gt;&gt; HEADER &gt; &quot; + mapEntry.getKey().toString() + &quot;\t&quot; + ((List)mapEntry.getValue()).get(0).toString());<br />
+                }<br />
+            }</p>
+<p>            InputStream in = con.getInputStream();<br />
+            web2ProxyBuffer = new BufferedInputStream(in);<br />
+            proxy2ClientBuffer = new BufferedOutputStream(response.getPortletOutputStream());</p>
+<p> 			byte [] byteArray = new byte[1024]; // intix: any array size is valid<br />
+			int intByteRead = web2ProxyBuffer.read(byteArray);<br />
+			while (intByteRead &gt; 0) {<br />
+				// intix: print response-html/xml, must be the first line after while loop<br />
+				System.out.println(new String(byteArray, 0, intByteRead));<br />
+				proxy2ClientBuffer.write(byteArray, 0, intByteRead);<br />
+				intByteRead = web2ProxyBuffer.read(byteArray);<br />
+			}<br />
+            proxy2ClientBuffer.flush();<br />
+            proxy2ClientBuffer.close();<br />
+            web2ProxyBuffer.close();<br />
+            con.disconnect();<br />
+        } catch(Exception e) {<br />
+            e.getMessage();<br />
+        } finally {<br />
+        	//<br />
+        }<br />
+	}         </p>
+<p>    protected String editJSP;<br />
+    protected String helpJSP;<br />
+    protected String viewJSP;</p>
+<p>    private static Log _log = LogFactoryUtil.getLog(AjaxAlfrescoFolderBrowser.class);</p>
+<p>}<br />
+[/sourcecode]</p>
+<p>5. When you have successfully deployed the portlet, open a browser, login, then add the new portlet to any page. Then you see the following:</p>
+<p>[caption id="" align="alignnone" width="303" caption="Ajax Portlet calling Alfresco Webscripts"]<a href="http://dl.dropbox.com/u/2961879/blog20110920_ajaxalfrescoliferayportlet/ajaxalflfry_9ajaxportlet.png"><img class=" " title="Ajax Portlet calling Alfresco Webscripts" src="{{ site.baseurl }}/assets/ajaxalflfry_9ajaxportlet.png" alt="Ajax Portlet calling Alfresco Webscripts" width="303" height="295" /></a>[/caption]</p>
+<p>[caption id="" align="alignnone" width="411" caption="Ajax Portlet calling Alfresco Webscript - view mode"]<a href="http://dl.dropbox.com/u/2961879/blog20110920_ajaxalfrescoliferayportlet/ajaxalflfry_10ajaxportlet.png"><img class="  " title="Ajax Portlet calling Alfresco Webscript - view mode" src="{{ site.baseurl }}/assets/ajaxalflfry_10ajaxportlet.png" alt="Ajax Portlet calling Alfresco Webscript - view mode" width="411" height="472" /></a>[/caption]</p>
+<p>[caption id="" align="alignnone" width="401" caption="Ajax Portlet calling Alfresco Webscripts - edit mode"]<a href="http://dl.dropbox.com/u/2961879/blog20110920_ajaxalfrescoliferayportlet/ajaxalflfry_11ajaxportlet.png"><img class="   " title="Ajax Portlet calling Alfresco Webscripts - edit mode" src="{{ site.baseurl }}/assets/ajaxalflfry_11ajaxportlet.png" alt="Ajax Portlet calling Alfresco Webscripts - edit mode" width="401" height="337" /></a>[/caption]</p>
+<h2>Conclussions</h2>
+<ol>
+<li>In the JSR-286 specifications (Portlet 2.0) now is possible to use serveResource() method andto request data. I use it as a servlet-proxy to do ajax calls to Alfresco.</li>
+<li>Exists a issue in Liferay 6.0.6 when setting ResourceResponse.HTTP_STATUS_CODE in the Portlet response (<a href="http://issues.liferay.com/browse/LPS-13039">http://issues.liferay.com/browse/LPS-13039</a>), this implies I have to manage HTTP_STATUS_CODE by parsing the Ajax HTML/XML responses.</li>
+<li>I have Liferay and Alfresco in different VMs (different IP and Ports) and I never had cross-domain issues thanks to Point #1 (serveResource nad portlet:resourceURL), but if you run into it is recommended that you use Apache HTTP server as a reverse-proxy.</li>
+</ol>
+<p>You can download entire project (source code) and compiled from here:</p>
+<ol>
+<li>Source code (Liferay IDE project): <a href="http://dl.dropbox.com/u/2961879/blog20110920_ajaxalfrescoliferayportlet/AjaxAlfrescoFolderBrowser-portlet.zip">AjaxAlfrescoFolderBrowser-portlet.zip</a></li>
+<li>Compiled: <a href="http://dl.dropbox.com/u/2961879/blog20110920_ajaxalfrescoliferayportlet/AjaxAlfrescoFolderBrowser-portlet.war">AjaxAlfrescoFolderBrowser-portlet.war</a></li>
+</ol>
+<p>End.</p>

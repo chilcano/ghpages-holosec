@@ -1,0 +1,73 @@
+---
+layout: post
+title: Liferay Portal 5.2.3 & 6.0.1 RC quick install
+date: 2010-04-26 17:09:15.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Linux
+tags:
+- Portal
+meta:
+  _edit_last: '578869'
+  _wpas_done_twitter: '1'
+author:
+  login: rcarhuatocto
+  email: roger@intix.info
+  display_name: Roger CARHUATOCTO
+  first_name: ''
+  last_name: ''
+permalink: "/2010/04/26/liferay-portal-6-0-1-rc-quick-install/"
+---
+<p>Hi there!</p>
+<p>In the last two months I had to perform many Liferay instalations  with different configurations, here I put some quick notes for a clean  installation of Liferay (for version 5.2.3 and 6.0.1 RC1) very necessary  if we want to develop applications on Liferay.</p>
+<div>
+<dl>
+<dt><a href="http://holisticsecurity.files.wordpress.com/2010/04/liferay_601.png"><img title="liferay_601" src="{{ site.baseurl }}/assets/liferay_601.png" alt="Liferay Portal 6.0.1 RC1" width="167" height="52" /></a></dt>
+<dd>Liferay Portal 6.0.1 RC1</dd>
+</dl>
+</div>
+<p>1. Unzip <strong>liferay-portal-XXX.zip</strong> in <strong>%LIFERAY_HOME%</strong></p>
+<p>2. Change the default portsand avoid conflicts. Edit the file <strong>%LIFERAY_HOME%\tomcat-YYY\conf\server.xml</strong> and change the follow ports:</p>
+<blockquote>
+<div id="_mcePaste">8080 -&gt; 9090</div>
+<div id="_mcePaste">8005 -&gt; 9005</div>
+<div id="_mcePaste">8443 -&gt; 9443</div>
+<div id="_mcePaste">8009 -&gt; 9009</div>
+</blockquote>
+<p>3. Edit the Pool connection in <strong>%LIFERAY_PORTAL%\tomcat-YYY\webapps\ROOT\WEB-INF\classes\portal-ext.properties</strong> (this file is not included in 5.2.3 and 6.0.1 bundle)</p>
+<div>
+<div id="_mcePaste"><em>portal-ext.properties</em></div>
+<blockquote>
+<div id="_mcePaste">jdbc.default.jndi.name=jdbc/LiferayPool</div>
+</blockquote>
+</div>
+<p>4. Edit <strong>%LIFERAY_HOME%\tomcat-YYY\conf\Catalina\localhost\ROOT.xml</strong> file and to add database (i.e. mysql) connection.</p>
+<div id="_mcePaste"><em>ROOT.xml</em></div>
+<blockquote>
+<div id="_mcePaste">[...]</div>
+<div id="_mcePaste">&lt;Resource</div>
+<div id="_mcePaste">name="jdbc/LiferayPool"</div>
+<div id="_mcePaste">auth="Container"</div>
+<div id="_mcePaste">type="javax.sql.DataSource"</div>
+<div id="_mcePaste">driverClassName="com.mysql.jdbc.Driver"</div>
+<div id="_mcePaste">url="jdbc:mysql://localhost:3306/<strong>lportal_db</strong>?useUnicode=true&amp;amp;characterEncoding=UTF-8"</div>
+<div id="_mcePaste">username="root"</div>
+<div id="_mcePaste">password=""</div>
+<div id="_mcePaste">maxActive="20"</div>
+<div id="_mcePaste">/&gt;</div>
+<div id="_mcePaste">[...]</div>
+<div id="_mcePaste">&lt;/Context&gt;</div>
+</blockquote>
+<p>5. Ensure that the MySQL JDBC Driver exists in <strong>%LIFERAY_HOME%\tomcat-YYY\lib\ext</strong> folder.</p>
+<p>6. Create an empty Database with the necessary rights. Execute the  follow sql command:</p>
+<blockquote>
+<div id="_mcePaste">CREATE DATABASE <strong>lportal_db</strong> CHARACTER SET  utf8;</div>
+<div id="_mcePaste">GRANT ALL ON <strong>lportal_db</strong>.* TO "<strong>YourUserName</strong>"@"localhost";</div>
+</blockquote>
+<p>7. Start Liferay Portal server. Execute <strong>%LIFERAY_HOME%\tomcat-YYY\bin\startup.bat</strong></p>
+<p>These notes also apply to linux too.</p>
+<p>Bye.</p>

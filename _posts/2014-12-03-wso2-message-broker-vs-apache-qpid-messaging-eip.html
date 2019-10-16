@@ -1,0 +1,579 @@
+---
+layout: post
+title: WSO2 Message Broker vs. Apache Qpid - Messaging Integration Patterns
+date: 2014-12-03 00:17:51.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Big Data
+- Broker
+- IoT
+- SOA
+tags:
+- ActiveMQ
+- Apache Qpid
+- Message Broker
+- RabbitMQ
+- WSO2 ESB
+- WSO2 MB
+meta:
+  _wpcom_is_markdown: '1'
+  _edit_last: '578869'
+  geo_public: '0'
+  _oembed_68ab63cf3c83b0e8870d462542def505: "{{unknown}}"
+  _oembed_add2bceef8799eea647f1d59b9285055: "{{unknown}}"
+  _oembed_f8cbfbce7084f87150c0273888668f02: "{{unknown}}"
+  _publicize_pending: '1'
+  publicize_google_plus_url: https://plus.google.com/113031469837757886298/posts/RtGkEDF92Gj
+  _wpas_done_5053089: '1'
+  _publicize_done_external: a:1:{s:11:"google_plus";a:1:{s:21:"113031469837757886298";b:1;}}
+  publicize_twitter_user: Chilcano
+  publicize_twitter_url: http://t.co/9YR19Wz2qm
+  _wpas_done_13849: '1'
+  publicize_linkedin_url: https://www.linkedin.com/updates?discuss=&scope=6985267&stype=M&topic=5945687166163132416&type=U&a=i54z
+  _wpas_done_5053092: '1'
+  _oembed_7ea286c2da29ae60529083a8d34b7d69: "{{unknown}}"
+  _oembed_b0c9eca7ee05448fe3368b31ab8ca90f: "{{unknown}}"
+  _oembed_a5fbbb848cec353ef912361256462c5e: "{{unknown}}"
+  _oembed_5a8ae095d3457852b18c74fc3d1976cc: "{{unknown}}"
+  _oembed_90c371a072ca25aebf7a2112c7f61362: "{{unknown}}"
+  _oembed_08bc3e05731d41f71b7801c94381d0f1: "{{unknown}}"
+  _oembed_c495d8616994c887e1b7c4a9ec3b9819: "{{unknown}}"
+  _oembed_c68b25ad43ccca200ba1e1add6a51638: "{{unknown}}"
+author:
+  login: rcarhuatocto
+  email: roger@intix.info
+  display_name: Roger CARHUATOCTO
+  first_name: ''
+  last_name: ''
+permalink: "/2014/12/03/wso2-message-broker-vs-apache-qpid-messaging-eip/"
+---
+<p>If you want to define an Integration Architecture based on Messaging with WSO2, the only alternative you have is to do with WSO2 Message Broker and possibly also with Apache ActiveMQ.<br />
+In earlier versions of WSO2 ESB, the WSO2 web had official information on how to integrate WSO2 ESB and Apache ActiveMQ, integrate both always was a common pattern, now it has been left in place of WSO2 Message Broker.</p>
+<p>Initially to use WSO2 ESB and Apache ActiveMQ was the de-facto solution to implement the Messaging Integration Architecture, but now all the focus are on WSO2 Message Broker. The product strategy for WSO2 Message Broker is being used in big and critical projects, for example, below some use cases:</p>
+<ul>
+<li>Guarantee Delivery</li>
+<li>Large volumes of messages</li>
+<li>Persistence of several and big messages</li>
+<li>High availability &amp; scalability</li>
+</ul>
+<p>Well, WSO2 Message Broker is perfect for BigData or IoT Projects, but what if we want implement and solve the same requirements but without losing functionalities. Then, What Message Broker or MOM tool should I use?.</p>
+<p>Apache ActiveMQ is a good alternative, JBoss HornetQ, RabbitMQ and other. Some time ago I wrote about of this, here the blog post:<br />
+<a href="https://holisticsecurity.wordpress.com/2014/03/07/message-brokering-y-recoleccion-datos-big-data-wso2">https://holisticsecurity.wordpress.com/2014/03/07/message-brokering-y-recoleccion-datos-big-data-wso2</a></p>
+<p>So what alternatives do we have to WSO2 Message Broker comparable to robustness, scalability, interoperability, lightweight without losing functionalities?. The answer is Apache Qpid. Now we will explain why.</p>
+<h1>I. Why Apache Qpid is a good comparable alternative to WSO2 Message Broker?</h1>
+<ol>
+<li>Earlier releases of WSO2 Message Broker had Apache Qpid embedded.</li>
+<li>Last release of WSO2 Message Broker uses WSO2 Andes, an extended version of Apache Qpid, to connect to Apache Cassandra as message store backend.</li>
+<li>WSO2 ESB solves the most common EIPs for messaging (guarantee delivery, persistence of messages, routing, selective channels, etc.) by developing 2 features as are the MessageStore and MessageProcessor. These features are implement on top of JMS and are technically agnostic. In other words, if the Message Broker implements JMS, then there are many possibilities that the Message Broker can be integrated to WSO2 ESB.</li>
+<li>Apache Qpid is a Message Broker lightweight, powerful, robust and has different message implementation, they are:
+<ul>
+<li>In-memory message store.</li>
+<li>Apache Derby store.</li>
+<li>Message store based on Oracle Berkeley DB, suitable to create high available messaging platforms.</li>
+</ul>
+</li>
+<li>Apache Qpid is compatible with: JMS 1.1, AMQP 1.0, 0-8, 0-9 and 0-9-1.</li>
+<li>If you want to play with WSO2 Message Broker, you should do it on an robust and powerful infraestructura, however, that is not necessary for Apache Qpid. You can run Apache Qpid in constrained infraestructure.
+</li>
+<li>Other alternatives to WSO2 Message Broker could be:
+<ul>
+<li>Apache ActiveMQ, although is a project mature, it is big compared to Apache Qpid and its architecture is its limit.</li>
+<li>RabbitMQ, it is bigger than Apache Qpid, but its architecture is based on plugins, it is faster but does not implement AMQP 1.0 natively, is necessary install an experimental plugin (https://www.rabbitmq.com/specification.html).</li>
+</ul>
+</li>
+</ol>
+<p>Well, after of this little introduction, I will explain step-by-step how to integrate quickly WSO2 ESB with Apache Qpid, how to enable JMS transport for Synapse Proxies and how to implement the EIP related to messaging.</p>
+<h1>II. Installation of Apache Qpid</h1>
+<p>1.- Download Apache Qpid. The latest version is 0.30 (qpid-broker-0.30-bin.tar.gz) and you can download from here <a href="http://qpid.apache.org/components/java-broker/index.html">http://qpid.apache.org/components/java-broker/index.html</a></p>
+<p>2.- Unzip and run it.</p>
+<p>[sourcecode language="html" gutter="true" wraplines="false"]<br />
+$ ~/0dev-env/2srv/qpid-broker-0.30/bin/qpid-server<br />
+System Properties set to -Damqj.logging.level=info -DQPID_HOME=/Users/Chilcano/0dev-env/2srv/qpid-broker-0.30 -DQPID_WORK=/Users/Chilcano/0dev-env/2srv/qpid-work-std<br />
+QPID_OPTS set to -Damqj.read_write_pool_size=32 -DQPID_LOG_APPEND=<br />
+Using QPID_CLASSPATH /Users/Chilcano/0dev-env/2srv/qpid-broker-0.30/lib/*:/Users/Chilcano/0dev-env/2srv/qpid-broker-0.30/lib/plugins/*:/Users/Chilcano/0dev-env/2srv/qpid-broker-0.30/lib/opt/*<br />
+Info: QPID_JAVA_GC not set. Defaulting to JAVA_GC -XX:+UseConcMarkSweepGC -XX:+HeapDumpOnOutOfMemoryError<br />
+Info: QPID_JAVA_MEM not set. Defaulting to JAVA_MEM -Xmx2g<br />
+log4j:WARN No appenders could be found for logger (org.apache.qpid.server.plugin.QpidServiceLoader).<br />
+log4j:WARN Please initialize the log4j system properly.<br />
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.<br />
+[Broker] BRK-1006 : Using configuration : /Users/Chilcano/0dev-env/2srv/qpid-work-std/config.json<br />
+[Broker] BRK-1007 : Using logging configuration : /Users/Chilcano/0dev-env/2srv/qpid-broker-0.30/etc/log4j.xml<br />
+[Broker] BRK-1001 : Startup : Version: 0.30 Build: Unversioned directory<br />
+[Broker] BRK-1010 : Platform : JVM : Oracle Corporation version: 1.7.0_51-b13 OS : Mac OS X version: 10.10 arch: x86_64<br />
+[Broker] BRK-1011 : Maximum Memory : 2,077,753,344 bytes<br />
+[Broker] BRK-1002 : Starting : Listening on TCP port 5672<br />
+[Broker] MNG-1001 : Web Management Startup<br />
+[Broker] MNG-1002 : Starting : HTTP : Listening on port 8080<br />
+[Broker] MNG-1004 : Web Management Ready<br />
+[Broker] MNG-1001 : JMX Management Startup<br />
+[Broker] MNG-1002 : Starting : RMI Registry : Listening on port 8999<br />
+[Broker] MNG-1002 : Starting : JMX RMIConnectorServer : Listening on port 9099<br />
+[Broker] MNG-1004 : JMX Management Ready<br />
+[Broker] BRK-1004 : Qpid Broker Ready<br />
+[/sourcecode]</p>
+<p>If you want change the working directory, then you should define "QPID_WORK" variable in 'qpid-server' file or as System Variable in your S.O.:</p>
+<p>[sourcecode language="html" gutter="true" wraplines="false"]<br />
+export QPID_WORK=$HOME/0dev-env/2srv/qpid-work-std<br />
+[/sourcecode]</p>
+<p>3.- If you want change ports, enable services, exchanges, enable plugins or replace default configuration, you have a lot of possibilities, just follow this indications:</p>
+<p><a href="https://qpid.apache.org/releases/qpid-0.30/java-broker/book/Java-Broker-Configuring-And-Managing.html">https://qpid.apache.org/releases/qpid-0.30/java-broker/book/Java-Broker-Configuring-And-Managing.html</a></p>
+<p>4.- If you want configure High Availability or configure a Cluster of Apache Qpid, then just follow this informations. You could configure Apache Qpid HA as Active-Pasive or Active-Active with automatic Failover.<br />
+Check this information:</p>
+<p><a href="http://qpid.apache.org/releases/qpid-0.30/java-broker/book/Java-Broker-High-Availability.html">http://qpid.apache.org/releases/qpid-0.30/java-broker/book/Java-Broker-High-Availability.html</a></p>
+<h1>III. Enabling JMS transport in WSO2 ESB for Apache Qpid</h1>
+<p>[caption width="1183" align="alignnone"]<img src="{{ site.baseurl }}/assets/qpid-01-jms-transport-wso2esb.png" width="1183" height="397" alt="Enabling JMS Transport" class /> Enabling JMS Transport[/caption]</p>
+<p>1.- After of installation of WSO2 ESB, to edit the file %WSO2ESB_HOME%/repository/conf/axis2/axis2.xml and add the JMSSender and JMSListener for Apache Qpid as follow:</p>
+<p>[sourcecode language="xml" gutter="true" wraplines="false"]<br />
+[...]</p>
+<p>  &lt;!-- ================================================= --&gt;<br />
+  &lt;!--             Transport Ins (Listeners)             --&gt;<br />
+  &lt;!-- ================================================= --&gt;</p>
+<p>[...]</p>
+<p>    &lt;!-- SAP Transport Listeners --&gt;<br />
+    &lt;!-- &lt;transportReceiver name=&quot;idoc&quot; class=&quot;org.wso2.carbon.transports.sap.SAPTransportListener&quot;/&gt; --&gt;<br />
+    &lt;!-- &lt;transportReceiver name=&quot;bapi&quot; class=&quot;org.wso2.carbon.transports.sap.SAPTransportListener&quot;/&gt; --&gt;</p>
+<p>    &lt;!-- **** JMS Transport LISTENER support with Apache Qpid **** --&gt;<br />
+  &lt;transportReceiver name=&quot;jms&quot; class=&quot;org.apache.axis2.transport.jms.JMSListener&quot;&gt;<br />
+    &lt;parameter name=&quot;myTopicConnectionFactory&quot; locked=&quot;false&quot;&gt;<br />
+        &lt;parameter name=&quot;java.naming.factory.initial&quot; locked=&quot;false&quot;&gt;org.apache.qpid.jndi.PropertiesFileInitialContextFactory&lt;/parameter&gt;<br />
+        &lt;parameter name=&quot;java.naming.provider.url&quot; locked=&quot;false&quot;&gt;repository/conf/jndi.properties&lt;/parameter&gt;<br />
+        &lt;parameter name=&quot;transport.jms.ConnectionFactoryJNDIName&quot; locked=&quot;false&quot;&gt;TopicConnectionFactory&lt;/parameter&gt;<br />
+        &lt;parameter name=&quot;transport.jms.ConnectionFactoryType&quot; locked=&quot;false&quot;&gt;topic&lt;/parameter&gt;<br />
+    &lt;/parameter&gt;</p>
+<p>    &lt;parameter name=&quot;myQueueConnectionFactory&quot; locked=&quot;false&quot;&gt;<br />
+        &lt;parameter name=&quot;java.naming.factory.initial&quot; locked=&quot;false&quot;&gt;org.apache.qpid.jndi.PropertiesFileInitialContextFactory&lt;/parameter&gt;<br />
+        &lt;parameter name=&quot;java.naming.provider.url&quot; locked=&quot;false&quot;&gt;repository/conf/jndi.properties&lt;/parameter&gt;<br />
+        &lt;parameter name=&quot;transport.jms.ConnectionFactoryJNDIName&quot; locked=&quot;false&quot;&gt;QueueConnectionFactory&lt;/parameter&gt;<br />
+        &lt;parameter name=&quot;transport.jms.ConnectionFactoryType&quot; locked=&quot;false&quot;&gt;queue&lt;/parameter&gt;<br />
+    &lt;/parameter&gt;</p>
+<p>    &lt;parameter name=&quot;default&quot; locked=&quot;false&quot;&gt;<br />
+        &lt;parameter name=&quot;java.naming.factory.initial&quot; locked=&quot;false&quot;&gt;org.apache.qpid.jndi.PropertiesFileInitialContextFactory&lt;/parameter&gt;<br />
+        &lt;parameter name=&quot;java.naming.provider.url&quot; locked=&quot;false&quot;&gt;repository/conf/jndi.properties&lt;/parameter&gt;<br />
+        &lt;parameter name=&quot;transport.jms.ConnectionFactoryJNDIName&quot; locked=&quot;false&quot;&gt;QueueConnectionFactory&lt;/parameter&gt;<br />
+        &lt;parameter name=&quot;transport.jms.ConnectionFactoryType&quot; locked=&quot;false&quot;&gt;queue&lt;/parameter&gt;<br />
+    &lt;/parameter&gt;<br />
+  &lt;/transportReceiver&gt;</p>
+<p>    &lt;!-- ================================================= --&gt;<br />
+    &lt;!--             Transport Outs (Senders)              --&gt;<br />
+    &lt;!-- ================================================= --&gt;</p>
+<p>[...]</p>
+<p>    &lt;!-- SAP Transport Senders --&gt;<br />
+    &lt;!-- &lt;transportSender name=&quot;idoc&quot; class=&quot;org.wso2.carbon.transports.sap.SAPTransportSender&quot;/&gt; --&gt;<br />
+    &lt;!-- &lt;transportSender name=&quot;bapi&quot; class=&quot;org.wso2.carbon.transports.sap.SAPTransportSender&quot;/&gt; --&gt;</p>
+<p>  &lt;!-- **** JMS Transport SENDER support with Apache Qpid **** --&gt;<br />
+  &lt;transportSender name=&quot;jms&quot; class=&quot;org.apache.axis2.transport.jms.JMSSender&quot;/&gt;</p>
+<p>    &lt;!-- ================================================= --&gt;<br />
+    &lt;!--             Global Engaged Modules                --&gt;<br />
+    &lt;!-- ================================================= --&gt;</p>
+<p>[...]<br />
+[/sourcecode]</p>
+<p>2.- Now, download the Apache Qpid Java Client (qpid-client-0.30-bin.tar) from http://qpid.apache.org/components/qpid-jms/index.html, unzip it and copy the qpid-client-0.30.jar and qpid-common-0.30.jar to %WSO2ESB_HOME%/repository/components/lib/ and restart WSO2 ESB.</p>
+<p>3.- Edit the JNDI file (%WSO2ESB_HOME%/repository/conf/jndi.properties) as follow:</p>
+<p>[sourcecode language="html" gutter="true" wraplines="false"]<br />
+# register some connection factories<br />
+# connectionfactory.[jndiname] = [ConnectionURL]<br />
+##connectionfactory.QueueConnectionFactory = amqp://admin:admin@clientID/test?brokerlist='tcp://localhost:5672'<br />
+connectionfactory.QueueConnectionFactory = amqp://admin:admin@clientID/default?brokerlist='tcp://localhost:5672'<br />
+connectionfactory.TopicConnectionFactory = amqp://admin:admin@clientID/default?brokerlist='tcp://localhost:5672'</p>
+<p># register some queues in JNDI using the form<br />
+# queue.[jndiName] = [physicalName]<br />
+queue.MyJNDIQueue02 = QPID_QUEUE_02</p>
+<p># register some topics in JNDI using the form<br />
+# topic.[jndiName] = [physicalName]<br />
+##topic.MyTopic = example.MyTopic<br />
+[/sourcecode]</p>
+<p>Where:</p>
+<ul>
+<li>'clientID/default' is the identifier of client used to connect and the virtualhost respectively.
+</li>
+<li>'MyJNDIQueue02' is the JNDI name for my queue and 'QPID_QUEUE_02' is the physical queue name. They will used in the next section, when creating MessaeStore and MessaProcessor.
+</li>
+</ul>
+<p>4.- Create a Synapse Proxy in WSO2 ESB to send a message to Apache Qpid.</p>
+<p>[sourcecode language="xml" gutter="true" wraplines="false"]<br />
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;<br />
+&lt;proxy xmlns=&quot;http://ws.apache.org/ns/synapse&quot;<br />
+       name=&quot;ProxyQpidSender&quot;<br />
+       transports=&quot;http&quot;<br />
+       statistics=&quot;disable&quot;<br />
+       trace=&quot;disable&quot;<br />
+       startOnLoad=&quot;true&quot;&gt;<br />
+   &lt;target&gt;<br />
+      &lt;inSequence&gt;<br />
+         &lt;property name=&quot;OUT_ONLY&quot; value=&quot;true&quot; scope=&quot;default&quot; type=&quot;STRING&quot;/&gt;<br />
+         &lt;property name=&quot;FORCE_SC_ACCEPTED&quot;<br />
+                   value=&quot;true&quot;<br />
+                   scope=&quot;axis2&quot;<br />
+                   type=&quot;STRING&quot;/&gt;<br />
+         &lt;header name=&quot;Action&quot; scope=&quot;default&quot; value=&quot;ProxyQpidSender&quot;/&gt;<br />
+         &lt;property name=&quot;SYS_DATE&quot;<br />
+                   expression=&quot;get-property('SYSTEM_DATE')&quot;<br />
+                   scope=&quot;default&quot;/&gt;<br />
+         &lt;payloadFactory media-type=&quot;xml&quot;&gt;<br />
+            &lt;format&gt;<br />
+               &lt;MySysDate xmlns=&quot;&quot;&gt;Date $1&lt;/MySysDate&gt;<br />
+            &lt;/format&gt;<br />
+            &lt;args&gt;<br />
+               &lt;arg evaluator=&quot;xml&quot; expression=&quot;$ctx:SYS_DATE&quot;/&gt;<br />
+            &lt;/args&gt;<br />
+         &lt;/payloadFactory&gt;<br />
+         &lt;property xmlns:soapenv=&quot;http://www.w3.org/2003/05/soap-envelope&quot;<br />
+                   name=&quot;MSG_BODY_IN&quot;<br />
+                   expression=&quot;//soapenv:Body&quot;<br />
+                   scope=&quot;default&quot;/&gt;<br />
+         &lt;log level=&quot;custom&quot;&gt;<br />
+            &lt;property name=&quot;[ProxyQpidSender] BODY SENT&quot; expression=&quot;$ctx:MSG_BODY_IN&quot;/&gt;<br />
+         &lt;/log&gt;<br />
+         &lt;send&gt;<br />
+            &lt;endpoint&gt;<br />
+              &lt;address uri=&quot;jms:/QPID_QUEUE_01?transport.jms.ConnectionFactoryJNDIName=QueueConnectionFactory&amp;amp;java.naming.factory.initial=org.apache.qpid.jndi.PropertiesFileInitialContextFactory&amp;amp;java.naming.provider.url=repository/conf/jndi.properties&amp;amp;transport.jms.ConnectionFactoryType=queue&quot;/&gt;<br />
+            &lt;/endpoint&gt;<br />
+         &lt;/send&gt;<br />
+      &lt;/inSequence&gt;<br />
+   &lt;/target&gt;<br />
+   &lt;description&gt;Send a message to Apache Qpid queue (QPID_QUEUE_01)&lt;/description&gt;<br />
+&lt;/proxy&gt;<br />
+[/sourcecode]</p>
+<p>Now we can send messages using this Proxy and in the Apache Qpid side are as shown:</p>
+<p>[caption width="2364" align="alignnone"]<img src="{{ site.baseurl }}/assets/qpid-02-message-in-broker.png" width="2364" height="2210" alt="inspecting the store messages in Apache Qpid" class /> inspecting the store messages in Apache Qpid[/caption]</p>
+<p>5.- Create a Synapse Proxy in WSO2 ESB to listen for messages from Apache Qpid.</p>
+<p>[sourcecode language="xml" gutter="true" wraplines="false"]<br />
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;<br />
+&lt;proxy xmlns=&quot;http://ws.apache.org/ns/synapse&quot;<br />
+       name=&quot;ProxyQpidReceiver&quot;<br />
+       transports=&quot;jms&quot;<br />
+       statistics=&quot;disable&quot;<br />
+       trace=&quot;disable&quot;<br />
+       startOnLoad=&quot;true&quot;&gt;<br />
+   &lt;target&gt;<br />
+      &lt;inSequence&gt;<br />
+         &lt;property name=&quot;OUT_ONLY&quot; value=&quot;true&quot;/&gt;<br />
+         &lt;property xmlns:soapenv=&quot;http://www.w3.org/2003/05/soap-envelope&quot;<br />
+                   name=&quot;MSG_FROM_QUEUE&quot;<br />
+                   expression=&quot;//soapenv:Body&quot;<br />
+                   scope=&quot;default&quot;/&gt;<br />
+         &lt;log level=&quot;custom&quot;&gt;<br />
+            &lt;property name=&quot;[ProxyQpidReceiver] MSG RECEIVED&quot;<br />
+                      expression=&quot;$ctx:MSG_FROM_QUEUE&quot;/&gt;<br />
+         &lt;/log&gt;<br />
+      &lt;/inSequence&gt;<br />
+   &lt;/target&gt;<br />
+   &lt;parameter name=&quot;transport.jms.ContentType&quot;&gt;<br />
+      &lt;rules&gt;<br />
+         &lt;jmsProperty&gt;contentType&lt;/jmsProperty&gt;<br />
+         &lt;default&gt;application/soap+xml&lt;/default&gt;<br />
+      &lt;/rules&gt;<br />
+   &lt;/parameter&gt;<br />
+   &lt;parameter name=&quot;transport.jms.ConnectionFactory&quot;&gt;myQueueConnectionFactory&lt;/parameter&gt;<br />
+   &lt;parameter name=&quot;transport.jms.Destination&quot;&gt;QPID_QUEUE_01&lt;/parameter&gt;<br />
+   &lt;parameter name=&quot;transport.jms.ConnectionFactoryType&quot;&gt;queue&lt;/parameter&gt;<br />
+   &lt;description&gt;Message received from Apache Qpid queue (QPID_QUEUE_01)&lt;/description&gt;<br />
+&lt;/proxy&gt;<br />
+[/sourcecode]</p>
+<p>6.- Now we can test this configuration using SoapUI and follow the logs in WSO2 ESB console.</p>
+<p>[sourcecode language="html" gutter="true" wraplines="false"]<br />
+[...]<br />
+[2014-11-27 22:13:29,000]  INFO - LogMediator [ProxyQpidSender] BODY SENT = &lt;soap:Body xmlns:soap=&quot;http://www.w3.org/2003/05/soap-envelope&quot;&gt;&lt;MySysDate&gt;Date 11/27/14 10:13 PM&lt;/MySysDate&gt;&lt;/soap:Body&gt;<br />
+[2014-11-27 22:13:29,021]  INFO - LogMediator [ProxyQpidReceiver] BODY RECEIVED = &lt;soap:Body xmlns:soap=&quot;http://www.w3.org/2003/05/soap-envelope&quot;&gt;&lt;MySysDate&gt;Date 11/27/14 10:13 PM&lt;/MySysDate&gt;&lt;/soap:Body&gt;<br />
+[2014-11-27 22:13:29,474] DEBUG - ServerWorker Starting a new Server Worker instance<br />
+[2014-11-27 22:13:29,476]  INFO - LogMediator [ProxyQpidSender] BODY SENT = &lt;soap:Body xmlns:soap=&quot;http://www.w3.org/2003/05/soap-envelope&quot;&gt;&lt;MySysDate&gt;Date 11/27/14 10:13 PM&lt;/MySysDate&gt;&lt;/soap:Body&gt;<br />
+[2014-11-27 22:13:29,496]  INFO - LogMediator [ProxyQpidReceiver] BODY RECEIVED = &lt;soap:Body xmlns:soap=&quot;http://www.w3.org/2003/05/soap-envelope&quot;&gt;&lt;MySysDate&gt;Date 11/27/14 10:13 PM&lt;/MySysDate&gt;&lt;/soap:Body&gt;<br />
+[...]<br />
+[/sourcecode]</p>
+<p>7.- Conclusions:</p>
+<ul>
+<li>The first time you run the "ProxyQpidSender" proxy, the proxy will automatically create the "QPID_QUEUE_01" queue in Apache Qpid.</li>
+<li>If you run several times the "ProxyQpidSender" proxy to send and store message in "QPID_QUEUE_01" queue, they will be processed quickly for the "ProxyQpidReceiver" proxy, because this proxy is listen permanently for messages in this queue.<br />
+But, if you want inspect the payload of the messages, I recommend you disable the "ProxyQpidReceiver" proxy in WSO2 ESB. Of this way, using Apache Qpid Web Console you can review any aspect of message (header and payload).</li>
+<li>The "ProxyQpidSender" proxy has as transport the HTTP protocol and "ProxyQpidReceiver" proxy is using JMS transport. </li>
+</ul>
+<h1>IV. WSO2 ESB Message Store and Message Processor for Apache Qpid</h1>
+<h2>IV.1. Creating a Message Store in WSO2 ESB</h2>
+<p>1.- Create the WSO2 ESB Message Store pointing to QPID_QUEUE_02.</p>
+<p>[sourcecode language="xml" gutter="true" wraplines="false"]<br />
+&lt;messageStore name=&quot;MsgStoreQpid02&quot; class=&quot;org.apache.synapse.message.store.impl.jms.JmsStore&quot; xmlns=&quot;http://ws.apache.org/ns/synapse&quot;&gt;<br />
+   &lt;parameter name=&quot;java.naming.factory.initial&quot;&gt;org.apache.qpid.jndi.PropertiesFileInitialContextFactory&lt;/parameter&gt;<br />
+   &lt;parameter name=&quot;java.naming.provider.url&quot;&gt;repository/conf/jndi.properties&lt;/parameter&gt;<br />
+   &lt;parameter name=&quot;store.jms.destination&quot;&gt;MyJNDIQpidQueue02&lt;/parameter&gt;<br />
+   &lt;parameter name=&quot;store.jms.connection.factory&quot;&gt;QueueConnectionFactory&lt;/parameter&gt;<br />
+   &lt;parameter name=&quot;store.jms.username&quot;&gt;admin&lt;/parameter&gt;<br />
+   &lt;parameter name=&quot;store.jms.password&quot;&gt;admin&lt;/parameter&gt;<br />
+   &lt;parameter name=&quot;store.jms.JMSSpecVersion&quot;&gt;1.1&lt;/parameter&gt;<br />
+&lt;/messageStore&gt;<br />
+[/sourcecode]</p>
+<p>2.- Create a new WSO2 ESB Proxy to send messages to the new message store 'MsgStoreQpid02' using the 'Store Mediator'.</p>
+<p>[sourcecode language="xml" gutter="true" wraplines="false"]<br />
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;<br />
+&lt;proxy xmlns=&quot;http://ws.apache.org/ns/synapse&quot;<br />
+       name=&quot;ProxyQpidSender2MsgStoreSampling&quot;<br />
+       transports=&quot;http&quot;<br />
+       statistics=&quot;disable&quot;<br />
+       trace=&quot;disable&quot;<br />
+       startOnLoad=&quot;true&quot;&gt;<br />
+   &lt;target&gt;<br />
+      &lt;inSequence&gt;<br />
+         &lt;property name=&quot;OUT_ONLY&quot; value=&quot;true&quot; scope=&quot;default&quot; type=&quot;STRING&quot;/&gt;<br />
+         &lt;property name=&quot;FORCE_SC_ACCEPTED&quot;<br />
+                   value=&quot;true&quot;<br />
+                   scope=&quot;axis2&quot;<br />
+                   type=&quot;STRING&quot;/&gt;<br />
+         &lt;header name=&quot;Action&quot; scope=&quot;default&quot; value=&quot;ProxyQpidSender2MsgStoreSampling&quot;/&gt;<br />
+         &lt;property name=&quot;SYS_DATE&quot;<br />
+                   expression=&quot;get-property('SYSTEM_DATE')&quot;<br />
+                   scope=&quot;default&quot;/&gt;<br />
+         &lt;property name=&quot;messageType&quot; value=&quot;text/plain&quot; scope=&quot;transport&quot;/&gt;<br />
+         &lt;property name=&quot;CONTENT_TYPE&quot; value=&quot;application/soap+xml&quot; scope=&quot;transport&quot;/&gt;<br />
+         &lt;payloadFactory media-type=&quot;xml&quot;&gt;<br />
+            &lt;format&gt;<br />
+               &lt;MySysDate xmlns=&quot;&quot;&gt;MsgStore - SysDate $1&lt;/MySysDate&gt;<br />
+            &lt;/format&gt;<br />
+            &lt;args&gt;<br />
+               &lt;arg evaluator=&quot;xml&quot; expression=&quot;$ctx:SYS_DATE&quot;/&gt;<br />
+            &lt;/args&gt;<br />
+         &lt;/payloadFactory&gt;<br />
+         &lt;property xmlns:soapenv=&quot;http://www.w3.org/2003/05/soap-envelope&quot;<br />
+                   name=&quot;MSG_STORED&quot;<br />
+                   expression=&quot;//soapenv:Body&quot;<br />
+                   scope=&quot;default&quot;/&gt;<br />
+         &lt;log level=&quot;custom&quot;&gt;<br />
+            &lt;property name=&quot;[ProxyQpidSender2MsgStoreSampling] MSG STORED&quot;<br />
+                      expression=&quot;$ctx:MSG_STORED&quot;/&gt;<br />
+         &lt;/log&gt;<br />
+         &lt;store messageStore=&quot;MsgStoreQpid02&quot;/&gt;<br />
+      &lt;/inSequence&gt;<br />
+   &lt;/target&gt;<br />
+   &lt;description&gt;Store the message in the WSO2 ESB Message Store (MsgStoreQpid02)&lt;/description&gt;<br />
+&lt;/proxy&gt;<br />
+[/sourcecode]</p>
+<h2>IV.2. Creating Message Sampling Processor in WSO2 ESB</h2>
+<p>[caption width="1183" align="alignnone"]<img src="{{ site.baseurl }}/assets/qpid-03-msg-sampling-processor.png" width="1183" height="397" alt="Message Sampling Processor with WSO2 ESB and Apache Qpid" class /> Message Sampling Processor with WSO2 ESB and Apache Qpid[/caption]</p>
+<p>1.- Create a Sequence for the Sampling Processor</p>
+<p>[sourcecode language="xml" gutter="true" wraplines="false"]<br />
+&lt;sequence xmlns=&quot;http://ws.apache.org/ns/synapse&quot; name=&quot;SequenceQpidSampling&quot;&gt;<br />
+   &lt;property xmlns:ns=&quot;http://org.apache.synapse/xsd&quot; xmlns:soap=&quot;http://www.w3.org/2003/05/soap-envelope&quot; name=&quot;MSG_RECEIVED&quot; expression=&quot;//soap:Body&quot; scope=&quot;default&quot;&gt;&lt;/property&gt;<br />
+   &lt;log level=&quot;custom&quot;&gt;<br />
+      &lt;property xmlns:ns=&quot;http://org.apache.synapse/xsd&quot; name=&quot;[SequenceQpidSampling] MSG&quot; expression=&quot;$ctx:MSG_RECEIVED&quot;&gt;&lt;/property&gt;<br />
+   &lt;/log&gt;<br />
+   &lt;drop&gt;&lt;/drop&gt;<br />
+&lt;/sequence&gt;<br />
+[/sourcecode]</p>
+<p>2.- Create the Message Sampling Processor</p>
+<p>[sourcecode language="xml" gutter="true" wraplines="false"]<br />
+&lt;messageProcessor name=&quot;MsgProcessorQpidSampling&quot; class=&quot;org.apache.synapse.message.processor.impl.sampler.SamplingProcessor&quot; messageStore=&quot;MsgStoreQpid02&quot; xmlns=&quot;http://ws.apache.org/ns/synapse&quot;&gt;<br />
+   &lt;parameter name=&quot;interval&quot;&gt;1000&lt;/parameter&gt;<br />
+   &lt;parameter name=&quot;concurrency&quot;&gt;1&lt;/parameter&gt;<br />
+   &lt;parameter name=&quot;sequence&quot;&gt;SequenceQpidSampling&lt;/parameter&gt;<br />
+   &lt;parameter name=&quot;cronExpression&quot;&gt;0 0/1 * 1/1 * ? *&lt;/parameter&gt;<br />
+   &lt;parameter name=&quot;is.active&quot;&gt;true&lt;/parameter&gt;<br />
+&lt;/messageProcessor&gt;<br />
+[/sourcecode]</p>
+<p>3.- Send messages to Message Store and check the logs</p>
+<p>[sourcecode language="html" gutter="true" wraplines="false"]<br />
+[2014-11-28 00:06:39,654] DEBUG - ServerWorker Starting a new Server Worker instance<br />
+[2014-11-28 00:06:39,657]  INFO - LogMediator [ProxyQpidSender2MsgStoreSampling] MSG STORED = &lt;soap:Body xmlns:soap=&quot;http://www.w3.org/2003/05/soap-envelope&quot;&gt;&lt;MySysDate&gt;MsgStore - SysDate 11/28/14 12:06 AM&lt;/MySysDate&gt;&lt;/soap:Body&gt;<br />
+[2014-11-28 00:06:45,894] DEBUG - ServerWorker Starting a new Server Worker instance<br />
+[2014-11-28 00:06:45,896]  INFO - LogMediator [ProxyQpidSender2MsgStoreSampling] MSG STORED = &lt;soap:Body xmlns:soap=&quot;http://www.w3.org/2003/05/soap-envelope&quot;&gt;&lt;MySysDate&gt;MsgStore - SysDate 11/28/14 12:06 AM&lt;/MySysDate&gt;&lt;/soap:Body&gt;<br />
+[2014-11-28 00:07:00,014]  INFO - JmsConsumer [MsgStoreQpid02-C-1] reconnected to store.<br />
+[2014-11-28 00:07:00,029]  INFO - LogMediator [SequenceQpidSampling] MSG = &lt;soap:Body xmlns:soap=&quot;http://www.w3.org/2003/05/soap-envelope&quot;&gt;&lt;MySysDate&gt;MsgStore - SysDate 11/28/14 12:06 AM&lt;/MySysDate&gt;&lt;/soap:Body&gt;<br />
+[2014-11-28 00:08:00,016]  INFO - LogMediator [SequenceQpidSampling] MSG = &lt;soap:Body xmlns:soap=&quot;http://www.w3.org/2003/05/soap-envelope&quot;&gt;&lt;MySysDate&gt;MsgStore - SysDate 11/28/14 12:06 AM&lt;/MySysDate&gt;&lt;/soap:Body&gt;<br />
+[/sourcecode]</p>
+<h2>IV.3. Creating Message Forwarding Processor in WSO2 ESB</h2>
+<h3>1.- Create a Message Forwarding Processor implementing the OUT-ONLY pattern</h3>
+<p>In this case, if the backend service processes very well the request, then the message processor will delete the message from message store.</p>
+<p>[caption width="1183" align="alignnone"]<img src="{{ site.baseurl }}/assets/qpid-04-msg-forwarding-processor-out-only.png" width="1183" height="402" alt="Message Forwarding Processor with OUT-ONLY implemented" class /> Message Forwarding Processor with OUT-ONLY implemented[/caption]</p>
+<p>Before, we have to disable the below MessageProcessor (MsgProcessorQpidSampling), just for testing purposes. Also, we have to create a new Proxy to send messages well formated to MsgStoreQpid02.</p>
+<p>1.1. Create the Synapse Proxy with OUT-ONLY property enabled.</p>
+<p>[sourcecode language="xml" gutter="true" wraplines="false"]<br />
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;<br />
+&lt;proxy xmlns=&quot;http://ws.apache.org/ns/synapse&quot;<br />
+       name=&quot;ProxyQpidSender2MsgStoreFwdOutOnly&quot;<br />
+       transports=&quot;http&quot;<br />
+       statistics=&quot;disable&quot;<br />
+       trace=&quot;disable&quot;<br />
+       startOnLoad=&quot;true&quot;&gt;<br />
+   &lt;target&gt;<br />
+      &lt;inSequence&gt;<br />
+         &lt;property name=&quot;OUT_ONLY&quot; value=&quot;true&quot; scope=&quot;default&quot; type=&quot;STRING&quot;/&gt;<br />
+         &lt;property name=&quot;FORCE_SC_ACCEPTED&quot;<br />
+                   value=&quot;true&quot;<br />
+                   scope=&quot;axis2&quot;<br />
+                   type=&quot;STRING&quot;/&gt;<br />
+         &lt;header name=&quot;Action&quot; scope=&quot;default&quot; value=&quot;urn:echoString&quot;/&gt;<br />
+         &lt;property name=&quot;SYS_DATE&quot;<br />
+                   expression=&quot;get-property('SYSTEM_DATE')&quot;<br />
+                   scope=&quot;default&quot;/&gt;<br />
+         &lt;property name=&quot;messageType&quot; value=&quot;text/plain&quot; scope=&quot;transport&quot;/&gt;<br />
+         &lt;property name=&quot;CONTENT_TYPE&quot; value=&quot;application/soap+xml&quot; scope=&quot;transport&quot;/&gt;<br />
+         &lt;payloadFactory media-type=&quot;xml&quot;&gt;<br />
+            &lt;format&gt;<br />
+               &lt;echo:echoString xmlns:echo=&quot;http://echo.services.core.carbon.wso2.org&quot;&gt;MySysDate $1&lt;/echo:echoString&gt;<br />
+            &lt;/format&gt;<br />
+            &lt;args&gt;<br />
+               &lt;arg evaluator=&quot;xml&quot; expression=&quot;$ctx:SYS_DATE&quot;/&gt;<br />
+            &lt;/args&gt;<br />
+         &lt;/payloadFactory&gt;<br />
+         &lt;property xmlns:soapenv=&quot;http://www.w3.org/2003/05/soap-envelope&quot;<br />
+                   name=&quot;MSG_STORED&quot;<br />
+                   expression=&quot;//soapenv:Body&quot;<br />
+                   scope=&quot;default&quot;/&gt;<br />
+         &lt;log level=&quot;custom&quot;&gt;<br />
+            &lt;property name=&quot;[ProxyQpidSender2MsgStoreFwdOutOnly] MSG STORED&quot;<br />
+                      expression=&quot;$ctx:MSG_STORED&quot;/&gt;<br />
+         &lt;/log&gt;<br />
+         &lt;store messageStore=&quot;MsgStoreQpid02&quot;/&gt;<br />
+      &lt;/inSequence&gt;<br />
+   &lt;/target&gt;<br />
+   &lt;description&gt;Store the message in the WSO2 ESB Message Store (MsgStoreQpid02)&lt;/description&gt;<br />
+&lt;/proxy&gt;<br />
+[/sourcecode]</p>
+<p>Where:<br />
+* Action is the header property of SOAP message that represents the operation to be executed.<br />
+* OUT_ONLY: should be set to 'true' for OUT-ONLY pattern.</p>
+<p>Also, as Endpoint I will use my custom echoPassThroughProxy, where the URL is: http://localhost:8310/services/echoPassThroughProxy</p>
+<p>1.2. Create an Endpoint for our External backend service, in this case is my 'echoPassThroughProxy' will be created in WSO2 ESB.</p>
+<p>[sourcecode language="xml" gutter="true" wraplines="false"]<br />
+&lt;endpoint xmlns=&quot;http://ws.apache.org/ns/synapse&quot; name=&quot;EndpointOfBackendSrv&quot;&gt;<br />
+   &lt;address uri=&quot;http://localhost:8310/services/echoPassThroughProxy&quot;&gt;&lt;/address&gt;<br />
+&lt;/endpoint&gt;<br />
+[/sourcecode]</p>
+<p>1.3. Create the Message Forwarding Processor (OUT-ONLY).</p>
+<p>[sourcecode language="xml" gutter="true" wraplines="false"]<br />
+&lt;messageProcessor name=&quot;MsgProcessorQpidForwardingOutOnly&quot; class=&quot;org.apache.synapse.message.processor.impl.forwarder.ScheduledMessageForwardingProcessor&quot; targetEndpoint=&quot;EndpointOfBackendSrv&quot; messageStore=&quot;MsgStoreQpid02&quot; xmlns=&quot;http://ws.apache.org/ns/synapse&quot;&gt;<br />
+   &lt;parameter name=&quot;interval&quot;&gt;1000&lt;/parameter&gt;<br />
+   &lt;parameter name=&quot;client.retry.interval&quot;&gt;1000&lt;/parameter&gt;<br />
+   &lt;parameter name=&quot;cronExpression&quot;&gt;0 0/1 * 1/1 * ? *&lt;/parameter&gt;<br />
+   &lt;parameter name=&quot;is.active&quot;&gt;true&lt;/parameter&gt;<br />
+&lt;/messageProcessor&gt;<br />
+[/sourcecode]</p>
+<p>1.4. Check the logs</p>
+<p>[sourcecode language="html" gutter="true" wraplines="false"]<br />
+[2014-11-27 23:25:25,003]  INFO - LogMediator [ProxyQpidSender2MsgStoreFwdOutOnly] MSG STORED = &lt;soap:Body xmlns:soap=&quot;http://www.w3.org/2003/05/soap-envelope&quot;&gt;&lt;echo:echoString xmlns:echo=&quot;http://echo.services.core.carbon.wso2.org&quot;&gt;MySysDate 11/27/14 11:25 PM&lt;/echo:echoString&gt;&lt;/soap:Body&gt;<br />
+[2014-11-27 23:25:26,062] DEBUG - ServerWorker Starting a new Server Worker instance<br />
+[2014-11-27 23:25:26,064]  INFO - LogMediator [ProxyQpidSender2MsgStoreFwdOutOnly] MSG STORED = &lt;soap:Body xmlns:soap=&quot;http://www.w3.org/2003/05/soap-envelope&quot;&gt;&lt;echo:echoString xmlns:echo=&quot;http://echo.services.core.carbon.wso2.org&quot;&gt;MySysDate 11/27/14 11:25 PM&lt;/echo:echoString&gt;&lt;/soap:Body&gt;<br />
+[2014-11-27 23:25:27,056] DEBUG - ServerWorker Starting a new Server Worker instance<br />
+[2014-11-27 23:25:27,058]  INFO - LogMediator [ProxyQpidSender2MsgStoreFwdOutOnly] MSG STORED = &lt;soap:Body xmlns:soap=&quot;http://www.w3.org/2003/05/soap-envelope&quot;&gt;&lt;echo:echoString xmlns:echo=&quot;http://echo.services.core.carbon.wso2.org&quot;&gt;MySysDate 11/27/14 11:25 PM&lt;/echo:echoString&gt;&lt;/soap:Body&gt;<br />
+[2014-11-27 23:26:00,004] DEBUG - ServerWorker Starting a new Server Worker instance<br />
+[2014-11-27 23:26:00,005]  INFO - LogMediator [echoPassThroughProxy] = ----- inSeq ----- = [echoPassThroughProxy]<br />
+[2014-11-27 23:26:00,005]  INFO - LogMediator To: /services/echoPassThroughProxy, WSAction: urn:echoString, SOAPAction: urn:echoString, MessageID: urn:uuid:08a5db99-c590-4352-8ced-1ae8908814c2, Direction: request, Envelope: &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;soapenv:Envelope xmlns:soapenv=&quot;http://www.w3.org/2003/05/soap-envelope&quot;&gt;&lt;soapenv:Body&gt;&lt;echo:echoString xmlns:echo=&quot;http://echo.services.core.carbon.wso2.org&quot;&gt;MySysDate 11/27/14 11:25 PM&lt;/echo:echoString&gt;&lt;/soapenv:Body&gt;&lt;/soapenv:Envelope&gt;<br />
+[2014-11-27 23:26:00,008] DEBUG - ServerWorker Starting a new Server Worker instance<br />
+[2014-11-27 23:26:00,012]  INFO - LogMediator [echoPassThroughProxy] = ----- outSeq ----- = [echoPassThroughProxy]<br />
+[2014-11-27 23:26:00,012]  INFO - LogMediator To: http://www.w3.org/2005/08/addressing/anonymous, WSAction: , SOAPAction: , MessageID: urn:uuid:8916ed21-10a3-43ee-9d0e-6acf8a3f4de7, Direction: response, Envelope: &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;soapenv:Envelope xmlns:soapenv=&quot;http://www.w3.org/2003/05/soap-envelope&quot;&gt;&lt;soapenv:Body&gt;&lt;ns:echoStringResponse xmlns:ns=&quot;http://echo.services.core.carbon.wso2.org&quot;&gt;&lt;return xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:nil=&quot;true&quot;&gt;&lt;/return&gt;&lt;/ns:echoStringResponse&gt;&lt;/soapenv:Body&gt;&lt;/soapenv:Envelope&gt;<br />
+[/sourcecode]</p>
+<h3>2.- Create a Message Forwarding Processor implementing IN-OUT pattern</h3>
+<p>The only difference with the above is that it requires two Synapse Sequences (Reply and Fault sequences) that will post-process the SOAP response of Backend Service in a blocking-mode as It is a succesfully response or unseccsfully response, in other words, if everything goes well, the message processor will send an ACK to message store to consume (delete) the stored message and the message processor will trigger the reply sequence, otherwise the message processor will trigger the fault squence (the message is not consumed/deleted of message store).</p>
+<p>[caption width="1183" align="alignnone"]<img src="{{ site.baseurl }}/assets/qpid-05-msg-forwarding-processor-in-out.png" width="1183" height="406" alt="Message Forwarding Processor with IN-OUT implemented" class /> Message Forwarding Processor with IN-OUT implemented[/caption]</p>
+<p>Before, disable the above message processor, just for testing purporses.</p>
+<p>2.1. Create the Proxy with OUT_ONLY property set to false.</p>
+<p>[sourcecode language="xml" gutter="true" wraplines="false"]<br />
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;<br />
+&lt;proxy xmlns=&quot;http://ws.apache.org/ns/synapse&quot;<br />
+       name=&quot;ProxyQpidSender2MsgStoreFwdInOut&quot;<br />
+       transports=&quot;http&quot;<br />
+       statistics=&quot;disable&quot;<br />
+       trace=&quot;disable&quot;<br />
+       startOnLoad=&quot;true&quot;&gt;<br />
+   &lt;target&gt;<br />
+      &lt;inSequence&gt;<br />
+         &lt;property name=&quot;OUT_ONLY&quot; value=&quot;false&quot; scope=&quot;default&quot; type=&quot;STRING&quot;/&gt;<br />
+         &lt;property name=&quot;FORCE_SC_ACCEPTED&quot;<br />
+                   value=&quot;true&quot;<br />
+                   scope=&quot;axis2&quot;<br />
+                   type=&quot;STRING&quot;/&gt;<br />
+         &lt;header name=&quot;Action&quot; scope=&quot;default&quot; value=&quot;urn:echoString&quot;/&gt;<br />
+         &lt;property name=&quot;SYS_DATE&quot;<br />
+                   expression=&quot;get-property('SYSTEM_DATE')&quot;<br />
+                   scope=&quot;default&quot;/&gt;<br />
+         &lt;property name=&quot;messageType&quot; value=&quot;text/plain&quot; scope=&quot;transport&quot;/&gt;<br />
+         &lt;property name=&quot;CONTENT_TYPE&quot; value=&quot;application/soap+xml&quot; scope=&quot;transport&quot;/&gt;<br />
+         &lt;payloadFactory media-type=&quot;xml&quot;&gt;<br />
+            &lt;format&gt;<br />
+               &lt;echo:echoString xmlns:echo=&quot;http://echo.services.core.carbon.wso2.org&quot;&gt;MySysDate $1&lt;/echo:echoString&gt;<br />
+            &lt;/format&gt;<br />
+            &lt;args&gt;<br />
+               &lt;arg evaluator=&quot;xml&quot; expression=&quot;$ctx:SYS_DATE&quot;/&gt;<br />
+            &lt;/args&gt;<br />
+         &lt;/payloadFactory&gt;<br />
+         &lt;property xmlns:soapenv=&quot;http://www.w3.org/2003/05/soap-envelope&quot;<br />
+                   name=&quot;MSG_STORED&quot;<br />
+                   expression=&quot;//soapenv:Body&quot;<br />
+                   scope=&quot;default&quot;/&gt;<br />
+         &lt;log level=&quot;custom&quot;&gt;<br />
+            &lt;property name=&quot;[ProxyQpidSender2MsgStoreFwdInOut] MSG STORED&quot;<br />
+                      expression=&quot;$ctx:MSG_STORED&quot;/&gt;<br />
+         &lt;/log&gt;<br />
+         &lt;store messageStore=&quot;MsgStoreQpid02&quot;/&gt;<br />
+      &lt;/inSequence&gt;<br />
+   &lt;/target&gt;<br />
+   &lt;description&gt;Store the message in the WSO2 ESB Message Store (MsgStoreQpid02)&lt;/description&gt;<br />
+&lt;/proxy&gt;<br />
+[/sourcecode]</p>
+<p>Where:<br />
+* Action is the header property of SOAP message that represents the operation to be executed.<br />
+* OUT_ONLY: should be set to 'false' for IN-OUT pattern or to remove the entry.</p>
+<p>2.2. Create the Reply Sequence and Fault Sequence</p>
+<p>[sourcecode language="xml" gutter="true" wraplines="false"]<br />
+&lt;sequence xmlns=&quot;http://ws.apache.org/ns/synapse&quot; name=&quot;SequenceQpidReplyFwdInOut&quot;&gt;<br />
+   &lt;log level=&quot;custom&quot;&gt;<br />
+      &lt;property name=&quot;[SequenceQpidReplyFwdInOut]&quot; value=&quot;---------------------- = [SequenceQpidReplyFwdInOut]&quot;&gt;&lt;/property&gt;<br />
+   &lt;/log&gt;<br />
+   &lt;log level=&quot;full&quot;&gt;&lt;/log&gt;<br />
+   &lt;drop&gt;&lt;/drop&gt;<br />
+&lt;/sequence&gt;<br />
+[/sourcecode]</p>
+<p>[sourcecode language="xml" gutter="true" wraplines="false"]<br />
+&lt;sequence xmlns=&quot;http://ws.apache.org/ns/synapse&quot; name=&quot;SequenceQpidFaultFwdInOut&quot;&gt;<br />
+   &lt;log level=&quot;custom&quot;&gt;<br />
+      &lt;property name=&quot;[SequenceQpidFaultFwdInOut]&quot; value=&quot;---- Executing default 'fault' seq ---- = [SequenceQpidFaultFwdInOut]&quot;&gt;&lt;/property&gt;<br />
+   &lt;/log&gt;<br />
+   &lt;log level=&quot;custom&quot;&gt;<br />
+      &lt;property xmlns:ns=&quot;http://org.apache.synapse/xsd&quot; name=&quot;ERROR_CODE&quot; expression=&quot;get-property('ERROR_CODE')&quot;&gt;&lt;/property&gt;<br />
+   &lt;/log&gt;<br />
+   &lt;log level=&quot;custom&quot;&gt;<br />
+      &lt;property xmlns:ns=&quot;http://org.apache.synapse/xsd&quot; name=&quot;ERROR_MESSAGE&quot; expression=&quot;get-property('ERROR_MESSAGE')&quot;&gt;&lt;/property&gt;<br />
+   &lt;/log&gt;<br />
+   &lt;drop&gt;&lt;/drop&gt;<br />
+&lt;/sequence&gt;<br />
+[/sourcecode]</p>
+<p>2.3.- Adjust the existing Message Processor to include new Sequences for the IN-OUT pattern.</p>
+<p>[sourcecode language="xml" gutter="true" wraplines="false"]<br />
+&lt;messageProcessor name=&quot;MsgProcessorQpidForwardingInOut&quot;<br />
+                  class=&quot;org.apache.synapse.message.processor.impl.forwarder.ScheduledMessageForwardingProcessor&quot;<br />
+                  targetEndpoint=&quot;EndpointOfBackendSrv&quot;<br />
+                  messageStore=&quot;MsgStoreQpid02&quot;<br />
+                  xmlns=&quot;http://ws.apache.org/ns/synapse&quot;&gt;<br />
+   &lt;parameter name=&quot;interval&quot;&gt;1500&lt;/parameter&gt;<br />
+   &lt;parameter name=&quot;client.retry.interval&quot;&gt;1000&lt;/parameter&gt;<br />
+   &lt;parameter name=&quot;message.processor.reply.sequence&quot;&gt;SequenceQpidReplyFwdInOut&lt;/parameter&gt;<br />
+   &lt;parameter name=&quot;message.processor.fault.sequence&quot;&gt;SequenceQpidFaultFwdInOut&lt;/parameter&gt;<br />
+   &lt;parameter name=&quot;cronExpression&quot;&gt;0 0/1 * 1/1 * ? *&lt;/parameter&gt;<br />
+   &lt;parameter name=&quot;is.active&quot;&gt;true&lt;/parameter&gt;<br />
+&lt;/messageProcessor&gt;<br />
+[/sourcecode]</p>
+<p>Where:</p>
+<ul>
+<li>SequenceQpidReplyFwdInOut will process Backend message response in blocking-mode (with ACK)</li>
+<li>SequenceQpidFaultFwdInOut, if there is an exception or Backend service give an error (HTTP_SC error), then this sequence will be executed and any ACK will be send.</li>
+</ul>
+<p>2.4.- Check the logs.</p>
+<p>[sourcecode language="html" gutter="true" wraplines="false"]<br />
+[2014-11-27 23:46:26,401]  INFO - LogMediator [ProxyQpidSender2MsgStoreFwdInOut] MSG STORED = &lt;soap:Body xmlns:soap=&quot;http://www.w3.org/2003/05/soap-envelope&quot;&gt;&lt;echo:echoString xmlns:echo=&quot;http://echo.services.core.carbon.wso2.org&quot;&gt;MySysDate 11/27/14 11:46 PM&lt;/echo:echoString&gt;&lt;/soap:Body&gt;<br />
+[2014-11-27 23:47:00,006] DEBUG - ServerWorker Starting a new Server Worker instance<br />
+[2014-11-27 23:47:00,007]  INFO - LogMediator [echoPassThroughProxy] = ----- inSeq ----- = [echoPassThroughProxy]<br />
+[2014-11-27 23:47:00,007]  INFO - LogMediator To: /services/echoPassThroughProxy, WSAction: urn:echoString, SOAPAction: urn:echoString, MessageID: urn:uuid:fad450ca-19df-4e36-888d-eed3478e936e, Direction: request, Envelope: &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;soapenv:Envelope xmlns:soapenv=&quot;http://www.w3.org/2003/05/soap-envelope&quot;&gt;&lt;soapenv:Body&gt;&lt;echo:echoString xmlns:echo=&quot;http://echo.services.core.carbon.wso2.org&quot;&gt;MySysDate 11/27/14 11:46 PM&lt;/echo:echoString&gt;&lt;/soapenv:Body&gt;&lt;/soapenv:Envelope&gt;<br />
+[2014-11-27 23:47:00,010] DEBUG - ServerWorker Starting a new Server Worker instance<br />
+[2014-11-27 23:47:00,013]  INFO - LogMediator [echoPassThroughProxy] = ----- outSeq ----- = [echoPassThroughProxy]<br />
+[2014-11-27 23:47:00,014]  INFO - LogMediator To: http://www.w3.org/2005/08/addressing/anonymous, WSAction: , SOAPAction: , MessageID: urn:uuid:b785f6d0-de3c-4941-a799-80a7cdc8c0d0, Direction: response, Envelope: &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;soapenv:Envelope xmlns:soapenv=&quot;http://www.w3.org/2003/05/soap-envelope&quot;&gt;&lt;soapenv:Body&gt;&lt;ns:echoStringResponse xmlns:ns=&quot;http://echo.services.core.carbon.wso2.org&quot;&gt;&lt;return xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:nil=&quot;true&quot;&gt;&lt;/return&gt;&lt;/ns:echoStringResponse&gt;&lt;/soapenv:Body&gt;&lt;/soapenv:Envelope&gt;<br />
+[2014-11-27 23:47:00,016]  INFO - LogMediator [SequenceQpidReplyFwdInOut] = ---------------------- = [SequenceQpidReplyFwdInOut]<br />
+[2014-11-27 23:47:00,017]  INFO - LogMediator To: /services/ProxyQpidSender2MsgStoreFwdInOut.ProxyQpidSender2MsgStoreFwdInOutHttpSoap12Endpoint, WSAction: urn:echoString, SOAPAction: urn:echoString, MessageID: urn:uuid:888E0D71F886F13CF71417131986402876015-666129391, Direction: request, Envelope: &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;soapenv:Envelope xmlns:soapenv=&quot;http://www.w3.org/2003/05/soap-envelope&quot;&gt;&lt;soapenv:Body&gt;&lt;ns:echoStringResponse xmlns:ns=&quot;http://echo.services.core.carbon.wso2.org&quot;&gt;&lt;return xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:nil=&quot;true&quot;&gt;&lt;/return&gt;&lt;/ns:echoStringResponse&gt;&lt;/soapenv:Body&gt;&lt;/soapenv:Envelope&gt;<br />
+[/sourcecode]</p>
+<h1>V. Conclusions</h1>
+<ul>
+<li>Apache Qpid as good alternative to WSO2 Message Broker because you have robustness, integration patterns based messaging implemented, scalability, compatible with JMS and AMQP standard, everything in a lightweight bundle and easy to install it.
+</li>
+<li>WSO2 ESB is perfectly integrated to Apache Qpid, it is not necessary to program or extend some library, all integration can be achieved based on configurations only. No need to write any line of code.
+</li>
+</ul>

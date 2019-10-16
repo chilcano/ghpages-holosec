@@ -1,0 +1,338 @@
+---
+layout: post
+title: La Evolución de un Programador
+date: 2008-06-18 01:21:20.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Security
+tags:
+- joke programming hello world
+meta:
+  _edit_last: '578869'
+author:
+  login: rcarhuatocto
+  email: roger@intix.info
+  display_name: Roger CARHUATOCTO
+  first_name: ''
+  last_name: ''
+permalink: "/2008/06/18/la-evolucion-de-un-programador/"
+---
+<p>En el año 2001, en un foro encontré un post bastante divertido, se trataba de la <em><strong>Evolución de un Programador</strong> y cómo éste evolucionaba también el clásico programa llamado <strong>Hola Mundo</strong></em>.</p>
+<p><img src="{{ site.baseurl }}/assets/homeless-coder.jpg" alt="HTML coder" class="aligncenter" /></p>
+<p>Para los no informáticos, <strong>Hola Mundo</strong> es el primer programa que realiza cualquier informático que inicia en esta profesión.</p>
+<p>Con la Evolución de un Programador podéis ver quienes son los mejores programadores.</p>
+<p><img src="{{ site.baseurl }}/assets/programmer.jpg" alt="Big programmer" class="aligncenter" /></p>
+<p>En fin, os dejo con la evolución del Hola Mundo, espero que algunos Managers, Comerciales no se ofendan.  ;)</p>
+<blockquote><p>Task is to write a program that prints "Hello World" on the<br />
+screen...make sure you see the last few attempts (Dilbert).</p>
+<p>High School/Jr.High<br />
+==================</p>
+<p>10 PRINT "HELLO WORLD"<br />
+20 END</p>
+<p>First year in College<br />
+====================<br />
+program Hello(input, output)<br />
+begin<br />
+writeln('Hello World')<br />
+end.</p>
+<p>Senior year in College<br />
+=====================<br />
+(defun hello<br />
+(print<br />
+(cons 'Hello (list 'World))))</p>
+<p>New professional<br />
+===============<br />
+#include </p>
+<p>void main(void)<br />
+{<br />
+char *message[] = {"Hello ", "World"};<br />
+int i;</p>
+<p>for(i = 0; i &lt; 2; ++i)<br />
+printf("%s", message[i]);<br />
+printf("\n");<br />
+}</p>
+<p>Seasoned professional<br />
+====================<br />
+#include<br />
+#include </p>
+<p>class string<br />
+{<br />
+private:<br />
+int size;<br />
+char *ptr;</p>
+<p>public:<br />
+string() : size(0), ptr(new char('')) {}</p>
+<p>string(const string &amp;s) : size(s.size)<br />
+{<br />
+ptr = new char[size + 1];<br />
+strcpy(ptr, s.ptr);<br />
+}</p>
+<p>~string()<br />
+{<br />
+delete [] ptr;<br />
+}</p>
+<p>friend ostream &amp;operator &lt;&lt;(ostream &amp;, const string &amp;);</p>
+<p>string &amp;operator=(const char *);<br />
+};</p>
+<p>ostream &amp;operator&lt;&lt;(ostream &amp;stream, const string &amp;s)<br />
+{<br />
+return(stream &lt;&lt; s.ptr);<br />
+}</p>
+<p>string &amp;string::operator=(const char *chrs)<br />
+{<br />
+if (this != &amp;chrs)<br />
+{<br />
+delete [] ptr;<br />
+size = strlen(chrs);<br />
+ptr = new char[size + 1];<br />
+strcpy(ptr, chrs);<br />
+}<br />
+return(*this);<br />
+}</p>
+<p>int main()<br />
+{<br />
+string str;</p>
+<p>str = "Hello World";<br />
+cout &lt;&lt; str &lt;&lt; endl;</p>
+<p>return(0);<br />
+}</p>
+<p>Master Programmer :-))<br />
+================<br />
+[<br />
+uuid(2573F8F4-CFEE-101A-9A9F-00AA00342820)<br />
+]</p>
+<p>library LHello<br />
+{<br />
+// bring in the master library<br />
+importlib("actimp.tlb");<br />
+importlib("actexp.tlb");</p>
+<p>// bring in my interfaces<br />
+#include "pshlo.idl"</p>
+<p>[<br />
+uuid(2573F8F5-CFEE-101A-9A9F-00AA00342820)<br />
+]<br />
+cotype THello<br />
+{<br />
+interface IHello;<br />
+interface IPersistFile;<br />
+};<br />
+};</p>
+<p>[<br />
+exe,<br />
+uuid(2573F890-CFEE-101A-9A9F-00AA00342820)<br />
+]<br />
+module CHelloLib<br />
+{<br />
+// some code related header files<br />
+importheader();<br />
+importheader( );<br />
+importheader();<br />
+importheader("pshlo.h");<br />
+importheader("shlo.hxx");<br />
+importheader("mycls.hxx");</p>
+<p>// needed typelibs<br />
+importlib("actimp.tlb");<br />
+importlib("actexp.tlb");<br />
+importlib("thlo.tlb");</p>
+<p>[<br />
+uuid(2573F891-CFEE-101A-9A9F-00AA00342820),<br />
+aggregatable<br />
+]<br />
+coclass CHello<br />
+{<br />
+cotype THello;<br />
+};<br />
+};</p>
+<p>#include "ipfix.hxx"</p>
+<p>extern HANDLE hEvent;</p>
+<p>class CHello : public CHelloBase<br />
+{<br />
+public:<br />
+IPFIX(CLSID_CHello);</p>
+<p>CHello(IUnknown *pUnk);<br />
+~CHello();</p>
+<p>HRESULT __stdcall PrintSz(LPWSTR pwszString);</p>
+<p>private:<br />
+static int cObjRef;<br />
+};</p>
+<p>#include<br />
+#include<br />
+#include<br />
+#include<br />
+#include "thlo.h"<br />
+#include "pshlo.h"<br />
+#include "shlo.hxx"<br />
+#include "mycls.hxx"</p>
+<p>int CHello::cObjRef = 0;</p>
+<p>CHello::CHello(IUnknown *pUnk) : CHelloBase(pUnk)<br />
+{<br />
+cObjRef++;<br />
+return;<br />
+}</p>
+<p>HRESULT __stdcall CHello::PrintSz(LPWSTR pwszString)<br />
+{<br />
+printf("%ws\n", pwszString);<br />
+return(ResultFromScode(S_OK));<br />
+}</p>
+<p>CHello::~CHello(void)<br />
+{<br />
+// when the object count goes to zero, stop the server<br />
+cObjRef--;<br />
+if( cObjRef == 0 )<br />
+PulseEvent(hEvent);</p>
+<p>return;<br />
+}</p>
+<p>#include<br />
+#include<br />
+#include "pshlo.h"<br />
+#include "shlo.hxx"<br />
+#include "mycls.hxx"</p>
+<p>HANDLE hEvent;</p>
+<p>int _cdecl main( int argc, char * argv[])<br />
+{<br />
+ULONG ulRef;<br />
+DWORD dwRegistration;<br />
+CHelloCF *pCF = new CHelloCF();</p>
+<p>hEvent = CreateEvent(NULL, FALSE, FALSE, NULL);</p>
+<p>// Initialize the OLE libraries<br />
+CoInitializeEx(NULL, COINIT_MULTITHREADED);<br />
+CoRegisterClassObject(CLSID_CHello, pCF, CLSCTX_LOCAL_SERVER,<br />
+REGCLS_MULTIPLEUSE, &amp;dwRegistration);</p>
+<p>// wait on an event to stop<br />
+WaitForSingleObject(hEvent, INFINITE);</p>
+<p>// revoke and release the class object<br />
+CoRevokeClassObject(dwRegistration);<br />
+ulRef = pCF-Release();</p>
+<p>// Tell OLE we are going away.<br />
+CoUninitialize();</p>
+<p>return(0);<br />
+}</p>
+<p>extern CLSID CLSID_CHello;<br />
+extern UUID LIBID_CHelloLib;</p>
+<p>CLSID CLSID_CHello = { /* 2573F891-CFEE-101A-9A9F-00AA00342820 */<br />
+0x2573F891,<br />
+0xCFEE,<br />
+0x101A,<br />
+{ 0x9A, 0x9F, 0x00, 0xAA, 0x00, 0x34, 0x28, 0x20 }<br />
+};</p>
+<p>UUID LIBID_CHelloLib = { /* 2573F890-CFEE-101A-9A9F-00AA00342820 */<br />
+0x2573F890,<br />
+0xCFEE,<br />
+0x101A,<br />
+{ 0x9A, 0x9F, 0x00, 0xAA, 0x00, 0x34, 0x28, 0x20 }<br />
+};</p>
+<p>#include<br />
+#include<br />
+#include<br />
+#include<br />
+#include<br />
+#include "pshlo.h"<br />
+#include "shlo.hxx"<br />
+#include "clsid.h"</p>
+<p>int _cdecl main( int argc, char * argv[])<br />
+{<br />
+HRESULT hRslt;<br />
+IHello *pHello;<br />
+ULONG ulCnt;<br />
+IMoniker * pmk;<br />
+WCHAR wcsT[_MAX_PATH];<br />
+WCHAR wcsPath[2 * _MAX_PATH];</p>
+<p>// get object path<br />
+wcsPath[0] = '';<br />
+wcsT[0] = '';<br />
+if( argc 1) {<br />
+mbstowcs(wcsPath, argv[1], strlen(argv[1]) + 1);<br />
+wcsupr(wcsPath);<br />
+}<br />
+else {<br />
+fprintf(stderr, "Object path must be specified\n");<br />
+return(1);<br />
+}</p>
+<p>// get print string<br />
+if(argc 2)<br />
+mbstowcs(wcsT, argv[2], strlen(argv[2]) + 1);<br />
+else<br />
+wcscpy(wcsT, L"Hello World");</p>
+<p>printf("Linking to object %ws\n", wcsPath);<br />
+printf("Text String %ws\n", wcsT);</p>
+<p>// Initialize the OLE libraries<br />
+hRslt = CoInitializeEx(NULL, COINIT_MULTITHREADED);<br />
+if(SUCCEEDED(hRslt)) {<br />
+hRslt = CreateFileMoniker(wcsPath, &amp;pmk);<br />
+if(SUCCEEDED(hRslt)<br />
+hRslt = BindMoniker(pmk, 0, IID_IHello, (void **)&amp;pHello);<br />
+if(SUCCEEDED(hRslt)) {<br />
+// print a string out<br />
+pHello- PrintSz(wcsT);</p>
+<p>Sleep(2000);<br />
+ulCnt = pHello- Release();<br />
+}<br />
+else<br />
+printf("Failure to connect, status: %lx", hRslt);<br />
+// Tell OLE we are going away.<br />
+CoUninitialize();<br />
+}</p>
+<p>return(0);<br />
+}</p>
+<p>Apprentice Hacker<br />
+==================<br />
+#!/usr/local/bin/perl<br />
+$msg="Hello, world.\n";<br />
+if ($#ARGV = 0) {<br />
+while(defined($arg=shift(@ARGV))) {<br />
+$outfilename = $arg;<br />
+open(FILE, " " . $outfilename) || die "Can't write $arg: $!\n";<br />
+print (FILE $msg);<br />
+close(FILE) || die "Can't close $arg: $!\n";<br />
+}<br />
+} else {<br />
+print ($msg);<br />
+}<br />
+1;</p>
+<p>Experienced Hacker<br />
+==================<br />
+#include<br />
+#define S "Hello, World\n"<br />
+main(){exit(printf(S) == strlen(S) ? 0 : 1);}</p>
+<p>Seasoned Hacker<br />
+==================<br />
+% cc -o a.out ~/src/misc/hw/hw.c<br />
+% a.out</p>
+<p>Guru Hacker<br />
+==================<br />
+% cat<br />
+Hello, world.<br />
+^^D</p>
+<p>New Manager<br />
+==================<br />
+10 PRINT "HELLO WORLD"<br />
+20 END</p>
+<p>Middle Manager<br />
+==================<br />
+mail -s "Hello, world." bob@b12<br />
+Bob, could you please write me a program that prints "Hello,<br />
+world."?<br />
+I need it by tomorrow.<br />
+^^D</p>
+<p>Senior Manager<br />
+==================<br />
+% zmail jim<br />
+I need a "Hello, world." program by this afternoon.</p>
+<p>Chief Executive<br />
+==================<br />
+% letter<br />
+letter: Command not found.<br />
+% mail<br />
+To: ^^X ^^F ^^C<br />
+% help mail<br />
+help: Command not found.<br />
+% damn!<br />
+!: Event unrecognized<br />
+% logout
+</p></blockquote>
+<p>[From: http://lists.xml.org/archives/xml-dev/199712/msg00322.html]</p>
+<p>Os animáis a realizar un port a otra plataforma o lenguaje de programación?. Python, Ruby, PHP, Java, eh??</p>
