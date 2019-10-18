@@ -13,7 +13,7 @@ In the next blog post (Part 2) I will explain how to manage the look&feel, layou
 
 ![Migrating WordPress.com's blog to GitHub Pages by using Jekyll](/assets/img/2019-10-14-blog-migration-wp-github.png)
 
-## h2 Create a GitHub Pages repository
+## Create a GitHub Pages repository
 
 I created an empty GitHub repository, in my case is [`ghpages-holosec`](https://github.com/chilcano/ghpages-holosec), to host my migrated WordPress.com's blog, then I followed the [https://pages.github.com](https://pages.github.com) guide and configured it as `Project site`, no as `User or organization site` since my GitHub Account will host multiple Sites with different custom Domain Names. 
 
