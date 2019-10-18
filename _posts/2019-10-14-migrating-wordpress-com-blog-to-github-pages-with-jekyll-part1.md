@@ -5,13 +5,13 @@ date:   2019-10-14 15:58:00 +0200
 categories: cms github wordpress ruby jekyll migration 
 ---
 
-# Migrating WordPress.com's blog to GitHub Pages by using Jekyll - Part 1/2
-
 I would like to share my experience migrating my blog site hosted in WordPress.com to GitHub Pages in 2 parts.
-In this Part 1 I will explain how to use Jekyll to export/import, how to configure GitHub Page site to host a fully blog as a headless Content Management System (CMS) based on Ruby. 
-In the Part 2 I will explain how to manage the look&feel, layouts, etc.
+In this blog post (Part 1) I will explain how to use Jekyll to export/import, how to configure GitHub Page site to host a fully blog as a headless Content Management System (CMS) based on Ruby. 
+In the next blog post (Part 2) I will explain how to manage the look&feel, layouts, etc.
 
-## Create a GitHub Pages repository
+![Migrating WordPress.com's blog to GitHub Pages by using Jekyll](/assets/img/2019-10-14-blog-migration-wp-github.png)
+
+## h2 Create a GitHub Pages repository
 
 I created an empty GitHub repository, in my case is [`ghpages-holosec`](https://github.com/chilcano/ghpages-holosec), to host my migrated WordPress.com's blog, then I followed the [https://pages.github.com](https://pages.github.com) guide and configured it as `Project site`, no as `User or organization site` since my GitHub Account will host multiple Sites with different custom Domain Names. 
 
@@ -102,12 +102,12 @@ $ bundle exec ruby -r rubygems -e 'require "jekyll-import";
 $ bundle exec jekyll serve
 ```
 You will see that all posts were imported.
-![Holistic Security About page](2019-10-14-wp-to-github-holosec-1st)
+![Holistic Security About page](/assets/img/2019-10-14-wp-to-github-holosec-1st.png)
 
 ## References
 
-- https://jekyllrb.com/docs/installation/ubuntu/
-- https://jekyllrb.com/tutorials/using-jekyll-with-bundler/
-- https://import.jekyllrb.com/docs/installation/
-- https://import.jekyllrb.com/docs/wordpressdotcom/
+- [https://jekyllrb.com/docs/installation/ubuntu/](https://jekyllrb.com/docs/installation/ubuntu/)
+- [https://jekyllrb.com/tutorials/using-jekyll-with-bundler/](https://jekyllrb.com/tutorials/using-jekyll-with-bundler/)
+- [https://import.jekyllrb.com/docs/installation/](https://import.jekyllrb.com/docs/installation/)
+- [https://import.jekyllrb.com/docs/wordpressdotcom/](https://import.jekyllrb.com/docs/wordpressdotcom/)
 
