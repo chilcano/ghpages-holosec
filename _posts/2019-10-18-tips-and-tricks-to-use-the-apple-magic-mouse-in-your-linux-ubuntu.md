@@ -20,4 +20,6 @@ These resources are recommedations of many people whom tried and got successfull
   [http://sneclacson.blogspot.com/2016/09/using-apple-magic-mouse-with-ubuntu-1604.html](http://sneclacson.blogspot.com/2016/09/using-apple-magic-mouse-with-ubuntu-1604.html)
 - Archlinux - Configuration & troubleshooting steps to Bluetooth mice:  
   [https://wiki.archlinux.org/index.php/Bluetooth_mouse](https://wiki.archlinux.org/index.php/Bluetooth_mouse)
+- How to Install Blueman Manager on Ubuntu Based OSes:  
+  [https://tutorialforlinux.com/2018/04/14/how-to-install-blueman-manager-on-ubuntu-based-oses](https://tutorialforlinux.com/2018/04/14/how-to-install-blueman-manager-on-ubuntu-based-oses)
 
