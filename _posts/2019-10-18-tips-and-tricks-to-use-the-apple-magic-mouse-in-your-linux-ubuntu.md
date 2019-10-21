@@ -18,4 +18,6 @@ These resources are recommedations of many people whom tried and got successfull
   [https://github.com/robotrovsky/Linux-Magic-Trackpad-2-Driver](https://github.com/robotrovsky/Linux-Magic-Trackpad-2-Driver)
 - Using the Apple Magic Mouse with Ubuntu (16.0.4):  
   [http://sneclacson.blogspot.com/2016/09/using-apple-magic-mouse-with-ubuntu-1604.html](http://sneclacson.blogspot.com/2016/09/using-apple-magic-mouse-with-ubuntu-1604.html)
+- Archlinux - Configuration & troubleshooting steps to Bluetooth mice:  
+  [https://wiki.archlinux.org/index.php/Bluetooth_mouse](https://wiki.archlinux.org/index.php/Bluetooth_mouse)
 
