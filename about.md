@@ -18,6 +18,3 @@ To find out more about my work check out my profile on [LinkedIn](https://www.li
 
 
 [![WWW.INTIX.INFO](/assets/img/logo-intix.gif "www.intix.info")](http://intix.info)
-
-{{ minima.social_links }}
-
