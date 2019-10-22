@@ -1,14 +1,12 @@
 title: Holistic Security
 email: blog@holisticsecurity.io
 description: >- # this means to ignore newlines until "baseurl:"
-  With The Systems Thinking approach, We see any problem in a complete and holistic manner, 
-  in fact, it is possible to apply Systems Thinking Methodology to ITSec problems allowing to 
-  incorporate new variables (usability, trust, quality, risk, etc.) to the problem that 
-  before was not considered in the solution.
+  Systems Thinking, Holism, Trust, Security & Usability.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://holisticsecurity.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: Chilcano
 github_username:  Chilcano
+linkedin_username:  Chilcano
 
 # Build settings
 theme: minima
