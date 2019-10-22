@@ -23,7 +23,7 @@ These resources are recommedations of many people whom tried and got successfull
 - How to Install Blueman Manager on Ubuntu Based OSes:  
   [https://tutorialforlinux.com/2018/04/14/how-to-install-blueman-manager-on-ubuntu-based-oses](https://tutorialforlinux.com/2018/04/14/how-to-install-blueman-manager-on-ubuntu-based-oses)
 
-> In Ubuntu 19.10 installed and unistalled `blueman` you had to restart/enable the bluetooth service. Here, that is explained: [https://medium.com/@djorborn/bluetoothctl-failed-to-connect-org-bluez-error-failed-54040f12b4f8](https://medium.com/@djorborn/bluetoothctl-failed-to-connect-org-bluez-error-failed-54040f12b4f8)
+> In Ubuntu 19.10 installed and uninstalled `blueman`, if you did that, you had to restart/enable the bluetooth service. Here, that is explained: [https://medium.com/@djorborn/bluetoothctl-failed-to-connect-org-bluez-error-failed-54040f12b4f8](https://medium.com/@djorborn/bluetoothctl-failed-to-connect-org-bluez-error-failed-54040f12b4f8)
 
 ```sh
 chilcano@inti:~$ sudo systemctl start bluetooth.service
