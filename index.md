@@ -1,7 +1,7 @@
 ---
 layout: home
 title: Home
-permalink: /home/
+permalink: /
 ---
 ## The Systems Thinking Methodology applied to IT Security
 
