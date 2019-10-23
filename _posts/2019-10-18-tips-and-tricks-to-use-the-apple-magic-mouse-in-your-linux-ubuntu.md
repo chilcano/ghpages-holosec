@@ -22,6 +22,8 @@ These resources are recommedations of many people whom tried and got successfull
   [https://wiki.archlinux.org/index.php/Bluetooth_mouse](https://wiki.archlinux.org/index.php/Bluetooth_mouse)
 - How to Install Blueman Manager on Ubuntu Based OSes:  
   [https://tutorialforlinux.com/2018/04/14/how-to-install-blueman-manager-on-ubuntu-based-oses](https://tutorialforlinux.com/2018/04/14/how-to-install-blueman-manager-on-ubuntu-based-oses)
+- What does this error mean? (Trying to reduce mouse sensitivity):  
+  [reddit.com/r/linux4noobs/comments/758tjp/what_does_this_error_mean_trying_to_reduce_mouse/do4a9sh](reddit.com/r/linux4noobs/comments/758tjp/what_does_this_error_mean_trying_to_reduce_mouse/do4a9sh)
 
 > In Ubuntu 19.10 installed and uninstalled `blueman`, if you did that, you had to restart/enable the bluetooth service. Here, that is explained: [https://medium.com/@djorborn/bluetoothctl-failed-to-connect-org-bluez-error-failed-54040f12b4f8](https://medium.com/@djorborn/bluetoothctl-failed-to-connect-org-bluez-error-failed-54040f12b4f8)
 
