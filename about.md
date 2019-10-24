@@ -3,7 +3,6 @@ layout: page
 title: About
 permalink: /about/
 ---
-
 I am a software professional with over 15 years of experience in designing and implementing a wide variety of critical systems in diferent industries.
 
 Based in UK and Spain, I deliver independent consulting, helping clients solve their problems using and applying open source technology to address complex system integrations.

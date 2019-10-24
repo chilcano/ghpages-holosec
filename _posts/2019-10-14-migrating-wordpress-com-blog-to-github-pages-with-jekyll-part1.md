@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Migrating WordPress.com's blog to GitHub Pages by using Jekyll - Part 1"
+title:  "Migrating WordPress.com's blog to GitHub Pages with Jekyll - Part 1"
 date:   2019-10-14 15:58:00 +0200
 categories: cms github wordpress ruby jekyll migration 
 tags: cms github wordpress ruby jekyll migration 
