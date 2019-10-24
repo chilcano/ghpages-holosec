@@ -532,13 +532,14 @@ $text-color-site-nav-menu: #222fdd;
 }
 
 .post-title {
-  @include relative-font-size(2.625);
+  //@include relative-font-size(2.625);
+  @include relative-font-size(2.500);
   letter-spacing: -1px;
   line-height: 1;
 
   @include media-query($on-laptop) {
     //@include relative-font-size(2.25);
-    @include relative-font-size(2.00);
+    @include relative-font-size(1.900);
   }
 }
 
@@ -546,26 +547,32 @@ $text-color-site-nav-menu: #222fdd;
   margin-bottom: $spacing-unit;
 
   h2 {
-    @include relative-font-size(2);
+    //@include relative-font-size(2);
+    @include relative-font-size(1.875);
     
     @include media-query($on-laptop) {
-      @include relative-font-size(1.75);
+      //@include relative-font-size(1.75);
+      @include relative-font-size(1.625);
     }
   }
 
   h3 {
-    @include relative-font-size(1.625);
+    //@include relative-font-size(1.625);
+    @include relative-font-size(1.500);
 
     @include media-query($on-laptop) {
-      @include relative-font-size(1.375);
+      //@include relative-font-size(1.375);
+      @include relative-font-size(1.250);
     }
   }
 
   h4 {
-    @include relative-font-size(1.25);
+    //@include relative-font-size(1.25);
+    @include relative-font-size(1.125);
 
     @include media-query($on-laptop) {
-      @include relative-font-size(1.125);
+      //@include relative-font-size(1.125);
+      @include relative-font-size(1.00);
     }
   }
 }
