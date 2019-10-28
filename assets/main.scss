@@ -47,11 +47,7 @@ $yyy: #f8f8f8;
 // post-title h1
 // page-heading h1
 
-
-
 // *********************************** _based.scss
-
-
 
 
 /**
@@ -178,6 +174,8 @@ $yyy: #f8f8f8;
     color: $grey-color;
     border-left: 2px solid $grey-color-light;
     padding-left: $spacing-unit / 2;
+    padding-bottom: $spacing-unit / 2;
+    padding-top: $spacing-unit / 2;
     //@include relative-font-size(1.125);
     @include relative-font-size(0.90);
     //letter-spacing: -1px;
