@@ -12,6 +12,7 @@ linkedin_username:  Chilcano
 theme: minima
 plugins:
   - jekyll-feed
+  - jekyll-paginate
 
 # Exclude from processing.
 # The following items will not be processed, by default.
@@ -34,5 +35,13 @@ plugins:
 #   - vendor/ruby/
 
 header_pages:
-  - about.md
   - index.md
+  - blog/index.html
+  - about.md
+
+## Pagination for blog posts: https://jekyllrb.com/docs/pagination/
+paginate: 5
+paginate_path: "/blog/pg:num"
+
+##show_excerpts: true
+##excerpt_separator: <!--more-->

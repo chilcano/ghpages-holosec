@@ -32,3 +32,5 @@ gem "wdm", "~> 0.1.1", :install_if => Gem.win_platform?
 gem "jekyll-import", "~> 0.19.0"
 gem "hpricot", "~> 0.8.6"
 gem "open_uri_redirections", "~> 0.2.1"
+
+gem "jekyll-paginate", "~> 1.1"
