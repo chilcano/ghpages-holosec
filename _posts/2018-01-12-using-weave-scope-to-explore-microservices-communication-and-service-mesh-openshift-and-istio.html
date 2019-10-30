@@ -33,6 +33,8 @@ meta:
   publicize_linkedin_url: https://www.linkedin.com/updates?discuss=&scope=6985267&stype=M&topic=6357383004045799424&type=U&a=iVLp
   _publicize_done_5110110: '1'
   _wpas_done_5053092: '1'
+  _edit_last: '578869'
+  geo_public: '0'
 author:
   login: rcarhuatocto
   email: roger@intix.info
@@ -41,15 +43,17 @@ author:
   last_name: ''
 permalink: "/2018/01/12/using-weave-scope-to-explore-microservices-communication-and-service-mesh-openshift-and-istio/"
 ---
-<p>If you are working with ESB, Message Brokers, BPMS, SOA or Microservices, you will notice that you are solving the same problems of Standalone Applications but in different way, because all of them are different kind of Distributed Application. Those problems are:</p>
+<p>If you are working with ESB, Message Brokers, BPMS, SOA or Microservices, you will notice that you are solving the same problems of Standalone Applications but in different way, because all of them are different kind of Distributed Application.<br />
+Those problems are:</p>
 <ul>
 <li>Users Management, Authentication and Authorisation</li>
 <li>Logging, Debugging, Monitoring and Alerting</li>
 <li>Clustering, High Availability, Load Balancing, etc...</li>
 </ul>
+<p><!-- more --></p>
 <h3>What is a Service Mesh?</h3>
 <p>It's other type of Distributed Application where the Services, or Microservices or APIs, are being interconnected.</p>
-<p><img class="alignnone size-full wp-image-2046" src="{{ site.baseurl }}/assets/api-mesh-security-2-weave-scope.png" alt="api-mesh-security-2-weave-scope" width="2218" height="2316" /></p>
+<p><img class="alignnone size-full wp-image-2046" src="{{ site.baseurl }}/assets/api-mesh-security-2-weave-scope.png" alt="api-mesh-security-2-weave-scope" /></p>
 <h3>Service Mesh on Containerised and Orchestrated Platform</h3>
 <p>Generally a Service Mesh, based on the Microservices and/or APIs, is deployed by using multiple containers hosted and orchestrated for Kubernetes. In this scenario, we need to face new challenges such as ephemeral infrastructure, zero trust network, network segmentation or adopting new methodologies to test, to monitor, to deploy, to operate, etc. That's we are calling DevOps.</p>
 <h3>Deployment Container Patterns</h3>
@@ -73,7 +77,7 @@ For example, Google explains very well 3 patterns:</p>
 <li>Secure service-to-service authentication with strong identity assertions between services in a cluster.</li>
 </ul>
 </blockquote>
-<p><img class="alignnone size-full wp-image-2054" src="{{ site.baseurl }}/assets/istio-architecture.png" alt="istio-architecture" width="1702" height="1140" /></p>
+<p><img class="alignnone size-full wp-image-2054" src="{{ site.baseurl }}/assets/istio-architecture.png" alt="istio-architecture" /></p>
 <h3>Why use Istio?</h3>
 <p>Extracted from <a href="https://istio.io/docs/concepts/what-is-istio/overview.html">Istio.io</a>:</p>
 <blockquote><p>Istio addresses many of the challenges faced by developers and operators as monolithic applications transition towards a distributed microservice architecture. The term service mesh is often used to describe the network of microservices that make up such applications and the interactions between them. As a service mesh grows in size and complexity, it can become harder to understand and manage. Its requirements can include discovery, load balancing, failure recovery, metrics, and monitoring, and often more complex operational requirements such as A/B testing, canary releases, rate limiting, access control, and end-to-end authentication.</p>
@@ -96,9 +100,14 @@ To deploy Weave Scope Application in an OpenShift running locally</li>
 To deploy and configure Istio in OpenShift running locally, to deploy BookInfo Application and inject sidecar proxies(Envoy Proxy)</li>
 </ol>
 <p><a href="https://github.com/chilcano/ansible-minishift-istio-security">I have also created some examples so that you can have an environment where you can test and try quickly with all this. </a></p>
-<p><a href="https://github.com/weaveworks/scope" target="_blank">Weave Scope Application</a> will play a important role here, because It will allow us to monitor, visualise, troubleshot and manage <b>easily</b> whole the container-based Service Mesh.</p>
+<p><a href="https://github.com/weaveworks/scope" target="_blank" rel="noopener">Weave Scope Application</a> will play a important role here, because It will allow us to monitor, visualise, troubleshot and manage <b>easily</b> whole the container-based Service Mesh.</p>
 <p>Once completed <a href="https://github.com/chilcano/ansible-minishift-istio-security">the step-by-step guide</a>, you will get next:</p>
-<p>[gallery ids="2051,2052,2053" type="square" link="file"]</p>
-<p>[gallery ids="2045,2047,2048,2049,2050" type="square"]</p>
+<p><a href="https://holisticsecurity.files.wordpress.com/2018/01/api-mesh-security-7-weave-scope-istio-system.png"><img class="aligncenter size-medium wp-image-2051" src="{{ site.baseurl }}/assets/api-mesh-security-7-weave-scope-istio-system.png" alt="" /></a><br />
+<a href="https://holisticsecurity.files.wordpress.com/2018/01/api-mesh-security-8-weave-scope-bookinfo.png"><img class="aligncenter size-medium wp-image-2052" src="{{ site.baseurl }}/assets/api-mesh-security-8-weave-scope-bookinfo.png" alt="" /></a><br />
+<a href="https://holisticsecurity.files.wordpress.com/2018/01/api-mesh-security-9-weave-scope-bookinfo-mesh.png"><img class="aligncenter size-medium wp-image-2053" src="{{ site.baseurl }}/assets/api-mesh-security-9-weave-scope-bookinfo-mesh.png" alt="" /></a></p>
+<p>..and</p>
+<p><a href="https://holisticsecurity.files.wordpress.com/2018/01/api-mesh-security-4-istio-zipkin.png"><img class="aligncenter size-medium wp-image-2048" src="{{ site.baseurl }}/assets/api-mesh-security-4-istio-zipkin.png" alt="" /></a><br />
+<a href="https://holisticsecurity.files.wordpress.com/2018/01/api-mesh-security-5-istio-grafana.png"><img class="aligncenter size-medium wp-image-2049" src="{{ site.baseurl }}/assets/api-mesh-security-5-istio-grafana.png" alt="" /></a><br />
+<a href="https://holisticsecurity.files.wordpress.com/2018/01/api-mesh-security-6-istio-servicegraph.png"><img class="aligncenter size-medium wp-image-2050" src="{{ site.baseurl }}/assets/api-mesh-security-6-istio-servicegraph.png" alt="" /></a></p>
 <p>Hope this helps!.<br />
 Regards.</p>

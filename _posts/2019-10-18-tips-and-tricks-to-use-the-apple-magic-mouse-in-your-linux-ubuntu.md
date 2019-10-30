@@ -10,7 +10,7 @@ permalink: "/2019/10/18/tips-and-tricks-to-use-the-apple-magic-mouse-in-your-lin
 This a set of resources (reported issues, blogs, drivers, tips and tricks) to eager to use your Apple Magic Mouse in your Linux Ubuntu.
 These resources are recommedations of many people whom tried and got successfully the Apple Magic Mouse working in Linux. 
 Next you can review documentation about how to configure it in your Linux PC:
-
+<!-- more -->
 - Apple magic mouse 2 does not work by default:  
   [https://bugs.launchpad.net/ubuntu/+source/linux-signed-hwe/+bug/1822770](https://bugs.launchpad.net/ubuntu/+source/linux-signed-hwe/+bug/1822770)
 - Apple Magic Mouse 2 and Trackpad Driver for Linux:  

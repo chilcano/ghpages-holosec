@@ -41,11 +41,12 @@ author:
 permalink: "/2016/12/02/data-routing-transformation-and-system-mediation-in-big-data-iot-scenarios-with-apache-nifi/"
 ---
 <p>So a few months ago I published a serie of post explaining how to capture WIFI traffic and process it near to real time by using <a href="http://wso2.com/more-downloads/business-activity-monitor/">WSO2 BAM</a>, <a href="https://github.com/wso2/siddhi">CEP Siddhi</a>, Apache Cassandra, <a href="https://thrift.apache.org/">Apache Thrift</a>, <a href="https://www.kismetwireless.net">Kismet</a> running on a Raspberry Pi and Docker.</p>
-<p><img class="alignnone size-full wp-image-1694" src="{{ site.baseurl }}/assets/01-wifi-traffic-capture-wso2-bam.png" alt="01-wifi-traffic-capture-wso2-bam" width="1337" height="750" /></p>
+<p><img src="{{ site.baseurl }}/assets/01-wifi-traffic-capture-wso2-bam.png" alt="https://holisticsecurity.files.wordpress.com/2016/12/01-wifi-traffic-capture-wso2-bam.png" /></p>
 <p>Now, after several Big Data and Security projects, I can add to previous solution, fresh air and improve the technological approach.</p>
+<p><!-- more --></p>
 <h2>Using Elasticsearch, Logstash and Kibana</h2>
 <p>Well, the first approach I considered was starting with <a href="https://www.elastic.co">ELK stack</a> (Elasticsearch, Logstash and Kibana), that is the natural way to follow.</p>
-<p><img class="alignnone size-full wp-image-1713" src="{{ site.baseurl }}/assets/02-wifi-traffic-capture-elasticsearch-logstash-kibana.png" alt="02-wifi-traffic-capture-elasticsearch-logstash-kibana" width="1337" height="750" /></p>
+<p><img src="{{ site.baseurl }}/assets/02-wifi-traffic-capture-elasticsearch-logstash-kibana.png" alt="https://holisticsecurity.files.wordpress.com/2016/12/02-wifi-traffic-capture-elasticsearch-logstash-kibana.png" /></p>
 <p>&nbsp;</p>
 <p>But, there are still some issues to face:</p>
 <ul>
@@ -82,7 +83,7 @@ permalink: "/2016/12/02/data-routing-transformation-and-system-mediation-in-big-
 </ul>
 <p>Then, what can I do ?....</p>
 <h2>Apache NiFi to the rescue!</h2>
-<p><img class=" size-medium wp-image-1797 alignright" src="{{ site.baseurl }}/assets/03-apache-nifi-logo.png?w=600" alt="03-apache-nifi-logo" width="300" height="191" /></p>
+<p><img src="{{ site.baseurl }}/assets/03-apache-nifi-logo.png" alt="https://holisticsecurity.files.wordpress.com/2016/12/03-apache-nifi-logo.png" /></p>
 <p>I was involved in several Integration Project where I frequently used <a href="http://wso2.com/products/enterprise-service-bus/">WSO2 ESB</a>.</p>
 <p>WSO2 ESB is based on <a href="https://synapse.apache.org/">Apache Synapse</a>, it is a lightweight and high-performance Enterprise Service Bus (ESB). Powered by a fast and asynchronous mediation engine, It provides support for XML, SOAP and REST. It supports HTTP/S, Mail (POP3, IMAP, SMTP), JMS, TCP, UDP, VFS, SMS, XMPP and FIX through "mediators".</p>
 <p>Other opensource and popular choice is <a href="http://camel.apache.org">Apache Camel</a>. Also We can consider ETL tools such as <a href="http://community.pentaho.com/projects/data-integration/">Pentaho Data Integration</a> (a.k.a Pentaho Kettle), but all them are too heavy to use with/in a Raspberry Pi. Until I found the Apache NiFi.</p>
@@ -105,14 +106,14 @@ permalink: "/2016/12/02/data-routing-transformation-and-system-mediation-in-big-
 <em>- SSL, SSH, HTTPS, encrypted content, etc...</em><br />
 <em>- Multi-tenant authorization and internal authorization/policy management.</em></p></blockquote>
 <p>What do you think about that? Do you think that Apache NiFi can help me ?. Yes, It does. The new approach would be as follows:</p>
-<p><img class="alignnone size-full wp-image-1906" src="{{ site.baseurl }}/assets/04-wifi-traffic-capture-apache-nifi-minifi.png" alt="04-wifi-traffic-capture-apache-nifi-minifi" width="1379" height="654" /></p>
+<p><img src="{{ site.baseurl }}/assets/04-wifi-traffic-capture-apache-nifi-minifi.png" alt="https://holisticsecurity.files.wordpress.com/2016/12/04-wifi-traffic-capture-apache-nifi-minifi.png" /></p>
 <p>The above choice covers basically all gaps above explained. In the side of Raspberry Pi we could use <a href="https://cwiki.apache.org/confluence/display/MINIFI/MiNiFi">Apache MiNiFi</a>, a subproject of NiFi suitable for constrained resources. The specific goals comprise:</p>
 <ul>
 <li>small and lightweight footprint</li>
 <li>central management of agents</li>
 <li>generation of data provenanceFor other side, the below choice is also a valid alternative. Even as PoC that demonstrates the ease and the power of using Apache NiFi, this approach is enough.</li>
 </ul>
-<p><img class="alignnone size-full wp-image-1846" src="{{ site.baseurl }}/assets/05-wifi-traffic-capture-apache-nifi.png" alt="05-wifi-traffic-capture-apache-nifi" width="1379" height="654" /></p>
+<p><img src="{{ site.baseurl }}/assets/05-wifi-traffic-capture-apache-nifi.png" alt="https://holisticsecurity.files.wordpress.com/2016/12/05-wifi-traffic-capture-apache-nifi.png" /></p>
 <p>In the next post I will share technical details and code to implement the above approach. Meanwhile I share four great resources:</p>
 <ul>
 <li>When SysOps need workflow.... Introducing Apache NiFi (https://www.linkedin.com/pulse/when-sysops-need-workflow-introducing-apache-nifi-jeroen-jacobs)</li>

@@ -20,6 +20,7 @@ tags:
 - Raspberry Pi
 meta:
   _wpcom_is_markdown: '1'
+  geo_public: '0'
   _rest_api_published: '1'
   _rest_api_client_id: "-1"
   _publicize_job_id: '3416834411'
@@ -30,6 +31,7 @@ meta:
   publicize_linkedin_url: https://www.linkedin.com/updates?discuss=&scope=6985267&stype=M&topic=6252944881350778880&type=U&a=y4pe
   _publicize_done_5110110: '1'
   _wpas_done_5053092: '1'
+  _edit_last: '578869'
 author:
   login: rcarhuatocto
   email: roger@intix.info
@@ -39,7 +41,8 @@ author:
 permalink: "/2017/03/29/my-3-ansible-roles-to-mass-provision-kismet-and-apache-minifi-for-wardriving-at-scale/"
 ---
 <p>This blog post is implementing the same scenario used in the previous post <a href="https://holisticsecurity.io/2017/03/20/mass-provisioning-of-kismet-and-apache-minifi-in-raspberry-pi-using-ansible">Mass provisioning of Kismet and Apache MiNiFi in Raspberry Pi using Ansible</a>. The unique difference is this new blog post I'm using <a href="http://docs.ansible.com/ansible/playbooks_roles.html">Ansible Roles</a> instead of Ansible Playbooks where all automated operations as install, configure, run, etc. were implemented in Ansible Tasks.</p>
-<p><img src="{{ site.baseurl }}/assets/mass-provisioning-kismet-minifi-raspberrypi-ansible-2-pkg.png" alt="mass-provisioning-kismet-minifi-raspberrypi-ansible-2-pkg" width="835" height="735" class="alignnone size-full wp-image-2006" /></p>
+<p><!-- more --></p>
+<p><img src="{{ site.baseurl }}/assets/mass-provisioning-kismet-minifi-raspberrypi-ansible-2-pkg.png" alt="https://holisticsecurity.files.wordpress.com/2017/03/mass-provisioning-kismet-minifi-raspberrypi-ansible-2-pkg.png" /></p>
 <p>Then, I've refactored all Ansible Tasks and I've created 3 Ansible Roles. They are in Ansible Galaxy and are:</p>
 <p><strong>Ansible Role Kismet RPi Build (https://galaxy.ansible.com/chilcano/kismet-rpi-build)</strong></p>
 <p>An Ansible Role that builds / compiles from scratch and packs (Debian/Raspbian binary) Kismet on a Raspberry Pi. This Role provides the following features:</p>

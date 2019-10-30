@@ -22,7 +22,14 @@ tags:
 meta:
   _wpcom_is_markdown: '1'
   _oembed_d546af9e83efc44efb2d574ada150241: "{{unknown}}"
-  _oembed_f4f1a075c349ac93cc75b88fae67dc9a: "{{unknown}}"
+  _oembed_f4f1a075c349ac93cc75b88fae67dc9a: '<blockquote class="wp-embedded-content"
+    data-secret="4Na8UxTOLZ"><a href="http://blog.smalleycreative.com/linux/setup-a-headless-raspberry-pi-with-raspbian-jessie-on-os-x/">Setup
+    a Headless Raspberry Pi with Raspbian Jessie on OS X</a></blockquote><iframe title="&#8220;Setup
+    a Headless Raspberry Pi with Raspbian Jessie on OS X&#8221; &#8212; the smalley
+    creative blog" class="wp-embedded-content" sandbox="allow-scripts" security="restricted"
+    style="position: absolute; clip: rect(1px, 1px, 1px, 1px);" src="http://blog.smalleycreative.com/linux/setup-a-headless-raspberry-pi-with-raspbian-jessie-on-os-x/embed/#?secret=4Na8UxTOLZ"
+    data-secret="4Na8UxTOLZ" width="600" height="338" frameborder="0" marginwidth="0"
+    marginheight="0" scrolling="no"></iframe>'
   _oembed_7b1bd08f14538f8238b1195ac34cecd6: "{{unknown}}"
   _oembed_e91c5a09c5a356defcb6679cf44eea8e: "{{unknown}}"
   _oembed_1cf4de4c1e78e19cb9b9892f6db43b93: "{{unknown}}"
@@ -54,6 +61,18 @@ meta:
     marginheight="0" scrolling="no"></iframe>'
   _oembed_time_9fddc073e6b9ae82705718b0954c44ea: '1570527689'
   _oembed_0b68709566ffdc504190b14cdd8bcdd1: "{{unknown}}"
+  _oembed_c91d96301c1146bea097eca6a447b448: "{{unknown}}"
+  _oembed_65184a38493842b22270102460a09d2a: '<blockquote class="wp-embedded-content"
+    data-secret="Ie7QvRgJc7"><a href="http://blog.smalleycreative.com/linux/setup-a-headless-raspberry-pi-with-raspbian-jessie-on-os-x/">Setup
+    a Headless Raspberry Pi with Raspbian Jessie on OS X</a></blockquote><iframe title="&#8220;Setup
+    a Headless Raspberry Pi with Raspbian Jessie on OS X&#8221; &#8212; the smalley
+    creative blog" class="wp-embedded-content" sandbox="allow-scripts" security="restricted"
+    style="position: absolute; clip: rect(1px, 1px, 1px, 1px);" src="http://blog.smalleycreative.com/linux/setup-a-headless-raspberry-pi-with-raspbian-jessie-on-os-x/embed/#?secret=Ie7QvRgJc7"
+    data-secret="Ie7QvRgJc7" width="420" height="237" frameborder="0" marginwidth="0"
+    marginheight="0" scrolling="no"></iframe>'
+  _oembed_time_65184a38493842b22270102460a09d2a: '1572452604'
+  _oembed_time_f4f1a075c349ac93cc75b88fae67dc9a: '1572452604'
+  _oembed_c3db3c042f19a75ae1e8bd40b08c455d: "{{unknown}}"
 author:
   login: rcarhuatocto
   email: roger@intix.info
@@ -65,19 +84,20 @@ permalink: "/2017/03/20/mass-provisioning-of-kismet-and-apache-minifi-in-raspber
 <p>Lately I'm focusing on Automation in Big-Data Projects, and with my experience in Cyber Security I can bring new approaches and ideas to those Big-Data Projects are related to IT Security aspects (Threat Analisys, Privacy, Intrusion Detection, etc.).<br />
 With this post I will start a serie of articles explaining how to do "Data Ingestion/Capture" in the <code>Edge</code> by using:</p>
 <ul>
-<li>Ansible to <code>provisioning</code>.</li>
+<li>Ansible to do <code>provisioning</code>.</li>
 <li>Multiple and remote devices in the <code>Edge</code> (Raspberry Pi).</li>
 <li>Kismet to capture WIFI Anonymous traffic in the <code>Edge</code>.</li>
 <li>Apache MiNiFi to enrich and route the captured traffic in the <code>Edge</code>.</li>
 <li>Apache NiFi to collect the enriched traffic and forward to Solr / ElasticSearch.</li>
 </ul>
 <p>...everything, near to real-time ;)</p>
+<p><!-- more --></p>
 <p>And if you want to explore in deep other use cases, this article is a must read: (EDGE INTELLIGENCE FOR IOT WITH APACHE MINIFI)[https://hortonworks.com/blog/edge-intelligence-iot-apache-minifi/]</p>
 <p>In short, I will explain in this post the following:<br />
 - Manage several devices in the <code>Edge</code> by using Ansible.<br />
 - Mass provision of Kismet and Apache MiNiFi.<br />
 - Performing operational tasks in several devices.</p>
-<p>[caption width="1229" align="alignnone"]<img src="{{ site.baseurl }}/assets/mass-provisioning-kismet-minifi-raspberrypi-ansible-1-arch.png" width="1229" height="654" alt="Mass provisioning of Kismet and Apache MiNiFi in Raspberry Pi using Ansible - Architecture" class="size-medium" /> Mass provisioning of Kismet and Apache MiNiFi in Raspberry Pi using Ansible - Architecture[/caption]</p>
+<p><img src="{{ site.baseurl }}/assets/mass-provisioning-kismet-minifi-raspberrypi-ansible-1-arch.png" alt="https://raw.githubusercontent.com/chilcano/ansible-raspberrypi-wardriving/master/images/mass-provisioning-kismet-minifi-raspberrypi-ansible-1-arch.png" /></p>
 <h2>1. Preparing your Raspberry Pi.</h2>
 <h3>1.1. Prepare your MicroSD cards with the latest Raspbian image.</h3>
 <p>I'm going to use Raspbian Jessie Lite 2017-01-11 (http://director.downloads.raspberrypi.org/raspbian_lite/images/raspbian_lite-2017-01-10/2017-01-11-raspbian-jessie-lite.zip).</p>
