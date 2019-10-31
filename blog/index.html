@@ -7,12 +7,19 @@ excerpt_separator: <!-- more -->
 
 {%- if site.posts.size > 0 -%}
 
+<!-- Navigation by Categories and Tags -->
+Navigation by:
+<ul>
+  <li><a href="{{ post.url | relative_url }}/blog/category">Categories</a></li>
+  <li><a href="{{ post.url | relative_url }}/blog/tag">Tags</a></li>
+</ul>
+
 <h2 class="post-list-heading">{{ page.list_title | default: "Posts" }}</h2>
 <ul class="post-list">
   {%- for post in paginator.posts -%}
   <li>
     {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-    <span class="post-meta">{{ post.date | date: date_format }}</span> · <span class="post-meta">Tags: </span>
+    <span class="post-meta">{{ post.date | date: date_format | upcase }} &sim; {{ post.tags | join: ' · ' | upcase }}</span>
     <h3>
       <a class="post-link" href="{{ post.url | relative_url }}">
         {{ post.title | escape }}
