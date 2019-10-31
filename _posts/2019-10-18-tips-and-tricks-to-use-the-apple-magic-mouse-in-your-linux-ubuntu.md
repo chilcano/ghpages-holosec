@@ -37,4 +37,6 @@ Executing: /lib/systemd/systemd-sysv-install enable bluetooth
 ```
 > Finally I made the decision to buy the [Logitech M590 Multi-Device Silent](https://www.logitech.com/en-us/product/m590-silent-wireless-mouse) mouse instead of trying using the Apple Magic Mouse with Ubuntu 19.10 because I was getting scrolling lag, anoying behaviour with scrolling and clicking, and continuous bluetooth disconnection.
 
+> The Logitech M590 mouse can be use through bluetooth and unify receiver. It works in Ubuntu 19.10 and bluetooth by default, but not with unify receiver. To fix it I had to follow this information about [Solaar and Unify technology](https://lekensteyn.nl/logitech-unifying.html) in AskUbuntu forum: [Is Logitech's Unifying receiver supported?](https://askubuntu.com/questions/113984/is-logitechs-unifying-receiver-supported)
+
 I hope this helps you.
