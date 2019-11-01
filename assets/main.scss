@@ -20,7 +20,7 @@ $spacing-unit:     30px !default;
 
 $text-color:       #666;
 $background-color: #fff;
-$brand-color:      rgb(20, 120, 255);
+$brand-color:      #1478ff;
 
 $grey-color:       #828282;
 $grey-color-light: lighten($grey-color, 40%) !default;
@@ -40,6 +40,28 @@ $on-laptop:        800px !default;
 
 $xxx: #e7f2ff;
 $yyy: #f8f8f8;
+
+// div class used in blog/index.html
+div.holosec-excerpts-hover {
+  color: $grey-color;
+  border-left: 0px solid $grey-color-light;
+  padding-left: $spacing-unit / 4;
+  padding-right: $spacing-unit / 4;
+  padding-bottom: $spacing-unit / 4;
+  padding-top: $spacing-unit / 4;
+  //@include relative-font-size(1.125);
+  @include relative-font-size(1.00);
+  //letter-spacing: -1px;
+  letter-spacing: 0px;
+  //font-style: italic;
+  font-style: normal;
+  background-color: $yyy;
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+
 
 // post-title h1
 // page-heading h1
@@ -143,7 +165,8 @@ $yyy: #f8f8f8;
     text-decoration: none;
   
     &:visited {
-      color: darken($brand-color, 15%);
+      color: darken($brand-color, 25%);
+      //color: lighten($brand-color, 25%);
     }
   
     &:hover {
@@ -300,9 +323,10 @@ table {
 
 // ****************************************************** _layout.scss
 
-$grey-color-dark: #222fdd;
-$grey-color-light: #222fdd;
-$text-color-site-nav-menu: #222fdd;
+$grey-color-dark: #1478ff;
+$grey-color-light: #1478ff;
+$text-color-site-nav-menu: #1478ff;
+
 
 /**
  * Site header
@@ -570,7 +594,6 @@ $text-color-site-nav-menu: #222fdd;
     }
   }
 }
-
 
 
 

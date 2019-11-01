@@ -92,7 +92,7 @@ DEPENDENCIES
   jekyll-feed (~> 0.12)
   jekyll-import (~> 0.19.0)
   jekyll-paginate (~> 1.1)
-  minima (~> 2.5)
+  minima (~> 2.5.1)
   open_uri_redirections (~> 0.2.1)
   tzinfo (~> 1.2)
   tzinfo-data
