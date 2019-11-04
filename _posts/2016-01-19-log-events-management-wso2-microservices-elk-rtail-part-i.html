@@ -24,6 +24,7 @@ tags:
 meta:
   _wpcom_is_markdown: '1'
   _edit_last: '578869'
+  _oembed_05f87f7fdb8e25a7d1265e3ff1b076ae: "{{unknown}}"
   geo_public: '0'
   _oembed_ebc21c5371f3ce6cac236e99f5440ab4: "{{unknown}}"
   _oembed_670837f2c42bada9212dcad97e300749: "{{unknown}}"
@@ -46,6 +47,7 @@ meta:
   _oembed_868eda38880d53a751ae54b8b5fd7e48: "{{unknown}}"
   _oembed_ba5b1f9ac5401566c2c26ed9077a7525: "{{unknown}}"
   _oembed_d7abb0c4ab86146e5d6b14bd5145fa84: "{{unknown}}"
+  _oembed_9df507a2f96735a854630464cbf0c59e: "{{unknown}}"
 author:
   login: rcarhuatocto
   email: roger@intix.info
@@ -54,29 +56,23 @@ author:
   last_name: ''
 permalink: "/2016/01/19/log-events-management-wso2-microservices-elk-rtail-part-i/"
 ---
-<p>The log event management is a task very important when working with (Micro)services. If you collect-store-index all logs, then you will be able to create your business metrics (KPI). You only must understand what by collecting logs you have to use special tools with technical special requirements:</p>
-<ul>
-<li>Huge amout of logs could transform in your <code>BigData</code> asset.</li>
-<li>You have to collect and query your logs in real time if you think your Application is critical.</li>
-<li>You have to <code>manage</code> in agile way the life cycle of your data (your logs), they are an asset very important for your Organization. </li>
-</ul>
+<p>The log event management is a task very important when working with (Micro)services. If you collect-store-index all logs, then you will be able to create your business metrics (KPI). You only must understand what by collecting logs you have to use special tools with technical special requirements:<br />
+- Huge amout of logs could transform in your <code>BigData</code> asset.<br />
+- You have to collect and query your logs in real time if you think your Application is critical.<br />
+- You have to <code>manage</code> in agile way the life cycle of your data (your logs), they are an asset very important for your Organization.</p>
 <p>You should be agile, for this reason, <a href="https://www.elastic.co">Elasticsearch-Logstash-Kibana</a> is the perfect Stack to do that in an agile way.<br />
 Really, there are many tools out there, opensource, commercial, on-cloud, such as log.io, Clarity, rTail, Tailon, frontail, etc. In my opinion, for a development environment, the most simple, fresh and lightweight tool is rTail (http://rtail.org), with rTail I can collect different log files, track and visualize them from a Browser in real time. rTail is very easy to use, just install NodeJS and deploy rTail application and you will be ready to send any type of traces to Browser directly avoiding store/persist logs, index and parse/filter them.</p>
 <p><em>Collecting WSO2 and Wiremock log events with ELK and rTail</em><br />
-<img src="{{ site.baseurl }}/assets/blog-chilcano-logs-wso2-docker-elk-rtail-0-architecture.png?raw=1" alt="Kibana - Viewing WSO2 and Wiremock raw log events" title="Collecting WSO2 and Wiremock log events with ELK and rTail" /></p>
+<img src="{{ site.baseurl }}/assets/blog-chilcano-logs-wso2-docker-elk-rtail-0-architecture.png" alt="Kibana - Viewing WSO2 and Wiremock raw log events" title="Collecting WSO2 and Wiremock log events with ELK and rTail" /></p>
+<p><!-- more --></p>
 <p>Well, this first blog post I will explain how to use ELK to collect, store and view the different log event of WSO2 ESB, API Manager, DSS, GREG and Wiremock.</p>
-<h1>Part I: ELK (Elasticsearch, Logstash, Kibana)</h1>
-<p>&nbsp;</p>
-<h2>1. Starting with ELK Docker Container</h2>
-<p>&nbsp;</p>
+<h2>Part I: ELK (Elasticsearch, Logstash, Kibana)</h2>
+<h3>1. Starting with ELK Docker Container</h3>
 <p><strong>1) Prepare the ELK container</strong></p>
-<p>We gonna use an existing Docker Image with ELK created by <a href="https://github.com/spujadas">Sébastien Pujadas</a> <code>(http://elk-docker.readthedocs.org)</code> previously configured ready to be used.</p>
-<p>This Docker Image contains:</p>
-<ul>
-<li>Elasticsearch (version 2.1.1)</li>
-<li>Logstash (version 2.1.1)</li>
-<li>Kibana (version 4.3.1)</li>
-</ul>
+<p>We gonna use an existing Docker Image with ELK created by <a href="https://github.com/spujadas">Sébastien Pujadas</a> <code>(http://elk-docker.readthedocs.org)</code> previously configured ready to be used. This Docker Image contains:<br />
+- Elasticsearch (version 2.1.1)<br />
+- Logstash (version 2.1.1)<br />
+- Kibana (version 4.3.1)</p>
 <p>Then, let's do it. Start the Docker daemon and login Docker Hub:</p>
 <p>[code lang=bash]<br />
 $ docker login<br />
@@ -215,14 +211,12 @@ $ curl http://192.168.99.100:9200/_search?pretty<br />
 [/code]</p>
 <p>... and from the Kibana web console (<code>http://192.168.99.100:5601</code>) to view the incoming dummy log event. Before configure Kibana by creating a <code>Index Pattern</code> with <code>logstash-*</code> and <code>Time-field name: @timestamp</code>, as shown below:</p>
 <p><em>Kibana - Creating a Index Pattern</em><br />
-<img src="{{ site.baseurl }}/assets/blog-chilcano-logs-wso2-docker-elk-rtail-1-kibana.png?raw=1" alt="Kibana - Creating a Index Pattern" title="Index Pattern with logstash-*" /></p>
-<p><em>Kibana - Selecting the field of the new Index Pattern</em><br />
-<img src="{{ site.baseurl }}/assets/blog-chilcano-logs-wso2-docker-elk-rtail-2-kibana-dummy-logs.png?raw=1" alt="Kibana - Selecting the field of the new Index Pattern" title="The field for the new Index Pattern" /></p>
-<p><em>Kibana - Viewing a dummy log event</em><br />
-<img src="{{ site.baseurl }}/assets/blog-chilcano-logs-wso2-docker-elk-rtail-3-kibana-dummy-logs-discovery.png?raw=1" alt="Kibana - Viewing a dummy log event" title="Viewing a dummy log event" /></p>
-<p>&nbsp;</p>
-<h2>2. Sending WSO2 logs to the ELK Docker container</h2>
-<p>&nbsp;</p>
+<img src="{{ site.baseurl }}/assets/blog-chilcano-logs-wso2-docker-elk-rtail-1-kibana.png" alt="Kibana - Creating a Index Pattern" title="Index Pattern with logstash-*" /><br />
+<em>Kibana - Selecting the field of the new Index Pattern</em><br />
+<img src="{{ site.baseurl }}/assets/blog-chilcano-logs-wso2-docker-elk-rtail-2-kibana-dummy-logs.png" alt="Kibana - Selecting the field of the new Index Pattern" title="The field for the new Index Pattern" /><br />
+<em>Kibana - Viewing a dummy log event</em><br />
+<img src="{{ site.baseurl }}/assets/blog-chilcano-logs-wso2-docker-elk-rtail-3-kibana-dummy-logs-discovery.png" alt="Kibana - Viewing a dummy log event" title="Viewing a dummy log event" /></p>
+<h3>2. Sending WSO2 logs to the ELK Docker container</h3>
 <p>For this part I will use a Vagrant box with several WSO2 products pre-installed and pre-configured. I explained how to use It in this blog, for further details check that post <a href="https://holisticsecurity.wordpress.com/2015/11/11/creating-a-vm-with-wso2-servers-for-development">https://holisticsecurity.wordpress.com/2015/11/11/creating-a-vm-with-wso2-servers-for-development</a>.</p>
 <blockquote><p>
   Filebeat is a lightweight, open source shipper for log file data. As the next-generation<br />
@@ -432,7 +426,7 @@ Go to <code>Kibana &amp;gt; Settings</code>, add and create a new <code>Index Pa
 * Time-field name: <code>@timestamp</code></p>
 <p>After that, go to <code>Kibana &amp;gt; Discover</code> and select the recently created  <code>filebeat-*</code> Index Pattern and You will see your logs/events.</p>
 <p><em>Kibana - Viewing WSO2 and Wiremock raw log events</em><br />
-<img src="{{ site.baseurl }}/assets/blog-chilcano-logs-wso2-docker-elk-rtail-4-kibana-esb-am-dss-wiremock-logs-discovery.png?raw=1" alt="Kibana - Viewing WSO2 and Wiremock raw log events" title="Viewing WSO2 and Wiremock raw log events" /></p>
+<img src="{{ site.baseurl }}/assets/blog-chilcano-logs-wso2-docker-elk-rtail-4-kibana-esb-am-dss-wiremock-logs-discovery.png" alt="Kibana - Viewing WSO2 and Wiremock raw log events" title="Viewing WSO2 and Wiremock raw log events" /></p>
 <p>In the above figure, a raw log event for WSO2 API Manager in JSON format is like as below:</p>
 <p>[code lang=bash]<br />
 {<br />

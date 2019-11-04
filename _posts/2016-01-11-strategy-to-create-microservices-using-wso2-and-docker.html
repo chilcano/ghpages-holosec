@@ -27,7 +27,6 @@ meta:
   _publicize_done_17477: '1'
   _wpas_done_13849: '1'
   publicize_twitter_user: Chilcano
-  _wpas_skip_13849: '1'
   _wpas_skip_5053092: '1'
 author:
   login: rcarhuatocto
@@ -37,9 +36,9 @@ author:
   last_name: ''
 permalink: "/2016/01/11/strategy-to-create-microservices-using-wso2-and-docker/"
 ---
-<p>The last year I was working in a big UK's project where I had to help in creation and preparation of the WSO2 Infrastructure to expose a bunch of functionalities as (Micro)services.</p>
-<p>While we solve everyday problems in infrastructure such as Continuous Delivery, Security, Mediation, Logging, Testing, etc. I had to code many APIs and to explain how to do It to the other team members (Teaching by doing).</p>
-<p><span class="hps">Based on</span> <span class="hps">this experience</span> <span class="hps">I will explain</span> <span class="hps">how to create an</span> <span class="hps">API</span> <span class="hps">layer</span> <span class="hps">from scratch </span><span class="hps">using</span> <span class="hps">WSO2 but avoiding the common errors and bad practices.</span></p>
+<p>The last year I was working in a big UK's project where I had to help in creation and preparation of the WSO2 Infrastructure to expose a bunch of functionalities as (Micro)services.<br />
+While we solve everyday problems in infrastructure such as Continuous Delivery, Security, Mediation, Logging, Testing, etc. I had to code many APIs and to explain how to do It to the other team members (Teaching by doing).<br />
+I will explain how to create an API layer from scratch using WSO2 but avoiding the common errors and bad practices.</p>
 <h2>(Micro)service Infrastructure</h2>
 <p>Well, before stating you should choose your preferred Products/Frameworks/Stacks/PaaS and set up your Development and Production Environment Infrastructure.</p>
 <p>Actually there are a few good Products/Frameworks/Stacks/PaaS ready to create and manage the (Micro)service Lifecycle such as:</p>
@@ -55,10 +54,10 @@ permalink: "/2016/01/11/strategy-to-create-microservices-using-wso2-and-docker/"
 <li>Zato (https://zato.io - in Python)</li>
 </ol>
 <blockquote><p>If you want start working with (Micro)services but using WSO2 technology, I have created a set of Docker WSO2 containers where in a few minutes you will have a development platform running.</p></blockquote>
-<p><a href="https://github.com/chilcano/docker-wso2-dev-srv"><img class="" src="{{ site.baseurl }}/assets/chilcano-wso2-dev-srv-docker-containers-map.png" alt="Docker Containers to develop (micro)services with WSO2" width="1308" height="997" /></a></p>
-<p>Docker Containers to develop (micro)services with WSO2</p>
-<p>Just follow these steps:</p>
-<p>[sourcecode language="html" gutter="true" wraplines="false"]<br />
+<p><a href="https://github.com/chilcano/docker-wso2-dev-srv"><img src="{{ site.baseurl }}/assets/chilcano-wso2-dev-srv-docker-containers-map.png" alt="Docker Containers to develop (micro)services with WSO2" /></a></p>
+<p><!-- more --></p>
+<p>Just follow these steps:<br />
+[sourcecode language="html" gutter="true" wraplines="false"]<br />
 $ git clone https://github.com/chilcano/docker-wso2-dev-srv.git<br />
 $ cd docker-wso2-dev-srv<br />
 $ docker build --rm -t chilcano/wso2-esb:4.8.1 wso2esb/4.8.1<br />

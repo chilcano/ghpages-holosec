@@ -35,8 +35,6 @@ meta:
   _wpas_done_13849: '1'
   publicize_twitter_user: Chilcano
   _wpas_skip_5053089: '1'
-  _wpas_skip_13849: '1'
-  _wpas_skip_5053092: '1'
 author:
   login: rcarhuatocto
   email: roger@intix.info
@@ -56,7 +54,8 @@ Because, the idea is to process in real-time and/or batch the stored data.</p>
 </ul>
 <p>Well, in this second blog post I will explain how to solve above difficults.</p>
 <p><em>Architecture IoT/BigData – Storing WIFI traffic in Apache Cassandra (WSO2 BAM and Apache Thrift)</em><br />
-<img src="{{ site.baseurl }}/assets/chilcano-02-raspberrypi-bigdata-wifi-thrift-1-architecture.png?raw=1" alt="Architecture IoT/BigData – Storing WIFI traffic in Apache Cassandra (WSO2 BAM and Apache Thrift)" title="Architecture IoT/BigData– Storing WIFI traffic in Apache Cassandra (WSO2 BAM and Apache Thrift)" /></p>
+<img src="{{ site.baseurl }}/assets/chilcano-02-raspberrypi-bigdata-wifi-thrift-1-architecture.png" alt="Architecture IoT/BigData – Storing WIFI traffic in Apache Cassandra (WSO2 BAM and Apache Thrift)" title="Architecture IoT/BigData– Storing WIFI traffic in Apache Cassandra (WSO2 BAM and Apache Thrift)" /></p>
+<p><!-- more --></p>
 <h2>I.- Looking for the Streaming and/or Communication Protocol</h2>
 <p>There are some stream and communication protocols and implementations</p>
 <p>Really, there are many libraries and streaming protocols out there to solve the above issues, but if you are looking for a protocol/library open source, lightweight, low memory footprint and developer friendly there are a few. They are:</p>
@@ -422,18 +421,18 @@ In brief, WSO2 BAM has the below addresses:</p>
 <p>Then, let's go to explore the 802.11 traffic stored in Apache Cassandra.<br />
 Below a set of images took when browsing the Apache Cassandra embedded in WSO2 BAM.</p>
 <p><em>01 / WSO2 BAM / Apache Cassandra - Key Spaces</em><br />
-<img src="{{ site.baseurl }}/assets/chilcano-02-raspberrypi-bigdata-wifi-thrift-2-wso2bam-cassandra-keyspaces.png?raw=1" alt="WSO2 BAM / Apache Cassandra 01" title="WSO2 BAM / Apache Cassandra 01" /></p>
+<img src="{{ site.baseurl }}/assets/chilcano-02-raspberrypi-bigdata-wifi-thrift-2-wso2bam-cassandra-keyspaces.png" alt="WSO2 BAM / Apache Cassandra 01" title="WSO2 BAM / Apache Cassandra 01" /></p>
 <p><em>02 / WSO2 BAM / Apache Cassandra - Event KS information</em><br />
-<img src="{{ site.baseurl }}/assets/chilcano-02-raspberrypi-bigdata-wifi-thrift-3-wso2bam-event-ks-info.png?raw=1" alt="WSO2 BAM / Apache Cassandra 01" title="WSO2 BAM / Apache Cassandra 01" /></p>
+<img src="{{ site.baseurl }}/assets/chilcano-02-raspberrypi-bigdata-wifi-thrift-3-wso2bam-event-ks-info.png" alt="WSO2 BAM / Apache Cassandra 01" title="WSO2 BAM / Apache Cassandra 01" /></p>
 <p><em>03 / WSO2 BAM / Apache Cassandra - Event KS information</em><br />
-<img src="{{ site.baseurl }}/assets/chilcano-02-raspberrypi-bigdata-wifi-thrift-4-event-ks-info.png?raw=1" alt="WSO2 BAM / Apache Cassandra 01" title="WSO2 BAM / Apache Cassandra 01" /></p>
+<img src="{{ site.baseurl }}/assets/chilcano-02-raspberrypi-bigdata-wifi-thrift-4-event-ks-info.png" alt="WSO2 BAM / Apache Cassandra 01" title="WSO2 BAM / Apache Cassandra 01" /></p>
 <p><em>04 / WSO2 BAM / Apache Cassandra - Connecting to explore KS</em><br />
-<img src="{{ site.baseurl }}/assets/chilcano-02-raspberrypi-bigdata-wifi-thrift-5-connect-cassandra.png?raw=1" alt="WSO2 BAM / Apache Cassandra 01" title="WSO2 BAM / Apache Cassandra 01" /></p>
+<img src="{{ site.baseurl }}/assets/chilcano-02-raspberrypi-bigdata-wifi-thrift-5-connect-cassandra.png" alt="WSO2 BAM / Apache Cassandra 01" title="WSO2 BAM / Apache Cassandra 01" /></p>
 <p><em>05 / WSO2 BAM / Apache Cassandra - List of Key Spaces</em><br />
-<img src="{{ site.baseurl }}/assets/chilcano-02-raspberrypi-bigdata-wifi-thrift-6-list-keyspaces.png?raw=1" alt="WSO2 BAM / Apache Cassandra 01" title="WSO2 BAM / Apache Cassandra 01" /></p>
+<img src="{{ site.baseurl }}/assets/chilcano-02-raspberrypi-bigdata-wifi-thrift-6-list-keyspaces.png" alt="WSO2 BAM / Apache Cassandra 01" title="WSO2 BAM / Apache Cassandra 01" /></p>
 <p><em>06 / WSO2 BAM / Apache Cassandra - Exploring the Kismet data</em><br />
-<img src="{{ site.baseurl }}/assets/chilcano-02-raspberrypi-bigdata-wifi-thrift-7-kismet-data.png?raw=1" alt="WSO2 BAM / Apache Cassandra 01" title="WSO2 BAM / Apache Cassandra 01" /></p>
+<img src="{{ site.baseurl }}/assets/chilcano-02-raspberrypi-bigdata-wifi-thrift-7-kismet-data.png" alt="WSO2 BAM / Apache Cassandra 01" title="WSO2 BAM / Apache Cassandra 01" /></p>
 <p><em>07 / WSO2 BAM / Apache Cassandra - Exploring the Kismet data</em><br />
-<img src="{{ site.baseurl }}/assets/chilcano-02-raspberrypi-bigdata-wifi-thrift-8-kismet-data.png?raw=1" alt="WSO2 BAM / Apache Cassandra 01" title="WSO2 BAM / Apache Cassandra 01" /></p>
+<img src="{{ site.baseurl }}/assets/chilcano-02-raspberrypi-bigdata-wifi-thrift-8-kismet-data.png" alt="WSO2 BAM / Apache Cassandra 01" title="WSO2 BAM / Apache Cassandra 01" /></p>
 <p>In the blog post (Part III), I will explain how to create a simple Dashboard showing the WIFI traffic captured in real-time.<br />
 See you soon.</p>

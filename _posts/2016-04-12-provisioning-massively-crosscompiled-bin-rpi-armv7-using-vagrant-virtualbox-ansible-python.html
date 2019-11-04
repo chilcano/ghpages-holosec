@@ -59,7 +59,7 @@ permalink: "/2016/04/12/provisioning-massively-crosscompiled-bin-rpi-armv7-using
 ---
 <p>If you are involved in an IoT or Mobile Application provisioning Project you probably need build a mechanism to spread your application binaries to all Devices on stock and to all the rolled out Devices.</p>
 <p>With this Proof-of-concept I will shown you how to build the app binary provisioning system for your custom platform, in this case I'm going to use Raspberry Pi (ARM processor) quickly avoiding perform unnecessary tasks and providing also an ARM cross-compiling platform.</p>
-<p><img src="{{ site.baseurl }}/assets/blog-cross-compiling-kismet-raspberrypi-arm.png" alt="https://www.dropbox.com/s/eoynlr7801iu3sa/blog-cross-compiling-kismet-raspberrypi-arm.png" /></p>
+<p><img src="{{ site.baseurl }}/assets/blog-cross-compiling-kismet-raspberrypi-arm.png" alt="blog-cross-compiling-kismet-raspberrypi-arm.png" /></p>
 <p><!-- more --></p>
 <p>To implement this I will use Vagrant to create an Ubuntu VM mounts the Raspbian OS image internally ready to be used for ARM cross-compiling. There is a special part in this blog post where explains how to NFS mount to provide remote booting for all Raspberry Pi's connected to same network.</p>
 <p>I provide a new Github repository with all the updated scripts required for this PoC. You can download from here:<br />

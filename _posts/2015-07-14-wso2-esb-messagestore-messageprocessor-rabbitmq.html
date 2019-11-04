@@ -38,6 +38,8 @@ meta:
   _oembed_668b91f6cd08e61220d266f17d4ed896: "{{unknown}}"
   _oembed_896305d8c4f7161b6e6d792594a4a65e: "{{unknown}}"
   _oembed_f27c0767a525f8cdac8454ad37e3d131: "{{unknown}}"
+  _pingme: '1'
+  _encloseme: '1'
 author:
   login: rcarhuatocto
   email: roger@intix.info
@@ -56,7 +58,8 @@ permalink: "/2015/07/14/wso2-esb-messagestore-messageprocessor-rabbitmq/"
 <li>https://luispenarrubia.wordpress.com/2014/12/10/integrate-wso2-esb-and-rabbitmq-using-amqp-transport/</li>
 <li>https://luispenarrubia.wordpress.com/2015/05/04/how-to-integrate-wso2-esb-and-rabbitmq-using-amqp-transport-part-2/</li>
 </ul>
-<p>[caption id="" align="alignnone" width="643"]<a href="https://dl.dropboxusercontent.com/u/2961879/blog.sec/blog20150430_wso2esb_rabbitmq_msmp_impl/wso2esb-rabbitmq-message-store-architecture-jms-amqp.PNG"><img class="" src="{{ site.baseurl }}/assets/wso2esb-rabbitmq-message-store-architecture-jms-amqp.PNG" alt="WSO2 MessageStore and MessageProcessor approach for resilient messaging" width="643" height="241" /></a> WSO2 MessageStore and MessageProcessor approach for resilient messaging[/caption]</p>
+<p><a href="https://holisticsecurity.files.wordpress.com/2015/07/wso2esb-rabbitmq-message-store-architecture-jms-amqp.png"><img src="{{ site.baseurl }}/assets/wso2esb-rabbitmq-message-store-architecture-jms-amqp.png" alt="WSO2 MessageStore and MessageProcessor approach for resilient messaging" /></a><em>WSO2 MessageStore and MessageProcessor approach for resilient messaging</em></p>
+<p><!-- more --></p>
 <p>&nbsp;</p>
 <h2>II. Scope and objetives</h2>
 <p>The idea of this post is to explain how to integrate WSO2 ESB with RabbitMQ to work together in a "resilient" way and implementing the Enterprise Integration Patterns (EIPs - https://docs.wso2.com/display/IntegrationPatterns/Enterprise+Integration+Patterns+with+WSO2+ESB) related to messaging. Then, I would like to implement different messaging integration patterns as:</p>
@@ -128,7 +131,7 @@ Hello RabbitMQ 3.4.4 !!<br />
 [INFO] ------------------------------------------------------------------------<br />
 [/sourcecode]</p>
 <p>&nbsp;</p>
-<p>[caption id="" align="alignnone" width="627"]<a href="https://dl.dropboxusercontent.com/u/2961879/blog.sec/blog20150430_wso2esb_rabbitmq_msmp_impl/wso2esb-rabbitmq-publish-consume-sample-message.PNG"><img src="{{ site.baseurl }}/assets/wso2esb-rabbitmq-publish-consume-sample-message.PNG" alt="Publishing and consuming message to/from RabbitMQ from a JMS client" width="627" height="634" /></a> Publishing and consuming message to/from RabbitMQ from a JMS client[/caption]</p>
+<p><a href="https://holisticsecurity.files.wordpress.com/2015/07/wso2esb-rabbitmq-publish-consume-sample-message.png"><img src="{{ site.baseurl }}/assets/wso2esb-rabbitmq-publish-consume-sample-message.png" alt="Publishing and consuming message to/from RabbitMQ from a JMS client" /></a><em>Publishing and consuming message to/from RabbitMQ from a JMS client</em></p>
 <h3>III.4. First contact with the current WSO2 ESB MS&amp;MP implementation source code</h3>
 <p>We will use the current source code of the MS&amp;MP for WSO2 ESB 4.8.1. This MS&amp;MP uses JMS and works with JMS MEssage Brokers (ActiveMQ, Qpid, etc.)<br />
 You can review/download from here <a href="https://svn.wso2.org/repos/wso2/carbon/platform/branches/turing/dependencies/synapse/2.1.2-wso2v6" target="_new">https://svn.wso2.org/repos/wso2/carbon/platform/branches/turing/dependencies/synapse/2.1.2-wso2v6</a>.</p>

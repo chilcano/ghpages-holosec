@@ -55,7 +55,8 @@ permalink: "/2016/03/04/mac-address-manufacturer-restful-python-microservice-doc
 </ul>
 <p>This Docker container provides a Microservice (API Rest) to MAC Address Manufacturer resolution. This Docker container is part of the "Everything generates Data: Capturing WIFI Anonymous Traffic using Raspberry Pi and WSO2 BAM" blog serie (<a href="http://ow.ly/YcEf1">Part I</a>, <a href="http://ow.ly/YcEgz">Part II</a> &amp; <a href="http://ow.ly/YcEij">Part III</a>), but you can use it independently as part of other set of Docker containers.</p>
 <p>This Docker Container will work in this scenario, as shown below:</p>
-<p><img src="{{ site.baseurl }}/assets/chilcano_docker_microservice_mac_address_manuf_lookup_2.png?raw=1" alt="The MAC Address Manufacturer Lookup Docker Container" title="The MAC Address Manufacturer Lookup Docker Container" /></p>
+<p><img src="{{ site.baseurl }}/assets/chilcano_docker_microservice_mac_address_manuf_lookup_2.png" alt="The MAC Address Manufacturer Lookup Docker Container" title="The MAC Address Manufacturer Lookup Docker Container" /><br />
+<!-- more --></p>
 <p>Then, let's do it.</p>
 <h2>I. Preparing the Python development environment in Mac OSX</h2>
 <p>Follow this guide to setup your Python Development Environment in your Mac OSX: https://github.com/chilcano/how-tos/blob/master/Preparing-Python-Dev-Env-Mac-OSX.md</p>
@@ -319,7 +320,7 @@ Date: Mon, 29 Feb 2016 15:58:21 GMT</p>
 <p>&nbsp;</p>
 <h2>V. And now what?, How to use the MAC Manuf Docker with the WSO2 BAM Docker?</h2>
 <p><em>Visualizing Captured WIFI Traffic in Realtime from WSO2 BAM Dashboard</em><br />
-<img src="{{ site.baseurl }}/assets/chilcano-wso2bam-wifi-thrift-cassandra-4-kismet.png?raw=1" alt="Visualizing Captured WIFI Traffic in Realtime" title="Visualizing Captured WIFI Traffic in Realtime" /></p>
+<img src="{{ site.baseurl }}/assets/chilcano-wso2bam-wifi-thrift-cassandra-4-kismet.png" alt="Visualizing Captured WIFI Traffic in Realtime" title="Visualizing Captured WIFI Traffic in Realtime" /></p>
 <p>As you can see in above image, when capturing WIFI traffic the information is shown in the WSO2 BAM Dashboard but not the MAC Address Manufaturer.<br />
 In this scenario, our <code>Docker MAC Manuf</code> will be useful because It will provide the Manufacturer information via a RESTful Microservice.  Then, the idea is configure the WSO2 BAM Dashboard (the prepared Kismet Toolbox) to point to  the <code>Docker MAC Manuf</code> RESTful Microservice. In other words, the WSO2 BAM will call to the <code>Docker MAC Manuf</code> Microservice to get the Manufacturer information.</p>
 <p>The next blog post I will explain how to connect the MAC Address Manufacturer Docker Container with the WSO2 BAM Docker Container by using <a href="https://docs.docker.com/compose">Docker Compose</a> to do a minimal orchestration.</p>

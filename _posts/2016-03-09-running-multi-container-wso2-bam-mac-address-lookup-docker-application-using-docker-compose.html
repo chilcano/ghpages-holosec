@@ -62,6 +62,8 @@ permalink: "/2016/03/09/running-multi-container-wso2-bam-mac-address-lookup-dock
 </li>
 </ol>
 <p>Now, in this blog post I'm going to explain how to run two Docker Containers, the WSO2 BAM and the MAC Address Manufacturer Lookup containers, by using Docker Compose.</p>
+<p><img src="{{ site.baseurl }}/assets/chilcano-wso2bam-cep-siddhi-wifi-kismet-thrift-cassandra-docker-compose.png" alt="802.11 traffic capture PoC - Docker Compose" title="802.11 traffic capture PoC - Docker Compose" /><br />
+<!-- more --></p>
 <p>[code lang=bash]<br />
 // clone 2 repositories<br />
 $ git clone https://github.com/chilcano/docker-wso2bam-kismet-poc.git<br />
@@ -72,11 +74,10 @@ $ docker-compose up -d</p>
 <p>Starting dockerwso2bamkismetpoc_mac-manuf_1<br />
 Starting dockerwso2bamkismetpoc_wso2bam-dashboard-kismet_1<br />
 [/code]</p>
-<p>Below a diagram explaining this.</p>
-<p><img src="{{ site.baseurl }}/assets/chilcano-wso2bam-cep-siddhi-wifi-kismet-thrift-cassandra-docker-compose.png?raw=1" alt="802.11 traffic capture PoC - Docker Compose" title="802.11 traffic capture PoC - Docker Compose" /></p>
+<p>Above, the diagram explaining this.</p>
 <p>Now, if you want to run all together in a few minutes, just runs the Docker Compose Yaml file.<br />
 For a deeply explanation, follow the instructions on README.md (https://github.com/chilcano/docker-wso2bam-kismet-poc).</p>
 <p>If everything is OK, you will get a huge amount of data (WIFI traffic) stored in Apache Cassandra and a simple Dashboard showing captured MAC Addresses and Manufacturer of the Wireless Devices (PC, Mobiles, WIFI Access Points, Tablets, etc..) around of your Raspberry Pi.</p>
-<p><img src="{{ site.baseurl }}/assets/chilcano-wso2bam-wifi-thrift-cassandra-5-kismet-toolbox-docker-manuf.png?raw=1" alt="Visualising 802.11 captured traffic with the MAC Address Manufacturer" title="Visualising 802.11 captured traffic with the MAC Address Manufacturer" /></p>
+<p><img src="{{ site.baseurl }}/assets/chilcano-wso2bam-wifi-thrift-cassandra-5-kismet-toolbox-docker-manuf.png" alt="Visualising 802.11 captured traffic with the MAC Address Manufacturer" title="Visualising 802.11 captured traffic with the MAC Address Manufacturer" /></p>
 <p>I hope you will find this blog posts useful.<br />
 Bye.</p>

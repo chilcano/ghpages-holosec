@@ -38,8 +38,7 @@ meta:
   _wpas_done_13849: '1'
   publicize_twitter_user: Chilcano
   _wpas_skip_5053089: '1'
-  _wpas_skip_13849: '1'
-  _wpas_skip_5053092: '1'
+  _oembed_dea898e3b1604d9af0b00f6fc8004164: "{{unknown}}"
   _oembed_4c98a08683e2a17ca41c2f0e95cdfbad: "{{unknown}}"
   _oembed_c040cec590f0e58f1a5cb3987c01f6a8: "{{unknown}}"
   _oembed_dde92fcb7398f93a6d0f789fdf397b14: "{{unknown}}"
@@ -53,14 +52,11 @@ author:
 permalink: "/2016/02/02/everything-generates-data-capturing-wifi-anonymous-traffic-raspberrypi-wso2-part-i/"
 ---
 <p>Yes, in this digital world, everything generates data, but before to do <code>BigData</code>, you have to follow these steps:</p>
-<p><strong>1. Capture</strong><br />
-Acquires, Integrates data.</p>
-<p><strong>2. Store</strong><br />
-Classification, Consolidate, Transformation, Storage Design, etc.</p>
-<p><strong>3. Analysis</strong><br />
-Exploration, visualization, modeling, prediction, etc.</p>
+<p><strong>1. Capture</strong>: Acquires, Integrates data.<br />
+<strong>2. Store</strong>: Classification, Consolidate, Transformation, Storage Design, etc.<br />
+<strong>3. Analysis</strong>: Exploration, visualization, modeling, prediction, etc.</p>
 <p><em>Everything generates data - IoT, BigData, Privacy, Security</em><br />
-<img src="{{ site.baseurl }}/assets/chilcano-raspberrypi-bigdata-wifi-1-bigdata.jpg?raw=1" alt="Everything generates data - IoT, BigData, Privacy, Security" title="Everything generates data - IoT, BigData, Privacy, Security" /></p>
+<img src="{{ site.baseurl }}/assets/chilcano-raspberrypi-bigdata-wifi-1-bigdata.jpg" alt="Everything generates data - IoT, BigData, Privacy, Security" title="Everything generates data - IoT, BigData, Privacy, Security" /></p>
 <p>In this first blog post I will explain how to capture anonymous <a href="https://en.wikipedia.org/wiki/IEEE_802.11">WIFI/802.11 traffic</a> using a <a href="https://www.raspberrypi.org/products/raspberry-pi-2-model-b">Raspberry Pi 2 Model B</a>, Kismet (<a href="https://www.kismetwireless.net">An 802.11 layer2 wireless network detector, sniffer, and intrusion detection system</a>) and in the second blog post I will use <a href="http://wso2.com/more-downloads/business-activity-monitor">WSO2 BAM 2.5.0</a> to collect the anonymous WIFI traffic to generate a simple Dashboard showing data in live or real time.</p>
 <p>The final idea is create a simple Dashboard showing the Mobile Devices as mobile phones identified around of the Raspberry Pi.<br />
 Anyway, you can use this traffic for different purposes such as:<br />
@@ -69,7 +65,8 @@ Anyway, you can use this traffic for different purposes such as:<br />
 * Street Activity Monitoring<br />
 * Etc.</p>
 <p><em>Architecture - Capturing WIFI anonymous traffic using Raspberry Pi and WSO2 BAM and WSO2 CEP</em><br />
-<img src="{{ site.baseurl }}/assets/chilcano-raspberrypi-bigdata-wifi-2-arch.png?raw=1" alt="Architecture - Capturing WIFI anonymous traffic using Raspberry Pi and WSO2 BAM and WSO2 CEP" title="Architecture - Capturing WIFI anonymous traffic using Raspberry Pi and WSO2 BAM and WSO2 CEP" /></p>
+&lt;img src=&quot;<img src="{{ site.baseurl }}/assets/chilcano-raspberrypi-bigdata-wifi-2-arch.png?w=300" alt="" width="300" height="155" class="alignnone size-medium wp-image-2154" />" alt="Architecture - Capturing WIFI anonymous traffic using Raspberry Pi and WSO2 BAM and WSO2 CEP" title="Architecture - Capturing WIFI anonymous traffic using Raspberry Pi and WSO2 BAM and WSO2 CEP" /&gt;</p>
+<p><!-- more --></p>
 <p>Well, now let's get down to work.</p>
 <h2>I.- Configure the Raspberry Pi to enable <code>monitor</code> mode</h2>
 <p>&nbsp;</p>
@@ -352,7 +349,7 @@ debug - 4028 - child creating ipc fdfd<br />
 $ kismet_client<br />
 [/code]</p>
 <p><em>Kismet - Capturing 802.11 anonymous traffic using Raspberry Pi</em><br />
-<img src="{{ site.baseurl }}/assets/chilcano-raspberrypi-bigdata-wifi-3-kismet.png?raw=1" alt="Kismet - Capturing 802.11 anonymous traffic using Raspberry Pi" title="Kismet - Capturing 802.11 anonymous traffic using Raspberry Pi" /></p>
+<img src="{{ site.baseurl }}/assets/chilcano-raspberrypi-bigdata-wifi-3-kismet.png" alt="Kismet - Capturing 802.11 anonymous traffic using Raspberry Pi" title="Kismet - Capturing 802.11 anonymous traffic using Raspberry Pi" /></p>
 <h2>III.- Common Kismet errors</h2>
 <p>&nbsp;</p>
 <p><em>1) Error when start Kismet. <code>plugins</code> folder not found.</em></p>

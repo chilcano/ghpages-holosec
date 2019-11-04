@@ -22,6 +22,9 @@ meta:
   _wpcom_is_markdown: '1'
   _edit_last: '578869'
   geo_public: '0'
+  _oembed_57abe73919998c6f03527b44b671a795: <div class="embed-vimeo"><iframe title="wardriving_mwc16"
+    src="https://player.vimeo.com/video/156948434?dnt=1&amp;app_id=122963" width="420"
+    height="328" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe></div>
   _oembed_f77c8fc5ee92793fc6bac37f6eb7003d: "{{unknown}}"
   publicize_google_plus_url: https://plus.google.com/+RogerCarhuatocto/posts/UrrTFbFY2Ee
   _publicize_job_id: '20229397117'
@@ -35,6 +38,11 @@ meta:
   _wpas_done_13849: '1'
   publicize_twitter_user: Chilcano
   _thumbnail_id: '2030'
+  _oembed_time_57abe73919998c6f03527b44b671a795: '1572862162'
+  _oembed_25ccf52b42f3a25a51120a4e43810669: <div class="embed-vimeo"><iframe title="wardriving_mwc16"
+    src="https://player.vimeo.com/video/156948434?dnt=1&amp;app_id=122963" width="605"
+    height="472" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe></div>
+  _oembed_time_25ccf52b42f3a25a51120a4e43810669: '1572862162'
 author:
   login: rcarhuatocto
   email: roger@intix.info
@@ -46,7 +54,9 @@ permalink: "/2016/02/27/wardriving-wifi-pineapple-nano-mobile-world-congress-201
 <p>WIFI Pineapple Nano is a nice tiny device to do Wireless Security Auditing. It has <a href="https://openwrt.org">OpenWRT</a> embedded as S.O. with 2 Wireless NIC pre-configured and a lot of Security tools pre-installed ready to perform a Security Wireless Auditing. For further details, you can check the Hak5 page and I encourage you to buy one (https://www.wifipineapple.com)!.</p>
 <h2>Objetives</h2>
 <p>The idea is to do a quick wardriving around of the <a href="https://www.mobileworldcongress.com">Mobile World Congress at Barcelona</a> to check if the attendants are aware about their Mobile Devices with the leak of information.</p>
-<p>[caption id="attachment_2030" align="alignnone" width="1247"]<a href="http://holisticsecurity.io/2016/02/27/wardriving-wifi-pineapple-nano-mobile-world-congress-2016-barcelona/" target="_blank" rel="noopener noreferrer"><img class="alignnone size-full wp-image-2030" src="{{ site.baseurl }}/assets/chilcano-00-android-gps-kismet-pineapple-adb.png" alt="chilcano-00-android-gps-kismet-pineapple-adb" width="1247" height="781" /></a> The arsenal at Mobile World Congress 2016 Barcelona - Wardriving with WIFI Pineapple Nano, Android &amp; Kismet[/caption]</p>
+<p><a href="http://holisticsecurity.io/2016/02/27/wardriving-wifi-pineapple-nano-mobile-world-congress-2016-barcelona/" target="_blank" rel="noopener noreferrer"><br />
+<img src="{{ site.baseurl }}/assets/chilcano-00-android-gps-kismet-pineapple-adb.png" alt="The arsenal at Mobile World Congress 2016 Barcelona - Wardriving with WIFI Pineapple Nano, Android &amp; Kismet" title="The arsenal at Mobile World Congress 2016 Barcelona - Wardriving with WIFI Pineapple Nano, Android &amp; Kismet" /></a></p>
+<p><!-- more --></p>
 <p>At the end, after wardriving, you will get the following files:</p>
 <ul>
 <li>xyz.alert</li>
@@ -65,7 +75,7 @@ permalink: "/2016/02/27/wardriving-wifi-pineapple-nano-mobile-world-congress-201
 <li>Kismet (Client and Server) installed in WIFI Pineapple Nano (https://www.kismetwireless.net)</li>
 <li>Aukey 20000mAh Portable External Battery (http://www.amazon.es/dp/B00RJK8SH6)</li>
 </ul>
-<p>https://www.dropbox.com/s/ny2zmz5gj3roywa/chilcano-01-android-mobile-pineapple-kismet.png</p>
+<p><img src="{{ site.baseurl }}/assets/blog-chilcano-01-android-mobile-pineapple-kismet.png" alt="https://holisticsecurity.files.wordpress.com/2016/02/blog-chilcano-01-android-mobile-pineapple-kismet.png" title="The arsenal" /></p>
 <h2>Configuration</h2>
 <p>Obviously I have initialised my Pineapple Nano previously and have updated the firmware. But if you haven't already done so, I recommend the next guide: https://www.wifipineapple.com/pages/setup</p>
 <p>The next steps are if you have initialised Pineapple Nano.</p>
@@ -73,7 +83,7 @@ permalink: "/2016/02/27/wardriving-wifi-pineapple-nano-mobile-world-congress-201
 <p>By using USB cable, connect the Pineapple Nano to your PC, in my case I'm using a Virtualbox VM with Kali Linux.<br />
 Then, from a Kali Linux (<a href="https://www.kali.org">the best Linux distro for Security Audit</a>) terminal will get the <code>wp6.sh</code> script and will connect to Pineapple Nano.<br />
 The <code>wp6.sh</code> can be downloaded from here: https://github.com/hak5darren/wp6</p>
-<p>https://www.dropbox.com/s/vf94bmpcixxj0r5/chilcano-02-config-1-connect-pineapple-wp6.png</p>
+<p><img src="{{ site.baseurl }}/assets/blog-chilcano-02-config-1-connect-pineapple-wp6.png" alt="https://holisticsecurity.files.wordpress.com/2016/02/blog-chilcano-02-config-1-connect-pineapple-wp6.png" title="Pineapple Nano - The wp6.sh script" /></p>
 <p>After that, open your browser in your Kali Linux and connect to <code>http://172.16.42.1:1471</code></p>
 <p>From the Pineapple Web Admin console, insert the SD and format It.<br />
 After that, verify if SD was formatted successfully.</p>
@@ -89,7 +99,7 @@ tmpfs 512.0K 0 512.0K 0% /dev<br />
 /dev/sdcard/sd1 6.2G 14.6M 5.9G 0% /sd<br />
 [/code]</p>
 <p>Now, open other Kali Linux terminal and get SSH access to Pineapple Nano and update the packages.</p>
-<p>https://www.dropbox.com/s/ynbvvyzf4r8nu30/chilcano-02-config-2-connect-pineapple-ssh.png</p>
+<p>![https://holisticsecurity.files.wordpress.com/2016/02/blog-chilcano-02-config-2-connect-pineapple-ssh.png](https://holisticsecurity.files.wordpress.com/2016/02/blog-chilcano-02-config-2-connect-pineapple-ssh.png &quot;Kali Linux terminal and get SSH access to Pineapple Nano&quot;)</p>
 <p>[code lang=text]<br />
 root@Pineapple:~# opkg update</p>
 <p>[/code]</p>
@@ -136,8 +146,10 @@ List of devices attached<br />
 AB010682 device<br />
 [/code]</p>
 <p>Now, in your Android install the ShareGPS app from Google Play Store. After that, start the app and share the GPS signal.</p>
-<p><img src="{{ site.baseurl }}/assets/chilcano-03-1-small-android-share-gps.png?raw=1" alt="Step 1" /><img src="{{ site.baseurl }}/assets/chilcano-03-2-small-android-share-gps.png?raw=1" alt="Step 1" /></p>
-<p><img src="{{ site.baseurl }}/assets/chilcano-03-3-small-android-share-gps.png?raw=1" alt="Step 1" /><img src="{{ site.baseurl }}/assets/chilcano-03-4-small-android-share-gps.png?raw=1" alt="Step 1" /></p>
+<p><img src="{{ site.baseurl }}/assets/blog-chilcano-03-1-small-android-share-gps.png" alt="Step 1" /><br />
+<img src="{{ site.baseurl }}/assets/blog-chilcano-03-2-small-android-share-gps.png" alt="Step 1" /><br />
+<img src="{{ site.baseurl }}/assets/blog-chilcano-03-3-small-android-share-gps.png" alt="Step 1" /><br />
+<img src="{{ site.baseurl }}/assets/blog-chilcano-03-4-small-android-share-gps.png" alt="Step 1" /></p>
 <p>Finally, You are ready to use the shared Android&#039;s GPS signal. Let&#039;s to check it.</p>
 <p>[code lang=text]<br />
 root@Pineapple:~# adb forward tcp:50000 tcp:50000</p>
@@ -318,10 +330,11 @@ For that, you will need also <a href="https://play.google.com/store/apps/details
 <h2>Some results</h2>
 <p>Below some screenshots taken from my Android mobile and Google Earth with the WIFI Networks placed.</p>
 <p><strong>1) Kismet in action</strong></p>
-<p><a href="https://www.dropbox.com/s/qu5vf4b2e4wj18e/__chilcano-04-1-screenshot-kismet-in-action.png"><img src="{{ site.baseurl }}/assets/chilcano-04-1-small-screenshot-kismet-in-action.png?raw=1" alt="Kismet in action" /></a><a href="https://www.dropbox.com/s/imgoqoph36ecjca/__chilcano-04-2-screenshot-kismet-693-networks.png"><img src="{{ site.baseurl }}/assets/chilcano-04-2-small-screenshot-kismet-693-networks.png?raw=1" alt="693 Wireless Networks indentified" /></a><a href="https://www.dropbox.com/s/mjhaut8rmju9ibg/__chilcano-04-3-screenshot-kismet-rogue-ap.png"><img src="{{ site.baseurl }}/assets/chilcano-04-3-small-screenshot-kismet-rogue-ap.png?raw=1" alt="Ops!, A rogue AP?" /></a></p>
+<p><a href="https://holisticsecurity.files.wordpress.com/2016/02/blog-chilcano-04-1-screenshot-kismet-in-action.png"><img src="{{ site.baseurl }}/assets/blog-chilcano-04-1-small-screenshot-kismet-in-action.png" alt="Kismet in action" /></a><a href="https://holisticsecurity.files.wordpress.com/2016/02/blog-chilcano-04-2-screenshot-kismet-693-networks.png"><img src="{{ site.baseurl }}/assets/blog-chilcano-04-2-small-screenshot-kismet-693-networks.png" alt="693 Wireless Networks indentified" /></a><a href="https://holisticsecurity.files.wordpress.com/2016/02/blog-chilcano-04-3-screenshot-kismet-rogue-ap.png"><img src="{{ site.baseurl }}/assets/blog-chilcano-04-3-small-screenshot-kismet-rogue-ap.png" alt="Ops!, A rogue AP?" /></a></p>
 <p><strong>2) Creating Wireless Recon Maps with Google Earth and GISKismet</strong></p>
 <p><em>GISKismet is a wireless recon visualization tool to represent data gathered using Kismet in a flexible manner. GISKismet stores the information in a database so that the user can generate graphs using SQL. GISKismet currently uses SQLite for the database and GoogleEarth / KML files for graphing.</em> (http://git.kali.org/gitweb/?p=packages/giskismet.git)</p>
-<p>[vimeo https://vimeo.com/156948434]</p>
+<p>[vimeo https://vimeo.com/156948434]<br />
+https://vimeo.com/156948434</p>
 <h2>Conclusions</h2>
 <ul>
 <li>WIFI Pineapple has a tons of Security tools installed, but not tools to perform a Wardriving. For that Kismet and GPS were installed and configured. <a href="https://www.wifipineapple.com/modules">Probably in the following blog post I will explain how to create a <code>Module</code></a> for Wardriving.</li>
