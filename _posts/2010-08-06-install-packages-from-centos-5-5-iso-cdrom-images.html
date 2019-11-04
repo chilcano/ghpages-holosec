@@ -10,7 +10,8 @@ status: publish
 categories:
 - Linux
 - Security
-tags: []
+tags:
+- CentOS
 meta:
   _edit_last: '578869'
   _wp_old_slug: ''
@@ -23,6 +24,9 @@ meta:
     height="81"";s:4:"bits";i:8;s:4:"mime";s:9:"image/png";}
   _oembed_c3adeb36b404047dffc72593e12257dc: "{{unknown}}"
   _oembed_fe8264ea071177e556bf362d6d3aa106: "{{unknown}}"
+  geo_public: '0'
+  _wpas_skip_5053092: '1'
+  _wpcom_is_markdown: '1'
 author:
   login: rcarhuatocto
   email: roger@intix.info
@@ -31,11 +35,16 @@ author:
   last_name: ''
 permalink: "/2010/08/06/install-packages-from-centos-5-5-iso-cdrom-images/"
 ---
-<p>1. Upload CentOS's ISO files (i have 7 iso files) into <strong>/centos5.5_iso_files</strong> directory.</p>
 <p><a href="http://holisticsecurity.files.wordpress.com/2010/08/blog_centos55.png"><img class="alignnone size-full wp-image-158" title="blog_centos55" src="{{ site.baseurl }}/assets/blog_centos55.png" alt="" width="290" height="81" /></a></p>
-<p>2. It is probably that you do not have <strong>createrepo</strong> rpm package, then download it from CentOS RPM repository.<br />
-I've found it in <a href="http://mirror.centos.org/centos/5.5/os/i386/CentOS/createrepo-0.4.11-3.el5.noarch.rpm">http://mirror.centos.org/centos/5.5/os/i386/CentOS/createrepo-0.4.11-3.el5.noarch.rpm</a></p>
-<p>3. Install <strong>createrepo-0.4.11-3.el5.noarch.rpm</strong>:</p>
+<ol>
+<li>Upload CentOS's ISO files (i have 7 iso files) into <strong>/centos5.5_iso_files</strong> directory.<br />
+<!-- more --><br />
+2. It is probably that you do not have <strong>createrepo</strong> rpm package, then download it from CentOS RPM repository.<br />
+I've found it in <a href="http://mirror.centos.org/centos/5.5/os/i386/CentOS/createrepo-0.4.11-3.el5.noarch.rpm">http://mirror.centos.org/centos/5.5/os/i386/CentOS/createrepo-0.4.11-3.el5.noarch.rpm</a></li>
+<li>
+<p>Install <strong>createrepo-0.4.11-3.el5.noarch.rpm</strong>:</p>
+</li>
+</ol>
 <blockquote>
 <pre># rpm -ihv createrepo-0.4.11-3.el5.noarch.rpm</pre>
 </blockquote>
@@ -43,7 +52,9 @@ I've found it in <a href="http://mirror.centos.org/centos/5.5/os/i386/CentOS/cre
 <blockquote>
 <pre># rpm -qa | grep createrepo</pre>
 </blockquote>
-<p>4. Mount the 7 ISO files:</p>
+<ol>
+<li>Mount the 7 ISO files:</li>
+</ol>
 <blockquote>
 <pre># mkdir -p /mnt/iso/{1,2,3,4,5,6,7}
 # mount -o loop /root/centos55-i386-isos/CentOS-5.5-i386-bin-1of7.iso /mnt/iso/1
@@ -54,7 +65,9 @@ I've found it in <a href="http://mirror.centos.org/centos/5.5/os/i386/CentOS/cre
 # mount -o loop /root/centos55-i386-isos/CentOS-5.5-i386-bin-6of7.iso /mnt/iso/6
 # mount -o loop /root/centos55-i386-isos/CentOS-5.5-i386-bin-7of7.iso /mnt/iso/7</pre>
 </blockquote>
-<p>5. Create a new Yum's repository:</p>
+<ol>
+<li>Create a new Yum's repository:</li>
+</ol>
 <blockquote>
 <pre># cd /mnt/iso
 # createrepo .
@@ -65,7 +78,9 @@ Saving other metadata
 
 # yum clean all</pre>
 </blockquote>
-<p>6. Create repository configuration file:</p>
+<ol>
+<li>Create repository configuration file:</li>
+</ol>
 <blockquote>
 <pre># nano /etc/yum.repos.d/centos55_i386_iso.repo</pre>
 </blockquote>
@@ -76,14 +91,22 @@ name=CentOS5.5-isos
 baseurl=file:///mnt/iso
 enabled=1</pre>
 </blockquote>
-<p>7. Save and close the changes, now you can use Yum to install, search packages from ISO images, for example:</p>
+<ol>
+<li>Save and close the changes, now you can use Yum to install, search packages from ISO images, for example:</li>
+</ol>
 <blockquote>
 <pre># yum --nogpgcheck install my-package-name
 # yum search my-package-name</pre>
 </blockquote>
-<p>8. Troubleshooting:</p>
-<p>- Sometimes when installing, searching or updating packages, Yum shows errors as "Bad id for repo: ....", for solve it you could to delete strange chars or blank spaces in <strong>/etc/yum.repos.d/centos55_i386_iso.repo</strong></p>
-<p>- When yum shows following error:</p>
+<ol>
+<li>Troubleshooting:</li>
+</ol>
+<ul>
+<li>Sometimes when installing, searching or updating packages, Yum shows errors as "Bad id for repo: ....", for solve it you could to delete strange chars or blank spaces in <strong>/etc/yum.repos.d/centos55_i386_iso.repo</strong></li>
+</ul>
+<li>
+<p>When yum shows following error:</p>
+</li>
 <blockquote>
 <pre>Could not retrieve mirrorlist http://mirrorlist.centos.org/?release=5&amp;arch=i386&amp;repo=addons error was
 [Errno 4] IOError:

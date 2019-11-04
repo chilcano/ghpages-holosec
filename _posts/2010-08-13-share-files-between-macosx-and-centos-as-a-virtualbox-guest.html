@@ -10,7 +10,9 @@ status: publish
 categories:
 - Linux
 - Security
-tags: []
+tags:
+- CentOS
+- virtualbox
 meta:
   _edit_last: '578869'
   _oembed_92b57fbd9a7e7ea58265479679522320: "{{unknown}}"
@@ -63,6 +65,12 @@ meta:
   _oembed_c276ead17cb3f6ec500d2eb0dddf5fe8: "{{unknown}}"
   _oembed_3574b60fc76793e5628c3a316d6c7bca: "{{unknown}}"
   _oembed_8cb7045c0dcf8f99ff2b88a6096fc324: "{{unknown}}"
+  geo_public: '0'
+  _wpas_skip_5053092: '1'
+  _wpcom_is_markdown: '1'
+  _oembed_770f35f550924f88444d45a7384778c3: "{{unknown}}"
+  _oembed_99a26a083a98cad454ff2a4fd1249bce: "{{unknown}}"
+  _oembed_5193ea37169a923a89fcbe73e766a312: "{{unknown}}"
 author:
   login: rcarhuatocto
   email: roger@intix.info
@@ -72,69 +80,78 @@ author:
 permalink: "/2010/08/13/share-files-between-macosx-and-centos-as-a-virtualbox-guest/"
 ---
 <p>Share files between two SO is easy because there are different protocols for sharing resources (NFS, CIFS/SMB/Samba, FTP, ...), but sharing files between two PCs with OS Linux based, and one of them as virtualmachine guest of another one is a bit more complicated. Here's how to do it when we  Mac OSX as HOST and CentOS as GUEST:</p>
+<p><!-- more --></p>
 <h2>Mount DVD ISO image in CentOS VirtualBox guest</h2>
-<p>1. Previously, I have download DVD ISO image, then I have copied to my Mac OSX Host.</p>
-<p>2. From Virtual Box menu, goes to Devices &gt; CD/DVD Devices and mount selecting CentOS's DVD ISO image (ISO previuosly added to VBox's "Virtual Media Manager").</p>
-<p><img class="alignnone" title="Mount CentOS DVD Iso image from VirtualBox" src="{{ site.baseurl }}/assets/sharefilescentosmacosx-1-mount-dvdiso.png" alt="" width="367" height="283" /></p>
-<p>3. In CentOS guest now you can see DVD iso mounted as <strong>/media/CentOS_5.5_Final</strong></p>
-<p>4. You can install packages directly off the mounted DVD ISO. Now, modify <strong>/etc/yum.repos.d/CentOS-Media.repo</strong> file, enter:</p>
+<p>1.- Previously, I have download DVD ISO image, then I have copied to my Mac OSX Host.</p>
+<p>2.- From Virtual Box menu, goes to Devices &gt; CD/DVD Devices and mount selecting CentOS's DVD ISO image (ISO previuosly added to VBox's "Virtual Media Manager").</p>
+<p><img title="Mount CentOS DVD Iso image from VirtualBox" src="{{ site.baseurl }}/assets/sharefilescentosmacosx-1-mount-dvdiso.png" alt="" width="367" height="283" /></p>
+<p>3.- In CentOS guest now you can see DVD iso mounted as <strong>/media/CentOS_5.5_Final</strong></p>
+<p>4.- You can install packages directly off the mounted DVD ISO. Now, modify <strong>/etc/yum.repos.d/CentOS-Media.repo</strong> file, enter:</p>
 <pre>[root@localhost ~]# vi /etc/yum.repos.d/CentOS-Media.repo</pre>
-<p>5. Make sure enabled is set to 1:</p>
+<p>5.- Make sure enabled is set to 1:</p>
 <pre>enabled=1</pre>
-<p>6. Save and close the file. To install packages from only DVD media repo, do this:</p>
+<p>6.- Save and close the file. To install packages from only DVD media repo, do this:</p>
 <pre>[root@localhost ~]# yum --disablerepo=\* --enablerepo=c5-media -y install &lt;package-name&gt;</pre>
 <p><em><br />
 Notes:<br />
-* --disablerepo=\*: disable all yum repo<br />
+* --disablerepo=&#042;: disable all yum repo<br />
 * -y: assume yes to any question which would be asked<br />
 * --enablerepo=c5-media: enable c5-media repo<br />
 </em></p>
 <h2>Install Virtual Box Additions in CentOS guest</h2>
 <p>Before anything, It is necessary install some packages as compiler gcc, kernel libs and sources.</p>
-<p>1. Install the following packages with CentOS DVD ISO image mounted:</p>
+<p>1.- Install the following packages with CentOS DVD ISO image mounted:</p>
 <pre>[root@localhost ~]# yum --disablerepo=\* --enablerepo=c5-media -y install gcc
 [root@localhost ~]# yum --disablerepo=\* --enablerepo=c5-media -y install kernel sources
 [root@localhost ~]# yum --disablerepo=\* --enablerepo=c5-media -y install kernel-devel</pre>
-<p>2. Unmount CentOS DVD ISO image and mount Virtual Box Guest Additions in your CentOS guest:</p>
-<p><img class="alignnone" title="Mount Virtual Box Guest Additions" src="{{ site.baseurl }}/assets/sharefilescentosmacosx-2-mount-vboxadds.png" alt="" width="420" height="140" /></p>
-<p>3. Restart CentOS guest</p>
-<p>4. Now, install VBoxGuestAdditions in CentOS guest:</p>
+<p>2.- Unmount CentOS DVD ISO image and mount Virtual Box Guest Additions in your CentOS guest:</p>
+<p><img title="Mount Virtual Box Guest Additions" src="{{ site.baseurl }}/assets/sharefilescentosmacosx-2-mount-vboxadds.png" alt="" width="420" height="140" /></p>
+<p>3.- Restart CentOS guest</p>
+<p>4.- Now, install VBoxGuestAdditions in CentOS guest:</p>
 <pre>[root@localhost ~]# cd /media/VBOXADDITIONS_3.2.6_63112/
 [root@localhost VBOXADDITIONS_3.2.6_63112]# sh VBoxLinuxAdditions.run</pre>
-<p>5. Restart CentOS guest again</p>
-<p>6. Now you could use special functionalities as resize the guest windows, share files, etc...</p>
+<p>5.- Restart CentOS guest again</p>
+<p>6.- Now you could use special functionalities as resize the guest windows, share files, etc...</p>
 <h2>Share files beetwen Mac OS X as Host and CentOS as Guest</h2>
-<p>1. In your Host Linux box:</p>
+<p>1.- In your Host Linux box:</p>
 <pre>$ mkdir /Users/chilcano/files2share</pre>
-<p>2. In main menu of your Linux Guest's Virtual Box:</p>
-<p>- Go to <strong>Devices</strong> &gt; <strong>Shared Folders</strong> ...<br />
-- In popup, add shared folder and select Host's folder (<strong>/Users/chilcano/files2share</strong>), set up a name as <strong>files2share</strong> and make permanent.</p>
-<p><img class="alignnone" title="Add a Share Folder to Virtual Box" src="{{ site.baseurl }}/assets/sharefilescentosmacosx-3-share-host-folder.png" alt="" width="332" height="241" /></p>
-<p>3. In your Guest Linux box opens a terminal window and create a new directory where you'll mount shared folder</p>
+<p>2.- In main menu of your Linux Guest's Virtual Box:</p>
+<ul>
+<li>Go to <strong>Devices</strong> &gt; <strong>Shared Folders</strong> ...</li>
+<li>In popup, add shared folder and select Host's folder (<strong>/Users/chilcano/files2share</strong>), set up a name as <strong>files2share</strong> and make permanent.</li>
+</ul>
+<p><img title="Add a Share Folder to Virtual Box" src="{{ site.baseurl }}/assets/sharefilescentosmacosx-3-share-host-folder.png" alt="" width="332" height="241" /></p>
+<p>3.- In your Guest Linux box opens a terminal window and create a new directory where you'll mount shared folder</p>
 <pre>[root@localhost /]# mkdir /vbox_shared</pre>
-<p>4. In this terminal, enter the id command and look the output. We will use uid and gid:</p>
+<p>4.- In this terminal, enter the id command and look the output. We will use uid and gid:</p>
 <pre>[root@localhost /]# id
 uid=0(root) gid=0(root) groups=0(root),1(bin),2(daemon),3(sys),4(adm),6(disk),10(wheel) context=root:system_r:unconfined_t:SystemLow-SystemHigh</pre>
-<p>5. Now, we will mount shared folder from Host to Guest. From terminal in Guest Linux:</p>
+<p>5.- Now, we will mount shared folder from Host to Guest. From terminal in Guest Linux:</p>
 <pre>[root@localhost /]# mount -t vboxsf -o uid=0,gid=0 files2share /vbox_shared</pre>
 <h2>Make the Mounted Share permanent</h2>
 <p>You can make the shared folder mount automatically each time you start the CentOS guest by making an entry in <strong>/etc/fstab</strong>.</p>
-<p>1. From the CentOS guest edit fstab:</p>
+<p>1.- From the CentOS guest edit fstab:</p>
 <pre>[root@localhost ~]# sudo gedit /etc/fstab</pre>
-<p>2. Add a line at the bottom of file, and that looks like this:</p>
-<pre>files2share	/vbox_shared	vboxsf	rw,uid=0,gid=0	0	0</pre>
-<p>3. Verify mounted folder</p>
+<p>2.- Add a line at the bottom of file, and that looks like this:</p>
+<pre>files2share    /vbox_shared    vboxsf  rw,uid=0,gid=0  0   0</pre>
+<p>3.- Verify mounted folder</p>
 <p>In Mac OS X (host):<br />
-<img class="alignnone" title="Verify VirtualBox shared folder in Host" src="{{ site.baseurl }}/assets/sharefilescentosmacosx-4-verify-mounted-host.png" alt="" width="538" height="239" /></p>
+<img title="Verify VirtualBox shared folder in Host" src="{{ site.baseurl }}/assets/sharefilescentosmacosx-4-verify-mounted-host.png" alt="" width="538" height="239" /></p>
 <p>In CentOS (guest):<br />
-<img class="alignnone" title="Verify shared folder in VirtualBox Guest" src="{{ site.baseurl }}/assets/sharefilescentosmacosx-5-verify-mounted-guest.png" alt="" width="367" height="244" /></p>
-<p>4. End.</p>
+<img title="Verify shared folder in VirtualBox Guest" src="{{ site.baseurl }}/assets/sharefilescentosmacosx-5-verify-mounted-guest.png" alt="" width="367" height="244" /></p>
+<p>4.- End.</p>
 <p><strong>References</strong>:</p>
-<p>* CentOS: Install Packages Via yum Command Using DVD / CD as Repo<br />
-http://www.cyberciti.biz/faq/centos-linux-install-packages-from-dvd-using-yum/</p>
-<p>* Implementing virtualbox shared folders between a Mac OS X host and Fedora guest<br />
+<ul>
+<li>CentOS: Install Packages Via yum Command Using DVD / CD as Repo<br />
+http://www.cyberciti.biz/faq/centos-linux-install-packages-from-dvd-using-yum/</li>
+<li>
+<p>Implementing virtualbox shared folders between a Mac OS X host and Fedora guest<br />
 http://davidherron.com/content/implementing-virtualbox-shared-folders-between-mac-os-x-host-and-fedora-guest</p>
+</li>
+</ul>
 <p>http://forums.virtualbox.org/viewtopic.php?t=4960&amp;highlight=install+guest+addition<br />
 * How to install Guest Additions in CentOS 5.1</p>
-<p>* Share Folders Between a Linux Host and Linux Virtual Machine on VirtualBox<br />
-http://tuxtweaks.com/2009/06/share-folders-linux-host-linux-virtual-machine-virtualbox/</p>
+<ul>
+<li>Share Folders Between a Linux Host and Linux Virtual Machine on VirtualBox<br />
+http://tuxtweaks.com/2009/06/share-folders-linux-host-linux-virtual-machine-virtualbox/</li>
+</ul>

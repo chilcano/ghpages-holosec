@@ -11,7 +11,8 @@ categories:
 - Linux
 - Portal
 - Security
-tags: []
+tags:
+- LDAP
 meta:
   _edit_last: '578869'
   _oembed_e9b6b5609b1c06be96620270007694f1: "{{unknown}}"
@@ -68,6 +69,13 @@ meta:
   _oembed_ceaf90f04585cf5703b871b7b70e2b8d: "{{unknown}}"
   _oembed_5ff53d525d51644d912d2f458499db90: "{{unknown}}"
   _oembed_91fff5ff6d1fbba43aba6bdc259d745e: "{{unknown}}"
+  geo_public: '0'
+  _wpas_skip_5053092: '1'
+  _wpcom_is_markdown: '1'
+  _oembed_7115c1aa64fe9a9f156eec00981a971d: "{{unknown}}"
+  _oembed_d0270393a2650ec0e03d9338de53311e: "{{unknown}}"
+  _oembed_ed018acc49d2a5df029a9b0af08962ea: "{{unknown}}"
+  _oembed_69af3076f1fdab7d4ae1bada41f97e5b: "{{unknown}}"
 author:
   login: rcarhuatocto
   email: roger@intix.info
@@ -76,23 +84,37 @@ author:
   last_name: ''
 permalink: "/2010/08/12/install-directory-server-in-centos-5-5/"
 ---
-<p>1. Download all RPM extra packages from: http://mirrors.nfsi.pt/CentOS/5.5/extras/i386</p>
+<p><a href="http://holisticsecurity.files.wordpress.com/2010/08/blog_centos55.png"><img class="alignnone size-full wp-image-158" title="blog_centos55" src="{{ site.baseurl }}/assets/blog_centos55.png" alt="" width="290" height="81" /></a></p>
+<ol>
+<li>Download all RPM extra packages from: http://mirrors.nfsi.pt/CentOS/5.5/extras/i386</li>
+</ol>
 <pre>[root@svdapp95 ~]# wget -m http://mirrors.nfsi.pt/CentOS/5.5/extras/i386</pre>
-<div id="_mcePaste">or</div>
+<p>or</p>
 <pre>[root@svdapp95 ~]# wget -m http://mirror.centos.org/centos/5.5/extras/i386</pre>
-<p>2. Upload RPMs packages to you Linux box, for example to /centos-ds_rpm_tmp</p>
-<p>3. Verify that you have installed Java:</p>
+<p><!-- more --></p>
+<ol>
+<li>Upload RPMs packages to you Linux box, for example to /centos-ds_rpm_tmp</li>
+<li>
+<p>Verify that you have installed Java:</p>
+</li>
+</ol>
 <pre>[root@svdapp95 ~]# rpm -qa | grep jdk
 java-1.6.0-openjdk-1.6.0.0-1.7.b09.el5</pre>
-<p>4. Install required packages from mounted ISO images:</p>
+<ol>
+<li>Install required packages from mounted ISO images:</li>
+</ol>
 <p><em>Note</em>:<br />
-* Append " <strong>--disablerepo=\* --enablerepo=c5-media install -y</strong>" to yum command if you want install from <strong>DVD Iso image</strong>, for example:</p>
+* Append " <strong>--disablerepo=&#042; --enablerepo=c5-media install -y</strong>" to yum command if you want install from <strong>DVD Iso image</strong>, for example:</p>
 <pre># yum --disablerepo=\* --enablerepo=c5-media -y install &lt;package&gt;</pre>
 <pre>[root@svdapp95 ~]# yum install cyrus-sasl-gssapi db4-utils mozldap-tools perl-Mozilla-LDAP mozldap-devel</pre>
 <p><a href="http://db.tt/iEFnwp">see installation output log 1</a></p>
-<p>5. Install required supported packages from mounted ISO:</p>
+<ol>
+<li>Install required supported packages from mounted ISO:</li>
+</ol>
 <pre># yum install xorg-x11-xauth bitstream-vera-fonts dejavu-lgc-fonts urw-fonts</pre>
-<p>6. Install CentOS Directory Server</p>
+<ol>
+<li>Install CentOS Directory Server</li>
+</ol>
 <pre>[root@svdapp95 ~]# cd /centos-ds_rpm_tmp
 [root@svdapp95 ~]# yum --nogpgcheck localinstall centos-ds-8.1.0-1.el5.centos.2.i386.rpm \
 <span style="white-space:pre;">    </span>centos-ds-base-8.1.0-0.14.el5.centos.2.i386.rpm \
@@ -105,7 +127,9 @@ java-1.6.0-openjdk-1.6.0.0-1.7.b09.el5</pre>
 <span style="white-space:pre;">    </span>idm-console-framework-1.1.3-9.el5.centos.2.noarch.rpm \
 <span style="white-space:pre;">    </span>jss-4.2.5-1.el5.centos.1.i386.rpm</pre>
 <p><a href="http://db.tt/6lC55l">see installation output log 2</a></p>
-<p>7. Verify FQDN (fully qualified domain name):</p>
+<ol>
+<li>Verify FQDN (fully qualified domain name):</li>
+</ol>
 <pre>[root@svdapp95 ~]# hostname
 svdapp95-ldap
 [root@svdapp95 ~]# hostname -f
@@ -115,17 +139,25 @@ If you have some troubles, edit /etc/hosts and update it, and that looks like th
 <pre>127.0.0.1<span style="white-space:pre;"> </span>svdapp95.ohim-pre.eulocalhost
 ::1<span style="white-space:pre;"> </span>localhost6.localdomain6<span style="white-space:pre;"> </span>localhost6</pre>
 <p>... and change your hostname to "svdapp95.ohim-pre.eu" with system-config-network command, go to DNS &gt; Hostname and change it.</p>
-<p>8. Create and configure Directory Server and Administration Server instances through of <strong>setup-ds-admin.pl</strong>:</p>
+<ol>
+<li>Create and configure Directory Server and Administration Server instances through of <strong>setup-ds-admin.pl</strong>:</li>
+</ol>
 <pre>[root@svdapp95 ~]# /usr/sbin/setup-ds-admin.pl</pre>
 <p><a href="http://db.tt/oYdawR">see installation output log 3</a></p>
 <h2>Verify installation</h2>
-<p>1. Verify if directory service is running:</p>
+<ol>
+<li>Verify if directory service is running:</li>
+</ol>
 <pre>[root@svdapp95 ~]# /etc/init.d/dirsrv status
 dirsrv svdapp95-ldap (pid 4556) is running...</pre>
-<p>2. Verify if admin directory service is running:</p>
+<ol>
+<li>Verify if admin directory service is running:</li>
+</ol>
 <pre>[root@svdapp95 ~]# /etc/init.d/dirsrv-admin status
 dirsrv-admin (pid 3308) is running...</pre>
-<p>3. Verify if 389 and 9830 ports are opened:</p>
+<ol>
+<li>Verify if 389 and 9830 ports are opened:</li>
+</ol>
 <pre>[root@svdapp95 ~]# netstat -tln | grep 389
 tcp        0      0 :::389                      :::*                        LISTEN
 [root@svdapp95 ~]# netstat -tln | grep 9830
@@ -135,44 +167,68 @@ COMMAND    PID   USER   FD   TYPE DEVICE SIZE NODE NAME
 ns-slapd  3047 nobody    6u  IPv6  13523       TCP *:ldap (LISTEN)
 httpd.wor 3133   root    3u  IPv4  13659       TCP *:9830 (LISTEN)
 httpd.wor 3136 nobody    3u  IPv4  13659       TCP *:9830 (LISTEN)</pre>
-<p>4. Start directory instance if It is not running:</p>
+<ol>
+<li>Start directory instance if It is not running:</li>
+</ol>
 <pre>[root@svdapp95 ~]# /etc/init.d/dirsrv-admin start
 Starting dirsrv-admin:
-														  [  OK  ]
+                                                          [  OK  ]
 [root@svdapp95 ~]# /etc/init.d/dirsrv start svdapp95-ldap
 Starting dirsrv:
-	svdapp95-ldap...                                       [  OK  ]</pre>
+    svdapp95-ldap...                                       [  OK  ]</pre>
 <h2>Delete all files related to directory instance for installing a new instance</h2>
-<p>1. Start all services:</p>
+<ol>
+<li>Start all services:</li>
+</ol>
 <pre>[root@svdapp95 ~]# /etc/init.d/dirsrv-admin start
 [root@svdapp95 ~]# /etc/init.d/dirsrv start svdapp95-ldap</pre>
-<p>2. Delete all files or remove instance with <strong>ds_remove</strong> script:</p>
+<ol>
+<li>Delete all files or remove instance with <strong>ds_remove</strong> script:</li>
+</ol>
 <pre>[root@svdapp95 ~]# rm -rf /var/lib/dirsrv/slapd-&lt;ldap-instance-id&gt;
 [root@svdapp95 ~]# /usr/sbin/ds_removal -s &lt;ldap-instance-id&gt; -w &lt;admin-pwd&gt; [-f]</pre>
-<p>* In my case  &lt;ldap-instance-id&gt; = svdapp95-ldap<br />
-* -f: if ds_removal fails, use -f to force the removal process.<br />
-* Each Directory Server instance service must be running for the remove script to access it.</p>
-<p>3. Re-run script <strong>setup-ds-admin.pl</strong></p>
+<ul>
+<li>In my case  &lt;ldap-instance-id&gt; = svdapp95-ldap</li>
+<li>-f: if ds_removal fails, use -f to force the removal process.</li>
+<li>Each Directory Server instance service must be running for the remove script to access it.</li>
+</ul>
+<ol>
+<li>Re-run script <strong>setup-ds-admin.pl</strong></li>
+</ol>
 <h2>Launch admin directory console</h2>
 <p>X Server and GDM runing in the linux box is required and X client in the client side. In Windows as client can you use Xming.</p>
-<p>1. Open a <strong>xterm</strong> or console in your linux box.</p>
-<p>2. Run centos-idm-console:</p>
+<ol>
+<li>Open a <strong>xterm</strong> or console in your linux box.</li>
+</ol>
+<li>
+<p>Run centos-idm-console:</p>
+</li>
 <pre>[root@svdapp95 ~]# centos-idm-console -a http://localhost:9830</pre>
-<p>User ID: 	admin<br />
+<p>User ID:    admin<br />
 Password:  &lt;your-pwd&gt;<br />
 Administration URL: http://localhost:9830</p>
 <h2>Add an object in Directory Server by centos-idm-console</h2>
-<p>1. Run Console</p>
-<p><img class="alignnone" title="Run CentOS IDM Console" src="{{ site.baseurl }}/assets/CentOS-DS_1_run_console.png" alt="" width="475" height="375" /></p>
-<p>2. Open Directory Server console</p>
-<p><img class="alignnone" title="Open Directory Server Console" src="{{ site.baseurl }}/assets/CentOS-DS_2_console.png" alt="" width="630" height="403" /></p>
-<p>3. Add an entry to Directory Server</p>
-<p><img class="alignnone" title="Add an new entry to LDAP" src="{{ site.baseurl }}/assets/CentOS-DS_3_addusr_console.png" alt="" width="635" height="437" /></p>
+<ol>
+<li>Run Console</li>
+</ol>
+<p><img title="Run CentOS IDM Console" src="{{ site.baseurl }}/assets/centos-ds_1_run_console.png" alt="" width="475" height="375" /></p>
+<ol>
+<li>Open Directory Server console</li>
+</ol>
+<p><img title="Open Directory Server Console" src="{{ site.baseurl }}/assets/centOS-ds_2_console.png" alt="" width="630" height="403" /></p>
+<ol>
+<li>Add an entry to Directory Server</li>
+</ol>
+<p><img title="Add an new entry to LDAP" src="{{ site.baseurl }}/assets/centOS-ds_3_addusr_console.png" alt="" width="635" height="437" /></p>
 <h2>Connection to CentOS Directory Server from Apache Directory Studio</h2>
-<p>1. Create a connection to CentOS Directory Server from Apache Directory Studio</p>
-<p><img class="alignnone" title="Create a new LDAP connection" src="{{ site.baseurl }}/assets/CentOS-DS_4_ApacheDirectoryStudio.png" alt="" width="606" height="351" /></p>
-<p>2. Browse LDAP</p>
-<p><img class="alignnone" title="Browse LDAP Server" src="{{ site.baseurl }}/assets/CentOS-DS_5_ApacheDirectoryStudio.png" alt="" width="661" height="492" /></p>
+<ol>
+<li>Create a connection to CentOS Directory Server from Apache Directory Studio</li>
+</ol>
+<p><img title="Create a new LDAP connection" src="{{ site.baseurl }}/assets/centOS-ds_4_ApacheDirectoryStudio.png" alt="" width="606" height="351" /></p>
+<ol>
+<li>Browse LDAP</li>
+</ol>
+<p><img title="Browse LDAP Server" src="{{ site.baseurl }}/assets/centOS-ds_5_ApacheDirectoryStudio.png" alt="" width="661" height="492" /></p>
 <h2>Add an object in Directory Server by ldapmodify command</h2>
 <pre>[root@svdapp95 ~]# /usr/lib/mozldap/ldapmodify -D "cn=Alba C.,ou=People,dc=ohim-pre,dc=eu" -w liferay -f addUsr-roger.ldif</pre>
 <p>Where addUsr-roger.ldif file contains:</p>
@@ -199,23 +255,35 @@ CentOS Directory Server uses Mozilla LDAP tools — such as <strong>ldapsearch, 
 The MozLDAP tools are installed with Directory Server and are located in the <strong>/usr/lib/mozldap</strong>.<br />
 When running any LDAP command, make sure that you are using the <strong>MozLDAP</strong> utilities, otherwise the command will return errors.</p>
 <pre>[root@svdapp95 ~]# /usr/lib/mozldap/ldapsearch -x -D &lt;binddn&gt; -w &lt;bindpwd&gt; -b &lt;basedn&gt; &lt;searchfilter&gt;</pre>
-<p>* -x: performing sorting on server<br />
-* -D: bind dn (for authentication)<br />
-* -w: bind passwd (for authentication)<br />
-* -b: base dn<br />
-* &lt;searchfilter&gt;: RFC-2254 compliant LDAP search filter</p>
+<ul>
+<li>-x: performing sorting on server</li>
+<li>-D: bind dn (for authentication)</li>
+<li>-w: bind passwd (for authentication)</li>
+<li>-b: base dn</li>
+<li>&lt;searchfilter&gt;: RFC-2254 compliant LDAP search filter</li>
+</ul>
 <pre>[root@svdapp95 ~]# /usr/lib/mozldap/ldapsearch -x -D "cn=lluis,ou=People,dc=ohim-pre,dc=eu" -w liferay -b "dc=ohim-pre,dc=eu" "objectclass=inetOrgPerson"</pre>
 <h2>Tuning CentOS Directory Server</h2>
-<p>1. Using dsktune:</p>
+<ol>
+<li>Using dsktune:</li>
+</ol>
 <pre>[root@svdapp95 ~]# dsktune</pre>
-<p><img class="alignnone" title="Tuning with dsktune" src="{{ site.baseurl }}/assets/CentOS-DS_6_dsktune.png" alt="" width="515" height="279" /></p>
+<p><img title="Tuning with dsktune" src="{{ site.baseurl }}/assets/centOS-ds_6_dsktune.png" alt="" width="515" height="279" /></p>
 <p><strong>References</strong></p>
-<p>* CentOS Directory Server, Basic Install<br />
-http://wiki.centos.org/HowTos/DirectoryServerSetup</p>
-<p>* CentOS Directory Server On CentOS 5.2<br />
+<ul>
+<li>CentOS Directory Server, Basic Install<br />
+http://wiki.centos.org/HowTos/DirectoryServerSetup</li>
+</ul>
+<li>
+<p>CentOS Directory Server On CentOS 5.2<br />
 http://www.howtoforge.com/centos-directory-server-on-centos5.2</p>
-<p>* Index of /CentOS/5.5/extras/i386/RPMS<br />
+</li>
+<li>
+<p>Index of /CentOS/5.5/extras/i386/RPMS<br />
 http://mirrors.nfsi.pt/CentOS/5.5/extras/i386/RPMS/</p>
-<p>* Red Hat Directory Server - manual installation and configuration<br />
+</li>
+<li>
+<p>Red Hat Directory Server - manual installation and configuration<br />
 http://www.redhat.com/docs/manuals/dir-server/8.1/install/index.html</p>
+</li>
 <p>Bye.</p>

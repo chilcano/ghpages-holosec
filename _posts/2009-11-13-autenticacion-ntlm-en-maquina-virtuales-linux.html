@@ -12,10 +12,14 @@ categories:
 tags:
 - cntlm
 - NTLM
+- proxy
 - Virtual Box
 meta:
   _edit_last: '578869'
-  _wpas_skip_twitter: '1'
+  _wpas_skip_13849: '1'
+  geo_public: '0'
+  _wpas_skip_5053092: '1'
+  _wpcom_is_markdown: '1'
 author:
   login: rcarhuatocto
   email: roger@intix.info
@@ -25,8 +29,9 @@ author:
 permalink: "/2009/11/13/autenticacion-ntlm-en-maquina-virtuales-linux/"
 ---
 <p>Estoy creando muchas máquinas virtuales Linux con VirtualBox para mis demos y cursos, pero resulta que en nuestra organización tenemos como Proxy al MS ISA Proxy Server que requiere autenticación NTLM, pero parece que apt-get de mi Linux no sabe como hacer dicha autenticación.</p>
-<p>Un colega <a href="http://blog.bgta.ne">[^BgTA^]</a> usa <a href="http://cntlm.sourceforge.net">cntlm</a> como primer proxy en lugar de usar el MS ISA Proxy logrando así actualizar su Linux sin problemas, además por otro factor muy importante, evitamos dejar en claro la contraseña del proxy ya que ahora con cntlm se configura con el hash.</p>
-<p>Pues listo, instalé cntlm en el S.O. Host (Windows XP) y en el Guest (<a href="http://crunchbanglinux.org/">CrunchBang Linux</a>) configuré apt-get y Synaptic con el nuevo proxy basado en cntlm. Synaptic no tuvo problemas en la autenticación NTLM, o sea que no era necesario cntlm.</p>
+<p>Un colega <a href="http://blog.bgta.ne">[^BgTA^]</a> usa <a href="http://cntlm.sourceforge.net">cntlm</a> como primer proxy en lugar de usar el MS ISA Proxy logrando así actualizar su Linux sin problemas, además por otro factor muy importante, evitamos dejar en claro la contraseña del proxy ya que ahora con cntlm se configura con el hash.<br />
+<!-- more --><br />
+Pues listo, instalé cntlm en el S.O. Host (Windows XP) y en el Guest (<a href="http://crunchbanglinux.org/">CrunchBang Linux</a>) configuré apt-get y Synaptic con el nuevo proxy basado en cntlm. Synaptic no tuvo problemas en la autenticación NTLM, o sea que no era necesario cntlm.</p>
 <p>Para configurar el proxy para el apt-get hacer lo siguiente:</p>
 <p><strong>1. Editar el siguiente fichero:</strong></p>
 <p>[sourcecode language="text" gutter="true" wraplines="false"]<br />

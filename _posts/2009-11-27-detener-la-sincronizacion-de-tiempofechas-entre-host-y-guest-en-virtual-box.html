@@ -9,10 +9,11 @@ password: ''
 status: publish
 categories:
 - Linux
-tags: []
+tags:
+- virtualbox
 meta:
   _edit_last: '578869'
-  _wpas_skip_twitter: '1'
+  _wpas_skip_13849: '1'
   _oembed_341dd1c7e9bdecfac2b63bc3695228dc: "{{unknown}}"
   _oembed_4a0cb52f5e242084b9ab7ec8fc2ed55e: "{{unknown}}"
   _oembed_89d487b1f6b02d10aaa375b8a6057b6c: "{{unknown}}"
@@ -23,6 +24,9 @@ meta:
   _oembed_6d5e7969628515544c4977a9595f31a5: "{{unknown}}"
   _oembed_1107578f523ed71bbf686b7dc27c497a: "{{unknown}}"
   _oembed_29a86cd67f3270ac8600018d6a75e73a: "{{unknown}}"
+  geo_public: '0'
+  _wpas_skip_5053092: '1'
+  _wpcom_is_markdown: '1'
 author:
   login: rcarhuatocto
   email: roger@intix.info
@@ -31,8 +35,9 @@ author:
   last_name: ''
 permalink: "/2009/11/27/detener-la-sincronizacion-de-tiempofechas-entre-host-y-guest-en-virtual-box/"
 ---
-<p>Desde la versión 3.0.6 de VirtualBox existe la posibilidad de sincronizar el tiempo entre el host y el guest, y si los "Guest Additions" están instalados es posible cambiar su comportamiento, inclusive detener el servicio. Si es linux es posible usar lo siguiente para detener el servicio de sincronización de tiempo.</p>
-<p>Ejecutar lo siguiente desde el guest:</p>
+<p>Desde la versión 3.0.6 de VirtualBox existe la posibilidad de sincronizar el tiempo entre el host y el guest, y si los "Guest Additions" están instalados es posible cambiar su comportamiento, inclusive detener el servicio. Si es linux es posible usar lo siguiente para detener el servicio de sincronización de tiempo.<br />
+<!-- more --><br />
+Ejecutar lo siguiente desde el guest:</p>
 <blockquote><p>/etc/init.d/vboxadd-timesync stop</p></blockquote>
 <p>Mientras que para guest Windows XP, debería ser:</p>
 <blockquote><p>C:\WINDOWS\system32&gt;VBoxService --disable-timesync</p></blockquote>

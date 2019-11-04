@@ -17,13 +17,13 @@
  7. WordPress will then import each of the posts, pages, comments, categories, etc.
     contained in this file into your site.
 -->
-<!-- generator="WordPress.com" created="2019-11-04 11:54"-->
+<!-- generator="WordPress.com" created="2019-11-04 16:48"-->
 <rss version="2.0" xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:wp="http://wordpress.org/export/1.2/">
   <channel>
 <title>Holistic Security</title>
 <link>https://holisticsecurity.wordpress.com</link>
 <description>Open Source, Security, BigData, DevOps in SDLC and Cloud</description>
-<pubDate>Mon, 04 Nov 2019 11:54:03 +0000</pubDate>
+<pubDate>Mon, 04 Nov 2019 16:48:13 +0000</pubDate>
 <language>en</language>
 <wp:wxr_version>1.2</wp:wxr_version>
 <wp:base_site_url>http://wordpress.com/</wp:base_site_url>
@@ -72,8 +72,29 @@ Regards!]]></content:encoded>
   <wp:post_type>post</wp:post_type>
   <wp:post_password/>
   <wp:is_sticky>0</wp:is_sticky>
+  <category domain="category" nicename="holism"><![CDATA[Holism]]></category>
   <category domain="category" nicename="security"><![CDATA[Security]]></category>
   <category domain="post_tag" nicename="welcome"><![CDATA[welcome]]></category>
+  <wp:postmeta>
+    <wp:meta_key>_edit_last</wp:meta_key>
+    <wp:meta_value><![CDATA[578869]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>geo_public</wp:meta_key>
+    <wp:meta_value><![CDATA[0]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpas_skip_13849</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpas_skip_5053092</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpcom_is_markdown</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
 </item>
 <item>
   <title>Holistic System Security an cyber-security research priority</title>
@@ -83,6 +104,7 @@ Regards!]]></content:encoded>
   <guid isPermaLink="false">http://holisticsecurity.wordpress.com/2007/10/29/holistic-system-security-an-cyber-security-research-priority/</guid>
   <description/>
   <content:encoded><![CDATA[In the Report to the President on <a href="http://www.nitrd.gov/pitac/reports/20050301_cybersecurity/cybersecurity.pdf"><strong>Cyber Security: A Crisis of Prioritization</strong></a> (February 2005) was published the cyber security priorities, theses were:
+
 <ol>
 <li>Authentication Technologies</li>
 <li>Secure Fundamental Protocols</li>
@@ -97,6 +119,7 @@ Regards!]]></content:encoded>
 </ol>
 
 Well, everything sounds known, but what does <strong>Holistic System Security</strong> mean?.
+<!-- more -->
 The report answers perfectly and explains why it is a priority:
 
 <blockquote><strong>4. Holistic System Security</strong>
@@ -115,16 +138,16 @@ Software usability itself is a legitimate and important research topic in cyber 
 <li>Supporting privacy in conjunction with improved security</li>
 </ul>
 </blockquote>
+
 <!--more-->
 I think this approach (holism) is obvious, but is not for technical or developers of Software. The usability is very importan, This says that incorrectly used software or confusing UI can lead to user frustration and security controls misused.
 
 I would like to highlight these words:
+
 <ul>
 <li><strong>Holism Security</strong>: include software/applications, s.o., hardware, networks  ... and the people (end-user)</li>
 <li><strong>Software Usability</strong>: human factors engineering, such as interfaces that promote security and user awareness of its importance.</li>
-</ul>
-
-]]></content:encoded>
+</ul>]]></content:encoded>
   <excerpt:encoded><![CDATA[]]></excerpt:encoded>
   <wp:post_id>4</wp:post_id>
   <wp:post_date>2007-10-29 11:34:42</wp:post_date>
@@ -138,10 +161,28 @@ I would like to highlight these words:
   <wp:post_type>post</wp:post_type>
   <wp:post_password/>
   <wp:is_sticky>0</wp:is_sticky>
+  <category domain="category" nicename="holism"><![CDATA[Holism]]></category>
   <category domain="category" nicename="security"><![CDATA[Security]]></category>
+  <category domain="post_tag" nicename="system-thinking"><![CDATA[System Thinking]]></category>
   <wp:postmeta>
     <wp:meta_key>_edit_last</wp:meta_key>
     <wp:meta_value><![CDATA[578869]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>geo_public</wp:meta_key>
+    <wp:meta_value><![CDATA[0]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpas_skip_13849</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpas_skip_5053092</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpcom_is_markdown</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
   </wp:postmeta>
 </item>
 <item>
@@ -170,12 +211,29 @@ Any question?]]></content:encoded>
   <wp:post_password/>
   <wp:is_sticky>0</wp:is_sticky>
   <category domain="post_tag" nicename="acceptability"><![CDATA[Acceptability]]></category>
+  <category domain="category" nicename="holism"><![CDATA[Holism]]></category>
   <category domain="post_tag" nicename="human-interface"><![CDATA[human interface]]></category>
   <category domain="post_tag" nicename="psychological"><![CDATA[Psychological]]></category>
   <category domain="category" nicename="security"><![CDATA[Security]]></category>
   <wp:postmeta>
     <wp:meta_key>_edit_last</wp:meta_key>
     <wp:meta_value><![CDATA[578869]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>geo_public</wp:meta_key>
+    <wp:meta_value><![CDATA[0]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpas_skip_13849</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpas_skip_5053092</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpcom_is_markdown</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
   </wp:postmeta>
 </item>
 <item>
@@ -186,7 +244,10 @@ Any question?]]></content:encoded>
   <guid isPermaLink="false">http://holisticsecurity.wordpress.com/2007/11/26/ultra-mobile-pc-umpc-pc-portalites-de-bajo-coste-seguros-accesibles-y-usables/</guid>
   <description/>
   <content:encoded><![CDATA[Después de la iniciativa de Nicholas Negroponte con su OLPC, PC Portátil para niños de 100 USD para fines educacionales, los fabricantes de Portátiles han visto una interesante oportunidad de negocio; hacer portátiles low-cost. Asustek, que fabrica portátiles para HP, Dell y Apple, además de su marca Asus, ha lanzado la propia hace algunos meses llamado Asus EeePC a sólo 249 USD, luego otros fabricantes han sacado sus propios modelos por ejemplo el Intel Classmate PC, VIA NanoBook y el PackardBell EasyNote XS, éstos dos últimos basados en el mismo chipset.
+
 <p style="text-align:center;"><img src="http://wiki.laptop.org/images/6/6c/Green_and_white_machine.jpg" alt="One Laptop per Child - A security, usable and accessible approach" height="278" width="358" /></p>
+
+<!-- more -->
 La intención de Nicholas Negroponte con la Fundación OLPC era dar acceso a recursos informáticos a los niños para fines educacionales de los paises pobres y para ello solicitó a la taiwanesa Quanta la fabricación de un portátil muy barato, accesible, usable, seguro y que consuma pocos recursos. Estos portátiles OLPC tienen procesador AMD y Linux.
 Pero lo que ha despertado esta iniciativa en el sector tecnológico es que los fabricantes miren a los portátiles low-cost como una oportunidad de negocio.
 
@@ -250,10 +311,10 @@ http://tecmoviles.com/gphone-de-codigo-abierto-para-android]]></content:encoded>
   <wp:post_type>post</wp:post_type>
   <wp:post_password/>
   <wp:is_sticky>0</wp:is_sticky>
-  <category domain="post_tag" nicename="accessible"><![CDATA[accessible]]></category>
-  <category domain="post_tag" nicename="holistic"><![CDATA[holistic]]></category>
+  <category domain="post_tag" nicename="accesibility"><![CDATA[accesibility]]></category>
+  <category domain="category" nicename="holism"><![CDATA[Holism]]></category>
   <category domain="category" nicename="security"><![CDATA[Security]]></category>
-  <category domain="post_tag" nicename="usable"><![CDATA[usable]]></category>
+  <category domain="category" nicename="usability"><![CDATA[Usability]]></category>
   <wp:postmeta>
     <wp:meta_key>_edit_last</wp:meta_key>
     <wp:meta_value><![CDATA[578869]]></wp:meta_value>
@@ -738,6 +799,58 @@ http://tecmoviles.com/gphone-de-codigo-abierto-para-android]]></content:encoded>
     <wp:meta_key>_oembed_43cb29a1103c0c8c111fe6fa3d0eaa82</wp:meta_key>
     <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
   </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>geo_public</wp:meta_key>
+    <wp:meta_value><![CDATA[0]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpas_skip_13849</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpas_skip_5053092</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpcom_is_markdown</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_94afa1fb7d69051dddc5eab299db5872</wp:meta_key>
+    <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_392c46252e5f00cb5badb98d9dcfc378</wp:meta_key>
+    <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_584e61252636a9f63143c8c265401be6</wp:meta_key>
+    <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_c0c4e3634c4d1715307c8c829221e6b2</wp:meta_key>
+    <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_6f74e4973f6cbf37ad29d5b48d143d8c</wp:meta_key>
+    <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_0e583c77bc58dd3191a3fea844341d6f</wp:meta_key>
+    <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_99d9233d3695b829ce79f25840df724c</wp:meta_key>
+    <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_b300d3e4c19433c55dade579a88c3742</wp:meta_key>
+    <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_0a6f42e02576155c0a3dbb81ae035275</wp:meta_key>
+    <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
+  </wp:postmeta>
   <wp:comment>
     <wp:comment_id>2</wp:comment_id>
     <wp:comment_author><![CDATA[Roger Carhuatocto]]></wp:comment_author>
@@ -817,6 +930,7 @@ Regards!]]></content:encoded>
   <wp:post_type>post</wp:post_type>
   <wp:post_password/>
   <wp:is_sticky>0</wp:is_sticky>
+  <category domain="category" nicename="holism"><![CDATA[Holism]]></category>
   <category domain="post_tag" nicename="holistic"><![CDATA[holistic]]></category>
   <category domain="post_tag" nicename="model"><![CDATA[model]]></category>
   <category domain="category" nicename="security"><![CDATA[Security]]></category>
@@ -907,14 +1021,15 @@ Regards!]]></content:encoded>
   <description/>
   <content:encoded><![CDATA[Six years ago I read the "<strong>The Hacker Ethic and the Spirit of Information Age</strong>" book, by <a title="Pekka Himanen" href="http://www.pekkahimanen.org">Pekka Himanen</a> (this book is a collaborative work between Pekka Himanen, Linus Torvalds and Manuel Castells -philosopher, hacker and sociologist, respectively) and understood that <strong>Hacker Ethic</strong> is a new is a new morality that defies the Protestant work ethic, outlined nearly a century ago <strong>Max Weber</strong> in "<a href="http://en.wikipedia.org/wiki/Protestant_work_ethic">The protrestant ethic and the spirit of capitalism</a>" articuled.
 
-<img src="http://ecx.images-amazon.com/images/I/4148V1WT9ML._SL500_AA240_.jpg" alt="Hacker Ethic Book" width="240" height="240" />
+<img src="https://holisticsecurity.files.wordpress.com/2008/06/blog-20080613-hacker-ethic-book-4148v1wt9ml._sl500_aa240_.jpg" alt="The Hacker Ethic and the Spirit of Information Age" />
+
+<!-- more -->
 
 Now, Pekka Himanen articulates how hackers represent a new, opposing spirit for the information age. Underlying hackers' technical creations are the hacker values that produced them and that challenge us all.
 
 The Hacker Ethic values promote passionate and freely rhythmed work; the belief that individuals can create great things by joining forces in imaginative ways; and the need to maintain our existing ethical ideals, such as privacy and equality, in our new, increasingly technologized society
 
- If you want to read this book, you could googlear ... 
-]]></content:encoded>
+If you want to read this book, you could googlear ...]]></content:encoded>
   <excerpt:encoded><![CDATA[]]></excerpt:encoded>
   <wp:post_id>8</wp:post_id>
   <wp:post_date>2008-06-13 01:47:32</wp:post_date>
@@ -928,11 +1043,30 @@ The Hacker Ethic values promote passionate and freely rhythmed work; the belief 
   <wp:post_type>post</wp:post_type>
   <wp:post_password/>
   <wp:is_sticky>0</wp:is_sticky>
+  <category domain="post_tag" nicename="book"><![CDATA[Book]]></category>
+  <category domain="post_tag" nicename="ethic"><![CDATA[ethic]]></category>
   <category domain="post_tag" nicename="hacker"><![CDATA[hacker]]></category>
+  <category domain="category" nicename="holism"><![CDATA[Holism]]></category>
   <category domain="category" nicename="security"><![CDATA[Security]]></category>
   <wp:postmeta>
     <wp:meta_key>_edit_last</wp:meta_key>
     <wp:meta_value><![CDATA[578869]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>geo_public</wp:meta_key>
+    <wp:meta_value><![CDATA[0]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpas_skip_13849</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpas_skip_5053092</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpcom_is_markdown</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
   </wp:postmeta>
 </item>
 <item>
@@ -942,15 +1076,11 @@ The Hacker Ethic values promote passionate and freely rhythmed work; the belief 
   <dc:creator>rcarhuatocto</dc:creator>
   <guid isPermaLink="false">http://holisticsecurity.wordpress.com/?p=9</guid>
   <description/>
-  <content:encoded><![CDATA[ 
-
-By Wikipedia:
+  <content:encoded><![CDATA[By Wikipedia:
 
 <blockquote>The <strong>Protestant work ethic</strong>, sometimes called the <strong>Puritan work ethic</strong>, is a <a title="Calvinism" href="http://en.wikipedia.org/wiki/Calvinism">Calvinist</a> value emphasizing the necessity of constant labor in a person's calling as a sign of personal <a title="Salvation" href="http://en.wikipedia.org/wiki/Salvation">salvation</a>. <a title="Protestantism" href="http://en.wikipedia.org/wiki/Protestantism">Protestants</a> beginning with <a title="Martin Luther" href="http://en.wikipedia.org/wiki/Martin_Luther">Martin Luther</a> had reconceptualised work as a duty in the world for the benefit of the individual and society as a whole. The <a title="Catholicism" href="http://en.wikipedia.org/wiki/Catholicism">Catholic</a> idea of <a title="Divine grace" href="http://en.wikipedia.org/wiki/Divine_grace#Tension_between_grace_and_works_in_the_New_Testament">good works</a> was transformed into an obligation to work diligently as a sign of grace.</blockquote>
 
-<a href="http://en.wikipedia.org/wiki/Protestant_work_ethic">http://en.wikipedia.org/wiki/Protestant_work_ethic</a>
-
-]]></content:encoded>
+<a href="http://en.wikipedia.org/wiki/Protestant_work_ethic">http://en.wikipedia.org/wiki/Protestant_work_ethic</a>]]></content:encoded>
   <excerpt:encoded><![CDATA[]]></excerpt:encoded>
   <wp:post_id>9</wp:post_id>
   <wp:post_date>2008-06-13 01:50:46</wp:post_date>
@@ -967,6 +1097,7 @@ By Wikipedia:
   <category domain="post_tag" nicename="ethic"><![CDATA[ethic]]></category>
   <category domain="post_tag" nicename="free-software"><![CDATA[free software]]></category>
   <category domain="post_tag" nicename="hacker"><![CDATA[hacker]]></category>
+  <category domain="category" nicename="holism"><![CDATA[Holism]]></category>
   <category domain="post_tag" nicename="open-source"><![CDATA[open source]]></category>
   <category domain="category" nicename="security"><![CDATA[Security]]></category>
   <wp:postmeta>
@@ -981,6 +1112,22 @@ By Wikipedia:
     <wp:meta_key>_oembed_f045f4b4f73e119709da2b9e4dc1e019</wp:meta_key>
     <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
   </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>geo_public</wp:meta_key>
+    <wp:meta_value><![CDATA[0]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpas_skip_13849</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpas_skip_5053092</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpcom_is_markdown</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
 </item>
 <item>
   <title>My first UMPC, The XO-1 OLPC</title>
@@ -991,33 +1138,39 @@ By Wikipedia:
   <description/>
   <content:encoded><![CDATA[Yes, I could get a <strong>XO-1</strong> and am very impressed by the <b>quality</b> Ultra mobile PC (<a href="http://en.wikipedia.org/wiki/Ultra-Mobile_PC">UMPC</a>).
 
-<a href="http://holisticsecurity.files.wordpress.com/2008/07/20080502xo-1olpcsiku.jpg"><img src="http://holisticsecurity.files.wordpress.com/2008/07/2008_05mayo_02_unboxing_olpc-008.jpg?w=128" alt="My XO-1 OLPC" width="128" height="96" class="alignleft size-thumbnail wp-image-18" /></a>
-
+<a href="http://holisticsecurity.files.wordpress.com/2008/07/20080502xo-1olpcsiku.jpg"><img src="http://holisticsecurity.files.wordpress.com/2008/07/2008_05mayo_02_unboxing_olpc-008.jpg" alt="My XO-1 OLPC" /></a>
+<!-- more -->
 XO-1 is well thought out in every way:
+
 <ul>
-	<li>Is <strong>secure</strong>, the Bitfrost approach gives a holistic security, from delivery of PC, first boot, authentication for childs, etc.</li>
-	<li>Is <strong>usable</strong>, with Sugar all software applications (aka Activities) does easy to learn.</li>
-	<li>Is <strong>mobile</strong>, has mesh wireless support, is no necessary get internet because its mobile ad-hoc networking is used to allow many machines to share Internet access from one connection. It has low-power consumption.</li>
-	<li>Is <strong>Freee/Open Source</strong> device, inclusive the Firmware/Bios is FOS, except the WIFI driver for mesh purposes.</li>
+    <li>Is <strong>secure</strong>, the Bitfrost approach gives a holistic security, from delivery of PC, first boot, authentication for childs, etc.</li>
+    <li>Is <strong>usable</strong>, with Sugar all software applications (aka Activities) does easy to learn.</li>
+    <li>Is <strong>mobile</strong>, has mesh wireless support, is no necessary get internet because its mobile ad-hoc networking is used to allow many machines to share Internet access from one connection. It has low-power consumption.</li>
+    <li>Is <strong>Freee/Open Source</strong> device, inclusive the Firmware/Bios is FOS, except the WIFI driver for mesh purposes.</li>
 </ul>
+
 The <strong>specs</strong> of my XO-1 are:
+
 <ul>
-	<li>CPU: 433 <span class="mw-redirect">MHz</span> AMD Geode LX-700 at 0.8 watts, with integrated graphics controller</li>
-	<li>Display dual-mode 19.1 cm/7.5" diagonal TFT LCD 1200×900 (200 dpi).</li>
-	<li>256 MB of Dual (DDR266) 133 MHz <span class="mw-redirect">DRAM</span>.</li>
-	<li>1024 kB (1 MB) flash ROM with open-source <a title="Open Firmware" href="http://en.wikipedia.org/wiki/Open_Firmware">Open Firmware.</a></li>
-	<li>1024 MB of SLC NAND flash memory.</li>
-	<li>Operating system: Fedora-based (Linux)</li>
-	<li>Connectivity: <span class="mw-redirect">802.11b/g</span> <span class="mw-redirect">/s</span> wireless LAN, 3 USB 2.0 ports and MMC/SD card slot</li>
-	<li>Input: Keyboard (water proof), Touchpad, Microphone, built-in video Camera (640×480; 30 FPS)</li>
-	<li>Weight: LiFeP battery: 1.45 kg [3.2 pounds]; NiMH battery: 1.58 kg [3.5 pounds]</li>
+    <li>CPU: 433 <span class="mw-redirect">MHz</span> AMD Geode LX-700 at 0.8 watts, with integrated graphics controller</li>
+    <li>Display dual-mode 19.1 cm/7.5" diagonal TFT LCD 1200×900 (200 dpi).</li>
+    <li>256 MB of Dual (DDR266) 133 MHz <span class="mw-redirect">DRAM</span>.</li>
+    <li>1024 kB (1 MB) flash ROM with open-source <a title="Open Firmware" href="http://en.wikipedia.org/wiki/Open_Firmware">Open Firmware.</a></li>
+    <li>1024 MB of SLC NAND flash memory.</li>
+    <li>Operating system: Fedora-based (Linux)</li>
+    <li>Connectivity: <span class="mw-redirect">802.11b/g</span> <span class="mw-redirect">/s</span> wireless LAN, 3 USB 2.0 ports and MMC/SD card slot</li>
+    <li>Input: Keyboard (water proof), Touchpad, Microphone, built-in video Camera (640×480; 30 FPS)</li>
+    <li>Weight: LiFeP battery: 1.45 kg [3.2 pounds]; NiMH battery: 1.58 kg [3.5 pounds]</li>
 </ul>
+
 There are some things that should improve, for example:
+
 <ul>
-	<li>There is not a Video-out port</li>
-	<li>Sound card is of poor quality</li>
-	<li>The touch-pad has a pointer jumper, this is a bug reported</li>
+    <li>There is not a Video-out port</li>
+    <li>Sound card is of poor quality</li>
+    <li>The touch-pad has a pointer jumper, this is a bug reported</li>
 </ul>
+
 Whatever, the XO-1's are fine for the purposes they were designed, <a href="http://laptop.org/index.es.html">for the childs and learning</a>.
 
 I hope to continue my research and soon I will post other comment about of <a href="http://xolaptophelp.com/index.php?topic=2389.0">XO-1 overclocking</a> and hacking.
@@ -1025,9 +1178,7 @@ I hope to continue my research and soon I will post other comment about of <a hr
 Ah, the booting of my XO-1 took 80 seconds aprox. You can see it in this video:
 [youtube=http://www.youtube.com/watch?v=Jlc6FrxNNYI&amp;hl=es]
 
-Regards!
-
-]]></content:encoded>
+Regards!]]></content:encoded>
   <excerpt:encoded><![CDATA[]]></excerpt:encoded>
   <wp:post_id>12</wp:post_id>
   <wp:post_date>2008-07-01 00:43:20</wp:post_date>
@@ -1045,10 +1196,27 @@ Regards!
   <category domain="post_tag" nicename="olpc"><![CDATA[olpc]]></category>
   <category domain="category" nicename="security"><![CDATA[Security]]></category>
   <category domain="post_tag" nicename="umpc"><![CDATA[umpc]]></category>
+  <category domain="category" nicename="usability"><![CDATA[Usability]]></category>
   <category domain="post_tag" nicename="xo-1"><![CDATA[xo-1]]></category>
   <wp:postmeta>
     <wp:meta_key>_edit_last</wp:meta_key>
     <wp:meta_value><![CDATA[578869]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>geo_public</wp:meta_key>
+    <wp:meta_value><![CDATA[0]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpas_skip_13849</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpas_skip_5053092</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpcom_is_markdown</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
   </wp:postmeta>
 </item>
 <item>
@@ -1061,7 +1229,7 @@ Regards!
   <content:encoded><![CDATA[En el año 2001, en un foro encontré un post bastante divertido, se trataba de la <em><strong>Evolución de un Programador</strong> y cómo éste evolucionaba también el clásico programa llamado <strong>Hola Mundo</strong></em>.
 
 <img src='http://blog.dreamhost.com/wp-content/uploads/2007/10/homeless-coder.jpg' alt='HTML coder' class='aligncenter' />
-
+<!-- more -->
 Para los no informáticos, <strong>Hola Mundo</strong> es el primer programa que realiza cualquier informático que inicia en esta profesión.
 
 Con la Evolución de un Programador podéis ver quienes son los mejores programadores.
@@ -1069,8 +1237,6 @@ Con la Evolución de un Programador podéis ver quienes son los mejores programa
 <img src='http://plguide.chat.ru/pix/programmer.jpg' alt='Big programmer' class='aligncenter' />
 
 En fin, os dejo con la evolución del Hola Mundo, espero que algunos Managers, Comerciales no se ofendan.  ;)
-
-
 
 <blockquote>Task is to write a program that prints "Hello World" on the
 screen...make sure you see the last few attempts (Dilbert).
@@ -1446,10 +1612,9 @@ help: Command not found.
 % logout
 </blockquote>
 
-[From: http://lists.xml.org/archives/xml-dev/199712/msg00322.html]
+From: http://lists.xml.org/archives/xml-dev/199712/msg00322.html
 
-Os animáis a realizar un port a otra plataforma o lenguaje de programación?. Python, Ruby, PHP, Java, eh??
-]]></content:encoded>
+Os animáis a realizar un port a otra plataforma o lenguaje de programación?. Python, Ruby, PHP, Java, eh??]]></content:encoded>
   <excerpt:encoded><![CDATA[]]></excerpt:encoded>
   <wp:post_id>15</wp:post_id>
   <wp:post_date>2008-06-18 01:21:20</wp:post_date>
@@ -1464,10 +1629,26 @@ Os animáis a realizar un port a otra plataforma o lenguaje de programación?. P
   <wp:post_password/>
   <wp:is_sticky>0</wp:is_sticky>
   <category domain="post_tag" nicename="joke-programming-hello-world"><![CDATA[joke programming hello world]]></category>
-  <category domain="category" nicename="security"><![CDATA[Security]]></category>
+  <category domain="category" nicename="misc"><![CDATA[Misc]]></category>
   <wp:postmeta>
     <wp:meta_key>_edit_last</wp:meta_key>
     <wp:meta_value><![CDATA[578869]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>geo_public</wp:meta_key>
+    <wp:meta_value><![CDATA[0]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpas_skip_13849</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpas_skip_5053092</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpcom_is_markdown</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
   </wp:postmeta>
   <wp:comment>
     <wp:comment_id>19</wp:comment_id>
@@ -1623,20 +1804,19 @@ Gracias!]]></wp:comment_content>
   <guid isPermaLink="false">http://holisticsecurity.wordpress.com/?p=35</guid>
   <description/>
   <content:encoded><![CDATA[Interesante reflexión y tan obvia que muchos de nosotros la ignoramos.
-
 Leyendo el blog de <a href="http://www.didaclee.com/es/">Didac Lee</a>, encontré este post (dialogo) que habla sobre el <em>poco tiempo que tenemos y del cual nos quejamos. En el fondo es que no tenemos claro nuestras prioridades y no sabemos delegar</em>.
-
 Os invito a leerlo: <a href="http://www.didaclee.com/es/%c2%bfte-falta-tiempo-%c2%bfo-es-que-no-tienes-claras-tus-prioridades">¿Te falta tiempo? ¿o es que no tienes claras tus prioridades? :-)</a>
-
-[caption id="" align="aligncenter" width="250" caption="Defeat Parkinson&#39;s Law!"]<img src="http://www.bankyourtime.com/php/images/bank_your_time_yb.GIF" alt="Defeat Parkinsons Law!" width="250" height="253" />[/caption]
-
+<img src="https://holisticsecurity.files.wordpress.com/2008/07/blog-20080715-defeat-parkinsons-law.png" alt="Defeat Parkinsons Law!" />
 Esto es en cierta forma "normal", considerando como normal cualquier comportamiento pensado o no por un ser humano. La Ley de Parkinson explica este comportamiento "normal".
+<!-- more -->
+
 <blockquote>Las tres leyes fundamentales de Parkinson son:
 1º. "El trabajo crece hasta llenar el tiempo de que se dispone para su realización".
 2º. "Los gastos aumentan hasta cubrir todos los ingresos".
 3º. "El tiempo dedicado a cualquier tema de la agenda es inversamente proporcional a su importancia".
 
 Estas tres leyes, al igual que otras que Parkinson formuló, como <em>la ley de la dilación o el arte de perder el tiempo</em> y <em>la ley de la ocupación de los espacios vacíos: por mucho espacio que haya en una oficina siempre hará falta</em>, son leyes extraídas de la experiencia cotidiana, mediante las cuales, al tiempo que se describe o pone de manifiesto una determinada realidad, se denuncia la falta de eficiencia del trabajo administrativo. <a href="http://es.wikipedia.org/wiki/Ley_de_Parkinson"><em>[De Wikipedia]</em></a></blockquote>
+
 Por otro lado, para los que conocen el <a href="http://es.wikipedia.org/wiki/Project_Management_Body_of_Knowledge">PMBOK (Project Management body of Knowledge)</a>,
 
 La Ley de Parkinson también sirve como referencia a la hora de valorar/estimar esfuerzos en las tareas de un proyecto, interpretádola y llevándola a PM significa <em>que si le asignamos a un recurso una cantidad de tiempo para realizar un cierto trabajo, terminará utilizando todo el tiempo del que dispone, independientemente de si necesitaba o no todo ese tiempo para realizarlo.</em>
@@ -1657,13 +1837,30 @@ Adeu!.]]></content:encoded>
   <wp:post_type>post</wp:post_type>
   <wp:post_password/>
   <wp:is_sticky>0</wp:is_sticky>
-  <category domain="post_tag" nicename="ley-de-parkinson"><![CDATA[ley de parkinson]]></category>
+  <category domain="category" nicename="holism"><![CDATA[Holism]]></category>
+  <category domain="post_tag" nicename="parkinsons-law"><![CDATA[parkinsons law]]></category>
   <category domain="post_tag" nicename="pmbok"><![CDATA[pmbok]]></category>
   <category domain="category" nicename="security"><![CDATA[Security]]></category>
-  <category domain="post_tag" nicename="tiempo"><![CDATA[tiempo]]></category>
+  <category domain="post_tag" nicename="time"><![CDATA[time]]></category>
   <wp:postmeta>
     <wp:meta_key>_edit_last</wp:meta_key>
     <wp:meta_value><![CDATA[578869]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>geo_public</wp:meta_key>
+    <wp:meta_value><![CDATA[0]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpas_skip_13849</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpas_skip_5053092</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpcom_is_markdown</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
   </wp:postmeta>
 </item>
 <item>
@@ -1675,9 +1872,10 @@ Adeu!.]]></content:encoded>
   <description/>
   <content:encoded><![CDATA[Mi primer contacto con Alfresco fue en el 2004, fue un <a title="El Alquimista" href="http://asdelivered.blogspot.com">compañero de batallas</a> que me lo recomendó de mi ex centro de trabajo, al ver que era una solución versátil de gestión de contenidos web y que estaba alineado a la filosofía FOSS, pues se convirtió en nuestra herramienta de facto para todos nuestros proyectos. Aunque la curva de aprendizaje era muy pronunciada, a nivel comercial se vendian muchos proyectos, evidentemente acompañado de un preventa. Es así, que la empresa donde trabajaba se convirtió en referencia en Cataluña.
 
-La barrera de entrada a este negocio es muy baja, actualmente, hay muchos players, pequeñas integradoras open source, medianos y grandes integradores, hay firmas especializadas en formación de Alfresco, también <a title="Nuxeo" href="http://www.nuxeo.com/">competidores de Alfresco</a>, en fin, la tendencia de que Alfresco sea una "commodity" se acentúa, ante ello, Alfresco ECM ha evolucionado.
+<img title="Alfresco ECM, soluciones verticales" src="https://holisticsecurity.files.wordpress.com/2009/08/blog-20090807-ecm-usecases.png" alt="Soluciones verticales con Alfresco" />
+<!-- more -->
 
-[caption id="" align="alignnone" width="400" caption="Soluciones verticales con Alfresco"]<img title="Alfresco ECM, soluciones verticales" src="https://www.alfresco.com/es/products/solutions/ecm/ecm-solutions-2.jpg" alt="Soluciones verticales con Alfresco" width="400" height="226" />[/caption]
+La barrera de entrada a este negocio es muy baja, actualmente, hay muchos players, pequeñas integradoras open source, medianos y grandes integradores, hay firmas especializadas en formación de Alfresco, también <a title="Nuxeo" href="http://www.nuxeo.com/">competidores de Alfresco</a>, en fin, la tendencia de que Alfresco sea una "commodity" se acentúa, ante ello, Alfresco ECM ha evolucionado.
 
 Creo que una estrategia comercial en donde haya mucha formación-consultoría especializada permitirá hacer más negocio, creo que es simple, hay que capitalizar estas nuevas funcionalidades. Por ejemplo, he participado en junio y julio del 2009 en varios proyectos con Alfresco a través de formación-consultoría especializada, esto también lo podría hacer una consultora-integradora. Como indico, únicamente hay que capitalizar estas nuevas funcionalidades: Alfresco Surf, Share, Studio, Implementación de Sharepoint Protocol, framework de desarrollo al que llaman WebScripts (FreeMarker/JSON, RESTful, JavaScript), uso de Flex para RIA, CMIS para interoperabilidad, etc.
 
@@ -1699,10 +1897,28 @@ Saludos!.]]></content:encoded>
   <wp:post_type>post</wp:post_type>
   <wp:post_password/>
   <wp:is_sticky>0</wp:is_sticky>
+  <category domain="post_tag" nicename="alfresco-ecm"><![CDATA[Alfresco ECM]]></category>
   <category domain="category" nicename="ecm"><![CDATA[ECM]]></category>
+  <category domain="category" nicename="portal"><![CDATA[Portal]]></category>
   <wp:postmeta>
     <wp:meta_key>_edit_last</wp:meta_key>
     <wp:meta_value><![CDATA[578869]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>geo_public</wp:meta_key>
+    <wp:meta_value><![CDATA[0]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpas_skip_13849</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpas_skip_5053092</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpcom_is_markdown</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
   </wp:postmeta>
 </item>
 <item>
@@ -1714,8 +1930,8 @@ Saludos!.]]></content:encoded>
   <description/>
   <content:encoded><![CDATA[Por fin tengo un móvil ANDROID, después de unas horas de trasteo, lo he desbloqueado, le he actualizado la firmaware, la radio y ya estoy trabajando con el Android SDK desde Eclipse.
 
-[caption id="attachment_50" align="alignnone" width="256" caption="Alba y el Android"]<img class="size-full wp-image-50" title="Alba en el HTM Dream" src="http://holisticsecurity.files.wordpress.com/2009/08/htcdreamroger11.png" alt="Alba y el Android" width="256" height="384" />[/caption]
-
+<img src="http://holisticsecurity.files.wordpress.com/2009/08/htcdreamroger11.png" alt="Android HTM Dream" />
+<!-- more -->
 Mi primera impresión es que como entorno de desarrollo, Google Android es equiparable a entornos de Microsoft, iPhone y Nokia.
 
 Hay algunas cosas que mejorar, pero eso es cuestión de tiempo y cuestión de que los usuarios-técnicos conozcan esta plataforma.
@@ -1738,7 +1954,9 @@ http://androidapps.es/2009/08/08/como-liberar-nuestros-terminales-android/
 
 <strong>S.O./ROM/Firmware:</strong>
 
-- AndroidApps v1.0 (Basada en la versión 3.6.5 de la <a href="http://forum.xda-developers.com/showthread.php?t=537204">ROM CyanogenMod</a>)
+<ul>
+<li>AndroidApps v1.0 (Basada en la versión 3.6.5 de la <a href="http://forum.xda-developers.com/showthread.php?t=537204">ROM CyanogenMod</a>)</li>
+</ul>
 
 A su vez, CyanogenMod está basada en la oficial Android Cupcake (versión 1.5), se mejora la estabilidad, tiene agregado el teclado de HTC (<a href="http://androidapps.es/2009/06/28/instalar-teclado-htc-htc_ime/">HTC_IME</a>), APNs (Las tres grandes estan, las OMVs sin confirmar) y otras apps: Teeter, Quickoffice, SpareParts, Superuser y Terminal Emulator.
 
@@ -1768,7 +1986,7 @@ Agur!]]></content:encoded>
   <category domain="post_tag" nicename="foss"><![CDATA[FOSS]]></category>
   <category domain="post_tag" nicename="google"><![CDATA[GOOGLE]]></category>
   <category domain="post_tag" nicename="java"><![CDATA[JAVA]]></category>
-  <category domain="category" nicename="security"><![CDATA[Security]]></category>
+  <category domain="category" nicename="misc"><![CDATA[Misc]]></category>
   <wp:postmeta>
     <wp:meta_key>_edit_last</wp:meta_key>
     <wp:meta_value><![CDATA[578869]]></wp:meta_value>
@@ -1965,6 +2183,34 @@ Agur!]]></content:encoded>
     <wp:meta_key>_oembed_621b2d99140582be8f8abfdece561c59</wp:meta_key>
     <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
   </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_0ae641bce4819773c06a24ff2925f91e</wp:meta_key>
+    <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>geo_public</wp:meta_key>
+    <wp:meta_value><![CDATA[0]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpas_skip_13849</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpas_skip_5053092</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpcom_is_markdown</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_b0c40ae8848eefc77bf4e6e96535b985</wp:meta_key>
+    <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_2fe4cc3c0ca0e7580b3b9a2b9bf22975</wp:meta_key>
+    <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
+  </wp:postmeta>
 </item>
 <item>
   <title>Alba en el HTM Dream</title>
@@ -2022,7 +2268,7 @@ Agur!]]></content:encoded>
   <content:encoded><![CDATA[Estoy creando muchas máquinas virtuales Linux con VirtualBox para mis demos y cursos, pero resulta que en nuestra organización tenemos como Proxy al MS ISA Proxy Server que requiere autenticación NTLM, pero parece que apt-get de mi Linux no sabe como hacer dicha autenticación.
 
 Un colega <a href="http://blog.bgta.ne">[^BgTA^]</a> usa <a href="http://cntlm.sourceforge.net">cntlm</a> como primer proxy en lugar de usar el MS ISA Proxy logrando así actualizar su Linux sin problemas, además por otro factor muy importante, evitamos dejar en claro la contraseña del proxy ya que ahora con cntlm se configura con el hash.
-
+<!-- more -->
 Pues listo, instalé cntlm en el S.O. Host (Windows XP) y en el Guest (<a href="http://crunchbanglinux.org/">CrunchBang Linux</a>) configuré apt-get y Synaptic con el nuevo proxy basado en cntlm. Synaptic no tuvo problemas en la autenticación NTLM, o sea que no era necesario cntlm.
 
 Para configurar el proxy para el apt-get hacer lo siguiente:
@@ -2075,13 +2321,26 @@ Bye.]]></content:encoded>
   <category domain="post_tag" nicename="cntlm"><![CDATA[cntlm]]></category>
   <category domain="category" nicename="linux"><![CDATA[Linux]]></category>
   <category domain="post_tag" nicename="ntlm"><![CDATA[NTLM]]></category>
+  <category domain="post_tag" nicename="proxy"><![CDATA[proxy]]></category>
   <category domain="post_tag" nicename="virtual-box"><![CDATA[Virtual Box]]></category>
   <wp:postmeta>
     <wp:meta_key>_edit_last</wp:meta_key>
     <wp:meta_value><![CDATA[578869]]></wp:meta_value>
   </wp:postmeta>
   <wp:postmeta>
-    <wp:meta_key>_wpas_skip_twitter</wp:meta_key>
+    <wp:meta_key>_wpas_skip_13849</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>geo_public</wp:meta_key>
+    <wp:meta_value><![CDATA[0]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpas_skip_5053092</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpcom_is_markdown</wp:meta_key>
     <wp:meta_value><![CDATA[1]]></wp:meta_value>
   </wp:postmeta>
 </item>
@@ -2093,18 +2352,28 @@ Bye.]]></content:encoded>
   <guid isPermaLink="false">http://holisticsecurity.wordpress.com/?p=56</guid>
   <description/>
   <content:encoded><![CDATA[Desde la versión 3.0.6 de VirtualBox existe la posibilidad de sincronizar el tiempo entre el host y el guest, y si los "Guest Additions" están instalados es posible cambiar su comportamiento, inclusive detener el servicio. Si es linux es posible usar lo siguiente para detener el servicio de sincronización de tiempo.
-
+<!-- more -->
 Ejecutar lo siguiente desde el guest:
+
 <blockquote>/etc/init.d/vboxadd-timesync stop</blockquote>
+
 Mientras que para guest Windows XP, debería ser:
+
 <blockquote>C:\WINDOWS\system32&gt;VBoxService --disable-timesync</blockquote>
+
 Sin embargo, esto parece que no funciona.  Deteniendo o eliminando el servicio VBoxService en el guest tampoco funciona:
+
 <blockquote>C:\WINDOWS\system32&gt;VBoxService -u</blockquote>
+
 También probé lo siguiente desde el host, tampoco funcionó:
+
 <blockquote>VBoxManage setextradata &lt;nombrevm&gt; "VBoxInternal/Devices/VMMDev/0/Config/GetHostTimeDisabled" "1"</blockquote>
+
 donde &lt;nombrevm&gt; es el nombre de la máquina virtual o guest.
 Parece que la sincronización entre el host y guest es necesaria, suena lógico. Finalmente, probé una recomendación del foro de VirtualBox, dice que existe una funcionalidad no documentada para hacer un offset de tiempos durante el booteo de la vm y parece que sí funciona. Desde el host hacer los siguiente:
+
 <blockquote>VBoxManage setextradata &lt;nombrevm&gt; "VBoxInternal/TM/UTCOffset" &lt;nanoSeconds&gt;</blockquote>
+
 Para atrasar 1 día el tiempo del guest respecto al host, nanoSeconds = -86400000000000
 Para atrasar 365 (1 año) el tiempo, nanoSeconds = -31536000000000000
 
@@ -2113,16 +2382,18 @@ He probado hacer un offset y sí parece que funciona, tengo como Host a Windows 
 Hasta el momento es la única alternativa que he encontrado que funciona ya que deshabilitar la sincronización de tiempos es imposible, al menos en este momento, aún no lo he probado en Linux como host.
 
 Algunas referencias:
+
 <ul>
-	<li>(2009.Nov.19) Disable Guest Clock Sync
+    <li>(2009.Nov.19) Disable Guest Clock Sync
 <a href="http://forums.virtualbox.org/viewtopic.php?f=2&amp;p=110547">http://forums.virtualbox.org/viewtopic.php?f=2&amp;p=110547</a></li>
-	<li>(2009.Jun.08) VirtualBox: Disable time sync between host and client
+    <li>(2009.Jun.08) VirtualBox: Disable time sync between host and client
 <a href="http://rickguyer.com/virtualbox-disable-time-sync-between-host-and-client/">http://rickguyer.com/virtualbox-disable-time-sync-between-host-and-client/</a></li>
-	<li>(2008.Ago.08) How to disable time sync between host and guest
+    <li>(2008.Ago.08) How to disable time sync between host and guest
 <a href="http://forums.virtualbox.org/viewtopic.php?t=8535">http://forums.virtualbox.org/viewtopic.php?t=8535</a></li>
-	<li>(2009.Nov.02) 3.0.10 can't change guest system time
+    <li>(2009.Nov.02) 3.0.10 can't change guest system time
 <a href="http://forums.virtualbox.org/viewtopic.php?t=24057">http://forums.virtualbox.org/viewtopic.php?t=24057</a></li>
 </ul>
+
 Bye.]]></content:encoded>
   <excerpt:encoded><![CDATA[]]></excerpt:encoded>
   <wp:post_id>56</wp:post_id>
@@ -2138,12 +2409,13 @@ Bye.]]></content:encoded>
   <wp:post_password/>
   <wp:is_sticky>0</wp:is_sticky>
   <category domain="category" nicename="linux"><![CDATA[Linux]]></category>
+  <category domain="post_tag" nicename="virtualbox"><![CDATA[virtualbox]]></category>
   <wp:postmeta>
     <wp:meta_key>_edit_last</wp:meta_key>
     <wp:meta_value><![CDATA[578869]]></wp:meta_value>
   </wp:postmeta>
   <wp:postmeta>
-    <wp:meta_key>_wpas_skip_twitter</wp:meta_key>
+    <wp:meta_key>_wpas_skip_13849</wp:meta_key>
     <wp:meta_value><![CDATA[1]]></wp:meta_value>
   </wp:postmeta>
   <wp:postmeta>
@@ -2185,6 +2457,18 @@ Bye.]]></content:encoded>
   <wp:postmeta>
     <wp:meta_key>_oembed_29a86cd67f3270ac8600018d6a75e73a</wp:meta_key>
     <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>geo_public</wp:meta_key>
+    <wp:meta_value><![CDATA[0]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpas_skip_5053092</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpcom_is_markdown</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
   </wp:postmeta>
   <wp:comment>
     <wp:comment_id>586</wp:comment_id>
@@ -2318,14 +2602,13 @@ Saludos]]></wp:comment_content>
   <description/>
   <content:encoded><![CDATA[Estoy preparando para Ibermática, una serie de Webinars relacionados con productos free/open source para Gestión de Contenidos y Gestión de Procesos de Negocio.
 
-<br><br>
+<br>
 
 Concretamente usamos en estos webinars Alfresco ECM e Intalio BPMS y BonitaSoft, otros productos son: OpenX y LongTail Video - JW Player.
 
 
-﻿
-
-[caption id="attachment_67" align="alignnone" width="360" caption="Alfresco, Intalio, BonitaSoft, OpenX, JW Player"]<a href="http://holisticsecurity.files.wordpress.com/2010/01/plan-webinars_logos_tecnologia2.png"><img class="size-full wp-image-67 " title="Plan-Webinars_logos_tecnologia" src="http://holisticsecurity.files.wordpress.com/2010/01/plan-webinars_logos_tecnologia2.png" alt="Alfresco, Intalio, BonitaSoft, OpenX, JW Player" width="360" height="101" /></a>[/caption]
+<a href="http://holisticsecurity.files.wordpress.com/2010/01/plan-webinars_logos_tecnologia2.png"><img src="http://holisticsecurity.files.wordpress.com/2010/01/plan-webinars_logos_tecnologia2.png" alt="Alfresco, Intalio, BonitaSoft, OpenX, JW Player" /></a>
+<!-- more -->
 
 
 Todos los webinars serán en Castellano. No dispongo de mucho tiempo para cada uno de ellos, trataré de ser práctico proporcionando información relevante para cada uno de vosotros pueda abordar proyectos similares, también dispondremos de unos 15 minutos finales a las preguntas y respuestas.
@@ -2337,16 +2620,15 @@ Aquí la descripción de los webinars y el links para que podáis inscribiros.
 <ul>
 <li>﻿<strong>Migraciones de Websites - 26 January 2010 – 16:00pm CEST</strong><strong> </strong> <strong> </strong> Aprenda a definir una estrategia de migración de su Website (ASP, JSP o PHP, por ejemplo) a Alfresco WCM sin perder un segundo de servicio, manteniendo e incluso mejorando los niveles de calidad y performance. Finalmente, mostraremos cómo incorporar a su Website elementos Web2.0. (<a href="http://www.alfresco.com/es/about/events/2010/01/migracion_de_websites/" target="_parent">Para más información y registrarse a este webinar</a>)</li>
 
-[slideshare id=5707145&amp;doc=01webinarcasomigracionportalwebv1-4-1-intix-101108145555-phpapp01]
+https://www.slideshare.net/rcarhuatocto/01-webinar-casomigracionportalwebv141intix
 
 <li><strong>Gestión de Expedientes - 23 February  2010 – 11:00am CEST</strong> <strong> </strong> Sepa como construir un Sistema de Gestión de Expedientes combinando las fortalezas de Alfresco ECM como gestor documental que garantice la integridad, confidencialidad y no repudio de la información, e Intalio BPMS o BonitaSoft como herramienta orquestadora de los procesos de negocio y trámites relacionados al expediente. (<a href="http://www.alfresco.com/es/about/events/2010/02/gestion_de_expendientes/" target="_parent">Para más información y registrarse a este webinar</a>)</li>
 
-[slideshare id=5391681&amp;doc=02webinargestionexpedientesv0-6-1-intix-101008050818-phpapp01]
+https://www.slideshare.net/rcarhuatocto/02-webinar-gestionexpedientesv061intix
 
 <li><strong>Plataforma de Distribución de Contenidos Multimedia - 16 March 2010 – 11:00am CEST </strong> <strong> </strong> Aprenderemos cómo usar Alfresco ECM para centralizar contenido multimedia (publicidad dinámica, capsulas formativas, catálogos online, etc.) para luego distribuirlo a diferentes terminales (PDA, TV, Webpage ad-banner, e-Kiosk, etc.) garantizando buena performance del streaming y permitiendo la trazabilidad con soluciones como OpenX o similares a Google Ad Manager. (<a href="http://www.alfresco.com/es/about/events/2010/03/contenido_multimedia/" target="_parent">Para más información y registrarse a este webinar</a>)</li>
 
-[slideshare id=5816944&amp;doc=03webinarcontentdeliveryplatformv1-0-intix-101117184148-phpapp02]
-
+https://www.slideshare.net/rcarhuatocto/03-webinar-contentdeliveryplatformv10intix
 </ul>
 
 
@@ -2390,16 +2672,88 @@ Saludos.
     <wp:meta_value><![CDATA[1]]></wp:meta_value>
   </wp:postmeta>
   <wp:postmeta>
-    <wp:meta_key>_wpas_skip_13849</wp:meta_key>
-    <wp:meta_value><![CDATA[1]]></wp:meta_value>
-  </wp:postmeta>
-  <wp:postmeta>
     <wp:meta_key>_wpas_skip_5053092</wp:meta_key>
     <wp:meta_value><![CDATA[1]]></wp:meta_value>
   </wp:postmeta>
   <wp:postmeta>
     <wp:meta_key>_wpcom_is_markdown</wp:meta_key>
     <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_175c7fa4eaaee24c560ad88f3c5666d4</wp:meta_key>
+    <wp:meta_value><![CDATA[<div class="embed-slideshare"><iframe title="02 webinar gestion_expedientes_v0.6.1-intix" src="https://www.slideshare.net/slideshow/embed_code/key/KiVZrZJaDdA73b" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/rcarhuatocto/02-webinar-gestionexpedientesv061intix" title="02 webinar gestion_expedientes_v0.6.1-intix" target="_blank">02 webinar gestion_expedientes_v0.6.1-intix</a> </strong> from <strong><a href="https://www.slideshare.net/rcarhuatocto" target="_blank">Roger CARHUATOCTO</a></strong> </div></div>]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_cfcf6d2aa76430b2c617585f8ec43724</wp:meta_key>
+    <wp:meta_value><![CDATA[<div class="embed-slideshare"><iframe title="02 webinar gestion_expedientes_v0.6.1-intix" src="https://www.slideshare.net/slideshow/embed_code/key/KiVZrZJaDdA73b" width="422" height="631" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/rcarhuatocto/02-webinar-gestionexpedientesv061intix" title="02 webinar gestion_expedientes_v0.6.1-intix" target="_blank">02 webinar gestion_expedientes_v0.6.1-intix</a> </strong> from <strong><a href="https://www.slideshare.net/rcarhuatocto" target="_blank">Roger CARHUATOCTO</a></strong> </div></div>]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_848bdf5e04f4a6d16553ad1721d23f60</wp:meta_key>
+    <wp:meta_value><![CDATA[<div class="embed-slideshare"><iframe title="01 webinar caso_migracion_portalweb_v1.4.1-intix" src="https://www.slideshare.net/slideshow/embed_code/key/KT500C5MZENIRm" width="422" height="631" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/rcarhuatocto/01-webinar-casomigracionportalwebv141intix" title="01 webinar caso_migracion_portalweb_v1.4.1-intix" target="_blank">01 webinar caso_migracion_portalweb_v1.4.1-intix</a> </strong> from <strong><a href="https://www.slideshare.net/rcarhuatocto" target="_blank">Roger CARHUATOCTO</a></strong> </div></div>]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>geo_public</wp:meta_key>
+    <wp:meta_value><![CDATA[0]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_time_175c7fa4eaaee24c560ad88f3c5666d4</wp:meta_key>
+    <wp:meta_value><![CDATA[1572880456]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_217a3ed780f42d4aa453d69ad4323643</wp:meta_key>
+    <wp:meta_value><![CDATA[<div class="embed-slideshare"><iframe title="03 webinar content_deliveryplatform_v1.0-intix" src="https://www.slideshare.net/slideshow/embed_code/key/nggIhNn8wxjdz2" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/rcarhuatocto/03-webinar-contentdeliveryplatformv10intix" title="03 webinar content_deliveryplatform_v1.0-intix" target="_blank">03 webinar content_deliveryplatform_v1.0-intix</a> </strong> from <strong><a href="https://www.slideshare.net/rcarhuatocto" target="_blank">Roger CARHUATOCTO</a></strong> </div></div>]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_time_217a3ed780f42d4aa453d69ad4323643</wp:meta_key>
+    <wp:meta_value><![CDATA[1572880456]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_cfcf6d2aa76430b2c617585f8ec43724</wp:meta_key>
+    <wp:meta_value><![CDATA[<div class="embed-slideshare"><iframe title="02 webinar gestion_expedientes_v0.6.1-intix" src="https://www.slideshare.net/slideshow/embed_code/key/KiVZrZJaDdA73b" width="422" height="631" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/rcarhuatocto/02-webinar-gestionexpedientesv061intix" title="02 webinar gestion_expedientes_v0.6.1-intix" target="_blank">02 webinar gestion_expedientes_v0.6.1-intix</a> </strong> from <strong><a href="https://www.slideshare.net/rcarhuatocto" target="_blank">Roger CARHUATOCTO</a></strong> </div></div>]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_cfcf6d2aa76430b2c617585f8ec43724</wp:meta_key>
+    <wp:meta_value><![CDATA[<div class="embed-slideshare"><iframe title="02 webinar gestion_expedientes_v0.6.1-intix" src="https://www.slideshare.net/slideshow/embed_code/key/KiVZrZJaDdA73b" width="422" height="631" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/rcarhuatocto/02-webinar-gestionexpedientesv061intix" title="02 webinar gestion_expedientes_v0.6.1-intix" target="_blank">02 webinar gestion_expedientes_v0.6.1-intix</a> </strong> from <strong><a href="https://www.slideshare.net/rcarhuatocto" target="_blank">Roger CARHUATOCTO</a></strong> </div></div>]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_time_cfcf6d2aa76430b2c617585f8ec43724</wp:meta_key>
+    <wp:meta_value><![CDATA[1572880466]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_time_cfcf6d2aa76430b2c617585f8ec43724</wp:meta_key>
+    <wp:meta_value><![CDATA[1572880466]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_cfcf6d2aa76430b2c617585f8ec43724</wp:meta_key>
+    <wp:meta_value><![CDATA[<div class="embed-slideshare"><iframe title="02 webinar gestion_expedientes_v0.6.1-intix" src="https://www.slideshare.net/slideshow/embed_code/key/KiVZrZJaDdA73b" width="422" height="631" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/rcarhuatocto/02-webinar-gestionexpedientesv061intix" title="02 webinar gestion_expedientes_v0.6.1-intix" target="_blank">02 webinar gestion_expedientes_v0.6.1-intix</a> </strong> from <strong><a href="https://www.slideshare.net/rcarhuatocto" target="_blank">Roger CARHUATOCTO</a></strong> </div></div>]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_cfcf6d2aa76430b2c617585f8ec43724</wp:meta_key>
+    <wp:meta_value><![CDATA[<div class="embed-slideshare"><iframe title="02 webinar gestion_expedientes_v0.6.1-intix" src="https://www.slideshare.net/slideshow/embed_code/key/KiVZrZJaDdA73b" width="422" height="631" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/rcarhuatocto/02-webinar-gestionexpedientesv061intix" title="02 webinar gestion_expedientes_v0.6.1-intix" target="_blank">02 webinar gestion_expedientes_v0.6.1-intix</a> </strong> from <strong><a href="https://www.slideshare.net/rcarhuatocto" target="_blank">Roger CARHUATOCTO</a></strong> </div></div>]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_6afbd7722a97fd243b03c4dbc238b2c8</wp:meta_key>
+    <wp:meta_value><![CDATA[<div class="embed-slideshare"><iframe title="03 webinar content_deliveryplatform_v1.0-intix" src="https://www.slideshare.net/slideshow/embed_code/key/nggIhNn8wxjdz2" width="422" height="631" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/rcarhuatocto/03-webinar-contentdeliveryplatformv10intix" title="03 webinar content_deliveryplatform_v1.0-intix" target="_blank">03 webinar content_deliveryplatform_v1.0-intix</a> </strong> from <strong><a href="https://www.slideshare.net/rcarhuatocto" target="_blank">Roger CARHUATOCTO</a></strong> </div></div>]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_time_6afbd7722a97fd243b03c4dbc238b2c8</wp:meta_key>
+    <wp:meta_value><![CDATA[1572880466]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_time_6afbd7722a97fd243b03c4dbc238b2c8</wp:meta_key>
+    <wp:meta_value><![CDATA[1572880466]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_time_848bdf5e04f4a6d16553ad1721d23f60</wp:meta_key>
+    <wp:meta_value><![CDATA[1572880545]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_08d1aeaee25856387206eddf2179b671</wp:meta_key>
+    <wp:meta_value><![CDATA[<div class="embed-slideshare"><iframe title="01 webinar caso_migracion_portalweb_v1.4.1-intix" src="https://www.slideshare.net/slideshow/embed_code/key/KT500C5MZENIRm" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/rcarhuatocto/01-webinar-casomigracionportalwebv141intix" title="01 webinar caso_migracion_portalweb_v1.4.1-intix" target="_blank">01 webinar caso_migracion_portalweb_v1.4.1-intix</a> </strong> from <strong><a href="https://www.slideshare.net/rcarhuatocto" target="_blank">Roger CARHUATOCTO</a></strong> </div></div>]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_time_08d1aeaee25856387206eddf2179b671</wp:meta_key>
+    <wp:meta_value><![CDATA[1572880546]]></wp:meta_value>
   </wp:postmeta>
   <wp:comment>
     <wp:comment_id>233</wp:comment_id>
@@ -2483,47 +2837,56 @@ Saludos.
   <content:encoded><![CDATA[Hi there!
 
 In the last two months I had to perform many Liferay instalations  with different configurations, here I put some quick notes for a clean  installation of Liferay (for version 5.2.3 and 6.0.1 RC1) very necessary  if we want to develop applications on Liferay.
-<div><dl><dt><a href="http://holisticsecurity.files.wordpress.com/2010/04/liferay_601.png"><img title="liferay_601" src="http://holisticsecurity.files.wordpress.com/2010/04/liferay_601.png" alt="Liferay Portal 6.0.1 RC1" width="167" height="52" /></a></dt><dd>Liferay Portal 6.0.1 RC1</dd></dl></div>
-1. Unzip <strong>liferay-portal-XXX.zip</strong> in <strong>%LIFERAY_HOME%</strong>
 
-2. Change the default portsand avoid conflicts. Edit the file <strong>%LIFERAY_HOME%\tomcat-YYY\conf\server.xml</strong> and change the follow ports:
-<blockquote>
-<div id="_mcePaste">8080 -&gt; 9090</div>
-<div id="_mcePaste">8005 -&gt; 9005</div>
-<div id="_mcePaste">8443 -&gt; 9443</div>
-<div id="_mcePaste">8009 -&gt; 9009</div></blockquote>
-3. Edit the Pool connection in <strong>%LIFERAY_PORTAL%\tomcat-YYY\webapps\ROOT\WEB-INF\classes\portal-ext.properties</strong> (this file is not included in 5.2.3 and 6.0.1 bundle)
-<div>
-<div id="_mcePaste"><em>portal-ext.properties</em></div>
-<blockquote>
-<div id="_mcePaste">jdbc.default.jndi.name=jdbc/LiferayPool</div></blockquote>
-</div>
-4. Edit <strong>%LIFERAY_HOME%\tomcat-YYY\conf\Catalina\localhost\ROOT.xml</strong> file and to add database (i.e. mysql) connection.
-<div id="_mcePaste"><em>ROOT.xml</em></div>
-<blockquote>
-<div id="_mcePaste">[...]</div>
-<div id="_mcePaste">&lt;Resource</div>
-<div id="_mcePaste">name="jdbc/LiferayPool"</div>
-<div id="_mcePaste">auth="Container"</div>
-<div id="_mcePaste">type="javax.sql.DataSource"</div>
-<div id="_mcePaste">driverClassName="com.mysql.jdbc.Driver"</div>
-<div id="_mcePaste">url="jdbc:mysql://localhost:3306/<strong>lportal_db</strong>?useUnicode=true&amp;amp;characterEncoding=UTF-8"</div>
-<div id="_mcePaste">username="root"</div>
-<div id="_mcePaste">password=""</div>
-<div id="_mcePaste">maxActive="20"</div>
-<div id="_mcePaste">/&gt;</div>
-<div id="_mcePaste">[...]</div>
-<div id="_mcePaste">&lt;/Context&gt;</div></blockquote>
-5. Ensure that the MySQL JDBC Driver exists in <strong>%LIFERAY_HOME%\tomcat-YYY\lib\ext</strong> folder.
+<a href="http://holisticsecurity.files.wordpress.com/2010/04/liferay_601.png"><img src="http://holisticsecurity.files.wordpress.com/2010/04/liferay_601.png" alt="Liferay Portal 6.0.1 RC1" /></a><em>Liferay Portal 6.0.1 RC1</em>
+<!-- more -->
 
-6. Create an empty Database with the necessary rights. Execute the  follow sql command:
+<ol>
+<li>Unzip <strong>liferay-portal-XXX.zip</strong> in <strong>%LIFERAY_HOME%</strong></p></li>
+<li><p>Change the default portsand avoid conflicts. Edit the file <strong>%LIFERAY_HOME%\tomcat-YYY\conf\server.xml</strong> and change the follow ports:</p></li>
+</ol>
+
 <blockquote>
-<div id="_mcePaste">CREATE DATABASE <strong>lportal_db</strong> CHARACTER SET  utf8;</div>
-<div id="_mcePaste">GRANT ALL ON <strong>lportal_db</strong>.* TO "<strong>YourUserName</strong>"@"localhost";</div></blockquote>
-7. Start Liferay Portal server. Execute <strong>%LIFERAY_HOME%\tomcat-YYY\bin\startup.bat</strong>
+8080 -&gt; 9090
+8005 -&gt; 9005
+8443 -&gt; 9443
+8009 -&gt; 9009
+</blockquote>
 
-These notes also apply to linux too.
+<ol>
+<li>Edit the Pool connection in <strong>%LIFERAY_PORTAL%\tomcat-YYY\webapps\ROOT\WEB-INF\classes\portal-ext.properties</strong> (this file is not included in 5.2.3 and 6.0.1 bundle)</li>
+</ol>
 
+<blockquote>
+jdbc.default.jndi.name=jdbc/LiferayPool</blockquote>
+
+<ol>
+<li>Edit <strong>%LIFERAY_HOME%\tomcat-YYY\conf\Catalina\localhost\ROOT.xml</strong> file and to add database (i.e. mysql) connection.
+<em>ROOT.xml</em></li>
+</ol>
+
+<blockquote>
+[…]
+
+[…]
+
+</blockquote>
+
+<ol>
+<li><p>Ensure that the MySQL JDBC Driver exists in <strong>%LIFERAY_HOME%\tomcat-YYY\lib\ext</strong> folder.</p></li>
+<li><p>Create an empty Database with the necessary rights. Execute the  follow sql command:</p></li>
+</ol>
+
+<blockquote>
+CREATE DATABASE lportal_db CHARACTER SET utf8;
+GRANT ALL ON lportal_db.* TO “YourUserName“@”localhost”;
+</blockquote>
+
+<ol>
+<li>Start Liferay Portal server. Execute <strong>%LIFERAY_HOME%\tomcat-YYY\bin\startup.bat</strong></li>
+</ol>
+
+<p>These notes also apply to linux too.
 Bye.]]></content:encoded>
   <excerpt:encoded><![CDATA[]]></excerpt:encoded>
   <wp:post_id>77</wp:post_id>
@@ -2538,14 +2901,26 @@ Bye.]]></content:encoded>
   <wp:post_type>post</wp:post_type>
   <wp:post_password/>
   <wp:is_sticky>0</wp:is_sticky>
-  <category domain="category" nicename="linux"><![CDATA[Linux]]></category>
-  <category domain="post_tag" nicename="portal"><![CDATA[Portal]]></category>
+  <category domain="post_tag" nicename="liferay-portal"><![CDATA[Liferay Portal]]></category>
+  <category domain="category" nicename="portal"><![CDATA[Portal]]></category>
   <wp:postmeta>
     <wp:meta_key>_edit_last</wp:meta_key>
     <wp:meta_value><![CDATA[578869]]></wp:meta_value>
   </wp:postmeta>
   <wp:postmeta>
     <wp:meta_key>_wpas_done_twitter</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>geo_public</wp:meta_key>
+    <wp:meta_value><![CDATA[0]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpas_skip_5053092</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpcom_is_markdown</wp:meta_key>
     <wp:meta_value><![CDATA[1]]></wp:meta_value>
   </wp:postmeta>
   <wp:comment>
@@ -2637,7 +3012,7 @@ Any idea with it ?]]></wp:comment_content>
 </item>
 <item>
   <title>Chilcano's feed: Web Scraping &amp; Parsing HTML in JS</title>
-  <link>https://holisticsecurity.wordpress.com/2010/04/30/chilcanos-feed-web-scraping-par/</link>
+  <link>https://holisticsecurity.wordpress.com/2010/04/30/chilcanos-feed-web-scraping-par__trashed/</link>
   <pubDate>Fri, 30 Apr 2010 06:19:06 +0000</pubDate>
   <dc:creator>rcarhuatocto</dc:creator>
   <guid isPermaLink="false">http://holisticsecurity.wordpress.com/2010/04/30/chilcanos-feed-web-scraping-par/</guid>
@@ -2649,14 +3024,15 @@ Any idea with it ?]]></wp:comment_content>
   <wp:post_date_gmt>2010-04-30 06:19:06</wp:post_date_gmt>
   <wp:comment_status>open</wp:comment_status>
   <wp:ping_status>open</wp:ping_status>
-  <wp:post_name>chilcanos-feed-web-scraping-par</wp:post_name>
-  <wp:status>publish</wp:status>
+  <wp:post_name>chilcanos-feed-web-scraping-par__trashed</wp:post_name>
+  <wp:status>trash</wp:status>
   <wp:post_parent>0</wp:post_parent>
   <wp:menu_order>0</wp:menu_order>
   <wp:post_type>post</wp:post_type>
   <wp:post_password/>
   <wp:is_sticky>0</wp:is_sticky>
-  <category domain="category" nicename="security"><![CDATA[Security]]></category>
+  <category domain="category" nicename="misc"><![CDATA[Misc]]></category>
+  <category domain="post_tag" nicename="rss"><![CDATA[rss]]></category>
   <wp:postmeta>
     <wp:meta_key>geo_latitude</wp:meta_key>
     <wp:meta_value><![CDATA[]]></wp:meta_value>
@@ -2671,7 +3047,7 @@ Any idea with it ?]]></wp:comment_content>
   </wp:postmeta>
   <wp:postmeta>
     <wp:meta_key>geo_public</wp:meta_key>
-    <wp:meta_value><![CDATA[]]></wp:meta_value>
+    <wp:meta_value><![CDATA[0]]></wp:meta_value>
   </wp:postmeta>
   <wp:postmeta>
     <wp:meta_key>geo_longitude</wp:meta_key>
@@ -2689,10 +3065,30 @@ Any idea with it ?]]></wp:comment_content>
     <wp:meta_key>_oembed_a97641106a06660d237533a330b94b01</wp:meta_key>
     <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
   </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpas_skip_5053092</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpcom_is_markdown</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wp_trash_meta_status</wp:meta_key>
+    <wp:meta_value><![CDATA[publish]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wp_trash_meta_time</wp:meta_key>
+    <wp:meta_value><![CDATA[1572881024]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wp_desired_post_slug</wp:meta_key>
+    <wp:meta_value><![CDATA[chilcanos-feed-web-scraping-par]]></wp:meta_value>
+  </wp:postmeta>
 </item>
 <item>
   <title>Adding Custom Aspect Support in Alfresco</title>
-  <link>https://holisticsecurity.wordpress.com/2010/05/06/adding-custom-aspect-support-in-alfresco/</link>
+  <link>https://holisticsecurity.wordpress.com/2010/05/06/adding-custom-aspect-support-in-alfresco__trashed/</link>
   <pubDate>Thu, 06 May 2010 09:10:38 +0000</pubDate>
   <dc:creator>rcarhuatocto</dc:creator>
   <guid isPermaLink="false">http://holisticsecurity.wordpress.com/2010/05/06/adding-custom-aspect-support-in-alfresco/</guid>
@@ -2704,8 +3100,8 @@ Any idea with it ?]]></wp:comment_content>
   <wp:post_date_gmt>2010-05-06 09:10:38</wp:post_date_gmt>
   <wp:comment_status>open</wp:comment_status>
   <wp:ping_status>open</wp:ping_status>
-  <wp:post_name>adding-custom-aspect-support-in-alfresco</wp:post_name>
-  <wp:status>publish</wp:status>
+  <wp:post_name>adding-custom-aspect-support-in-alfresco__trashed</wp:post_name>
+  <wp:status>trash</wp:status>
   <wp:post_parent>0</wp:post_parent>
   <wp:menu_order>0</wp:menu_order>
   <wp:post_type>post</wp:post_type>
@@ -2740,6 +3136,22 @@ Any idea with it ?]]></wp:comment_content>
     <wp:meta_key>_oembed_75f3c368105ff4cd9f5e2d7dd0afa512</wp:meta_key>
     <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
   </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wp_trash_meta_status</wp:meta_key>
+    <wp:meta_value><![CDATA[publish]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wp_trash_meta_time</wp:meta_key>
+    <wp:meta_value><![CDATA[1572881024]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wp_desired_post_slug</wp:meta_key>
+    <wp:meta_value><![CDATA[adding-custom-aspect-support-in-alfresco]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpcom_is_markdown</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
 </item>
 <item>
   <title>Execute Liferay Portal on non ROOT context</title>
@@ -2748,23 +3160,32 @@ Any idea with it ?]]></wp:comment_content>
   <dc:creator>rcarhuatocto</dc:creator>
   <guid isPermaLink="false">http://holisticsecurity.wordpress.com/?p=103</guid>
   <description/>
-  <content:encoded><![CDATA[Sometime we need to execute Liferay Portal in a different web context, for example in http://www.intix.info/<strong>myportal</strong> instead of http://www.intix.info/
+  <content:encoded><![CDATA[Sometime we need to execute Liferay Portal in a different web context, for example in <code>http://www.intix.info/myportal</code> instead of <code>http://www.intix.info/</code>.
 
 Then, in this scenario we have to follow next steps:
+<!-- more -->
+
 <ol>
-	<li>Rename &lt;LIFERAY_HOME&gt;/&lt;TOMCAT_HOME&gt;/webapps/ROOT   to &lt;LIFERAY_HOME&gt;/&lt;TOMCAT_HOME&gt;/webapps/myportal</li>
-	<li>Edit or create portal-ext.properties (&lt;LIFERAY_HOME&gt;/&lt;TOMCAT_HOME&gt;/webapps/myportal/WEB-INF/classes/portal-ext.properties) :</li>
-<blockquote>...
-portal.ctx=/myportal
-....</blockquote>
-	<li>Rename &lt;LIFERAY_HOME&gt;/&lt;TOMCAT_HOME&gt;/conf/Catalina/localhost/ROOT.xml TO &lt;LIFERAY_HOME&gt;/&lt;TOMCAT_HOME&gt;/conf/Catalina/localhost/myportal.xml</li>
-	<li><span style="color:#0000ff;"><span style="color:#000000;">Restart Liferay and go to  <strong>http://www.intix.info/myportal , </strong></span></span>should be possible to browser around liferay without errors, if you found broken links you must change absolut URL/Path adding to begin "/myportal", for example:  update "http://www.intix.info/image/image_gallery?xyzx" with "http://www.intix.info<strong>/myportal</strong>/image/image_gallery?xyz"</li>
+<li>Rename //webapps/ROOT to //webapps/myportal</p></li>
+<li>Edit or create <code>//webapps/myportal/WEB-INF/classes/portal-ext.properties</code>:</p></li>
 </ol>
-Bye.
+
+<blockquote>
+...
+portal.ctx=/myportal
+...
+</blockquote>
+
+<ol>
+<li><p>Rename <code>//conf/Catalina/localhost/ROOT.xml</code> to <code>//conf/Catalina/localhost/myportal.xml</code></p></li>
+<li><p>Restart Liferay and go to <code>http://www.intix.info/myportal</code>, should be possible to browser around liferay without errors, if you found broken links you must change absolut URL/Path adding to begin <code>/myportal</code>, for example: update <code>http://www.intix.info/image/image_gallery?xyzx</code> with <code>http://www.intix.info/myportal/image/image_gallery?xyz</code>.</p></li>
+</ol>
+
+<p>Bye.
 
 <em>Links:</em>
-<p style="text-align:left;">Run liferay on non root context:</p>
-<p style="text-align:left;">http://www.liferay.com/es/community/forums/-/message_boards/message/1041350</p>]]></content:encoded>
+- Run liferay on non root context:
+http://www.liferay.com/es/community/forums/-/message_boards/message/1041350]]></content:encoded>
   <excerpt:encoded><![CDATA[]]></excerpt:encoded>
   <wp:post_id>103</wp:post_id>
   <wp:post_date>2010-07-19 17:24:34</wp:post_date>
@@ -2778,6 +3199,7 @@ Bye.
   <wp:post_type>post</wp:post_type>
   <wp:post_password/>
   <wp:is_sticky>0</wp:is_sticky>
+  <category domain="post_tag" nicename="liferay-portal"><![CDATA[Liferay Portal]]></category>
   <category domain="category" nicename="portal"><![CDATA[Portal]]></category>
   <wp:postmeta>
     <wp:meta_key>_edit_last</wp:meta_key>
@@ -2805,6 +3227,22 @@ Bye.
   </wp:postmeta>
   <wp:postmeta>
     <wp:meta_key>_oembed_be973dac5e2cbf562467514fcd6b5b25</wp:meta_key>
+    <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>geo_public</wp:meta_key>
+    <wp:meta_value><![CDATA[0]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpas_skip_5053092</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpcom_is_markdown</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_9f7c26f1ff5e2b8ee6b354edc398a682</wp:meta_key>
     <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
   </wp:postmeta>
   <wp:comment>
@@ -2837,69 +3275,85 @@ Bye.
   <dc:creator>rcarhuatocto</dc:creator>
   <guid isPermaLink="false">http://holisticsecurity.wordpress.com/?p=127</guid>
   <description/>
-  <content:encoded><![CDATA[<strong>Introduction</strong>
-
-Alfresco ECM has a WS layer that implement all content management services as upload, search, transform, checkin/checkout, etc of any content stored in the repository.
+  <content:encoded><![CDATA[Alfresco ECM has a WS layer that implement all content management services as upload, search, transform, checkin/checkout, etc of any content stored in the repository.
 
 This WS layer enables to Business Application easier integration of content management functionalities. It is only necessary to invoke the Alfresco's WS for the desired functionality. Alfresco has two types of WS set, one set implements WS of specific way and the other WS layer follows the CMIS standard, in the end, both layers offer the same services in an equivalent manner.
+<img src="https://holisticsecurity.files.wordpress.com/2014/05/smartbear-soapui-logo-300x140.png" alt="SoapUI Testing Alfresco Webservices" />
+
+<!-- more -->
 
 <strong>Design of Test Master Plan: Define the scope</strong>
 
 For testing purposes, I recommend that you first define the scope of testing:
+
 <ul>
-	<li>What do you want to test?:</li>
-	<li>How much you want to test?: type of test, i.e. regression, load test, etc.</li>
+    <li>What do you want to test?:</li>
+    <li>How much you want to test?: type of test, i.e. regression, load test, etc.</li>
 </ul>
+
 Then, you create a Test Suite with several test cases as many as you want to execute functionalities or WS.
 
 <strong>Implement Test Suite with soapUI</strong>
+
 <ol>
-	<li>Identify URL/endpoints for each functionality to be tested</li>
-	<li>Create test-cases for all functionality to be tested</li>
-	<li>Automates each test case with soapUI by programming with groovy (soapUI scripting)</li>
-	<li>Add indicators to measure the performance</li>
+    <li>Identify URL/endpoints for each functionality to be tested</li>
+    <li>Create test-cases for all functionality to be tested</li>
+    <li>Automates each test case with soapUI by programming with groovy (soapUI scripting)</li>
+    <li>Add indicators to measure the performance</li>
 </ol>
+
 <strong>Run Test Suite</strong>
 
 Define the initial conditions to execute the test, for example, time of execution, ignore errors, etc.
 
-[caption id="attachment_142" align="alignnone" width="480"]<a href="http://holisticsecurity.wordpress.com/2010/07/26/testing-alfresco-webservices-with-soapui/soapui_alf33ce_1_testrunner/" rel="attachment wp-att-142"><img class="size-full wp-image-142" title="soapui_alf33ce_1_testrunner" alt="" src="http://holisticsecurity.files.wordpress.com/2010/07/soapui_alf33ce_1_testrunner.png" width="480" height="419" /></a> soapUI Launch TestRunner settings[/caption]
+<a href="http://holisticsecurity.wordpress.com/2010/07/26/testing-alfresco-webservices-with-soapui/soapui_alf33ce_1_testrunner/"><img alt="soapui_alf33ce_1_testrunner" src="http://holisticsecurity.files.wordpress.com/2010/07/soapui_alf33ce_1_testrunner.png" /></a>
+<em>soapUI Launch TestRunner settings</em>
 
 Alter a quick introduction, now will test Alfresco ECM, firstly, we will do queries to Alfresco’s Dictionary, after, and we will automate the creation of content in Alfresco.
 
 <strong>Test Suite sample: "Testing Alfresco’s Dictionary Service"</strong>
 
-[caption id="attachment_143" align="alignnone" width="377"]<a href="http://holisticsecurity.files.wordpress.com/2010/07/soapui_alf33ce_2_testsuite_dictionaryservice.png"><img class="size-full wp-image-143" title="soapui_alf33ce_2_testsuite_dictionaryservice" alt="" src="http://holisticsecurity.files.wordpress.com/2010/07/soapui_alf33ce_2_testsuite_dictionaryservice.png" width="377" height="232" /></a> soapUI Test Suite - Alfresco's DictionaryService[/caption]
+<a href="http://holisticsecurity.files.wordpress.com/2010/07/soapui_alf33ce_2_testsuite_dictionaryservice.png"><img title="soapui_alf33ce_2_testsuite_dictionaryservice" alt="" src="http://holisticsecurity.files.wordpress.com/2010/07/soapui_alf33ce_2_testsuite_dictionaryservice.png" /></a>
+soapUI Test Suite - Alfresco's DictionaryService
 
 Steps in the test suite:
+
 <ul>
-	<li>startSession:</li>
+    <li>startSession:</li>
 </ul>
+
 We must be authenticated before accessing resources Alfresco. We must invoke the URL (<a href="http://localhost:8080/alfresco/api/AuthenticationService">http://localhost:8080/alfresco/api/AuthenticationService</a> and startSession method/service) passing username/password, Alfresco should respond by sending a TICKET_ID.
 
-[caption id="attachment_144" align="alignnone" width="480"]<a href="http://holisticsecurity.files.wordpress.com/2010/07/soapui_alf33ce_3_startsession_req.png"><img class="size-full wp-image-144" title="soapui_alf33ce_3_startsession_req" alt="" src="http://holisticsecurity.files.wordpress.com/2010/07/soapui_alf33ce_3_startsession_req.png" width="480" height="230" /></a> StartSession SOAP request in Alfresco[/caption]
+<a href="http://holisticsecurity.files.wordpress.com/2010/07/soapui_alf33ce_3_startsession_req.png"><img class="size-full wp-image-144" title="soapui_alf33ce_3_startsession_req" alt="" src="http://holisticsecurity.files.wordpress.com/2010/07/soapui_alf33ce_3_startsession_req.png" /></a>
+StartSession SOAP request in Alfresco
 
-[caption id="attachment_146" align="alignnone" width="480"]<a href="http://holisticsecurity.files.wordpress.com/2010/07/soapui_alf33ce_4_startsession_res.png"><img class="size-full wp-image-146" title="soapui_alf33ce_4_startsession_res" alt="" src="http://holisticsecurity.files.wordpress.com/2010/07/soapui_alf33ce_4_startsession_res.png" width="480" height="275" /></a> StartSession SOAP response in Alfresco[/caption]
+<a href="http://holisticsecurity.files.wordpress.com/2010/07/soapui_alf33ce_4_startsession_res.png"><img title="soapui_alf33ce_4_startsession_res" alt="" src="http://holisticsecurity.files.wordpress.com/2010/07/soapui_alf33ce_4_startsession_res.png" /></a>
+StartSession SOAP response in Alfresco
+
 <ul>
-	<li>Queries: getAssociations, getClasses, getProperties, …</li>
+    <li>Queries: getAssociations, getClasses, getProperties, …</li>
 </ul>
+
 For each SOAP query, we must identify SOAP endpoint (for example, <a href="http://localhost:8080/alfresco/api/DirectoryService">http://localhost:8080/alfresco/api/DirectoryService</a> and getAssociations) and method/service, then web have to pass a valid TICKET_ID.
 
-[caption id="attachment_147" align="alignnone" width="480"]<a href="http://holisticsecurity.files.wordpress.com/2010/07/soapui_alf33ce_5_getassociations.png"><img class="size-full wp-image-147" title="soapui_alf33ce_5_getassociations" alt="" src="http://holisticsecurity.files.wordpress.com/2010/07/soapui_alf33ce_5_getassociations.png" width="480" height="266" /></a> GetAssociations SOAP request in Alfresco[/caption]
+<a href="http://holisticsecurity.files.wordpress.com/2010/07/soapui_alf33ce_5_getassociations.png"><img title="soapui_alf33ce_5_getassociations" alt="" src="http://holisticsecurity.files.wordpress.com/2010/07/soapui_alf33ce_5_getassociations.png" /></a>
+GetAssociations SOAP request in Alfresco
 
 This process we must repeat for each step (SOAP endpoint and method/service) that we identify in our tests.
+
 <ul>
-	<li>endSession:</li>
+    <li>endSession:</li>
 </ul>
+
 For close session we have to invoke to <a href="http://localhost:8080/alfresco/api/AuthenticationService">http://localhost:8080/alfresco/api/AuthenticationService</a> and endSession method using the initial TICKET_ID created in step 1.
 
 I have created two Test Suites with soapUI that you can import to workspace.
 
 The first make several queries to Alfresco’s Dictionary (in this case you need to modify the standard content model of Alfresco or simply edit each test step of this soapUI project). The second test suite creates new content in the guest_home space and then transform to PDF.
 
-* Download <a href="https://dl.dropboxusercontent.com/u/2961879/blog20111203_alf34_ws_rest_testing/alf34dce_ws_rest_soapui_prj.zip">soapUI project for Alfresco v. 3.4d</a>
-
-
+<ul>
+<li>Download <a href="https://dl.dropboxusercontent.com/u/2961879/blog20111203_alf34_ws_rest_testing/alf34dce_ws_rest_soapui_prj.zip">soapUI project for Alfresco v. 3.4d</a></li>
+</ul>
 
 I hope that is useful.]]></content:encoded>
   <excerpt:encoded><![CDATA[]]></excerpt:encoded>
@@ -2915,7 +3369,9 @@ I hope that is useful.]]></content:encoded>
   <wp:post_type>post</wp:post_type>
   <wp:post_password/>
   <wp:is_sticky>0</wp:is_sticky>
+  <category domain="post_tag" nicename="alfresco-ecm"><![CDATA[Alfresco ECM]]></category>
   <category domain="category" nicename="ecm"><![CDATA[ECM]]></category>
+  <category domain="post_tag" nicename="soapui"><![CDATA[soapUI]]></category>
   <wp:postmeta>
     <wp:meta_key>_edit_last</wp:meta_key>
     <wp:meta_value><![CDATA[578869]]></wp:meta_value>
@@ -2933,7 +3389,7 @@ I hope that is useful.]]></content:encoded>
     <wp:meta_value><![CDATA[1]]></wp:meta_value>
   </wp:postmeta>
   <wp:postmeta>
-    <wp:meta_key>_wpas_skip_13849</wp:meta_key>
+    <wp:meta_key>_wpcom_is_markdown</wp:meta_key>
     <wp:meta_value><![CDATA[1]]></wp:meta_value>
   </wp:postmeta>
   <wp:postmeta>
@@ -2947,6 +3403,10 @@ I hope that is useful.]]></content:encoded>
   <wp:postmeta>
     <wp:meta_key>_oembed_bf89e3b7e3e82d294670205526ae84b3</wp:meta_key>
     <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>geo_public</wp:meta_key>
+    <wp:meta_value><![CDATA[0]]></wp:meta_value>
   </wp:postmeta>
   <wp:comment>
     <wp:comment_id>460</wp:comment_id>
@@ -3279,22 +3739,30 @@ Regards.]]></wp:comment_content>
   <dc:creator>rcarhuatocto</dc:creator>
   <guid isPermaLink="false">http://holisticsecurity.wordpress.com/?p=157</guid>
   <description/>
-  <content:encoded><![CDATA[1. Upload CentOS's ISO files (i have 7 iso files) into <strong>/centos5.5_iso_files</strong> directory.
+  <content:encoded><![CDATA[<a href="http://holisticsecurity.files.wordpress.com/2010/08/blog_centos55.png"><img class="alignnone size-full wp-image-158" title="blog_centos55" src="http://holisticsecurity.files.wordpress.com/2010/08/blog_centos55.png" alt="" width="290" height="81" /></a>
 
-<a href="http://holisticsecurity.files.wordpress.com/2010/08/blog_centos55.png"><img class="alignnone size-full wp-image-158" title="blog_centos55" src="http://holisticsecurity.files.wordpress.com/2010/08/blog_centos55.png" alt="" width="290" height="81" /></a>
-
+<ol>
+<li>Upload CentOS's ISO files (i have 7 iso files) into <strong>/centos5.5_iso_files</strong> directory.
+<!-- more -->
 2. It is probably that you do not have <strong>createrepo</strong> rpm package, then download it from CentOS RPM repository.
-I've found it in <a href="http://mirror.centos.org/centos/5.5/os/i386/CentOS/createrepo-0.4.11-3.el5.noarch.rpm">http://mirror.centos.org/centos/5.5/os/i386/CentOS/createrepo-0.4.11-3.el5.noarch.rpm</a>
+I've found it in <a href="http://mirror.centos.org/centos/5.5/os/i386/CentOS/createrepo-0.4.11-3.el5.noarch.rpm">http://mirror.centos.org/centos/5.5/os/i386/CentOS/createrepo-0.4.11-3.el5.noarch.rpm</a></p></li>
+<li><p>Install <strong>createrepo-0.4.11-3.el5.noarch.rpm</strong>:</p></li>
+</ol>
 
-3. Install <strong>createrepo-0.4.11-3.el5.noarch.rpm</strong>:
 <blockquote>
 <pre># rpm -ihv createrepo-0.4.11-3.el5.noarch.rpm</pre>
 </blockquote>
-... and check installation:
+
+<p>... and check installation:
+
 <blockquote>
 <pre># rpm -qa | grep createrepo</pre>
 </blockquote>
-4. Mount the 7 ISO files:
+
+<ol>
+<li>Mount the 7 ISO files:</li>
+</ol>
+
 <blockquote>
 <pre># mkdir -p /mnt/iso/{1,2,3,4,5,6,7}
 # mount -o loop /root/centos55-i386-isos/CentOS-5.5-i386-bin-1of7.iso /mnt/iso/1
@@ -3305,7 +3773,11 @@ I've found it in <a href="http://mirror.centos.org/centos/5.5/os/i386/CentOS/cre
 # mount -o loop /root/centos55-i386-isos/CentOS-5.5-i386-bin-6of7.iso /mnt/iso/6
 # mount -o loop /root/centos55-i386-isos/CentOS-5.5-i386-bin-7of7.iso /mnt/iso/7</pre>
 </blockquote>
-5. Create a new Yum's repository:
+
+<ol>
+<li>Create a new Yum's repository:</li>
+</ol>
+
 <blockquote>
 <pre># cd /mnt/iso
 # createrepo .
@@ -3316,44 +3788,64 @@ Saving other metadata
 
 # yum clean all</pre>
 </blockquote>
-6. Create repository configuration file:
+
+<ol>
+<li>Create repository configuration file:</li>
+</ol>
+
 <blockquote>
 <pre># nano /etc/yum.repos.d/centos55_i386_iso.repo</pre>
 </blockquote>
+
 append:
+
 <blockquote>
 <pre>[My-CentOS5.5-i386-ISO-repo]
 name=CentOS5.5-isos
 baseurl=file:///mnt/iso
 enabled=1</pre>
 </blockquote>
-7. Save and close the changes, now you can use Yum to install, search packages from ISO images, for example:
+
+<ol>
+<li>Save and close the changes, now you can use Yum to install, search packages from ISO images, for example:</li>
+</ol>
+
 <blockquote>
 <pre># yum --nogpgcheck install my-package-name
 # yum search my-package-name</pre>
 </blockquote>
-8. Troubleshooting:
 
-- Sometimes when installing, searching or updating packages, Yum shows errors as "Bad id for repo: ....", for solve it you could to delete strange chars or blank spaces in <strong>/etc/yum.repos.d/centos55_i386_iso.repo</strong>
+<ol>
+<li>Troubleshooting:</li>
+</ol>
 
-- When yum shows following error:
+<ul>
+<li>Sometimes when installing, searching or updating packages, Yum shows errors as "Bad id for repo: ....", for solve it you could to delete strange chars or blank spaces in <strong>/etc/yum.repos.d/centos55_i386_iso.repo</strong></p></li>
+<li><p>When yum shows following error:</p></li>
+</ul>
+
 <blockquote>
 <pre>Could not retrieve mirrorlist http://mirrorlist.centos.org/?release=5&amp;arch=i386&amp;repo=addons error was
 [Errno 4] IOError:
 Error: Cannot find a valid baseurl for repo: addons</pre>
 </blockquote>
-you had to disable repositories in <strong>/etc/yum.repos.d/CenOS-Base.repo</strong>, make sure of save a backup
+
+<p>you had to disable repositories in <strong>/etc/yum.repos.d/CenOS-Base.repo</strong>, make sure of save a backup
 
 append to each section:
+
 <blockquote>
 <pre>[any-section]
 ...
 enabled=0</pre>
 </blockquote>
+
 then, clean cache again:
+
 <blockquote>
 <pre># yum clean all</pre>
 </blockquote>
+
 <strong>References:</strong>
 * Howto Setup yum repositories to update or install package from ISO CDROM Image
 <a href="http://www.cyberciti.biz/tips/redhat-centos-fedora-linux-setup-repo.html"> http://www.cyberciti.biz/tips/redhat-centos-fedora-linux-setup-repo.html</a>
@@ -3372,6 +3864,7 @@ Bye.]]></content:encoded>
   <wp:post_type>post</wp:post_type>
   <wp:post_password/>
   <wp:is_sticky>0</wp:is_sticky>
+  <category domain="post_tag" nicename="centos"><![CDATA[CentOS]]></category>
   <category domain="category" nicename="linux"><![CDATA[Linux]]></category>
   <category domain="category" nicename="security"><![CDATA[Security]]></category>
   <wp:postmeta>
@@ -3410,6 +3903,18 @@ Bye.]]></content:encoded>
     <wp:meta_key>_oembed_fe8264ea071177e556bf362d6d3aa106</wp:meta_key>
     <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
   </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>geo_public</wp:meta_key>
+    <wp:meta_value><![CDATA[0]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpas_skip_5053092</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpcom_is_markdown</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
 </item>
 <item>
   <title>Install Directory Server in CentOS 5.5</title>
@@ -3418,26 +3923,51 @@ Bye.]]></content:encoded>
   <dc:creator>rcarhuatocto</dc:creator>
   <guid isPermaLink="false">http://holisticsecurity.wordpress.com/?p=163</guid>
   <description/>
-  <content:encoded><![CDATA[1. Download all RPM extra packages from: http://mirrors.nfsi.pt/CentOS/5.5/extras/i386
-<pre>[root@svdapp95 ~]# wget -m http://mirrors.nfsi.pt/CentOS/5.5/extras/i386</pre>
-<div id="_mcePaste">or</div>
-<pre>[root@svdapp95 ~]# wget -m http://mirror.centos.org/centos/5.5/extras/i386</pre>
-2. Upload RPMs packages to you Linux box, for example to /centos-ds_rpm_tmp
+  <content:encoded><![CDATA[<a href="http://holisticsecurity.files.wordpress.com/2010/08/blog_centos55.png"><img class="alignnone size-full wp-image-158" title="blog_centos55" src="http://holisticsecurity.files.wordpress.com/2010/08/blog_centos55.png" alt="" width="290" height="81" /></a>
 
-3. Verify that you have installed Java:
+<ol>
+<li>Download all RPM extra packages from: http://mirrors.nfsi.pt/CentOS/5.5/extras/i386</li>
+</ol>
+
+<pre>[root@svdapp95 ~]# wget -m http://mirrors.nfsi.pt/CentOS/5.5/extras/i386</pre>
+
+or
+
+<pre>[root@svdapp95 ~]# wget -m http://mirror.centos.org/centos/5.5/extras/i386</pre>
+
+<!-- more -->
+
+<ol>
+<li>Upload RPMs packages to you Linux box, for example to /centos-ds_rpm_tmp</p></li>
+<li><p>Verify that you have installed Java:</p></li>
+</ol>
+
 <pre>[root@svdapp95 ~]# rpm -qa | grep jdk
 java-1.6.0-openjdk-1.6.0.0-1.7.b09.el5</pre>
-4. Install required packages from mounted ISO images:
 
-<em>Note</em>:
-* Append " <strong>--disablerepo=\* --enablerepo=c5-media install -y</strong>" to yum command if you want install from <strong>DVD Iso image</strong>, for example:
+<ol>
+<li>Install required packages from mounted ISO images:</li>
+</ol>
+
+<p><em>Note</em>:
+* Append " <strong>--disablerepo=&#042; --enablerepo=c5-media install -y</strong>" to yum command if you want install from <strong>DVD Iso image</strong>, for example:
+
 <pre># yum --disablerepo=\* --enablerepo=c5-media -y install &lt;package&gt;</pre>
+
 <pre>[root@svdapp95 ~]# yum install cyrus-sasl-gssapi db4-utils mozldap-tools perl-Mozilla-LDAP mozldap-devel</pre>
+
 <a href="http://db.tt/iEFnwp">see installation output log 1</a>
 
-5. Install required supported packages from mounted ISO:
+<ol>
+<li>Install required supported packages from mounted ISO:</li>
+</ol>
+
 <pre># yum install xorg-x11-xauth bitstream-vera-fonts dejavu-lgc-fonts urw-fonts</pre>
-6. Install CentOS Directory Server
+
+<ol>
+<li>Install CentOS Directory Server</li>
+</ol>
+
 <pre>[root@svdapp95 ~]# cd /centos-ds_rpm_tmp
 [root@svdapp95 ~]# yum --nogpgcheck localinstall centos-ds-8.1.0-1.el5.centos.2.i386.rpm \
 <span style="white-space:pre;">    </span>centos-ds-base-8.1.0-0.14.el5.centos.2.i386.rpm \
@@ -3449,30 +3979,54 @@ java-1.6.0-openjdk-1.6.0.0-1.7.b09.el5</pre>
 <span style="white-space:pre;">    </span>centos-idm-console-1.0.1-1.el5.centos.2.i386.rpm \
 <span style="white-space:pre;">    </span>idm-console-framework-1.1.3-9.el5.centos.2.noarch.rpm \
 <span style="white-space:pre;">    </span>jss-4.2.5-1.el5.centos.1.i386.rpm</pre>
+
 <a href="http://db.tt/6lC55l">see installation output log 2</a>
 
-7. Verify FQDN (fully qualified domain name):
+<ol>
+<li>Verify FQDN (fully qualified domain name):</li>
+</ol>
+
 <pre>[root@svdapp95 ~]# hostname
 svdapp95-ldap
 [root@svdapp95 ~]# hostname -f
 svdapp95-ldap.ohim-pre.eu</pre>
+
 <em>Note</em>:
 If you have some troubles, edit /etc/hosts and update it, and that looks like this:
+
 <pre>127.0.0.1<span style="white-space:pre;"> </span>svdapp95.ohim-pre.eulocalhost
 ::1<span style="white-space:pre;"> </span>localhost6.localdomain6<span style="white-space:pre;"> </span>localhost6</pre>
+
 ... and change your hostname to "svdapp95.ohim-pre.eu" with system-config-network command, go to DNS &gt; Hostname and change it.
 
-8. Create and configure Directory Server and Administration Server instances through of <strong>setup-ds-admin.pl</strong>:
+<ol>
+<li>Create and configure Directory Server and Administration Server instances through of <strong>setup-ds-admin.pl</strong>:</li>
+</ol>
+
 <pre>[root@svdapp95 ~]# /usr/sbin/setup-ds-admin.pl</pre>
+
 <a href="http://db.tt/oYdawR">see installation output log 3</a>
+
 <h2>Verify installation</h2>
-1. Verify if directory service is running:
+
+<ol>
+<li>Verify if directory service is running:</li>
+</ol>
+
 <pre>[root@svdapp95 ~]# /etc/init.d/dirsrv status
 dirsrv svdapp95-ldap (pid 4556) is running...</pre>
-2. Verify if admin directory service is running:
+
+<ol>
+<li>Verify if admin directory service is running:</li>
+</ol>
+
 <pre>[root@svdapp95 ~]# /etc/init.d/dirsrv-admin status
 dirsrv-admin (pid 3308) is running...</pre>
-3. Verify if 389 and 9830 ports are opened:
+
+<ol>
+<li>Verify if 389 and 9830 ports are opened:</li>
+</ol>
+
 <pre>[root@svdapp95 ~]# netstat -tln | grep 389
 tcp        0      0 :::389                      :::*                        LISTEN
 [root@svdapp95 ~]# netstat -tln | grep 9830
@@ -3482,58 +4036,99 @@ COMMAND    PID   USER   FD   TYPE DEVICE SIZE NODE NAME
 ns-slapd  3047 nobody    6u  IPv6  13523       TCP *:ldap (LISTEN)
 httpd.wor 3133   root    3u  IPv4  13659       TCP *:9830 (LISTEN)
 httpd.wor 3136 nobody    3u  IPv4  13659       TCP *:9830 (LISTEN)</pre>
-4. Start directory instance if It is not running:
+
+<ol>
+<li>Start directory instance if It is not running:</li>
+</ol>
+
 <pre>[root@svdapp95 ~]# /etc/init.d/dirsrv-admin start
 Starting dirsrv-admin:
-														  [  OK  ]
+                                                          [  OK  ]
 [root@svdapp95 ~]# /etc/init.d/dirsrv start svdapp95-ldap
 Starting dirsrv:
-	svdapp95-ldap...                                       [  OK  ]</pre>
+    svdapp95-ldap...                                       [  OK  ]</pre>
+
 <h2>Delete all files related to directory instance for installing a new instance</h2>
-1. Start all services:
+
+<ol>
+<li>Start all services:</li>
+</ol>
+
 <pre>[root@svdapp95 ~]# /etc/init.d/dirsrv-admin start
 [root@svdapp95 ~]# /etc/init.d/dirsrv start svdapp95-ldap</pre>
-2. Delete all files or remove instance with <strong>ds_remove</strong> script:
+
+<ol>
+<li>Delete all files or remove instance with <strong>ds_remove</strong> script:</li>
+</ol>
+
 <pre>[root@svdapp95 ~]# rm -rf /var/lib/dirsrv/slapd-&lt;ldap-instance-id&gt;
 [root@svdapp95 ~]# /usr/sbin/ds_removal -s &lt;ldap-instance-id&gt; -w &lt;admin-pwd&gt; [-f]</pre>
-* In my case  &lt;ldap-instance-id&gt; = svdapp95-ldap
-* -f: if ds_removal fails, use -f to force the removal process.
-* Each Directory Server instance service must be running for the remove script to access it.
 
-3. Re-run script <strong>setup-ds-admin.pl</strong>
+<ul>
+<li>In my case  &lt;ldap-instance-id&gt; = svdapp95-ldap</li>
+<li>-f: if ds_removal fails, use -f to force the removal process.</li>
+<li>Each Directory Server instance service must be running for the remove script to access it.</li>
+</ul>
+
+<ol>
+<li>Re-run script <strong>setup-ds-admin.pl</strong></li>
+</ol>
+
 <h2>Launch admin directory console</h2>
+
 X Server and GDM runing in the linux box is required and X client in the client side. In Windows as client can you use Xming.
 
-1. Open a <strong>xterm</strong> or console in your linux box.
+<ol>
+<li>Open a <strong>xterm</strong> or console in your linux box.</p></li>
+<li><p>Run centos-idm-console:</p></li>
+</ol>
 
-2. Run centos-idm-console:
 <pre>[root@svdapp95 ~]# centos-idm-console -a http://localhost:9830</pre>
-User ID: 	admin
+
+<p>User ID:    admin
 Password:  &lt;your-pwd&gt;
 Administration URL: http://localhost:9830
+
 <h2>Add an object in Directory Server by centos-idm-console</h2>
-1. Run Console
 
-<img class="alignnone" title="Run CentOS IDM Console" src="http://dl.dropbox.com/u/2961879/blog20100812_centosds/CentOS-DS_1_run_console.png" alt="" width="475" height="375" />
+<ol>
+<li>Run Console</li>
+</ol>
 
-2. Open Directory Server console
+<img title="Run CentOS IDM Console" src="https://holisticsecurity.files.wordpress.com/2010/08/centos-ds_1_run_console.png" alt="" width="475" height="375" />
 
-<img class="alignnone" title="Open Directory Server Console" src="http://dl.dropbox.com/u/2961879/blog20100812_centosds/CentOS-DS_2_console.png" alt="" width="630" height="403" />
+<ol>
+<li>Open Directory Server console</li>
+</ol>
 
-3. Add an entry to Directory Server
+<img title="Open Directory Server Console" src="https://holisticsecurity.files.wordpress.com/2010/08/centOS-ds_2_console.png" alt="" width="630" height="403" />
 
-<img class="alignnone" title="Add an new entry to LDAP" src="http://dl.dropbox.com/u/2961879/blog20100812_centosds/CentOS-DS_3_addusr_console.png" alt="" width="635" height="437" />
+<ol>
+<li>Add an entry to Directory Server</li>
+</ol>
+
+<img title="Add an new entry to LDAP" src="https://holisticsecurity.files.wordpress.com/2010/08/centOS-ds_3_addusr_console.png" alt="" width="635" height="437" />
+
 <h2>Connection to CentOS Directory Server from Apache Directory Studio</h2>
-1. Create a connection to CentOS Directory Server from Apache Directory Studio
 
-<img class="alignnone" title="Create a new LDAP connection" src="http://dl.dropbox.com/u/2961879/blog20100812_centosds/CentOS-DS_4_ApacheDirectoryStudio.png" alt="" width="606" height="351" />
+<ol>
+<li>Create a connection to CentOS Directory Server from Apache Directory Studio</li>
+</ol>
 
-2. Browse LDAP
+<img title="Create a new LDAP connection" src="https://holisticsecurity.files.wordpress.com/2010/08/centOS-ds_4_ApacheDirectoryStudio.png" alt="" width="606" height="351" />
 
-<img class="alignnone" title="Browse LDAP Server" src="http://dl.dropbox.com/u/2961879/blog20100812_centosds/CentOS-DS_5_ApacheDirectoryStudio.png" alt="" width="661" height="492" />
+<ol>
+<li>Browse LDAP</li>
+</ol>
+
+<img title="Browse LDAP Server" src="https://holisticsecurity.files.wordpress.com/2010/08/centOS-ds_5_ApacheDirectoryStudio.png" alt="" width="661" height="492" />
+
 <h2>Add an object in Directory Server by ldapmodify command</h2>
+
 <pre>[root@svdapp95 ~]# /usr/lib/mozldap/ldapmodify -D "cn=Alba C.,ou=People,dc=ohim-pre,dc=eu" -w liferay -f addUsr-roger.ldif</pre>
+
 Where addUsr-roger.ldif file contains:
+
 <pre>dn: cn=roger,ou=People,dc=ohim-pre, dc=eu
 changetype: add
 objectClass: person
@@ -3551,38 +4146,50 @@ title: ICEfaces Programmer
 uid: 333333
 userPassword:: e1NTSEF9Q0N4SmxGRUpFZmxyVVYvbXk2cUJVV1N3QWdJbVcxbWtDbUkxdFE9P
 Q==</pre>
+
 <h2>Authenticate and Search an object in CentOS Directory Server</h2>
+
 In this case, the ldap operations that can be used are "bind operation" and "search operation".
 CentOS Directory Server uses Mozilla LDAP tools — such as <strong>ldapsearch, ldapmodify</strong>, and <strong>ldapdelete</strong> — for command-line operations.
 The MozLDAP tools are installed with Directory Server and are located in the <strong>/usr/lib/mozldap</strong>.
 When running any LDAP command, make sure that you are using the <strong>MozLDAP</strong> utilities, otherwise the command will return errors.
+
 <pre>[root@svdapp95 ~]# /usr/lib/mozldap/ldapsearch -x -D &lt;binddn&gt; -w &lt;bindpwd&gt; -b &lt;basedn&gt; &lt;searchfilter&gt;</pre>
-* -x: performing sorting on server
-* -D: bind dn (for authentication)
-* -w: bind passwd (for authentication)
-* -b: base dn
-* &lt;searchfilter&gt;: RFC-2254 compliant LDAP search filter
+
+<ul>
+<li>-x: performing sorting on server</li>
+<li>-D: bind dn (for authentication)</li>
+<li>-w: bind passwd (for authentication)</li>
+<li>-b: base dn</li>
+<li>&lt;searchfilter&gt;: RFC-2254 compliant LDAP search filter</li>
+</ul>
+
 <pre>[root@svdapp95 ~]# /usr/lib/mozldap/ldapsearch -x -D "cn=lluis,ou=People,dc=ohim-pre,dc=eu" -w liferay -b "dc=ohim-pre,dc=eu" "objectclass=inetOrgPerson"</pre>
+
 <h2>Tuning CentOS Directory Server</h2>
-1. Using dsktune:
+
+<ol>
+<li>Using dsktune:</li>
+</ol>
+
 <pre>[root@svdapp95 ~]# dsktune</pre>
-<img class="alignnone" title="Tuning with dsktune" src="http://dl.dropbox.com/u/2961879/blog20100812_centosds/CentOS-DS_6_dsktune.png" alt="" width="515" height="279" />
+
+<img title="Tuning with dsktune" src="https://holisticsecurity.files.wordpress.com/2010/08/centOS-ds_6_dsktune.png" alt="" width="515" height="279" />
 
 <strong>References</strong>
 
-* CentOS Directory Server, Basic Install
-http://wiki.centos.org/HowTos/DirectoryServerSetup
+<ul>
+<li>CentOS Directory Server, Basic Install
+http://wiki.centos.org/HowTos/DirectoryServerSetup</p></li>
+<li><p>CentOS Directory Server On CentOS 5.2
+http://www.howtoforge.com/centos-directory-server-on-centos5.2</p></li>
+<li><p>Index of /CentOS/5.5/extras/i386/RPMS
+http://mirrors.nfsi.pt/CentOS/5.5/extras/i386/RPMS/</p></li>
+<li><p>Red Hat Directory Server - manual installation and configuration
+http://www.redhat.com/docs/manuals/dir-server/8.1/install/index.html</p></li>
+</ul>
 
-* CentOS Directory Server On CentOS 5.2
-http://www.howtoforge.com/centos-directory-server-on-centos5.2
-
-* Index of /CentOS/5.5/extras/i386/RPMS
-http://mirrors.nfsi.pt/CentOS/5.5/extras/i386/RPMS/
-
-* Red Hat Directory Server - manual installation and configuration
-http://www.redhat.com/docs/manuals/dir-server/8.1/install/index.html
-
-Bye.]]></content:encoded>
+<p>Bye.]]></content:encoded>
   <excerpt:encoded><![CDATA[]]></excerpt:encoded>
   <wp:post_id>163</wp:post_id>
   <wp:post_date>2010-08-12 16:13:06</wp:post_date>
@@ -3596,6 +4203,7 @@ Bye.]]></content:encoded>
   <wp:post_type>post</wp:post_type>
   <wp:post_password/>
   <wp:is_sticky>0</wp:is_sticky>
+  <category domain="post_tag" nicename="ldap"><![CDATA[LDAP]]></category>
   <category domain="category" nicename="linux"><![CDATA[Linux]]></category>
   <category domain="category" nicename="portal"><![CDATA[Portal]]></category>
   <category domain="category" nicename="security"><![CDATA[Security]]></category>
@@ -3811,6 +4419,34 @@ Bye.]]></content:encoded>
     <wp:meta_key>_oembed_91fff5ff6d1fbba43aba6bdc259d745e</wp:meta_key>
     <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
   </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>geo_public</wp:meta_key>
+    <wp:meta_value><![CDATA[0]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpas_skip_5053092</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpcom_is_markdown</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_7115c1aa64fe9a9f156eec00981a971d</wp:meta_key>
+    <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_d0270393a2650ec0e03d9338de53311e</wp:meta_key>
+    <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_ed018acc49d2a5df029a9b0af08962ea</wp:meta_key>
+    <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_69af3076f1fdab7d4ae1bada41f97e5b</wp:meta_key>
+    <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
+  </wp:postmeta>
   <wp:comment>
     <wp:comment_id>232</wp:comment_id>
     <wp:comment_author><![CDATA[Carlos Jaramillo]]></wp:comment_author>
@@ -3878,23 +4514,38 @@ Bye.]]></content:encoded>
   <content:encoded><![CDATA[It is very difficult to install services on servers that are not connected to the Internet directly or through a proxy (critical servers), for example It happens in production environments, in this case we have to previously download the packages, transport them on USB flash drive and repeat this process as many times as packages and dependencies we have forgotten.
 The situation is compounded when these critical servers are virtualized. If this is your case, I recommend you use the DVD / CD ISO images and mount them as your CentOS repositories.
 
+<!-- more -->
+
 If you are in doubt, follow this example for Tomcat:
 
-1. Mount DVD Iso image as a media-repo in your CentOS Guest Virtual Box
+<ol>
+<li>Mount DVD Iso image as a media-repo in your CentOS Guest Virtual Box</li>
+</ol>
 
-<img class="alignnone" title="Mount DVD Iso image in VirtualBox" src="http://dl.dropbox.com/u/2961879/blog20100813_tomcat5centos55/tomcat5centos55-1-mount_dvd_iso.png" alt="" width="481" height="195" />
+<img title="Mount DVD Iso image in VirtualBox" src="https://holisticsecurity.files.wordpress.com/2010/08/tomcat5centos55-1-mount_dvd_iso.png" alt="" width="481" height="195" />
 
-2. Verify if you have Java installed in your Guest
+<ol>
+<li>Verify if you have Java installed in your Guest</li>
+</ol>
+
 <pre>[root@svdapp95 ~]# java -version
 java version "1.6.0"
 OpenJDK  Runtime Environment (build 1.6.0-b09)
 OpenJDK Client VM (build 1.6.0-b09, mixed mode)</pre>
-3. Install Tomcat5 from your media-repo already mounted
+
+<ol>
+<li>Install Tomcat5 from your media-repo already mounted</li>
+</ol>
 
 <em>Note:
 * It is not recommended to install Tomcat as ROOT, especially if It is for production environments.</em>
+
 <pre>[root@svdapp95 ~]# yum --disablerepo=\* --enablerepo=c5-media -y install tomcat5 tomcat5-webapps tomcat5-admin-webapps</pre>
-4. Verify Tomcat5's packages installed
+
+<ol>
+<li>Verify Tomcat5's packages installed</li>
+</ol>
+
 <pre>[root@svdapp95 ~]# rpm -ql tomcat5
 /etc/logrotate.d/tomcat5
 /etc/rc.d/init.d/tomcat5
@@ -3903,16 +4554,29 @@ OpenJDK Client VM (build 1.6.0-b09, mixed mode)</pre>
 [...]
 /var/log/tomcat5
 /var/log/tomcat5/catalina.out</pre>
-5. Start Tomcat5's service
+
+<ol>
+<li>Start Tomcat5's service</li>
+</ol>
+
 <pre>[root@svdapp95 ~]# service tomcat5 start
 Starting tomcat5:                                          [  OK  ]</pre>
-6. Put follow URL http://localhost:8080, now you can see Tomcat's welcomepage.
 
-<img class="alignnone" title="Welcome page of an installed Tomcat 5" src="http://dl.dropbox.com/u/2961879/blog20100813_tomcat5centos55/tomcat5centos55-2-openbrowsertomcat5.png" alt="" width="482" height="486" />
+<ol>
+<li>Put follow URL http://localhost:8080, now you can see Tomcat's welcomepage.</li>
+</ol>
 
-7. You can see Tomcat's log with:
+<img title="Welcome page of an installed Tomcat 5" src="https://holisticsecurity.files.wordpress.com/2010/08/tomcat5centos55-2-openbrowsertomcat5.png" alt="" width="482" height="486" />
+
+<ol>
+<li>You can see Tomcat's log with:</li>
+</ol>
+
 <pre>[root@svdapp95 ~]# tail -f /var/log/tomcat5/catalina.out</pre>
-8. End.]]></content:encoded>
+
+<ol>
+<li>End.</li>
+</ol>]]></content:encoded>
   <excerpt:encoded><![CDATA[]]></excerpt:encoded>
   <wp:post_id>191</wp:post_id>
   <wp:post_date>2010-08-13 11:41:05</wp:post_date>
@@ -3926,8 +4590,10 @@ Starting tomcat5:                                          [  OK  ]</pre>
   <wp:post_type>post</wp:post_type>
   <wp:post_password/>
   <wp:is_sticky>0</wp:is_sticky>
+  <category domain="post_tag" nicename="java"><![CDATA[JAVA]]></category>
   <category domain="category" nicename="linux"><![CDATA[Linux]]></category>
   <category domain="category" nicename="security"><![CDATA[Security]]></category>
+  <category domain="post_tag" nicename="tomcat"><![CDATA[tomcat]]></category>
   <wp:postmeta>
     <wp:meta_key>_edit_last</wp:meta_key>
     <wp:meta_value><![CDATA[578869]]></wp:meta_value>
@@ -3940,6 +4606,18 @@ Starting tomcat5:                                          [  OK  ]</pre>
     <wp:meta_key>tagazine-media</wp:meta_key>
     <wp:meta_value><![CDATA[a:7:{s:7:"primary";s:101:"http://dl.dropbox.com/u/2961879/blog20100813_tomcat5centos55/tomcat5centos55-2-openbrowsertomcat5.png";s:6:"images";a:2:{s:96:"http://dl.dropbox.com/u/2961879/blog20100813_tomcat5centos55/tomcat5centos55-1-mount_dvd_iso.png";a:6:{s:8:"file_url";s:96:"http://dl.dropbox.com/u/2961879/blog20100813_tomcat5centos55/tomcat5centos55-1-mount_dvd_iso.png";s:5:"width";s:3:"601";s:6:"height";s:3:"244";s:4:"type";s:5:"image";s:4:"area";s:6:"146644";s:9:"file_path";s:0:"";}s:101:"http://dl.dropbox.com/u/2961879/blog20100813_tomcat5centos55/tomcat5centos55-2-openbrowsertomcat5.png";a:6:{s:8:"file_url";s:101:"http://dl.dropbox.com/u/2961879/blog20100813_tomcat5centos55/tomcat5centos55-2-openbrowsertomcat5.png";s:5:"width";s:3:"602";s:6:"height";s:3:"607";s:4:"type";s:5:"image";s:4:"area";s:6:"365414";s:9:"file_path";s:0:"";}}s:6:"videos";a:0:{}s:11:"image_count";s:1:"2";s:6:"author";s:6:"578869";s:7:"blog_id";s:7:"2005905";s:9:"mod_stamp";s:19:"2010-12-16 11:28:51";}]]></wp:meta_value>
   </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>geo_public</wp:meta_key>
+    <wp:meta_value><![CDATA[0]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpas_skip_5053092</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpcom_is_markdown</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
 </item>
 <item>
   <title>Share Files between MacOSX and CentOS as a VirtualBox guest</title>
@@ -3949,93 +4627,129 @@ Starting tomcat5:                                          [  OK  ]</pre>
   <guid isPermaLink="false">http://holisticsecurity.wordpress.com/?p=199</guid>
   <description/>
   <content:encoded><![CDATA[Share files between two SO is easy because there are different protocols for sharing resources (NFS, CIFS/SMB/Samba, FTP, ...), but sharing files between two PCs with OS Linux based, and one of them as virtualmachine guest of another one is a bit more complicated. Here's how to do it when we  Mac OSX as HOST and CentOS as GUEST:
+
+<!-- more -->
+
 <h2>Mount DVD ISO image in CentOS VirtualBox guest</h2>
-1. Previously, I have download DVD ISO image, then I have copied to my Mac OSX Host.
 
-2. From Virtual Box menu, goes to Devices &gt; CD/DVD Devices and mount selecting CentOS's DVD ISO image (ISO previuosly added to VBox's "Virtual Media Manager").
+1.- Previously, I have download DVD ISO image, then I have copied to my Mac OSX Host.
 
-<img class="alignnone" title="Mount CentOS DVD Iso image from VirtualBox" src="http://dl.dropbox.com/u/2961879/blog20100813_sharefilesmacosxcentos/sharefilescentosmacosx-1-mount-dvdiso.png" alt="" width="367" height="283" />
+2.- From Virtual Box menu, goes to Devices &gt; CD/DVD Devices and mount selecting CentOS's DVD ISO image (ISO previuosly added to VBox's "Virtual Media Manager").
 
-3. In CentOS guest now you can see DVD iso mounted as <strong>/media/CentOS_5.5_Final</strong>
+<img title="Mount CentOS DVD Iso image from VirtualBox" src="https://holisticsecurity.files.wordpress.com/2010/08/sharefilescentosmacosx-1-mount-dvdiso.png" alt="" width="367" height="283" />
 
-4. You can install packages directly off the mounted DVD ISO. Now, modify <strong>/etc/yum.repos.d/CentOS-Media.repo</strong> file, enter:
+3.- In CentOS guest now you can see DVD iso mounted as <strong>/media/CentOS_5.5_Final</strong>
+
+4.- You can install packages directly off the mounted DVD ISO. Now, modify <strong>/etc/yum.repos.d/CentOS-Media.repo</strong> file, enter:
+
 <pre>[root@localhost ~]# vi /etc/yum.repos.d/CentOS-Media.repo</pre>
-5. Make sure enabled is set to 1:
+
+5.- Make sure enabled is set to 1:
+
 <pre>enabled=1</pre>
-6. Save and close the file. To install packages from only DVD media repo, do this:
+
+6.- Save and close the file. To install packages from only DVD media repo, do this:
+
 <pre>[root@localhost ~]# yum --disablerepo=\* --enablerepo=c5-media -y install &lt;package-name&gt;</pre>
+
 <em>
 Notes:
-* --disablerepo=\*: disable all yum repo
+* --disablerepo=&#042;: disable all yum repo
 * -y: assume yes to any question which would be asked
 * --enablerepo=c5-media: enable c5-media repo
 </em>
+
 <h2>Install Virtual Box Additions in CentOS guest</h2>
+
 Before anything, It is necessary install some packages as compiler gcc, kernel libs and sources.
 
-1. Install the following packages with CentOS DVD ISO image mounted:
+1.- Install the following packages with CentOS DVD ISO image mounted:
+
 <pre>[root@localhost ~]# yum --disablerepo=\* --enablerepo=c5-media -y install gcc
 [root@localhost ~]# yum --disablerepo=\* --enablerepo=c5-media -y install kernel sources
 [root@localhost ~]# yum --disablerepo=\* --enablerepo=c5-media -y install kernel-devel</pre>
-2. Unmount CentOS DVD ISO image and mount Virtual Box Guest Additions in your CentOS guest:
 
-<img class="alignnone" title="Mount Virtual Box Guest Additions" src="http://dl.dropbox.com/u/2961879/blog20100813_sharefilesmacosxcentos/sharefilescentosmacosx-2-mount-vboxadds.png" alt="" width="420" height="140" />
+2.- Unmount CentOS DVD ISO image and mount Virtual Box Guest Additions in your CentOS guest:
 
-3. Restart CentOS guest
+<img title="Mount Virtual Box Guest Additions" src="//holisticsecurity.files.wordpress.com/2010/08/sharefilescentosmacosx-2-mount-vboxadds.png" alt="" width="420" height="140" />
 
-4. Now, install VBoxGuestAdditions in CentOS guest:
+3.- Restart CentOS guest
+
+4.- Now, install VBoxGuestAdditions in CentOS guest:
+
 <pre>[root@localhost ~]# cd /media/VBOXADDITIONS_3.2.6_63112/
 [root@localhost VBOXADDITIONS_3.2.6_63112]# sh VBoxLinuxAdditions.run</pre>
-5. Restart CentOS guest again
 
-6. Now you could use special functionalities as resize the guest windows, share files, etc...
+5.- Restart CentOS guest again
+
+6.- Now you could use special functionalities as resize the guest windows, share files, etc...
+
 <h2>Share files beetwen Mac OS X as Host and CentOS as Guest</h2>
-1. In your Host Linux box:
+
+1.- In your Host Linux box:
+
 <pre>$ mkdir /Users/chilcano/files2share</pre>
-2. In main menu of your Linux Guest's Virtual Box:
 
-- Go to <strong>Devices</strong> &gt; <strong>Shared Folders</strong> ...
-- In popup, add shared folder and select Host's folder (<strong>/Users/chilcano/files2share</strong>), set up a name as <strong>files2share</strong> and make permanent.
+2.- In main menu of your Linux Guest's Virtual Box:
 
-<img class="alignnone" title="Add a Share Folder to Virtual Box" src="http://dl.dropbox.com/u/2961879/blog20100813_sharefilesmacosxcentos/sharefilescentosmacosx-3-share-host-folder.png" alt="" width="332" height="241" />
+<ul>
+<li>Go to <strong>Devices</strong> &gt; <strong>Shared Folders</strong> ...</li>
+<li>In popup, add shared folder and select Host's folder (<strong>/Users/chilcano/files2share</strong>), set up a name as <strong>files2share</strong> and make permanent.</li>
+</ul>
 
-3. In your Guest Linux box opens a terminal window and create a new directory where you'll mount shared folder
+<img title="Add a Share Folder to Virtual Box" src="https://holisticsecurity.files.wordpress.com/2010/08/sharefilescentosmacosx-3-share-host-folder.png" alt="" width="332" height="241" />
+
+3.- In your Guest Linux box opens a terminal window and create a new directory where you'll mount shared folder
+
 <pre>[root@localhost /]# mkdir /vbox_shared</pre>
-4. In this terminal, enter the id command and look the output. We will use uid and gid:
+
+4.- In this terminal, enter the id command and look the output. We will use uid and gid:
+
 <pre>[root@localhost /]# id
 uid=0(root) gid=0(root) groups=0(root),1(bin),2(daemon),3(sys),4(adm),6(disk),10(wheel) context=root:system_r:unconfined_t:SystemLow-SystemHigh</pre>
-5. Now, we will mount shared folder from Host to Guest. From terminal in Guest Linux:
+
+5.- Now, we will mount shared folder from Host to Guest. From terminal in Guest Linux:
+
 <pre>[root@localhost /]# mount -t vboxsf -o uid=0,gid=0 files2share /vbox_shared</pre>
+
 <h2>Make the Mounted Share permanent</h2>
+
 You can make the shared folder mount automatically each time you start the CentOS guest by making an entry in <strong>/etc/fstab</strong>.
 
-1. From the CentOS guest edit fstab:
+1.- From the CentOS guest edit fstab:
+
 <pre>[root@localhost ~]# sudo gedit /etc/fstab</pre>
-2. Add a line at the bottom of file, and that looks like this:
-<pre>files2share	/vbox_shared	vboxsf	rw,uid=0,gid=0	0	0</pre>
-3. Verify mounted folder
+
+2.- Add a line at the bottom of file, and that looks like this:
+
+<pre>files2share    /vbox_shared    vboxsf  rw,uid=0,gid=0  0   0</pre>
+
+3.- Verify mounted folder
 
 In Mac OS X (host):
-<img class="alignnone" title="Verify VirtualBox shared folder in Host" src="http://dl.dropbox.com/u/2961879/blog20100813_sharefilesmacosxcentos/sharefilescentosmacosx-4-verify-mounted-host.png" alt="" width="538" height="239" />
+<img title="Verify VirtualBox shared folder in Host" src="https://holisticsecurity.files.wordpress.com/2010/08/sharefilescentosmacosx-4-verify-mounted-host.png" alt="" width="538" height="239" />
 
 In CentOS (guest):
-<img class="alignnone" title="Verify shared folder in VirtualBox Guest" src="http://dl.dropbox.com/u/2961879/blog20100813_sharefilesmacosxcentos/sharefilescentosmacosx-5-verify-mounted-guest.png" alt="" width="367" height="244" />
+<img title="Verify shared folder in VirtualBox Guest" src="https://holisticsecurity.files.wordpress.com/2010/08/sharefilescentosmacosx-5-verify-mounted-guest.png" alt="" width="367" height="244" />
 
-4. End.
+4.- End.
 
 <strong>References</strong>:
 
-* CentOS: Install Packages Via yum Command Using DVD / CD as Repo
-http://www.cyberciti.biz/faq/centos-linux-install-packages-from-dvd-using-yum/
+<ul>
+<li>CentOS: Install Packages Via yum Command Using DVD / CD as Repo
+http://www.cyberciti.biz/faq/centos-linux-install-packages-from-dvd-using-yum/</p></li>
+<li><p>Implementing virtualbox shared folders between a Mac OS X host and Fedora guest
+http://davidherron.com/content/implementing-virtualbox-shared-folders-between-mac-os-x-host-and-fedora-guest</p></li>
+</ul>
 
-* Implementing virtualbox shared folders between a Mac OS X host and Fedora guest
-http://davidherron.com/content/implementing-virtualbox-shared-folders-between-mac-os-x-host-and-fedora-guest
-
-http://forums.virtualbox.org/viewtopic.php?t=4960&amp;highlight=install+guest+addition
+<p>http://forums.virtualbox.org/viewtopic.php?t=4960&amp;highlight=install+guest+addition
 * How to install Guest Additions in CentOS 5.1
 
-* Share Folders Between a Linux Host and Linux Virtual Machine on VirtualBox
-http://tuxtweaks.com/2009/06/share-folders-linux-host-linux-virtual-machine-virtualbox/]]></content:encoded>
+<ul>
+<li>Share Folders Between a Linux Host and Linux Virtual Machine on VirtualBox
+http://tuxtweaks.com/2009/06/share-folders-linux-host-linux-virtual-machine-virtualbox/</li>
+</ul>]]></content:encoded>
   <excerpt:encoded><![CDATA[]]></excerpt:encoded>
   <wp:post_id>199</wp:post_id>
   <wp:post_date>2010-08-13 15:04:51</wp:post_date>
@@ -4049,8 +4763,10 @@ http://tuxtweaks.com/2009/06/share-folders-linux-host-linux-virtual-machine-virt
   <wp:post_type>post</wp:post_type>
   <wp:post_password/>
   <wp:is_sticky>0</wp:is_sticky>
+  <category domain="post_tag" nicename="centos"><![CDATA[CentOS]]></category>
   <category domain="category" nicename="linux"><![CDATA[Linux]]></category>
   <category domain="category" nicename="security"><![CDATA[Security]]></category>
+  <category domain="post_tag" nicename="virtualbox"><![CDATA[virtualbox]]></category>
   <wp:postmeta>
     <wp:meta_key>_edit_last</wp:meta_key>
     <wp:meta_value><![CDATA[578869]]></wp:meta_value>
@@ -4247,6 +4963,30 @@ http://tuxtweaks.com/2009/06/share-folders-linux-host-linux-virtual-machine-virt
     <wp:meta_key>_oembed_8cb7045c0dcf8f99ff2b88a6096fc324</wp:meta_key>
     <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
   </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>geo_public</wp:meta_key>
+    <wp:meta_value><![CDATA[0]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpas_skip_5053092</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpcom_is_markdown</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_770f35f550924f88444d45a7384778c3</wp:meta_key>
+    <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_99a26a083a98cad454ff2a4fd1249bce</wp:meta_key>
+    <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_5193ea37169a923a89fcbe73e766a312</wp:meta_key>
+    <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
+  </wp:postmeta>
   <wp:comment>
     <wp:comment_id>1007</wp:comment_id>
     <wp:comment_author><![CDATA[javier]]></wp:comment_author>
@@ -4331,9 +5071,17 @@ http://tuxtweaks.com/2009/06/share-folders-linux-host-linux-virtual-machine-virt
   <dc:creator>rcarhuatocto</dc:creator>
   <guid isPermaLink="false">http://holisticsecurity.wordpress.com/?p=205</guid>
   <description/>
-  <content:encoded><![CDATA[First, install VNC in CentOS:
+  <content:encoded><![CDATA[<img src="https://holisticsecurity.files.wordpress.com/2010/08/vnc_centos-0-real-vnc-1.png" />
+
+<!-- more -->
+First, install VNC in CentOS:
+
 <pre>[root@svdapp95 ~]# yum  --nogpgcheck install vnc</pre>
-1. Create another user:
+
+<ol>
+<li>Create another user:</li>
+</ol>
+
 <pre>[root@svdapp95 ~]# useradd roger
 [root@svdapp95 ~]# su - roger
 [roger@svdapp95 ~]$ vncpasswd
@@ -4343,7 +5091,11 @@ Verify:
 [roger@svdapp95 .vnc]$ ll
 total 8
 -rw------- 1 roger roger 8 Aug  6 17:04 passwd</pre>
-2. Create vnc password for root too:
+
+<ol>
+<li>Create vnc password for root too:</li>
+</ol>
+
 <pre>[root@svdapp95 ~]# vncpasswd
 Password:
 Verify:
@@ -4354,12 +5106,21 @@ Verify:
 total 8
 -rw------- 1 root root 8 Aug  6 16:45 passwd
 [root@svdapp95 .vnc]#</pre>
-3. Edit configuration of VNC server:
+
+<ol>
+<li>Edit configuration of VNC server:</li>
+</ol>
+
 <pre>[root@svdapp95 ~]# nano /etc/sysconfig/vncservers</pre>
+
 <pre>VNCSERVERS="1:roger 2:root"
 VNCSERVERARGS[1]="-geometry 800x600"
 VNCSERVERARGS[2]="-geometry 1024x800"</pre>
-4. Create xstartup script with root:
+
+<ol>
+<li>Create xstartup script with root:</li>
+</ol>
+
 <pre>[root@svdapp95 .vnc]# /sbin/service vncserver start
 Starting VNC server: 1:roger xauth:  creating new authority file /home/roger/.Xauthority
 
@@ -4381,9 +5142,15 @@ Log file is /root/.vnc/svdapp95:2.log
 [root@svdapp95 .vnc]# /sbin/service vncserver stop
 Shutting down VNC server: 1:roger 2:root                   [  OK  ]
 [root@svdapp95 .vnc]#</pre>
-5. Edit xstartup config file created in step 4 for each user added in vncservers in step 3:
+
+<ol>
+<li>Edit xstartup config file created in step 4 for each user added in vncservers in step 3:</li>
+</ol>
+
 <pre>[root@svdapp95 ~]# nano /root/.vnc/xstartup</pre>
+
 Initial file for root:
+
 <pre>#!/bin/sh
 
 # Uncomment the following two lines for normal desktop:
@@ -4396,7 +5163,9 @@ xsetroot -solid grey
 vncconfig -iconic &amp;
 xterm -geometry 80x24+10+10 -ls -title "$VNCDESKTOP Desktop" &amp;
 twm &amp;</pre>
+
 New file for root:
+
 <pre>#!/bin/sh
 
 # Add the following line to ensure you always have an xterm available.
@@ -4412,36 +5181,49 @@ xsetroot -solid grey
 vncconfig -iconic &amp;
 xterm -geometry 80x24+10+10 -ls -title "$VNCDESKTOP Desktop" &amp;
 twm &amp;</pre>
+
 ... repeat for "roger" user too.
 
-6. Start VNC server:
+<ol>
+<li>Start VNC server:</li>
+</ol>
+
 <pre>[root@svdapp95 ~]# /sbin/service vncserver start</pre>
-7. Login to VNC server from web browser:
+
+<ol>
+<li>Login to VNC server from web browser:</li>
+</ol>
 
 From another PC (you connect to VNC server with both users configured, for example:
 - Open web browser
 - Go to http://&lt;ip-vncserver&gt;:5801 for user "roger" and http://&lt;ip-vncserver&gt;:5802 for user "root".
 - In my case: http://172.23.3.197:5801
 
-<img class="alignnone" title="Remote access with Real VNC Viewer java applet" src="http://dl.dropbox.com/u/2961879/blog20100816_vcncentos/vnc_centos-3-real-vnc.png" alt="" width="391" height="346" />
+<img title="Remote access with Real VNC Viewer java applet" src="https://holisticsecurity.files.wordpress.com/2010/08/vnc_centos-3-real-vnc.png" alt="" width="391" height="346" />
 
-8. Login to VNC server from any vcn client, for example, vnc viewer:
+<ol>
+<li>Login to VNC server from any vcn client, for example, vnc viewer:</li>
+</ol>
 
-- Open VNC Viewer
-- Go to http://&lt;ip-vncserver&gt;:1 for user "roger" and http://&lt;ip-vncserver&gt;:2 for user "root".
+<ul>
+<li>Open VNC Viewer</li>
+<li>Go to http://&lt;ip-vncserver&gt;:1 for user "roger" and http://&lt;ip-vncserver&gt;:2 for user "root".</li>
+</ul>
 
 Open connection:
-<img class="alignnone" title="Open connection in  Ultra VNC Viewer app" src="http://dl.dropbox.com/u/2961879/blog20100816_vcncentos/vnc_centos-1-open.png" alt="" width="343" height="331" />
+<img title="Open connection in  Ultra VNC Viewer app" src="https://holisticsecurity.files.wordpress.com/2010/08/vnc_centos-1-open.png" alt="" width="343" height="331" />
 
 Remote access in CentOS:
-<img class="alignnone" title="Remote access to CentOS" src="http://dl.dropbox.com/u/2961879/blog20100816_vcncentos/vnc_centos-2-centos.png" alt="" width="623" height="242" />
+<img title="Remote access to CentOS" src="https://holisticsecurity.files.wordpress.com/2010/08/vnc_centos-2-centos.png" alt="" width="623" height="242" />
 
 <strong>References:</strong>
 * VNC ( Virtual Network Computing )
 http://wiki.centos.org/es/HowTos/VNC-Server
 
-* Conexión a VNC a través de firewalls y proxys utilizando túneles SSH
-http://www.eslomas.com/index.php/archives/2006/07/05/conexion-remota-vnc-proxy-firewall-tunel-ssh/]]></content:encoded>
+<ul>
+<li>Conexión a VNC a través de firewalls y proxys utilizando túneles SSH
+http://www.eslomas.com/index.php/archives/2006/07/05/conexion-remota-vnc-proxy-firewall-tunel-ssh/</li>
+</ul>]]></content:encoded>
   <excerpt:encoded><![CDATA[]]></excerpt:encoded>
   <wp:post_id>205</wp:post_id>
   <wp:post_date>2010-08-16 16:56:44</wp:post_date>
@@ -4455,6 +5237,7 @@ http://www.eslomas.com/index.php/archives/2006/07/05/conexion-remota-vnc-proxy-f
   <wp:post_type>post</wp:post_type>
   <wp:post_password/>
   <wp:is_sticky>0</wp:is_sticky>
+  <category domain="post_tag" nicename="centos"><![CDATA[CentOS]]></category>
   <category domain="category" nicename="linux"><![CDATA[Linux]]></category>
   <category domain="category" nicename="security"><![CDATA[Security]]></category>
   <wp:postmeta>
@@ -4565,6 +5348,30 @@ http://www.eslomas.com/index.php/archives/2006/07/05/conexion-remota-vnc-proxy-f
     <wp:meta_key>_oembed_0cc2448337d0b9b4f6ae10ed1cee3725</wp:meta_key>
     <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
   </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>geo_public</wp:meta_key>
+    <wp:meta_value><![CDATA[0]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpas_skip_13849</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpas_skip_5053092</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpcom_is_markdown</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_0ecb2e28e4b1861445bc29dcac9f76c5</wp:meta_key>
+    <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_c6176cbc9429ae97ebc5ee9dfc7b2832</wp:meta_key>
+    <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
+  </wp:postmeta>
   <wp:comment>
     <wp:comment_id>217</wp:comment_id>
     <wp:comment_author><![CDATA[Roger Carhuatocto]]></wp:comment_author>
@@ -4665,91 +5472,94 @@ http://www.eslomas.com/index.php/archives/2006/07/05/conexion-remota-vnc-proxy-f
   <description/>
   <content:encoded><![CDATA[We will explain how to install Liferay 6.0.5 CE WAR bundle in an existing Apache Tomcat 6.0.29 and MySQL Server as non ROOT webapp and without Tomcat Manager.
 
-<img class="alignnone" title="Welcome page of Liferay 6.0.5 CE " src="http://dl.dropbox.com/u/2961879/blog20100830_liferay605war/liferay605war_1login.png" alt="" width="509" height="336" />
+<img title="Welcome page of Liferay 6.0.5 CE " src="https://holisticsecurity.files.wordpress.com/2010/08/liferay605war_1login.png" alt="" width="509" height="336" />
+<!-- more -->
 
-1. Download and install <a href="http://apache.rediris.es//tomcat/tomcat-6/v6.0.29/bin/apache-tomcat-6.0.29-windows-x86.zip">Apache Tomcat 6.0.29</a> standard bundle (with Tomcat Manager included).
+1.- Download and install <a href="http://apache.rediris.es//tomcat/tomcat-6/v6.0.29/bin/apache-tomcat-6.0.29-windows-x86.zip">Apache Tomcat 6.0.29</a> standard bundle (with Tomcat Manager included).
 
-<del datetime="2011-01-18T09:37:23+00:00">2. Copy <strong>%TOMCAT_HOME%/webapps/ROOT</strong> folder to <strong>%TOMCAT_HOME%/webapps/liferay605</strong> folder.</del>
+<del datetime="2011-01-18T09:37:23+00:00">2.- Copy <strong>%TOMCAT_HOME%/webapps/ROOT</strong> folder to <strong>%TOMCAT_HOME%/webapps/liferay605</strong> folder.</del>
 
-3. Download <strong>liferay-portal-6.0.5.war</strong> and <strong>liferay-portal-dependencies-6.0.5.zip</strong>
+3.- Download <strong>liferay-portal-6.0.5.war</strong> and <strong>liferay-portal-dependencies-6.0.5.zip</strong>
 
-4. Unzip <strong>liferay-portal-6.0.5.war</strong> file and copy all content into the new Tomcat Context, in this example will be %TOMCAT_HOME%/webapps/<strong>liferay605</strong> folder.
+4.- Unzip <strong>liferay-portal-6.0.5.war</strong> file and copy all content into the new Tomcat Context, in this example will be %TOMCAT_HOME%/webapps/<strong>liferay605</strong> folder.
 
-5. Unzip and copy all dependencies to <del datetime="2011-01-18T10:24:26+00:00"><strong>%TOMCAT_HOME%/lib</strong></del> <strong>%TOMCAT_HOME%/lib/ext</strong>
+5.- Unzip and copy all dependencies to <del datetime="2011-01-18T10:24:26+00:00"><strong>%TOMCAT_HOME%/lib</strong></del> <strong>%TOMCAT_HOME%/lib/ext</strong>
 
-6. Download and copy <strong>02</strong> extra libraries (<strong>jta.jar</strong> and <strong>mail.jar</strong>) to <del datetime="2011-01-18T10:26:57+00:00"><strong>%TOMCAT_HOME%/lib</strong></del> <strong>%TOMCAT_HOME%/lib/ext</strong>
+6.- Download and copy <strong>02</strong> extra libraries (<strong>jta.jar</strong> and <strong>mail.jar</strong>) to <del datetime="2011-01-18T10:26:57+00:00"><strong>%TOMCAT_HOME%/lib</strong></del> <strong>%TOMCAT_HOME%/lib/ext</strong>
 
-7. Create <strong>liferay605.xml</strong> file into <strong>%TOMCAT_HOME%/conf/Catalina/localhost</strong> folder. It looks like this:
+7.- Create <strong>liferay605.xml</strong> file into <strong>%TOMCAT_HOME%/conf/Catalina/localhost</strong> folder. It looks like this:
 
-[sourcecode language="html" gutter="true" wraplines="false" highlight="1"]
+[code lang=text]
 &lt;Context path=&quot;&quot; crossContext=&quot;true&quot;&gt;
-  &lt;Resource
-    name=&quot;jdbc/LiferayPool&quot;
-    auth=&quot;Container&quot;
-    type=&quot;javax.sql.DataSource&quot;
-    driverClassName=&quot;com.mysql.jdbc.Driver&quot;
-    url=&quot;jdbc:mysql://localhost:3306/lportal605_db?useUnicode=true&amp;amp;amp;characterEncoding=UTF-8&quot;
-    username=&quot;root&quot;
-    password=&quot;&quot;
-    maxActive=&quot;20&quot;
-  /&gt;
+&lt;Resource
+name=&quot;jdbc/LiferayPool&quot;
+auth=&quot;Container&quot;
+type=&quot;javax.sql.DataSource&quot;
+driverClassName=&quot;com.mysql.jdbc.Driver&quot;
+url=&quot;jdbc:mysql://localhost:3306/lportal605_db?useUnicode=true&amp;characterEncoding=UTF-8&quot;
+username=&quot;root&quot;
+password=&quot;&quot;
+maxActive=&quot;20&quot;
+/&gt;
 &lt;/Context&gt;
-[/sourcecode]
+[/code]
 
 In my case, DB user is "root" with empty password. You must create an empty DB in MySQL before, for example "lportal605_db".
 
-8. Create <strong>portal-ext.properties</strong> into <strong>%TOMCAT_HOME%/webapps/liferay605/WEB-INF/classes</strong> folder. It looks like this:
+8.- Create <strong>portal-ext.properties</strong> into <strong>%TOMCAT_HOME%/webapps/liferay605/WEB-INF/classes</strong> folder. It looks like this:
 
-[sourcecode language="text" gutter="true" wraplines="false" highlight="1"]
+<pre>
 jdbc.default.jndi.name=jdbc/LiferayPool
 portal.ctx=/liferay605
-[/sourcecode]
+</pre>
 
-9. If you are using MySQL as database server instead of HSQL, you must copy <em>mysql jdbc lib</em> into <del datetime="2011-01-18T09:41:06+00:00"><strong>%TOMCAT_HOME%/lib</strong></del> <strong>%TOMCAT_HOME%/lib/ext</strong> folder.
+9.- If you are using MySQL as database server instead of HSQL, you must copy <em>mysql jdbc lib</em> into <del datetime="2011-01-18T09:41:06+00:00"><strong>%TOMCAT_HOME%/lib</strong></del> <strong>%TOMCAT_HOME%/lib/ext</strong> folder.
 
-10. Add the code below to <strong>%TOMCAT_HOME%/lib/bin/startup.bat</strong> or <strong>startup.sh</strong>:
+10.- Add the code below to <strong>%TOMCAT_HOME%/lib/bin/startup.bat</strong> or <strong>startup.sh</strong>:
 
-[sourcecode language="text" gutter="true" wraplines="false" highlight="1"]
+<pre>
 set JAVA_OPTS=%JAVA_OPTS% -Xmx1024m -XX:MaxPermSize=256m
-[/sourcecode]
+</pre>
 
-11. Run <strong>startup.bat/sh</strong>, you will see in console when liferay creates and populates the portal database automatically. Now, you can open browser window and enter the folow URL <em>http://localhost:8080/liferay605</em>. Use "<em>test@liferay.com</em>" and "<em>test</em>" as user and password respectively.
+11.- Run <strong>startup.bat/sh</strong>, you will see in console when liferay creates and populates the portal database automatically. Now, you can open browser window and enter the folow URL <em>http://localhost:8080/liferay605</em>. Use "<em>test@liferay.com</em>" and "<em>test</em>" as user and password respectively.
 
 <h2>Configure Tomcat Manager</h2>
+
 Sometimes you need to deploy liferay in your favorite hosting provider but It is impossible because you can not change files of root context, in this case you can use only control panel of you ISP o Tomcat Manager.
 
 Tomcat Manager is included in standard Tomcat bundle but by default It is disabled. If you want to enable it, follow the next steps:
 
-<img class="alignnone" title="Tomcat Manager - Installed Web Applications" src="http://dl.dropbox.com/u/2961879/blog20100830_liferay605war/liferay605war_2tomcatmanager.png" alt="" width="479" height="601" />
+<img title="Tomcat Manager - Installed Web Applications" src="https://holisticsecurity.files.wordpress.com/2010/08/liferay605war_2tomcatmanager.png" alt="" width="479" height="601" />
 
-1. Edit %TOMCAT_HOME%/conf/<strong>tomcat-users.xml</strong>
+1.- Edit %TOMCAT_HOME%/conf/<strong>tomcat-users.xml</strong>
 
-2. Add user, for example:
+2.- Add user, for example:
 
-[sourcecode language="xml" gutter="true" wraplines="false" highlight="5"]
-&lt;?xml version='1.0' encoding='utf-8'?&gt;
+[code lang=text]
+&lt;?xml version=&#039;1.0&#039; encoding=&#039;utf-8&#039;?&gt;
 &lt;tomcat-users&gt;
 &lt;role rolename=&quot;tomcat&quot;/&gt;
 &lt;role rolename=&quot;manager&quot;/&gt;
 &lt;user username=&quot;roger&quot; password=&quot;roger&quot; roles=&quot;tomcat,manager&quot;/&gt;
 &lt;/tomcat-users&gt;
-[/sourcecode]
+[/code]
 
-3. Run Tomcat and go to http://localhost:8080/manager
+3.- Run Tomcat and go to http://localhost:8080/manager
 
-4. Enter user and password configured in step 2.
+4.- Enter user and password configured in step 2.
 
-5. Log in to Liferay for example; in Tomcat Manager now you can see an opened session in liferay605 webapp context and to explore values stored in current session.
+5.- Log in to Liferay for example; in Tomcat Manager now you can see an opened session in liferay605 webapp context and to explore values stored in current session.
 
-<img class="alignnone" title="Tomcat Manager - Values of an opened session in Liferay" src="http://dl.dropbox.com/u/2961879/blog20100830_liferay605war/liferay605war_3tomcatmanagerliferay.png" alt="" width="433" height="601" />
+<img title="Tomcat Manager - Values of an opened session in Liferay" src="https://holisticsecurity.files.wordpress.com/2010/08/liferay605war_3tomcatmanagerliferay.png" alt="" width="433" height="601" />
 
-6. End.
+6.- End.
 
 <strong>References</strong>:
 
-* <a href="http://www.liferay.com/es/community/wiki/-/wiki/Main/Installing+5.2+SP3+WAR+on+Tomcat+6">Installing 5.2 SP3 WAR on Tomcat 6</a>
-
-* <a href="http://holisticsecurity.wordpress.com/2010/07/19/execute-liferay-root-context">Execute Liferay Portal on non ROOT context</a>]]></content:encoded>
+<ul>
+<li><p><a href="http://www.liferay.com/es/community/wiki/-/wiki/Main/Installing+5.2+SP3+WAR+on+Tomcat+6">Installing 5.2 SP3 WAR on Tomcat 6</a></p></li>
+<li><p><a href="http://holisticsecurity.wordpress.com/2010/07/19/execute-liferay-root-context">Execute Liferay Portal on non ROOT context</a></p></li>
+</ul>]]></content:encoded>
   <excerpt:encoded><![CDATA[]]></excerpt:encoded>
   <wp:post_id>213</wp:post_id>
   <wp:post_date>2010-08-30 17:24:49</wp:post_date>
@@ -4763,6 +5573,7 @@ Tomcat Manager is included in standard Tomcat bundle but by default It is disabl
   <wp:post_type>post</wp:post_type>
   <wp:post_password/>
   <wp:is_sticky>0</wp:is_sticky>
+  <category domain="post_tag" nicename="liferay-portal"><![CDATA[Liferay Portal]]></category>
   <category domain="category" nicename="linux"><![CDATA[Linux]]></category>
   <category domain="category" nicename="portal"><![CDATA[Portal]]></category>
   <wp:postmeta>
@@ -4780,6 +5591,18 @@ Tomcat Manager is included in standard Tomcat bundle but by default It is disabl
   <wp:postmeta>
     <wp:meta_key>_oembed_f08eecde80c4927c0cc576f748f22294</wp:meta_key>
     <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>geo_public</wp:meta_key>
+    <wp:meta_value><![CDATA[0]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpas_skip_5053092</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpcom_is_markdown</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
   </wp:postmeta>
   <wp:comment>
     <wp:comment_id>235</wp:comment_id>
@@ -5594,7 +6417,7 @@ FAIL - Application at context path /liferay605 could not be started]]></wp:comme
 </item>
 <item>
   <title>Alfresco BPM Activiti and iPhone</title>
-  <link>https://holisticsecurity.wordpress.com/2010/09/10/alfresco-bpm-activiti-and-iphone/</link>
+  <link>https://holisticsecurity.wordpress.com/2010/09/10/alfresco-bpm-activiti-and-iphone__trashed/</link>
   <pubDate>Fri, 10 Sep 2010 11:08:37 +0000</pubDate>
   <dc:creator>rcarhuatocto</dc:creator>
   <guid isPermaLink="false">http://holisticsecurity.wordpress.com/2010/09/10/alfresco-bpm-activiti-and-iphone-http-2/</guid>
@@ -5608,8 +6431,8 @@ FAIL - Application at context path /liferay605 could not be started]]></wp:comme
   <wp:post_date_gmt>2010-09-10 11:08:37</wp:post_date_gmt>
   <wp:comment_status>open</wp:comment_status>
   <wp:ping_status>open</wp:ping_status>
-  <wp:post_name>alfresco-bpm-activiti-and-iphone</wp:post_name>
-  <wp:status>publish</wp:status>
+  <wp:post_name>alfresco-bpm-activiti-and-iphone__trashed</wp:post_name>
+  <wp:status>trash</wp:status>
   <wp:post_parent>0</wp:post_parent>
   <wp:menu_order>0</wp:menu_order>
   <wp:post_type>post</wp:post_type>
@@ -5656,6 +6479,22 @@ FAIL - Application at context path /liferay605 could not be started]]></wp:comme
     <wp:meta_key>_oembed_014b2904813f3e99c44bfcc24c6e2c14</wp:meta_key>
     <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
   </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wp_trash_meta_status</wp:meta_key>
+    <wp:meta_value><![CDATA[publish]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wp_trash_meta_time</wp:meta_key>
+    <wp:meta_value><![CDATA[1572885256]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wp_desired_post_slug</wp:meta_key>
+    <wp:meta_value><![CDATA[alfresco-bpm-activiti-and-iphone]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpcom_is_markdown</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
 </item>
 <item>
   <title>Agile BPM Systems development with Camunda Fox and Alfresco Activiti</title>
@@ -5667,9 +6506,8 @@ FAIL - Application at context path /liferay605 could not be started]]></wp:comme
   <content:encoded><![CDATA[Is Agile BPM systems development possible?. Yes, it is possible.
 
 This is the main reason why I like Intalio BPMS (BPMN, BPEL, BRE, ESB/SOA, BAM/BI, ECM and Portal integration and Rich Web RAD with Tibco GI).
-
-[caption id="" align="alignnone" width="496" caption="Camunda Fox: Development process centric applications approach"]<img class="   " title="Camunda Fox: Development process centric applications approach" src="http://www.bpm-guide.de/wp-content/uploads/2010/05/sample-development-approach.png" alt="" width="496" height="138" />[/caption]
-
+<img src="https://holisticsecurity.files.wordpress.com/2010/09/blog-bpm-guide-sample-development-approach.png" alt="Camunda Fox: Development process centric applications approach" />
+<!-- more -->
 Camunda Fox is "[...] an open source BPM platform. It helps you to build process-centric software solutions in Java." (http://fox.camunda.com)
 
 Camunda explains its approach in this blogpost: <a title="Making the BPMN Roundtrip real" href="http://www.bpm-guide.de/2010/05/27/making-the-bpmn-roundtrip-real/">Making the BPMN Roundtrip real</a>
@@ -5684,7 +6522,7 @@ On 1st of september, Activi 5.0.beta1 was released containing the first Camunda 
 
 I will follow evolution of this interesting initiative and<span style="font-size:13.3333px;"> hope to write soon on this and even maybe a comparison with the Intalio BPMS approach.</span>
 
-[caption id="" align="alignnone" width="464" caption="Activiti Cycle approach mockup"]<img class="   " title="Activiti Cycle approach mockup" src="http://www.activiti.org/images/activiti_cycle.png" alt="Activiti Cycle approach mockup" width="464" height="552" />[/caption]]]></content:encoded>
+<img title="Activiti Cycle approach mockup" src="https://holisticsecurity.files.wordpress.com/2010/09/blog-bpm-lifecycle.png" alt="Activiti Cycle approach mockup" width="300" height="294" />]]></content:encoded>
   <excerpt:encoded><![CDATA[]]></excerpt:encoded>
   <wp:post_id>228</wp:post_id>
   <wp:post_date>2010-09-10 15:45:51</wp:post_date>
@@ -5698,7 +6536,9 @@ I will follow evolution of this interesting initiative and<span style="font-size
   <wp:post_type>post</wp:post_type>
   <wp:post_password/>
   <wp:is_sticky>0</wp:is_sticky>
+  <category domain="post_tag" nicename="activiti-bpm"><![CDATA[Activiti bpm]]></category>
   <category domain="category" nicename="bpm"><![CDATA[BPM]]></category>
+  <category domain="post_tag" nicename="camunda-bpm"><![CDATA[camunda bpm]]></category>
   <wp:postmeta>
     <wp:meta_key>_edit_last</wp:meta_key>
     <wp:meta_value><![CDATA[578869]]></wp:meta_value>
@@ -5714,6 +6554,18 @@ I will follow evolution of this interesting initiative and<span style="font-size
   <wp:postmeta>
     <wp:meta_key>_oembed_a69a0687248e1b1df7742b3fe340c4eb</wp:meta_key>
     <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>geo_public</wp:meta_key>
+    <wp:meta_value><![CDATA[0]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpas_skip_5053092</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpcom_is_markdown</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
   </wp:postmeta>
   <wp:comment>
     <wp:comment_id>243</wp:comment_id>
@@ -5748,20 +6600,24 @@ I will follow evolution of this interesting initiative and<span style="font-size
   <content:encoded><![CDATA[Hace algún tiempo organicé una serie de <a href="http://holisticsecurity.wordpress.com/2010/01/11/webinars-ecm-bpm/">webinars en Barcelona</a> orientado a hacer difusión de las capacidades de unos productos commercial opensource muy usados: Alfresco ECM, Intalio BPMS y Bonita.
 
 Pues el resultado fue asombroso, sobretodo para el webinar relacionado a "Gestión de Expedientes". Se apuntaron cientos de personas interesadas, de España y Latinoamérica, incluso de Portugal, a raíz de ello, la demanda de conocer los productos y reuniones para profundizar en cada una de las necesidades de los clientes se incrementó.
-
+<!-- more -->
 En fin, creo que hay mucho más que explicar y espero pronto organizar una serie de webinar con otros temás también necesarios como interesantes, por ejemplo webinars relacionados a:
 
-1. Archivo Digital, Digitalización Documental, Oficina Técnica ...  con Alfresco
-2. Enterprise Portal, SOA and Portal, Agile Portlet Development .... con Liferay
+<ol>
+<li>Archivo Digital, Digitalización Documental, Oficina Técnica ...  con Alfresco</li>
+<li>Enterprise Portal, SOA and Portal, Agile Portlet Development .... con Liferay</li>
+</ol>
 
 y unos tema que me apasiona mucho relacionada con la seguridad:
 
-1. Firma Digital en Gestión de Expedientes
-2. Web-SSO y Gestión de Identidades para Business Applications.
+<ol>
+<li>Firma Digital en Gestión de Expedientes</li>
+<li>Web-SSO y Gestión de Identidades para Business Applications.</li>
+</ol>
 
 Os dejo con la presentación usada en dicho webinar:
 
-[slideshare id=5391681&amp;doc=02webinargestionexpedientesv0-6-1-intix-101008050818-phpapp01]
+https://www.slideshare.net/rcarhuatocto/02-webinar-gestionexpedientesv061intix
 
 Nos vemos pronto!.]]></content:encoded>
   <excerpt:encoded><![CDATA[]]></excerpt:encoded>
@@ -5777,6 +6633,7 @@ Nos vemos pronto!.]]></content:encoded>
   <wp:post_type>post</wp:post_type>
   <wp:post_password/>
   <wp:is_sticky>0</wp:is_sticky>
+  <category domain="post_tag" nicename="alfresco-ecm"><![CDATA[Alfresco ECM]]></category>
   <category domain="category" nicename="bpm"><![CDATA[BPM]]></category>
   <category domain="category" nicename="ecm"><![CDATA[ECM]]></category>
   <category domain="category" nicename="portal"><![CDATA[Portal]]></category>
@@ -5791,6 +6648,34 @@ Nos vemos pronto!.]]></content:encoded>
   <wp:postmeta>
     <wp:meta_key>_wpas_done_twitter</wp:meta_key>
     <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>geo_public</wp:meta_key>
+    <wp:meta_value><![CDATA[0]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpas_skip_5053092</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_wpcom_is_markdown</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_cfcf6d2aa76430b2c617585f8ec43724</wp:meta_key>
+    <wp:meta_value><![CDATA[<div class="embed-slideshare"><iframe title="02 webinar gestion_expedientes_v0.6.1-intix" src="https://www.slideshare.net/slideshow/embed_code/key/KiVZrZJaDdA73b" width="422" height="631" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/rcarhuatocto/02-webinar-gestionexpedientesv061intix" title="02 webinar gestion_expedientes_v0.6.1-intix" target="_blank">02 webinar gestion_expedientes_v0.6.1-intix</a> </strong> from <strong><a href="https://www.slideshare.net/rcarhuatocto" target="_blank">Roger CARHUATOCTO</a></strong> </div></div>]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_time_cfcf6d2aa76430b2c617585f8ec43724</wp:meta_key>
+    <wp:meta_value><![CDATA[1572886052]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_175c7fa4eaaee24c560ad88f3c5666d4</wp:meta_key>
+    <wp:meta_value><![CDATA[<div class="embed-slideshare"><iframe title="02 webinar gestion_expedientes_v0.6.1-intix" src="https://www.slideshare.net/slideshow/embed_code/key/KiVZrZJaDdA73b" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="https://www.slideshare.net/rcarhuatocto/02-webinar-gestionexpedientesv061intix" title="02 webinar gestion_expedientes_v0.6.1-intix" target="_blank">02 webinar gestion_expedientes_v0.6.1-intix</a> </strong> from <strong><a href="https://www.slideshare.net/rcarhuatocto" target="_blank">Roger CARHUATOCTO</a></strong> </div></div>]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_oembed_time_175c7fa4eaaee24c560ad88f3c5666d4</wp:meta_key>
+    <wp:meta_value><![CDATA[1572886052]]></wp:meta_value>
   </wp:postmeta>
   <wp:comment>
     <wp:comment_id>234</wp:comment_id>
@@ -29137,7 +30022,8 @@ Enjoy it.
   <wp:post_password/>
   <wp:is_sticky>0</wp:is_sticky>
   <category domain="post_tag" nicename="logging"><![CDATA[Logging]]></category>
-  <category domain="post_tag" nicename="microservices"><![CDATA[Microservices]]></category>
+  <category domain="category" nicename="microservices"><![CDATA[Microservices]]></category>
+  <category domain="category" nicename="observability"><![CDATA[Observability]]></category>
   <category domain="post_tag" nicename="rtail"><![CDATA[rTail]]></category>
   <category domain="category" nicename="soa"><![CDATA[SOA]]></category>
   <category domain="post_tag" nicename="wiremock"><![CDATA[Wiremock]]></category>
@@ -29311,7 +30197,7 @@ At the end, You will be ready to get starting to work with (Micro)services.]]></
   <wp:post_password/>
   <wp:is_sticky>0</wp:is_sticky>
   <category domain="post_tag" nicename="docker"><![CDATA[Docker]]></category>
-  <category domain="post_tag" nicename="microservices"><![CDATA[Microservices]]></category>
+  <category domain="category" nicename="microservices"><![CDATA[Microservices]]></category>
   <category domain="category" nicename="soa"><![CDATA[SOA]]></category>
   <category domain="post_tag" nicename="wso2"><![CDATA[WSO2]]></category>
   <wp:postmeta>
@@ -29895,11 +30781,10 @@ I hope you enjoyed it.
   <wp:is_sticky>0</wp:is_sticky>
   <category domain="post_tag" nicename="docker"><![CDATA[Docker]]></category>
   <category domain="post_tag" nicename="elasticsearch"><![CDATA[Elasticsearch]]></category>
-  <category domain="post_tag" nicename="elk"><![CDATA[ELK]]></category>
   <category domain="post_tag" nicename="kibana"><![CDATA[Kibana]]></category>
   <category domain="post_tag" nicename="logging"><![CDATA[Logging]]></category>
   <category domain="post_tag" nicename="logstash"><![CDATA[Logstash]]></category>
-  <category domain="post_tag" nicename="microservices"><![CDATA[Microservices]]></category>
+  <category domain="category" nicename="microservices"><![CDATA[Microservices]]></category>
   <category domain="post_tag" nicename="rtail"><![CDATA[rTail]]></category>
   <category domain="category" nicename="soa"><![CDATA[SOA]]></category>
   <category domain="post_tag" nicename="vagrant"><![CDATA[Vagrant]]></category>
@@ -30303,11 +31188,11 @@ That’s all.]]></content:encoded>
   <wp:is_sticky>0</wp:is_sticky>
   <category domain="post_tag" nicename="docker"><![CDATA[Docker]]></category>
   <category domain="post_tag" nicename="elasticsearch"><![CDATA[Elasticsearch]]></category>
-  <category domain="post_tag" nicename="elk"><![CDATA[ELK]]></category>
   <category domain="post_tag" nicename="kibana"><![CDATA[Kibana]]></category>
   <category domain="post_tag" nicename="logging"><![CDATA[Logging]]></category>
   <category domain="post_tag" nicename="logstash"><![CDATA[Logstash]]></category>
-  <category domain="post_tag" nicename="microservices"><![CDATA[Microservices]]></category>
+  <category domain="category" nicename="microservices"><![CDATA[Microservices]]></category>
+  <category domain="category" nicename="observability"><![CDATA[Observability]]></category>
   <category domain="post_tag" nicename="rtail"><![CDATA[rTail]]></category>
   <category domain="category" nicename="soa"><![CDATA[SOA]]></category>
   <category domain="post_tag" nicename="vagrant"><![CDATA[Vagrant]]></category>
@@ -31796,7 +32681,6 @@ See you soon.]]></content:encoded>
   <wp:post_password/>
   <wp:is_sticky>0</wp:is_sticky>
   <category domain="post_tag" nicename="apache-cassandra"><![CDATA[Apache Cassandra]]></category>
-  <category domain="post_tag" nicename="bam"><![CDATA[BAM]]></category>
   <category domain="category" nicename="big-data"><![CDATA[Big Data]]></category>
   <category domain="post_tag" nicename="cep"><![CDATA[CEP]]></category>
   <category domain="category" nicename="iot"><![CDATA[IoT]]></category>
@@ -31989,7 +32873,6 @@ Regards.]]></content:encoded>
   <wp:post_password/>
   <wp:is_sticky>0</wp:is_sticky>
   <category domain="post_tag" nicename="apache-cassandra"><![CDATA[Apache Cassandra]]></category>
-  <category domain="post_tag" nicename="bam"><![CDATA[BAM]]></category>
   <category domain="category" nicename="big-data"><![CDATA[Big Data]]></category>
   <category domain="post_tag" nicename="cep"><![CDATA[CEP]]></category>
   <category domain="category" nicename="iot"><![CDATA[IoT]]></category>
@@ -33243,7 +34126,6 @@ See you soon.
   <category domain="post_tag" nicename="docker"><![CDATA[Docker]]></category>
   <category domain="post_tag" nicename="flask"><![CDATA[Flask]]></category>
   <category domain="post_tag" nicename="kismet"><![CDATA[Kismet]]></category>
-  <category domain="post_tag" nicename="microservice"><![CDATA[Microservice]]></category>
   <category domain="category" nicename="microservices"><![CDATA[Microservices]]></category>
   <category domain="post_tag" nicename="python"><![CDATA[Python]]></category>
   <category domain="category" nicename="security"><![CDATA[Security]]></category>
@@ -33372,10 +34254,8 @@ Bye.]]></content:encoded>
   <wp:post_type>post</wp:post_type>
   <wp:post_password/>
   <wp:is_sticky>0</wp:is_sticky>
-  <category domain="post_tag" nicename="bam"><![CDATA[BAM]]></category>
+  <category domain="category" nicename="big-data"><![CDATA[Big Data]]></category>
   <category domain="post_tag" nicename="cassandra"><![CDATA[Cassandra]]></category>
-  <category domain="post_tag" nicename="cep"><![CDATA[CEP]]></category>
-  <category domain="post_tag" nicename="compose"><![CDATA[Compose]]></category>
   <category domain="post_tag" nicename="docker"><![CDATA[Docker]]></category>
   <category domain="category" nicename="iot"><![CDATA[IoT]]></category>
   <category domain="post_tag" nicename="kismet"><![CDATA[Kismet]]></category>
@@ -35727,7 +36607,7 @@ https://rolfje.wordpress.com/2016/11/12/macos-sierra-ssh-permission-denied/]]></
   </wp:postmeta>
   <wp:postmeta>
     <wp:meta_key>_oembed_f4f1a075c349ac93cc75b88fae67dc9a</wp:meta_key>
-    <wp:meta_value><![CDATA[<blockquote class="wp-embedded-content" data-secret="4Na8UxTOLZ"><a href="http://blog.smalleycreative.com/linux/setup-a-headless-raspberry-pi-with-raspbian-jessie-on-os-x/">Setup a Headless Raspberry Pi with Raspbian Jessie on OS X</a></blockquote><iframe title="&#8220;Setup a Headless Raspberry Pi with Raspbian Jessie on OS X&#8221; &#8212; the smalley creative blog" class="wp-embedded-content" sandbox="allow-scripts" security="restricted" style="position: absolute; clip: rect(1px, 1px, 1px, 1px);" src="http://blog.smalleycreative.com/linux/setup-a-headless-raspberry-pi-with-raspbian-jessie-on-os-x/embed/#?secret=4Na8UxTOLZ" data-secret="4Na8UxTOLZ" width="600" height="338" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>]]></wp:meta_value>
+    <wp:meta_value><![CDATA[<blockquote class="wp-embedded-content" data-secret="IzWInZ56Ry"><a href="http://blog.smalleycreative.com/linux/setup-a-headless-raspberry-pi-with-raspbian-jessie-on-os-x/">Setup a Headless Raspberry Pi with Raspbian Jessie on OS X</a></blockquote><iframe title="&#8220;Setup a Headless Raspberry Pi with Raspbian Jessie on OS X&#8221; &#8212; the smalley creative blog" class="wp-embedded-content" sandbox="allow-scripts" security="restricted" style="position: absolute; clip: rect(1px, 1px, 1px, 1px);" src="http://blog.smalleycreative.com/linux/setup-a-headless-raspberry-pi-with-raspbian-jessie-on-os-x/embed/#?secret=IzWInZ56Ry" data-secret="IzWInZ56Ry" width="600" height="338" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>]]></wp:meta_value>
   </wp:postmeta>
   <wp:postmeta>
     <wp:meta_key>_oembed_7b1bd08f14538f8238b1195ac34cecd6</wp:meta_key>
@@ -35839,7 +36719,7 @@ https://rolfje.wordpress.com/2016/11/12/macos-sierra-ssh-permission-denied/]]></
   </wp:postmeta>
   <wp:postmeta>
     <wp:meta_key>_oembed_time_f4f1a075c349ac93cc75b88fae67dc9a</wp:meta_key>
-    <wp:meta_value><![CDATA[1572452604]]></wp:meta_value>
+    <wp:meta_value><![CDATA[1572875520]]></wp:meta_value>
   </wp:postmeta>
   <wp:postmeta>
     <wp:meta_key>_oembed_c3db3c042f19a75ae1e8bd40b08c455d</wp:meta_key>
@@ -36184,6 +37064,7 @@ End.]]></content:encoded>
   <category domain="category" nicename="big-data"><![CDATA[Big Data]]></category>
   <category domain="category" nicename="devops"><![CDATA[DevOps]]></category>
   <category domain="category" nicename="security"><![CDATA[Security]]></category>
+  <category domain="post_tag" nicename="tls"><![CDATA[TLS]]></category>
   <category domain="post_tag" nicename="vagrant"><![CDATA[Vagrant]]></category>
   <wp:postmeta>
     <wp:meta_key>_wpcom_is_markdown</wp:meta_key>
@@ -36416,16 +37297,12 @@ Regards.]]></content:encoded>
   <wp:post_type>post</wp:post_type>
   <wp:post_password/>
   <wp:is_sticky>0</wp:is_sticky>
-  <category domain="post_tag" nicename="ambassador"><![CDATA[Ambassador]]></category>
   <category domain="category" nicename="devops"><![CDATA[DevOps]]></category>
-  <category domain="post_tag" nicename="envoy"><![CDATA[Envoy]]></category>
-  <category domain="post_tag" nicename="istio"><![CDATA[Istio]]></category>
-  <category domain="post_tag" nicename="mesh"><![CDATA[Mesh]]></category>
-  <category domain="post_tag" nicename="microservices"><![CDATA[Microservices]]></category>
+  <category domain="post_tag" nicename="envoy-proxy"><![CDATA[Envoy Proxy]]></category>
+  <category domain="post_tag" nicename="istio-mesh"><![CDATA[Istio Mesh]]></category>
+  <category domain="category" nicename="microservices"><![CDATA[Microservices]]></category>
   <category domain="post_tag" nicename="openshift"><![CDATA[OpenShift]]></category>
   <category domain="category" nicename="paas"><![CDATA[PaaS]]></category>
-  <category domain="category" nicename="security"><![CDATA[Security]]></category>
-  <category domain="post_tag" nicename="sidecar"><![CDATA[Sidecar]]></category>
   <category domain="post_tag" nicename="weave-scope"><![CDATA[Weave-Scope]]></category>
   <wp:postmeta>
     <wp:meta_key>_publicize_done_external</wp:meta_key>
@@ -38734,6 +39611,627 @@ Qpid, ActiveMQ, RabbitMQ, HornetQ con WSO2 ESB]]></content:encoded>
   <wp:post_password/>
   <wp:is_sticky>0</wp:is_sticky>
   <wp:attachment_url>https://holisticsecurity.files.wordpress.com/2016/04/blog-cross-compiling-kismet-raspberrypi-arm.png</wp:attachment_url>
+</item>
+<item>
+  <title>blog- 20080613-hacker-ethic-book-4148V1WT9ML._SL500_AA240_</title>
+  <link>https://holisticsecurity.wordpress.com/2008/06/13/hacker-ethic/blog-20080613-hacker-ethic-book-4148v1wt9ml-_sl500_aa240_/</link>
+  <pubDate>Mon, 04 Nov 2019 14:40:13 +0000</pubDate>
+  <dc:creator>rcarhuatocto</dc:creator>
+  <guid isPermaLink="false">http://holisticsecurity.files.wordpress.com/2008/06/blog-20080613-hacker-ethic-book-4148v1wt9ml._sl500_aa240_.jpg</guid>
+  <description/>
+  <content:encoded><![CDATA[]]></content:encoded>
+  <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+  <wp:post_id>2193</wp:post_id>
+  <wp:post_date>2019-11-04 15:40:13</wp:post_date>
+  <wp:post_date_gmt>2019-11-04 14:40:13</wp:post_date_gmt>
+  <wp:comment_status>open</wp:comment_status>
+  <wp:ping_status>closed</wp:ping_status>
+  <wp:post_name>blog-20080613-hacker-ethic-book-4148v1wt9ml-_sl500_aa240_</wp:post_name>
+  <wp:status>inherit</wp:status>
+  <wp:post_parent>8</wp:post_parent>
+  <wp:menu_order>0</wp:menu_order>
+  <wp:post_type>attachment</wp:post_type>
+  <wp:post_password/>
+  <wp:is_sticky>0</wp:is_sticky>
+  <wp:attachment_url>https://holisticsecurity.files.wordpress.com/2008/06/blog-20080613-hacker-ethic-book-4148v1wt9ml._sl500_aa240_.jpg</wp:attachment_url>
+</item>
+<item>
+  <title>blog-20080715-defeat-parkinsons-law</title>
+  <link>https://holisticsecurity.wordpress.com/2008/07/15/la-ley-de-parkinson/blog-20080715-defeat-parkinsons-law/</link>
+  <pubDate>Mon, 04 Nov 2019 14:52:48 +0000</pubDate>
+  <dc:creator>rcarhuatocto</dc:creator>
+  <guid isPermaLink="false">http://holisticsecurity.files.wordpress.com/2008/07/blog-20080715-defeat-parkinsons-law.png</guid>
+  <description/>
+  <content:encoded><![CDATA[]]></content:encoded>
+  <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+  <wp:post_id>2201</wp:post_id>
+  <wp:post_date>2019-11-04 15:52:48</wp:post_date>
+  <wp:post_date_gmt>2019-11-04 14:52:48</wp:post_date_gmt>
+  <wp:comment_status>open</wp:comment_status>
+  <wp:ping_status>closed</wp:ping_status>
+  <wp:post_name>blog-20080715-defeat-parkinsons-law</wp:post_name>
+  <wp:status>inherit</wp:status>
+  <wp:post_parent>35</wp:post_parent>
+  <wp:menu_order>0</wp:menu_order>
+  <wp:post_type>attachment</wp:post_type>
+  <wp:post_password/>
+  <wp:is_sticky>0</wp:is_sticky>
+  <wp:attachment_url>https://holisticsecurity.files.wordpress.com/2008/07/blog-20080715-defeat-parkinsons-law.png</wp:attachment_url>
+</item>
+<item>
+  <title>blog-20090807-ecm-usecases</title>
+  <link>https://holisticsecurity.wordpress.com/2009/08/07/alfresco-ecm-una-plataforma-de-gestion-de-contenidos/blog-20090807-ecm-usecases/</link>
+  <pubDate>Mon, 04 Nov 2019 14:59:46 +0000</pubDate>
+  <dc:creator>rcarhuatocto</dc:creator>
+  <guid isPermaLink="false">http://holisticsecurity.files.wordpress.com/2009/08/blog-20090807-ecm-usecases.png</guid>
+  <description/>
+  <content:encoded><![CDATA[]]></content:encoded>
+  <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+  <wp:post_id>2204</wp:post_id>
+  <wp:post_date>2019-11-04 15:59:46</wp:post_date>
+  <wp:post_date_gmt>2019-11-04 14:59:46</wp:post_date_gmt>
+  <wp:comment_status>open</wp:comment_status>
+  <wp:ping_status>closed</wp:ping_status>
+  <wp:post_name>blog-20090807-ecm-usecases</wp:post_name>
+  <wp:status>inherit</wp:status>
+  <wp:post_parent>41</wp:post_parent>
+  <wp:menu_order>0</wp:menu_order>
+  <wp:post_type>attachment</wp:post_type>
+  <wp:post_password/>
+  <wp:is_sticky>0</wp:is_sticky>
+  <wp:attachment_url>https://holisticsecurity.files.wordpress.com/2009/08/blog-20090807-ecm-usecases.png</wp:attachment_url>
+</item>
+<item>
+  <title>CentOS-DS_1_run_console</title>
+  <link>https://holisticsecurity.wordpress.com/2010/08/12/install-directory-server-in-centos-5-5/centos-ds_1_run_console/</link>
+  <pubDate>Mon, 04 Nov 2019 15:50:58 +0000</pubDate>
+  <dc:creator>rcarhuatocto</dc:creator>
+  <guid isPermaLink="false">http://holisticsecurity.files.wordpress.com/2010/08/centos-ds_1_run_console.png</guid>
+  <description/>
+  <content:encoded><![CDATA[]]></content:encoded>
+  <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+  <wp:post_id>2228</wp:post_id>
+  <wp:post_date>2019-11-04 16:50:58</wp:post_date>
+  <wp:post_date_gmt>2019-11-04 15:50:58</wp:post_date_gmt>
+  <wp:comment_status>open</wp:comment_status>
+  <wp:ping_status>closed</wp:ping_status>
+  <wp:post_name>centos-ds_1_run_console</wp:post_name>
+  <wp:status>inherit</wp:status>
+  <wp:post_parent>163</wp:post_parent>
+  <wp:menu_order>0</wp:menu_order>
+  <wp:post_type>attachment</wp:post_type>
+  <wp:post_password/>
+  <wp:is_sticky>0</wp:is_sticky>
+  <wp:attachment_url>https://holisticsecurity.files.wordpress.com/2010/08/centos-ds_1_run_console.png</wp:attachment_url>
+</item>
+<item>
+  <title>CentOS-DS_2_console</title>
+  <link>https://holisticsecurity.wordpress.com/2010/08/12/install-directory-server-in-centos-5-5/centos-ds_2_console/</link>
+  <pubDate>Mon, 04 Nov 2019 15:50:59 +0000</pubDate>
+  <dc:creator>rcarhuatocto</dc:creator>
+  <guid isPermaLink="false">http://holisticsecurity.files.wordpress.com/2010/08/centos-ds_2_console.png</guid>
+  <description/>
+  <content:encoded><![CDATA[]]></content:encoded>
+  <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+  <wp:post_id>2229</wp:post_id>
+  <wp:post_date>2019-11-04 16:50:59</wp:post_date>
+  <wp:post_date_gmt>2019-11-04 15:50:59</wp:post_date_gmt>
+  <wp:comment_status>open</wp:comment_status>
+  <wp:ping_status>closed</wp:ping_status>
+  <wp:post_name>centos-ds_2_console</wp:post_name>
+  <wp:status>inherit</wp:status>
+  <wp:post_parent>163</wp:post_parent>
+  <wp:menu_order>0</wp:menu_order>
+  <wp:post_type>attachment</wp:post_type>
+  <wp:post_password/>
+  <wp:is_sticky>0</wp:is_sticky>
+  <wp:attachment_url>https://holisticsecurity.files.wordpress.com/2010/08/centos-ds_2_console.png</wp:attachment_url>
+</item>
+<item>
+  <title>CentOS-DS_3_addusr_console</title>
+  <link>https://holisticsecurity.wordpress.com/2010/08/12/install-directory-server-in-centos-5-5/centos-ds_3_addusr_console/</link>
+  <pubDate>Mon, 04 Nov 2019 15:51:00 +0000</pubDate>
+  <dc:creator>rcarhuatocto</dc:creator>
+  <guid isPermaLink="false">http://holisticsecurity.files.wordpress.com/2010/08/centos-ds_3_addusr_console.png</guid>
+  <description/>
+  <content:encoded><![CDATA[]]></content:encoded>
+  <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+  <wp:post_id>2230</wp:post_id>
+  <wp:post_date>2019-11-04 16:51:00</wp:post_date>
+  <wp:post_date_gmt>2019-11-04 15:51:00</wp:post_date_gmt>
+  <wp:comment_status>open</wp:comment_status>
+  <wp:ping_status>closed</wp:ping_status>
+  <wp:post_name>centos-ds_3_addusr_console</wp:post_name>
+  <wp:status>inherit</wp:status>
+  <wp:post_parent>163</wp:post_parent>
+  <wp:menu_order>0</wp:menu_order>
+  <wp:post_type>attachment</wp:post_type>
+  <wp:post_password/>
+  <wp:is_sticky>0</wp:is_sticky>
+  <wp:attachment_url>https://holisticsecurity.files.wordpress.com/2010/08/centos-ds_3_addusr_console.png</wp:attachment_url>
+</item>
+<item>
+  <title>CentOS-DS_4_ApacheDirectoryStudio</title>
+  <link>https://holisticsecurity.wordpress.com/2010/08/12/install-directory-server-in-centos-5-5/centos-ds_4_apachedirectorystudio/</link>
+  <pubDate>Mon, 04 Nov 2019 15:51:01 +0000</pubDate>
+  <dc:creator>rcarhuatocto</dc:creator>
+  <guid isPermaLink="false">http://holisticsecurity.files.wordpress.com/2010/08/centos-ds_4_apachedirectorystudio.png</guid>
+  <description/>
+  <content:encoded><![CDATA[]]></content:encoded>
+  <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+  <wp:post_id>2231</wp:post_id>
+  <wp:post_date>2019-11-04 16:51:01</wp:post_date>
+  <wp:post_date_gmt>2019-11-04 15:51:01</wp:post_date_gmt>
+  <wp:comment_status>open</wp:comment_status>
+  <wp:ping_status>closed</wp:ping_status>
+  <wp:post_name>centos-ds_4_apachedirectorystudio</wp:post_name>
+  <wp:status>inherit</wp:status>
+  <wp:post_parent>163</wp:post_parent>
+  <wp:menu_order>0</wp:menu_order>
+  <wp:post_type>attachment</wp:post_type>
+  <wp:post_password/>
+  <wp:is_sticky>0</wp:is_sticky>
+  <wp:attachment_url>https://holisticsecurity.files.wordpress.com/2010/08/centos-ds_4_apachedirectorystudio.png</wp:attachment_url>
+</item>
+<item>
+  <title>CentOS-DS_5_ApacheDirectoryStudio</title>
+  <link>https://holisticsecurity.wordpress.com/2010/08/12/install-directory-server-in-centos-5-5/centos-ds_5_apachedirectorystudio/</link>
+  <pubDate>Mon, 04 Nov 2019 15:51:01 +0000</pubDate>
+  <dc:creator>rcarhuatocto</dc:creator>
+  <guid isPermaLink="false">http://holisticsecurity.files.wordpress.com/2010/08/centos-ds_5_apachedirectorystudio.png</guid>
+  <description/>
+  <content:encoded><![CDATA[]]></content:encoded>
+  <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+  <wp:post_id>2232</wp:post_id>
+  <wp:post_date>2019-11-04 16:51:01</wp:post_date>
+  <wp:post_date_gmt>2019-11-04 15:51:01</wp:post_date_gmt>
+  <wp:comment_status>open</wp:comment_status>
+  <wp:ping_status>closed</wp:ping_status>
+  <wp:post_name>centos-ds_5_apachedirectorystudio</wp:post_name>
+  <wp:status>inherit</wp:status>
+  <wp:post_parent>163</wp:post_parent>
+  <wp:menu_order>0</wp:menu_order>
+  <wp:post_type>attachment</wp:post_type>
+  <wp:post_password/>
+  <wp:is_sticky>0</wp:is_sticky>
+  <wp:attachment_url>https://holisticsecurity.files.wordpress.com/2010/08/centos-ds_5_apachedirectorystudio.png</wp:attachment_url>
+</item>
+<item>
+  <title>CentOS-DS_6_dsktune</title>
+  <link>https://holisticsecurity.wordpress.com/2010/08/12/install-directory-server-in-centos-5-5/centos-ds_6_dsktune/</link>
+  <pubDate>Mon, 04 Nov 2019 15:51:02 +0000</pubDate>
+  <dc:creator>rcarhuatocto</dc:creator>
+  <guid isPermaLink="false">http://holisticsecurity.files.wordpress.com/2010/08/centos-ds_6_dsktune.png</guid>
+  <description/>
+  <content:encoded><![CDATA[]]></content:encoded>
+  <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+  <wp:post_id>2233</wp:post_id>
+  <wp:post_date>2019-11-04 16:51:02</wp:post_date>
+  <wp:post_date_gmt>2019-11-04 15:51:02</wp:post_date_gmt>
+  <wp:comment_status>open</wp:comment_status>
+  <wp:ping_status>closed</wp:ping_status>
+  <wp:post_name>centos-ds_6_dsktune</wp:post_name>
+  <wp:status>inherit</wp:status>
+  <wp:post_parent>163</wp:post_parent>
+  <wp:menu_order>0</wp:menu_order>
+  <wp:post_type>attachment</wp:post_type>
+  <wp:post_password/>
+  <wp:is_sticky>0</wp:is_sticky>
+  <wp:attachment_url>https://holisticsecurity.files.wordpress.com/2010/08/centos-ds_6_dsktune.png</wp:attachment_url>
+</item>
+<item>
+  <title>sharefilescentosmacosx-1-mount-dvdiso</title>
+  <link>https://holisticsecurity.wordpress.com/2010/08/13/tomcat-installation-on-virtualboxs-image-of-centos-5-5/sharefilescentosmacosx-1-mount-dvdiso/</link>
+  <pubDate>Mon, 04 Nov 2019 15:58:55 +0000</pubDate>
+  <dc:creator>rcarhuatocto</dc:creator>
+  <guid isPermaLink="false">http://holisticsecurity.files.wordpress.com/2010/08/sharefilescentosmacosx-1-mount-dvdiso.png</guid>
+  <description/>
+  <content:encoded><![CDATA[]]></content:encoded>
+  <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+  <wp:post_id>2237</wp:post_id>
+  <wp:post_date>2019-11-04 16:58:55</wp:post_date>
+  <wp:post_date_gmt>2019-11-04 15:58:55</wp:post_date_gmt>
+  <wp:comment_status>open</wp:comment_status>
+  <wp:ping_status>closed</wp:ping_status>
+  <wp:post_name>sharefilescentosmacosx-1-mount-dvdiso</wp:post_name>
+  <wp:status>inherit</wp:status>
+  <wp:post_parent>191</wp:post_parent>
+  <wp:menu_order>0</wp:menu_order>
+  <wp:post_type>attachment</wp:post_type>
+  <wp:post_password/>
+  <wp:is_sticky>0</wp:is_sticky>
+  <wp:attachment_url>https://holisticsecurity.files.wordpress.com/2010/08/sharefilescentosmacosx-1-mount-dvdiso.png</wp:attachment_url>
+</item>
+<item>
+  <title>sharefilescentosmacosx-2-mount-vboxadds</title>
+  <link>https://holisticsecurity.wordpress.com/2010/08/13/tomcat-installation-on-virtualboxs-image-of-centos-5-5/sharefilescentosmacosx-2-mount-vboxadds/</link>
+  <pubDate>Mon, 04 Nov 2019 15:58:56 +0000</pubDate>
+  <dc:creator>rcarhuatocto</dc:creator>
+  <guid isPermaLink="false">http://holisticsecurity.files.wordpress.com/2010/08/sharefilescentosmacosx-2-mount-vboxadds.png</guid>
+  <description/>
+  <content:encoded><![CDATA[]]></content:encoded>
+  <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+  <wp:post_id>2238</wp:post_id>
+  <wp:post_date>2019-11-04 16:58:56</wp:post_date>
+  <wp:post_date_gmt>2019-11-04 15:58:56</wp:post_date_gmt>
+  <wp:comment_status>open</wp:comment_status>
+  <wp:ping_status>closed</wp:ping_status>
+  <wp:post_name>sharefilescentosmacosx-2-mount-vboxadds</wp:post_name>
+  <wp:status>inherit</wp:status>
+  <wp:post_parent>191</wp:post_parent>
+  <wp:menu_order>0</wp:menu_order>
+  <wp:post_type>attachment</wp:post_type>
+  <wp:post_password/>
+  <wp:is_sticky>0</wp:is_sticky>
+  <wp:attachment_url>https://holisticsecurity.files.wordpress.com/2010/08/sharefilescentosmacosx-2-mount-vboxadds.png</wp:attachment_url>
+</item>
+<item>
+  <title>sharefilescentosmacosx-3-share-host-folder</title>
+  <link>https://holisticsecurity.wordpress.com/2010/08/13/tomcat-installation-on-virtualboxs-image-of-centos-5-5/sharefilescentosmacosx-3-share-host-folder/</link>
+  <pubDate>Mon, 04 Nov 2019 15:58:57 +0000</pubDate>
+  <dc:creator>rcarhuatocto</dc:creator>
+  <guid isPermaLink="false">http://holisticsecurity.files.wordpress.com/2010/08/sharefilescentosmacosx-3-share-host-folder.png</guid>
+  <description/>
+  <content:encoded><![CDATA[]]></content:encoded>
+  <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+  <wp:post_id>2239</wp:post_id>
+  <wp:post_date>2019-11-04 16:58:57</wp:post_date>
+  <wp:post_date_gmt>2019-11-04 15:58:57</wp:post_date_gmt>
+  <wp:comment_status>open</wp:comment_status>
+  <wp:ping_status>closed</wp:ping_status>
+  <wp:post_name>sharefilescentosmacosx-3-share-host-folder</wp:post_name>
+  <wp:status>inherit</wp:status>
+  <wp:post_parent>191</wp:post_parent>
+  <wp:menu_order>0</wp:menu_order>
+  <wp:post_type>attachment</wp:post_type>
+  <wp:post_password/>
+  <wp:is_sticky>0</wp:is_sticky>
+  <wp:attachment_url>https://holisticsecurity.files.wordpress.com/2010/08/sharefilescentosmacosx-3-share-host-folder.png</wp:attachment_url>
+</item>
+<item>
+  <title>sharefilescentosmacosx-4-verify-mounted-host</title>
+  <link>https://holisticsecurity.wordpress.com/2010/08/13/tomcat-installation-on-virtualboxs-image-of-centos-5-5/sharefilescentosmacosx-4-verify-mounted-host/</link>
+  <pubDate>Mon, 04 Nov 2019 15:58:58 +0000</pubDate>
+  <dc:creator>rcarhuatocto</dc:creator>
+  <guid isPermaLink="false">http://holisticsecurity.files.wordpress.com/2010/08/sharefilescentosmacosx-4-verify-mounted-host.png</guid>
+  <description/>
+  <content:encoded><![CDATA[]]></content:encoded>
+  <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+  <wp:post_id>2240</wp:post_id>
+  <wp:post_date>2019-11-04 16:58:58</wp:post_date>
+  <wp:post_date_gmt>2019-11-04 15:58:58</wp:post_date_gmt>
+  <wp:comment_status>open</wp:comment_status>
+  <wp:ping_status>closed</wp:ping_status>
+  <wp:post_name>sharefilescentosmacosx-4-verify-mounted-host</wp:post_name>
+  <wp:status>inherit</wp:status>
+  <wp:post_parent>191</wp:post_parent>
+  <wp:menu_order>0</wp:menu_order>
+  <wp:post_type>attachment</wp:post_type>
+  <wp:post_password/>
+  <wp:is_sticky>0</wp:is_sticky>
+  <wp:attachment_url>https://holisticsecurity.files.wordpress.com/2010/08/sharefilescentosmacosx-4-verify-mounted-host.png</wp:attachment_url>
+</item>
+<item>
+  <title>sharefilescentosmacosx-5-verify-mounted-guest</title>
+  <link>https://holisticsecurity.wordpress.com/2010/08/13/tomcat-installation-on-virtualboxs-image-of-centos-5-5/sharefilescentosmacosx-5-verify-mounted-guest/</link>
+  <pubDate>Mon, 04 Nov 2019 15:58:58 +0000</pubDate>
+  <dc:creator>rcarhuatocto</dc:creator>
+  <guid isPermaLink="false">http://holisticsecurity.files.wordpress.com/2010/08/sharefilescentosmacosx-5-verify-mounted-guest.png</guid>
+  <description/>
+  <content:encoded><![CDATA[]]></content:encoded>
+  <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+  <wp:post_id>2241</wp:post_id>
+  <wp:post_date>2019-11-04 16:58:58</wp:post_date>
+  <wp:post_date_gmt>2019-11-04 15:58:58</wp:post_date_gmt>
+  <wp:comment_status>open</wp:comment_status>
+  <wp:ping_status>closed</wp:ping_status>
+  <wp:post_name>sharefilescentosmacosx-5-verify-mounted-guest</wp:post_name>
+  <wp:status>inherit</wp:status>
+  <wp:post_parent>191</wp:post_parent>
+  <wp:menu_order>0</wp:menu_order>
+  <wp:post_type>attachment</wp:post_type>
+  <wp:post_password/>
+  <wp:is_sticky>0</wp:is_sticky>
+  <wp:attachment_url>https://holisticsecurity.files.wordpress.com/2010/08/sharefilescentosmacosx-5-verify-mounted-guest.png</wp:attachment_url>
+</item>
+<item>
+  <title>tomcat5centos55-1-mount_dvd_iso</title>
+  <link>https://holisticsecurity.wordpress.com/2010/08/13/tomcat-installation-on-virtualboxs-image-of-centos-5-5/tomcat5centos55-1-mount_dvd_iso/</link>
+  <pubDate>Mon, 04 Nov 2019 16:00:31 +0000</pubDate>
+  <dc:creator>rcarhuatocto</dc:creator>
+  <guid isPermaLink="false">http://holisticsecurity.files.wordpress.com/2010/08/tomcat5centos55-1-mount_dvd_iso.png</guid>
+  <description/>
+  <content:encoded><![CDATA[]]></content:encoded>
+  <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+  <wp:post_id>2243</wp:post_id>
+  <wp:post_date>2019-11-04 17:00:31</wp:post_date>
+  <wp:post_date_gmt>2019-11-04 16:00:31</wp:post_date_gmt>
+  <wp:comment_status>open</wp:comment_status>
+  <wp:ping_status>closed</wp:ping_status>
+  <wp:post_name>tomcat5centos55-1-mount_dvd_iso</wp:post_name>
+  <wp:status>inherit</wp:status>
+  <wp:post_parent>191</wp:post_parent>
+  <wp:menu_order>0</wp:menu_order>
+  <wp:post_type>attachment</wp:post_type>
+  <wp:post_password/>
+  <wp:is_sticky>0</wp:is_sticky>
+  <wp:attachment_url>https://holisticsecurity.files.wordpress.com/2010/08/tomcat5centos55-1-mount_dvd_iso.png</wp:attachment_url>
+</item>
+<item>
+  <title>tomcat5centos55-2-openbrowsertomcat5</title>
+  <link>https://holisticsecurity.wordpress.com/2010/08/13/tomcat-installation-on-virtualboxs-image-of-centos-5-5/tomcat5centos55-2-openbrowsertomcat5/</link>
+  <pubDate>Mon, 04 Nov 2019 16:00:32 +0000</pubDate>
+  <dc:creator>rcarhuatocto</dc:creator>
+  <guid isPermaLink="false">http://holisticsecurity.files.wordpress.com/2010/08/tomcat5centos55-2-openbrowsertomcat5.png</guid>
+  <description/>
+  <content:encoded><![CDATA[]]></content:encoded>
+  <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+  <wp:post_id>2244</wp:post_id>
+  <wp:post_date>2019-11-04 17:00:32</wp:post_date>
+  <wp:post_date_gmt>2019-11-04 16:00:32</wp:post_date_gmt>
+  <wp:comment_status>open</wp:comment_status>
+  <wp:ping_status>closed</wp:ping_status>
+  <wp:post_name>tomcat5centos55-2-openbrowsertomcat5</wp:post_name>
+  <wp:status>inherit</wp:status>
+  <wp:post_parent>191</wp:post_parent>
+  <wp:menu_order>0</wp:menu_order>
+  <wp:post_type>attachment</wp:post_type>
+  <wp:post_password/>
+  <wp:is_sticky>0</wp:is_sticky>
+  <wp:attachment_url>https://holisticsecurity.files.wordpress.com/2010/08/tomcat5centos55-2-openbrowsertomcat5.png</wp:attachment_url>
+</item>
+<item>
+  <title>vnc_centos-1-open</title>
+  <link>https://holisticsecurity.wordpress.com/2010/08/16/remote-access-to-centos-with-vnc-viewer/vnc_centos-1-open/</link>
+  <pubDate>Mon, 04 Nov 2019 16:11:47 +0000</pubDate>
+  <dc:creator>rcarhuatocto</dc:creator>
+  <guid isPermaLink="false">http://holisticsecurity.files.wordpress.com/2010/08/vnc_centos-1-open.png</guid>
+  <description/>
+  <content:encoded><![CDATA[]]></content:encoded>
+  <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+  <wp:post_id>2252</wp:post_id>
+  <wp:post_date>2019-11-04 17:11:47</wp:post_date>
+  <wp:post_date_gmt>2019-11-04 16:11:47</wp:post_date_gmt>
+  <wp:comment_status>open</wp:comment_status>
+  <wp:ping_status>closed</wp:ping_status>
+  <wp:post_name>vnc_centos-1-open</wp:post_name>
+  <wp:status>inherit</wp:status>
+  <wp:post_parent>205</wp:post_parent>
+  <wp:menu_order>0</wp:menu_order>
+  <wp:post_type>attachment</wp:post_type>
+  <wp:post_password/>
+  <wp:is_sticky>0</wp:is_sticky>
+  <wp:attachment_url>https://holisticsecurity.files.wordpress.com/2010/08/vnc_centos-1-open.png</wp:attachment_url>
+</item>
+<item>
+  <title>vnc_centos-2-centos</title>
+  <link>https://holisticsecurity.wordpress.com/2010/08/16/remote-access-to-centos-with-vnc-viewer/vnc_centos-2-centos/</link>
+  <pubDate>Mon, 04 Nov 2019 16:11:49 +0000</pubDate>
+  <dc:creator>rcarhuatocto</dc:creator>
+  <guid isPermaLink="false">http://holisticsecurity.files.wordpress.com/2010/08/vnc_centos-2-centos.png</guid>
+  <description/>
+  <content:encoded><![CDATA[]]></content:encoded>
+  <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+  <wp:post_id>2253</wp:post_id>
+  <wp:post_date>2019-11-04 17:11:49</wp:post_date>
+  <wp:post_date_gmt>2019-11-04 16:11:49</wp:post_date_gmt>
+  <wp:comment_status>open</wp:comment_status>
+  <wp:ping_status>closed</wp:ping_status>
+  <wp:post_name>vnc_centos-2-centos</wp:post_name>
+  <wp:status>inherit</wp:status>
+  <wp:post_parent>205</wp:post_parent>
+  <wp:menu_order>0</wp:menu_order>
+  <wp:post_type>attachment</wp:post_type>
+  <wp:post_password/>
+  <wp:is_sticky>0</wp:is_sticky>
+  <wp:attachment_url>https://holisticsecurity.files.wordpress.com/2010/08/vnc_centos-2-centos.png</wp:attachment_url>
+</item>
+<item>
+  <title>vnc_centos-3-real-vnc</title>
+  <link>https://holisticsecurity.wordpress.com/2010/08/16/remote-access-to-centos-with-vnc-viewer/vnc_centos-3-real-vnc/</link>
+  <pubDate>Mon, 04 Nov 2019 16:11:50 +0000</pubDate>
+  <dc:creator>rcarhuatocto</dc:creator>
+  <guid isPermaLink="false">http://holisticsecurity.files.wordpress.com/2010/08/vnc_centos-3-real-vnc.png</guid>
+  <description/>
+  <content:encoded><![CDATA[]]></content:encoded>
+  <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+  <wp:post_id>2254</wp:post_id>
+  <wp:post_date>2019-11-04 17:11:50</wp:post_date>
+  <wp:post_date_gmt>2019-11-04 16:11:50</wp:post_date_gmt>
+  <wp:comment_status>open</wp:comment_status>
+  <wp:ping_status>closed</wp:ping_status>
+  <wp:post_name>vnc_centos-3-real-vnc</wp:post_name>
+  <wp:status>inherit</wp:status>
+  <wp:post_parent>205</wp:post_parent>
+  <wp:menu_order>0</wp:menu_order>
+  <wp:post_type>attachment</wp:post_type>
+  <wp:post_password/>
+  <wp:is_sticky>0</wp:is_sticky>
+  <wp:attachment_url>https://holisticsecurity.files.wordpress.com/2010/08/vnc_centos-3-real-vnc.png</wp:attachment_url>
+</item>
+<item>
+  <title>vnc_centos-0-real-vnc</title>
+  <link>https://holisticsecurity.wordpress.com/2010/08/16/remote-access-to-centos-with-vnc-viewer/vnc_centos-0-real-vnc/</link>
+  <pubDate>Mon, 04 Nov 2019 16:15:08 +0000</pubDate>
+  <dc:creator>rcarhuatocto</dc:creator>
+  <guid isPermaLink="false">http://holisticsecurity.files.wordpress.com/2010/08/vnc_centos-0-real-vnc.png</guid>
+  <description/>
+  <content:encoded><![CDATA[]]></content:encoded>
+  <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+  <wp:post_id>2255</wp:post_id>
+  <wp:post_date>2019-11-04 17:15:08</wp:post_date>
+  <wp:post_date_gmt>2019-11-04 16:15:08</wp:post_date_gmt>
+  <wp:comment_status>open</wp:comment_status>
+  <wp:ping_status>closed</wp:ping_status>
+  <wp:post_name>vnc_centos-0-real-vnc</wp:post_name>
+  <wp:status>inherit</wp:status>
+  <wp:post_parent>205</wp:post_parent>
+  <wp:menu_order>0</wp:menu_order>
+  <wp:post_type>attachment</wp:post_type>
+  <wp:post_password/>
+  <wp:is_sticky>0</wp:is_sticky>
+  <wp:attachment_url>https://holisticsecurity.files.wordpress.com/2010/08/vnc_centos-0-real-vnc.png</wp:attachment_url>
+</item>
+<item>
+  <title>vnc_centos-0-real-vnc</title>
+  <link>https://holisticsecurity.wordpress.com/2010/08/16/remote-access-to-centos-with-vnc-viewer/vnc_centos-0-real-vnc-2/</link>
+  <pubDate>Mon, 04 Nov 2019 16:21:12 +0000</pubDate>
+  <dc:creator>rcarhuatocto</dc:creator>
+  <guid isPermaLink="false">http://holisticsecurity.files.wordpress.com/2010/08/vnc_centos-0-real-vnc-1.png</guid>
+  <description/>
+  <content:encoded><![CDATA[]]></content:encoded>
+  <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+  <wp:post_id>2258</wp:post_id>
+  <wp:post_date>2019-11-04 17:21:12</wp:post_date>
+  <wp:post_date_gmt>2019-11-04 16:21:12</wp:post_date_gmt>
+  <wp:comment_status>open</wp:comment_status>
+  <wp:ping_status>closed</wp:ping_status>
+  <wp:post_name>vnc_centos-0-real-vnc-2</wp:post_name>
+  <wp:status>inherit</wp:status>
+  <wp:post_parent>205</wp:post_parent>
+  <wp:menu_order>0</wp:menu_order>
+  <wp:post_type>attachment</wp:post_type>
+  <wp:post_password/>
+  <wp:is_sticky>0</wp:is_sticky>
+  <wp:attachment_url>https://holisticsecurity.files.wordpress.com/2010/08/vnc_centos-0-real-vnc-1.png</wp:attachment_url>
+</item>
+<item>
+  <title>liferay605war_1login</title>
+  <link>https://holisticsecurity.wordpress.com/2010/08/30/install-liferay-605-war-tomcat-6029-mysql-nonroot-manager/liferay605war_1login/</link>
+  <pubDate>Mon, 04 Nov 2019 16:25:13 +0000</pubDate>
+  <dc:creator>rcarhuatocto</dc:creator>
+  <guid isPermaLink="false">http://holisticsecurity.files.wordpress.com/2010/08/liferay605war_1login.png</guid>
+  <description/>
+  <content:encoded><![CDATA[]]></content:encoded>
+  <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+  <wp:post_id>2261</wp:post_id>
+  <wp:post_date>2019-11-04 17:25:13</wp:post_date>
+  <wp:post_date_gmt>2019-11-04 16:25:13</wp:post_date_gmt>
+  <wp:comment_status>open</wp:comment_status>
+  <wp:ping_status>closed</wp:ping_status>
+  <wp:post_name>liferay605war_1login</wp:post_name>
+  <wp:status>inherit</wp:status>
+  <wp:post_parent>213</wp:post_parent>
+  <wp:menu_order>0</wp:menu_order>
+  <wp:post_type>attachment</wp:post_type>
+  <wp:post_password/>
+  <wp:is_sticky>0</wp:is_sticky>
+  <wp:attachment_url>https://holisticsecurity.files.wordpress.com/2010/08/liferay605war_1login.png</wp:attachment_url>
+</item>
+<item>
+  <title>liferay605war_2tomcatmanager</title>
+  <link>https://holisticsecurity.wordpress.com/2010/08/30/install-liferay-605-war-tomcat-6029-mysql-nonroot-manager/liferay605war_2tomcatmanager/</link>
+  <pubDate>Mon, 04 Nov 2019 16:25:14 +0000</pubDate>
+  <dc:creator>rcarhuatocto</dc:creator>
+  <guid isPermaLink="false">http://holisticsecurity.files.wordpress.com/2010/08/liferay605war_2tomcatmanager.png</guid>
+  <description/>
+  <content:encoded><![CDATA[]]></content:encoded>
+  <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+  <wp:post_id>2262</wp:post_id>
+  <wp:post_date>2019-11-04 17:25:14</wp:post_date>
+  <wp:post_date_gmt>2019-11-04 16:25:14</wp:post_date_gmt>
+  <wp:comment_status>open</wp:comment_status>
+  <wp:ping_status>closed</wp:ping_status>
+  <wp:post_name>liferay605war_2tomcatmanager</wp:post_name>
+  <wp:status>inherit</wp:status>
+  <wp:post_parent>213</wp:post_parent>
+  <wp:menu_order>0</wp:menu_order>
+  <wp:post_type>attachment</wp:post_type>
+  <wp:post_password/>
+  <wp:is_sticky>0</wp:is_sticky>
+  <wp:attachment_url>https://holisticsecurity.files.wordpress.com/2010/08/liferay605war_2tomcatmanager.png</wp:attachment_url>
+</item>
+<item>
+  <title>liferay605war_3tomcatmanagerliferay</title>
+  <link>https://holisticsecurity.wordpress.com/2010/08/30/install-liferay-605-war-tomcat-6029-mysql-nonroot-manager/liferay605war_3tomcatmanagerliferay/</link>
+  <pubDate>Mon, 04 Nov 2019 16:25:15 +0000</pubDate>
+  <dc:creator>rcarhuatocto</dc:creator>
+  <guid isPermaLink="false">http://holisticsecurity.files.wordpress.com/2010/08/liferay605war_3tomcatmanagerliferay.png</guid>
+  <description/>
+  <content:encoded><![CDATA[]]></content:encoded>
+  <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+  <wp:post_id>2263</wp:post_id>
+  <wp:post_date>2019-11-04 17:25:15</wp:post_date>
+  <wp:post_date_gmt>2019-11-04 16:25:15</wp:post_date_gmt>
+  <wp:comment_status>open</wp:comment_status>
+  <wp:ping_status>closed</wp:ping_status>
+  <wp:post_name>liferay605war_3tomcatmanagerliferay</wp:post_name>
+  <wp:status>inherit</wp:status>
+  <wp:post_parent>213</wp:post_parent>
+  <wp:menu_order>0</wp:menu_order>
+  <wp:post_type>attachment</wp:post_type>
+  <wp:post_password/>
+  <wp:is_sticky>0</wp:is_sticky>
+  <wp:attachment_url>https://holisticsecurity.files.wordpress.com/2010/08/liferay605war_3tomcatmanagerliferay.png</wp:attachment_url>
+</item>
+<item>
+  <title>blog-bmp-guide-sample-development-approach</title>
+  <link>https://holisticsecurity.wordpress.com/2010/09/10/agile-bpm-systems-development-with-camunda-fox-and-alfresco-activiti/blog-bmp-guide-sample-development-approach/</link>
+  <pubDate>Mon, 04 Nov 2019 16:37:22 +0000</pubDate>
+  <dc:creator>rcarhuatocto</dc:creator>
+  <guid isPermaLink="false">http://holisticsecurity.files.wordpress.com/2010/09/blog-bmp-guide-sample-development-approach.png</guid>
+  <description/>
+  <content:encoded><![CDATA[]]></content:encoded>
+  <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+  <wp:post_id>2273</wp:post_id>
+  <wp:post_date>2019-11-04 17:37:22</wp:post_date>
+  <wp:post_date_gmt>2019-11-04 16:37:22</wp:post_date_gmt>
+  <wp:comment_status>open</wp:comment_status>
+  <wp:ping_status>closed</wp:ping_status>
+  <wp:post_name>blog-bmp-guide-sample-development-approach</wp:post_name>
+  <wp:status>inherit</wp:status>
+  <wp:post_parent>228</wp:post_parent>
+  <wp:menu_order>0</wp:menu_order>
+  <wp:post_type>attachment</wp:post_type>
+  <wp:post_password/>
+  <wp:is_sticky>0</wp:is_sticky>
+  <wp:attachment_url>https://holisticsecurity.files.wordpress.com/2010/09/blog-bmp-guide-sample-development-approach.png</wp:attachment_url>
+</item>
+<item>
+  <title>blog-bpm-guide-sample-development-approach</title>
+  <link>https://holisticsecurity.wordpress.com/2010/09/10/agile-bpm-systems-development-with-camunda-fox-and-alfresco-activiti/blog-bpm-guide-sample-development-approach/</link>
+  <pubDate>Mon, 04 Nov 2019 16:43:36 +0000</pubDate>
+  <dc:creator>rcarhuatocto</dc:creator>
+  <guid isPermaLink="false">http://holisticsecurity.files.wordpress.com/2010/09/blog-bpm-guide-sample-development-approach.png</guid>
+  <description/>
+  <content:encoded><![CDATA[]]></content:encoded>
+  <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+  <wp:post_id>2274</wp:post_id>
+  <wp:post_date>2019-11-04 17:43:36</wp:post_date>
+  <wp:post_date_gmt>2019-11-04 16:43:36</wp:post_date_gmt>
+  <wp:comment_status>open</wp:comment_status>
+  <wp:ping_status>closed</wp:ping_status>
+  <wp:post_name>blog-bpm-guide-sample-development-approach</wp:post_name>
+  <wp:status>inherit</wp:status>
+  <wp:post_parent>228</wp:post_parent>
+  <wp:menu_order>0</wp:menu_order>
+  <wp:post_type>attachment</wp:post_type>
+  <wp:post_password/>
+  <wp:is_sticky>0</wp:is_sticky>
+  <wp:attachment_url>https://holisticsecurity.files.wordpress.com/2010/09/blog-bpm-guide-sample-development-approach.png</wp:attachment_url>
+</item>
+<item>
+  <title>blog-bpm-lifecycle</title>
+  <link>https://holisticsecurity.wordpress.com/2010/09/10/agile-bpm-systems-development-with-camunda-fox-and-alfresco-activiti/blog-bpm-lifecycle/</link>
+  <pubDate>Mon, 04 Nov 2019 16:43:36 +0000</pubDate>
+  <dc:creator>rcarhuatocto</dc:creator>
+  <guid isPermaLink="false">http://holisticsecurity.files.wordpress.com/2010/09/blog-bpm-lifecycle.png</guid>
+  <description/>
+  <content:encoded><![CDATA[]]></content:encoded>
+  <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+  <wp:post_id>2275</wp:post_id>
+  <wp:post_date>2019-11-04 17:43:36</wp:post_date>
+  <wp:post_date_gmt>2019-11-04 16:43:36</wp:post_date_gmt>
+  <wp:comment_status>open</wp:comment_status>
+  <wp:ping_status>closed</wp:ping_status>
+  <wp:post_name>blog-bpm-lifecycle</wp:post_name>
+  <wp:status>inherit</wp:status>
+  <wp:post_parent>228</wp:post_parent>
+  <wp:menu_order>0</wp:menu_order>
+  <wp:post_type>attachment</wp:post_type>
+  <wp:post_password/>
+  <wp:is_sticky>0</wp:is_sticky>
+  <wp:attachment_url>https://holisticsecurity.files.wordpress.com/2010/09/blog-bpm-lifecycle.png</wp:attachment_url>
 </item>
   </channel>
 </rss>
