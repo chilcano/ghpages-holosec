@@ -17,13 +17,13 @@
  7. WordPress will then import each of the posts, pages, comments, categories, etc.
     contained in this file into your site.
 -->
-<!-- generator="WordPress.com" created="2019-11-04 11:29"-->
+<!-- generator="WordPress.com" created="2019-11-04 11:54"-->
 <rss version="2.0" xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:wp="http://wordpress.org/export/1.2/">
   <channel>
 <title>Holistic Security</title>
 <link>https://holisticsecurity.wordpress.com</link>
 <description>Open Source, Security, BigData, DevOps in SDLC and Cloud</description>
-<pubDate>Mon, 04 Nov 2019 11:29:11 +0000</pubDate>
+<pubDate>Mon, 04 Nov 2019 11:54:03 +0000</pubDate>
 <language>en</language>
 <wp:wxr_version>1.2</wp:wxr_version>
 <wp:base_site_url>http://wordpress.com/</wp:base_site_url>
@@ -28683,14 +28683,6 @@ Yes, there are somethings to be improved.
     <wp:meta_key>_oembed_f27c0767a525f8cdac8454ad37e3d131</wp:meta_key>
     <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
   </wp:postmeta>
-  <wp:postmeta>
-    <wp:meta_key>_pingme</wp:meta_key>
-    <wp:meta_value><![CDATA[1]]></wp:meta_value>
-  </wp:postmeta>
-  <wp:postmeta>
-    <wp:meta_key>_encloseme</wp:meta_key>
-    <wp:meta_value><![CDATA[1]]></wp:meta_value>
-  </wp:postmeta>
   <wp:comment>
     <wp:comment_id>2149</wp:comment_id>
     <wp:comment_author><![CDATA[Roger Carhuatocto]]></wp:comment_author>
@@ -33460,7 +33452,7 @@ Bye.]]></content:encoded>
   <content:encoded><![CDATA[<em>"How do you eat an elephant? One bite at a time"</em> - This phrase makes sense, everybody understands It but sometimes is forgotten.
 Happily some technology companies have managed to internalize this phrase in its processes and products.
 
-<img src="//holisticsecurity.files.wordpress.com/2019/11/blog-pass-microservices-how-do-you-eat-an-elephant-one-bite-at-a-time.png" alt="href=&quot;https://holisticsecurity.files.wordpress.com/2019/11/blog-pass-microservices-how-do-you-eat-an-elephant-one-bite-at-a-time.png" />
+<img src="https://holisticsecurity.files.wordpress.com/2019/11/blog-pass-microservices-how-do-you-eat-an-elephant-one-bite-at-a-time.png" alt="https://holisticsecurity.files.wordpress.com/2019/11/blog-pass-microservices-how-do-you-eat-an-elephant-one-bite-at-a-time.png" />
 
 Below some examples:
 - Netflix: Micro Services (http://techblog.netflix.com/2015/02/a-microscope-on-microservices.html)
@@ -33890,7 +33882,7 @@ Regards.]]></wp:comment_content>
 
 With this Proof-of-concept I will shown you how to build the app binary provisioning system for your custom platform, in this case I'm going to use Raspberry Pi (ARM processor) quickly avoiding perform unnecessary tasks and providing also an ARM cross-compiling platform.
 
-<img src="https://raw.githubusercontent.com/chilcano/vagrant-rpi-build-and-boot/master/blog-cross-compiling-kismet-raspberrypi-arm.png" alt="blog-cross-compiling-kismet-raspberrypi-arm.png" />
+<img src="https://holisticsecurity.files.wordpress.com/2016/04/blog-cross-compiling-kismet-raspberrypi-arm.png" alt="blog-cross-compiling-kismet-raspberrypi-arm.png" />
 
 <!-- more -->
 
@@ -38719,6 +38711,29 @@ Qpid, ActiveMQ, RabbitMQ, HornetQ con WSO2 ESB]]></content:encoded>
   <wp:post_password/>
   <wp:is_sticky>0</wp:is_sticky>
   <wp:attachment_url>https://holisticsecurity.files.wordpress.com/2015/07/wso2esb-rabbitmq-publish-consume-sample-message.png</wp:attachment_url>
+</item>
+<item>
+  <title>blog-cross-compiling-kismet-raspberrypi-arm</title>
+  <link>https://holisticsecurity.wordpress.com/2016/04/12/provisioning-massively-crosscompiled-bin-rpi-armv7-using-vagrant-virtualbox-ansible-python/blog-cross-compiling-kismet-raspberrypi-arm/</link>
+  <pubDate>Mon, 04 Nov 2019 11:51:32 +0000</pubDate>
+  <dc:creator>rcarhuatocto</dc:creator>
+  <guid isPermaLink="false">http://holisticsecurity.files.wordpress.com/2016/04/blog-cross-compiling-kismet-raspberrypi-arm.png</guid>
+  <description/>
+  <content:encoded><![CDATA[]]></content:encoded>
+  <excerpt:encoded><![CDATA[]]></excerpt:encoded>
+  <wp:post_id>2182</wp:post_id>
+  <wp:post_date>2019-11-04 12:51:32</wp:post_date>
+  <wp:post_date_gmt>2019-11-04 11:51:32</wp:post_date_gmt>
+  <wp:comment_status>open</wp:comment_status>
+  <wp:ping_status>closed</wp:ping_status>
+  <wp:post_name>blog-cross-compiling-kismet-raspberrypi-arm</wp:post_name>
+  <wp:status>inherit</wp:status>
+  <wp:post_parent>1681</wp:post_parent>
+  <wp:menu_order>0</wp:menu_order>
+  <wp:post_type>attachment</wp:post_type>
+  <wp:post_password/>
+  <wp:is_sticky>0</wp:is_sticky>
+  <wp:attachment_url>https://holisticsecurity.files.wordpress.com/2016/04/blog-cross-compiling-kismet-raspberrypi-arm.png</wp:attachment_url>
 </item>
   </channel>
 </rss>
