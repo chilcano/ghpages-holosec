@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Strategy to create (Micro)service using WSO2 and Docker
+title: Strategy to create Microservice using WSO2 and Docker
 date: 2016-01-11 13:14:23.000000000 +01:00
 type: post
 parent_id: '0'
@@ -36,12 +36,13 @@ author:
   last_name: ''
 permalink: "/2016/01/11/strategy-to-create-microservices-using-wso2-and-docker/"
 ---
-<p>The last year I was working in a big UK's project where I had to help in creation and preparation of the WSO2 Infrastructure to expose a bunch of functionalities as (Micro)services.<br />
-While we solve everyday problems in infrastructure such as Continuous Delivery, Security, Mediation, Logging, Testing, etc. I had to code many APIs and to explain how to do It to the other team members (Teaching by doing).<br />
-I will explain how to create an API layer from scratch using WSO2 but avoiding the common errors and bad practices.</p>
-<h2>(Micro)service Infrastructure</h2>
-<p>Well, before stating you should choose your preferred Products/Frameworks/Stacks/PaaS and set up your Development and Production Environment Infrastructure.</p>
-<p>Actually there are a few good Products/Frameworks/Stacks/PaaS ready to create and manage the (Micro)service Lifecycle such as:</p>
+<p>The last year I was working in a big UK's project where I had to help in creation and preparation of the WSO2 Infrastructure to expose a bunch of functionalities as (Micro)services. While we solve everyday problems in infrastructure such as Continuous Delivery, Security, Mediation, Logging, Testing, etc. I had to code many APIs and to explain how to do It to the other team members (Teaching by doing). I will explain how to create an API layer from scratch using WSO2 but avoiding the common errors and bad practices.</p>
+<p><a href="https://github.com/chilcano/docker-wso2-dev-srv"><img src="{{ site.baseurl }}/assets/chilcano-wso2-dev-srv-docker-containers-map.png" alt="Docker Containers to develop (micro)services with WSO2" /></a></p>
+
+<p><!-- more --></p>
+
+<h2>Microservice Infrastructure</h2>
+<p>Well, before stating you should choose your preferred Products/Frameworks/Stacks/PaaS and set up your Development and Production Environment Infrastructure. Actually there are a few good Products/Frameworks/Stacks/PaaS ready to create and manage the Microservice Lifecycle such as:</p>
 <ol>
 <li>Dropwizard (http://www.dropwizard.io)</li>
 <li>Deis (http://deis.io)</li>
@@ -53,45 +54,43 @@ I will explain how to create an API layer from scratch using WSO2 but avoiding 
 <li>WSO2 MSS (http://wso2.com/products/microservices-server - in Alpha)</li>
 <li>Zato (https://zato.io - in Python)</li>
 </ol>
-<blockquote><p>If you want start working with (Micro)services but using WSO2 technology, I have created a set of Docker WSO2 containers where in a few minutes you will have a development platform running.</p></blockquote>
-<p><a href="https://github.com/chilcano/docker-wso2-dev-srv"><img src="{{ site.baseurl }}/assets/chilcano-wso2-dev-srv-docker-containers-map.png" alt="Docker Containers to develop (micro)services with WSO2" /></a></p>
-<p><!-- more --></p>
-<p>Just follow these steps:<br />
-[sourcecode language="html" gutter="true" wraplines="false"]<br />
+<blockquote><p>
+  If you want start working with Microservices but using WSO2 technology, I have created a set of (Docker WSO2 containers)(https://github.com/chilcano/docker-wso2-dev-srv) where in a few minutes you will have a development platform running.
+</p></blockquote>
+<p>Just follow these steps:</p>
+<p>[code lang=text]<br />
 $ git clone https://github.com/chilcano/docker-wso2-dev-srv.git<br />
 $ cd docker-wso2-dev-srv<br />
 $ docker build --rm -t chilcano/wso2-esb:4.8.1 wso2esb/4.8.1<br />
 $ docker run --detach -t --name=wso2esb01a -p 19449:9443 chilcano/wso2-esb:4.8.1<br />
-[/sourcecode]</p>
+[/code]</p>
 <p>Or you can use the existing containers available in DockerHub (https://hub.docker.com/r/chilcano):</p>
-<p>[sourcecode language="html" gutter="true" wraplines="false"]<br />
+<p>[code lang=text]<br />
 //Previous steps:<br />
 $ git clone https://github.com/chilcano/docker-wso2-dev-srv.git<br />
-$ cd docker-wso2-dev-srv</p>
-<p>//Build image:<br />
-$ docker build --rm -t chilcano/wso2-esb wso2esb/latest</p>
-<p>//Run container:<br />
-$ docker run -d -t --name=wso2esb01a -p 19449:9443 chilcano/wso2-esb</p>
-<p>//Check the WSO2 server:<br />
+$ cd docker-wso2-dev-srv<br />
+//Build image:<br />
+$ docker build --rm -t chilcano/wso2-esb wso2esb/latest<br />
+//Run container:<br />
+$ docker run -d -t --name=wso2esb01a -p 19449:9443 chilcano/wso2-esb<br />
+//Check the WSO2 server:<br />
 $ docker exec -i -t wso2esb01a bash<br />
 root@4178f21fcad3:/opt/wso2esb01a/bin# tail -f ../repository/logs/wso2carbon.log<br />
-$ curl -v -k https://&amp;amp;amp;lt;IP_ADDRESS&amp;amp;amp;gt;:19449/services/Version<br />
-[/sourcecode]</p>
-<p>&nbsp;</p>
-<h2>(Micro)service Methodology</h2>
+$ curl -v -k https://&lt;IP_ADDRESS&gt;:19449/services/Version<br />
+[/code]</p>
+<h2>Microservice Methodology</h2>
 <p>Obviously, the best methodology is what is created based on experience, there are good books and guides for that:</p>
 <ul>
 <li>Building Microservices By Sam Newman (http://shop.oreilly.com/product/0636920033158.do)</li>
 <li>Microservices by Eberhard Wolff (http://microservices-book.com)</li>
 <li>Microservices Guide by Martin Fowler (http://martinfowler.com/microservices)</li>
 </ul>
-<p>Also is very important internalize and understand the recommendations and best practices when creating (Micro)services, for example, here you could start with <strong>The twelve-factor app is a methodology (http://12factor.net)</strong> and implement the Support Infrastructure for (Micro)service such as:</p>
+<p>Also is very important internalize and understand the recommendations and best practices when creating (Micro)services, for example, here you could start with <strong>The twelve-factor app is a methodology (http://12factor.net)</strong> and implement the Support Infrastructure for Microservice such as:</p>
 <ul>
 <li>Service Discovery</li>
 <li>Continuous Delivery &amp; Continuous Integration</li>
 <li>Security &amp; Resilience</li>
 <li>Monitoring</li>
-<li>Logging</li>
-<li>Etc.</li>
+<li>Logging, etc.</li>
 </ul>
 <p>At the end, You will be ready to get starting to work with (Micro)services.</p>

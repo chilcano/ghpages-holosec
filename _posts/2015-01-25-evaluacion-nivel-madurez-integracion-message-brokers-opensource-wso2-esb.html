@@ -75,9 +75,13 @@ permalink: "/2015/01/25/evaluacion-nivel-madurez-integracion-message-brokers-ope
 ---
 <h2>I. Introducción</h2>
 <p>En mi anterior post expliqué como usar Apache Qpid junto con WSO2 ESB (https://holisticsecurity.wordpress.com/2014/12/03/wso2-message-broker-vs-apache-qpid-messaging-eip), un message broker ligero, potente y compatible con JMS y AMQP, en lugar de WSO2 Message Broker, un message broker potente, rápido, estándar y perfectamente integrable a WSO2 ESB. Pues ahora, me gustaría compartir la comparación que hice previamente para seleccionar <a title="Apache Qpid" href="http://qpid.apache.org" target="_blank">Apache Qpid</a>.</p>
+
+<!-- more -->
+
 <p>[caption id="" align="alignnone" width="711"]<img class="" src="{{ site.baseurl }}/assets/00-foss-brokers-wso2-esb-activemq-qpid-rabbitmq-hornetq.png" alt="Integración de Message Brokers opensource con WSO2 ESB" width="711" height="338" /> Integración de Message Brokers opensource con WSO2 ESB[/caption]</p>
 <p>Claro, vosotros preguntaréis, porqué no usar Apache ActiveMQ sabiendo que es un producto opensource, maduro, muy bien integrado a WSO2 ESB y a otros ESB y Mediators Engines como Apache Camel?, pues, en base a mis requerimientos en proyectos, buscaba por algún message broker fiel a los estándares y con una arquitectura capaz de crear complejos y críticos escenarios, pero muy orientado a los usos clásicos del message broker (comunicación asíncrona, desacoplamiento, integrable con legacy systems), y en este caso Apache Qpid y Apache ActiveMQ lo son, sin embargo me incliné por Apache Qpid porque pude integrarlo en poco minutos con WSO2 ESB e implementar los EIPs otros minutos más.</p>
 <p>[caption id="" align="alignnone" width="590"]<img class="" src="{{ site.baseurl }}/assets/02-foss-brokers-wso2-esb-2015-google-trends.png" alt="Google Trends 2015: Apache ActiveMQ, RabbitMQ, Apache Qpid y JBoss HornetQ" width="590" height="344" /> Google Trends 2015: Apache ActiveMQ, RabbitMQ, Apache Qpid y JBoss HornetQ[/caption]</p>
+
 <p>Revisando alguna información de Apache ActiveMQ, me encontré con algunos comentarios indicando que su arquitectura estaba quedando rezagada imposibilitando su uso en escenarios complejos como BigData e IoT, sofisticados brokers como Apache Kafka y ZeroMQ, por ejemplo. Aquí unos comentarios.</p>
 <blockquote><p>Disadvantages in ActiveMQ:<br />
 * Complex algorithmic architecture for design and implement. Large cluster configuration for invoking simple message passing services.<br />

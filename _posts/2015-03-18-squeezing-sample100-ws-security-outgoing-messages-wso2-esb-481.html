@@ -61,7 +61,9 @@ permalink: "/2015/03/18/squeezing-sample100-ws-security-outgoing-messages-wso2-e
 <p>[caption width="1420" align="alignnone"]<img src="{{ site.baseurl }}/assets/wso2esb-sample100-secure-backend-axis2-01-architecture.png" width="1420" height="602" alt="WSO2 ESB 4.8.1 - Sample 100: Using WS-Security for Outgoing Messages" class /> WSO2 ESB 4.8.1 - Sample 100: Using WS-Security for Outgoing Messages<br />
 [/caption]</p>
 <p>Anyway, here I will explain how to fix it and I will review each followed step to get it.</p>
-<p></p>
+
+<p><!-- more --></p>
+
 <h2>I. The problem.</h2>
 <p></p>
 <p>In the 21st century we still have restricted access to strong cryptography (<a title="http://en.wikipedia.org/wiki/Export_of_cryptography_from_the_United_States" href="http://en.wikipedia.org/wiki/Export_of_cryptography_from_the_United_States" target="_blank">http://en.wikipedia.org/wiki/Export_of_cryptography_from_the_United_States</a>), for this reason the Java compiler required for our applications can not use strong cryptography (large key length, new algorithms or cryptographic providers). In this example we need 2 things:</p>

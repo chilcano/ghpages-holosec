@@ -40,13 +40,17 @@ permalink: "/2017/05/17/apache-nifi-and-tls-toolkit-ansible-roles-to-create-a-mu
 <p>I've created 2 Ansible Roles (<a href="https://galaxy.ansible.com/chilcano/apache-nifi">chilcano.apache-nifi</a> and <a href="https://galaxy.ansible.com/chilcano/apache-nifi-toolkit">chilcano.apache-nifi-toolkit</a>) to automate the creation of a multi-node and secure NiFi cluster.<br />
 At the moment, the <a href="https://galaxy.ansible.com/chilcano/apache-nifi">chilcano.apache-nifi</a> Ansible Role doesn't implement <a href="https://nifi.apache.org/docs/nifi-docs/html/administration-guide.html#state_management">Cluster State coordination</a> through Apache ZooKeeper. It will be implemented in the next version of this Ansible Role.<br />
 For other side, I've implemented only <a href="https://nifi.apache.org/docs/nifi-docs/html/administration-guide.html#tls-generation-toolkit">TLS Toolkit Standalone mode</a> in the <a href="https://galaxy.ansible.com/chilcano/apache-nifi-toolkit">chilcano.apache-nifi-toolkit</a> Ansible Role.<br />
-Further details and samples about both Ansible Roles can be found at Ansible Galaxy:<br />
-- <a href="https://galaxy.ansible.com/chilcano/apache-nifi-toolkit">chilcano.apache-nifi-toolkit</a><br />
-- <a href="https://galaxy.ansible.com/chilcano/apache-nifi">chilcano.apache-nifi</a></p>
-<p>Once presented both Ansible Roles, I'm going to explain how to automate the creation of several instances of Apache NiFi, secure and not secure.<br />
-<!-- more --><br />
-See image below:</p>
-<p><a href="https://holisticsecurity.files.wordpress.com/2017/05/nifi-multi-node-ansible-automation.png"><img src="{{ site.baseurl }}/assets/nifi-multi-node-ansible-automation.png" alt="Automated provisioning Apache NiFi multi-node cluster with Ansible and Vagrant" class="size-large wp-image-2022" /></a></p>
+Further details and samples about both Ansible Roles can be found at Ansible Galaxy:</p>
+<ul>
+<li><a href="https://galaxy.ansible.com/chilcano/apache-nifi-toolkit">chilcano.apache-nifi-toolkit</a></li>
+<li><a href="https://galaxy.ansible.com/chilcano/apache-nifi">chilcano.apache-nifi</a></li>
+</ul>
+<p>Once presented both Ansible Roles, I'm going to explain how to automate the creation of several instances of Apache NiFi, secure and not secure.</p>
+
+<p><!-- more --></p>
+
+<p>See image below:<br />
+<a href="https://holisticsecurity.files.wordpress.com/2017/05/nifi-multi-node-ansible-automation.png"><img src="{{ site.baseurl }}/assets/nifi-multi-node-ansible-automation.png" alt="Automated provisioning Apache NiFi multi-node cluster with Ansible and Vagrant" class="size-large wp-image-2022" /></a></p>
 <p>We are going to create 5 NiFi instances, the first NiFi instance <code>nf1</code> will be a standalone instance running over HTTP.<br />
 The second instance will will be a customized instance running over HTTPS with Client Certificate authentication.<br />
 The third, fourth and fifth instances will run over HTTPS with Client Certificate authentication with configuration provided for NiFi TLS Toolkit. This configuration, key-pair, Java key stores and certificates will be generated in other VM instance provided for <code>chilcano.apache-nifi-toolkit Ansible Role</code>. See the image below:</p>

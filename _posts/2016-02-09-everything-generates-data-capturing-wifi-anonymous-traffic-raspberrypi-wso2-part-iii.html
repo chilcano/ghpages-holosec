@@ -55,12 +55,12 @@ author:
 permalink: "/2016/02/09/everything-generates-data-capturing-wifi-anonymous-traffic-raspberrypi-wso2-part-iii/"
 ---
 <p>After configuring the Raspberry Pi in monitor WIFI/802.11 mode (<a href="https://holisticsecurity.wordpress.com/2016/02/02/everything-generates-data-capturing-wifi-anonymous-traffic-raspberrypi-wso2-part-i">first blog post</a>) and after configuring Raspberry Pi to send the 802.11 captured traffic to WSO2 BAM and Apache Thrift listener (<a href="https://holisticsecurity.wordpress.com/2016/02/04/everything-generates-data-capturing-wifi-anonymous-traffic-using-raspberry-pi-and-wso2-bam-part-ii">second blog post</a>), now I will explain how to create a simple Dashboard showing the WIFI traffic captured in real-time.</p>
-<p><em>Architecture IoT/BigData – Visualizing WIFI traffic in realtime from a WSO2 BAM Dashboard</em><br />
-<img src="{{ site.baseurl }}/assets/chilcano-wso2bam-wifi-thrift-cassandra-0-architecture.png" alt="Architecture IoT/BigData – Visualizing WIFI traffic in realtime from a WSO2 BAM Dashboard" title="Architecture IoT/BigData – Visualizing WIFI traffic in realtime from a WSO2 BAM Dashboard" /></p>
+<p><img src="{{ site.baseurl }}/assets/chilcano-wso2bam-wifi-thrift-cassandra-0-architecture.png" alt="Architecture IoT/BigData – Visualizing WIFI traffic in realtime from a WSO2 BAM Dashboard" title="Architecture IoT/BigData – Visualizing WIFI traffic in realtime from a WSO2 BAM Dashboard" />_Architecture IoT/BigData – Visualizing WIFI traffic in realtime from a WSO2 BAM Dashboard_</p>
+
 <p><!-- more --></p>
-<p>Well, to make it easier, I created a Github repository (<a href="https://github.com/chilcano/wso2bam-wifi-thrift-cassandra-poc">wso2bam-wifi-thrift-cassandra-poc</a>) where I copied a number of scripts required for this third blog post.<br />
-I encourage you to download and follow the instructions below.</p>
-<p>This repository (<a href="https://github.com/chilcano/wso2bam-wifi-thrift-cassandra-poc">wso2bam-wifi-thrift-cassandra-poc</a>) contains:</p>
+
+<p>Well, to make it easier, I created a Github repository (<a href="https://github.com/chilcano/wso2bam-wifi-thrift-cassandra-poc">wso2bam-wifi-thrift-cassandra-poc</a>) where I copied a number of scripts required for this third blog post. I encourage you to download and follow the instructions below.<br />
+This repository (<a href="https://github.com/chilcano/wso2bam-wifi-thrift-cassandra-poc">wso2bam-wifi-thrift-cassandra-poc</a>) contains:</p>
 <ul>
 <li>A toolbox to view incoming Kismet traffic (802.11) in realtime valid for WSO2 BAM 2.5.0.</li>
 <li>A set of definitions to create Execution Plan (CEP Shiddi), Input and Output Stream Definitions (Apache Thrift), and Formatters.</li>

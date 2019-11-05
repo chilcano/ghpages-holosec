@@ -51,10 +51,11 @@ Because, the idea is to process in real-time and/or batch the stored data.</p>
 <li>The library that implements that protocol should have low memory footprint, because Kismet will run in a Raspberry Pi.</li>
 <li>The protocol to be used should be developer-friendly in both sides (Raspberry Pi side and WSO2 BAM - Apache Cassandra side).</li>
 </ul>
-<p>Well, in this second blog post I will explain how to solve above difficults.</p>
-<p><em>Architecture IoT/BigData – Storing WIFI traffic in Apache Cassandra (WSO2 BAM and Apache Thrift)</em><br />
-<img src="{{ site.baseurl }}/assets/chilcano-02-raspberrypi-bigdata-wifi-thrift-1-architecture.png" alt="Architecture IoT/BigData – Storing WIFI traffic in Apache Cassandra (WSO2 BAM and Apache Thrift)" title="Architecture IoT/BigData– Storing WIFI traffic in Apache Cassandra (WSO2 BAM and Apache Thrift)" /></p>
+<p>Well, in this second blog post I will explain how to solve above difficults.<br />
+<img src="{{ site.baseurl }}/assets/chilcano-02-raspberrypi-bigdata-wifi-thrift-1-architecture.png" alt="Architecture IoT/BigData – Storing WIFI traffic in Apache Cassandra (WSO2 BAM and Apache Thrift)" title="Architecture IoT/BigData– Storing WIFI traffic in Apache Cassandra (WSO2 BAM and Apache Thrift)" />_Architecture IoT/BigData – Storing WIFI traffic in Apache Cassandra (WSO2 BAM and Apache Thrift)_</p>
+
 <p><!-- more --></p>
+
 <h2>I.- Looking for the Streaming and/or Communication Protocol</h2>
 <p>There are some stream and communication protocols and implementations</p>
 <p>Really, there are many libraries and streaming protocols out there to solve the above issues, but if you are looking for a protocol/library open source, lightweight, low memory footprint and developer friendly there are a few. They are:</p>

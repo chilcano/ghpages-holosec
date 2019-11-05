@@ -13,10 +13,8 @@ categories:
 - SOA
 tags:
 - Docker
-- Elasticsearch
-- Kibana
+- ELK
 - Logging
-- Logstash
 - rTail
 - Vagrant
 - Wiremock
@@ -45,16 +43,15 @@ author:
   last_name: ''
 permalink: "/2016/01/25/log-events-management-wso2-microservices-elk-rtail-part-ii/"
 ---
-<p>Trailing and checking the performance and the health of (micro)services are important tasks to be accomplished.<br />
-The logging is a time consuming process and we have to prepare before in order to be more productive.<br />
-There are many tools out there, opensource, commercial, on-cloud, such as log.io, ELK, Clarity, rTail, Tailon, frontail, etc. In my opinion, for a VM used to development the most simple, fresh and lightweight tool is rTail (http://rtail.org).</p>
+<p>Trailing and checking the performance and the health of (micro)services are important tasks to be accomplished. The logging is a time consuming process and we have to prepare before in order to be more productive. There are many tools out there, opensource, commercial, on-cloud, such as log.io, ELK, Clarity, rTail, Tailon, frontail, etc. In my opinion, for a VM used to development the most simple, fresh and lightweight tool is rTail (http://rtail.org).</p>
+<p><img src="{{ site.baseurl }}/assets/chilcano-logs-rtail-microservices-1-arch-rtail.png" alt="rTail - Viewing WSO2 and Wiremock raw log events" title="rTail - Viewing WSO2 and Wiremock raw log events" />rTail - Viewing WSO2 and Wiremock raw log events</p>
+
+<p><!-- more --></p>
+
 <p>With rTail I can collect different log files, track and visualize them from a Browser in <strong>real time</strong>. rTail is very easy to use, just install NodeJS and deploy rTail application and you will be ready to send any type of traces to Browser directly avoiding store/persist logs, index and parse/filter them.</p>
 <p>In this second blog post I will explain how to use rTail to view all streams/log-events from a Browser in real time. For that, we require:<br />
-- rTail Server Docker Container who will centralize and view all stream/log-events.<br />
-- Vagrant box (with WSO2 stack and Wiremock) what will send log events to  above rTail Server Docker Container</p>
-<p><em>rTail - Viewing WSO2 and Wiremock raw log events</em><br />
-<img src="{{ site.baseurl }}/assets/chilcano-logs-rtail-microservices-1-arch-rtail.png" alt="rTail - Viewing WSO2 and Wiremock raw log events" title="rTail - Viewing WSO2 and Wiremock raw log events" /></p>
-<p><!-- more --></p>
+* rTail Server Docker Container who will centralize and view all stream/log-events.<br />
+* Vagrant box (with WSO2 stack and Wiremock) what will send log events to  above rTail Server Docker Container</p>
 <h2>Part II: rTail (a node.js application to debug and monitor in realtime)</h2>
 <h3>1. Starting with rTail Server Docker Container</h3>
 <p><strong>1) Prepare the rTail Server Docker Container</strong></p>

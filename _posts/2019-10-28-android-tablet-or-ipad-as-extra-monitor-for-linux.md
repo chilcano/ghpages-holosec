@@ -12,7 +12,9 @@ There are several applications out there that help us to use a spare Android Tab
 - [LunaDisplay](https://lunadisplay.com/)
 - [Apple Sidecar](https://support.apple.com/en-gb/HT210380)
 - [SplashTop Wired xDisplay](https://www.splashtop.com/wiredxdisplay)
-<!-- more -->
+
+<!-- more -->  
+
 Unfortunatelly there aren't any Application for Linux, however and thankfuly to opensource community, there are articles explaining how to do similar integration based on X11, VNC, bunch of configuration and scripts, etc. 
 That is not perfect and it's too hard to do work it, but helps to understand the mechanism behin of commercial Applications. 
 Below a list of articles and discussions if you want to try it yourself.

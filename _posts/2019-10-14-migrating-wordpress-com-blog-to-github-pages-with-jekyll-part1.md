@@ -6,13 +6,13 @@ categories: misc cms
 tags: github wordpress jekyll migration 
 permalink: "/2019/10/14/migrating-wordpress-com-blog-to-github-pages-with-jekyll-part1"
 ---
-
 I would like to share my experience migrating my blog site hosted in WordPress.com to GitHub Pages in 2 parts.
 In this blog post (Part 1) I will explain how to use Jekyll to export/import, how to configure GitHub Page site to host a fully blog as a headless Content Management System (CMS) based on Ruby. 
 In the next blog post (Part 2) I will explain how to manage the look&feel, layouts, etc.
-
 ![Migrating WordPress.com's blog to GitHub Pages by using Jekyll](/assets/img/2019-10-14-blog-migration-wp-github.png)
+
 <!-- more -->
+
 ## Create a GitHub Pages repository
 
 I created an empty GitHub repository, in my case is [`ghpages-holosec`](https://github.com/chilcano/ghpages-holosec), to host my migrated WordPress.com's blog, then I followed the [https://pages.github.com](https://pages.github.com) guide and configured it as `Project site`, no as `User or organization site` since my GitHub Account will host multiple Sites with different custom Domain Names. 
