@@ -21,7 +21,7 @@ meta:
   geo_public: '0'
   _oembed_c1bbfcbfba2d1ef61da0b5719371c559: "{{unknown}}"
   _oembed_462ea0478d8637b7805c8f68fdd25a20: "{{unknown}}"
-  _publicize_pending: '1'
+  _oembed_23781c9064d82124349010607d4dd3d5: "{{unknown}}"
   publicize_google_plus_url: https://plus.google.com/+RogerCarhuatocto/posts/8BcbV9d5zgG
   _oembed_adcc9cc06418ef4f250b779460164549: "{{unknown}}"
   _wp_old_slug: squeezing-sample100-using-ws-security-outgoing-messages-wso2-esb-481
@@ -34,8 +34,7 @@ meta:
   _wpas_done_5053092: '1'
   _oembed_53609622360fe6990dc3d9579dabb5d7: "{{unknown}}"
   _wpas_skip_5053089: '1'
-  _wpas_skip_13849: '1'
-  _wpas_skip_5053092: '1'
+  _publicize_job_id: '37144722686'
   _oembed_e3cb4dbb5c435e3285902079b8ad40b1: "{{unknown}}"
   _oembed_9ab52539e26faee53b6f0eb22cacdf01: "{{unknown}}"
   _oembed_568f35220ced9c1627a869b3828b0c71: "{{unknown}}"
@@ -56,30 +55,23 @@ author:
   last_name: ''
 permalink: "/2015/03/18/squeezing-sample100-ws-security-outgoing-messages-wso2-esb-481/"
 ---
-<p></p>
-<p>The "<a title="Sample 100: Using WS-Security for Outgoing Messages" href="https://docs.wso2.com/display/ESB481/Sample+100%3A+Using+WS-Security+for+Outgoing+Messages" target="_blank">Sample 100: Using WS-Security for Outgoing Messages</a>" is a great example to start learning with WS-Security, WS-Policy and how to deal with the security of SOAP webservices ..... but the problem is that this example does not work, also that this example is not very well explained. You could get run successfully this example and not understand what happen behind of it.</p>
-<p>[caption width="1420" align="alignnone"]<img src="{{ site.baseurl }}/assets/wso2esb-sample100-secure-backend-axis2-01-architecture.png" width="1420" height="602" alt="WSO2 ESB 4.8.1 - Sample 100: Using WS-Security for Outgoing Messages" class /> WSO2 ESB 4.8.1 - Sample 100: Using WS-Security for Outgoing Messages<br />
-[/caption]</p>
-<p>Anyway, here I will explain how to fix it and I will review each followed step to get it.</p>
+<p>The <a href="https://docs.wso2.com/display/ESB481/Sample+100%3A+Using+WS-Security+for+Outgoing+Messages" title="Sample 100: Using WS-Security for Outgoing Messages">Sample 100: Using WS-Security for Outgoing Messages</a> is a great example to start learning with WS-Security, WS-Policy and how to deal with the security of SOAP webservices ..... but the problem is that this example does not work, also that this example is not very well explained. You could get run successfully this example and not understand what happen behind of it.</p>
+<p><img src="{{ site.baseurl }}/assets/wso2esb-sample100-secure-backend-axis2-01-architecture.png" alt="WSO2 ESB 4.8.1 - Sample 100: Using WS-Security for Outgoing Messages" /></p>
 
 <p><!-- more --></p>
 
+<p>Anyway, here I will explain how to fix it and I will review each followed step to get it.</p>
 <h2>I. The problem.</h2>
-<p></p>
-<p>In the 21st century we still have restricted access to strong cryptography (<a title="http://en.wikipedia.org/wiki/Export_of_cryptography_from_the_United_States" href="http://en.wikipedia.org/wiki/Export_of_cryptography_from_the_United_States" target="_blank">http://en.wikipedia.org/wiki/Export_of_cryptography_from_the_United_States</a>), for this reason the Java compiler required for our applications can not use strong cryptography (large key length, new algorithms or cryptographic providers). In this example we need 2 things:</p>
+<p>In the 21st century we still have restricted access to strong cryptography (<a href="http://en.wikipedia.org/wiki/Export_of_cryptography_from_the_United_States" title="http://en.wikipedia.org/wiki/Export_of_cryptography_from_the_United_States">http://en.wikipedia.org/wiki/Export_of_cryptography_from_the_United_States</a>), for this reason the Java compiler required for our applications can not use strong cryptography (large key length, new algorithms or cryptographic providers). In this example we need 2 things:</p>
 <ul>
 <li>To install the Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files in our box. If this is done, then my applications (my service or backend implementation in Axis2 and the WSO2 ESB) will work perfectly.</li>
 <li>To share the Bouncy Castle library (cryptographic provider) existing in WSO2 ESB with the Axis2 Client application (not share with Axis2 Server because Axis2 Server and WSO2 ESB already use).</li>
 </ul>
-<p>If We do apply the above points, might only execute the secure service deployed in the Axis2 Server with the Axis2 client for this backend. But if We want to expose a unsecure service interface pointing to the secure backend, then we should deploy the WSO2 ESB Proxy correctly. To do that, We should deploy this Proxy in WSO2 ESB and load correctly the policy file (policy_3.xml) using Local 2Entry or the WSO2 ESB Registry.</p>
-<p>Then, come to do it.</p>
-<p></p>
+<p>If We do apply the above points, might only execute the secure service deployed in the Axis2 Server with the Axis2 client for this backend. But if We want to expose a unsecure service interface pointing to the secure backend, then we should deploy the WSO2 ESB Proxy correctly. To do that, We should deploy this Proxy in WSO2 ESB and load correctly the policy file (policy_3.xml) using Local 2Entry or the WSO2 ESB Registry. Then, come to do it.</p>
 <h2>II. Fixing the sample.</h2>
-<p></p>
-<h3>II.1. Installing Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files</h3>
-<p></p>
-<p>I am using Java 1.7.0_51, then I should download this JCE files from <a title="http://www.oracle.com/technetwork/java/javase/downloads/jce-7-download-432124.html" href="http://www.oracle.com/technetwork/java/javase/downloads/jce-7-download-432124.html" target="_blank">http://www.oracle.com/technetwork/java/javase/downloads/jce-7-download-432124.html</a>, after that, unzip It and copy (or overwrite) the local_policy.jar and US_export_policy.jar to $JAVA_HOME/jre/lib/security</p>
-<p>[code language="powershell" gutter="true" wraplines="false"]<br />
+<h3>II.1&#046; Installing Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files</h3>
+<p>I am using <code>Java 1.7.0_51</code>, then I should download this JCE files from <a href="http://www.oracle.com/technetwork/java/javase/downloads/jce-7-download-432124.html" title="http://www.oracle.com/technetwork/java/javase/downloads/jce-7-download-432124.html">http://www.oracle.com/technetwork/java/javase/downloads/jce-7-download-432124.html</a>, after that, unzip It and copy (or overwrite) the <code>local_policy.jar</code> and <code>US_export_policy.jar</code> to <code>$JAVA_HOME/jre/lib/security</code>.</p>
+<p>[code lang=bash]<br />
 $ java -version<br />
 java version &quot;1.7.0_51&quot;<br />
 Java(TM) SE Runtime Environment (build 1.7.0_51-b13)<br />
@@ -88,13 +80,9 @@ Java HotSpot(TM) 64-Bit Server VM (build 24.51-b03, mixed mode)</p>
 /Library/Java/JavaVirtualMachines/jdk1.7.0_51.jdk/Contents/Home<br />
 [/code]</p>
 <p>Remember, by installing the JCE, the WSO2 ESB and Axis2 Server or any Java Application in the same box will not have cryptographic restrictions.</p>
-<p></p>
-<h3>II.2. Install the Bouncy Castle library required for the Axis2 Client.</h3>
-<p></p>
-<p>By default, the Axis2 Client does not work because the Rampart (Axis2 module) requires an encryption algorithm provided for Bouncy Castle library (<code>bcprov-jdk15.jar</code>).<br />
-To solve it, copy the <code>$WSO2ESB_HOME/repository/axis2/client/lib/bcprov-jdk15.jar</code> to <code>$WSO2ESB_HOME/repository/components/plugins/</code> folder.</p>
-<p>If you do not copy this library, probably you get this error when executing the Axis2 Client StockQuoteClient.java</p>
-<p>[code language="powershell" gutter="true" wraplines="false"]<br />
+<h3>II.2&#046; Install the Bouncy Castle library required for the Axis2 Client.</h3>
+<p>By default, the Axis2 Client does not work because the Rampart (Axis2 module) requires an encryption algorithm provided for Bouncy Castle library (<code>bcprov-jdk15.jar</code>). To solve it, copy the <code>$WSO2ESB_HOME/repository/axis2/client/lib/bcprov-jdk15.jar</code> to <code>$WSO2ESB_HOME/repository/components/plugins/</code> folder. If you do not copy this library, probably you get this error when executing the Axis2 Client <code>StockQuoteClient.java</code>.</p>
+<p>[code lang=bash]<br />
 [...]<br />
      [java] Using WS-Security<br />
      [java] org.apache.axis2.AxisFault: Error in encryption<br />
@@ -130,16 +118,14 @@ To solve it, copy the <code>$WSO2ESB_HOME/repository/axis2/client/lib/bcprov-jdk
 <p>BUILD SUCCESSFUL<br />
 Total time: 4 seconds<br />
 [/code]</p>
-<p></p>
-<h3>II.3. Deploying the Proxy Service and Policy correctly in WSO2 ESB.</h3>
-<p></p>
-<p>The Proxy Service used for the Sample 100 is placed in <code>$WSO2ESB_HOME/repository/samples/synapse_sample_100.xml</code> and if you open the <code>synapse_sample_100.xml</code> you can check that it uses <code>policy_3.xml</code> as definition of the Security Policy.</p>
-<p>To deploy it and start the WSO2 ESB we have to execute from $WSO2ESB_HOME/bin/ the following:</p>
-<p>[code language="powershell" gutter="true" wraplines="false"]<br />
+<h3>II.3&#046; Deploying the Proxy Service and Policy correctly in WSO2 ESB.</h3>
+<p>The Proxy Service used for the Sample 100 is placed in <code>$WSO2ESB_HOME/repository/samples/synapse_sample_100.xml</code> and if you open the <code>synapse_sample_100.xml</code> you can check that it uses <code>policy_3.xml</code> as definition of the Security Policy.<br />
+To deploy it and start the WSO2 ESB we have to execute from <code>$WSO2ESB_HOME/bin/</code> the following:</p>
+<p>[code lang=bash]<br />
 $ ./wso2esb-samples.sh -sn 100<br />
 [/code]</p>
 <p>After of deploying it, we can check if the Proxy Service was deployed successfully in WSO2 ESB. Open <code>https://localhost:9443/carbon</code> and go to Service Bus &gt; Source View, there is an unique Synapse definitions and its content is:</p>
-<p>[code language="xml" gutter="true" wraplines="false"]<br />
+<p>[code lang=xml]<br />
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;<br />
 &lt;definitions xmlns=&quot;http://ws.apache.org/ns/synapse&quot;&gt;<br />
    &lt;localEntry key=&quot;sec_policy&quot;<br />
@@ -147,8 +133,8 @@ $ ./wso2esb-samples.sh -sn 100<br />
    &lt;sequence name=&quot;fault&quot;&gt;<br />
       &lt;log level=&quot;full&quot;&gt;<br />
          &lt;property name=&quot;MESSAGE&quot; value=&quot;Executing default &quot;fault&quot; sequence&quot;/&gt;<br />
-         &lt;property name=&quot;ERROR_CODE&quot; expression=&quot;get-property('ERROR_CODE')&quot;/&gt;<br />
-         &lt;property name=&quot;ERROR_MESSAGE&quot; expression=&quot;get-property('ERROR_MESSAGE')&quot;/&gt;<br />
+         &lt;property name=&quot;ERROR_CODE&quot; expression=&quot;get-property(&#039;ERROR_CODE&#039;)&quot;/&gt;<br />
+         &lt;property name=&quot;ERROR_MESSAGE&quot; expression=&quot;get-property(&#039;ERROR_MESSAGE&#039;)&quot;/&gt;<br />
       &lt;/log&gt;<br />
       &lt;drop/&gt;<br />
    &lt;/sequence&gt;<br />
@@ -172,20 +158,14 @@ $ ./wso2esb-samples.sh -sn 100<br />
    &lt;/sequence&gt;<br />
 &lt;/definitions&gt;<br />
 [/code]</p>
-<p>Where:</p>
-<ul>
-<li>There is a "localEntry", where sec_policy" is the key of the security policy placed in "<code>file:repository/samples/resources/policy/policy_3.xml</code>"</li>
-<li>The backend service is "<code>http://localhost:9000/services/SecureStockQuoteService</code>", has "enableAddressing" enabled and also requires the security policy enabled (sec_policy).</li>
-<li>The Proxy Service removes the special Headers related to encryption in the Out Sequence. This is perfect for us because we will see in text plain the SOAP response message.</li>
-</ul>
-<p></p>
+<p>Where:<br />
+1.  There is a <code>localEntry</code>, where <code>sec_policy</code> is the key of the security policy placed in <code>file:repository/samples/resources/policy/policy_3.xml</code>.<br />
+2.  The backend service is <code>http://localhost:9000/services/SecureStockQuoteService</code>, has <code>enableAddressing</code> enabled and also requires the security policy enabled (sec_policy).<br />
+3.  The Proxy Service removes the special Headers related to encryption in the Out Sequence. This is perfect for us because we will see in text plain the SOAP response message.</p>
 <h2>III. Executing the Sample 100.</h2>
-<p></p>
 <p>Now, we are ready to run the sample 100.</p>
-<p></p>
-<h3>III.1. Compile and deploy the SecureStockQuoteService (backend service)</h3>
-<p></p>
-<p>[code language="powershell" gutter="true" wraplines="false"]<br />
+<h3>III.1&#046; Compile and deploy the SecureStockQuoteService (backend service)</h3>
+<p>[code lang=bash]<br />
 $ cd ~/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/src/SecureStockQuoteService<br />
 $ ant<br />
 Buildfile: /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/src/SecureStockQuoteService/build.xml</p>
@@ -195,7 +175,7 @@ Buildfile: /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/src/S
     [mkdir] Created dir: /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/src/SecureStockQuoteService/temp<br />
     [mkdir] Created dir: /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/src/SecureStockQuoteService/temp/classes</p>
 <p>compile-all:<br />
-    [javac] /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/src/SecureStockQuoteService/build.xml:47: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds<br />
+    [javac] /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/src/SecureStockQuoteService/build.xml:47: warning: &#039;includeantruntime&#039; was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds<br />
     [javac] Compiling 9 source files to /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/src/SecureStockQuoteService/temp/classes</p>
 <p>build-service:<br />
     [mkdir] Created dir: /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/src/SecureStockQuoteService/temp/SecureStockQuoteService<br />
@@ -207,10 +187,8 @@ Buildfile: /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/src/S
 <p>BUILD SUCCESSFUL<br />
 Total time: 1 second<br />
 [/code]</p>
-<p></p>
 <h3>III.2. Run the Axis2 Server</h3>
-<p></p>
-<p>[code language="powershell" gutter="true" wraplines="false"]<br />
+<p>[code lang=bash]<br />
 $ cd ~/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server<br />
 $ ./axis2server.sh<br />
  Using JAVA_HOME:   /Library/Java/JavaVirtualMachines/jdk1.7.0_51.jdk/Contents/Home<br />
@@ -257,18 +235,11 @@ $ ./axis2server.sh<br />
 15/03/06 20:38:42 INFO nhttp.HttpCoreNIOListener: HTTP Listener started on 0:0:0:0:0:0:0:0:9000<br />
 15/03/06 20:38:42 INFO util.SampleAxis2ServerManager: [SimpleAxisServer] Started<br />
 [/code]</p>
-<p></p>
-<h3>III.3. Check if backend was deployed successfully in Axis2 Server</h3>
-<p></p>
-<p>Open Axis2 Server (<code>http://localhost:9000/services</code>) to list the deployed services. You should see the following:</p>
-<p>[caption width="1208" align="alignnone"]<img src="{{ site.baseurl }}/assets/wso2esb-sample100-secure-backend-axis2-02-axis2server.png" width="1208" height="1520" alt="SecureStockQuoteService deployed successfully on Axis2 Server" class /> SecureStockQuoteService deployed successfully on Axis2 Server[/caption]</p>
-<p>Also, check the WSDL:</p>
-<p><code>http://localhost:9000/services/SecureStockQuoteService?wsdl</code></p>
-<p></p>
-<h3>III.4. Run the Axis2 Client for the Sample 100</h3>
-<p></p>
-<p>The idea behind of this sample is that the Axis2 Client calls to Proxy Service (the <code>StockQuoteProxy</code> in WSO2 ESB) and sends a SOAP unsecure message, the Proxy Service receives the SOAP message and adds specials Headers required for the backend and also defined for the <code>policy_3.xml</code></p>
-<p>[code language="powershell" gutter="true" wraplines="false"]<br />
+<h3>III.3&#046; Check if backend was deployed successfully in Axis2 Server</h3>
+<p>Open Axis2 Server (<code>http://localhost:9000/services</code>) to list the deployed services. You should see the following: <img src="{{ site.baseurl }}/assets/wso2esb-sample100-secure-backend-axis2-02-axis2server.png" alt="SecureStockQuoteService deployed successfully on Axis2 Server" /> SecureStockQuoteService deployed successfully on Axis2 Server Also, check the WSDL: <code>http://localhost:9000/services/SecureStockQuoteService?wsdl</code></p>
+<h3>III.4&#046; Run the Axis2 Client for the Sample 100</h3>
+<p>The idea behind of this sample is that the Axis2 Client calls to Proxy Service (the <code>StockQuoteProxy</code> in WSO2 ESB) and sends a SOAP unsecure message, the Proxy Service receives the SOAP message and adds specials Headers required for the backend and also defined for the <code>policy_3.xml</code>.</p>
+<p>[code lang=bash]<br />
 $ cd ~/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Client<br />
 $ ant stockquote -Dtrpurl=http://localhost:8280/<br />
 Buildfile: /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Client/build.xml</p>
@@ -305,7 +276,7 @@ Buildfile: /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Client/build
 Total time: 3 seconds<br />
 [/code]</p>
 <p>Lines above you can see the next:</p>
-<p>[code language="powershell" gutter="true" wraplines="false"]<br />
+<p>[code lang=bash]<br />
 [...]<br />
      [java] Standard :: Stock price = $93.14887399516581</p>
 <p>BUILD SUCCESSFUL<br />
@@ -313,33 +284,17 @@ Total time: 3 seconds<br />
 [/code]</p>
 <p>That indicates that everything goes well.</p>
 <p>Now What?. Well, we are ready to understand what are happening behind of this Sample 100.</p>
-<p></p>
 <h2>IV. What use case are we implementing?</h2>
-<p></p>
-<p>Above, in the first diagram we can see the scenario being implemented with the Sample 100, where we are using a WSO2 Synapse Proxy to hide the complex part related with cryptography.<br />
-But if we uncover this scenario and do see in depth, then we could play further more.</p>
-<p>Below in the diagram you will see what we can do further with this sample.</p>
-<p>[caption width="1420" align="alignnone"]<img src="{{ site.baseurl }}/assets/wso2esb-sample100-secure-backend-axis2-03-extended-scenarios.png" width="1420" height="508" alt="Going beyond with WSO2 ESB Sample 100" class /> Going beyond with WSO2 ESB Sample 100[/caption]</p>
-<p>We could try 3 new flows:</p>
+<p>Above, in the first diagram we can see the scenario being implemented with the Sample 100, where we are using a WSO2 Synapse Proxy to hide the complex part related with cryptography. But if we uncover this scenario and do see in depth, then we could play further more. Below in the diagram you will see what we can do further with this sample. <img src="{{ site.baseurl }}/assets/wso2esb-sample100-secure-backend-axis2-03-extended-scenarios.png" alt="Going beyond with WSO2 ESB Sample 100" /> Going beyond with WSO2 ESB Sample 100 We could try 3 new flows:</p>
 <ol>
-<li>Send a SOAP request to SecureStockQuoteService using the new standalone Service Proxy (MyProxySample100) instead of the Synapse Sample 100 definition.
-  </li>
-<li>Send a SOAP request to SecureStockQuoteService using the existing Axis2 Client (stockquote) using the new Proxy EndPoint.
-  </li>
-<li>Send a Secure SOAP request directly to SecureStockQuoteService using the existing Axis2 Client (stockquote) using the client_policy_3.xml.
-</li>
+<li>Send a SOAP request to SecureStockQuoteService using the new standalone Service Proxy (MyProxySample100) instead of the Synapse Sample 100 definition.</li>
+<li>Send a SOAP request to SecureStockQuoteService using the existing Axis2 Client (stockquote) using the new Proxy EndPoint.</li>
+<li>Send a Secure SOAP request directly to SecureStockQuoteService using the existing Axis2 Client (stockquote) using the client_policy_3.xml.</li>
 </ol>
-<p>But even you do want to go further, I recommend the blog post of Sagara Gunathunga (Technical Leader of WSO2 Inc). There, Sagara explains in the first part the different use cases to apply WS-Security in Backend.</p>
-<p>http://ssagara.blogspot.co.uk/2013/07/wso2-esb-set-ws-security-ut-user-names.html</p>
-<p>I think that this post is great to get starting with WS-Security and WS-Policy in WSO2 ESB and hope this is also useful for you.</p>
-<p></p>
+<p>But even you do want to go further, I recommend the blog post of Sagara Gunathunga (Technical Leader of WSO2 Inc). There, Sagara explains in the first part the different use cases to apply WS-Security in Backend: http://ssagara.blogspot.co.uk/2013/07/wso2-esb-set-ws-security-ut-user-names.html I think that this post is great to get starting with WS-Security and WS-Policy in WSO2 ESB and hope this is also useful for you.</p>
 <h2>V. Using a standalone Service Proxy instead of run WSO2 ESB with the Synapse definition</h2>
-<p></p>
-<p>WSO2 ESB has a lot of samples, more than 100 synapse samples, you can check them here <code>$WSO2ESB_HOME/repository/samples/</code> and here https://docs.wso2.com/display/ESB481/Samples for further details.<br />
-But what I hate about this is run every time WSO2 ESB to load a single sample. Said that, why not convert the existing synapse-sample to a standalone synapse proxy where it can be deployed in runtime.<br />
-This will avoid restart the WSO2 ESB and update the standalone directly on WSO2 ESB.</p>
-<p>Well, doing this is easy, below you can see the existing synapse proxy definition (check point II.3 or check synapse_sample_100.xml) and a little below the final standalone proxy.</p>
-<p>[code language="xml" gutter="true" wraplines="false"]<br />
+<p>WSO2 ESB has a lot of samples, more than 100 synapse samples, you can check them here <code>$WSO2ESB_HOME/repository/samples/</code> and here <code>https://docs.wso2.com/display/ESB481/Samples</code> for further details. But what I hate about this is run every time WSO2 ESB to load a single sample. Said that, why not convert the existing synapse-sample to a standalone synapse proxy where it can be deployed in runtime. This will avoid restart the WSO2 ESB and update the standalone directly on WSO2 ESB. Well, doing this is easy, below you can see the existing synapse proxy definition (check point II.3 or check synapse_sample_100.xml) and a little below the final standalone proxy.</p>
+<p>[code lang=xml]<br />
 &lt;!-- synapse_sample_100.xml                  --&gt;<br />
 &lt;!-- Using WS-Security for outgoing messages --&gt;<br />
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;<br />
@@ -365,8 +320,8 @@ This will avoid restart the WSO2 ESB and update the standalone directly on WSO2 
     &lt;/sequence&gt;<br />
 &lt;/definitions&gt;<br />
 [/code]</p>
-<p>This Synapse Proxy is the new standalone Proxy create from synapse_sample_100.xml.</p>
-<p>[code language="xml" gutter="true" wraplines="false"]<br />
+<p>This Synapse Proxy is the new standalone Proxy create from <code>synapse_sample_100.xml</code>.</p>
+<p>[code lang=xml]<br />
 &lt;!-- MyProxySample100 created from synapse_sample_100.xml --&gt;<br />
 &lt;!-- Using WS-Security for outgoing messages              --&gt;<br />
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;<br />
@@ -415,31 +370,26 @@ This will avoid restart the WSO2 ESB and update the standalone directly on WSO2 
 [/code]</p>
 <p>I have changed/updated the following:</p>
 <ul>
-<li> "in" for "inSequence"
-</li>
-<li> "out" for "outSequence"
-</li>
-<li> Added a reference for Security Policy definition to be used for MyProxySample100.xml. In this Proxy, the Security Policy is loaded as a Local Entry <code>my_sec_policy</code>.
-<p>   <code>&lt;localEntry key="my_sec_policy" src="file:repository/samples/resources/policy/policy_3.xml"/&gt;</code></p>
-<p>Also this could be also loaded as a resource stored in WSO2 ESB Local Registry.
-</li>
-<li> Added a Header Property for SOAP Action.
-<p>  <code>&lt;header name="Action" value="urn:getQuote"/&gt;</code></p>
-</li>
-<li> Added a Log Mediator for tracking purposes.
-</li>
+<li><code>in</code> for <code>inSequence</code>.</li>
+<li><code>out</code> for <code>outSequence</code>.</li>
+<li>Added a reference for Security Policy definition to be used for <code>MyProxySample100.xml</code>. In this Proxy, the Security Policy is loaded as a Local Entry called <code>my_sec_policy</code>.</li>
 </ul>
-<p></p>
+<p>[code lang=xml]<br />
+    &lt;localEntry key=&quot;my_sec_policy&quot; src=&quot;file:repository/samples/resources/policy/policy_3.xml&quot;/&gt;<br />
+[/code]</p>
+<p>Also this could be also loaded as a resource stored in WSO2 ESB Local Registry.<br />
+* Added a Header Property for SOAP Action.</p>
+<p>[code lang=xml]<br />
+    &lt;header name=&quot;Action&quot; value=&quot;urn:getQuote&quot;/&gt;<br />
+[/code]</p>
+<ul>
+<li>Added a Log Mediator for tracking purposes.</li>
+</ul>
 <h2>VI. Calling to the Backend from SoapUI using the new Proxy</h2>
-<p></p>
-<p>Using the new proxy, we gain flexibility and reduce complexity when creating SOAP messages where the backend requires WS-Security.</p>
-<p>Now, we can create a simple SOAP request message and the WSO2 ESB will add the required WS-Security headers and also will remove WS-Security headers to the SOAP response message.</p>
-<p>Then, create a new Project in SoapUI using the WSDL of Backend, remember, the backend is deployed in Axis2 Server and its WSDL is http://localhost:9000/services/SecureStockQuoteService?wsdl, for further details check the point III.3. (Check if backend was deployed successfully in Axis2 Server). The idea is to know how to create SOAP request messages to be sent to backend (Axis2 Server).</p>
-<p><img src="{{ site.baseurl }}/assets/wso2esb-sample100-secure-backend-axis2-04-soapui-axis2.png" width="2028" height="1464" class="alignnone" /></p>
-<p>Below you can see the request and response messages sent and received from backend.</p>
-<p><img src="{{ site.baseurl }}/assets/wso2esb-sample100-secure-backend-axis2-05-soapui-axis2-req-resp.png" width="2358" height="2088" class="alignnone" /></p>
+<p>Using the new proxy, we gain flexibility and reduce complexity when creating SOAP messages where the backend requires WS-Security. Now, we can create a simple SOAP request message and the WSO2 ESB will add the required WS-Security headers and also will remove WS-Security headers to the SOAP response message. Then, create a new Project in SoapUI using the WSDL of Backend, remember, the backend is deployed in Axis2 Server and its WSDL is <code>http://localhost:9000/services/SecureStockQuoteService?wsdl</code>, for further details check the point III.3&#046; (Check if backend was deployed successfully in Axis2 Server). The idea is to know how to create SOAP request messages to be sent to backend (Axis2 Server). <img src="{{ site.baseurl }}/assets/wso2esb-sample100-secure-backend-axis2-04-soapui-axis2.png" alt="" /> Below you can see the request and response messages sent and received from backend.</p>
+<p><img src="{{ site.baseurl }}/assets/wso2esb-sample100-secure-backend-axis2-05-soapui-axis2-req-resp.png" alt="" /></p>
 <p>And in the Axis2 Server side you will get an error as shown below:</p>
-<p>[code language="text" gutter="true" wraplines="false"]<br />
+<p>[code lang=bash]<br />
 15/03/15 12:42:18 INFO util.SampleAxis2ServerManager: [SimpleAxisServer] Started<br />
 15/03/15 12:42:26 ERROR engine.AxisEngine: Missing wsse:Security header in request<br />
 org.apache.axis2.AxisFault: Missing wsse:Security header in request<br />
@@ -482,12 +432,13 @@ Caused by: org.apache.rampart.RampartException: Missing wsse:Security header in 
 [/code]</p>
 <p>This happens because we are sending a SOAP request message without WS-Security Header well formatted. Keys to hashing, timestamps, etc. are missing, this is the reason of the Proxy in WSO2 ESB, it solves this cryptography issues.</p>
 <p>Well, now we will use SoapUI to send a SOAP request to backend via Synapse Proxy. Before, we will add the WSO2 ESB Proxy EndPoint or WSDL to SoapUI project and send and receive the messages.<br />
-Remember, the new WSO2 ESB Proxy is MyProxySample100 and has this WSDL http://localhost:8280/services/MyProxySample100?wsdl and this EndPoint http://localhost:8280/services/MyProxySample100</p>
-<p><img src="{{ site.baseurl }}/assets/wso2esb-sample100-secure-backend-axis2-06-soapui-proxy.png" width="1946" height="1380" class="alignnone" /></p>
-<p>After adding a new EndPoint / WSDL, now if you send a SOAP request from SoapUI, you will receive a plain (unsecure) SOAP response from the new Proxy, as shown below:</p>
-<p><img src="{{ site.baseurl }}/assets/wso2esb-sample100-secure-backend-axis2-07-soapui-proxy-ok.png" width="2810" height="1664" class="alignnone" /></p>
+Remember, the new WSO2 ESB Proxy is <code>MyProxySample100</code> and has this WSDL <code>http://localhost:8280/services/MyProxySample100?wsdl</code> and this EndPoint <code>http://localhost:8280/services/MyProxySample100</code>.</p>
+<p><img src="{{ site.baseurl }}/assets/wso2esb-sample100-secure-backend-axis2-06-soapui-proxy.png" alt="" /><br />
+After adding a new EndPoint / WSDL, now if you send a</p>
+<p>SOAP request from SoapUI, you will receive a plain (unsecure) SOAP response from the new Proxy, as shown below:<br />
+<img src="{{ site.baseurl }}/assets/wso2esb-sample100-secure-backend-axis2-07-soapui-proxy-ok.png" alt="" /></p>
 <p>The successfully messages in WSO2 ESB side:</p>
-<p>[code language="text" gutter="true" wraplines="false"]<br />
+<p>[code lang=bash]<br />
 2015-03-18 00:02:22,752]  INFO - LogMediator [MyProxySample100] = ===== inSeq ===== [MyProxySample100]<br />
 [2015-03-18 00:02:22,754]  INFO - LogMediator [Body IN] = &lt;m0:getQuote xmlns:m0=&quot;http://services.samples&quot;&gt;<br />
         &lt;m0:request&gt;<br />
@@ -528,34 +479,32 @@ OruuM37y92qDjrI6sew=<br />
 [2015-03-18 00:02:22,809]  INFO - LogMediator [Body OUT] = &lt;ns:getQuoteResponse xmlns:ns=&quot;http://services.samples&quot;&gt;&lt;ns:return xmlns:ax23=&quot;http://services.samples/xsd&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:type=&quot;ax23:GetQuoteResponse&quot;&gt;&lt;ax23:change&gt;-2.427092238886098&lt;/ax23:change&gt;&lt;ax23:earnings&gt;-8.594640198504722&lt;/ax23:earnings&gt;&lt;ax23:high&gt;-85.41697924761516&lt;/ax23:high&gt;&lt;ax23:last&gt;85.45769312029174&lt;/ax23:last&gt;&lt;ax23:lastTradeTimestamp&gt;Wed Mar 18 00:02:22 GMT 2015&lt;/ax23:lastTradeTimestamp&gt;&lt;ax23:low&gt;88.84901052393411&lt;/ax23:low&gt;&lt;ax23:marketCap&gt;-5312065.376447097&lt;/ax23:marketCap&gt;&lt;ax23:name&gt;IBM Company&lt;/ax23:name&gt;&lt;ax23:open&gt;89.06565721533335&lt;/ax23:open&gt;&lt;ax23:peRatio&gt;-17.80304620448777&lt;/ax23:peRatio&gt;&lt;ax23:percentageChange&gt;3.0694536514961186&lt;/ax23:percentageChange&gt;&lt;ax23:prevClose&gt;-79.07245114136454&lt;/ax23:prevClose&gt;&lt;ax23:symbol&gt;IBM&lt;/ax23:symbol&gt;&lt;ax23:volume&gt;9040&lt;/ax23:volume&gt;&lt;/ns:return&gt;&lt;/ns:getQuoteResponse&gt;<br />
 [/code]</p>
 <p>And the successfully messages in Axis2 Server side:</p>
-<p>[code language="xml" gutter="true" wraplines="false"]<br />
+<p>[code lang=bash]<br />
 Wed Mar 18 00:02:22 GMT 2015 SecureStockQuoteService :: Generating quote for : IBM<br />
 [/code]</p>
-<p></p>
 <h2>VII. Calling to Backend directly from the Axis2 Client</h2>
-<p></p>
 <p>Sometimes It is necessary to call directly to the secured backend without using WSO2 Proxy Service because maybe I like to know how to compose a request message using WS-Security or to check the health of this service or simply to learn how to create a Axis2 Client using WS-Security.<br />
 So if that is the case, below I explain how to run the Axis2 Client to call to the secured backend and setting a new security policy and EndPoint.</p>
 <p>It is very important for this section you have deployed the Bouncly Castle library (cryptographic provider) to avoid errors.<br />
 After that, run the Axis2 Server.</p>
-<p>[code language="powershell" gutter="true" wraplines="false"]<br />
+<p>[code lang=bash]<br />
 $ cd ~/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server<br />
 $ ./axis2server.sh<br />
 [/code]</p>
 <p>...and now, run the Axis2 client.</p>
-<p>[code language="powershell" gutter="true" wraplines="false"]<br />
+<p>[code lang=bash]<br />
 $ cd ~/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Client<br />
 $ ant stockquote -Daddurl=http://localhost:9000/services/SecureStockQuoteService -Dmode=quote -Dsymbol=IBM -Dpolicy=../../repository/samples/resources/policy/client_policy_3.xml<br />
 [/code]</p>
 <p>Where:</p>
 <ul>
-<li>"-Daddurl=http://localhost:9000/services/SecureStockQuoteService" is the secured backend deployed in Axis2 Server.</li>
-<li>"-Dmode=quote" with this parameter the Axis2 Client will call the SOAP Action / Operation correctly.</li>
-<li>"-Dsymbol=IBM" with this the Axis2 Client will create a adequate payload expected for the backend.</li>
-<li>"-Dpolicy=../../repository/samples/resources/policy/client_policy_3.xml" is the new security policy suitable for this example because has the correct paths a configurations.</li>
+<li><code>-Daddurl=http://localhost:9000/services/SecureStockQuoteService</code> is the secured backend deployed in Axis2 Server. </li>
+<li><code>-Dmode=quote</code> with this parameter the Axis2 Client will call the SOAP Action / Operation correctly. </li>
+<li><code>-Dsymbol=IBM</code> with this the Axis2 Client will create a adequate payload expected for the backend. </li>
+<li><code>-Dpolicy=../../repository/samples/resources/policy/client_policy_3.xml</code> is the new security policy suitable for this example because has the correct paths a configurations. </li>
 </ul>
-<p>Above you can see client_policy_3.xml, where the unique difference with policy_3.xml is the line 62 (the path <code>repository/samples/resources/security/store.jks</code>).</p>
-<p>[code language="xml" gutter="true" wraplines="false" highlight="62"]<br />
+<p>Above you can see <code>client_policy_3.xml</code>, where the unique difference with <code>policy_3.xml</code> is the line 62 (the path <code>repository/samples/resources/security/store.jks</code>).</p>
+<p>[code lang=xml]<br />
 &lt;wsp:Policy wsu:Id=&quot;SigEncr&quot;<br />
             xmlns:wsu=&quot;http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd&quot;<br />
             xmlns:wsp=&quot;http://schemas.xmlsoap.org/ws/2004/09/policy&quot;&gt;<br />
@@ -639,7 +588,7 @@ $ ant stockquote -Daddurl=http://localhost:9000/services/SecureStockQuoteService
 &lt;/wsp:Policy&gt;<br />
 [/code]</p>
 <p>If everything goes well, the following is shown:</p>
-<p>[code language="powershell" gutter="true" wraplines="false"]<br />
+<p>[code lang=bash]<br />
 Buildfile: /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Client/build.xml</p>
 <p>init:</p>
 <p>compile:</p>
@@ -675,7 +624,7 @@ Buildfile: /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Client/build
 Total time: 3 seconds<br />
 [/code]</p>
 <p>And in the Axis2 Server side is shown:</p>
-<p>[code language="powershell" gutter="true" wraplines="false"]<br />
+<p>[code lang=bash]<br />
 $ ./axis2server.sh<br />
  Using JAVA_HOME:   /Library/Java/JavaVirtualMachines/jdk1.7.0_51.jdk/Contents/Home<br />
  Using AXIS2 Repository :   /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/repository<br />
@@ -696,9 +645,7 @@ $ ./axis2server.sh<br />
 15/03/09 23:15:21 INFO util.SampleAxis2ServerManager: [SimpleAxisServer] Started<br />
 Mon Mar 09 23:15:59 GMT 2015 SecureStockQuoteService :: Generating quote for : IBM<br />
 [/code]</p>
-<p></p>
 <h2>IIX. Conclusions</h2>
-<p></p>
 <p>I hope this has been useful and you were able to understand what is happening behind the execution of this example and can improve the security of their web services.<br />
 Now, you are ready to play with:</p>
 <ul>
