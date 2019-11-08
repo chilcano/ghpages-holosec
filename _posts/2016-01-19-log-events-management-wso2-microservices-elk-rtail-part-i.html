@@ -58,9 +58,7 @@ permalink: "/2016/01/19/log-events-management-wso2-microservices-elk-rtail-part-
 * You have to collect and query your logs in real time if you think your Application is critical.<br />
 * You have to <code>manage</code> in agile way the life cycle of your data (your logs), they are an asset very important for your Organization.</p>
 <p><img src="{{ site.baseurl }}/assets/blog-chilcano-logs-wso2-docker-elk-rtail-0-architecture.png" alt="Kibana - Viewing WSO2 and Wiremock raw log events" title="Collecting WSO2 and Wiremock log events with ELK and rTail" />Collecting WSO2 and Wiremock log events with ELK and rTail</p>
-
 <p><!-- more --></p>
-
 <p>You should be agile, for this reason, <a href="https://www.elastic.co">Elasticsearch-Logstash-Kibana</a> is the perfect Stack to do that in an agile way.<br />
 Really, there are many tools out there, opensource, commercial, on-cloud, such as log.io, Clarity, rTail, Tailon, frontail, etc. In my opinion, for a development environment, the most simple, fresh and lightweight tool is rTail (http://rtail.org), with rTail I can collect different log files, track and visualize them from a Browser in real time. rTail is very easy to use, just install NodeJS and deploy rTail application and you will be ready to send any type of traces to Browser directly avoiding store/persist logs, index and parse/filter them.<br />
 Well, this first blog post I will explain how to use ELK to collect, store and view the different log event of WSO2 ESB, API Manager, DSS, GREG and Wiremock.</p>

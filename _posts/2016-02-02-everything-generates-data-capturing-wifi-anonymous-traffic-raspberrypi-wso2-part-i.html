@@ -13,7 +13,7 @@ categories:
 - IoT
 - Security
 tags:
-- Apache Cassandra
+- Cassandra
 - CEP
 - Kismet
 - Privacy
@@ -54,17 +54,17 @@ permalink: "/2016/02/02/everything-generates-data-capturing-wifi-anonymous-traff
 <p><strong>1. Capture</strong>: Acquires, Integrates data.<br />
 <strong>2. Store</strong>: Classification, Consolidate, Transformation, Storage Design, etc.<br />
 <strong>3. Analysis</strong>: Exploration, visualization, modeling, prediction, etc.</p>
-<p><img src="{{ site.baseurl }}/assets/chilcano-raspberrypi-bigdata-wifi-1-bigdata.jpg" alt="Everything generates data - IoT, BigData, Privacy, Security" title="Everything generates data - IoT, BigData, Privacy, Security" />_Everything generates data - IoT, BigData, Privacy, Security_</p>
+<p><img src="{{ site.baseurl }}/assets/chilcano-raspberrypi-bigdata-wifi-1-bigdata.jpg" alt="Everything generates data - IoT, BigData, Privacy, Security" title="Everything generates data - IoT, BigData, Privacy, Security" /><br />
+<em>Everything generates data - IoT, BigData, Privacy, Security</em></p>
+<p><!-- more --></p>
 <p>In this first blog post I will explain how to capture anonymous <a href="https://en.wikipedia.org/wiki/IEEE_802.11">WIFI/802.11 traffic</a> using a <a href="https://www.raspberrypi.org/products/raspberry-pi-2-model-b">Raspberry Pi 2 Model B</a>, Kismet (<a href="https://www.kismetwireless.net">An 802.11 layer2 wireless network detector, sniffer, and intrusion detection system</a>) and in the second blog post I will use <a href="http://wso2.com/more-downloads/business-activity-monitor">WSO2 BAM 2.5.0</a> to collect the anonymous WIFI traffic to generate a simple Dashboard showing data in live or real time.</p>
 <p>The final idea is create a simple Dashboard showing the Mobile Devices as mobile phones identified around of the Raspberry Pi.<br />
 Anyway, you can use this traffic for different purposes such as:<br />
 * Monitor Shopping Activity<br />
 * Vehicule Traffic Monitoring<br />
 * Street Activity Monitoring, ...</p>
-<p><img src="{{ site.baseurl }}/assets/chilcano-raspberrypi-bigdata-wifi-2-arch.png" alt="Architecture - Capturing WIFI anonymous traffic using Raspberry Pi and WSO2 BAM and WSO2 CEP" title="Architecture - Capturing WIFI anonymous traffic using Raspberry Pi and WSO2 BAM and WSO2 CEP" />_Architecture - Capturing WIFI anonymous traffic using Raspberry Pi and WSO2 BAM and WSO2 CEP_</p>
-
-<p><!-- more --></p>
-
+<p><img src="{{ site.baseurl }}/assets/chilcano-raspberrypi-bigdata-wifi-2-arch.png" alt="Architecture - Capturing WIFI anonymous traffic using Raspberry Pi and WSO2 BAM and WSO2 CEP" title="Architecture - Capturing WIFI anonymous traffic using Raspberry Pi and WSO2 BAM and WSO2 CEP" /><br />
+<em>Architecture - Capturing WIFI anonymous traffic using Raspberry Pi and WSO2 BAM and WSO2 CEP</em></p>
 <p>Well, now let's get down to work.</p>
 <h2>I.- Enable <code>monitor</code> mode in Raspberry Pi</h2>
 <h3>1. Prepare the Raspberry Pi</h3>
@@ -345,7 +345,8 @@ debug - 4028 - child creating ipc fdfd<br />
 $ kismet_client<br />
 [/code]</p>
 <p><em>Kismet - Capturing 802.11 anonymous traffic using Raspberry Pi</em><br />
-<img src="{{ site.baseurl }}/assets/chilcano-raspberrypi-bigdata-wifi-3-kismet.png" alt="Kismet - Capturing 802.11 anonymous traffic using Raspberry Pi" title="Kismet - Capturing 802.11 anonymous traffic using Raspberry Pi" /></p>
+<img src="{{ site.baseurl }}/assets/chilcano-raspberrypi-bigdata-wifi-3-kismet.png" alt="Kismet - Capturing 802.11 anonymous traffic using Raspberry Pi" title="Kismet - Capturing 802.11 anonymous traffic using Raspberry Pi" /><br />
+<em>Kismet - Capturing 802.11 anonymous traffic using Raspberry Pi</em></p>
 <h2>III.- Common Kismet errors</h2>
 <p><em>1) Error when start Kismet. <code>plugins</code> folder not found.</em></p>
 <p>[code lang=bash]<br />
