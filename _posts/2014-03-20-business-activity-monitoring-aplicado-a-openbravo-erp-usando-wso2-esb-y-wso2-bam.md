@@ -41,28 +41,18 @@ permalink: "/2014/03/20/business-activity-monitoring-aplicado-a-openbravo-erp-us
 Mi colega [Luis Peñarrubia](http://www.linkedin.com/in/luispenarrubia "Luis Peñarrubia @ LinkedIn") ha publicado un detallado [post de cómo usar WSO2 BAM, WSO2 ESB para monitorizar la capa de servicio de Openbravo ERP](http://luispenarrubia.wordpress.com/2014/03/15/monitorizar-business-services-usando-wso2-esb-y-wso2-bam/ "Monitorizar Business Services usando WSO2 ESB y WSO2 BAM") (Data Access Layer).
 
   
-
-
 Aquí os dejo el documento que explica cómo hacerlo paso a paso:
 
   
-
-
 [slideshare id=32323468&doc=chakray-monitorizacion-kpi-service-wso2esb-wso2bam-201403141-140314124059-phpapp02&type=d]
 
   
-
-
 Por otro lado, al desplegarlo en mi entorno, WSO2 BAM mostraba errores de autenticación de Apache Thrift con Apache Cassandra, como este:
 
   
-
-
 [sourcecode language="text" gutter="true" wraplines="false"] 
 
   
-
-
 [2014-03-20 17:31:16,112] INFO {org.wso2.carbon.ntask.core.service.impl.TaskServiceImpl} - Task service starting in STANDALONE mode...  
   
 [2014-03-20 17:31:16,285] ERROR {org.wso2.carbon.bam.notification.task.internal.NotificationDispatchComponent} - InvalidRequestException(why:You have not logged in)  
@@ -82,13 +72,9 @@ at me.prettyprint.cassandra.connection.HConnectionManager.operateWithFailover(HC
 at me.prettyprint.cassandra.service.ThriftCluster.addKeyspace(ThriftCluster.java:168)
 
   
-
-
 [...]
 
   
-
-
 [2014-03-20 17:31:16,471] INFO {org.wso2.carbon.databridge.core.DataBridge} - admin connected  
   
 [2014-03-20 17:31:16,473] ERROR {org.wso2.carbon.databridge.core.internal.authentication.Authenticator} - wrong userName or password  

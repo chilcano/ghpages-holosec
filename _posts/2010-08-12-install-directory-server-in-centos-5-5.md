@@ -87,8 +87,6 @@ permalink: "/2010/08/12/install-directory-server-in-centos-5-5/"
 [![]({{ site.baseurl }}/assets/blog_centos55.png)](http://holisticsecurity.files.wordpress.com/2010/08/blog_centos55.png)
 
   
-
-
   
 
   1. Download all RPM extra packages from: http://mirrors.nfsi.pt/CentOS/5.5/extras/i386
@@ -101,8 +99,6 @@ permalink: "/2010/08/12/install-directory-server-in-centos-5-5/"
     [root@svdapp95 ~]# wget -m http://mirrors.nfsi.pt/CentOS/5.5/extras/i386
 
   
-
-
 or
 
   
@@ -112,19 +108,15 @@ or
     [root@svdapp95 ~]# wget -m http://mirror.centos.org/centos/5.5/extras/i386
 
   
-
+<!-- more -->
 
   
-
-
   
 
   1. Upload RPMs packages to you Linux box, for example to /centos-ds_rpm_tmp
   
 
   2.   
-
-
 Verify that you have installed Java:
 
   
@@ -139,16 +131,12 @@ Verify that you have installed Java:
     java-1.6.0-openjdk-1.6.0.0-1.7.b09.el5
 
   
-
-
   
 
   1. Install required packages from mounted ISO images:
   
 
   
-
-
  _Note_ :  
   
 * Append " **\--disablerepo= * \--enablerepo=c5-media install -y**" to yum command if you want install from **DVD Iso image** , for example:
@@ -166,13 +154,9 @@ Verify that you have installed Java:
     [root@svdapp95 ~]# yum install cyrus-sasl-gssapi db4-utils mozldap-tools perl-Mozilla-LDAP mozldap-devel
 
   
-
-
 [see installation output log 1](http://db.tt/iEFnwp)
 
   
-
-
   
 
   1. Install required supported packages from mounted ISO:
@@ -185,8 +169,6 @@ Verify that you have installed Java:
     # yum install xorg-x11-xauth bitstream-vera-fonts dejavu-lgc-fonts urw-fonts
 
   
-
-
   
 
   1. Install CentOS Directory Server
@@ -211,8 +193,6 @@ Verify that you have installed Java:
 [see installation output log 2](http://db.tt/6lC55l)
 
   1. Verify FQDN (fully qualified domain name):
-
-
     
     
     [root@svdapp95 ~]# hostname
@@ -230,8 +210,6 @@ If you have some troubles, edit /etc/hosts and update it, and that looks like th
 ... and change your hostname to "svdapp95.ohim-pre.eu" with system-config-network command, go to DNS > Hostname and change it.
 
   1. Create and configure Directory Server and Administration Server instances through of **setup-ds-admin.pl** :
-
-
     
     
     [root@svdapp95 ~]# /usr/sbin/setup-ds-admin.pl
@@ -241,24 +219,18 @@ If you have some troubles, edit /etc/hosts and update it, and that looks like th
 ## Verify installation
 
   1. Verify if directory service is running:
-
-
     
     
     [root@svdapp95 ~]# /etc/init.d/dirsrv status
     dirsrv svdapp95-ldap (pid 4556) is running...
 
   1. Verify if admin directory service is running:
-
-
     
     
     [root@svdapp95 ~]# /etc/init.d/dirsrv-admin status
     dirsrv-admin (pid 3308) is running...
 
   1. Verify if 389 and 9830 ports are opened:
-
-
     
     
     [root@svdapp95 ~]# netstat -tln | grep 389
@@ -272,8 +244,6 @@ If you have some troubles, edit /etc/hosts and update it, and that looks like th
     httpd.wor 3136 nobody    3u  IPv4  13659       TCP *:9830 (LISTEN)
 
   1. Start directory instance if It is not running:
-
-
     
     
     [root@svdapp95 ~]# /etc/init.d/dirsrv-admin start
@@ -286,16 +256,12 @@ If you have some troubles, edit /etc/hosts and update it, and that looks like th
 ## Delete all files related to directory instance for installing a new instance
 
   1. Start all services:
-
-
     
     
     [root@svdapp95 ~]# /etc/init.d/dirsrv-admin start
     [root@svdapp95 ~]# /etc/init.d/dirsrv start svdapp95-ldap
 
   1. Delete all files or remove instance with **ds_remove** script:
-
-
     
     
     [root@svdapp95 ~]# rm -rf /var/lib/dirsrv/slapd-<ldap-instance-id>
@@ -304,19 +270,13 @@ If you have some troubles, edit /etc/hosts and update it, and that looks like th
   * In my case <ldap-instance-id> = svdapp95-ldap
   * -f: if ds_removal fails, use -f to force the removal process.
   * Each Directory Server instance service must be running for the remove script to access it.
-
-
   1. Re-run script **setup-ds-admin.pl**
-
-
 
 ## Launch admin directory console
 
 X Server and GDM runing in the linux box is required and X client in the client side. In Windows as client can you use Xming.
 
   1. Open a **xterm** or console in your linux box.
-
-
 * Run centos-idm-console:
     
     
@@ -330,19 +290,13 @@ Administration URL: http://localhost:9830
 
   1. Run Console
 
-
-
 ![]({{ site.baseurl }}/assets/centos-ds_1_run_console.png)
 
   1. Open Directory Server console
 
-
-
 ![]({{ site.baseurl }}/assets/centOS-ds_2_console.png)
 
   1. Add an entry to Directory Server
-
-
 
 ![]({{ site.baseurl }}/assets/centOS-ds_3_addusr_console.png)
 
@@ -350,13 +304,9 @@ Administration URL: http://localhost:9830
 
   1. Create a connection to CentOS Directory Server from Apache Directory Studio
 
-
-
 ![]({{ site.baseurl }}/assets/centOS-ds_4_ApacheDirectoryStudio.png)
 
   1. Browse LDAP
-
-
 
 ![]({{ site.baseurl }}/assets/centOS-ds_5_ApacheDirectoryStudio.png)
 
@@ -401,8 +351,6 @@ When running any LDAP command, make sure that you are using the **MozLDAP** util
   * -w: bind passwd (for authentication)
   * -b: base dn
   * <searchfilter>: RFC-2254 compliant LDAP search filter
-
-
     
     
     [root@svdapp95 ~]# /usr/lib/mozldap/ldapsearch -x -D "cn=lluis,ou=People,dc=ohim-pre,dc=eu" -w liferay -b "dc=ohim-pre,dc=eu" "objectclass=inetOrgPerson"
@@ -410,8 +358,6 @@ When running any LDAP command, make sure that you are using the **MozLDAP** util
 ## Tuning CentOS Directory Server
 
   1. Using dsktune:
-
-
     
     
     [root@svdapp95 ~]# dsktune
@@ -422,8 +368,6 @@ When running any LDAP command, make sure that you are using the **MozLDAP** util
 
   * CentOS Directory Server, Basic Install  
 http://wiki.centos.org/HowTos/DirectoryServerSetup
-
-
 * CentOS Directory Server On CentOS 5.2  
 http://www.howtoforge.com/centos-directory-server-on-centos5.2
 

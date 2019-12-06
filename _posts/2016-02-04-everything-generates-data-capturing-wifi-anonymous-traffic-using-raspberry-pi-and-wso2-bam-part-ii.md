@@ -47,13 +47,9 @@ After configuring the Raspberry Pi to capture WIFI/802.11 traffic ([first blog p
 Because, the idea is to process in real-time and/or batch the stored data.
 
   
-
-
 To capture this type of traffic (WIFI/802.11 traffic) is so difficult for next reasons:
 
   
-
-
   
 
   * Kismet captures 802.11 layer-2 wireless network traffic (Network IP blocks such as TCP, UDP, ARP, and DHCP packets) what should be decoded.
@@ -69,8 +65,6 @@ To capture this type of traffic (WIFI/802.11 traffic) is so difficult for next r
   
 
   
-
-
 Well, in this second blog post I will explain how to solve above difficults.  
   
 ![Architecture IoT/BigData – Storing WIFI traffic in Apache Cassandra \(WSO2 BAM and Apache Thrift\)]({{ site.baseurl }}/assets/chilcano-02-raspberrypi-bigdata-wifi-thrift-1-architecture.png)  
@@ -78,31 +72,21 @@ Well, in this second blog post I will explain how to solve above difficults.
  _Architecture IoT/BigData – Storing WIFI traffic in Apache Cassandra (WSO2 BAM and Apache Thrift)_
 
   
-
+<!-- more -->
 
   
-
-
 ## I.- Looking for the Streaming and/or Communication Protocol
 
   
-
-
 There are some stream and communication protocols and implementations
 
   
-
-
 Really, there are many libraries and streaming protocols out there to solve the above issues, but if you are looking for a protocol/library open source, lightweight, low memory footprint and developer friendly there are a few. They are:
 
   
-
-
  **1) Elastic Logstash (https://www.elastic.co/products/logstash)**
 
   
-
-
 Logstash is a set of tools to collect heterogeneous type of data and It's to used with Elasticsearch, It requires Java and for this reason It is too heavy to run in a Raspberry Pi. The best choice is to use only `Logstash Forwarder`.  
   
 [`Logstash Forwarder` (a.k.a. `lumberjack`)](https://github.com/elastic/logstash-forwarder) is the protocol used to ship, parse and collect streams or log-events when using ELK.  
@@ -110,13 +94,9 @@ Logstash is a set of tools to collect heterogeneous type of data and It's to use
 `Logstash Forwarder` can be downloaded and compiled using the Go compiler on your Raspberry Pi, [for further information you can use this link](http://michaelblouin.ca/blog/2015/06/08/build-run-logstash-forwarder-rasperry-pi).
 
   
-
-
  **2) Elastic Filebeat (https://github.com/elastic/beats/tree/master/filebeat)**
 
   
-
-
 >   
 >  Filebeat is a lightweight, open source shipper for log file data. As the next-generation [`Logstash Forwarder`](https://github.com/elastic/logstash-forwarder), Filebeat tails logs and  
 >   
@@ -124,18 +104,12 @@ Logstash is a set of tools to collect heterogeneous type of data and It's to use
 > 
 
   
-
-
 Installing and configuring `Filebeat` is easy and you can use It with Logstash to perform additional processing on the data collected and the `Filebeat` replaces `Logstash Forwarder`.
 
   
-
-
  **3) Apache Flume (https://flume.apache.org)**
 
   
-
-
 >   
 >  Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of  
 >   
@@ -160,8 +134,6 @@ Installing and configuring `Filebeat` is easy and you can use It with Logstash t
 >   * Shipping data from one location to another via the use of an external transport (such as AMQP) or directly (via TCP).
 >   * Delivering processed data to one or more persistent data stores.
 > 
-
-
 `Mozilla Heka` is very similar to `Logstash Forwarder`, both are written in Go, but `Mozilla Heka` can process the log-events in real-time also Heka is also able to provide graphs of this data directly, those are great advantages. These graphs will be updated in real time, as the data is flowing through Heka, without the latency of the data store driven graphs.
 
 **5) Fluentd (https://github.com/fluent/fluentd)**
@@ -186,8 +158,6 @@ In this Proof-of-Concept I will use Apache Thrift for these reasons:
   * The WSO2 BAM 2.5.0 is a very important component because also It embeds Apache Cassandra to persist the data stream/log-events. You don't need to do anything, all log-events captured will be stored automatically in Apache Cassandra.
   * There are lightweight Python libraries implementing the Apache Thrift protocol, this [Thrift Python Client](https://github.com/wso2-incubator/iot-server-appliances/tree/master/Arduino%20Robot/PC_Clients/PythonRobotController/DirectPublishClient/BAMPythonPublisher) is suitable to be used in a Raspberry Pi and publish events int WSO2 BAM (Apache Cassandra).
   * And finally, there is a [Python Client Library specific for Kismet](https://github.com/PaulMcMillan/kismetclient). This Python Kismet Client reads the traffic captured for Kismet.
-
-
 
 ## II.- Installing, configuring and running Python Kismet Client and Python Thrift library
 
@@ -368,8 +338,6 @@ Notes:
   * You have to update the `sendTrafficFromKismetToWSO2BAM.py` with IP Address, Username, Password and Ports where WSO2 BAM is running.
   * The above Python script reads the captured traffic and defines previously a structure of data to be send to WSO2 BAM (Apache Thrift). You can modify that data structure by adding or removing 802.11 fields.
 
-
-
 **2.2) Install and configure WSO2 BAM to receive the Kismet traffic**
 
 Before you run the `sendTrafficFromKismetToWSO2BAM.py`, WSO2 BAM 2.5.0 should be running and the Thrift listener port should be open.  
@@ -474,8 +442,6 @@ Where:
   * `'-N'` allows empty command (useful here to forward ports only).
   * The user/password for `boot2docker` is `docker/tcuser`.
 
-
-
 You also can do the same but using the `ssh` command:
 
 ```sh  
@@ -565,8 +531,6 @@ In brief, WSO2 BAM has the below addresses:
   * From the Public IP address: 
     * WSO2 BAM Admin Web Console: https://192.168.1.43:9445/carbon/admin
     * Thrift listener: tcp://192.168.1.43:7713
-
-
 
 Then, let's go to explore the 802.11 traffic stored in Apache Cassandra.  
 Below a set of images took when browsing the Apache Cassandra embedded in WSO2 BAM.

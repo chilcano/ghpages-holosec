@@ -62,16 +62,12 @@ The log event management is a task very important when working with (Micro)servi
 * You have to `manage` in agile way the life cycle of your data (your logs), they are an asset very important for your Organization.
 
   
-
-
 ![Kibana - Viewing WSO2 and Wiremock raw log events]({{ site.baseurl }}/assets/blog-chilcano-logs-wso2-docker-elk-rtail-0-architecture.png)Collecting WSO2 and Wiremock log events with ELK and rTail
 
   
-
+<!-- more -->
 
   
-
-
 You should be agile, for this reason, [Elasticsearch-Logstash-Kibana](https://www.elastic.co) is the perfect Stack to do that in an agile way.  
   
 Really, there are many tools out there, opensource, commercial, on-cloud, such as log.io, Clarity, rTail, Tailon, frontail, etc. In my opinion, for a development environment, the most simple, fresh and lightweight tool is rTail (http://rtail.org), with rTail I can collect different log files, track and visualize them from a Browser in real time. rTail is very easy to use, just install NodeJS and deploy rTail application and you will be ready to send any type of traces to Browser directly avoiding store/persist logs, index and parse/filter them.  
@@ -79,23 +75,15 @@ Really, there are many tools out there, opensource, commercial, on-cloud, such a
 Well, this first blog post I will explain how to use ELK to collect, store and view the different log event of WSO2 ESB, API Manager, DSS, GREG and Wiremock.
 
   
-
-
 ## Part I: ELK (Elasticsearch, Logstash, Kibana)
 
   
-
-
 ### 1\. Starting with ELK Docker Container
 
   
-
-
  **1) Prepare the ELK container**
 
   
-
-
 We gonna use an existing Docker Image with ELK created by [Sébastien Pujadas](https://github.com/spujadas) `(http://elk-docker.readthedocs.org)` previously configured ready to be used. This Docker Image contains:  
   
 \- Elasticsearch (version 2.1.1)  
@@ -105,13 +93,9 @@ We gonna use an existing Docker Image with ELK created by [Sébastien Pujadas](h
 \- Kibana (version 4.3.1)
 
   
-
-
 Then, let's do it. Start the Docker daemon and login Docker Hub:
 
   
-
-
 ```sh  
   
 $ docker login  
@@ -123,8 +107,6 @@ WARNING: login credentials saved in /Users/Chilcano/.docker/config.json
 Login Succeeded
 
   
-
-
 $ docker pull sebp/elk  
   
 Using default tag: latest  
@@ -144,13 +126,9 @@ Status: Downloaded newer image for sebp/elk:latest
 ```
 
   
-
-
  **2) Run the container**
 
   
-
-
 ```sh  
 $ docker run -p 5601:5601 -p 9200:9200 -p 5044:5044 -p 5000:5000 -it --name elk sebp/elk  
 * Starting Elasticsearch Server  
@@ -209,8 +187,6 @@ The ports opened are:
   * 9200 (Elasticsearch JSON interface).
   * 5044 (Logstash Beats interface, receives logs from Beats such as Filebeat).
   * 5000 (Logstash Lumberjack interface, receives logs from Logstash forwarders).
-
-
 
 **4) Check Elasticsearch server**
 

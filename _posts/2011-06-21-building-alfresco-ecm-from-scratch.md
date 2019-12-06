@@ -54,18 +54,12 @@ permalink: "/2011/06/21/building-alfresco-ecm-from-scratch/"
 This article show us how to build Alfresco from scratch which is useful when extending or bug fixing.
 
   
-
-
 [caption id="" align="aligncenter" width="236" caption="Alfresco ECM"]![Alfresco ECM]({{ site.baseurl }}/assets/logo_01_alfresco.png)[/caption]
 
   
-
-
 ## Requisites:
 
   
-
-
 1\. Windows XP  
   
 2\. Java/JDK 1.6.0_21 (<http://www.oracle.com/technetwork/java/javase/downloads/index.html>)  
@@ -87,28 +81,18 @@ This article show us how to build Alfresco from scratch which is useful when ext
 10\. Alfresco source code downloaded from SVN on 15/June.
 
   
-
-
 [caption id="" align="alignnone" width="493" caption="Alfresco ECM: Community - version 4.0.0"]![Alfresco ECM: Community - version 4.0.0]({{ site.baseurl }}/assets/build_alfresco_scratch_0.png)[/caption]
 
   
-
-
 ## Setup development environment:
 
   
-
-
 ### JDK 
 
   
-
-
 1\. Install JDK and set two system variables (JAVA_HOME and PATH):
 
   
-
-
 [sourcecode language="text" gutter="true" wraplines="false"]  
   
 JAVA_HOME=C:\1bpms-demo\jdk160_21  
@@ -118,23 +102,15 @@ PATH=%PATH%;%JAVA_HOME%\bin
 [/sourcecode]
 
   
-
-
 ### Apache Tomcat 
 
   
-
-
 1\. Install/Unzip Apache Tomcat in the folder above, for example, **C:\1bpms-demo\alfresco_scratch\tomcat-6.0.32_app**
 
   
-
-
 2\. Create **setenv.bat** in **C:\1bpms-demo\alfresco_scratch\tomcat-6.0.32_app\bin** file with the following content:
 
   
-
-
 [sourcecode language="text" gutter="true" wraplines="false"]  
   
 set JAVA_OPTS=-Xms256m -Xmx1024m -Xss96k -XX:MaxPermSize=256m -server  
@@ -144,28 +120,18 @@ set JAVA_OPTS=%JAVA_OPTS%
 [/sourcecode]
 
   
-
-
 ### Eclipse 
 
   
-
-
 1\. Unzip Eclipse into **C:\1bpms-demo\eclipse-jee-helios-SR2**.
 
   
-
-
 2\. Open Eclipse and install Subclipse plugin from Eclipse Marketplace.
 
   
-
-
 3\. Create a folder where will download and build the Alfresco source code, for example﻿ **C:\1bpms-demo\alfresco_scratch**.
 
   
-
-
 4\. Switch to "SVN Repository Exploring" perspective.  
 Create a new SVN repository location, enter **<svn://svn.alfresco.com>** as the URL, then click on "alfresco" folder and do checkout as project in the workspace.
 

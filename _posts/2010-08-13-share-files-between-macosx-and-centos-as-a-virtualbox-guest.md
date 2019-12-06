@@ -82,36 +82,24 @@ permalink: "/2010/08/13/share-files-between-macosx-and-centos-as-a-virtualbox-gu
 Share files between two SO is easy because there are different protocols for sharing resources (NFS, CIFS/SMB/Samba, FTP, ...), but sharing files between two PCs with OS Linux based, and one of them as virtualmachine guest of another one is a bit more complicated. Here's how to do it when we Mac OSX as HOST and CentOS as GUEST:
 
   
-
+<!-- more -->
 
   
-
-
 ## Mount DVD ISO image in CentOS VirtualBox guest
 
   
-
-
 1.- Previously, I have download DVD ISO image, then I have copied to my Mac OSX Host.
 
   
-
-
 2.- From Virtual Box menu, goes to Devices > CD/DVD Devices and mount selecting CentOS's DVD ISO image (ISO previuosly added to VBox's "Virtual Media Manager").
 
   
-
-
 ![]({{ site.baseurl }}/assets/sharefilescentosmacosx-1-mount-dvdiso.png)
 
   
-
-
 3.- In CentOS guest now you can see DVD iso mounted as **/media/CentOS_5.5_Final**
 
   
-
-
 4.- You can install packages directly off the mounted DVD ISO. Now, modify **/etc/yum.repos.d/CentOS-Media.repo** file, enter:
 
   
@@ -121,8 +109,6 @@ Share files between two SO is easy because there are different protocols for sha
     [root@localhost ~]# vi /etc/yum.repos.d/CentOS-Media.repo
 
   
-
-
 5.- Make sure enabled is set to 1:
 
   
@@ -132,8 +118,6 @@ Share files between two SO is easy because there are different protocols for sha
     enabled=1
 
   
-
-
 6.- Save and close the file. To install packages from only DVD media repo, do this:
 
   
@@ -143,8 +127,6 @@ Share files between two SO is easy because there are different protocols for sha
     [root@localhost ~]# yum --disablerepo=\* --enablerepo=c5-media -y install <package-name>
 
   
-
-
  _  
   
 Notes:  
@@ -158,18 +140,12 @@ Notes:
 _
 
   
-
-
 ## Install Virtual Box Additions in CentOS guest
 
   
-
-
 Before anything, It is necessary install some packages as compiler gcc, kernel libs and sources.
 
   
-
-
 1.- Install the following packages with CentOS DVD ISO image mounted:
 
   
@@ -181,23 +157,15 @@ Before anything, It is necessary install some packages as compiler gcc, kernel l
     [root@localhost ~]# yum --disablerepo=\* --enablerepo=c5-media -y install kernel-devel
 
   
-
-
 2.- Unmount CentOS DVD ISO image and mount Virtual Box Guest Additions in your CentOS guest:
 
   
-
-
 ![]({{ site.baseurl }}/assets/sharefilescentosmacosx-2-mount-vboxadds.png)
 
   
-
-
 3.- Restart CentOS guest
 
   
-
-
 4.- Now, install VBoxGuestAdditions in CentOS guest:
 
   
@@ -208,13 +176,9 @@ Before anything, It is necessary install some packages as compiler gcc, kernel l
     [root@localhost VBOXADDITIONS_3.2.6_63112]# sh VBoxLinuxAdditions.run
 
   
-
-
 5.- Restart CentOS guest again
 
   
-
-
 6.- Now you could use special functionalities as resize the guest windows, share files, etc...
 
 ## Share files beetwen Mac OS X as Host and CentOS as Guest
@@ -228,8 +192,6 @@ Before anything, It is necessary install some packages as compiler gcc, kernel l
 
   * Go to **Devices** > **Shared Folders** ...
   * In popup, add shared folder and select Host's folder ( **/Users/chilcano/files2share** ), set up a name as **files2share** and make permanent.
-
-
 
 ![]({{ site.baseurl }}/assets/sharefilescentosmacosx-3-share-host-folder.png)
 
@@ -281,12 +243,8 @@ http://www.cyberciti.biz/faq/centos-linux-install-packages-from-dvd-using-yum/
 http://davidherron.com/content/implementing-virtualbox-shared-folders-between-mac-os-x-host-and-fedora-guest
 
 
-
-
 http://forums.virtualbox.org/viewtopic.php?t=4960&highlight=install+guest+addition  
 * How to install Guest Additions in CentOS 5.1
 
   * Share Folders Between a Linux Host and Linux Virtual Machine on VirtualBox  
 http://tuxtweaks.com/2009/06/share-folders-linux-host-linux-virtual-machine-virtualbox/
-
-

@@ -43,46 +43,30 @@ permalink: "/2016/12/02/data-routing-transformation-and-system-mediation-in-big-
 So a few months ago I published a serie of post explaining how to capture WIFI traffic and process it near to real time by using [WSO2 BAM](http://wso2.com/more-downloads/business-activity-monitor/), [CEP Siddhi](https://github.com/wso2/siddhi), Apache Cassandra, [Apache Thrift](https://thrift.apache.org/), [Kismet](https://www.kismetwireless.net) running on a Raspberry Pi and Docker.
 
   
-
-
 ![https://holisticsecurity.files.wordpress.com/2016/12/01-wifi-traffic-capture-wso2-bam.png]({{ site.baseurl }}/assets/01-wifi-traffic-capture-wso2-bam.png)
 
   
-
-
 Now, after several Big Data and Security projects, I can add to previous solution, fresh air and improve the technological approach.
 
   
-
+<!-- more -->
 
   
-
-
 ## Using Elasticsearch, Logstash and Kibana
 
   
-
-
 Well, the first approach I considered was starting with [ELK stack](https://www.elastic.co) (Elasticsearch, Logstash and Kibana), that is the natural way to follow.
 
   
-
-
 ![https://holisticsecurity.files.wordpress.com/2016/12/02-wifi-traffic-capture-elasticsearch-logstash-kibana.png]({{ site.baseurl }}/assets/02-wifi-traffic-capture-elasticsearch-logstash-kibana.png)
 
   
-
-
  
 
   
-
-
 But, there are still some issues to face:
 
   
-
-
   
 
   * Deal with the resilience.  
@@ -128,8 +112,6 @@ But, there are still some issues to face:
   * Administrable remotely. 
     * Definitely I can't do that in a massively distributed Raspberry Pi's.
 
-
-
 Then, what can I do ?....
 
 ## Apache NiFi to the rescue!
@@ -173,8 +155,6 @@ The above choice covers basically all gaps above explained. In the side of Raspb
   * central management of agents
   * generation of data provenanceFor other side, the below choice is also a valid alternative. Even as PoC that demonstrates the ease and the power of using Apache NiFi, this approach is enough.
 
-
-
 ![https://holisticsecurity.files.wordpress.com/2016/12/05-wifi-traffic-capture-apache-nifi.png]({{ site.baseurl }}/assets/05-wifi-traffic-capture-apache-nifi.png)
 
 In the next post I will share technical details and code to implement the above approach. Meanwhile I share four great resources:
@@ -184,13 +164,8 @@ In the next post I will share technical details and code to implement the above 
   * Integrating Apache Spark and NiFi for Data Lakes (http://www.slideshare.net/HadoopSummit/integrating-apache-spark-and-nifi-for-data-lakes)
   * Integrating Apache NiFi and Apache Kafka (http://bryanbende.com/development/2016/09/15/apache-nifi-and-apache-kafka)
 
-
-
 ## Conclusions
 
   * Apache NiFi as system mediator (data routing, transformation, etc.) to does data routing, data streaming, move big data chunks, pull, push and put from/to different sources of data, is the perfect companion for Big Data projects.
   * Apache NiFi speaks different languages through [Processors](https://nifi.apache.org/docs/nifi-docs/). I can replace Logstash with all Input and Output Plugins easily. I can connect Apache NiFi to Elasticsearch (Put/Fetch Elasticsearch), Apache Hadoop (PutHDFS, FetchHDFS), Twitter, Kafka, etc.
 
-
-
- 

@@ -66,88 +66,54 @@ permalink: "/2013/10/27/creando-nube-privada-low-cost-con-proxmox/"
 Actualmente existe una oferta muy rica de proveedores de infraestructura o hosting y proveedores de tecnología para sacar el máximo provecho de dicha infraestructura, aún más importante, a un coste razonablemente bajo usando tecnología free y open source.
 
   
-
-
 [![proxmox-logo]({{ site.baseurl }}/assets/proxmox-logo.png)](http://holisticsecurity.files.wordpress.com/2013/10/proxmox-logo.png)
 
   
-
-
 En mi caso, esta infraestructura la usaré para construir una plataforma donde provea servicios alrededor de productos como WSO2 ESB, Liferay Portal, Alfresco ECM, Drupal, etc., para ello he contratado un hosting medianamente decente en Hetzner (repito experiencia) y he empleado Proxmox VE.
 
   
-
-
 # I. Por qué Proxmox VE ?
 
   
-
-
 Principalmente, porque ya tenía experiencia previa con Proxmox con las versión 2.0 de años anteriores, aunque actualmente hay productos opensource y más sofisticados como Apache CloudStack, OpenStack y Eucalyptus, pero el conocimiento previo y su sencillez me hizo decidir su uso. Una cosa importante a destacar es el corto tiempo necesario para crear un nuevo servidor, por lo general me toma 10 minutos.
 
   
-
-
 # II. Qué servicios ofreceremos desde nuestra nube privada?
 
   
-
-
 Los servicios ofrecidos estarán alrededor del desarrollo de aplicaciones usando el Stack de WSO2, Liferay Portal, Alfresco ECM, Gestión de Identidades con WSO2 IS, etc. En otras palabras, nuestra nube privada será nuestra plataforma base para desarrollar y explotar nuestras aplicaciones construidas con las anteriores tecnologías mencionadas.
 
   
-
-
 # III. Por qué no usar WSO2 Stratos, RedHat OpenShift u otro PaaS
 
   
-
-
 Por la naturaleza del tipo de servicios a ofrecer, evidentemente lo mejor era usar algún PaaS stack y la más adecuada era WSO2 Stratos, aunque como indiqué en el punto anterior, el conocimiento previo de Proxmox me hizo decidir como primera opción.
 
   
-
-
 Bueno, una vez puesto mis argumentos, paso a explicar todo el proceso que seguí para tener mi nube privada.
 
   
-
-
 # IV. Defina una arquitectura de virtualización o mapa de VMs
 
   
-
-
 Sí, es muy importante planear cómo quedará tu nube privada, IPs, Redes Virtuales, DMZ, Storage vs. Partitions, RAM / VM, Security y Firewalling, etc.
 
   
-
-
 Aquí os muestro mi mapa de VMs.
 
   
-
-
 [caption id="" align="alignnone" width="665"][![A example of Private Cloud Architecture with Proxmox]({{ site.baseurl }}/assets/blog20131027_privatecloud_proxmox_architecture.png)](https://dl.dropboxusercontent.com/u/2961879/blog.sec/blog20131027_privatecloud_proxmox/blog20131027_privatecloud_proxmox_architecture.png) A example of Private Cloud Architecture with Proxmox[/caption]
 
   
-
-
 Después de planear la arquitectura de tu nube, los siguientes pasos están relacionados a la instalación y post-configuración de tu hosting.
 
   
-
-
 # V. Preparando la infraestructura base
 
   
-
-
 Algunos requisitos previos:
 
   
-
-
   
 
   * Debian 7.0 (wheezy) o CentOS 6.4
@@ -163,42 +129,28 @@ Algunos requisitos previos:
   
 
   
-
-
 ## 1\. Instalar el S.O.
 
   
-
-
   
 
   * Ir a Robot > Linux y seleccionar Debian 7 - minimal, luego reboot desde ssh:
   
 
   
-
-
 [sourcecode language="html" gutter="true" wraplines="false"]
 
   
-
-
 # shutdown -rf now
 
   
-
-
 [/sourcecode]
 
   
-
-
   
 
   * Verificar la versión de S.O. por defecto instalada en el Hosting
   
-
-
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
 root@chkry1 ~ # uname -a  
@@ -231,8 +183,6 @@ root@chkry1 ~ # apt-get update
 
   * Reinicie el servicio
 
-
-
 [sourcecode language="html" gutter="true" wraplines="false"]
 
 # /etc/init.d/hostname.sh
@@ -240,8 +190,6 @@ root@chkry1 ~ # apt-get update
 [/sourcecode]
 
   * Verifique los cambios, salga y vuelva a entrar o:
-
-
 
 [sourcecode language="html" gutter="true" wraplines="false"]
 
@@ -253,15 +201,11 @@ root@chkry1 ~ # apt-get update
 
   * http://ubuntu-tutorials.com/2008/01/12/disabling-ssh-connections-on-ipv6/
 
-
-
 [sourcecode language="html" gutter="true" wraplines="false"]  
 root@chkry1 ~ # nano /etc/ssh/sshd_config  
 [/sourcecode]
 
   * Reemplazar las líneas 'Port 22' y 'Port 222' por 'Port 4141' y añadir 'AddressFamily inet' (ipv4)
-
-
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
 root@chkry1 ~ # service ssh restart  
@@ -273,16 +217,12 @@ root@chkry1 ~ # service ssh restart
   * Verificar que realmente este funcionando ipv6
 
 
-
-
 [sourcecode language="html" gutter="true" wraplines="false"]  
 root@chkry1 ~ # netstat -tunlp |grep p6 |wc -l  
 5  
 [/sourcecode]
 
   * Actualizar el kernel y hosts para no cargar ipv6
-
-
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
 root@chkry1 ~ # echo net.ipv6.conf.all.disable_ipv6=1 > /etc/sysctl.d/disableipv6.conf  
@@ -291,15 +231,11 @@ root@chkry1 ~ # sed '/::/s/^/#/' /etc/hosts >/etc/dipv6-tmp; cp -a /etc/hosts /e
 
   * Al no tener avahi (multi-cast) instalado, no ejecutar esto:
 
-
-
 [sourcecode language="html" gutter="true" wraplines="true"]  
 root@chkry1 ~ # sed '/ipv6=yes/s/yes/no/' /etc/avahi/avahi-daemon.conf > /etc/avahi/dipv6-tmp; cp -a /etc/avahi/avahi-daemon.conf /etc/avahi/avahi-daemon.conf-backup && mv /etc/avahi/dipv6-tmp /etc/avahi/avahi-daemon.conf  
 [/sourcecode]
 
   * NTP
-
-
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
 root@chkry1 ~ # nano /etc/default/ntp  

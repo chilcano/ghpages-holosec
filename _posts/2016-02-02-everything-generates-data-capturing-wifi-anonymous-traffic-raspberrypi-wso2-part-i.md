@@ -53,8 +53,6 @@ permalink: "/2016/02/02/everything-generates-data-capturing-wifi-anonymous-traff
 Yes, in this digital world, everything generates data, but before to do `BigData`, you have to follow these steps:
 
   
-
-
  **1\. Capture** : Acquires, Integrates data.  
   
  **2\. Store** : Classification, Consolidate, Transformation, Storage Design, etc.  
@@ -62,23 +60,17 @@ Yes, in this digital world, everything generates data, but before to do `BigData
  **3\. Analysis** : Exploration, visualization, modeling, prediction, etc.
 
   
-
-
 ![Everything generates data - IoT, BigData, Privacy, Security]({{ site.baseurl }}/assets/chilcano-raspberrypi-bigdata-wifi-1-bigdata.jpg)  
   
  _Everything generates data - IoT, BigData, Privacy, Security_
 
   
-
+<!-- more -->
 
   
-
-
 In this first blog post I will explain how to capture anonymous [WIFI/802.11 traffic](https://en.wikipedia.org/wiki/IEEE_802.11) using a [Raspberry Pi 2 Model B](https://www.raspberrypi.org/products/raspberry-pi-2-model-b), Kismet ([An 802.11 layer2 wireless network detector, sniffer, and intrusion detection system](https://www.kismetwireless.net)) and in the second blog post I will use [WSO2 BAM 2.5.0](http://wso2.com/more-downloads/business-activity-monitor) to collect the anonymous WIFI traffic to generate a simple Dashboard showing data in live or real time.
 
   
-
-
 The final idea is create a simple Dashboard showing the Mobile Devices as mobile phones identified around of the Raspberry Pi.  
   
 Anyway, you can use this traffic for different purposes such as:  
@@ -90,47 +82,31 @@ Anyway, you can use this traffic for different purposes such as:
 * Street Activity Monitoring, ...
 
   
-
-
 ![Architecture - Capturing WIFI anonymous traffic using Raspberry Pi and WSO2 BAM and WSO2 CEP]({{ site.baseurl }}/assets/chilcano-raspberrypi-bigdata-wifi-2-arch.png)  
   
  _Architecture - Capturing WIFI anonymous traffic using Raspberry Pi and WSO2 BAM and WSO2 CEP_
 
   
-
-
 Well, now let's get down to work.
 
   
-
-
 ## I.- Enable `monitor` mode in Raspberry Pi
 
   
-
-
 ### 1\. Prepare the Raspberry Pi
 
   
-
-
 Obviously, I have a clean image of Raspbian installed in my Raspberry Pi 2 Model B.  
   
 The below steps explain how to prepare Raspberry Pi and install and configure Kismet to capture 802.11 anonymous traffic.
 
   
-
-
 Before to do it, I have to prepare the Raspberry Pi, for example, configure a static IP address to Ethernet interface (`eth0`) to get SSH access remotely. After that, I can configure the Wireless interface (`wlan0`) and install Kismet.
 
   
-
-
  **1.1) Get SSH access to Raspberry Pi**
 
   
-
-
 ```sh  
   
 $ ssh pi@192.168.1.102  
@@ -140,8 +116,6 @@ pi@192.168.1.102's password:
 Linux rpi-chicha 3.18.11-v7+ #781 SMP PREEMPT Tue Apr 21 18:07:59 BST 2015 armv7l
 
   
-
-
 The programs included with the Debian GNU/Linux system are free software;  
   
 the exact distribution terms for each program are described in the  
@@ -149,8 +123,6 @@ the exact distribution terms for each program are described in the
 individual files in /usr/share/doc/*/copyright.
 
   
-
-
 Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent  
   
 permitted by applicable law.  

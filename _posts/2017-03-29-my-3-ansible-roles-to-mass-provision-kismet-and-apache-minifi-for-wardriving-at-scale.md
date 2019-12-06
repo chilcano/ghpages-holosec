@@ -43,31 +43,21 @@ permalink: "/2017/03/29/my-3-ansible-roles-to-mass-provision-kismet-and-apache-m
 This blog post is implementing the same scenario used in the previous post [Mass provisioning of Kismet and Apache MiNiFi in Raspberry Pi using Ansible](https://holisticsecurity.io/2017/03/20/mass-provisioning-of-kismet-and-apache-minifi-in-raspberry-pi-using-ansible). The unique difference is this new blog post I'm using [Ansible Roles](http://docs.ansible.com/ansible/playbooks_roles.html) instead of Ansible Playbooks where all automated operations as install, configure, run, etc. were implemented in Ansible Tasks.
 
   
-
-
 ![https://holisticsecurity.files.wordpress.com/2017/03/mass-provisioning-kismet-minifi-raspberrypi-ansible-2-pkg.png]({{ site.baseurl }}/assets/mass-provisioning-kismet-minifi-raspberrypi-ansible-2-pkg.png)
 
   
-
+<!-- more -->
 
   
-
-
 Then, I've refactored all Ansible Tasks and I've created 3 Ansible Roles. They are in Ansible Galaxy and are:
 
   
-
-
  **Ansible Role Kismet RPi Build (https://galaxy.ansible.com/chilcano/kismet-rpi-build)**
 
   
-
-
 An Ansible Role that builds / compiles from scratch and packs (Debian/Raspbian binary) Kismet on a Raspberry Pi. This Role provides the following features:
 
   
-
-
   
 
   * Download the Kismet source code.
@@ -80,18 +70,12 @@ An Ansible Role that builds / compiles from scratch and packs (Debian/Raspbian b
   
 
   
-
-
  **Ansible Role Kismet RPi Wardriving (https://galaxy.ansible.com/chilcano/kismet-rpi-wardriving)**
 
   
-
-
 An Ansible Role that installs, configures and runs Kismet on a Raspberry Pi. This Role provides the following features:
 
   
-
-
   
 
   * Install Kismet and dependencies.
@@ -110,18 +94,12 @@ An Ansible Role that installs, configures and runs Kismet on a Raspberry Pi. Thi
   
 
   
-
-
  **Ansible Role Apache MiNiFi (https://galaxy.ansible.com/chilcano/apache-minifi)**
 
   
-
-
 An Ansible Role that installs, configures and runs Apache MiNiFi in tiny devices like a Raspberry Pi, although you can use it on any distro. This Role provides the following features:
 
   
-
-
   
 
   * Install Apache MiNiFi and Java SDK.
@@ -134,23 +112,15 @@ An Ansible Role that installs, configures and runs Apache MiNiFi in tiny devices
   
 
   
-
-
 ## How to use everything
 
   
-
-
 Well, I've updated and deleted Ansible Tasks not used in the existing [Ansible Raspberry Pi Wardriving Github repo](https://github.com/chilcano/ansible-raspberrypi-wardriving) because now I'm using 3 Ansible Roles. Just download the same Github repo with `Tag 2.0.0` and execute the new Ansible Playbook with the same `inventory` file.
 
   
-
-
 Install all Ansible Roles needed as below or using `requirements.yml` file:
 
   
-
-
 ```text  
   
 $ sudo ansible-galaxy install geerlingguy.apache  

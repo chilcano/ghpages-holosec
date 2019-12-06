@@ -38,11 +38,9 @@ Os invito a leerlo: [¿Te falta tiempo? ¿o es que no tienes claras tus priorida
   
 Esto es en cierta forma "normal", considerando como normal cualquier comportamiento pensado o no por un ser humano. La Ley de Parkinson explica este comportamiento "normal".  
   
-
+<!-- more -->
 
   
-
-
 > Las tres leyes fundamentales de Parkinson son:  
 >   
 > 1º. "El trabajo crece hasta llenar el tiempo de que se dispone para su realización".  
@@ -57,23 +55,15 @@ Esto es en cierta forma "normal", considerando como normal cualquier comportamie
 > Estas tres leyes, al igual que otras que Parkinson formuló, como _la ley de la dilación o el arte de perder el tiempo_ y _la ley de la ocupación de los espacios vacíos: por mucho espacio que haya en una oficina siempre hará falta_ , son leyes extraídas de la experiencia cotidiana, mediante las cuales, al tiempo que se describe o pone de manifiesto una determinada realidad, se denuncia la falta de eficiencia del trabajo administrativo. [_[De Wikipedia]_](http://es.wikipedia.org/wiki/Ley_de_Parkinson)
 
   
-
-
 Por otro lado, para los que conocen el [PMBOK (Project Management body of Knowledge)](http://es.wikipedia.org/wiki/Project_Management_Body_of_Knowledge),
 
   
-
-
 La Ley de Parkinson también sirve como referencia a la hora de valorar/estimar esfuerzos en las tareas de un proyecto, interpretádola y llevándola a PM significa _que si le asignamos a un recurso una cantidad de tiempo para realizar un cierto trabajo, terminará utilizando todo el tiempo del que dispone, independientemente de si necesitaba o no todo ese tiempo para realizarlo._
 
   
-
-
 Hay que tenerlo muy presente. :)
 
   
-
-
 Adeu!.
 
   

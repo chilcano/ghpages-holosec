@@ -98,16 +98,12 @@ With this post I will start a serie of articles explaining how to do "Data Inges
 ...everything, near to real-time ;)
 
   
-
+<!-- more -->
 
   
-
-
 And if you want to explore in deep other use cases, this article is a must read: (EDGE INTELLIGENCE FOR IOT WITH APACHE MINIFI)[https://hortonworks.com/blog/edge-intelligence-iot-apache-minifi/]
 
   
-
-
 In short, I will explain in this post the following:  
   
 \- Manage several devices in the `Edge` by using Ansible.  
@@ -117,67 +113,43 @@ In short, I will explain in this post the following:
 \- Performing operational tasks in several devices.
 
   
-
-
 ![https://raw.githubusercontent.com/chilcano/ansible-raspberrypi-wardriving/master/images/mass-provisioning-kismet-minifi-raspberrypi-ansible-1-arch.png]({{ site.baseurl }}/assets/mass-provisioning-kismet-minifi-raspberrypi-ansible-1-arch.png)
 
   
-
-
 ## 1\. Preparing your Raspberry Pi.
 
   
-
-
 ### 1.1. Prepare your MicroSD cards with the latest Raspbian image.
 
   
-
-
 I'm going to use Raspbian Jessie Lite 2017-01-11 (http://director.downloads.raspberrypi.org/raspbian_lite/images/raspbian_lite-2017-01-10/2017-01-11-raspbian-jessie-lite.zip).
 
   
-
-
 ```text  
   
 $ diskutil list
 
   
-
-
 $ diskutil unmountDisk /dev/disk3
 
   
-
-
 $ sudo dd bs=1m if=2017-01-11-raspbian-jessie-lite.img of=/dev/rdisk3
 
   
-
-
 $ touch /Volumes/boot/ssh
 
   
-
-
 $ diskutil unmountDisk /dev/disk3  
   
 ```
 
   
-
-
 ... repeat this process as times as Raspberry Pis you have.
 
   
-
-
 ### 1.2. Connect all Raspberry Pis to the Network.
 
   
-
-
 Connect all Raspberry Pi to your Router, now your PC and all Pis are connected to same network, and if you have DHCP enabled your Raspberry Pi will have an IP address automatically.  
   
 Now, we have to get all IP addresses assigned to each Raspberry Pi. You could use Fing App in Android or install Fing in your PC.  
@@ -185,8 +157,6 @@ Now, we have to get all IP addresses assigned to each Raspberry Pi. You could us
 I'm going to use [Fing on Mac OSX](https://www.fing.io/download-free-ip-scanner-for-desktop-linux-windows-and-osx).
 
   
-
-
 ```text  
   
 $ sudo fing  
@@ -247,8 +217,6 @@ That means:
 
   * Resize SD, update Raspbian and manage shutdown and reboot operations.
   * Set a proper Hostname, configure Network interfaces (eth0 and wlan0), DNS, etc.
-
-
 
 I've updated and extended the [Raspberry Pi Dramble Ansible Git repository](https://github.com/geerlingguy/raspberry-pi-dramble) to reset the Network configuration and to build from source code, to install and to start Kismet (http://www.kismetwireless.net).
 
@@ -532,14 +500,10 @@ Then, let's go to check the network configuration, basically you have to check t
   * /etc/hosts
   * /etc/network/interfaces
 
-
-
 I've updated above cloned Ansible scripts for you with the right configuration. Basically I have updated the Ansible templates (Jinja2) to do:
 
   * Restoring `etc/network/interfaces` to get IP address automatically through DHCP.
   * Configuring `/etc/dhcpcd.conf` with our default gateway on eth0.
-
-
 
 Also I have updated the `setup/networking/main.yml` Ansible Playbook and the `setup/networking/vars.yml` to restore default network configuration.
 
@@ -567,8 +531,6 @@ I'm going to create an Ansible Playbooks to:
   * Enable WIFI interface in `monitor mode` on each Raspberry Pi.
   * Download Kismet source code and build it for Raspberry Pi (ARM chipset).
   * Install and configure Kismet on each Raspberry Pi.
-
-
 
 To do that I will follow my previous blog posts ([Capturing WIFI anonymous traffic using Raspberry Pi and WSO2 BAM - Part I](https://holisticsecurity.io/2016/02/02/everything-generates-data-capturing-wifi-anonymous-traffic-raspberrypi-wso2-part-i)) where I explained step by step all commands to be performed in order to run Kismet on Raspberry Pi.  
 The result final is a set of Ansible Playbooks located under `ansible-raspberrypi-wardriving/playbooks/kismet` in the Git repo (https://github.com/chilcano/ansible-raspberrypi-wardriving), and they are:
@@ -760,8 +722,6 @@ This results means:
   * In RPi `192.168.0.17` the `warpi` (Kismet) and `minifipi` (MiNiFi) services are not running.
   * In RPi `192.168.0.18` the `warpi` (Kismet) and `minifipi` (MiNiFi) services are running.
 
-
-
 And if you want further details about the Apache MiNiFi running in RPi `192.168.0.18`, just execute this command:
 
 ```sh  
@@ -789,8 +749,6 @@ CGroup: /system.slice/minifipi.service
     * Implement them as Ansible Roles.
     * Implement Ansible Tasks to start Kismet and MiNiFi as `systemd` services with restricted Linux user, no `root`.
     * Implement Ansible Tasks to read and send in batch the logs or event files for Kismet and MiNiFi to external system as Syslog Server or Solr or Elasticsearch.
-
-
 
 In the next blog post I will explain how to integrate/connect each Raspberry Pi (Kismet and MiNiFi) to a centralized Apache NiFi by using Ansible, of course!.
 

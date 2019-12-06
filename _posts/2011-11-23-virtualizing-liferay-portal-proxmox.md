@@ -30,52 +30,34 @@ permalink: "/2011/11/23/virtualizing-liferay-portal-proxmox/"
 Some days ago I had to deploy a Liferay Portal in a hosting provider where Proxmox Virtual Environment (PVE) was necessary to use.
 
   
-
-
 [Proxmox Virtual Environment](http://pve.proxmox.com/wiki/Network_Model) is a Debian distro with pre-installed packages ready to use when you want to create virtualization platform for running Virtual Appliances and Virtual Machines based on OpenVZ and KVM.
 
   
-
-
 But, What is difference between tradicional hosting and hosting based on Proxmox VE?, really does not exist differences because with Proxmox VE you can virtualize all (network, server, vlan, etc.).
 
   
-
-
 Then, I did create a virtualized network with 2 servers based on Proxmox, the first server runs a Linux Debian with Apache HTTP server as web-proxy, the second server will be a private server with Liferay Portal.
 
   
-
-
 The architecture final is as follow:
 
   
-
-
 [caption id="" align="alignnone" width="462" caption="Architecture - Liferay in an environment virtualized with Proxmox"][![Architecture - Liferay in an environment virtualized with Proxmox]({{ site.baseurl }}/assets/www.intix.info_proxmox_liferay_arquitectura.png)](http://dl.dropbox.com/u/2961879/blog20111108_proxmoxliferay/www.intix.info_proxmox_liferay_arquitectura.png)[/caption]
 
   
-
-
 ## 1\. Installation first server with Proxmox / Apache2 HTTP Server (In Host)
 
   
-
-
 When installing Proxmox in your hosting provider you will have as principal public server a first server with Debian Linux,  
   
 its initial configuration is as follow:
 
   
-
-
 [sourcecode language="text" gutter="true" wraplines="false" highlight="1"]  
   
 root@kns ~ # nano /etc/network/interfaces
 
   
-
-
 ### Hetzner Online AG - installimage  
   
 # Loopback device:  
@@ -85,8 +67,6 @@ auto lo
 iface lo inet loopback
 
   
-
-
 # device: eth0  
   
 auto eth0  
@@ -106,8 +86,6 @@ pointopoint 176.9.30.33
 post-up mii-tool -F 100baseTx-FD eth0
 
   
-
-
 # default route to access subnet  
   
 up route add -net 176.9.30.32 netmask 255.255.255.224 gw 176.9.30.33 eth0  
@@ -119,8 +97,6 @@ up route add -net 176.9.30.32 netmask 255.255.255.224 gw 176.9.30.33 eth0
 root@kns ~ # more /etc/resolv.conf
 
   
-
-
 search  
   
 nameserver 213.133.100.100  
@@ -264,5 +240,3 @@ Bye.
 
   * Proxmox - Network model:  
 <http://pve.proxmox.com/wiki/Network_Model>
-
-

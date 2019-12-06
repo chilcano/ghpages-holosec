@@ -38,13 +38,11 @@ permalink: "/2010/08/06/install-packages-from-centos-5-5-iso-cdrom-images/"
 [![]({{ site.baseurl }}/assets/blog_centos55.png)](http://holisticsecurity.files.wordpress.com/2010/08/blog_centos55.png)
 
   
-
-
   
 
   1. Upload CentOS's ISO files (i have 7 iso files) into **/centos5.5_iso_files** directory.  
   
-  
+<!-- more -->  
   
 2\. It is probably that you do not have **createrepo** rpm package, then download it from CentOS RPM repository.  
   
@@ -52,8 +50,6 @@ I've found it in <http://mirror.centos.org/centos/5.5/os/i386/CentOS/createrepo-
   
 
   2.   
-
-
 Install **createrepo-0.4.11-3.el5.noarch.rpm** :
 
   
@@ -61,8 +57,6 @@ Install **createrepo-0.4.11-3.el5.noarch.rpm** :
   
 
   
-
-
 >   
 > 
 >     
@@ -73,13 +67,9 @@ Install **createrepo-0.4.11-3.el5.noarch.rpm** :
 > 
 
   
-
-
 ... and check installation:
 
   
-
-
 >   
 > 
 >     
@@ -90,16 +80,12 @@ Install **createrepo-0.4.11-3.el5.noarch.rpm** :
 > 
 
   
-
-
   
 
   1. Mount the 7 ISO files:
   
 
   
-
-
 >   
 > 
 >     
@@ -117,14 +103,10 @@ Install **createrepo-0.4.11-3.el5.noarch.rpm** :
 > 
 
   
-
-
   
 
   1. Create a new Yum's repository:
   
-
-
 
 > 
 >     # cd /mnt/iso
@@ -137,8 +119,6 @@ Install **createrepo-0.4.11-3.el5.noarch.rpm** :
 >     # yum clean all
 
   1. Create repository configuration file:
-
-
 
 > 
 >     # nano /etc/yum.repos.d/centos55_i386_iso.repo
@@ -153,18 +133,12 @@ append:
 
   1. Save and close the changes, now you can use Yum to install, search packages from ISO images, for example:
 
-
-
 > 
 >     # yum --nogpgcheck install my-package-name
 >     # yum search my-package-name
 
   1. Troubleshooting:
-
-
   * Sometimes when installing, searching or updating packages, Yum shows errors as "Bad id for repo: ....", for solve it you could to delete strange chars or blank spaces in **/etc/yum.repos.d/centos55_i386_iso.repo**
-
-
 * When yum shows following error:
 
 > 

@@ -60,43 +60,29 @@ permalink: "/2016/04/12/provisioning-massively-crosscompiled-bin-rpi-armv7-using
 If you are involved in an IoT or Mobile Application provisioning Project you probably need build a mechanism to spread your application binaries to all Devices on stock and to all the rolled out Devices.
 
   
-
-
 With this Proof-of-concept I will shown you how to build the app binary provisioning system for your custom platform, in this case I'm going to use Raspberry Pi (ARM processor) quickly avoiding perform unnecessary tasks and providing also an ARM cross-compiling platform.
 
   
-
-
 ![blog-cross-compiling-kismet-raspberrypi-arm.png]({{ site.baseurl }}/assets/blog-cross-compiling-kismet-raspberrypi-arm.png)
 
   
-
+<!-- more -->
 
   
-
-
 To implement this I will use Vagrant to create an Ubuntu VM mounts the Raspbian OS image internally ready to be used for ARM cross-compiling. There is a special part in this blog post where explains how to NFS mount to provide remote booting for all Raspberry Pi's connected to same network.
 
   
-
-
 I provide a new Github repository with all the updated scripts required for this PoC. You can download from here:  
   
 I would like to mention that this work is based on `https://github.com/twobitcircus/rpi-build-and-boot` where I've created a Vagrantfile for VirtualBox, tweaked the Ansible Playbook and I have documented the process I've followed to make it work successfully in my environment (VirtualBox instead of Parallels and booting from NFS).
 
   
-
-
 ## Requirements:
 
   
-
-
 I'm using a Mac OS X (El Capitan - Version 10.11.3) with the next tools:
 
   
-
-
   
 
   * VirtualBox 5.0.16
@@ -121,20 +107,14 @@ I'm using a Mac OS X (El Capitan - Version 10.11.3) with the next tools:
   
 
   
-
-
 ### Why _Ansible_ instead of other configuration management tools ?
 
   
-
-
 Why Ansible (http://docs.ansible.com/ansible/intro_installation.html) instead of other configuration management tools as Puppet, Chef, ...?. Because, Ansible is simple and agentless; you can use it with just with a simple SSH terminal, nothing special is required to be installed in the Host, also because it is written in Python and as you have seen in my previous post, I'm using intensively Python and it is becoming my favorite programming language. You can install Ansible using the same Python installation tools and obviously, you can `import ansible` from your Python scripts.  
   
 To install Ansible on Mac OS X (El Capitan - Version 10.11.3) is easy, just follow these steps:
 
   
-
-
 ```sh  
   
 $ sudo easy_install pip  
@@ -142,8 +122,6 @@ $ sudo easy_install pip
 $ sudo pip install ansible --quiet
 
   
-
-
 // upgrading Ansible and Pip  
   
 $ sudo pip install ansible --upgrade  
@@ -153,23 +131,15 @@ $ sudo pip install --upgrade pip
 ```
 
   
-
-
 ## Preparing the Raspberry Pi
 
   
-
-
  **1\. Copy RPi image to SD**
 
   
-
-
 Identify the disk (not partition) of your SD card, unmount and copy the image there:
 
   
-
-
 ```sh  
   
 $ diskutil list  
@@ -284,8 +254,6 @@ $ sudo dd bs=1m if=/dev/rdisk2 of=2015-09-24-raspbian-jessie-of2.img
 _Very important_ :
 
   * The `2015-09-24-raspbian-jessie-of.img` will be `shared` and after `mounted` from the guest VM, for that, set the user and permissions to `2015-09-24-raspbian-jessie-of.img` as shown below:
-
-
 
 ```sh  
 $ sudo chmod +x 2015-09-24-raspbian-jessie-of2.img  
@@ -738,8 +706,6 @@ $ make -C /opt/openframeworks/apps/myApps/emptyExample
   * As you have seen above, using Vagrant, Ansible and Python you can build easily a Provisioning system for massive delivery of binaries/packages for Raspberry Pi or Mobile Devices.
   * Also, you could replace OpenFramework tool (http://openframeworks.cc) used for ARM cross-compiling for other similar Tool if you have different target Device, to do that, just modify the part related to that in the Ansible Playbook.
 
-
-
 Finally, in the next blog post, I will explain how to cross-compile the Kismet tool (https://www.kismetwireless.net/download.shtml) from source for Raspberry Pi (ARM).
 
 I hope you have enjoyed.  
@@ -773,5 +739,3 @@ See you soon.
     * https://blog.netbeast.co/app-openwrt
   12. Cross-Compiling or Building Android tcpdump? 
     * http://www.androidtcpdump.com/android-tcpdump/compile
-
-

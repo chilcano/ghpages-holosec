@@ -28,32 +28,22 @@ permalink: "/2008/06/18/la-evolucion-de-un-programador/"
 En el año 2001, en un foro encontré un post bastante divertido, se trataba de la _**Evolución de un Programador** y cómo éste evolucionaba también el clásico programa llamado **Hola Mundo**_.
 
   
-
-
 ![HTML coder]({{ site.baseurl }}/assets/homeless-coder.jpg)  
   
-  
+<!-- more -->  
   
 Para los no informáticos, **Hola Mundo** es el primer programa que realiza cualquier informático que inicia en esta profesión.
 
   
-
-
 Con la Evolución de un Programador podéis ver quienes son los mejores programadores.
 
   
-
-
 ![Big programmer]({{ site.baseurl }}/assets/programmer.jpg)
 
   
-
-
 En fin, os dejo con la evolución del Hola Mundo, espero que algunos Managers, Comerciales no se ofendan. ;)
 
   
-
-
 > Task is to write a program that prints "Hello World" on the  
 >   
 > screen...make sure you see the last few attempts (Dilbert).

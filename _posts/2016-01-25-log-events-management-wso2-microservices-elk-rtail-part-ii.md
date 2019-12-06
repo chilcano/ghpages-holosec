@@ -46,21 +46,15 @@ permalink: "/2016/01/25/log-events-management-wso2-microservices-elk-rtail-part-
 Trailing and checking the performance and the health of (micro)services are important tasks to be accomplished. The logging is a time consuming process and we have to prepare before in order to be more productive. There are many tools out there, opensource, commercial, on-cloud, such as log.io, ELK, Clarity, rTail, Tailon, frontail, etc. In my opinion, for a VM used to development the most simple, fresh and lightweight tool is rTail (http://rtail.org).
 
   
-
-
 ![rTail - Viewing WSO2 and Wiremock raw log events]({{ site.baseurl }}/assets/chilcano-logs-rtail-microservices-1-arch-rtail.png)rTail - Viewing WSO2 and Wiremock raw log events
 
   
-
+<!-- more -->
 
   
-
-
 With rTail I can collect different log files, track and visualize them from a Browser in **real time**. rTail is very easy to use, just install NodeJS and deploy rTail application and you will be ready to send any type of traces to Browser directly avoiding store/persist logs, index and parse/filter them.
 
   
-
-
 In this second blog post I will explain how to use rTail to view all streams/log-events from a Browser in real time. For that, we require:  
   
 * rTail Server Docker Container who will centralize and view all stream/log-events.  
@@ -68,30 +62,20 @@ In this second blog post I will explain how to use rTail to view all streams/log
 * Vagrant box (with WSO2 stack and Wiremock) what will send log events to above rTail Server Docker Container
 
   
-
-
 ## Part II: rTail (a node.js application to debug and monitor in realtime)
 
   
-
-
 ### 1\. Starting with rTail Server Docker Container
 
   
-
-
  **1) Prepare the rTail Server Docker Container**
 
   
-
-
 I have created and published a rTail Docker Image in Docker Hub ready to use it.  
   
 Just download and run it.
 
   
-
-
 ```sh  
   
 $ docker login  
@@ -103,8 +87,6 @@ WARNING: login credentials saved in /Users/Chilcano/.docker/config.json
 Login Succeeded
 
   
-
-
 $ docker search rtail-server  
   
 NAME DESCRIPTION STARS OFFICIAL AUTOMATED  
@@ -114,8 +96,6 @@ chilcano/rtail-server rTail is a realtime debugging and monitori... 1 [OK]
 maluuba/rtail-server 0 [OK]
 
   
-
-
 $ docker pull chilcano/rtail-server  
   
 Using default tag: latest  
@@ -300,14 +280,10 @@ Where:
   * `-I` merge the log file.
   * `--tty` keeps ansi colors.
 
-
-
 Observations:
 
   * `multitail` consolidate multiple log lines in on2 line associated a to timestamp (`date+hh:mm:ss`), but doesn't accept milliseconds.
   * Using `tail` you require create a shell script to remove header or apply filters to standarize Date formats, etc.
-
-
 
 _rTail - Multiple log tailing using`multitail`_  
 ![rTail - Multiple log tailing using 'multitail']({{ site.baseurl }}/assets/chilcano-logs-rtail-microservices-3-multitail.png)

@@ -60,46 +60,30 @@ As everything should be lightweight, minimalist, easy to use and auto-contained,
 \- `CORS extension for Flask` (https://flask-cors.readthedocs.org) useful to solve cross-domain Ajax request issues.
 
   
-
-
 ![The MAC Address Manufacturer Lookup Docker Container]({{ site.baseurl }}/assets/chilcano_docker_microservice_mac_address_manuf_lookup_2.png)
 
   
-
+<!-- more -->
 
   
-
-
 This Docker container provides a Microservice (API Rest) to MAC Address Manufacturer resolution. This Docker container is part of the "Everything generates Data: Capturing WIFI Anonymous Traffic using Raspberry Pi and WSO2 BAM" blog serie ([Part I](http://ow.ly/YcEf1), [Part II](http://ow.ly/YcEgz) & [Part III](http://ow.ly/YcEij)), but you can use it independently as part of other set of Docker containers.
 
   
-
-
 This Docker Container will work in this scenario, as shown above image. Then, let's do it.
 
   
-
-
 ## I. Preparing the Python development environment in Mac OSX
 
   
-
-
 Follow this guide to setup your Python Development Environment in your Mac OSX: https://github.com/chilcano/how-tos/blob/master/Preparing-Python-Dev-Env-Mac-OSX.md
 
   
-
-
 ## II. Creating a MAC Address Manufacturer DB
 
   
-
-
 Exist in Internet several MAC Address Lookup Tools, in fact, the OUI's prefix used to identify the MAC Address are public available.
 
   
-
-
 But, in this case I am going to use the MAC Address List of Wireshark (https://www.wireshark.org/tools/oui-lookup.html).  
   
 Wireshark is a popular network protocol analyzer a.k.a. `network sniffer`, the Wireshark tool uses internally the MAC Address list to identity the Manufacturer of a NIC.  
@@ -107,20 +91,14 @@ Wireshark is a popular network protocol analyzer a.k.a. `network sniffer`, the W
 I'm going to download and create a API Rest for you. Below the steps.
 
   
-
-
  **1) Downloading the Wireshark MAC Addresses Manufacturer file and loading into a DB**
 
   
-
-
 Using the below Python script I will download the Wireshark MAC Address list into a file and to get the hash. The idea is to parse the file and load it into a minimalist DB.  
   
 I will use SQLite Database where I will create an unique table and all information will be loaded there. The Table structure will be:
 
   
-
-
 ```sh  
   
 mac String # The original MAC Address  
@@ -132,28 +110,18 @@ manuf_desc String # The Manufacturer description, if exists.
 ```
 
   
-
-
 Here the Python script used to do that: [mac_manuf_wireshark_file.py](https://github.com/chilcano/docker-mac-address-manuf-lookup/blob/master/python/latest/mac_manuf_wireshark_file.py)
 
   
-
-
 ## III. Exposing the MAC Address Manufacturer DB as an API Rest
 
   
-
-
 After creating the database, the next step is to expose the data through a simple API Rest. The idea is to make a call `GET` to the API Rest with a `MAC Address` and get the `Manufacturer` as response.
 
   
-
-
  **1) Defining the API**
 
   
-
-
 The best way to define an API Rest and the `contract` is using the `Swagger` language (http://swagger.io). The idea is to create documentation about the API Rest and explain what resources are available or exposed, writte a request and response sample, etc.  
 In this scenario I'm going to define in a simple way the API, also I'm going to use JSON to define the request and response.  
 Then, below the API definition.
@@ -269,8 +237,6 @@ This second Python script performs the next tasks:
   * Runs a query by using `macAddress` as parameter.
   * And creates a JSON response with the query's result.
 
-
-
 **3) Running and Testing the API Rest**
 
 We could use the `Flask` buit-in HTTP server just for testing and debugging. To run the above Python Web Application (API Rest) just execute the Python script. Note that actually I have 3 versions (py-1.0, py-1.1 and py-latest)
@@ -343,8 +309,6 @@ But if you want to run in Production. In the `Flask` webpage (http://flask.pocoo
   * Tornado
   * Gevent
   * Twisted Web
-
-
 
 ## IV. Putting everything in a Docker Container
 
@@ -457,7 +421,6 @@ Date: Mon, 29 Feb 2016 15:58:21 GMT
 }  
 ```
 
- 
 
 ## V. And now what?, How to use the MAC Manuf Docker with the WSO2 BAM Docker?
 
@@ -479,12 +442,8 @@ See you soon.
 
   * [A great blogpost explaining the "Developing a RESTful micro service in Python" - http://www.skybert.net/python/developing-a-restful-micro-service-in-python](http://www.skybert.net/python/developing-a-restful-micro-service-in-python)
 
-
-
 ## MAC Address references
 
   * [Wikipedia - MAC Address](https://en.wikipedia.org/wiki/MAC_address)
   * [The Wireshark OUI lookup tool](https://www.wireshark.org/tools/oui-lookup.html)
   * [IEEE MAC Address Registration Authority](https://regauth.standards.ieee.org/standards-ra-web/pub/view.html)
-
-

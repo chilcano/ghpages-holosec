@@ -69,8 +69,6 @@ permalink: "/2014/03/07/message-brokering-y-recoleccion-datos-big-data-wso2/"
 Message Brokering es el conjunto de mecanismos por el cual se gestiona la recepción y la entrega de mensajes entre sistemas distribuidos. El propósito final con los Message Broker Systems son:
 
   
-
-
   
 
   *  **Desacoplar** : En tiempo, en espacio y a nivel de sincronización.
@@ -80,18 +78,12 @@ Message Brokering es el conjunto de mecanismos por el cual se gestiona la recepc
   
 
   
-
-
 ## 1\. Casos de uso y beneficios
 
   
-
-
 Los beneficios son palpables, como por ejemplo:
 
   
-
-
   
 
   *  **Comunicación Síncrona/Asíncrona/Colas** : Hacer una solicitud (enviar un mensaje) y que te respondan después de cierto tiempo.
@@ -104,49 +96,33 @@ Los beneficios son palpables, como por ejemplo:
   
 
   
-
-
 Hay diferentes casos de uso o escenarios donde son necesarios los Message Brokers, pero los más representativos están definidos en los Enterprise Integration Patterns, estos son:
 
   
-
-
   
 
   *  **Message Store EIP** (http://www.eaipatterns.com/MessageStore.html): Que serviría para hacer dar persistencia a los mensajes (Reliability), Colas (Queues), etc.
   
 
   
-
-
 [caption id="" align="alignnone" width="700"]![Message Broker - Colas y Persistencia de mensajes]({{ site.baseurl }}/assets/chakray-message-broker-queues-store.png) Message Broker - Colas y Persistencia de mensajes[/caption]
 
   
-
-
   
 
   *  **Publish-Subscribe Channel EIP** (http://www.eaipatterns.com/PublishSubscribeChannel.html): Que serviría para hacer Monitoring, Tracking, Broadcasting, etc.
   
 
   
-
-
 [caption id="" align="alignnone" width="751"]![Message Broker - Publicación y Suscripción]({{ site.baseurl }}/assets/chakray-message-broker-pubsub-store.png) Message Broker - Publicación y Suscripción[/caption]
 
   
-
-
 ## 2\. Message Brokers en el mundo real: Big Data
 
   
-
-
 Dependiendo del tipo de mensaje y del tipo de clientes existen muchos tipos de Message Brokers, algunos por ejemplo:
 
   
-
-
   
 
   * Sensores (clientes MB)
@@ -168,13 +144,9 @@ Dependiendo del tipo de mensaje y del tipo de clientes existen muchos tipos de M
   
 
   
-
-
 Hay que destacar que su uso ahora es más frecuente en sectores inimaginables, sobretodo en los _Sistemas de Información Críticos_ , donde fallar no es una opción, son escenarios muy diferentes al tradicional, en otras palabras, son escenarios relacionados a _Internet of Things_ y comunicación _Machine-to-Machine_ que con mucha innovación promueve el uso de este tipo de Message Brokers y por consecuencia la re-definición de protocolos y especificaciones, esto se da por los mismos beneficios que arriba indicábamos.
 
   
-
-
 Entre los productos free/open source más usados tenemos:
 
   1. WSO2 Message Broker: basado en Apache Qpid (http://qpid.apache.org) e implementa el "Advanced Message Queueing Protocol" (AMQP - http://www.amqp.org) y otros estándares relacionados como JMS y WS-Eventing. Es rápido, potente y muy ligero, la persistencia de mensaje se logra con el uso de Apache Cassandra y en combinación con Apache Zookeper nos permite coordinar colas distribuidas. Los complementos perfectos son WSO2 ESB (mediation), WSO2 BAM (streams) y WSO2 CEP (eventing).
@@ -185,8 +157,6 @@ Entre los productos free/open source más usados tenemos:
   6. Paho (http://eclipse.org/paho): altamente escalable, optimizado para equipos de reducida potencia y para redes muy restringidas, junto a Mosquitto son los brokers más usados en IoT / M2M, ambos poseen muchos clientes desde C++ a JavaScript, como tal implementa también el protocolo MQTT.
   7. ActiveMQ Apollo (http://activemq.apache.org/apollo): es la nueva generación de Apache ActiveMQ que soporte protocolos como STOMP, AMQP, MQTT, Openwire, SSL y WebSockets.
 
-
-
 ## 3\. Escalando los Message Broker Systems
 
 Para escalar un Broker debemos considerar 3 dimensiones:
@@ -195,15 +165,11 @@ Para escalar un Broker debemos considerar 3 dimensiones:
   * Número de colas soportadas
   * Tamaño de los mensajes
 
-
-
 Considerando estas dimensiones, podríamos indicar que nuestro Broker es potencialmente escalable, aunque su implementación, sobretodo para Colas Distribuidas, se convierte en un reto.
 
 Más información aquí:
 
   * Scalable Persistent Message Brokering with WSO2 Message Broker by Srinath Perera: <http://www.slideshare.net/hemapani/scalable-persistent-message-brokering-with-wso2-message-broker>
-
-
 
 ## 4\. Implementando Message Store EIP con WSO2
 
@@ -221,15 +187,11 @@ Existen dos posibilidades de implementar Message Store EIP con WSO2, la primera 
   * JMS Message Store (https://docs.wso2.org/display/ESB481/JMS+Message+Store)
   * Custom Message Store (https://docs.wso2.org/display/ESB481/Custom+Message+Store)
 
-
-
 Durante mis pruebas con WSO2 ESB 4.8.1 me he encontrado que la funcionalidad de explorar los mensajes almacenados en el Message Store cuando usamos cualquier JMS Broker ha sido quitada desde la versión 4.7.0 (más información aquí: <https://wso2.org/jira/browse/ESBJAVA-2529>), así que implementaremos 3 escenarios para explorar los mensajes almacenados en el lado del WSO2 ESB y del WSO2 MB:
 
   * Escenario 1: Hacer una petición a un HTTP Proxy y almacenar el mensaje en un Message Store de tipo in memory. 
   * Escenario 2: Hacer una petición a un HTTP Proxy y almacenar el mensaje en una Cola del WSO2 MB. 
   * Escenario 3: Hacer una petición a un HTTP Proxy que hace de interfaz de un JMS Proxy. 
-
-
 
 Antes de desarrollar cada escenarios, vamos a explicar cómo configurar WSO2 ESB con WSO2 MB.
 
@@ -248,8 +210,6 @@ WSO2 ESB puede conectarse con:
   * SwiftMQ
   * Oracle WebLogic 10.3.4.0
   * Y WSO2 Message Broker
-
-
 
 Emplearemos WSO2 MB 2.1.0 (con offset 4) y WSO2 ESB 4.8.1 (con offset 2), ambos sobre Mac OSX 10.9.1 y Java 7.x. Descargarlos y descomprimirlos. Luego configurar WSO2 MB para que no tenga conflictos con WSO2 ESB, para ello cambiar los puertos (offset) de ambas aplicaciones.
 
@@ -298,8 +258,6 @@ java.net.SocketTimeoutException: Read timed out]
   * andes-client-0.13.wso2v8.jar 
   * geronimo-jms_1.1_spec-1.1.0.wso2v1.jar 
 
-
-
 5) Una vez WSO2 ESB y WSO2 MB (con Apache Cassandra embebida) iniciados, explore ambos servicios. Más información sobre configuración seguir la documentación oficial: <https://docs.wso2.org/display/ESB481/Configure+with+WSO2+Message+Broker>
 
 ###  5.2. Implementación de escenarios
@@ -310,8 +268,6 @@ Los escenarios a implementar serán:
   * Escenario #2: Hacer una petición a un HTTP Proxy y almacenar el mensaje en una Cola del WSO2 MB. 
   * Escenario #3: Hacer una petición a un HTTP Proxy que hace de interfaz de un JMS Proxy. 
 
-
-
 WSO2 ESB viene con muchos ejemplos, entre ellos los relacionados a persistencia y entrega de mensajes. Toda la información para ejecutar los ejemplos puede ser encontrado aquí: <https://docs.wso2.org/display/ESB481/Store+and+Forward+Messaging+Patterns+with+Message+Stores+and+Processors>.
 
 ####  5.2.1. Escenario #1: Petición a un HTTP Proxy y almacenamiento del mensaje en un In Memory Message Store
@@ -321,8 +277,6 @@ En este escenario almacenaremos el mensajes en un Message Store de tipo In Memor
 [caption id="" align="alignnone" width="698"][![Message Store EIP with WSO2 ESB]({{ site.baseurl }}/assets/chakray-messagebroker-messagestore-arq1.png)](http://chakray.com) Message Store EIP with WSO2 ESB[/caption]
 
 Pasos:  
-
-
 1) En WSO2 ESB crear un Message Store de tipo In Memory, tal como se muestra en la figura siguiente:
 
 [caption width="1024" align="alignnone"]![WSO2 ESB - Creating Message Store]({{ site.baseurl }}/assets/chakray-wso2mb-ob-inmemory.png) WSO2 ESB - Creating Message Store[/caption]
@@ -373,8 +327,6 @@ En este escenario introduciremos WSO2 MB para que sea él que gestione los mensa
 [caption id="" align="alignnone" width="698"][![Message Store EIP with WSO2 ESB and WSO2 Message Broker]({{ site.baseurl }}/assets/chakray-messagebroker-messagestore-arq2.png)](http://chakray.com) Message Store EIP with WSO2 ESB and WSO2 Message Broker[/caption]
 
 Pasos:  
-
-
 1) Detenga WSO2 ESB.
 
 2) Edite el fichero /repository/conf/jndi.properties y apunte al WSO2 MB (considere el port offset). Usar carbon como virtualhost en lugar de test. Comente el topic si no es usado, pero para evitar el error javax.naming.NameNotFoundException: TopicConnectionFactory, también configurar TopicConnectionFactory apuntando al Message Broker de igual forma que QueueConnectionFactory. El fichero quedaría así:
@@ -399,8 +351,6 @@ Donde:
 
   * proxy_openbravo1_qpid_queue es una cola que usaremos en el escenario #3 
   * msgstore_openbravo_wso2mb es la cola que nos permitirá almacenar los mensajes en WSO2 MB 
-
-
 
 3) Iniciar WSO2 ESB.
 
@@ -477,8 +427,6 @@ Pasos a seguir:
 3) Reiniciar WSO2 ESB, luego crear 2 Proxies en WSO2 ESB (HTTP Proxy que recibirá petición SOAP, que luego reenviará el mismo mensaje al Queue Proxy usando transporte JMS).
 
 proxy_openbravo1_qpid_proxy:  
-
-
 [sourcecode language="xml" gutter="true" wraplines="false"]  
 <?xml version="1.0" encoding="UTF-8"?>  
 <proxy xmlns="http://ws.apache.org/ns/synapse"  
@@ -510,8 +458,6 @@ startOnLoad="true">
 [/sourcecode]
 
 proxy_openbravo1_qpid_queue:  
-
-
 [sourcecode language="xml" gutter="true" wraplines="false"]  
 <?xml version="1.0" encoding="UTF-8"?>  
 <proxy xmlns="http://ws.apache.org/ns/synapse"  
@@ -558,5 +504,3 @@ En las trazas de WSO2 ESB veremos los log de la ejecución de los 2 proxies ante
   * Hay una tendencia en el uso de Message Brokers para entornos Internet of Things (IoT), por ser entornos muy restrictivos (red lentas o con mucha latencia, potencia de los sensores, mensajes pequeños, etc.) se opta por protocolos más adecuados como MQTT en lugar de JMS/AMQP. Se suele usar MQTT para la "primera milla", mientras que AMQP se usa para mover los datos (también es óptimo, preparado para mensajes grandes, etc.) por resto de los sistemas distribuídos. 
   * El complemento perfecto para WSO2 ESB es WSO2 Message Broker, mientras que el ESB crea interfases para nuestros servicios, WSO2 Message Broker se encarga de dar persistencia y entrega de los mensajes de manera eficiente. 
   * Java Message Service (JMS) es el estándar más usado a pesar de que no define el formato del mensaje a emplear o cómo hay que interactuar con el Message Broker. AMQP es el estándar que cubre dicho "gap". 
-
-

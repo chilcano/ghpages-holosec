@@ -86,13 +86,9 @@ permalink: "/2011/01/15/sso-liferay-alfresco-cas-penrose-part-12/"
 I know it, It is nothing new. But I always encounter this situation and I have always come back to explain again and again.
 
   
-
-
 The requirements are:
 
   
-
-
   
 
   1. CAS for Authentication and SSO.
@@ -105,51 +101,33 @@ The requirements are:
   
 
   
-
-
 This post is based on a previous one about [Liferay Portal Server LDAP Authentication with Penrose Server](http://holisticsecurity.wordpress.com/2010/12/22/authentication-penrose-directory-liferay), I recommend you read it for it will be easier to follow.
 
   
-
-
 ## I. Install and configure CAS server
 
   
-
-
  **Note:**
 
   
-
-
   
 
   * CAS server v3.3.5 comes with appropriate libraries for Tomcat 5 and OpenJDK bundled in CentOS. Otherwise you will have to recompile and / or include some libraries more.
   
 
   
-
-
 1\. See preview post on "Liferay Portal Server LDAP Authentication with Penrose Server" ([here](http://holisticsecurity.wordpress.com/2010/12/22/authentication-penrose-directory-liferay))
 
   
-
-
 2\. Download CAS server (http://www.jasig.org/cas/download/cas-server-335-final) and deploy cas-server-webapp-3.3.5.war into any Java Web Server, in this case we will deploy into Tomcat server previuosly installed in CentOS box.
 
   
-
-
 In my case, CentOS has installed Penrose Virtual Directory Server and has already loaded a LDAP tree with several users/identities (see [details](Liferay Portal Server LDAP Authentication with Penrose Server) in last blog post).
 
   
-
-
 3\. Verify if Tomcat is installed into CentOS:
 
   
-
-
 [sourcecode language="text" gutter="true" wraplines="false" highlight="1"]  
   
 [root@directorysrv1 /]# rpm -ql tomcat5  
@@ -177,13 +155,9 @@ In my case, CentOS has installed Penrose Virtual Directory Server and has alread
 [/sourcecode]
 
   
-
-
 If tomcat is not installed, you can download RPM packages and then install it:
 
   
-
-
 [sourcecode language="text" gutter="true" wraplines="false" highlight="1"]  
   
 [root@directorysrv1 /]# yum install tomcat5 tomcat5-webapps tomcat5-admin-webapps  
@@ -348,8 +322,6 @@ In the catalina.out you can see the following:
   * It is necessary to install the Root SSL Certificate of the CAS server for each trusted certificate repository of Web Server container (or Java Virtual Machine).
   * All certificates will be selfsigned, only for testing purposes.
 
-
-
 1\. Create a key pairs for the new SSL certificate for CAS server with 730 days of validity:
 
 [sourcecode language="text" gutter="true" wraplines="false" highlight="1"]  
@@ -457,8 +429,6 @@ In last blog post We configured LDAP Authentication in Liferay, in this new exam
 
 [caption id="" align="alignnone" width="466" caption="When doing a successful logon in CAS, we are redirected to the requested page in Liferay"]![When doing a successful logon in CAS, we are redirected to the requested page in Liferay]({{ site.baseurl }}/assets/06sso-liferay_ldap_cas_authn_signin3.png)[/caption]
 
-
-
 ## V. Install and configure Alfresco with CAS and LDAP Authentication
 
 In the next post will explain how to configure Alfresco with CAS to do SSO and Authentication.
@@ -475,5 +445,3 @@ http://wiki.alfresco.com/wiki/Alfresco_Authentication_Subsystems
 http://wiki.alfresco.com/wiki/Alfresco_Authentication_Subsystems#External
   * Alfresco With mod auth CAS:  
 http://wiki.alfresco.com/wiki/Alfresco_With_mod_auth_cas
-
-

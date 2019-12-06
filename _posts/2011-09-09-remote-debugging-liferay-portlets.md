@@ -31,33 +31,21 @@ permalink: "/2011/09/09/remote-debugging-liferay-portlets/"
 Debugging is a task very important when building software, this allows software development with high level of quality (without bugs) because "debugging" enable you repeat cycles of "to do and to test" several time.
 
   
-
-
 When developing Liferay portlets, Liferay Portal server will contain the portlets in a PC different of the PC of developer.
 
   
-
-
 For this reason, debugging is an important task when working in distributed project teams with a single and/or centralized development server.
 
   
-
-
 Then, remote debugging means you could debug an application or portlet on server from a different computer.
 
   
-
-
 This post discusses how to use the Eclipse IDE for remote debugging on Liferay.
 
   
-
-
 ## Versions used
 
   
-
-
   
 
   * Liferay Portal bundled with Tomcat: liferay-portal-tomcat-6.0.6-20110225.zip
@@ -67,23 +55,15 @@ This post discusses how to use the Eclipse IDE for remote debugging on Liferay.
   
 
   
-
-
 ## Remote Debugging configuration
 
   
-
-
 1\. In your Liferay server side, if you have installed Tomcat bundle, to add this line into $TOMCAT_HOME/bin/setenv.bat or setenv.sh before you set any JAVA_OPTS:
 
   
-
-
 In windows:
 
   
-
-
 [sourcecode language="text" gutter="true" wraplines="false"]  
   
 set JAVA_OPTS=-Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n  
@@ -91,13 +71,9 @@ set JAVA_OPTS=-Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspen
 [/sourcecode]
 
   
-
-
 In Mac OSX the file will be as follow:
 
   
-
-
 [sourcecode language="text" gutter="true" wraplines="false"]  
   
 ## intix - remote debugging  
@@ -109,13 +85,9 @@ JAVA_OPTS="$JAVA_OPTS -Dfile.encoding=UTF8 -Duser.timezone=GMT -Xmx1024m -XX:Max
 [/sourcecode]
 
   
-
-
 2\. Restart Tomcat server. You should see in log (catalina.out) a message showing that port 8000 is opened and ready to use.
 
   
-
-
 [sourcecode language="text" gutter="true" wraplines="false"]  
   
 [...]  
@@ -172,5 +144,3 @@ Bye.
 **References** :
 
   * <http://www.liferay.com/community/wiki/-/wiki/Main/Eclipse>
-
-

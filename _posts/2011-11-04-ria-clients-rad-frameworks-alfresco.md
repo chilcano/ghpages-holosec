@@ -100,37 +100,25 @@ permalink: "/2011/11/04/ria-clients-rad-frameworks-alfresco/"
 Some days ago I saw a post on the LinkedIn's Alfresco forums asking ['Which front end framework is Generally used with Alfresco?'](http://www.linkedin.com/groups/Which-front-end-framework-is-663827.S.69732274?view=&srchtype=discussedNews&gid=663827&item=69732274&type=member&trk=eml-anet_dig-b_pd-ttl-cn&ut=2MCRzVZGv0CAU1), for this reason I started to research and test them and discovered with joy that the trend is to use lightweight frameworks capable of creating rich interfaces quickly. Well here I put the review: Because I started to carefully review and discovered with joy that the trend is to use lightweight frameworks capable of creating rich interfaces quickly. Well here I put the review:
 
   
-
-
 ## I. What is a client for Alfresco ECM ?
 
   
-
-
 A client for Alfresco is any webapp or desktop app that consumes the Alfresco's services, this client app can be created with Alfresco's standard framework or with third party frameworks.
 
   
-
-
 Several endusers want always customize traditional and existing Alfresco's web clients, because these do not fit its requeriments.  
   
 Then, they quickly seek to modify existing Alfresco's webclient and if this is not possible, then seek a tool (framework) to build a desktop or client from scratch.
 
   
-
-
 [caption id="" align="alignnone" width="429" caption="How to client applications can be connected to Alfresco ECM"][![How to client applications can be connected to Alfresco ECM]({{ site.baseurl }}/assets/ria_clients_alfresco_rev1.png)](http://dl.dropbox.com/u/2961879/blog20111104_riaclientsalfresco/ria_clients_alfresco_rev1.png)[/caption]
 
   
-
-
 What are the main reasons why you need to modify Alfresco's webclients or create new ones?  
   
 Well, there are several reasons:
 
   
-
-
   
 
   * The technology stack in the company is not Java.
@@ -152,30 +140,20 @@ Well, there are several reasons:
   
 
   
-
-
 Well, this post will review existing initiatives, RIA, RDA (Rich Desktop App) and RAD frameworks for developing clients for Alfresco ECM.
 
   
-
-
 ## II. List of Clients
 
   
-
-
 ### 1\. Alfresco Explorer
 
   
-
-
 Alfresco Explorer is the clasic webapp bundled with Alfresco ECM, It is the principal web application to do document management, this offers some functionalities of system administratios.  
   
 Big changes or personalizations on this webapp must be done by XML file (Spring) configuring.
 
   
-
-
 * Web: <http://www.alfresco.com>  
   
 * License: Enterprise Edition is open source with commercial support, Community Edition is LGPL 2 with some exception.  
@@ -185,20 +163,14 @@ Big changes or personalizations on this webapp must be done by XML file (Spring)
 Alfresco Explorer based in JavaServerFace.
 
   
-
-
 ### 2\. Alfresco Share
 
   
-
-
 * Provides a rich web-based collaboration environment for managing documents, wiki content, blogs and more.  
   
 * Is based on Alfresco Surf API (now is a Spring project).
 
   
-
-
 * Web: <http://www.alfresco.com>  
   
 * License: Idem to Alfresco Explorer  
@@ -208,8 +180,6 @@ Alfresco Explorer based in JavaServerFace.
 Alfresco Share based in SpringSurf/Webscripts.
 
   
-
-
 ### 3\. Opsoro
 
 "opsoro is an alternative web client for the Alfresco Enterprise Content Management Plattform. It's goal is to provide an easier user interface with a richer user experience by leveraging the latest web technologies."
@@ -434,5 +404,3 @@ If you have documents stored in your ECM repository and want to expose them (or 
   * This review concludes that the trend is to use existing products (ifresco, Drupal, OpenAtrium, Liferay, ....) enabling rapid integration with Alfresco services.
   * The second option is to create RIA applications from scratch, and quickly, taking advantage of existing metaframeworks, we can see in doCASU, ExtAlf, AWPr, FlexSpace, etc.., The fact that they have started as a proof of concept and then have become standalone products confirms this trend.
   * You can download a resume table with all features of each product reviewed from here.
-
-

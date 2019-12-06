@@ -39,25 +39,17 @@ permalink: "/2011/09/26/alfresco-webscript-liferay-portlet-ajax/"
 I think that we are reaching the maturity level in Liferay and Alfresco, because we can create applications on top of them of fastly and easy way.
 
   
-
-
 Alfresco ECM has functionalities exposed as a RESTful API, as know as Alfresco Webscripts, built on the basis of Spring Surf.  
   
 Liferay Portal has Liferay IDE based on Eclipse where we can create from scratch different types of Portlets. Also Liferay allows to include external libraries as jQuery, ExtJS, Vaadin, etc. that allows to develop highly customized portlets.
 
   
-
-
 Right now, when several people ask me how to integrate Alfresco into Liferay, after I ask them what does mean when you said *integrate*?. Well I say that implies several thing as:
 
   
-
-
 Integration mean:
 
   
-
-
   
 
   1. User and roles, SSO ?
@@ -76,28 +68,18 @@ Integration mean:
   
 
   
-
-
 Well, everything is possible to do, but to create applications from scratch following point 5 was very difficult, but now I think is the quickest way to do it, also the best from an architectural point of view.
 
   
-
-
 This post explain how to do a portlet calling to Alfresco's Webscripts (REST URIs) via ajax using jQuery. I also give some recommendations.
 
   
-
-
 [caption id="" align="alignnone" width="374" caption="Ajax Portlet calls Alfresco Webscripts"][![Ajax Portlet calls Alfresco Webscripts]({{ site.baseurl }}/assets/ajaxalflfry_1arch.png)](http://dl.dropbox.com/u/2961879/blog20110920_ajaxalfrescoliferayportlet/ajaxalflfry_1arch.png)[/caption]
 
   
-
-
 ## Requeriments
 
   
-
-
   
 
   1. Liferay IDE version 1.3.1 as IDE
@@ -128,23 +110,15 @@ This post explain how to do a portlet calling to Alfresco's Webscripts (REST URI
   
 
   
-
-
 ## Process
 
   
-
-
 1\. From Liferay IDE create a new Liferay Project that implement GenericPortlet as follow:
 
   
-
-
 [caption id="" align="alignnone" width="322" caption="Liferay IDE - creating new Liferay Project (1/6)"][![Liferay IDE - creating new Liferay Project \(1/6\)]({{ site.baseurl }}/assets/ajaxalflfry_2newproj.png)](http://dl.dropbox.com/u/2961879/blog20110920_ajaxalfrescoliferayportlet/ajaxalflfry_2newproj.png)[/caption]
 
   
-
-
 [caption id="" align="alignnone" width="360" caption="Liferay IDE - creating new Liferay Project (2/6)"][![Liferay IDE - creating new Liferay Project \(2/6\)]({{ site.baseurl }}/assets/ajaxalflfry_3newproj.png)](http://dl.dropbox.com/u/2961879/blog20110920_ajaxalfrescoliferayportlet/ajaxalflfry_3newproj.png)[/caption]
 
 [caption id="" align="alignnone" width="274" caption="Liferay IDE - creating new Liferay Project (3/6)"][![Liferay IDE - creating new Liferay Project \(3/6\) ]({{ site.baseurl }}/assets/ajaxalflfry_4newproj.png)](http://dl.dropbox.com/u/2961879/blog20110920_ajaxalfrescoliferayportlet/ajaxalflfry_4newproj.png)[/caption]
@@ -573,13 +547,9 @@ private static Log _log = LogFactoryUtil.getLog(AjaxAlfrescoFolderBrowser.class)
   2. Exists a issue in Liferay 6.0.6 when setting ResourceResponse.HTTP_STATUS_CODE in the Portlet response (<http://issues.liferay.com/browse/LPS-13039>), this implies I have to manage HTTP_STATUS_CODE by parsing the Ajax HTML/XML responses.
   3. I have Liferay and Alfresco in different VMs (different IP and Ports) and I never had cross-domain issues thanks to Point #1 (serveResource nad portlet:resourceURL), but if you run into it is recommended that you use Apache HTTP server as a reverse-proxy.
 
-
-
 You can download entire project (source code) and compiled from here:
 
   1. Source code (Liferay IDE project): [AjaxAlfrescoFolderBrowser-portlet.zip](http://dl.dropbox.com/u/2961879/blog20110920_ajaxalfrescoliferayportlet/AjaxAlfrescoFolderBrowser-portlet.zip)
   2. Compiled: [AjaxAlfrescoFolderBrowser-portlet.war](http://dl.dropbox.com/u/2961879/blog20110920_ajaxalfrescoliferayportlet/AjaxAlfrescoFolderBrowser-portlet.war)
-
-
 
 End.

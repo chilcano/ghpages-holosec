@@ -44,23 +44,15 @@ permalink: "/2013/06/25/building-social-ecommerce-solution/"
 I'd like to explain our recent experience gained in a project of eCommerce.
 
   
-
-
 Now more than ever the need to sell and generate business is an important point, the strategy of building the eCommerce solution and their viability is closely linked to these business needs.
 
   
-
-
 For these reasons, I will explain how to approach this project from a technological point of view and its direct relation to requirements.
 
   
-
-
 The requirements of this project were:
 
   
-
-
   
 
   * Time to market.  
@@ -100,13 +92,9 @@ The requirements of this project were:
   
 
   
-
-
 Given these customer requirements, we add our own requirements:
 
   
-
-
   
 
   * Rapid Application Development.  
@@ -118,8 +106,6 @@ Given these customer requirements, we add our own requirements:
 
   * Decoupled. 
     * One of the paradigms in design and application architecture is "loosely coupled design", ie the components of the application have not "knowledge" of the other components, to achieve this is usually used "interfaces" of integration. In other words, no matter how technologically is implemented each of the components, and the integration between the components is made ​​via interfaces.
-
-
 
 **Proposed architecture**
 
@@ -140,8 +126,6 @@ We use Liferay's ability to mashup and its social features such as:
   * Mashup
   * Activity Monitoring
 
-
-
 [caption id="" align="alignnone" width="494"][![Social eCommerce Architecture with opensource]({{ site.baseurl }}/assets/social-ecomm-01-architecture.png)](https://dl.dropboxusercontent.com/u/2961879/blog20130625_social_ecommerce/social-ecomm-01-architecture.png) Social eCommerce Architecture with opensource[/caption]
 
 During the initial stage of project, definition and feasibility assessment, we had to justify our proposal, here are some of them:
@@ -155,8 +139,6 @@ KonaKart was chosen for these reasons:
   * Java, although the view of KonaKart Admin webapp is implemented in GWT.
   * API. For KonaKart will use the SOAP-based API, since it 100% access the functionality of the store as the administration.
   * Easily extensible. You can import KonaKart to Eclipse and from there extend its functionality.
-
-
 
 Although KonaKart StoreFront can be deployed in Liferay, our project did not require it. Our strategy was to avoid refactor the StoreFront and instead make ad-hoc development based on multiple Portlets, all consuming KonaKart API.
 
@@ -172,8 +154,6 @@ Among them:
   4. Shopizer - <http://www.shopizer.com>
   5. Magento - <http://www.magentocommerce.com>
   6. KonaKart - <http://www.konakart.com>
-
-
 
 Of all these options, Broadleaf and KonaKart were the best alternatives considering the requirements listed above (Time-To-Market, Extensibility and API).
 

@@ -29,8 +29,6 @@ permalink: "/2007/10/29/holistic-system-security-an-cyber-security-research-prio
 In the Report to the President on [**Cyber Security: A Crisis of Prioritization**](http://www.nitrd.gov/pitac/reports/20050301_cybersecurity/cybersecurity.pdf) (February 2005) was published the cyber security priorities, theses were:
 
   
-
-
   
 
   1. Authentication Technologies
@@ -64,17 +62,13 @@ In the Report to the President on [**Cyber Security: A Crisis of Prioritization*
   
 
   
-
-
 Well, everything sounds known, but what does **Holistic System Security** mean?.  
   
-  
+<!-- more -->  
   
 The report answers perfectly and explains why it is a priority:
 
   
-
-
 >  **4\. Holistic System Security**
 > 
 >   
@@ -119,18 +113,12 @@ The report answers perfectly and explains why it is a priority:
 > 
 
   
-
-
   
   
 I think this approach (holism) is obvious, but is not for technical or developers of Software. The usability is very importan, This says that incorrectly used software or confusing UI can lead to user frustration and security controls misused.
 
   
-
-
 I would like to highlight these words:
 
   * **Holism Security** : include software/applications, s.o., hardware, networks ... and the people (end-user)
   * **Software Usability** : human factors engineering, such as interfaces that promote security and user awareness of its importance.
-
-

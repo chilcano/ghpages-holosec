@@ -34,29 +34,21 @@ It is very difficult to install services on servers that are not connected to th
 The situation is compounded when these critical servers are virtualized. If this is your case, I recommend you use the DVD / CD ISO images and mount them as your CentOS repositories.
 
   
-
+<!-- more -->
 
   
-
-
 If you are in doubt, follow this example for Tomcat:
 
   
-
-
   
 
   1. Mount DVD Iso image as a media-repo in your CentOS Guest Virtual Box
   
 
   
-
-
 ![]({{ site.baseurl }}/assets/tomcat5centos55-1-mount_dvd_iso.png)
 
   
-
-
   
 
   1. Verify if you have Java installed in your Guest
@@ -72,16 +64,12 @@ If you are in doubt, follow this example for Tomcat:
     OpenJDK Client VM (build 1.6.0-b09, mixed mode)
 
   
-
-
   
 
   1. Install Tomcat5 from your media-repo already mounted
   
 
   
-
-
  _Note:  
   
 * It is not recommended to install Tomcat as ROOT, especially if It is for production environments._
@@ -93,8 +81,6 @@ If you are in doubt, follow this example for Tomcat:
     [root@svdapp95 ~]# yum --disablerepo=\* --enablerepo=c5-media -y install tomcat5 tomcat5-webapps tomcat5-admin-webapps
 
   
-
-
   
 
   1. Verify Tomcat5's packages installed
@@ -114,11 +100,7 @@ If you are in doubt, follow this example for Tomcat:
     /var/log/tomcat5/catalina.out
 
   
-
-
   1. Start Tomcat5's service
-
-
     
     
     [root@svdapp95 ~]# service tomcat5 start
@@ -126,17 +108,11 @@ If you are in doubt, follow this example for Tomcat:
 
   1. Put follow URL http://localhost:8080, now you can see Tomcat's welcomepage.
 
-
-
 ![]({{ site.baseurl }}/assets/tomcat5centos55-2-openbrowsertomcat5.png)
 
   1. You can see Tomcat's log with:
-
-
     
     
     [root@svdapp95 ~]# tail -f /var/log/tomcat5/catalina.out
 
   1. End.
-
-

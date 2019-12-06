@@ -58,28 +58,20 @@ permalink: "/2016/02/27/wardriving-wifi-pineapple-nano-mobile-world-congress-201
 WIFI Pineapple Nano is a nice tiny device to do Wireless Security Auditing. It has [OpenWRT](https://openwrt.org) embedded as S.O. with 2 Wireless NIC pre-configured and a lot of Security tools pre-installed ready to perform a Security Wireless Auditing. For further details, you can check the Hak5 page and I encourage you to buy one (https://www.wifipineapple.com)!.
 
   
-
-
 ## Objetives
 
   
-
-
 The idea is to do a quick wardriving around of the [Mobile World Congress at Barcelona](https://www.mobileworldcongress.com) to check if the attendants are aware about their Mobile Devices with the leak of information.  
   
 [![The arsenal at Mobile World Congress 2016 Barcelona - Wardriving with WIFI Pineapple Nano, Android & Kismet]({{ site.baseurl }}/assets/chilcano-00-android-gps-kismet-pineapple-adb.png)](http://holisticsecurity.io/2016/02/27/wardriving-wifi-pineapple-nano-mobile-world-congress-2016-barcelona/)
 
   
-
+<!-- more -->
 
   
-
-
 At the end, after wardriving, you will get the following files:
 
   
-
-
   
 
   * xyz.alert
@@ -95,23 +87,15 @@ At the end, after wardriving, you will get the following files:
   
 
   
-
-
 With above files you will can identify the Manufacturer of the device (or model), the geo-position and route followed aproximadely and other information related signal quality.
 
   
-
-
 ## The arsenal
 
   
-
-
 The software and devices I've used are the following:
 
   
-
-
   
 
   * WIFI Pineapple Nano (https://www.wifipineapple.com/pages/nano)
@@ -133,33 +117,21 @@ The software and devices I've used are the following:
   
 
   
-
-
 ![https://holisticsecurity.files.wordpress.com/2016/02/blog-chilcano-01-android-mobile-pineapple-kismet.png]({{ site.baseurl }}/assets/blog-chilcano-01-android-mobile-pineapple-kismet.png)
 
   
-
-
 ## Configuration
 
   
-
-
 Obviously I have initialised my Pineapple Nano previously and have updated the firmware. But if you haven't already done so, I recommend the next guide: https://www.wifipineapple.com/pages/setup
 
   
-
-
 The next steps are if you have initialised Pineapple Nano.
 
   
-
-
  **1) Connect to WIFI Pineapple and prepare everything**
 
   
-
-
 By using USB cable, connect the Pineapple Nano to your PC, in my case I'm using a Virtualbox VM with Kali Linux.  
   
 Then, from a Kali Linux ([the best Linux distro for Security Audit](https://www.kali.org)) terminal will get the `wp6.sh` script and will connect to Pineapple Nano.  
@@ -167,13 +139,9 @@ Then, from a Kali Linux ([the best Linux distro for Security Audit](https://www.
 The `wp6.sh` can be downloaded from here: https://github.com/hak5darren/wp6
 
   
-
-
 ![https://holisticsecurity.files.wordpress.com/2016/02/blog-chilcano-02-config-1-connect-pineapple-wp6.png]({{ site.baseurl }}/assets/blog-chilcano-02-config-1-connect-pineapple-wp6.png)
 
   
-
-
 After that, open your browser in your Kali Linux and connect to `http://172.16.42.1:1471`
 
 From the Pineapple Web Admin console, insert the SD and format It.  
@@ -370,8 +338,6 @@ The packages to be installed are:
   * gpsd_3.7-1_ar71xx.ipk
   * gpsd-clients_3.7-1_ar71xx.ipk
 
-
-
 Download and install them.
 
 ```text  
@@ -429,8 +395,6 @@ Where:
   * `tcp://localhost:50000` is the shared Andoid's GPS signal being listening on TCP port.
   * `-N` don't daemonize, useful for debugging.
 
-
-
 And to check if GPSd is working, just run this:
 
 ```text  
@@ -452,8 +416,6 @@ Where:
   * `-c wlan1` is the NIC in `monitor mode` to be used.
   * Kismet has by default the GPSd configured properly. Nothing to fo here.
   * Kismet will look for the MAC Address Manufacturer file in this path `/etc/manuf`.
-
-
 
 In other terminal run the next:
 
@@ -529,5 +491,3 @@ https://vimeo.com/156948434
   * **The tip of the iceberg**. The packets that your phone Mobile emits and captures Kismet is only basic information and does not represent any risk to you. This phase is called Security "Data gathering" or "Recognition". The problem comes later, there are other tools that allow a targeted attack to steal important information.
   * **The business behind of IoT and BigData**. Actually, Marketing Companies and Telecoms are monetizing with the tracking information of phone mobiles. They are taking advantage of radio/cellular signal to track in all the time. With these information the Shopping Company could identify your pattern of behavior, which stores visited, what phone mobile model do you have, etc. Only search in Google "phone mobile wireless anonymous tracking" and will be aware of the industry behind and who is making money.
   * **There isn't Security awareness at Mobile World Congress**. Large conferences where there are people crowd (and thousands of mobiles phone) are a breeding ground for scammers and thieves who take advantage of weaknesses or defects of the Organization, the Devices or the Apps. Then, my friend be careful with that.
-
-

@@ -29,28 +29,18 @@ permalink: "/2011/03/12/eclipse-helios-macosx-1066/"
 I recently bought a MacBook Pro (2 GHz Intel Core i7 with 64-bit kernel and extensions enabled) to develop with Java. First thing to do was updating Java and installing Eclipse IDE, but everything about Eclipse was very slow.
 
   
-
-
 So I started googling and found the solution here:
 
   
-
-
 [http://www.eclipse.org/forums/index.php?t=tree&th=205238](http://www.eclipse.org/forums/index.php?t=tree&th=205238)
 
   
-
-
 The problem was related to 64-bit, Java and Eclipse are ready for working on 64-bit but you have to configure them.
 
   
-
-
 Then, open eclipse.ini and update of this way (lines updated are 12, 16, 19, 20 and 21):
 
   
-
-
 [sourcecode language="text" gutter="true" wraplines="false" highlight="12,16,19,20,21"]  
   
 -startup  
@@ -104,8 +94,6 @@ openFile
 [/sourcecode]
 
   
-
-
 Regards.
 
   

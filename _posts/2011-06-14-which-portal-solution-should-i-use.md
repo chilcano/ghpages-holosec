@@ -129,23 +129,15 @@ Therefore, is important to identify the needs and thus select the portal product
 But before we should define what is Portal?, is another buzz word?, Portal or Web Portal?.
 
   
-
-
 [caption id="" align="alignnone" width="498" caption="Enterprise Portal"]![Enterprise Portal]({{ site.baseurl }}/assets/portal-architecture.png)[/caption]
 
   
-
-
 ## What is Portal?
 
   
-
-
 From Wikipedia (http://en.wikipedia.org/wiki/Web_portal):
 
   
-
-
 > "A web portal or links page is a web site that functions as a point of access to information on the World Wide Web. A portal presents information from diverse sources in a unified way.  
 >   
 > Apart from the standard search engine feature, web portals offer other services such as e-mail, news, stock prices, information, databases and entertainment. Portals provide a way for enterprises to provide a consistent look and feel with access control and procedures for multiple applications and databases, which otherwise would have been different entities altogether.  
@@ -153,18 +145,12 @@ From Wikipedia (http://en.wikipedia.org/wiki/Web_portal):
 > Examples of public web portals are AOL, Excite, iGoogle, MSN, Netvibes, and Yahoo!."
 
   
-
-
 ## ¿What is Software Portal?
 
   
-
-
 From SearchCIO.com (http://searchcio.techtarget.com/definition/portal-software):
 
   
-
-
 > "Portal software is a type of development tool used to create a portal (starting point) on a company's  
 >   
 > intranet so that employees can find a centralized starting place for access to consolidated  
@@ -182,13 +168,9 @@ From SearchCIO.com (http://searchcio.techtarget.com/definition/portal-software):
 > called an enterprise information"
 
   
-
-
 ## What types of portals are there?
 
   
-
-
 It is increasingly difficult to classify a Portal under a category, and that these categories are changing, also the portals have common details among themselves.  
   
 I have taken the definition of types of Portals from www.contentmanager.eu.com I think is wide and exact.  
@@ -196,13 +178,9 @@ I have taken the definition of types of Portals from www.contentmanager.eu.com I
 And these are:
 
   
-
-
 ### 1\. Information Portals vs. Content Management Portals
 
   
-
-
  **Information Portals:**  
   
 Also called Vertical Portals or Enterprise Information Portals, they consolidate the information from different types and from different sources.  
@@ -210,13 +188,9 @@ Also called Vertical Portals or Enterprise Information Portals, they consolidate
 The users of these sites tend to consume information, they do not create information.
 
   
-
-
 It is often used for:
 
   
-
-
   
 
   * make "mash-up" in general.
@@ -231,8 +205,6 @@ It is often used for:
   * View company's corporate information, download forms, etc..
   * View reports, etc.
 
-
-
 **Content Management Portals:**  
 Allows you to manage (create, modify, delete, publish, share, etc.) digital assets (content, documents, etc.) from the Portal.
 
@@ -240,8 +212,6 @@ It is often used for:
 
   * Check-in, check-out, do versioning, lock, etc. on documents.
   * Perform a workflow on the documents.
-
-
 
 ### 2\. Application Centric Portals vs. Content Centric Portals
 
@@ -252,8 +222,6 @@ This portal provides access to all business applications from a single point.
 It is often used for:
 
   * Perform procedures or workflows, not just the record or the initial part of them.
-
-
 
 **Content Centric Portals:**  
 Very similar to Content Management Portal, in this case, the portal takes the information from enterprise applications such as WCMS, DMS, DAM, RMS and standard desktop applications.
@@ -268,8 +236,6 @@ Examples:
   * www.mp3.com
   * www.pets.com
 
-
-
 **Horizontal Enterprise Portals:**  
 They are portals that treat or display information from different types and are aimed at all audiences.
 
@@ -277,8 +243,6 @@ Examples:
 
   * www.yahoo.com
   * www.aol.com
-
-
 
 ## What type of portal you want to build?
 
@@ -291,8 +255,6 @@ So it is most convenient identify the portal we want to implement and see if it 
   * Generate reports.
   * Historical view of certain indicators.
 
-
-
 ### e-Learning Web Portal:
 
   * Define courses, associate an agenda, content, exams, etc.
@@ -300,8 +262,6 @@ So it is most convenient identify the portal we want to implement and see if it 
   * Allow collaboration: create content, conduct examinations.
   * Allow communication, via chat, instant messaging, email, VoIP calls, etc..
   * Allow assess.
-
-
 
 ### Web of e-Commerce:
 
@@ -311,16 +271,12 @@ So it is most convenient identify the portal we want to implement and see if it 
   * Make a delivery.
   * Notifications.
 
-
-
 ### Web of administrative Processes:
 
   * Define the list of processes.
   * Have an "inbox" where I will get notifications with the status of my processes.
   * Have a folder with all the processes that I can start.
   * Have a folder to save my documents that I could use in any process.
-
-
 
 ### Web blog:
 
@@ -329,22 +285,16 @@ So it is most convenient identify the portal we want to implement and see if it 
   * Have tools for evaluating the quality of the articles, their acceptance, their importance or simply to indicate whether or not you like someone.
   * Have tools to make diffusion of the articles published on the blog.
 
-
-
 ### Intranet:
 
   * To access the document repository of the organization.
   * Able to access to email, instant messaging, chat, the blog, etc.
   * To access certain corporate applications such as SAP, CRM, ERP, etc.
 
-
-
 ### Corporate Web:
 
   * To create an information structure: about us, services / products, news, contact, etc.
   * It is the "cover letter" of my organization on the Internet and should be able to find through search engines or Internet directories.
-
-
 
 ### Social Network:
 
@@ -352,8 +302,6 @@ So it is most convenient identify the portal we want to implement and see if it 
   * Post photos, videos, documents, etc.
   * Add members to my network.
   * To have communication and collaboration tools.
-
-
 
 ... yes, the list is endless, it is important to define the scope of your website and then see if the technology exists to implement it.  
 That is what the next step.
@@ -368,8 +316,6 @@ The Portal standards are:
   * JSR-168 (Java Portlet Specification v1.0)
   * JSR-286 (Java Portlet Specification v2.0)
   * WSRP (Web Services for Remote Portlets).
-
-
 
 Among those who are aligned to these standards are (in alphabetical order):
 
@@ -549,8 +495,6 @@ As is the case of Pentaho (Business Intelligence solution), they use JBoss Porta
 But if you have all the necessary resources, it is best to choose one that provides us with tools to quickly develop or customize functionality not had before, examples: Liferay, eXo, WebSphere Portal, Oracle Portal, etc.
   4. If your organization is aligned to the spirit of Free / Open Source and do not need advanced features, then the best alternatives are Apache JetSpeed​​-2, Jahia, Hippo, etc..
 
-
-
 **References:**
 
   * What is a Portal?  
@@ -563,7 +507,5 @@ http://www.realstorygroup.com/Blog/2083-New-Subway-Vendor-Map-for-2011
 http://en.wikipedia.org/wiki/Web_portal
   * Open Source Portal Servers Written in Java  
 http://www.manageability.org/blog/stuff/open_source_portal_servers_in_java/view
-
-
 
 **** [Versión en castellano aquí.](http://holisticsecurity.wordpress.com/2011/06/14/que-solucion-portal-deberia-usar/) ****

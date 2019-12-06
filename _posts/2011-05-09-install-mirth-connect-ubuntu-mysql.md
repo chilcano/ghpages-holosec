@@ -33,38 +33,24 @@ permalink: "/2011/05/09/install-mirth-connect-ubuntu-mysql/"
 ![Mirth Connect, SOA, ESB, HL7]({{ site.baseurl }}/assets/mirthconnect_logowide.png)
 
   
-
-
 Mirth Connect is a Service Oriented Integration Platform based on Mule ESB. Mirth Connect is specifically designed for HL7 (Health Level Seven - set of standards for the health messages exchanging) message exchange.
 
   
-
-
 Mirth Connect as a SOA Platform provides tools for developing, testing, deploying, and monitoring interfaces (channel for the exchange of HL7 messages).
 
   
-
-
 [caption id="" align="alignnone" width="491" caption="Mirth Connect Architecture"]![Mirth Connect Architecture]({{ site.baseurl }}/assets/mirthconnect_architecture.png)[/caption]
 
   
-
-
 Mirth Connect is a project Open Source with Mozilla Public License 1.1 (MPL 1.1) and can be downloaded from here h[ttp://www.mirthcorp.com/community/downloads](http://www.mirthcorp.com/community/downloads)
 
   
-
-
 Well, we will explain how to install on Ubuntu and how to switch Derby database server to MySQL server.
 
   
-
-
 ## 1\. Install Java
 
   
-
-
 [sourcecode language="text" gutter="true" wraplines="false"]  
   
 amawta@yachaywasi:~$ sudo apt-get install openjdk-6-jdk  
@@ -72,18 +58,12 @@ amawta@yachaywasi:~$ sudo apt-get install openjdk-6-jdk
 [/sourcecode]
 
   
-
-
 ## 2\. Install Mirth Connect
 
   
-
-
 1\. Download and setup execution permissions:
 
   
-
-
 [sourcecode language="text" gutter="true" wraplines="false"]  
   
 amawta@yachaywasi:~$ chmod +x mirthconnect-2.1.0.5389.b671-unix.sh  
@@ -93,13 +73,9 @@ amawta@yachaywasi:~$ sudo ./mirthconnect-2.1.0.5389.b671-unix.sh
 [/sourcecode]
 
   
-
-
 2\. Verify Mirth Connect installation:
 
   
-
-
 Go to http://localhost:8080 where you can access to Mirth Connect Server via Java App Admin console.  
   
 The administrator user and password are admin and admin, change it!.  
@@ -107,13 +83,9 @@ The administrator user and password are admin and admin, change it!.
 If you can not connect to server, then start it.
 
   
-
-
 3\. Start Mirth Connect from Manager (mcmanager), Server (mcserver) or as Service (mcservice).
 
   
-
-
 [sourcecode language="text" gutter="true" wraplines="false"]  
   
 amawta@yachaywasi:/opt/mirthconnect$ sudo ./mcservice start  
@@ -121,23 +93,15 @@ amawta@yachaywasi:/opt/mirthconnect$ sudo ./mcservice start
 [/sourcecode]
 
   
-
-
 verify again Mirth Connect is running.
 
   
-
-
 ## 3\. Switch from Derby database to MySQL server
 
   
-
-
 1\. Install MySQL:
 
   
-
-
 [sourcecode language="text" gutter="true" wraplines="false"]  
   
 amawta@yachaywasi:~$ sudo apt-get install mysql-server mysql-client  
@@ -145,13 +109,9 @@ amawta@yachaywasi:~$ sudo apt-get install mysql-server mysql-client
 [/sourcecode]
 
   
-
-
 and verify if MySQL is running:
 
   
-
-
 [sourcecode language="text" gutter="true" wraplines="false"]  
   
 amawta@yachaywasi:~$ netstat -tulpan  

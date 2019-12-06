@@ -53,81 +53,55 @@ Those individual policy assertions can be combined using policy operators define
 In this post entry I will explain how to apply custom `WS-SecurityPolicy` to exposed services of WSO2 ESB 4.8.1 and WSO2 DSS 3.2.1 and will explore some common use cases. Since WSO2 ESB 4.8.1 and WSO2 DSS 3.2.1 have the same security module, any example will work on both.
 
   
-
-
 ![WS-Security Use cases]({{ site.baseurl }}/assets/wso2-ws-security-policy-1scenarios.png)
 
   
-
+<!-- more -->
 
   
-
-
 ## I. Use cases
 
   
-
-
 Again, I recommend the blog post of Sagara Gunathunga (Technical Leader of WSO2 Inc). There, Sagara explains the different use cases where we can apply WS-SecurityPolicy on services using WSO2. http://ssagara.blogspot.co.uk/2013/07/wso2-esb-set-ws-security-ut-user-names.html I think that this post is great to get starting with WS-Security and WS-Policy in WSO2 ESB/DSS and hope this is also useful for you.
 
   
-
-
 Below, I will explore some details about these scenarios or use cases.
 
   
-
-
 ### I.1. Using by default the existing WSO2 20 WS-SecurityPolicy
 
   
-
-
 This is the easiest way to apply security to services in WSO2 ESB and/or WSO2 DSS. The security module embeded into WSO2 ESB and DSS implements 20 security scenarios, they are in the local registry of WSO2 ESB/DSS, under `/_system/config/repository/components/org.wso2.carbon.security.mgt/policy/`:  
   
 ![WSO2 WS Security Policies]({{ site.baseurl }}/assets/wso2-ws-security-policy-2list-policies.png)
 
   
-
-
 If you do want to go further with the 20 existing WS-SecurityPolicy deployed in WSO2 ESB/DSS, you can browse all XML policy file, they here are: https://github.com/Chilcano/wso2-dss-3.2.1-security-ws-policy-files
 
   
-
-
 To enable the security on the services, just click on the webservice or dataservice and choose the required Policy of the Policy List.  
   
 ![]({{ site.baseurl }}/assets/wso2-ws-security-policy-3apply-sec.png)
 
   
-
-
 Now, select UsernameToken Authentication.  
   
 ![]({{ site.baseurl }}/assets/wso2-ws-security-policy-4apply-sec.png)
 
   
-
-
 And next screen select the user credentials to be required.  
   
 ![]({{ site.baseurl }}/assets/wso2-ws-security-policy-5apply-sec.png)
 
   
-
-
 After that, you are ready to deploy your service in a secure way. To know what happened behind of this, we should review the Policy applied. Below a copy of Usertoken Authentication Policy (scenario1 UTOverTransport):  
   
 https://gist.github.com/9805c4369612be163ccc
 
   
-
-
  **Interpreting the WS-SecurityPolicy UsenameTokenOverTransport**
 
   
-
-
   
 
   * HTTPS is required instead of HTTP. HTTP is not already available. 
@@ -140,35 +114,23 @@ https://gist.github.com/9805c4369612be163ccc
   
 
   
-
-
 **Testing the Echo Service with WS-SecurityPolicy UsenameTokenOverTransport enabled**
 
   
-
-
 Using SoapUI will create a soapui project from the new WSDL of Echo Service. After this, send a request without the required valid credentials.  
   
 ![]({{ site.baseurl }}/assets/wso2-ws-security-policy-6soapui-ut-https.png)
 
   
-
-
 Now, if you send a request with valid credentials, then you will receive a successfully message.  
   
 ![]({{ site.baseurl }}/assets/wso2-ws-security-policy-7soapui-ut-https.png)
 
   
-
-
  **Observations**
 
   
-
-
   * Any of 20 WS-SecurityPolicy uses or consider to WSO2 instance as container of user credentials. In other words, for example, if you select UsernameToken Authentication Policy, the authentication process will validate the Username Token againts to the WSO2 User Store.
-
-
 
 ### I.2. Apply a custom WS-SecurityPolicy
 
@@ -210,8 +172,6 @@ Since it is possible to incorporate your own policies at WSO2, you could impleme
   4. Specified elements within a message should be signed or encrypted.
   5. Specials encryption algorithms or timestamps in a message are requireds.
 
-
-
 In the next posts I will explain each advanced scenarios. Stay tuned ;)
 
 ## II. Conclusions
@@ -229,5 +189,3 @@ There are a lot of information on WS-Security and WS-Policy on Internet, below t
   * Web Services Policy 1.5 - Framework. W3C Recommendation 04 September 2007 (http://www.w3.org/TR/ws-policy)
   * A Java-Swing-based editor for WS-Policies (https://github.com/IAAS/WS-Policy-Editor)
   * Apache Neethi, the referent framework to use WS Policy (http://ws.apache.org/neethi)
-
-

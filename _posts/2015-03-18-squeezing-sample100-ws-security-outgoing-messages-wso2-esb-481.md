@@ -58,31 +58,21 @@ permalink: "/2015/03/18/squeezing-sample100-ws-security-outgoing-messages-wso2-e
 The [Sample 100: Using WS-Security for Outgoing Messages](https://docs.wso2.com/display/ESB481/Sample+100%3A+Using+WS-Security+for+Outgoing+Messages "Sample 100: Using WS-Security for Outgoing Messages") is a great example to start learning with WS-Security, WS-Policy and how to deal with the security of SOAP webservices ..... but the problem is that this example does not work, also that this example is not very well explained. You could get run successfully this example and not understand what happen behind of it.
 
   
-
-
 ![WSO2 ESB 4.8.1 - Sample 100: Using WS-Security for Outgoing Messages]({{ site.baseurl }}/assets/wso2esb-sample100-secure-backend-axis2-01-architecture.png)
 
   
-
+<!-- more -->
 
   
-
-
 Anyway, here I will explain how to fix it and I will review each followed step to get it.
 
   
-
-
 ## I. The problem.
 
   
-
-
 In the 21st century we still have restricted access to strong cryptography (<http://en.wikipedia.org/wiki/Export_of_cryptography_from_the_United_States>), for this reason the Java compiler required for our applications can not use strong cryptography (large key length, new algorithms or cryptographic providers). In this example we need 2 things:
 
   
-
-
   
 
   * To install the Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files in our box. If this is done, then my applications (my service or backend implementation in Axis2 and the WSO2 ESB) will work perfectly.
@@ -92,28 +82,18 @@ In the 21st century we still have restricted access to strong cryptography (<htt
   
 
   
-
-
 If We do apply the above points, might only execute the secure service deployed in the Axis2 Server with the Axis2 client for this backend. But if We want to expose a unsecure service interface pointing to the secure backend, then we should deploy the WSO2 ESB Proxy correctly. To do that, We should deploy this Proxy in WSO2 ESB and load correctly the policy file (policy_3.xml) using Local 2Entry or the WSO2 ESB Registry. Then, come to do it.
 
   
-
-
 ## II. Fixing the sample.
 
   
-
-
 ### II.1. Installing Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files
 
   
-
-
 I am using `Java 1.7.0_51`, then I should download this JCE files from <http://www.oracle.com/technetwork/java/javase/downloads/jce-7-download-432124.html>, after that, unzip It and copy (or overwrite) the `local_policy.jar` and `US_export_policy.jar` to `$JAVA_HOME/jre/lib/security`.
 
   
-
-
 ```sh  
   
 $ java -version  
@@ -125,8 +105,6 @@ Java(TM) SE Runtime Environment (build 1.7.0_51-b13)
 Java HotSpot(TM) 64-Bit Server VM (build 24.51-b03, mixed mode)
 
   
-
-
 $ echo $JAVA_HOME  
   
 /Library/Java/JavaVirtualMachines/jdk1.7.0_51.jdk/Contents/Home  
@@ -134,23 +112,15 @@ $ echo $JAVA_HOME
 ```
 
   
-
-
 Remember, by installing the JCE, the WSO2 ESB and Axis2 Server or any Java Application in the same box will not have cryptographic restrictions.
 
   
-
-
 ### II.2. Install the Bouncy Castle library required for the Axis2 Client.
 
   
-
-
 By default, the Axis2 Client does not work because the Rampart (Axis2 module) requires an encryption algorithm provided for Bouncy Castle library (`bcprov-jdk15.jar`). To solve it, copy the `$WSO2ESB_HOME/repository/axis2/client/lib/bcprov-jdk15.jar` to `$WSO2ESB_HOME/repository/components/plugins/` folder. If you do not copy this library, probably you get this error when executing the Axis2 Client `StockQuoteClient.java`.
 
   
-
-
 ```sh  
   
 [...]  
@@ -401,8 +371,6 @@ Above, in the first diagram we can see the scenario being implemented with the S
   2. Send a SOAP request to SecureStockQuoteService using the existing Axis2 Client (stockquote) using the new Proxy EndPoint.
   3. Send a Secure SOAP request directly to SecureStockQuoteService using the existing Axis2 Client (stockquote) using the client_policy_3.xml.
 
-
-
 But even you do want to go further, I recommend the blog post of Sagara Gunathunga (Technical Leader of WSO2 Inc). There, Sagara explains in the first part the different use cases to apply WS-Security in Backend: http://ssagara.blogspot.co.uk/2013/07/wso2-esb-set-ws-security-ut-user-names.html I think that this post is great to get starting with WS-Security and WS-Policy in WSO2 ESB and hope this is also useful for you.
 
 ## V. Using a standalone Service Proxy instead of run WSO2 ESB with the Synapse definition
@@ -492,8 +460,6 @@ I have changed/updated the following:
   * `out` for `outSequence`.
   * Added a reference for Security Policy definition to be used for `MyProxySample100.xml`. In this Proxy, the Security Policy is loaded as a Local Entry called `my_sec_policy`.
 
-
-
 ```xml  
 <localEntry key="my_sec_policy" src="file:repository/samples/resources/policy/policy_3.xml"/>  
 ```
@@ -506,8 +472,6 @@ Also this could be also loaded as a resource stored in WSO2 ESB Local Registry.
 ```
 
   * Added a Log Mediator for tracking purposes.
-
-
 
 ## VI. Calling to the Backend from SoapUI using the new Proxy
 
@@ -645,8 +609,6 @@ Where:
   * `-Dmode=quote` with this parameter the Axis2 Client will call the SOAP Action / Operation correctly. 
   * `-Dsymbol=IBM` with this the Axis2 Client will create a adequate payload expected for the backend. 
   * `-Dpolicy=../../repository/samples/resources/policy/client_policy_3.xml` is the new security policy suitable for this example because has the correct paths a configurations. 
-
-
 
 Above you can see `client_policy_3.xml`, where the unique difference with `policy_3.xml` is the line 62 (the path `repository/samples/resources/security/store.jks`).
 
@@ -809,5 +771,3 @@ Now, you are ready to play with:
   * Creation of WS-Policy for other scenarios: digital signature, encryption, etc.
   * Security in REST Services.
   * Learn about the importance of the HandlerCallbacks for Apache Rampart.
-
-

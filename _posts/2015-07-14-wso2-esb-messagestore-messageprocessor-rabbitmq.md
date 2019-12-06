@@ -50,33 +50,23 @@ permalink: "/2015/07/14/wso2-esb-messagestore-messageprocessor-rabbitmq/"
 In this [post](https://holisticsecurity.wordpress.com/2015/01/25/evaluacion-nivel-madurez-integracion-message-brokers-opensource-wso2-esb/) I evaluated the level of integration of WSO2 ESB with different opensource message brokers such as Qpid, RabbitMQ, ActiveMQ and WSO2 Message Broker. At the end, we got the conclusion that RabbitMQ is / was the most used message broker, poorly integrated and not easily integrable with WSO2 ESB.
 
   
-
-
 [![WSO2 MessageStore and MessageProcessor approach for resilient messaging]({{ site.baseurl }}/assets/wso2esb-rabbitmq-message-store-architecture-jms-amqp.png)](https://holisticsecurity.files.wordpress.com/2015/07/wso2esb-rabbitmq-message-store-architecture-jms-amqp.png)  
   
  _WSO2 MessageStore and MessageProcessor approach for resilient messaging_
 
   
-
+<!-- more -->
 
   
-
-
 I ask myself, why is not RabbitMQ integrated to WSO2 ESB?. The answer is simple, RabbitMQ is a Message Broker with strong focus in [AMQP (Advanced Message Queuing Protocol)](https://www.amqp.org) and not in the JMS (Java Messaging Service). JMS as a reference protocol in the Message Brokers is not "complete"; AMQP tries to cover that gap what JMS does not cover. Also, RabbitMQ, by default uses AMQP 0-9-1 and not the latest version AMQP 1.0. Yes, there is an experimental [AMQP 1.0 pluging](http://www.rabbitmq.com/plugins.html) for RabbitMQ and is not suitable for production, also I do not see that it will change soon.
 
   
-
-
 There is an Axis2 Transport Module available what implements the AMQP 0-9-1 protocol for RabbitMQ. This is a "beta" version because is not included as an official Axis2 Transport Module for WSO2 ESB 4.8.1.
 
   
-
-
 But, if you want to install and use it, I highly recommend the serie of post about of Axis2 AMQP Transport published in the Luis Peñarrubia's blog. In that blog is explained how to patch, deploy and use the Axis2 AMQP transport module in your WSO2 ESB 4.8.1:
 
   
-
-
   
 
   * https://luispenarrubia.wordpress.com/2014/12/10/integrate-wso2-esb-and-rabbitmq-using-amqp-transport/ 
@@ -86,18 +76,12 @@ But, if you want to install and use it, I highly recommend the serie of post abo
   
 
   
-
-
 ## I. Scope and objetives
 
   
-
-
 The idea of this post is to explain how to integrate WSO2 ESB with RabbitMQ to work together in a "resilient" way and implementing the Enterprise Integration Patterns (EIPs - https://docs.wso2.com/display/IntegrationPatterns/Enterprise+Integration+Patterns+with+WSO2+ESB) related to messaging. Then, I would like to implement different messaging integration patterns as:
 
   
-
-
   
 
   * Dead Letter Queue
@@ -113,38 +97,24 @@ The idea of this post is to explain how to integrate WSO2 ESB with RabbitMQ to w
   
 
   
-
-
 For more information about Messaging Advanced EIPs, check this link: https://docs.wso2.com/display/IntegrationPatterns/Messaging+Channels
 
   
-
-
 ## II. Implementation
 
   
-
-
 ### II.1. The strategia: WSO2 ESB Message Store & Message Processor
 
   
-
-
 The Message Store & Message Processor is the way as the integration between WSO2 ESB and RabbitMQ should be realized. If you want to know what is WSO2 ESB Message Store & Message Processor, I invite you to read my blog post about this subject (https://holisticsecurity.wordpress.com/2014/12/03/wso2-message-broker-vs-apache-qpid-messaging-eip)
 
   
-
-
 ### II.2. The strategia: Apache Qpid client library as bridge between JMS 1.1 and AMQP 0-9-1
 
   
-
-
 The strategia is to improve the existing implementation of WSO2 ESB Message Store & Message Processor (MS&MP) to make it compatible with RabbitMQ (AMQP 0-9-1). Create the WSO2 ESB MS&MP for RabbitMQ from scratch is not viable, because the current WSO2 ESB MS&MP implementation uses JMS and is not ready to be extended to AMQP 0-9-1. Then, We need some magical library that can resolve the problem of translating the JMS (WSO2 ESB) protocol to AMQP 0-9-1 (RabbitMQ), I tried different libraries to solve this issue such as:
 
   
-
-
   
 
   1. Spring JMS library (https://spring.io/guides/gs/messaging-jms). This requires to refactor big part of the WSO2 MS&MP's source code.
@@ -160,13 +130,9 @@ The strategia is to improve the existing implementation of WSO2 ESB Message Stor
   
 
   
-
-
 At the end, I used the Apache Qpid client library for its compatibility with JMS 1.1 and AMQP 0-9-1, this is very important because WSO2 ESB MS&MP follow the JMS and this solves the compatibility with RabbitMQ.
 
   
-
-
 ### II.3. Understanding how to work Apache Qpid library with RabbitMQ
 
 The idea is to create a simple sender(JMS publisher) and receiver(JMS consumer) client using Apache Qpid library for a RabbitMQ's queue (AMQP). After the great support in the [Apache Qpid's forum](http://mail-archives.apache.org/mod_mbox/qpid-users/), the conclusions were:
@@ -227,8 +193,6 @@ After of download the Apache Qpid library, I used the above sample source code t
   * Java 1.7.0_75 / OpenJDK Runtime Environment (rhel-2.5.4.0.el6_6-x86_64 u75-b13)
   * All stuff are installed on CentOS 6.x
 
-
-
 **** Disclaimer: This implementation is not suitable for Production. This is just a PoC. ****
 
 I have created a Synapse MessageStore and Synapse API, they are the best way to test this MS&MP implementation. Obviously you need a RabbitMQ configured, do not worry, I have included a json file with the queue, routing keys and exchanges definition required to run this code. https://gist.github.com/4b51ef6b4421328ccc9f 
@@ -243,12 +207,8 @@ Yes, there are somethings to be improved.
   * The messages stored in RabbitMQ via WSO2 ESB MessageStore mediator will be encoded in "application/java-object-stream".
   * User/password used to connect to RabbitMQ should be kept in safe place. Here, WSO2 SecureVault is the perfect tool.
 
-
-
 ## IV. Conclusions
 
   * The Apache Qpid project provides, IMHO, of a good, robust and open source Message Broker, where is possible implements the different integration patterns based messaging, also, Apache Qpid compatible with JMS and AMQP standard, everything in a lightweight bundle and easy to install it.
   * Also, The Apache Qpid project provide of mature client libraries for JMS and different versions of AMQP.
   * The MessageStore & MessageProcessor approach is the best way to integrate WSO2 ESB and any Message Broker because with this is possible to implement different integration patterns, suitable for reliable and resilient Critical Messaging Systems.
-
-

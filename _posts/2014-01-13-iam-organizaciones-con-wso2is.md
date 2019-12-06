@@ -48,26 +48,18 @@ permalink: "/2014/01/13/iam-organizaciones-con-wso2is/"
 # Introducción a IAM (Identity and Access Management)
 
   
-
-
 La Gestión de Usuarios siempre es una funcionalidad requerida en las Aplicaciones Empresariales, el objetivo es crear, renovar, borrar, actualizar las credenciales con el cual un usuario puede acceder a la Aplicación y ejecutar o realizar ciertas acciones que quizás otros usuario no puedan hacer (gestión de privilegios).
 
   
-
-
 Estas funcionalidades son siempre requeridas por cada Aplicación a menos que no exista tal restricción y uso sea completamente abierto. En el fondo, no sólo se trata de un única funcionalidad, se trata de un conjunto de funcionalidades:
 
   
-
-
   
 
   1. Gestión del ciclo de vida de usuarios:
   
 
   
-
-
   
 
   * Nos permitirá crear, borrar, bloquear, actualizar credenciales de usuarios.
@@ -80,53 +72,39 @@ Estas funcionalidades son siempre requeridas por cada Aplicación a menos que no
   
 
   
-
-
   
 
   1. Autenticación
   
 
   
-
-
   
 
   * Proceso por el cual se validan las credenciales.
   
 
   
-
-
   
 
   1. Autorización
   
 
   
-
-
   
 
   * Proceso por el cual se da acceso a un recurso después del proceso de Autenticación.
   
 
   
-
-
 Otras funcionalidades que suelen incluir en los IAM son:
 
   
-
-
   
 
   1. Single Sign-On (SSO)
   
 
   2.   
-
-
 Single Sign-Off
 
   
@@ -134,15 +112,11 @@ Single Sign-Off
   
 
   3.   
-
-
 Federated Identity
 
   
 
   
-
-
 
 (*) Para mayor información remitirse a [Wikipedia - Identity Management](http://en.wikipedia.org/wiki/Identity_management "Wikipedia - Identity Management").
 

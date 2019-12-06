@@ -42,8 +42,6 @@ _"How do you eat an elephant? One bite at a time"_ \- This phrase makes sense, e
 Happily some technology companies have managed to internalize this phrase in its processes and products.
 
   
-
-
 ![https://holisticsecurity.files.wordpress.com/2019/11/blog-pass-microservices-how-do-you-eat-an-elephant-one-bite-at-a-time.png]({{ site.baseurl }}/assets/blog-pass-microservices-how-do-you-eat-an-elephant-one-bite-at-a-time.png)  
   
 Below some examples:  
@@ -59,26 +57,18 @@ Below some examples:
 \- Raspberry Pi: Micro Personal Computer (https://en.wikipedia.org/wiki/Raspberry_Pi)
 
   
-
+<!-- more -->
 
   
-
-
 Many people and many companies make big mistake when they are entirely focused on big goals. If you have a big goal, you probably spend a lot of time and effort on achieving it.
 
   
-
-
 Well, I will explain on this blog post How this simple concept is being applied to PaaS (Platform as a Service) today and will mention some opensource!.
 
   
-
-
 ## 1\. Key concepts
 
   
-
-
   
 
   * Agile  
@@ -118,8 +108,6 @@ Well, I will explain on this blog post How this simple concept is being applied 
 
     * Free and open source
 
-
-
 ## 2\. What is PaaS (Platform as a Service)?
 
 ![PaaS definition - Wikipedia]({{ site.baseurl }}/assets/blog-paas-microservice-1-paas-definition.png)
@@ -132,8 +120,6 @@ Wikipedia mentions that `Zimki` was the first `PaaS` and was released in the yea
   * Saleforce's Heroku
   * Jelastic
   * Etc.
-
-
 
 I ask myself, Are they really suitable for creating Microservices today?. In my opinion, Yes, they are suitable but after a heavy lifting and re-designing.  
 There are good news about that because the main Software Companies are working on that, making them lighter, more agile and versatile, someone are focused to Cloud, to on-Premise, to Containers or to RAD (rapid application development). Just check out Openshift, CloudFoundry, etc.
@@ -188,8 +174,6 @@ Well, after searching the internet, the result is a first version of the PaaS li
     * https://www.ctl.io/appfog
     * AppFog, CenturyLink's Platform-as-a-Service (PaaS) based on Cloud Foundry, enables developers to focus on writing great cloud-based applications without having to worry about managing the underlying infrastructure.
 
-
-
 ### Microservices frameworks
 
   1. Dropwizard 
@@ -217,14 +201,10 @@ Well, after searching the internet, the result is a first version of the PaaS li
     * http://unirest.io
     * Unirest is a set of lightweight HTTP libraries available in multiple languages (Node.js, Ruby, PHP, Java, Python, Objective-C, .Net).
 
-
-
 ## 4\. Conclusions
 
   * As you can see, the trend is to provide a set of tools to do more easy the application development on-premise or/and on-cloud. The idea behind is to remove all the repetitive tasks encountered when creating web applications and web services (aspects related to infrastructure and operations from setting up servers, scaling, configuration, security and backups), the `Pre-Shaved Yaks` concept was introduced. 
   * In other side, there are custom PaaS created from existing lightweight frameworks using Docker Containers, below some references. This confirms, right now, that there are mature tools and frameworks ready to be used in the construction of these platforms.
-
-
 
 ## 5\. References
 
@@ -247,5 +227,3 @@ Well, after searching the internet, the result is a first version of the PaaS li
   * Stack catalogs 
     * http://www.fullstackpython.com
     * http://www.paasify.it
-
-

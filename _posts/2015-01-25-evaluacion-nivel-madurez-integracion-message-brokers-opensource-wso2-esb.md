@@ -80,35 +80,25 @@ permalink: "/2015/01/25/evaluacion-nivel-madurez-integracion-message-brokers-ope
 En mi anterior post expliqué como usar Apache Qpid junto con WSO2 ESB (https://holisticsecurity.wordpress.com/2014/12/03/wso2-message-broker-vs-apache-qpid-messaging-eip), un message broker ligero, potente y compatible con JMS y AMQP, en lugar de WSO2 Message Broker, un message broker potente, rápido, estándar y perfectamente integrable a WSO2 ESB. Pues ahora, me gustaría compartir la comparación que hice previamente para seleccionar [Apache Qpid](http://qpid.apache.org "Apache Qpid").
 
   
-
-
 ![Integración de Message Brokers opensource con WSO2 ESB]({{ site.baseurl }}/assets/msgbroker-00-foss-brokers-wso2-esb-activemq-qpid-rabbitmq-hornetq.png)  
   
  _Integración de Message Brokers opensource con WSO2 ESB_
 
   
-
+<!-- more -->
 
   
-
-
 Claro, vosotros preguntaréis, porqué no usar Apache ActiveMQ sabiendo que es un producto opensource, maduro, muy bien integrado a WSO2 ESB y a otros ESB y Mediators Engines como Apache Camel?, pues, en base a mis requerimientos en proyectos, buscaba por algún message broker fiel a los estándares y con una arquitectura capaz de crear complejos y críticos escenarios, pero muy orientado a los usos clásicos del message broker (comunicación asíncrona, desacoplamiento, integrable con legacy systems), y en este caso Apache Qpid y Apache ActiveMQ lo son, sin embargo me incliné por Apache Qpid porque pude integrarlo en poco minutos con WSO2 ESB e implementar los EIPs otros minutos más.
 
   
-
-
 ![Google Trends 2015: Apache ActiveMQ, RabbitMQ, Apache Qpid y JBoss HornetQ]({{ site.baseurl }}/assets/msgbroker-02-foss-brokers-wso2-esb-2015-google-trends.png)  
   
  _Google Trends 2015: Apache ActiveMQ, RabbitMQ, Apache Qpid y JBoss HornetQ_
 
   
-
-
 Revisando alguna información de Apache ActiveMQ, me encontré con algunos comentarios indicando que su arquitectura estaba quedando rezagada imposibilitando su uso en escenarios complejos como BigData e IoT, sofisticados brokers como Apache Kafka y ZeroMQ, por ejemplo. Aquí unos comentarios.
 
   
-
-
 >   
 >  Disadvantages in ActiveMQ:  
 >   
@@ -124,13 +114,9 @@ Revisando alguna información de Apache ActiveMQ, me encontré con algunos comen
 > 
 
   
-
-
 Y
 
   
-
-
 >   
 >  ActiveMQ is still a very good choice for Enterprise Messaging. But ActiveMQ has gotten some competition, which is arriving with newer architectures, better performance, and with the support of standardized protocols in the area of the space deer.  
 >   
@@ -140,13 +126,9 @@ Y
 > 
 
   
-
-
 ## I. Message Brokers
 
   
-
-
 La lista de Message Brokers opensource a considerar son los siguientes:  
   
 ![Lista de Message Brokers opensource a considerar \(Qpid, ActiveMQ, RabbitMQ, HornetQ, WSO2 MB, ZeroMQ, Apache Kafka, Apache Storm, OpenAMQP\)]({{ site.baseurl }}/assets/msgbroker-01-foss-brokers-wso2-esb-activemq-qpid-rabbitmq-hornetq-zeromq-kafka-storm.png)  
@@ -154,8 +136,6 @@ La lista de Message Brokers opensource a considerar son los siguientes:
  _Lista de Message Brokers opensource a considerar (Qpid, ActiveMQ, RabbitMQ, HornetQ, WSO2 MB, ZeroMQ, Apache Kafka, Apache Storm, OpenAMQP)_
 
   
-
-
  **Standard Message Brokers**  
   
 1\. RabbitMQ: https://www.rabbitmq.com  
@@ -226,8 +206,6 @@ _Comparación entre RabbitMQ, Apache Qpid, ZeroMQ, OpenAMQP, JBoss HornetQ y Apa
   * Sobre JBoss HornetQ, pues muy poco tengo que decir, su interés según Google Trends es muy bajo, sin embargo tiene mucha información, incluso he visto un libro sobre él, pero por otro lado, RedHat usa Apache ActiveMQ en lugar de HornetQ, a pensar de ser un proyecto patrocinado por ellos.
   * La integración de Apache Qpid y WSO2 ESB sería total si desde WSO2 ESB pudiese también gestionar las colas y los mensajes, pero esto no es posible ni con Apache ActiveMQ, hay algunos ["workarounds" pero no va bien completamente](http://stackoverflow.com/questions/21761265/cant-browse-messages-in-an-activemq-based-message-store-with-wso2-esb-console). En otro artículo escribiré sobre ello y también compartiré el código.
 
-
-
 ## V. Referencias
 
   * [Broker wars: ActiveMQ, Qpid, HornetQ and RabbitMQ in Comparison](http://predic8.com/activemq-hornetq-rabbitmq-apollo-qpid-comparison.htm)
@@ -238,5 +216,3 @@ _Comparación entre RabbitMQ, Apache Qpid, ZeroMQ, OpenAMQP, JBoss HornetQ y Apa
     * <https://www-acc.gsi.de/wiki/pub/Frontend/MeetingCMW130425/CHEP-2012-NewCERNcontrolsMiddleware.pdf>
   * [Apache Kafka: Next Generation Distributed Messaging System - comparison with RabbitMQ and ActiveMQ](http://www.infoq.com/articles/apache-kafka)
   * [Apache Kafka: powered by ](https://cwiki.apache.org/confluence/display/KAFKA/Powered+By)
-
-

@@ -63,25 +63,17 @@ The aims are to do authentication and web-sso between liferay and alfresco using
 In this blog post we will explain how to configure Alfresco to enable LDAP authentication and users syncronization, also we will explain how to configure CAS Authentication Filter to do Web-SSO with automatic/transparent login.
 
   
-
-
 Firstly, we will follow this technical design for authentication and sso.
 
   
-
-
 [caption id="" align="alignnone" width="461" caption="Authentication and SSO architectura"]![Authentication and SSO architectura between Liferay, Alfresco and CAS]({{ site.baseurl }}/assets/sso_alfr_lfry-00-architectura.png)  
   
 [/caption]
 
   
-
-
 ## Requirements
 
   
-
-
   
 
   1. Virtual Directory Server (Penrose server 2.0) and CAS-server (tested with version 3.3.5)I will use existing CentOS VirtualBox VM with CAS and Penrose Server pre-configured (Virtual Directory/LDAP) named "directorysrv1" of last blog post ([Web-SSO between Liferay and Alfresco with CAS and Penrose (part 1/2)](http://holisticsecurity.wordpress.com/2011/01/15/sso-liferay-alfresco-cas-penrose-part-12)) but with a few changes: [sourcecode language="text" gutter="true" wraplines="false"]  
@@ -95,13 +87,9 @@ cn=aamodwroclawski
 [/sourcecode]
 
   
-
-
 You can download this new Penrose partition [here](http://dl.dropbox.com/u/2961879/blog20110215_sso_alfresco_liferay_2/intix_info_liferay.zip).
 
   
-
-
 [caption id="" align="alignnone" width="483" caption="LDAP tree"]![LDAP tree]({{ site.baseurl }}/assets/sso_alfr_lfry-00-LDAP-DN.png)[/caption]
   
 
@@ -109,8 +97,6 @@ You can download this new Penrose partition [here](http://dl.dropbox.com/u/29618
   
 
   3. Liferay 6.0.5 with LDAP and CAS enabled:We are using a WinXP VirtualBox VM with Liferay 6.0.5 CE installed named "lfry01". See before post [here](http://holisticsecurity.wordpress.com/2011/01/15/sso-liferay-alfresco-cas-penrose-part-12).  
-
-
 [caption id="" align="alignnone" width="400"  
   
 caption="LDAP and CAS configuration in Liferay"]
@@ -137,8 +123,6 @@ caption="LDAP and CAS configuration in Liferay"]
   
 [/caption] 
   4. CAS-client (3.1.10)
-
-
 
 ## I. Enable LDAP Authentication and LDAP users import in Alfresco
 
@@ -557,8 +541,6 @@ c:\>
 [/sourcecode]
 
 You can download my **www.intix.info-casauthnfilter-0.1.jar** file from [**here**](http://dl.dropbox.com/u/2961879/blog20110215_sso_alfresco_liferay_2/www.intix.info-casauthnfilter-0.1.jar).  
-
-
 4\. Re-start Alfresco.
 
 5\. Test CAS configuration.

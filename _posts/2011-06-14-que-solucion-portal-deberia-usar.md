@@ -59,23 +59,15 @@ Por ello es importante que identifiques tus necesidades y con ello podrás selec
 Pero antes definamos qué es Portal, es otra palabra de moda?, Portal o Web Portal?.
 
   
-
-
 [caption id="" align="alignnone" width="498" caption="Enterprise Portal"]![Enterprise Portal]({{ site.baseurl }}/assets/portal-tipos.png)[/caption]
 
   
-
-
 ## ¿Qué es Portal?
 
   
-
-
 From Wikipedia (http://en.wikipedia.org/wiki/Web_portal): 
 
   
-
-
 >   
 > "A web portal or links page is a web site that functions as a point of access to information on the World Wide Web. A portal presents information from diverse sources in a unified way.  
 >   
@@ -85,18 +77,12 @@ From Wikipedia (http://en.wikipedia.org/wiki/Web_portal):
 > 
 
   
-
-
 ## ¿Qué es Software Portal?
 
   
-
-
 From SearchCIO.com (http://searchcio.techtarget.com/definition/portal-software):
 
   
-
-
 >   
 > "Portal software is a type of development tool used to create a portal (starting point) on a company's  
 >   
@@ -116,30 +102,20 @@ From SearchCIO.com (http://searchcio.techtarget.com/definition/portal-software):
 > 
 
   
-
-
 ## ¿Qué tipo de Portales existen?
 
   
-
-
 Cada vez es más difícil clasificar un Portal bajo una categoría, ya que las mismas categorías están cambiando y los Portales cada vez tienen detalles comunes entre sí.  
   
 He tomado la definición de tipos de Portales de la www.contentmanager.eu.com que creo es muy amplia y acertada.
 
   
-
-
 Aquí va:
 
   
-
-
 ### 1\. Information Portals vs. Content Management Portals
 
   
-
-
  **Information Portals:**  
   
 También llamado Vertical Enterprise Portals o Enterprise Information Portals consolida information de diferentes tipos y de diferentes fuentes.  
@@ -156,8 +132,6 @@ Se suele usar para:
   * Ver información corporativa de la empresa, descargar formularios, etc. 
   * Ver reportes, etc. 
 
-
-
 **Content Management Portals:**  
 Permite gestionar (crear, modificar, borrar, publicar, compartir, etc.) activos digitales (contenido, documentos, etc.) desde el Portal.  
   
@@ -165,8 +139,6 @@ Se suele usar para:
 
   * Hacer check-in, check-out, hacer versionado, bloquear, etc. sobre los documentos. 
   * Realizar un flujo de trabajo sobre los documentos. 
-
-
 
 ### 2\. Application Centric Portals vs. Content Centric Portals
 
@@ -177,8 +149,6 @@ Este Portal permite acceder a todas las aplicaciones de negocio desde un sólo p
 Se suele usar para:
 
   * Realizar los trámites, no sólo el registro o inicio de ellas. 
-
-
 
 **Content Centric Portals:**  
 Muy similar a Content Management Portal, en este caso, el Portal coge la información de las aplicaciones corporativas como los WCMS, DMS, DAM, RMS and standard Desktop applications.
@@ -193,8 +163,6 @@ Ejemplos:
   * www.mp3.com 
   * www.pets.com 
 
-
-
 **Horizontal Enterprise Portals:**  
 Son portales que tratan o muestran información de diferentes tipos y están orientados a todos los públicos.  
   
@@ -203,21 +171,15 @@ Ejemplos:
   * www.yahoo.com 
   * www.aol.com 
 
-
-
 ## ¿Qué tipo de Portal quieres construir?
 
 Por lo visto, a partir de los tipos de portal, una página web personal es un portal y una página de Facebook también.  
 Entonces, lo más conveniente es identificar el portal que queramos implementar y ver si encaja en las definiciones.  
-
-
 ### Web Dashboard:
 
   * Mostrar información en tiempo real financiera de la Bolsa de Valores. 
   * Sacar reportes. 
   * Ver histórico de ciertos indicadores. 
-
-
 
 ### Web para formación online:
 
@@ -227,8 +189,6 @@ Entonces, lo más conveniente es identificar el portal que queramos implementar 
   * Permitir la comunicación: a través de chat, instant messaging, email, llamadas VoIP, etc. 
   * Poder evaluar. 
 
-
-
 ### Web para vender productos de manera online:
 
   * Definir catálogo de productos. 
@@ -237,16 +197,12 @@ Entonces, lo más conveniente es identificar el portal que queramos implementar 
   * Realizar una orden de entrega. 
   * Notificaciones. 
 
-
-
 ### Web de trámites administrativos:
 
   * Definir el catálogo de trámites. 
   * Tener un "inbox" donde recibiré mis notificaciones con el estado de mis trámites. 
   * Tener una carpeta con todos los trámites que puedo realizar. 
   * Tener una carpeta para poder guardar mis documentos que pueden ser usados en los trámites. 
-
-
 
 ### Web blog:
 
@@ -255,22 +211,16 @@ Entonces, lo más conveniente es identificar el portal que queramos implementar 
   * Tener elementos que me permita valorar la calidad, su aceptación, su importancia o simplemente que permita indicar si le gusta o no a alguien. 
   * Tener herramientas que permitan hacer difusión de los artículos publicados en el blog. 
 
-
-
 ### Intranet:
 
   * Poder acceder al respositorio documental de la organización. 
   * Poder acceder al correo electrónico, instant messaging, al chat, al blog, etc. 
   * Poder acceder a algunas aplicaciones corporativas como SAP, CRM, ERP, etc. 
 
-
-
 ### Web corporativa:
 
   * Poder crear una estructura de información: quiénes somos, servicios/productos, noticias, contacto, etc. 
   * Es la "carta de presentación" de mi organización en internet y como tal debe poderse encontrar a través de los motores de búsqueda o directorios de internet. 
-
-
 
 ### Red Social:
 
@@ -278,8 +228,6 @@ Entonces, lo más conveniente es identificar el portal que queramos implementar 
   * Publicar fotos, videos, documentos, .... 
   * Añadir miembros a la Red 
   * Tener herramientas de rápida comunicación y colaboración. 
-
-
 
 ...sí, la lista es infinita, lo importante es definir el alcance de tu web y luego ver si existe tecnología para implementarlo.  
 De eso se trata el siguiente punto.
@@ -294,8 +242,6 @@ Los estándares de portales son:
   * JSR-168 (Java Portlet Specification v1.0) 
   * JSR-286 (Java Portlet Specification v2.0) 
   * WSRP (Web Services for Remote Portlets). 
-
-
 
 Entre los que están alineados a estos estándres son (orden alfabético):
 
@@ -414,8 +360,6 @@ Existen diferentes características, entre ellas están:
 **7\. Ready for Mobility**  
 \- Aplicación móvil nativa  
 \- Usar el móvil como un client liviano.  
-
-
 ## ¿Cuál es el grado de madurez de cada software de Portal?
 
 Otra vez, depende mucho de las necesidades y los recursos con que se disponen, algunas soluciones de Portal tienen una buena base tecnológica pero carecen de funcionalidades especiales para WCM, por ejemplo.  
@@ -469,8 +413,6 @@ Particularmente a mi me ha agradado mucho porque es una alternativa muy ligera d
   
 Finalmente, si queremos crear una solución de Portal más potente y no queremos crearlo desde cero, pues una buena alternativa es usar como base Apache Pluto, Apache JetSpee-2 o JBoss GateIn. Estos tres son buenas implementaciones de los estándares de portales y muchos fabricantes suelen embeber dichos productos en sus productos avanzados.  
 Como es el caso de **Pentaho** (solución de Business Intelligence), el producto embebe JBoss Portal y sobre esto crean un Dashboard.  
-
-
 ## Conclusiones:
 
   1. Si quieres crear un Portal Corporativo, una Red Social, etc. que sepas que existe software para hacerlo de manera rápida y fácil. 
@@ -478,8 +420,6 @@ Como es el caso de **Pentaho** (solución de Business Intelligence), el producto
   3. Si tu objetivo es tener un portal especializado (portal vertical) inmediatamente, pues lo mejor es usar alguno ya existente para dicho propósito, por ejemplo: Alfresco ECM, Sakai para e-learning, etc.  
 Pero si dispones de todo los recursos necesarios, lo mejor es elegir aquel que nos provea de herramientas para desarrollar o personalizar rápidamente funcionalidades que no tenía antes, ejemplos: Liferay, eXo, WebSphere Portal, Oracle Portal, etc. 
   4. Si tu organización está alineada al espíritu Free/Open Source y no necesitas funcionalidades avanzadas, pues las mejores alternativas son Apache JetSpeed-2, Jahia, Hippo, etc. 
-
-
 
 **Referencias:**
 
@@ -493,7 +433,5 @@ http://www.realstorygroup.com/Blog/2083-New-Subway-Vendor-Map-for-2011
 http://en.wikipedia.org/wiki/Web_portal 
   * Open Source Portal Servers Written in Java   
 http://www.manageability.org/blog/stuff/open_source_portal_servers_in_java/view 
-
-
 
 **** [English version here.](http://holisticsecurity.wordpress.com/2011/06/14/which-portal-solution-should-i-use/) ****

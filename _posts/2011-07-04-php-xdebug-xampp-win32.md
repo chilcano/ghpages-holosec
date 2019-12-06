@@ -40,35 +40,23 @@ and several times you need to solve many bugs and manage your source code, then 
 A text editor is not enough for this, Eclipse IDE and PHP Development Tools are a good option.
 
   
-
-
 In this post, you learn how to set your debug environment with XDebug, that seems to be one of the more popular ones and Eclipse PDT already has support for it.
 
   
-
-
 ## Requisites:
 
   
-
-
 1\. Download and install/unzip [XAMPP](http://www.apachefriends.org/en/xampp-windows.html) for win32 version 1.7.4-VC6.
 
   
-
-
 This bundle comes with severals tools:
 
   
-
-
 [sourcecode language="text" gutter="true" wraplines="false"]  
   
 ###### ApacheFriends XAMPP (Basispaket) version 1.7.4 ######
 
   
-
-
 \+ Apache 2.2.17  
   
 \+ MySQL 5.5.8 (Community Server)  
@@ -104,35 +92,23 @@ This bundle comes with severals tools:
 [/sourcecode]
 
   
-
-
 [XDebug](http://xdebug.org) comes pre-installed in this bundle.
 
   
-
-
 2\. Download Eclipse IDE (Helios SR2).
 
   
-
-
 3\. Install from Eclipse Marketplace the PHP Development Tools (PDT) plugin (version 3.0.0.x).
 
   
-
-
 ## Apache and PHP debugging configuration
 
   
-
-
 1\. Configure XDebug in XAMPP bundle.  
   
 Edit **php.ini** and enable XDebug and remote debugging, make sure to uncomment the bellow lines and put to "1" the parameters " **xdebug.remote_autostart** " and " **xdebug.remote_enable** ".
 
   
-
-
 [sourcecode language="text" gutter="true" wraplines="false"]  
 [eAccelerator]  
 ;zend_extension = "C:\1bpms-demo\xampp-win32-1.7.4-VC6\php\ext\php_eaccelerator.dll"  
@@ -256,8 +232,6 @@ In the next window configure following:
   * **File** : Your php script that trigger debug environment. This file has to a breakpoint. In this example is "/testdebug01/helloworld.php".
   * **Auto Generate** : Unchecked if you want change URL of your php application. In this example is "/myphpprojects/testdebug01/helloworld.php".
 
-
-
 [caption id="" align="alignnone" width="481" caption="Launching debug from PHP Project in Eclipse IDE"]![Launching debug from PHP Project in Eclipse IDE]({{ site.baseurl }}/assets/phpdebugging-4-debugconf.png)[/caption]
 
 Click in " **Run** " button and if all is OK, Eclipse switchs to Debug perspective where you can debug your PHP application.
@@ -268,5 +242,3 @@ Click in " **Run** " button and if all is OK, Eclipse switchs to Debug perspecti
 
   * With XDebug you can debug remotely from Eclipse and PDT. In this case you have to change localhost for you server-name in **php.ini** file and **Eclipse > Preferences > PHP > PHP Servers**.
   * If you set " **/** " as web base path instead of " **/myphpprojects** " you could avoid to configure special URL in Auto Generate box (Debug Configurations window). Always you URL will be " **http://localhost/your-php-project-name** ".
-
-

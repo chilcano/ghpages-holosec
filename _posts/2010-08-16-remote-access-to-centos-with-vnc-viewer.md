@@ -58,9 +58,7 @@ permalink: "/2010/08/16/remote-access-to-centos-with-vnc-viewer/"
 ![]({{ site.baseurl }}/assets/vnc_centos-0-real-vnc-1.png)
 
   
-
-
-  
+<!-- more -->  
   
 First, install VNC in CentOS:
 
@@ -71,8 +69,6 @@ First, install VNC in CentOS:
     [root@svdapp95 ~]# yum  --nogpgcheck install vnc
 
   
-
-
   
 
   1. Create another user:
@@ -93,8 +89,6 @@ First, install VNC in CentOS:
     -rw------- 1 roger roger 8 Aug  6 17:04 passwd
 
   
-
-
   
 
   1. Create vnc password for root too:
@@ -116,8 +110,6 @@ First, install VNC in CentOS:
     [root@svdapp95 .vnc]#
 
   
-
-
   
 
   1. Edit configuration of VNC server:
@@ -135,8 +127,6 @@ First, install VNC in CentOS:
     VNCSERVERARGS[2]="-geometry 1024x800"
 
   1. Create xstartup script with root:
-
-
     
     
     [root@svdapp95 .vnc]# /sbin/service vncserver start
@@ -162,8 +152,6 @@ First, install VNC in CentOS:
     [root@svdapp95 .vnc]#
 
   1. Edit xstartup config file created in step 4 for each user added in vncservers in step 3:
-
-
     
     
     [root@svdapp95 ~]# nano /root/.vnc/xstartup
@@ -206,15 +194,11 @@ New file for root:
 ... repeat for "roger" user too.
 
   1. Start VNC server:
-
-
     
     
     [root@svdapp95 ~]# /sbin/service vncserver start
 
   1. Login to VNC server from web browser:
-
-
 
 From another PC (you connect to VNC server with both users configured, for example:  
 \- Open web browser  
@@ -224,12 +208,8 @@ From another PC (you connect to VNC server with both users configured, for examp
 ![]({{ site.baseurl }}/assets/vnc_centos-3-real-vnc.png)
 
   1. Login to VNC server from any vcn client, for example, vnc viewer:
-
-
   * Open VNC Viewer
   * Go to http://<ip-vncserver>:1 for user "roger" and http://<ip-vncserver>:2 for user "root".
-
-
 
 Open connection:  
 ![]({{ site.baseurl }}/assets/vnc_centos-1-open.png)
@@ -243,5 +223,3 @@ http://wiki.centos.org/es/HowTos/VNC-Server
 
   * Conexión a VNC a través de firewalls y proxys utilizando túneles SSH  
 http://www.eslomas.com/index.php/archives/2006/07/05/conexion-remota-vnc-proxy-firewall-tunel-ssh/
-
-

@@ -53,20 +53,14 @@ permalink: "/2014/12/03/wso2-message-broker-vs-apache-qpid-messaging-eip/"
 If you want to define an Integration Architecture based on Messaging with WSO2, the only alternative you have is to do with WSO2 Message Broker and possibly also with Apache ActiveMQ. In earlier versions of WSO2 ESB, the WSO2 web had official information on how to integrate WSO2 ESB and Apache ActiveMQ, integrate both always was a common pattern, now it has been left in place of WSO2 Message Broker.
 
   
-
-
 ![Enabling JMS Transport]({{ site.baseurl }}/assets/blog20141122-qpid-01-jms-transport-wso2esb.png)  
   
  _Enabling JMS Transport_
 
   
-
-
 Initially to use WSO2 ESB and Apache ActiveMQ was the de-facto solution to implement the Messaging Integration Architecture, but now all the focus are on WSO2 Message Broker. The product strategy for WSO2 Message Broker is being used in big and critical projects, for example, below some use cases:
 
   
-
-
   
 
   * Guarantee Delivery
@@ -82,31 +76,21 @@ Initially to use WSO2 ESB and Apache ActiveMQ was the de-facto solution to imple
   
 
   
-
+<!-- more -->
 
   
-
-
 Well, WSO2 Message Broker is perfect for BigData or IoT Projects, but what if we want implement and solve the same requirements but without losing functionalities. Then, What Message Broker or MOM tool should I use?.
 
   
-
-
 Apache ActiveMQ is a good alternative, JBoss HornetQ, RabbitMQ and other. Some time ago I wrote about of this, here the blog post: <https://holisticsecurity.wordpress.com/2014/03/07/message-brokering-y-recoleccion-datos-big-data-wso2>
 
   
-
-
 So what alternatives do we have to WSO2 Message Broker comparable to robustness, scalability, interoperability, lightweight without losing functionalities?. The answer is Apache Qpid. Now we will explain why.
 
   
-
-
 ## I. Why Apache Qpid is a good comparable alternative to WSO2 Message Broker?
 
   
-
-
   
 
   1. Earlier releases of WSO2 Message Broker had Apache Qpid embedded.
@@ -147,8 +131,6 @@ So what alternatives do we have to WSO2 Message Broker comparable to robustness,
 
     * RabbitMQ, it is bigger than Apache Qpid, but its architecture is based on plugins, it is faster but does not implement AMQP 1.0 natively, is necessary install an experimental plugin (https://www.rabbitmq.com/specification.html).
   
-
-
 
 
 Well, after of this little introduction, I will explain step-by-step how to integrate quickly WSO2 ESB with Apache Qpid, how to enable JMS transport for Synapse Proxies and how to implement the EIP related to messaging.
@@ -329,8 +311,6 @@ Message received from Apache Qpid queue (QPID_QUEUE_01)
   * If you run several times the "ProxyQpidSender" proxy to send and store message in "QPID_QUEUE_01" queue, they will be processed quickly for the "ProxyQpidReceiver" proxy, because this proxy is listen permanently for messages in this queue. But, if you want inspect the payload of the messages, I recommend you disable the "ProxyQpidReceiver" proxy in WSO2 ESB. Of this way, using Apache Qpid Web Console you can review any aspect of message (header and payload).
   * The "ProxyQpidSender" proxy has as transport the HTTP protocol and "ProxyQpidReceiver" proxy is using JMS transport.
 
-
-
 ## IV. WSO2 ESB Message Store and Message Processor for Apache Qpid
 
 ### IV.1. Creating a Message Store in WSO2 ESB
@@ -502,8 +482,6 @@ Where:
   * SequenceQpidReplyFwdInOut will process Backend message response in blocking-mode (with ACK)
   * SequenceQpidFaultFwdInOut, if there is an exception or Backend service give an error (HTTP_SC error), then this sequence will be executed and any ACK will be send.
 
-
-
 2.4.- Check the logs.
 
 ```sh  
@@ -522,5 +500,3 @@ Where:
 
   * Apache Qpid as good alternative to WSO2 Message Broker because you have robustness, integration patterns based messaging implemented, scalability, compatible with JMS and AMQP standard, everything in a lightweight bundle and easy to install it. 
   * WSO2 ESB is perfectly integrated to Apache Qpid, it is not necessary to program or extend some library, all integration can be achieved based on configurations only. No need to write any line of code.
-
-

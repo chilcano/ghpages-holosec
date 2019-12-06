@@ -58,48 +58,30 @@ permalink: "/2012/09/03/gobernando-servicios-de-alfresco-ecm-con-wso2/"
 El beneficio principal de hacer SOA sobre hacer Integración es la capacidad de gobierno que tenemos sobre los servicios, es decir, la capacidad de control que alcanzamos al aplicar los principios SOA.
 
   
-
-
 En la integración o construcción de aplicaciones muchas veces tenemos que integrar o consumir servicios externos “no gobernados”, hacerlo sin control es siempre un riesgo, por ejemplo, si el contrato (WSDL) cambia, nuestra aplicación integrada se quedaría al margen de los cambios y sin soporte.
 
   
-
-
 [caption id="" align="alignnone" width="497"][![Gobierno de los servicio de Alfresco con WSO2]({{ site.baseurl }}/assets/alfresco-wso2-logos.png)](https://dl.dropbox.com/u/2961879/blog20120903_gov_alfresco_services_with_wso2/alfresco-wso2-logos.png) Gobierno de los servicio de Alfresco con WSO2[/caption]
 
   
-
-
 En esta post aprenderemos cómo registrar servicios externos en WSO2 Registry, concretamente aquellos servicios SOAP de Alfresco ECM, y luego consumirlos usando el mismo WSDL (contrato) desde nuestras aplicaciones de negocio usando WSO2 ESB.
 
   
-
-
  **I. Estrategia:**
 
   
-
-
 Para iniciar con el Gobierno SOA es necesario gestionar los servicios que vamos a consumir, eso implica registrar los servicios en WSO2 Registry, una vez realizado esto alcanzaríamos otros beneficios como: capacidad de medir, ofrecer otra interficie SOA, controlar la QoS, mejorar la Seguridad, gestionar versiones, encadenar servicios, etc.
 
   
-
-
 Por estos motivos, WSO2 Registry es una herramienta fundamental para hacer Gobierno SOA y a partir de este sencillo principio SOA se abren infinitos escenarios de aplicación y de negocio.
 
   
-
-
 En este post sólo registraremos un servicio de Alfresco ECM en WSO2 Registry, pero podría ser posible extender de manera rápida y fácil al resto de servicios SOAP, incluso al resto de servicios REST de Alfresco, además aprovechar la capacidad integradora de WSO2 ESB para “jugar” un poco con los servicios de Alfresco llegando incluso a brindar una nueva capa “gobernada” de servicios de gestión documental, es decir, un API completo de gestión documental.
 
   
-
-
  **II. Objetivos** :
 
   
-
-
   
 
   1. Saber identificar Aplicación externa y servicios externos (endpoints, WSDLs,..) a usar (integrarlos) en nuestra aplicación interna.
@@ -118,33 +100,21 @@ En este post sólo registraremos un servicio de Alfresco ECM en WSO2 Registry, p
   
 
   
-
-
  **III. Requerimientos** :
 
   
-
-
 Emplearemos WSO2 Stratos Live, para ello debemos crearenos una cuenta y nos asegurarmos de que WSO2 ESB y WSO2 Registry estén habilitados.
 
   
-
-
  **IV. Pasos** :
 
   
-
-
  **1\. Identificar Aplicación externa y sus servicios externos (Endpoints, WSDLs,..)**
 
   
-
-
 En este caso usaremos Alfresco ECM como aquella aplicación que queremos integrar a la nuestra interna pero consumiendo únicamente sus servicios. Alfresco brinda una serie de servicios de gestión documental, esto son:
 
   
-
-
   
 
   * Servicios SOAP ad-hoc
@@ -154,40 +124,26 @@ En este caso usaremos Alfresco ECM como aquella aplicación que queremos integra
   
 
   
-
-
 [caption id="" align="alignnone" width="394"][![WSDLs de Alfresco ECM]({{ site.baseurl }}/assets/alfresco-wso2-00.png)](https://dl.dropbox.com/u/2961879/blog20120903_gov_alfresco_services_with_wso2/alfresco-wso2-00.png) WSDLs de Alfresco ECM[/caption]
 
   
-
-
   
 
   * Servicios REST ad-hoc
   
 
   
-
-
 [caption id="" align="alignnone" width="416"][![Servicios REST de Alfresco ECM]({{ site.baseurl }}/assets/alfresco-wso2-01.png)](https://dl.dropbox.com/u/2961879/blog20120903_gov_alfresco_services_with_wso2/alfresco-wso2-01.png) Servicios REST de Alfresco ECM[/caption]
 
   
-
-
  **2\. Desde WSO2 Registry, añadir servicios a partir de WSDLs.**
 
   
-
-
 En este caso usaremos únicamente el servicio de autenticación de alfresco (SOAP), a modo de ejemplo, aunque dejamos también el servicio de Repositorio:
 
   
-
-
   * <http://www.konosys.es:8014/alfresco/api/AuthenticationService?wsdl>
   * <http://www.konosys.es:8014/alfresco/api/RepositoryService?wsdl>
-
-
 
 [caption id="" align="alignnone" width="548"][![Registrando los WSDL en WSO2 Registry]({{ site.baseurl }}/assets/alfresco-wso2-02.png)](https://dl.dropbox.com/u/2961879/blog20120903_gov_alfresco_services_with_wso2/alfresco-wso2-02.png) Registrando los WSDL en WSO2 Registry[/caption]
 
@@ -254,8 +210,6 @@ En este caso asegurarse de que estemos usando el Endpoint correcto, para ello po
   * <http://esb.stratoslive.wso2.com:8280/services/t/konosys.es/kns.alfr.proxy.authn0.kns.alfr.proxy.authn0HttpSoap12Endpoint>
   * <http://esb.stratoslive.wso2.com:8280/services/t/konosys.es/kns.alfr.proxy.authn0.kns.alfr.proxy.authn0HttpSoap11Endpoint>
 
-
-
 [caption id="" align="alignnone" width="581"][![Probando Servicio con soapUI]({{ site.baseurl }}/assets/alfresco-wso2-14.png)](https://dl.dropbox.com/u/2961879/blog20120903_gov_alfresco_services_with_wso2/alfresco-wso2-14.png) Probando Servicio con soapUI[/caption]
 
 **V. Observaciones**
@@ -263,13 +217,9 @@ En este caso asegurarse de que estemos usando el Endpoint correcto, para ello po
   * Si se muestra este error, es probable que hayas configurado incorrectamente el Proxy. Para solucionarlo prueba revisando la configuración del Proxy, concretamente el Endpoint. Una forma rápida de probarlo sería reemplazar el Endpoint que se muestra en TryIt por el real (no pasamos por WSO2 ESB), concretamente usar: 
     * <http://www.konosys.es/alfresco/api/AuthenticationService>
 
-
-
 [caption id="" align="alignnone" width="617"][![WSO2 TryIt - Error]({{ site.baseurl }}/assets/alfresco-wso2-15.png)](https://dl.dropbox.com/u/2961879/blog20120903_gov_alfresco_services_with_wso2/alfresco-wso2-15.png) WSO2 TryIt - Error[/caption]
 
   * Durante el desarrollo de este blog hicimos unos cambios en nuestra web de demos, reemplazamos el puerto 8014 por 80, asi que si algo no funciona, intenta cambiar los puertos.
-
-
 
 **VI. Recursos usados** :
 
@@ -284,8 +234,6 @@ En este caso asegurarse de que estemos usando el Endpoint correcto, para ello po
 <http://www.konosys.es/alfresco/service/cmis/index.html>
   * Alfresco REST services:  
 <http://www.konosys.es/alfresco/service/>
-
-
 
 Fin.
 

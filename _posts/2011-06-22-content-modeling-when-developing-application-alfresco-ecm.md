@@ -28,43 +28,27 @@ When developing applications, you start with a stage of analysis-design that all
 So why not do something similar when developing applications on Alfresco ECM?.
 
   
-
-
 What makes Alfresco ECM a powerful tool is the ability to do content modeling. If you do not that, would not make much sense to use Alfresco ECM and instead should use any file-system such as WebDAV, FTP, NFS, etc.
 
   
-
-
 The content model in Alfresco ECM allows us to identify types of documents, properties and their relationships existing in our organization/business.
 
   
-
-
 This post will explain how to modeling the content that our type of organization/business requires and also explains how to deploy it on an installation of Alfresco ECM.
 
   
-
-
 ## I. XML definition files 
 
   
-
-
 Create the following files:
 
   
-
-
  **1\. intix-model-context.xml**
 
   
-
-
 This is Spring file configuration for the new content model.
 
   
-
-
 [sourcecode language="xml" gutter="true" wraplines="false"]  
   
 <?xml version='1.0' encoding='UTF-8'?>  
@@ -98,18 +82,12 @@ depends-on="dictionaryBootstrap">
 [/sourcecode]
 
   
-
-
  **2\. intixModel.xml**
 
   
-
-
 This xml file contains our custom model.
 
   
-
-
 [sourcecode language="xml" gutter="true" wraplines="false"]  
   
 <?xml version="1.0" encoding="UTF-8"?>  

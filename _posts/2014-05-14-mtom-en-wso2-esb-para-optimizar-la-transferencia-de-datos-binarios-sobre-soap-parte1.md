@@ -67,48 +67,30 @@ permalink: "/2014/05/14/mtom-en-wso2-esb-para-optimizar-la-transferencia-de-dato
 Hace poco estaba explorando las características de WSO2 ESB para el envío óptimo de datos binarios sobre nuestros servicios implementados en SOAP y me encontré que WSO2 ESB implementa MTOM y SwA. Hice unas pruebas rápidas y pude comprobar que la transferencia de datos binarios, que por lo general son más grandes que datos de tipo textual, usando SOAP con MTOM es realmente muy potente y veloz, luego me puse a profundizar y aquí os muestro mis resultados.
 
   
-
-
  
 
   
-
-
 [![wso2esb-soapui-mtom]({{ site.baseurl }}/assets/wso2esb-soapui-mtom.png?w=300)](http://holisticsecurity.files.wordpress.com/2014/05/wso2esb-soapui-mtom.png)
 
   
-
-
  
 
   
-
-
 ## I. Casos de Uso MTOM en WSO2 ESB.
 
   
-
-
 * * *
 
   
-
-
 WSO2 ESB viene con más de 102 ejemplos de Proxy de Apache Synapse, cada uno de ellos implementa diferentes casos de usos necesarios para integrar aplicaciones con diferencias estrategias.
 
   
-
-
 El ejemplo "Sample 51" implementa MTOM y SwA sobre SOAP y esta entrada al blog usa esta implementación.
 
   
-
-
  **Requisitos:**
 
   
-
-
   
 
   * Sample 51: MTOM and SwA Optimizations and Request/Response Correlation (<https://docs.wso2.org/pages/viewpage.action?pageId=33136025>)
@@ -121,28 +103,18 @@ El ejemplo "Sample 51" implementa MTOM y SwA sobre SOAP y esta entrada al blog u
   
 
   
-
-
  
 
   
-
-
 ## II. Desplegar los servicios de back-end (Sample 51) en Axis2 server.
 
   
-
-
 * * *
 
   
-
-
 Para trabajar con los ejemplos de cualquier producto WSO2 es necesario ANT. Basta con añadir ANT a la variable del sistema PATH, en mi caso será:
 
   
-
-
 [sourcecode language="html" gutter="true" wraplines="false"]  
   
 PATH = %PATH%;C:\01bizlife\apache-ant-1.9.3\bin  
@@ -150,13 +122,9 @@ PATH = %PATH%;C:\01bizlife\apache-ant-1.9.3\bin
 [/sourcecode]
 
   
-
-
 WSO2 ESB viene con Axis2 server y con los servicios de back-end ya implementados. Para sólo es necesario compilarlos y desplegarlos en el Axis2 server. Para ello hacer lo siguiente:
 
   
-
-
 [sourcecode language="html" gutter="true" wraplines="false"]  
   
 C:\> cd <ESB_HOME>/samples/axis2Server/src/MTOMSwASampleService  
@@ -164,15 +132,11 @@ C:\> cd <ESB_HOME>/samples/axis2Server/src/MTOMSwASampleService
 [/sourcecode]
 
   
-
-
 [sourcecode language="html" gutter="true" wraplines="false"]  
   
 C:\01bizlife\wso2esb-4.8.1-dev\samples\axis2Server\src\MTOMSwASampleService>ant
 
   
-
-
 Buildfile: C:\01bizlife\wso2esb-4.8.1-dev\samples\axis2Server\src\MTOMSwASampleService\build.xml  
   
 clean:  
@@ -203,8 +167,6 @@ Sólo comentar que "MTOMSwASampleService" implementa el servicio de back-end y t
   * uploadFileUsingMTOM (in-out): Acepta una imagen en binario desde el request SOAP como MTOM y devuelve esta misma imagen como response SOAP.
   * uploadFileUsingSwA (in-out): Acepta una imagen en binario desde el request SOAP como SwA y devuelve esta misma imagen as response SOAP.
   * oneWayUploadUsingMTOM (in-only): Guarda el mensaje de request al disco.
-
-
 
 ## III. Iniciar Axis2 server.
 
@@ -260,7 +222,6 @@ Si es necesario abrir varias instancias de Axis2 server, hay que iniciarlos en p
 ./axis2server.sh -http 9002 -https 9006 -name MyServer2  
 ./axis2server.sh -http 9003 -https 9007 -name MyServer3
 
- 
 
 ## IV. Cargar la configuración synapse de "Sample 51" en WSO2 ESB.
 
@@ -294,7 +255,6 @@ CARBON_HOME environment variable is set to C:\01BIZL~1\WSO2ES~1.1-D\bin\\..
 [2014-04-30 12:54:08,853] INFO - CarbonUIServiceComponent Mgt Console URL : https://10.0.2.15:9446/carbon/  
 [/sourcecode]
 
- 
 
 ## V. Ejecutar el ejemplo desde un cliente Axis2.
 
@@ -363,7 +323,6 @@ Total time: 3 seconds
 [/sourcecode]
 
 Según los logs, se ha podido enviar satisfactoriamente una imagen ubicada en `C:>1bizlife\wso2esb-4.8.1-dev\repository\samples\resources\mtom\asf-logo.gif`, además, la imagen recibida ha sido guardada en el lado servidor en esta ruta `C:>1bizlife\wso2esb-4.8.1-dev\tmp\sampleClient\mtom-7597224514139522188.gif`  
- 
 
 ## VI. Revisando el request y response SOAP MTOM.
 
@@ -446,7 +405,6 @@ GIF89a ...<<binary-content>>
 0  
 [/sourcecode]
 
- 
 
 ## VII. Usando SoapUI para envio de mensajes MTOM SOAP directamente a Axis2 server.
 
@@ -505,7 +463,6 @@ Al final, siguiendo el comportamiento de la acción/operación "uploadFileUsingM
 
 [caption id="" align="alignnone" width="2354"][![Haciendo MTOM SOAP request a uploadFileUsingMTOM]({{ site.baseurl }}/assets/wso2-esb-mtom-MTOMSwASampleService-soapui-02-uploadFileUsingMTOM.png)](https://dl.dropboxusercontent.com/u/2961879/blog.sec/blog20140430_wso2_mtom/wso2-esb-mtom-MTOMSwASampleService-soapui-02-uploadFileUsingMTOM.png) Haciendo MTOM SOAP request a uploadFileUsingMTOM[/caption]
 
- 
 
 ## VIII. Usando SoapUI para envio de mensajes MTOM SOAP a través de un Pass Through Proxy en WSO2 ESB.
 
@@ -679,7 +636,6 @@ Wrote MTOM content to temp file : /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/sa
 Wrote SwA attachment to temp file : /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/../../tmp/sampleServer/swa-5320928313738320843.gif  
 [/sourcecode]
 
- 
 
 ## IX. Enviando BinaryData desde un Form HTML a servicio SOAP.
 
@@ -712,9 +668,6 @@ Asi que siga sintonizado :)
   * Hay que destacar que el uso de MTOM sobre SOAP es un forma de envio de ficheros en binario de una manera óptima y eficiente, además el envío de ficheros grandes también sigue siendo de una manera óptima. Si estáis buscando el envío de grandes volúmenes de ficheros grandes, considerar MTOM sobre SOAP como una buena opción.
 
 
-
- 
-
 ## XI. Referencias.
 
 * * *
@@ -723,5 +676,3 @@ Asi que siga sintonizado :)
 <https://docs.wso2.org/pages/viewpage.action?pageId=33136025>
   * SoapUI: Adding Headers and Attachments   
 <http://www.soapui.org/SOAP-and-WSDL/adding-headers-and-attachments.html>
-
-
