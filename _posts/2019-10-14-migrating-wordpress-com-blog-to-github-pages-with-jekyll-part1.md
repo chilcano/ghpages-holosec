@@ -92,7 +92,7 @@ Convert wordpress' blog to Jekyll format.
 ```sh
 $ bundle exec ruby -r rubygems -e 'require "jekyll-import";
     JekyllImport::Importers::WordpressDotCom.run({
-      "source" => "wp_export/holisticsecurity.WordPress.2019-11-17.xml",
+      "source" => "wp_export/holisticsecurity.WordPress.2019-11-07.xml",
       "no_fetch_images" => false,
       "assets_folder" => "assets"
     })'
