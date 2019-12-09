@@ -12,6 +12,7 @@ When working a Liferay Portal in Organizations with existing web applications, g
 This document explains how to create new java web applications knowing that they will use the AuthN service and will Web-SSO with Liferay.
 Although, this document is for new java web applications, existing web applications (based in java, php,. net, ruby, ...) can also use it as this document explains the most important steps to perform.  
 This document can be taken as a set of best practices (including source code) when you want to integrate with CAS.
+
 **Note:**
 * This document does not say how to do Single-Sign Out or logout, only Single-Sign On or login.  
 
@@ -220,6 +221,7 @@ If all is OK, then you can see URL without user/pwd prompted.
 The same applies if you do log into webssotest1.war first and then go to liferay.  
 The CAS login form is the first page displayed when trying to login from any application. This form is shared by any web application you want to do Web-SSO.
 END.
+
 **Reference:**
 * [JA-SIG Java Client Simple WebApp Sample](https://wiki.jasig.org/display/CASC/JA-SIG+Java+Client+Simple+WebApp+Sample)
 * Web-SSO between Liferay and Alfresco with CAS and Penrose [part 1](http://holisticsecurity.wordpress.com/2011/01/15/sso-liferay-alfresco-cas-penrose-part-12/) and [part 2](http://holisticsecurity.wordpress.com/2011/02/19/web-sso-between-liferay-and-alfresco-with-cas-and-penrose-part-22/)

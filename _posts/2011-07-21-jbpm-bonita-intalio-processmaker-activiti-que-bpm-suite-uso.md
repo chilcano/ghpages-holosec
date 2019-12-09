@@ -18,30 +18,35 @@ En los siguientes posts entraremos en detalle en cada uno de las herramientas BP
 Antes de iniciar con la revisión, describiré qué elementos o componentes importantes existen en una Suite BPM y unas definiciones.
 
 ## 1\. Definiciones y conceptos
+
 **BPM: Business Process Management.**
+
 Metodología que permite analizar el comportamiento de la organización a través de los procesos.  
 De Wikipedia (http://es.wikipedia.org/wiki/Gesti%C3%B3n_de_procesos_de_negocio)  
 "Se llama Gestión de procesos de negocio (Business Process Management o BPM en inglés) a la metodología corporativa cuyo objetivo es mejorar la eficiencia a través de la gestión de los procesos de negocio, que se deben modelar, organizar, documentar y optimizar de forma continua. Como su nombre sugiere, BPM se enfoca en la administración de los procesos dentro de una organización."
+
 **BPMS: Buiness Process Management System or Suite.**
+
 Un conjunto de herramientas o componentes que busca automatizar la construcción de aplicaciones siguiendo la metodología BPM.
 
 ## 2\. Componentes en una Suite BPM
-**1\. Workflow:**  
+
+ **1\. Workflow:**  
 Es el motor que ejecuta/orquesta los procesos de negocio definidos, lo hace siguiendo un lenguaje que el motor entiende, comunmente es BPEL.
-**2\. Process Designer:**  
+ **2\. Process Designer:**  
 Es la herramienta que permite definir los procesos de negocio usando una simbología o lenguaje natural propio de BPM.  
 Este lenguaje puede ser BPMN o XPDL, algunos también suelen considerar BPEL.
-**3\. Form Creator:**  
+ **3\. Form Creator:**  
 La herramienta que me permite definir los formularios de interacción humana, es decir, formularios donde el usuario/persona puede iniciar, rechazar, aprobar, etc, es decir, interactuar con una instancia de un proceso de negocio.
-**4\. Business Activity Monitoring (BAM):**  
+ **4\. Business Activity Monitoring (BAM):**  
 De la Wikipedia (http://en.wikipedia.org/wiki/Business_activity_monitoring):  
 "... is software that aids in monitoring of business activities, as those activities are implemented in computer systems."
 Los elementos de un BAM son: KPI's (indicadores claves de rendimiento), Dashboard (consola que permite monitorizar en tiempo real el valor actual de los KPI's para tomar decisiones).  
 En mi opinión, el concepto de BI (Business Intelligence) engloba a BAM. Mientras que BAM aplica a las Organizaciones, BI es una disciplina y conjunto de herramientas que aplica a diferentes escenarios.
-**5\. Business Rules Engine (BRE):**  
+ **5\. Business Rules Engine (BRE):**  
 De la Wikipedia (http://en.wikipedia.org/wiki/Business_rules_engine):  
 "... is a software system that executes one or more business rules in a runtime production environment. The rules might come from legal regulation ("An employee can be fired for any reason or no reason but not for an illegal reason"), company policy ("All customers that spend more than $100 at one time will receive a 10% discount"), or other sources. A business rule system enables these company policies and other operational decisions to be defined, tested, executed and maintained separately from application code."
-**6\. Connectors:**  
+ **6\. Connectors:**  
 \- Para ECM  
 \- Para LDAP  
 \- Para ESB, etc.
@@ -106,6 +111,7 @@ El resultado de la evaluación está relacionado a mi conocimiento del producto,
 En los siguientes artículos entraré en mayor detalle en cada uno de ellos, comparando características concretas como por ejemplo, el nivel de implementación de BPMN2 o la tecnología usada para generación automática de formularios, etc.
 Entonces, espero que este os haya servido de algo.
 End.
+
 **Referencias:**
 * Open Source Power on BPM - A Comparison of JBoss jBPM and Intalio BPMS (By Pin Nie, Riku Seppälä, Måns Hafrén) - <http://jannekorhonen.fi/project_report_final_BPMS.pdf>
 * Gestión de Expedientes con Alfresco ECM - <http://holisticsecurity.wordpress.com/2010/10/08/gestion-de-expedientes-con-alfresco-ecm>

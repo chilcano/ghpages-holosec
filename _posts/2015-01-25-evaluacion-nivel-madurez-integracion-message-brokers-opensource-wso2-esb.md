@@ -36,7 +36,7 @@ La lista de Message Brokers opensource a considerar son los siguientes:
 
 ![Lista de Message Brokers opensource a considerar \(Qpid, ActiveMQ, RabbitMQ, HornetQ, WSO2 MB, ZeroMQ, Apache Kafka, Apache Storm, OpenAMQP\)]({{ site.baseurl }}/assets/msgbroker-01-foss-brokers-wso2-esb-activemq-qpid-rabbitmq-hornetq-zeromq-kafka-storm.png)  
  _Lista de Message Brokers opensource a considerar (Qpid, ActiveMQ, RabbitMQ, HornetQ, WSO2 MB, ZeroMQ, Apache Kafka, Apache Storm, OpenAMQP)_
-**Standard Message Brokers**  
+ **Standard Message Brokers**  
 1\. RabbitMQ: https://www.rabbitmq.com  
 2\. Apache Qpid: https://qpid.apache.org  
 3\. WSO2 Message Broker: http://wso2.com/products/message-broker  

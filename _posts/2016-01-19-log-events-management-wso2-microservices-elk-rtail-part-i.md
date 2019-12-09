@@ -23,7 +23,9 @@ Well, this first blog post I will explain how to use ELK to collect, store and v
 ## Part I: ELK (Elasticsearch, Logstash, Kibana)
 
 ### 1\. Starting with ELK Docker Container
+
 **1) Prepare the ELK container**
+
 We gonna use an existing Docker Image with ELK created by [Sébastien Pujadas](https://github.com/spujadas) `(http://elk-docker.readthedocs.org)` previously configured ready to be used. This Docker Image contains:  
 \- Elasticsearch (version 2.1.1)  
 \- Logstash (version 2.1.1)  
@@ -43,8 +45,10 @@ de9c48daf08c: Pull complete
 96f071b7a8e2: Pull complete  
 Digest: sha256:ce7b3a1dfe285d1d9b862905bf0ee6df951f1a035120b92af71280217b6f3422  
 Status: Downloaded newer image for sebp/elk:latest  
-```
+```  
+
 **2) Run the container**
+
 
 ```sh  
 $ docker run -p 5601:5601 -p 9200:9200 -p 5044:5044 -p 5000:5000 -it --name elk sebp/elk  
@@ -80,8 +84,10 @@ waiting for Elasticsearch to be up (7/30)
 [2016-01-14 08:48:04,384][INFO ][gateway ] [Zero] recovered [0] indices into cluster_state  
 
 [2016-01-14 08:48:13,180][INFO ][cluster.metadata ] [Zero] [.kibana] creating index, cause [api], templates [], shards [1]/[1], mappings [config]  
-```
+```  
+
 **3) Check the status of ELK in the running container**
+
 In other Terminal/Shell execute the next:
 
 ```sh  
@@ -103,14 +109,16 @@ $ eval "$(docker-machine env default)"
 $ docker ps  
 CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES  
 788b97b04e9b sebp/elk "/usr/local/bin/start" 9 minutes ago Up 9 minutes 0.0.0.0:5000->5000/tcp, 0.0.0.0:5044->5044/tcp, 0.0.0.0:5601->5601/tcp, 0.0.0.0:9200->9200/tcp, 9300/tcp elk  
-```
+```  
 
 The ports opened are:
 * 5601 (Kibana web interface).
 * 9200 (Elasticsearch JSON interface).
 * 5044 (Logstash Beats interface, receives logs from Beats such as Filebeat).
 * 5000 (Logstash Lumberjack interface, receives logs from Logstash forwarders).
+
 **4) Check Elasticsearch server**
+
 
 ```sh  
 $ curl -H "User-Agent: Mozilla" -H "Origin: http://example.com" -i 192.168.99.100:9200  
@@ -129,7 +137,7 @@ Content-Length: 313
 },  
 "tagline" : "You Know, for Search"  
 }  
-```
+```  
 
 And if you want to stop and start again the container, just execute the next:
 
@@ -138,8 +146,10 @@ $ docker stop elk
 elk
 $ docker start elk  
 elk  
-```
+```  
+
 **5) Sending a dummy logs to ELK**
+
 In another terminal execute the next:
 
 ```sh  
@@ -152,7 +162,7 @@ Hola Chilcano!!
 ^CSIGINT received. Shutting down the pipeline. {:level=>:warn}
 Logstash shutdown completed  
 root@788b97b04e9b:/#  
-```
+```  
 
 In other terminal using cURL or from a browser:
 
@@ -184,7 +194,7 @@ $ curl http://192.168.99.100:9200/_search?pretty
 } ]  
 }  
 }  
-```
+```  
 
 ... and from the Kibana web console (`http://192.168.99.100:5601`) to view the incoming dummy log event. Before configure Kibana by creating a `Index Pattern` with `logstash-*` and `Time-field name: @timestamp`, as shown below:
 _Kibana - Creating a Index Pattern_  
@@ -204,14 +214,15 @@ For this part I will use a Vagrant box with several WSO2 products pre-installed 
 >  Logstash Forwarder, Filebeat tails logs and quickly sends this information to Logstash  
 >  for further parsing and enrichment or to Elasticsearch for centralized storage and analysis.  
 >  _[www.elastic.co/products/beats/filebeat](https://www.elastic.co/products/beats/filebeat)_
+
 **1) Start the WSO2 Vagrant box**
+
 
 ```sh  
 $ git clone https://github.com/chilcano/box-vagrant-wso2-dev-srv.git
 $ cd box-vagrant-wso2-dev-srv
 $ vagrant up  
-```
-
+```  
 
 ```sh  
 $ vagrant ssh  
@@ -246,26 +257,28 @@ drwxr-xr-x 11 vagrant vagrant 4096 Nov 23 12:44 wso2esb01a/
 drwxr-xr-x 11 vagrant vagrant 4096 Nov 23 12:45 wso2esb02a/  
 drwxr-xr-x 10 vagrant vagrant 4096 Nov 30 23:14 wso2esb490/  
 drwxr-xr-x 13 vagrant vagrant 4096 Jan 12 10:41 wso2greg01a/  
-```
 
+```
 If you already are running this Vagrant box with WSO2 ESB, WSO2 API Manager, WSO2 DSS, Wiremock, etc. then the next step is configure It to send the different generated logs to ELK Docker Container.  
 In the documentation explains that It will be used [Filebeat](https://www.elastic.co/products/beats/filebeat), for that we have to install and configure Filebeat in this Vagrant box.
+
 **2) Install Filebeat into Vagrant box**
 
 ```sh  
 $ sudo curl -L -O https://download.elastic.co/beats/filebeat/filebeat_1.0.1_i386.deb  
 $ sudo dpkg -i filebeat_1.0.1_i386.deb  
 $ sudo rm filebeat_1.0.1_i386.deb  
-```
+```  
+
 **3) Configure Filebeat to forward WSO2 logs to ELK Docker Container**
+
 
 ```sh  
 $ ll /etc/filebeat/  
 total 20  
 -rw-r--r-- 1 root root 814 Dec 17 13:26 filebeat.template.json  
 -rw-r--r-- 1 root root 14541 Dec 17 13:26 filebeat.yml  
-```
-
+```  
 
 ```sh  
 $ sudo nano filebeat.yml
@@ -298,11 +311,10 @@ files:
 path: /var/log/filebeat  
 name: filebeat.log  
 keepfiles: 7
-```
 
+```
 Where `elk-docker:5044` is the hostname for the `192.168.99.100` added to `/etc/hosts` of Vagrant box.
 Copy the `/etc/pki/tls/certs/logstash-beats.crt` file from Logstash Beats input plugin (ELK Docker Container) into `/etc/pki/tls/certs/logstash-beats.crt` (Vagrant box).
-
 ```text  
 $ sudo mkdir -p /etc/pki/tls/certs/  
 $ cd /etc/pki/tls/certs/  
@@ -311,15 +323,17 @@ $ sudo wget https://raw.githubusercontent.com/spujadas/elk-docker/master/nginx-f
 ### or from ELK container SCP the *.crt file to Vagrant (open 2222 port).  
 
 $ scp -P 2222 /etc/pki/tls/certs/logstash-beats.crt vagrant@192.168.1.43:/etc/pki/tls/certs/logstash-beats.crt  
-```
+```  
 
 To avoid the below error, to update the `host` with a hostname (not IP address) as `elk-docker` in `/etc/filebeat/filebeat.yml` file, after that update also `/etc/hosts` with the appropiate IP Address.
 
 ```sh  
 $ sudo /etc/init.d/filebeat start  
 2016/01/15 17:30:22.910725 transport.go:125: ERR SSL client failed to connect with: x509: cannot validate certificate for 192.168.99.100 because it doesn't contain any IP SANs  
-```
+```  
+
 **4) Loading the Index Template in Elasticsearch**
+
 Before starting Filebeat for the first time, run this command to load the default index template in Elasticsearch from the Vagrant box:
 
 ```sh  
@@ -327,8 +341,10 @@ $ curl -XPUT 'http://192.168.99.100:9200/_template/filebeat?pretty' -d@/etc/file
 {  
 "acknowledged" : true  
 }  
-```
+```  
+
 **5) Start Filebeat daemon**
+
 
 ```sh  
 $ sudo /etc/init.d/filebeat restart  
@@ -342,14 +358,16 @@ $ sudo /etc/init.d/filebeat restart
 2016/01/19 10:55:36.407587 async.go:95: DBG create bulk processing worker (interval=1s, bulk size=200)  
 2016/01/19 10:55:36.408164 beat.go:107: INFO Init Beat: filebeat; Version: 1.0.1  
 ...done.  
-```
+```  
 
 or if You have created `filebeat.yml` in a different folder.
 
 ```sh  
 $ sudo ./filebeat -e -c /myfolder/filebeat.yml  
-```
+```  
+
 **6) Check if Filebeat is running**
+
 I have created a `filebeat.yml` file with the logs section enabled. That's suitable to verify of everything is OK.
 
 ```sh  
@@ -416,10 +434,12 @@ $ sudo tail -10000f /var/log/filebeat/filebeat.log
 2016-01-19T10:56:24Z DBG Write registry file: /.filebeat  
 2016-01-19T10:56:24Z INFO Registry file updated. 6 states written.  
 ...  
-```
+```  
 
 The filebeat.log indicates that Filebeat daemon is sending the events to Logstash (ELK container).
+
 **7) Viewing the raw log events from Kibana**
+
 I am not filtering the log events, Logstash will be received the informations as it is.  
 In a next blog post I will explain how to visualize the log events using filters, queries and graphs.
 To view the raw log events, just open Kibana from a browser, in my case is in `http://192.168.99.100:5601`.  
@@ -463,7 +483,7 @@ In the above figure, a raw log event for WSO2 API Manager in JSON format is like
 1453200856057  
 ]  
 }  
-```
+```  
 
 As I said above, in a next blog post I will explain how to visualize the log events using filters to parse simple event and multiple events.
 That's all.  

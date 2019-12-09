@@ -39,7 +39,8 @@ He tomado la definición de tipos de Portales de la www.contentmanager.eu.com qu
 Aquí va:
 
 ### 1\. Information Portals vs. Content Management Portals
-**Information Portals:**  
+
+ **Information Portals:**  
 También llamado Vertical Enterprise Portals o Enterprise Information Portals consolida information de diferentes tipos y de diferentes fuentes.  
 Los usuarios de estos portales suelen consumir información, no son creadores.  
 Se suele usar para:
@@ -55,6 +56,7 @@ Se suele usar para:
 * Realizar un flujo de trabajo sobre los documentos. 
 
 ### 2\. Application Centric Portals vs. Content Centric Portals
+
 **Application Centric Portals:**  
 Básicamente es un Portal que permite interactuar con las aplicaciones o sistemas de negocio de la organización, evita tener un acceso a cada una de ellas.  
 Este Portal permite acceder a todas las aplicaciones de negocio desde un sólo punto.  
@@ -64,6 +66,7 @@ Se suele usar para:
 Muy similar a Content Management Portal, en este caso, el Portal coge la información de las aplicaciones corporativas como los WCMS, DMS, DAM, RMS and standard Desktop applications.
 
 ### 3\. Vertical Enterprise Portals vs. Horizontal Enterprise Portals
+
 **Vertical Enterprise Portals:**  
 Son portales especializados que tratan una cierta temática y orientado a un público muy concreto.  
 Ejemplos:
@@ -290,6 +293,7 @@ Como es el caso de **Pentaho** (solución de Business Intelligence), el producto
 3. Si tu objetivo es tener un portal especializado (portal vertical) inmediatamente, pues lo mejor es usar alguno ya existente para dicho propósito, por ejemplo: Alfresco ECM, Sakai para e-learning, etc.  
 Pero si dispones de todo los recursos necesarios, lo mejor es elegir aquel que nos provea de herramientas para desarrollar o personalizar rápidamente funcionalidades que no tenía antes, ejemplos: Liferay, eXo, WebSphere Portal, Oracle Portal, etc. 
 4. Si tu organización está alineada al espíritu Free/Open Source y no necesitas funcionalidades avanzadas, pues las mejores alternativas son Apache JetSpeed-2, Jahia, Hippo, etc. 
+
 **Referencias:**
 * What is a Portal?   
 http://www.contentmanager.eu.com/portal.htm 
@@ -301,4 +305,6 @@ http://www.realstorygroup.com/Blog/2083-New-Subway-Vendor-Map-for-2011
 http://en.wikipedia.org/wiki/Web_portal 
 * Open Source Portal Servers Written in Java   
 http://www.manageability.org/blog/stuff/open_source_portal_servers_in_java/view 
+
 **** [English version here.](http://holisticsecurity.wordpress.com/2011/06/14/which-portal-solution-should-i-use/) ****
+

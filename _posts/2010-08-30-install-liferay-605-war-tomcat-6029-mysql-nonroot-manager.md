@@ -34,7 +34,7 @@ password=""
 maxActive="20"  
 />  
 </Context>  
-```
+```  
 
 In my case, DB user is "root" with empty password. You must create an empty DB in MySQL before, for example "lportal605_db".
 8.- Create **portal-ext.properties** into **%TOMCAT_HOME%/webapps/liferay605/WEB-INF/classes** folder. It looks like this:
@@ -61,7 +61,7 @@ Tomcat Manager is included in standard Tomcat bundle but by default It is disabl
 <role rolename="manager"/>  
 <user username="roger" password="roger" roles="tomcat,manager"/>  
 </tomcat-users>  
-```
+```  
 
 3.- Run Tomcat and go to http://localhost:8080/manager
 4.- Enter user and password configured in step 2.

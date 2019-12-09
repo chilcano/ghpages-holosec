@@ -16,7 +16,9 @@ This post will explain how to modeling the content that our type of organization
 ## I. XML definition files 
 
 Create the following files:
+
 **1\. intix-model-context.xml**
+
 This is Spring file configuration for the new content model.
 
 [sourcecode language="xml" gutter="true" wraplines="false"]  
@@ -36,7 +38,9 @@ depends-on="dictionaryBootstrap">
 </beans>  
 
 [/sourcecode]
+
 **2\. intixModel.xml**
+
 This xml file contains our custom model.
 
 [sourcecode language="xml" gutter="true" wraplines="false"]  
@@ -130,7 +134,9 @@ This xml file contains our custom model.
 </model>  
 
 [/sourcecode]
+
 **3\. web-client-config-custom.xml**
+
 This configuration file enables Alfresco Explore/Web Client to load the new content model in the Alfresco UI.
 
 [sourcecode language="xml" gutter="true" wraplines="false"]  

@@ -37,7 +37,7 @@ $ diskutil unmountDisk /dev/disk3
 $ sudo dd bs=1m if=2017-01-11-raspbian-jessie-lite.img of=/dev/rdisk3
 $ touch /Volumes/boot/ssh
 $ diskutil unmountDisk /dev/disk3  
-```
+```  
 
 ... repeat this process as times as Raspberry Pis you have.
 
@@ -63,7 +63,7 @@ HW Address: B8:27:EB:F0:F3:EA (Raspberry Pi Foundation)
 19:58:18 > Host is up: 192.168.0.20  
 HW Address: B8:27:EB:5A:B5:5D (Raspberry Pi Foundation)  
 ...  
-```
+```  
 
 You could try this too from your Mac OSX:
 
@@ -80,13 +80,13 @@ $ arp -a -i en0
 ? (224.0.0.251) at 1:0:5e:0:0:fb on en0 ifscope permanent [ethernet]  
 ? (239.255.255.250) at 1:0:5e:7f:ff:fa on en0 ifscope permanent [ethernet]  
 broadcasthost (255.255.255.255) at (incomplete) on en0 ifscope [ethernet]  
-```
+```  
 
 Now, open a Terminal and connect through SSH to each Raspberry Pi just to verify the connection with your devices.
 
 ```text  
 $ ssh pi@192.168.0.17  
-```
+```  
 
 With this information (MAC and IP addresses) I'm ready to start with Ansible to do automation on my Raspberry Pi Cluster.
 
@@ -104,7 +104,7 @@ You can download my Ansible Playbooks from here: https://github.com/chilcano/ans
 ```text  
 $ git clone https://github.com/chilcano/ansible-raspberrypi-wardriving
 $ cd ansible-raspberrypi-wardriving  
-```
+```  
 
 Now update `networking/inventory`. You will need to use all MAC Addresses and IP assigned to each Raspberry Pi collected in previous step. The final file look like:
 
@@ -121,7 +121,7 @@ $ nano setup/networking/inventory
 ansible_ssh_user=pi  
 ansible_ssh_user_new=picuy  
 path_to_ssh_key=/Users/Chilcano/.ssh/id_rsa.pub  
-```
+```  
 
 And update `networking/vars.yml`.
 
@@ -156,7 +156,7 @@ wlan0: "192.168.0.1"
 rpi_nic_static:  
 eth0: false  
 wlan0: false  
-```
+```  
 
 Finally, It is time to run the Ansible Playbook to provision the initial configuration.
 
@@ -236,7 +236,7 @@ PLAY RECAP *********************************************************************
 192.168.0.18 : ok=6 changed=3 unreachable=0 failed=0  
 192.168.0.19 : ok=6 changed=3 unreachable=0 failed=0  
 192.168.0.20 : ok=6 changed=3 unreachable=0 failed=0  
-```
+```  
 
 The above result means you have connected to each Raspberry Pi and a proper Hostname based on each MAC Address have been assigned successfully.  
 First of all, I will check that using Ansible.
@@ -261,7 +261,7 @@ SSH password:
 "changed": false,  
 "ping": "pong"  
 }  
-```
+```  
 
 Now, you can use SSH to connect to all Raspberry Pi and check the hostname assigned.
 
@@ -277,7 +277,7 @@ Last login: Tue Feb 14 22:02:13 2017 from 192.168.0.3
 SSH is enabled and the default password for the 'pi' user has not been changed.  
 This is a security risk - please login as the 'pi' user and type 'passwd' to set a new password.
 picuy@rpi17:~ $ exit  
-```
+```  
 
 In this point, you will be able to continue configuring your Raspberry Pis through Ansible Playbook performing Linux commands remotely.
 
@@ -308,7 +308,7 @@ total used free shared buffers cached
 Mem: 434 74 359 4 9 37  
 -/+ buffers/cache: 27 406  
 Swap: 99 0 99  
-```
+```  
 
 _Performing different Linux commands._
 
@@ -318,13 +318,13 @@ $ ansible pis -i inventory -a "cat /etc/hosts" -k
 $ ansible pis -i inventory -a "ping -c 2 pi17.intix.info" -k
 $ ansible pis -i inventory -a "ping -c 3 holisticsecurity.io" -k
 $ ansible pis -i inventory -a "df -h" -k  
-```
+```  
 
 But, if some command require `sudo` you can provide it using `-s` flag, although it is deprecated, it is still valid.
 
 ```text  
 $ ansible pis -i inventory -a "ifconfig wlan0" -s -k  
-```
+```  
 
 ...or rebooting all Raspberry Pi.
 
@@ -336,7 +336,7 @@ SSH password:
 192.168.0.19 | SUCCESS | rc=0 >>
 No handlers could be found for logger "paramiko.transport"  
 192.168.0.20 | SUCCESS | rc=0 >>  
-```
+```  
 
 
 ### 1.5. Restoring the network configuration.
@@ -354,7 +354,7 @@ Again, run the updated Ansible Playbook and verify if the changes with the right
 
 ```text  
 $ ansible-playbook -i inventory main.yml -k  
-```
+```  
 
 
 ### 1.6. Set IP address automatically through DHCP on eth0.
@@ -365,7 +365,7 @@ Run `fing` to get all IP addresses re-assigned to all Raspberry Pis and update t
 
 ```text  
 $ ansible-playbook -i inventory main.yml -k  
-```
+```  
 
 
 ## 2\. Massive provisioning of Kismet through Ansible on multiples Raspberry Pi.
@@ -398,7 +398,7 @@ ansible-raspberrypi-wardriving/playbooks/kismet
 │ └── warpi.sh.j2  
 └── vars.yml
 2 directories, 15 files  
-```
+```  
 
 Now, to run these Ansible Playbooks I have to follow the same steps above explained:  
 \- Get all IP addresses and MAC addresses.  
@@ -412,7 +412,7 @@ Now, You are ready to run these Kismet Ansible Playbooks, then let's do it:
 ```text  
 $ cd ansible-raspberrypi-wardriving  
 $ ansible-playbook -i inventory main_kismet_install.yml -k
-```
+```  
 
 And if you get the below message, then you have already provisioned successfully Kismet in all Raspberry Pi configured in your `ansible-raspberrypi-wardriving/inventory`.
 
@@ -441,7 +441,7 @@ ok: [192.168.0.19] => {
 PLAY RECAP *********************************************************************  
 192.168.0.18 : ok=34 changed=17 unreachable=0 failed=0  
 192.168.0.19 : ok=37 changed=14 unreachable=0 failed=0  
-```
+```  
 
 And if you connect to your Raspberry Pi through SSH you can the status of Kismet there:
 
@@ -466,7 +466,7 @@ Mar 17 11:28:21 rpi19.intix.info warpi.sh[9023]: INFO: Detected new managed netw
 Mar 17 11:28:21 rpi19.intix.info warpi.sh[9023]: CD, encryption yes, channel 7, 130.00 mbit  
 Mar 17 11:28:28 rpi19.intix.info warpi.sh[9023]: INFO: Detected new managed network "BTWiFi-with-FON", BSSID 02:26:44:19:7B:  
 Mar 17 11:28:28 rpi19.intix.info warpi.sh[9023]: CF, encryption no, channel 7, 130.00 mbit  
-```
+```  
 
 
 ## 3\. Massive provisioning of Apache MiNiFi through Ansible on multiples Raspberry Pi.
@@ -488,7 +488,7 @@ ansible-raspberrypi-wardriving/playbooks/minifi
 │ └── minifipi.service.j2  
 └── vars.yml
 2 directories, 7 files  
-```
+```  
 
 The same Ansible Playbooks should work in other devices too.  
 I'm going to repeat the same previous steps before running MiNiFi Ansible Playbooks. Check the section `2. Massive provisioning of Kismet through Ansible on multiples Raspberry Pi.` for further details.  
@@ -497,7 +497,7 @@ Now, You are ready to run these MiNiFi Ansible Playbooks, then let's do it:
 ```text  
 $ cd ansible-raspberrypi-wardriving
 $ ansible-playbook -i inventory main_minifi_install.yml -k  
-```
+```  
 
 And if you get the below message, then you have already provisioned successfully Apache MiNiFi in all Raspberry Pi configured in your `ansible-raspberrypi-wardriving/inventory`.
 
@@ -510,7 +510,7 @@ ok: [192.168.0.18] => {
 }
 PLAY RECAP *********************************************************************  
 192.168.0.18 : ok=22 changed=8 unreachable=0 failed=0  
-```
+```  
 
 Remember that you can execute the command remotely via Ansible, commands like `ping`, `shutdown`, `free`:
 
@@ -518,7 +518,7 @@ Remember that you can execute the command remotely via Ansible, commands like `p
 $ cd ansible-raspberrypi-wardriving/setup/networking
 $ ansible pis -i inventory -m ping -k
 $ ansible pis -i inventory -a "free -m" -k  
-```
+```  
 
 ...and/or check the current status of MiNiFi and/or Kismet as below I explain:
 
@@ -536,7 +536,7 @@ ControlGroup=/system.slice/minifipi.service
 Id=minifipi.service  
 Description=Apache MiNiFi as service  
 FragmentPath=/etc/systemd/system/minifipi.service  
-```
+```  
 
 This results means:
 * In RPi `192.168.0.17` the `warpi` (Kismet) and `minifipi` (MiNiFi) services are not running.
@@ -556,7 +556,7 @@ CGroup: /system.slice/minifipi.service
 ├─5490 /bin/sh /home/picuy/minifi-0.1.0/bin/minifi.sh start  
 ├─5491 /usr/bin/java -cp /home/picuy/minifi-0.1.0/conf:/home/picuy/minifi-0.1.0/lib/bootstrap/*:/home/picuy/minifi-0.1.0/lib/* -Xms12m -Xmx24m -Dorg.apache.nifi.minifi.bootstrap.config.log.dir=/home/picuy/minifi-0.1.0/logs -Dorg.apache.nifi.minifi.bootstrap.config.pid.dir=/home/picuy/minifi-0.1.0/run -Dorg.apache.nifi.minifi.bootstrap.config.file=/home/picuy/minifi-0.1.0/conf/bootstrap.conf org.apache.nifi.minifi.bootstrap.RunMiNiFi start  
 └─5510 java -classpath /home/picuy/minifi-0.1.0/./conf:/home/picuy/minifi-0.1.0/./lib/jetty-util-9.3.9.v20160517.jar:/home/picuy/minifi-0.1.0/./lib/httpcore-nio-4.4.5.jar:/home/picuy/minifi-0.1.0/./lib/jsr311-api-1.1.1.jar:/home/picuy/minifi-0.1.0/./lib/commons-codec-1.10.jar:/home/picuy/minifi-0.1.0/./lib/httpasyncclient-4.1.1.jar:/home/picuy/minifi-0.1.0/./lib/jcl-over-slf4j-1.7.12.jar:/home/picuy/minifi-0.1.0/./lib/nifi-framework-core-1.1.0.jar:/home/picuy/minifi-0.1.0/./lib/jetty-server-9.3.9.v20160517.jar:/home/picuy/minifi-0.1.0/./lib/nifi-security-1.1.0.jar:/home/picuy/minifi-0.1.0/./lib/jetty-schemas-3.1.jar:/home/picuy/minifi-0.1.0/./lib/curator-recipes-2.11.0.jar:/home/picuy/minifi-0.1.0/./lib/jetty-security-9.3.9.v20160517.jar:/home/picuy/minifi-0.1.0/./lib/nifi-framework-authorization-1.1.0.jar:/home/picuy/minifi-0.1.0/./lib/nifi-api-1.1.0.jar:/home/picuy/minifi-0.1.0/./lib/nifi-properties-1.1.0.jar:/home/picuy/minifi-0.1.0/./lib/spring-core-4.2.4.RELEASE.jar:/home/picuy/minifi-0.1.0/./lib/nifi-properties-loader-1.1.0.jar:/home/picuy/minifi-0.1.0/./lib/antlr-runtime-3.5.2.jar:/home/picuy/minifi-0.1.0/./lib/json-path-2.0.0.jar:/home/picuy/minifi-0.1.0/./lib/nifi-web-utils-1.1.0.jar:/home/picuy/minifi-0.1.0/./lib/commons-lang3-3.4.jar:/home/picuy/minifi-0.1.0/./lib/nifi-security-utils-1.1.0.jar:/home/picuy/minifi-0.1.0/./lib/nifi-site-to-site-reporting-task-1.0.0.jar:/home/picuy/minifi-0.1.0/./lib/org.eclipse.jdt.core-3.8.2.v20130121.jar:/home/picuy/minifi-0.1.0/./lib/jersey-client-1.19.jar:/home/picuy/minifi-0.1.0/./lib/jul-to-slf4j-1.7.12.jar:/home/picuy/minifi-0.1.0/./lib/ecj-4.4.2.jar:/home/picuy/minifi-0.1.0/./lib/guava-18.0.jar:/home/picuy/minifi-0.1.0/./lib/jetty-webapp-9.3.9.v20160517.jar:/home/picuy/minifi-0.1.0/./lib/lucene-core-4.10.4.jar:/home/picuy/minifi-0.1.0/./lib/commons-collections4-4.0.jar:/home/picuy/minifi-0.1.0/./lib/apache-jsp-8.0.33.jar:/home/picuy/minifi-0.1.0/./lib/nifi-site-to-site-client-1.1.0.jar:/home/picuy/minifi-0.1.0/./lib/nifi-site-to-site-1.1.0.jar:/home/picuy/minifi-0.1.0/./lib/httpclient-4.4.1.jar:/home/picuy/minifi-0.1.0/./lib/jackson-jaxrs-1.9.2.jar:/home/picuy/minifi-0.1.0/./lib/jetty-xml-9.3.9.v20160517.jar:/home/picuy/minifi-0.1.0/./lib/nifi-data-provenance-utils-1.1.0.jar:/home/picuy/minifi-0.1.0/./lib/curator-framework-2.11.0.jar:/home/picuy/minifi-0.1.0/./lib/curator-client-2.11.0.jar:/home/picuy/minifi-0.1.0/./lib/javax.servlet-api-3.1.0.jar:/home/picuy/minifi-0.1.0/./lib/jersey-core-1.19.jar:/home/picuy/minifi-0.1.0/./lib/jetty-servlet-9.3.9.v20160517.jar:/home/picuy/minifi-0.1.0/./lib/jetty-servlets-9.3.9.v20160517.jar:/home/picuy/minifi-0.1.0/./lib/nifi-runtime-1.1.0.jar:/home/picuy/minifi-0.1.0/./lib/jackson-annotations-2.6.0.jar:/home/picuy/minifi-0.1.0/./lib/nifi-framework-api-1.1.0.jar:/home/picuy/minifi-0.1.0/./lib/apache-jsp-9.3.9.v20160517.jar:/home/picuy/minifi-0.1.0/./lib/nifi-persistent-provenance-repository-1.1.0.jar:/home/picuy/minifi-0.1.0/./lib/javax.el-api-3.0.0.jar:/home/picuy/minifi-0.1.0/./lib/jetty-jsp-jdt-2.3.3.jar:/home/picuy/minifi-0.1.0/./lib/minifi-framework-core-0.1.0.jar:/home/picuy/minifi-0.1.0/./lib/nifi-socket-utils-1.1.0.jar:/home/picuy/minifi-0.1.0/./lib/javax.json-1.0.4.jar:/home/picuy/minifi-0.1.0/./lib/nifi-ssl-context-service-api-1.1.0.jar:/home/picuy/minifi-0.1.0/./lib/nifi-user-actions-1.1.0.jar:/home/picuy/minifi-0.1.0/./lib/logback-core-1.1.7.jar:/home/picuy/minifi-0.1.0/./lib/jasypt-1.9.2.jar:/home/picuy/minifi-0.1.0/./lib/nifi-processor-utils-1.1.0.jar:/home/picuy/minifi-0.1.0/./lib/nifi-logging-utils-1.1.0.jar:/home/picuy/minifi-0.1.0/./lib/nifi-administration-1.1.0.jar:/home/picuy/minifi-0.1.0/./lib/httpcore-4.4.1.jar:/home/picuy/minifi-0.1.0/./lib/minifi-runtime-0.1.0.jar:/home/picuy/minifi-0.1.0/./lib/jackson-databind-2.6.1.jar:/home/picuy/minifi-0.1.0/./lib/quartz-2.2.1.jar:/home/picuy/minifi-0.1.0/./lib/apache-el-8.0.33.jar:/home/picuy/minifi-0.1.0/./lib/jetty-continuation-9.3.9.v20160517.jar:/home/picuy/minifi-0.1.0/./lib/commons-logging-1.2.jar:/home/picuy/minifi-0.1.0/./lib/nifi-framework-cluster-protocol-1.1.0.jar:/home/picuy/minifi-0.1.0/./lib/javax.servlet.jsp-api-2.3.1.jar:/home/picuy/minifi-0.1.0/./lib/javax.json-api-1.0.jar:/home/picuy/minifi-0.1.0/./lib/nifi-client-dto-1.1.0.jar:/home/picuy/minifi-0.1.0/./lib/nifi-framework-core-api-1.1.0.jar:/home/picuy/minifi-0.1.0/./lib/asm-1.0.2.jar:/home/picuy/minifi-0.1.0/./lib/json-smart-2.1.1.jar:/home/picuy/minifi-0.1.0/./lib/javax.servlet.jsp-2.3.2.jar:/home/picuy/minifi-0.1.0/./lib/asm-3.3.1.jar:/home/picuy/minifi-0.1.0/./lib/javax.el-3.0.1-b08.jar:/home/picuy/minifi-0.1.0/./lib/jackson-xc-1.9.2.jar:/home/picuy/minifi-0.1.0/./lib/slf4j-api-1.7.12.jar:/home/picuy/minifi-0.1.0/./lib/minifi-nar-utils-0.1.0.jar:/home/picuy/minifi-0.1.0/./lib/jersey-json-1.19.jar:/home/picuy/minifi-0.1.0/./lib/nifi-schema-utils-1.1.0.jar:/home/picuy/minifi-0.1.0/./lib/jackson-mapper-asl-1.9.13.jar:/home/picuy/minifi-0.1.0/./lib/logback-classic-1.1.7.jar:/home/picuy/minifi-0.1.0/./lib/minifi-utils-0.1.0.jar:/home/picuy/minifi-0.1.0/./lib/jettison-1.1.jar:/home/picuy/minifi-0.1.0/./lib/bcprov-jdk15on-1.54.jar:/home/picuy/minifi-0.1.0/./lib/javax.servlet.jsp.jstl-api-1.2.1.jar:/home/picuy/minifi-0.1.0/./lib/jetty-http-9.3.9.v20160517.jar:/home/picuy/minifi-0.1.0/./lib/nifi-expression-language-1.1.0.jar:/home/picuy/minifi-0.1.0/./lib/jetty-io-9.3.9.v20160517.jar:/home/picuy/minifi-0.1.0/./lib/jackson-core-2.6.1.jar:/home/picuy/minifi-0.1.0/./lib/nifi-utils-1.1.0.jar:/home/picuy/minifi-0.1.0/./lib/bcpkix-jdk15on-1.54.jar:/home/picuy/minifi-0.1.0/./lib/nifi-write-ahead-log-1.1.0.jar:/home/picuy/minifi-0.1.0/./lib/jackson-core-asl-1.9.13.jar -Dorg.apache.jasper.compiler.disablejsr199=true -Xmx256m -Xms256m -Dsun.net.http.allowRestrictedHeaders=true -Djava.net.preferIPv4Stack=true -Djava.awt.headless=true -Djava.protocol.handler.pkgs=sun.net.www.protocol -Dnifi.properties.file.path=/home/picuy/minifi-0.1.0/./conf/nifi.properties -Dnifi.bootstrap.listen.port=38084 -Dapp=MiNiFi -Dorg.apache.nifi.minifi.bootstrap.config.log.dir=/home/picuy/minifi-0.1.0/logs org.apache.nifi.minifi.MiNiFi  
-```
+```  
 
 
 ## 4\. Conclusions.

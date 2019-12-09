@@ -34,7 +34,7 @@ $ git clone https://github.com/chilcano/docker-wso2-dev-srv.git
 $ cd docker-wso2-dev-srv  
 $ docker build --rm -t chilcano/wso2-esb:4.8.1 wso2esb/4.8.1  
 $ docker run --detach -t --name=wso2esb01a -p 19449:9443 chilcano/wso2-esb:4.8.1  
-```
+```  
 
 Or you can use the existing containers available in DockerHub (https://hub.docker.com/r/chilcano):
 
@@ -50,7 +50,7 @@ $ docker run -d -t --name=wso2esb01a -p 19449:9443 chilcano/wso2-esb
 $ docker exec -i -t wso2esb01a bash  
 root@4178f21fcad3:/opt/wso2esb01a/bin# tail -f ../repository/logs/wso2carbon.log  
 $ curl -v -k https://<IP_ADDRESS>:19449/services/Version  
-```
+```  
 
 
 ## Microservice Methodology

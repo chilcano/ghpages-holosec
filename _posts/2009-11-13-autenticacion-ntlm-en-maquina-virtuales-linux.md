@@ -12,13 +12,17 @@ Un colega [[^BgTA^]](http://blog.bgta.ne) usa [cntlm](http://cntlm.sourceforge.n
 <!-- more -->  
 Pues listo, instalé cntlm en el S.O. Host (Windows XP) y en el Guest ([CrunchBang Linux](http://crunchbanglinux.org/)) configuré apt-get y Synaptic con el nuevo proxy basado en cntlm. Synaptic no tuvo problemas en la autenticación NTLM, o sea que no era necesario cntlm.
 Para configurar el proxy para el apt-get hacer lo siguiente:
+
 **1\. Editar el siguiente fichero:**
+
 
 [sourcecode language="text" gutter="true" wraplines="false"]  
 $ sudo vi /et/bash.bashrc  
 
 [/sourcecode]
+
 **2\. Añadir al final del fichero lo siguiente:**
+
 
 [sourcecode language="text" gutter="true" wraplines="false"]  
 export http_proxy=http://hostnamewinxp:port/  
@@ -27,13 +31,17 @@ export ftp_proxy=http://hostnamewinxp:port/
 export no_proxy=localhost,127.0.0.1  
 
 [/sourcecode]
+
 **3\. Asegurarse de que los cambios se apliquen (por ejemplo, logout y login al Linux) y verificar con:**
+
 
 [sourcecode language="text" gutter="true" wraplines="false"]  
 $ echo $http_proxy  
 
 [/sourcecode]
+
 **4\. probar el apt-get:**
+
 
 [sourcecode language="text" gutter="true" wraplines="false"]  
 $ sudo apt-get update  

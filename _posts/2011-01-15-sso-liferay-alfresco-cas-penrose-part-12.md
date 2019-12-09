@@ -15,6 +15,7 @@ The requirements are:
 This post is based on a previous one about [Liferay Portal Server LDAP Authentication with Penrose Server](http://holisticsecurity.wordpress.com/2010/12/22/authentication-penrose-directory-liferay), I recommend you read it for it will be easier to follow.
 
 ## I. Install and configure CAS server
+
 **Note:**
 * CAS server v3.3.5 comes with appropriate libraries for Tomcat 5 and OpenJDK bundled in CentOS. Otherwise you will have to recompile and / or include some libraries more.
 1\. See preview post on "Liferay Portal Server LDAP Authentication with Penrose Server" ([here](http://holisticsecurity.wordpress.com/2010/12/22/authentication-penrose-directory-liferay))
@@ -204,6 +205,7 @@ In the catalina.out you can see the following:
 [/sourcecode]
 
 ## III. Enable HTTPS and configure SSL Certificate on Tomcat server that contains CAS server
+
 **Note:**
 * SSL Certificate is used to enable secure channel by communication between CAS server and any Webapp that does the authentication and Web-SSO with CAS.
 * It is necessary to install the Root SSL Certificate of the CAS server for each trusted certificate repository of Web Server container (or Java Virtual Machine).
@@ -327,6 +329,7 @@ In last blog post We configured LDAP Authentication in Liferay, in this new exam
 In the next post will explain how to configure Alfresco with CAS to do SSO and Authentication.
 We also will see the importance of using an LDAP for supplying identidates and verify the SSO between Liferay and Alfresco.
 See you soon.
+
 **References:**
 * Alfresco Authentication Subsystems:  
 http://wiki.alfresco.com/wiki/Alfresco_Authentication_Subsystems

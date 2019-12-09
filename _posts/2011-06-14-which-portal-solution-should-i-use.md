@@ -39,7 +39,8 @@ I have taken the definition of types of Portals from www.contentmanager.eu.com I
 And these are:
 
 ### 1\. Information Portals vs. Content Management Portals
-**Information Portals:**  
+
+ **Information Portals:**  
 Also called Vertical Portals or Enterprise Information Portals, they consolidate the information from different types and from different sources.  
 The users of these sites tend to consume information, they do not create information.
 It is often used for:
@@ -55,6 +56,7 @@ It is often used for:
 * Perform a workflow on the documents.
 
 ### 2\. Application Centric Portals vs. Content Centric Portals
+
 **Application Centric Portals:**  
 Basically it is a portal that allows you to interact with applications or business systems of the organization, avoids access to each of them.  
 This portal provides access to all business applications from a single point.
@@ -64,6 +66,7 @@ It is often used for:
 Very similar to Content Management Portal, in this case, the portal takes the information from enterprise applications such as WCMS, DMS, DAM, RMS and standard desktop applications.
 
 ### 3\. Vertical Enterprise Portals vs. Horizontal Enterprise Portals
+
 **Vertical Enterprise Portals:**  
 There are specialized portals that address a certain theme and geared to a very specific audience.
 Examples:
@@ -290,6 +293,7 @@ As is the case of Pentaho (Business Intelligence solution), they use JBoss Porta
 3. If your goal is to have a specialized portal (vertical portal) immediately, it is best to use an existing one for that purpose, for example, Alfresco ECM, Sakai for e-learning, etc.  
 But if you have all the necessary resources, it is best to choose one that provides us with tools to quickly develop or customize functionality not had before, examples: Liferay, eXo, WebSphere Portal, Oracle Portal, etc.
 4. If your organization is aligned to the spirit of Free / Open Source and do not need advanced features, then the best alternatives are Apache JetSpeed​​-2, Jahia, Hippo, etc..
+
 **References:**
 * What is a Portal?  
 http://www.contentmanager.eu.com/portal.htm
@@ -301,4 +305,6 @@ http://www.realstorygroup.com/Blog/2083-New-Subway-Vendor-Map-for-2011
 http://en.wikipedia.org/wiki/Web_portal
 * Open Source Portal Servers Written in Java  
 http://www.manageability.org/blog/stuff/open_source_portal_servers_in_java/view
+
 **** [Versión en castellano aquí.](http://holisticsecurity.wordpress.com/2011/06/14/que-solucion-portal-deberia-usar/) ****
+

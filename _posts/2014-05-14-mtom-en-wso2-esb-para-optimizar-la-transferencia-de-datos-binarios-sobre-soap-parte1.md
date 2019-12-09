@@ -15,6 +15,7 @@ Hace poco estaba explorando las características de WSO2 ESB para el envío ópt
 * * *
 WSO2 ESB viene con más de 102 ejemplos de Proxy de Apache Synapse, cada uno de ellos implementa diferentes casos de usos necesarios para integrar aplicaciones con diferencias estrategias.
 El ejemplo "Sample 51" implementa MTOM y SwA sobre SOAP y esta entrada al blog usa esta implementación.
+
 **Requisitos:**
 * Sample 51: MTOM and SwA Optimizations and Request/Response Correlation (<https://docs.wso2.org/pages/viewpage.action?pageId=33136025>)
 * SoapUI (<http://www.soapui.org>)
@@ -300,7 +301,9 @@ GIF89a ...<<binary-content>>
 0  
 
 [/sourcecode]
+
 **MTOM SOAP response message:**
+
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
 HTTP/1.1 200 OK  
@@ -491,7 +494,9 @@ xmlns:ser="http://services.samples">
 </soapenv:Envelope>  
 
 [/sourcecode]
+
 **Request message SOAP para uploadFileUsingMTOM:**
+
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">  
@@ -507,7 +512,9 @@ xmlns:ser="http://services.samples">
 </soapenv:Envelope>  
 
 [/sourcecode]
+
 **El mensaje request SOAP para uploadFileUsingSwA usado es:**
+
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
 <soapenv:Envelope  

@@ -13,23 +13,30 @@ This WS layer enables to Business Application easier integration of content mana
 ![SoapUI Testing Alfresco Webservices]({{ site.baseurl }}/assets/smartbear-soapui-logo-300x140.png)
 
 <!-- more -->
+
 **Design of Test Master Plan: Define the scope**
+
 For testing purposes, I recommend that you first define the scope of testing:
 * What do you want to test?:
 * How much you want to test?: type of test, i.e. regression, load test, etc.
 Then, you create a Test Suite with several test cases as many as you want to execute functionalities or WS.
+
 **Implement Test Suite with soapUI**
 1. Identify URL/endpoints for each functionality to be tested
 2. Create test-cases for all functionality to be tested
 3. Automates each test case with soapUI by programming with groovy (soapUI scripting)
 4. Add indicators to measure the performance
+
 **Run Test Suite**
+
 Define the initial conditions to execute the test, for example, time of execution, ignore errors, etc.
 
 [![soapui_alf33ce_1_testrunner]({{ site.baseurl }}/assets/soapui_alf33ce_1_testrunner.png)](http://holisticsecurity.wordpress.com/2010/07/26/testing-alfresco-webservices-with-soapui/soapui_alf33ce_1_testrunner/)  
  _soapUI Launch TestRunner settings_
 Alter a quick introduction, now will test Alfresco ECM, firstly, we will do queries to Alfresco’s Dictionary, after, and we will automate the creation of content in Alfresco.
+
 **Test Suite sample: "Testing Alfresco’s Dictionary Service"**
+
 
 [![]({{ site.baseurl }}/assets/soapui_alf33ce_2_testsuite_dictionaryservice.png)](http://holisticsecurity.files.wordpress.com/2010/07/soapui_alf33ce_2_testsuite_dictionaryservice.png)  
 soapUI Test Suite - Alfresco's DictionaryService

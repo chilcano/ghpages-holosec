@@ -34,7 +34,7 @@ Java(TM) SE Runtime Environment (build 1.7.0_51-b13)
 Java HotSpot(TM) 64-Bit Server VM (build 24.51-b03, mixed mode)
 $ echo $JAVA_HOME  
 /Library/Java/JavaVirtualMachines/jdk1.7.0_51.jdk/Contents/Home  
-```
+```  
 
 Remember, by installing the JCE, the WSO2 ESB and Axis2 Server or any Java Application in the same box will not have cryptographic restrictions.
 
@@ -109,7 +109,7 @@ By default, the Axis2 Client does not work because the Rampart (Axis2 module) re
 [java] ... 17 more
 BUILD SUCCESSFUL  
 Total time: 4 seconds  
-```
+```  
 
 
 ### II.3. Deploying the Proxy Service and Policy correctly in WSO2 ESB.
@@ -119,7 +119,7 @@ To deploy it and start the WSO2 ESB we have to execute from `$WSO2ESB_HOME/bin/`
 
 ```sh  
 $ ./wso2esb-samples.sh -sn 100  
-```
+```  
 
 After of deploying it, we can check if the Proxy Service was deployed successfully in WSO2 ESB. Open `https://localhost:9443/carbon` and go to Service Bus > Source View, there is an unique Synapse definitions and its content is:
 
@@ -155,7 +155,7 @@ action="remove"/>
 </out>  
 </sequence>  
 </definitions>  
-```
+```  
 
 Where:  
 1\. There is a `localEntry`, where `sec_policy` is the key of the security policy placed in `file:repository/samples/resources/policy/policy_3.xml`.  
@@ -201,7 +201,7 @@ build-service:
 [jar] Building jar: /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/repository/services/SecureStockQuoteService.aar
 BUILD SUCCESSFUL  
 Total time: 1 second  
-```
+```  
 
 
 ### III.2. Run the Axis2 Server
@@ -255,7 +255,7 @@ Using AXIS2 Configuration : /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/
 15/03/06 20:38:42 INFO nhttp.HttpCoreNIOListener: HTTPS Listener started on 0:0:0:0:0:0:0:0:9002  
 15/03/06 20:38:42 INFO nhttp.HttpCoreNIOListener: HTTP Listener started on 0:0:0:0:0:0:0:0:9000  
 15/03/06 20:38:42 INFO util.SampleAxis2ServerManager: [SimpleAxisServer] Started  
-```
+```  
 
 
 ### III.3. Check if backend was deployed successfully in Axis2 Server
@@ -327,7 +327,7 @@ stockquote:
 [java] Standard :: Stock price = $93.14887399516581
 BUILD SUCCESSFUL  
 Total time: 3 seconds  
-```
+```  
 
 Lines above you can see the next:
 
@@ -338,7 +338,7 @@ Lines above you can see the next:
 [java] Standard :: Stock price = $93.14887399516581
 BUILD SUCCESSFUL  
 Total time: 3 seconds  
-```
+```  
 
 That indicates that everything goes well.
 Now What?. Well, we are ready to understand what are happening behind of this Sample 100.
@@ -380,7 +380,7 @@ action="remove"/>
 </out>  
 </sequence>  
 </definitions>  
-```
+```  
 
 This Synapse Proxy is the new standalone Proxy create from `synapse_sample_100.xml`.
 
@@ -430,7 +430,7 @@ action="remove"/>
 </target>  
 <description>Proxy created from synapse_sample_100.xml</description>  
 </proxy>  
-```
+```  
 
 I have changed/updated the following:
 * `in` for `inSequence`.
@@ -439,14 +439,14 @@ I have changed/updated the following:
 
 ```xml  
 <localEntry key="my_sec_policy" src="file:repository/samples/resources/policy/policy_3.xml"/>  
-```
+```  
 
 Also this could be also loaded as a resource stored in WSO2 ESB Local Registry.  
 * Added a Header Property for SOAP Action.
 
 ```xml  
 <header name="Action" value="urn:getQuote"/>  
-```
+```  
 * Added a Log Mediator for tracking purposes.
 
 ## VI. Calling to the Backend from SoapUI using the new Proxy
@@ -496,7 +496,7 @@ Caused by: org.apache.rampart.RampartException: Missing wsse:Security header in 
 at org.apache.rampart.RampartEngine.process(RampartEngine.java:146)  
 at org.apache.rampart.handler.RampartReceiver.invoke(RampartReceiver.java:92)  
 ... 11 more  
-```
+```  
 
 This happens because we are sending a SOAP request message without WS-Security Header well formatted. Keys to hashing, timestamps, etc. are missing, this is the reason of the Proxy in WSO2 ESB, it solves this cryptography issues.
 Well, now we will use SoapUI to send a SOAP request to backend via Synapse Proxy. Before, we will add the WSO2 ESB Proxy EndPoint or WSDL to SoapUI project and send and receive the messages.  
@@ -552,13 +552,13 @@ OruuM37y92qDjrI6sew=
 </ds:Signature></wsse:Security>  
 
 [2015-03-18 00:02:22,809] INFO - LogMediator [Body OUT] = <ns:getQuoteResponse xmlns:ns="http://services.samples"><ns:return xmlns:ax23="http://services.samples/xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ax23:GetQuoteResponse"><ax23:change>-2.427092238886098</ax23:change><ax23:earnings>-8.594640198504722</ax23:earnings><ax23:high>-85.41697924761516</ax23:high><ax23:last>85.45769312029174</ax23:last><ax23:lastTradeTimestamp>Wed Mar 18 00:02:22 GMT 2015</ax23:lastTradeTimestamp><ax23:low>88.84901052393411</ax23:low><ax23:marketCap>-5312065.376447097</ax23:marketCap><ax23:name>IBM Company</ax23:name><ax23:open>89.06565721533335</ax23:open><ax23:peRatio>-17.80304620448777</ax23:peRatio><ax23:percentageChange>3.0694536514961186</ax23:percentageChange><ax23:prevClose>-79.07245114136454</ax23:prevClose><ax23:symbol>IBM</ax23:symbol><ax23:volume>9040</ax23:volume></ns:return></ns:getQuoteResponse>  
-```
+```  
 
 And the successfully messages in Axis2 Server side:
 
 ```sh  
 Wed Mar 18 00:02:22 GMT 2015 SecureStockQuoteService :: Generating quote for : IBM  
-```
+```  
 
 
 ## VII. Calling to Backend directly from the Axis2 Client
@@ -571,14 +571,14 @@ After that, run the Axis2 Server.
 ```sh  
 $ cd ~/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server  
 $ ./axis2server.sh  
-```
+```  
 
 ...and now, run the Axis2 client.
 
 ```sh  
 $ cd ~/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Client  
 $ ant stockquote -Daddurl=http://localhost:9000/services/SecureStockQuoteService -Dmode=quote -Dsymbol=IBM -Dpolicy=../../repository/samples/resources/policy/client_policy_3.xml  
-```
+```  
 
 Where:
 * `-Daddurl=http://localhost:9000/services/SecureStockQuoteService` is the secured backend deployed in Axis2 Server. 
@@ -669,7 +669,7 @@ sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeTok
 </wsp:All>  
 </wsp:ExactlyOne>  
 </wsp:Policy>  
-```
+```  
 
 If everything goes well, the following is shown:
 
@@ -734,7 +734,7 @@ stockquote:
 [java] Standard :: Stock price = $67.01769988611447
 BUILD SUCCESSFUL  
 Total time: 3 seconds  
-```
+```  
 
 And in the Axis2 Server side is shown:
 
@@ -762,7 +762,7 @@ Using AXIS2 Configuration : /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/
 15/03/09 23:15:21 INFO nhttp.HttpCoreNIOListener: HTTP Listener started on 0:0:0:0:0:0:0:0:9000  
 15/03/09 23:15:21 INFO util.SampleAxis2ServerManager: [SimpleAxisServer] Started  
 Mon Mar 09 23:15:59 GMT 2015 SecureStockQuoteService :: Generating quote for : IBM  
-```
+```  
 
 
 ## IIX. Conclusions

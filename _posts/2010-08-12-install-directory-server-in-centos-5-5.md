@@ -167,6 +167,7 @@ When running any LDAP command, make sure that you are using the **MozLDAP** util
     [root@svdapp95 ~]# dsktune
 
 ![]({{ site.baseurl }}/assets/centOS-ds_6_dsktune.png)
+
 **References**
 * CentOS Directory Server, Basic Install  
 http://wiki.centos.org/HowTos/DirectoryServerSetup

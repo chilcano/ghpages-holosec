@@ -8,20 +8,20 @@ status:     publish
 permalink:  "/2014/03/07/message-brokering-y-recoleccion-datos-big-data-wso2/"
 ---
 Message Brokering es el conjunto de mecanismos por el cual se gestiona la recepción y la entrega de mensajes entre sistemas distribuidos. El propósito final con los Message Broker Systems son:
-*  **Desacoplar** : En tiempo, en espacio y a nivel de sincronización.
-*  **Confiabilidad** : A nivel de transacción y de persistencia.
+* **Desacoplar** : En tiempo, en espacio y a nivel de sincronización.
+* **Confiabilidad** : A nivel de transacción y de persistencia.
 
 ## 1\. Casos de uso y beneficios
 
 Los beneficios son palpables, como por ejemplo:
-*  **Comunicación Síncrona/Asíncrona/Colas** : Hacer una solicitud (enviar un mensaje) y que te respondan después de cierto tiempo.
-*  **Persistencia de mensajes** : Hacer una solicitud y que la petición siga viva a pesar de que los sistemas no hayan estado operativos después de haber realizado la solicitud, almacenar de manera persistente los mensajes de las solicitudes excedentes efectuadas a un servicio o simplemente, almacenar con gran rapidez y garantía los mensajes de las solicitudes realizadas.
-*  **Publicación/Suscripción** : Publicar un mensaje de cierto tópico y que sólo ciertos clientes reciban el mensaje.
+* **Comunicación Síncrona/Asíncrona/Colas** : Hacer una solicitud (enviar un mensaje) y que te respondan después de cierto tiempo.
+* **Persistencia de mensajes** : Hacer una solicitud y que la petición siga viva a pesar de que los sistemas no hayan estado operativos después de haber realizado la solicitud, almacenar de manera persistente los mensajes de las solicitudes excedentes efectuadas a un servicio o simplemente, almacenar con gran rapidez y garantía los mensajes de las solicitudes realizadas.
+* **Publicación/Suscripción** : Publicar un mensaje de cierto tópico y que sólo ciertos clientes reciban el mensaje.
 Hay diferentes casos de uso o escenarios donde son necesarios los Message Brokers, pero los más representativos están definidos en los Enterprise Integration Patterns, estos son:
-*  **Message Store EIP** (http://www.eaipatterns.com/MessageStore.html): Que serviría para hacer dar persistencia a los mensajes (Reliability), Colas (Queues), etc.
+* **Message Store EIP** (http://www.eaipatterns.com/MessageStore.html): Que serviría para hacer dar persistencia a los mensajes (Reliability), Colas (Queues), etc.
 
 [caption id="" align="alignnone" width="700"]![Message Broker - Colas y Persistencia de mensajes]({{ site.baseurl }}/assets/chakray-message-broker-queues-store.png) Message Broker - Colas y Persistencia de mensajes[/caption]
-*  **Publish-Subscribe Channel EIP** (http://www.eaipatterns.com/PublishSubscribeChannel.html): Que serviría para hacer Monitoring, Tracking, Broadcasting, etc.
+* **Publish-Subscribe Channel EIP** (http://www.eaipatterns.com/PublishSubscribeChannel.html): Que serviría para hacer Monitoring, Tracking, Broadcasting, etc.
 
 [caption id="" align="alignnone" width="751"]![Message Broker - Publicación y Suscripción]({{ site.baseurl }}/assets/chakray-message-broker-pubsub-store.png) Message Broker - Publicación y Suscripción[/caption]
 
@@ -87,7 +87,9 @@ WSO2 ESB puede conectarse con:
 * Oracle WebLogic 10.3.4.0
 * Y WSO2 Message Broker
 Emplearemos WSO2 MB 2.1.0 (con offset 4) y WSO2 ESB 4.8.1 (con offset 2), ambos sobre Mac OSX 10.9.1 y Java 7.x. Descargarlos y descomprimirlos. Luego configurar WSO2 MB para que no tenga conflictos con WSO2 ESB, para ello cambiar los puertos (offset) de ambas aplicaciones.
+
 **Configuración de WSO2 MB:**
+
 1) Actualizar offset en \repository\conf\carbon.xml
 2) Actualizar puertos de Apache Cassandra en \repository\conf\advanced\qpid-virtualhosts.xml
 3) Con Mac OS X (Mavericks) y Java 7.x hay que actualizar la librería Java Snappy ya que si no se hace, WSO2 MB o WSO2 BAM no funcionaría ya que ambos embeben Apache Cassandra (https://code.google.com/p/snappy-java/issues/detail?id=39). Sólo hay que descargar snappy-java-1.0.5.jar, luego extraer snappy-java-1.0.5/org/xerial/snappy/native/Mac/x86_64/libsnappyjava.jnilib y copiarlo a /Library/Java/JavaVirtualMachines/jdk1.7.0_51.jdk/Contents/Home/jre/lib/ con este nombre libsnappyjava.dylib. Más información aquí: <https://github.com/thinkaurelius/titan/issues/62>
@@ -118,7 +120,9 @@ java.net.SocketTimeoutException: Read timed out]
 
 [/sourcecode]
 6) Dejo Mac OS X y paso a Windows. En este caso no es necesario actualizar la librería java snappy, sólo cambiar los puertos.
+
 **Configuración de WSO2 ESB:**
+
 1) Actualizar offset en \repository\conf\carbon.xml
 2) ~~Habilite JMS para configurarlo con el WSO2 MB externo editando el fichero /repository/conf/axis2/axis2.xml. Luego identifique el bloque para WSO2 MB 2.x y descomente el bloque~~.
 3) ~~En el mismo fichero, descomente el bloque para JMSSender~~.

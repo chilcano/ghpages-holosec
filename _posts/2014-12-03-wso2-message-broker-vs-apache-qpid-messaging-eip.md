@@ -81,13 +81,13 @@ log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more in
 [Broker] MNG-1004 : JMX Management Ready  
 
 [Broker] BRK-1004 : Qpid Broker Ready  
-```
+```  
 
 If you want change the working directory, then you should define "QPID_WORK" variable in 'qpid-server' file or as System Variable in your S.O.:
 
 ```sh  
 export QPID_WORK=$HOME/0dev-env/2srv/qpid-work-std  
-```
+```  
 
 3.- If you want change ports, enable services, exchanges, enable plugins or replace default configuration, you have a lot of possibilities, just follow this indications:
 <a href="https://qpid.apache.org/releases/qpid-0.30/java-broker/book/Java-Broker-Configuring-And-Managing.html">https://qpid.apache.org/releases/qpid-0.30/java-broker/book/Java-Broker-Configuring-And-Managing.html</a>
@@ -140,7 +140,7 @@ queue
 <!-- ================================================= -->
 
 [...]  
-```
+```  
 
 2.- Now, download the Apache Qpid Java Client (qpid-client-0.30-bin.tar) from http://qpid.apache.org/components/qpid-jms/index.html, unzip it and copy the qpid-client-0.30.jar and qpid-common-0.30.jar to %WSO2ESB_HOME%/repository/components/lib/ and restart WSO2 ESB.
 3.- Edit the JNDI file (%WSO2ESB_HOME%/repository/conf/jndi.properties) as follow:
@@ -167,7 +167,7 @@ queue.MyJNDIQueue02 = QPID_QUEUE_02
 
 ##topic.MyTopic = example.MyTopic  
 
-```
+```  
 
 Where:  
 * 'clientID/default' is the identifier of client used to connect and the virtualhost respectively.  
@@ -179,7 +179,7 @@ Where:
 Date $1
 <address />
 Send a message to Apache Qpid queue (QPID_QUEUE_01)
-```
+```  
 
 Now we can send messages using this Proxy and in the Apache Qpid side are as shown:
 
@@ -194,7 +194,7 @@ myQueueConnectionFactory
 QPID_QUEUE_01  
 queue  
 Message received from Apache Qpid queue (QPID_QUEUE_01)
-```
+```  
 
 6.- Now we can test this configuration using SoapUI and follow the logs in WSO2 ESB console.
 
@@ -213,7 +213,7 @@ Message received from Apache Qpid queue (QPID_QUEUE_01)
 [2014-11-27 22:13:29,496] INFO - LogMediator [ProxyQpidReceiver] BODY RECEIVED = Date 11/27/14 10:13 PM  
 
 [...]  
-```
+```  
 
 7.- Conclusions:
 * The first time you run the "ProxyQpidSender" proxy, the proxy will automatically create the "QPID_QUEUE_01" queue in Apache Qpid.
@@ -233,7 +233,7 @@ QueueConnectionFactory
 admin  
 admin  
 1.1
-```
+```  
 
 2.- Create a new WSO2 ESB Proxy to send messages to the new message store 'MsgStoreQpid02' using the 'Store Mediator'.
 
@@ -241,7 +241,7 @@ admin
 <br /><br /><br /><br /><br /><br /> <header />
 MsgStore - SysDate $1
 Store the message in the WSO2 ESB Message Store (MsgStoreQpid02)
-```
+```  
 
 
 ### IV.2. Creating Message Sampling Processor in WSO2 ESB
@@ -254,14 +254,14 @@ _Message Sampling Processor with WSO2 ESB and Apache Qpid_
 ```xml  
 <br /><br /><br /><br /><br /><br /><br />```
 2.- Create the Message Sampling Processor
-```
-xml  
+```xml  
 <br /> 1000  
 1  
 SequenceQpidSampling  
 0 0/1 * 1/1 * ? *  
 true
-```
+```  
+
 3.- Send messages to Message Store and check the logs
 
 ```sh  
@@ -279,11 +279,13 @@ true
 [2014-11-28 00:07:00,029] INFO - LogMediator [SequenceQpidSampling] MSG = MsgStore - SysDate 11/28/14 12:06 AM  
 
 [2014-11-28 00:08:00,016] INFO - LogMediator [SequenceQpidSampling] MSG = MsgStore - SysDate 11/28/14 12:06 AM  
-```
+```  
 
 
 ### IV.3. Creating Message Forwarding Processor in WSO2 ESB
+
 **1.- Create a Message Forwarding Processor implementing the OUT-ONLY pattern**
+
 In this case, if the backend service processes very well the request, then the message processor will delete the message from message store.
 
 ![Message Forwarding Processor with OUT-ONLY implemented]({{ site.baseurl }}/assets/blog20141122-qpid-04-msg-forwarding-processor-out-only.png)  
@@ -295,7 +297,7 @@ Before, we have to disable the below MessageProcessor (MsgProcessorQpidSampling)
 <br /><br /><br /><br /><br /><br /> <header />
 MySysDate $1
 Store the message in the WSO2 ESB Message Store (MsgStoreQpid02)
-```
+```  
 
 Where:  
 * Action is the header property of SOAP message that represents the operation to be executed.  
@@ -305,7 +307,7 @@ Also, as Endpoint I will use my custom echoPassThroughProxy, where the URL is: h
 
 ```xml  
 <br /> <address></address>
-```
+```  
 
 1.3. Create the Message Forwarding Processor (OUT-ONLY).
 
@@ -314,7 +316,7 @@ Also, as Endpoint I will use my custom echoPassThroughProxy, where the URL is: h
 1000  
 0 0/1 * 1/1 * ? *  
 true
-```
+```  
 
 1.4. Check the logs
 
@@ -341,8 +343,10 @@ true
 [2014-11-27 23:26:00,012] INFO - LogMediator [echoPassThroughProxy] = ----- outSeq ----- = [echoPassThroughProxy]  
 
 [2014-11-27 23:26:00,012] INFO - LogMediator To: http://www.w3.org/2005/08/addressing/anonymous, WSAction: , SOAPAction: , MessageID: urn:uuid:8916ed21-10a3-43ee-9d0e-6acf8a3f4de7, Direction: response, Envelope:  
-```
+```  
+
 **2.- Create a Message Forwarding Processor implementing IN-OUT pattern**
+
 The only difference with the above is that it requires two Synapse Sequences (Reply and Fault sequences) that will post-process the SOAP response of Backend Service in a blocking-mode as It is a succesfully response or unseccsfully response, in other words, if everything goes well, the message processor will send an ACK to message store to consume (delete) the stored message and the message processor will trigger the reply sequence, otherwise the message processor will trigger the fault squence (the message is not consumed/deleted of message store).
 
 ![Message Forwarding Processor with IN-OUT implemented]({{ site.baseurl }}/assets/blog20141122-qpid-05-msg-forwarding-processor-in-out.png)  
@@ -354,7 +358,7 @@ Before, disable the above message processor, just for testing purporses.
 <br /><br /><br /><br /><br /><br /> <header />
 MySysDate $1
 Store the message in the WSO2 ESB Message Store (MsgStoreQpid02)
-```
+```  
 
 Where:  
 * Action is the header property of SOAP message that represents the operation to be executed.  
@@ -363,11 +367,9 @@ Where:
 
 ```xml  
 <br /><br /><br /><br /><br /><br /><br />```
-```
-xml  
+```xml  
 <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />```
 2.3.- Adjust the existing Message Processor to include new Sequences for the IN-OUT pattern.
-
 ```xml  
 <br /> 1500  
 1000  
@@ -375,7 +377,7 @@ SequenceQpidReplyFwdInOut
 SequenceQpidFaultFwdInOut  
 0 0/1 * 1/1 * ? *  
 true
-```
+```  
 
 Where:
 * SequenceQpidReplyFwdInOut will process Backend message response in blocking-mode (with ACK)
@@ -401,7 +403,7 @@ Where:
 [2014-11-27 23:47:00,016] INFO - LogMediator [SequenceQpidReplyFwdInOut] = ---------------------- = [SequenceQpidReplyFwdInOut]  
 
 [2014-11-27 23:47:00,017] INFO - LogMediator To: /services/ProxyQpidSender2MsgStoreFwdInOut.ProxyQpidSender2MsgStoreFwdInOutHttpSoap12Endpoint, WSAction: urn:echoString, SOAPAction: urn:echoString, MessageID: urn:uuid:888E0D71F886F13CF71417131986402876015-666129391, Direction: request, Envelope:  
-```
+```  
 
 
 ## V. Conclusions

@@ -38,32 +38,42 @@ And next screen select the user credentials to be required.
 ![]({{ site.baseurl }}/assets/wso2-ws-security-policy-5apply-sec.png)
 After that, you are ready to deploy your service in a secure way. To know what happened behind of this, we should review the Policy applied. Below a copy of Usertoken Authentication Policy (scenario1 UTOverTransport):  
 https://gist.github.com/9805c4369612be163ccc
+
 **Interpreting the WS-SecurityPolicy UsenameTokenOverTransport**
 * HTTPS is required instead of HTTP. HTTP is not already available. 
 * Send credentials (user and password) in the message over HTTPS 
 * The password should be encrypted 
+
 **Testing the Echo Service with WS-SecurityPolicy UsenameTokenOverTransport enabled**
+
 Using SoapUI will create a soapui project from the new WSDL of Echo Service. After this, send a request without the required valid credentials.  
 
 ![]({{ site.baseurl }}/assets/wso2-ws-security-policy-6soapui-ut-https.png)
 Now, if you send a request with valid credentials, then you will receive a successfully message.  
 
 ![]({{ site.baseurl }}/assets/wso2-ws-security-policy-7soapui-ut-https.png)
+
 **Observations**
 * Any of 20 WS-SecurityPolicy uses or consider to WSO2 instance as container of user credentials. In other words, for example, if you select UsernameToken Authentication Policy, the authentication process will validate the Username Token againts to the WSO2 User Store.
 
 ### I.2. Apply a custom WS-SecurityPolicy
 
 What happens if your requirements are different and any of the 20 existing policies do not meets the requirements?. Well, if you have knowledge about WS-SecurityPolicy you could create one following your requirements. Remember, with WS-SecurityPolicy I can apply security at message-level, operaton-level and at transport-level, as example in this blog I will explain how to add HTTP support to secured SOAP Echo Service deployed by default in WSO2.
+
 **Sample of custom Policy: Adding HTTP support using custom WS-SecurityPolicy**
+
 Let me explain further on this sample. Whe you enable any of 20 WS-SecurityPolicy to improve the security on the services, it is common sense leave only enabled HTTPS (SOAP over SSL/TLS) automatically, because HTTP is insecure if this is used over public networks as Internet. Then, this sample scenario is only for testing purposes. Lets go to create the WS-SecurityPolicy file, in this case, I will use `scenario1_UTOverTransport.xml` Policy, will remove the part related to "TransportBinding" because I want to keep HTTP and HTTPS enabled for Echo Service.
 The remaining part of scenario1_UTOverTransport.xml Policy is related to the required credentials to call this service. The new Policy (UTOverTransport policy with HTTP support added) will be as shown below.  
 https://gist.github.com/42aab5c3b67e9c667dba
+
 **Upload the UsenameTokenOverTransport Policy with HTTP support added to WSO2's Registry repository**
+
 Basically, upload the new Policy file to WSO2's Registry repository, in my case I have uploaded it as resource under `/_system/config/repository/components/org.wso2.carbon.security.mgt/policy`, but you could place it in any location.  
 
 ![]({{ site.baseurl }}/assets/wso2-ws-security-policy-8policy-ut-http.png)
+
 **Testing the Echo Service UsenameTokenOverTransport with HTTP support added**
+
 Before testing, we have to apply this new Policy the Echo Service. Follow the steps as in the previous Policy escenario.  
 
 ![]({{ site.baseurl }}/assets/wso2-ws-security-policy-9wso2-set-new-policy.png)
