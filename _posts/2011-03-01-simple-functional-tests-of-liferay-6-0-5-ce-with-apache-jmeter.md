@@ -1,141 +1,87 @@
 ---
-layout: post
-title: Simple functional tests of Liferay 6.0.5 CE with Apache JMeter
-date: 2011-03-01 01:49:05.000000000 +01:00
-type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Portal
-tags:
-- JMeter
-- Liferay
-meta:
-  _edit_last: '578869'
-  _wpas_done_twitter: '1'
-  _oembed_86cb0b2af82863e0aab12d0c2405ea28: "{{unknown}}"
-  _oembed_13406119b77fbc009810130eb38ecd93: "{{unknown}}"
-author:
-  login: rcarhuatocto
-  email: roger@intix.info
-  display_name: Roger CARHUATOCTO
-  first_name: ''
-  last_name: ''
-permalink: "/2011/03/01/simple-functional-tests-of-liferay-6-0-5-ce-with-apache-jmeter/"
+layout:     post
+title:      'Simple functional tests of Liferay 6.0.5 CE with Apache JMeter'
+date:       2011-03-01 00:49:05
+categories: ['Portal']
+tags:       ['JMeter', 'Liferay']
+status:     publish 
+permalink:  "/2011/03/01/simple-functional-tests-of-liferay-6-0-5-ce-with-apache-jmeter/"
 ---
 If do you want to know the health of an easy and quickly way, the current status of your Liferay Portal installation or if you want to test quickly any basic functionality from UI (quickly functional test), then you could use Apache JMeter to do it.  
-  
-  
-  
 To do that, you should do the following:  
-  
-  
-  
 1\. Download and install Apache JMeter from here <http://jakarta.apache.org/site/downloads/downloads_jmeter.cgi>  
-  
-  
-  
 2\. Identify the target to test it.  
-  
 In this case we will test if Liferay Sign in portlet works.  
-  
-  
-  
 3\. Create a Test Plan.  
-  
-  
-  
 4\. Add a "Thread Group".  
-  
-  
-  
 5\. In the before "Thread Group" to add a "HTTP Cookie Manager". This allows to keep the liferay session open between diferents HTTP requests.  
-  
-  
-  
+
 [caption id="" align="alignnone"  
-  
 caption="Create a HTTP Cookie Manager in JMeter for Liferay"]![Create a HTTP Cookie Manager in JMeter for Liferay]({{ site.baseurl }}/assets/20110228_1_liferayjmeter_httpcookiemanager.png)  
-  
+
 [/caption]  
-  
-  
-  
 6\. Also, to add an "User Defined Variables" as shows in next figure:  
-  
-  
-  
+
 [caption id="" align="alignnone"  
-  
 caption="Create a User Defined Variables in JMeter for Liferay"]  
-  
+
 ![Create a User Defined Variables in JMeter for Liferay]({{ site.baseurl }}/assets/20110228_2_liferayjmeter_userdefinedvariables.png)  
-  
+
 [/caption]  
-  
-  
-  
 7\. In the before "Thread Group" to add a "Loop Controller" named "Sign in to Liferay".  
-  
-  
-  
+
 [caption id="" align="alignnone"  
-  
 caption="Add a Loop Controller"]  
-  
+
 ![Add a Loop Controller]({{ site.baseurl }}/assets/20110228_3_liferayjmeter_loopcontroller.png)  
-  
+
 [/caption]  
-  
-  
 8\. Add a first "HTTP Resquest" named "[Sign in - 1] Go to Welcome page".  
 You have to fill out the request with the appropriate parameters, for exmaple:  
 \- Server Name or IP  
 \- Port Number  
 \- Method  
 \- Path (URL of our target to be tested)  
-  
 9\. Then, to add the first "Response Assertion" named "Check resp. 1 ". This will check if the result is correct. In this case only verify the existence of a message/text in the HTTP response.  
-  
 10\. Later, to add the second "HTTP Request" named "[Sign in - 2] Do login". This allows to do log into liferay, in this case we will need to compose a HTML form with the following parameters:  
-  
+
 [caption id="" align="alignnone"  
 caption="Create a HTTP Request to do Login from Liferay Sing in Portlet"]  
+
 ![Create a HTTP Request to do Login from Liferay Sing in Portlet]({{ site.baseurl }}/assets/20110228_4_liferayjmeter_httprequestsignin.png)  
+
 [/caption]  
-  
 These parameters have been extracted from the Liferay welcome web page that contains the "Sign in" portlet, as shown in the figure below:  
-  
+
 [caption id="" align="alignnone"  
 caption="Existing parameters in Liferay Sign in Portlet form"]  
+
 ![Existing parameters in Liferay Sign in Portlet form]({{ site.baseurl }}/assets/20110228_5_liferayjmeter_signinformparams.png)  
+
 [/caption]  
-  
 11\. Create a "Response Assertion" of similarly way to step 9 if we want to verify if login process has been successful.  
 In my case, I will verify the existence of a message/text "Sign Out" in the HTTP response.  
-  
+
 [caption id="" align="alignnone"  
 caption="Create a Response Assertion for Liferay Login process"]  
+
 ![Create a Response Assertion for Liferay Login process]({{ site.baseurl }}/assets/20110228_6_liferayjmeter_respassertion.png)  
+
 [/caption]  
-  
 12\. Add a third "HTTP Request" named "[Sign in - 3] Do logout" and other "Response Assertion".  
 This step is optional, it does not help us verify if the login process has been OK.  
-  
 13\. At level of the "Thread Group" create a "Vire Results Tree" and "Assertion Results". Both will allow us to monitor the test results.  
-  
 14\. Run test plan and observe the results in the "View Result Tree".  
 If everything goes “green” is that everything has been correctly. If any test is “red”, is that the test is wrong or something is wrong. Then, you should see or check you network connection, Liferay is running or if you Database is running, etc.  
-  
+
 [caption id="" align="alignnone"  
 caption="View Result Tree for Liferay Sign in portlet"]  
+
 ![View Result Tree for Liferay Sign in portlet]({{ site.baseurl }}/assets/20110228_7_liferayjmeter_viewresultstree.png)  
+
 [/caption]  
-  
 You can copy this test plan in Apache JMeter:  
-  
+
 [sourcecode language="xml" gutter="true" wraplines="false"]  
 <?xml version="1.0" encoding="UTF-8"?>  
 <jmeterTestPlan version="1.2" properties="2.1">  
@@ -471,7 +417,6 @@ You can copy this test plan in Apache JMeter:
 </hashTree>  
 </hashTree>  
 </jmeterTestPlan>  
+
 [/sourcecode]
-
 Have a Liferay happy testing!.  
-

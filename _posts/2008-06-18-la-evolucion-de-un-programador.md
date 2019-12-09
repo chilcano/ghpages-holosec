@@ -1,159 +1,84 @@
 ---
-layout: post
-title: La Evolución de un Programador
-date: 2008-06-18 01:21:20.000000000 +02:00
-type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Misc
-tags:
-- joke programming hello world
-meta:
-  _edit_last: '578869'
-  geo_public: '0'
-  _wpas_skip_13849: '1'
-  _wpas_skip_5053092: '1'
-  _wpcom_is_markdown: '1'
-author:
-  login: rcarhuatocto
-  email: roger@intix.info
-  display_name: Roger CARHUATOCTO
-  first_name: ''
-  last_name: ''
-permalink: "/2008/06/18/la-evolucion-de-un-programador/"
+layout:     post
+title:      'La Evolución de un Programador'
+date:       2008-06-17 23:21:20
+categories: ['Misc']
+tags:       ['joke programming hello world']
+status:     publish 
+permalink:  "/2008/06/18/la-evolucion-de-un-programador/"
 ---
 En el año 2001, en un foro encontré un post bastante divertido, se trataba de la _**Evolución de un Programador** y cómo éste evolucionaba también el clásico programa llamado **Hola Mundo**_.
 
-  
 ![HTML coder]({{ site.baseurl }}/assets/homeless-coder.jpg)  
-  
-<!-- more -->  
-  
-Para los no informáticos, **Hola Mundo** es el primer programa que realiza cualquier informático que inicia en esta profesión.
 
-  
+<!-- more -->  
+Para los no informáticos, **Hola Mundo** es el primer programa que realiza cualquier informático que inicia en esta profesión.
 Con la Evolución de un Programador podéis ver quienes son los mejores programadores.
 
-  
 ![Big programmer]({{ site.baseurl }}/assets/programmer.jpg)
-
-  
 En fin, os dejo con la evolución del Hola Mundo, espero que algunos Managers, Comerciales no se ofendan. ;)
-
-  
 > Task is to write a program that prints "Hello World" on the  
->   
 > screen...make sure you see the last few attempts (Dilbert).
 > 
->   
-> 
-> 
 > High School/Jr.High  
->   
 > ==================
 > 
->   
-> 
-> 
 > 10 PRINT "HELLO WORLD"  
->   
 > 20 END
 > 
->   
-> 
-> 
 > First year in College  
->   
 > ====================  
->   
 > program Hello(input, output)  
->   
 > begin  
->   
 > writeln('Hello World')  
->   
 > end.
 > 
->   
-> 
-> 
 > Senior year in College  
->   
 > =====================  
->   
 > (defun hello  
->   
 > (print  
->   
 > (cons 'Hello (list 'World))))
 > 
->   
-> 
-> 
 > New professional  
->   
 > ===============  
->   
 > #include 
 > 
->   
-> 
-> 
 > void main(void)  
->   
 > {  
->   
 > char *message[] = {"Hello ", "World"};  
->   
 > int i;
 > 
->   
-> 
-> 
 > for(i = 0; i < 2; ++i)  
->   
 > printf("%s", message[i]);  
 >  printf("\n");  
 >  }
-> 
 > Seasoned professional  
 >  ====================  
 >  #include  
 >  #include 
-> 
 > class string  
 >  {  
 >  private:  
 >  int size;  
 >  char *ptr;
-> 
 > public:  
 >  string() : size(0), ptr(new char('')) {}
-> 
 > string(const string &s) : size(s.size)  
 >  {  
 >  ptr = new char[size + 1];  
 >  strcpy(ptr, s.ptr);  
 >  }
-> 
 > ~string()  
 >  {  
 >  delete [] ptr;  
 >  }
-> 
 > friend ostream &operator <<(ostream &, const string &);
-> 
 > string &operator=(const char *);  
 >  };
-> 
 > ostream &operator<<(ostream &stream, const string &s)  
 >  {  
 >  return(stream << s.ptr);  
 >  }
-> 
 > string &string::operator=(const char *chrs)  
 >  {  
 >  if (this != &chrs)  
@@ -165,32 +90,25 @@ En fin, os dejo con la evolución del Hola Mundo, espero que algunos Managers, C
 >  }  
 >  return(*this);  
 >  }
-> 
 > int main()  
 >  {  
 >  string str;
-> 
 > str = "Hello World";  
 >  cout << str << endl;
-> 
 > return(0);  
 >  }
-> 
 > Master Programmer :-))  
 >  ================  
 >  [  
 >  uuid(2573F8F4-CFEE-101A-9A9F-00AA00342820)  
 >  ]
-> 
 > library LHello  
 >  {  
 >  // bring in the master library  
 >  importlib("actimp.tlb");  
 >  importlib("actexp.tlb");
-> 
 > // bring in my interfaces  
 >  #include "pshlo.idl"
-> 
 > [  
 >  uuid(2573F8F5-CFEE-101A-9A9F-00AA00342820)  
 >  ]  
@@ -200,7 +118,6 @@ En fin, os dejo con la evolución del Hola Mundo, espero que algunos Managers, C
 >  interface IPersistFile;  
 >  };  
 >  };
-> 
 > [  
 >  exe,  
 >  uuid(2573F890-CFEE-101A-9A9F-00AA00342820)  
@@ -214,12 +131,10 @@ En fin, os dejo con la evolución del Hola Mundo, espero que algunos Managers, C
 >  importheader("pshlo.h");  
 >  importheader("shlo.hxx");  
 >  importheader("mycls.hxx");
-> 
 > // needed typelibs  
 >  importlib("actimp.tlb");  
 >  importlib("actexp.tlb");  
 >  importlib("thlo.tlb");
-> 
 > [  
 >  uuid(2573F891-CFEE-101A-9A9F-00AA00342820),  
 >  aggregatable  
@@ -229,25 +144,18 @@ En fin, os dejo con la evolución del Hola Mundo, espero que algunos Managers, C
 >  cotype THello;  
 >  };  
 >  };
-> 
 > #include "ipfix.hxx"
-> 
 > extern HANDLE hEvent;
-> 
 > class CHello : public CHelloBase  
 >  {  
 >  public:  
 >  IPFIX(CLSID_CHello);
-> 
 > CHello(IUnknown *pUnk);  
 >  ~CHello();
-> 
 > HRESULT __stdcall PrintSz(LPWSTR pwszString);
-> 
 > private:  
 >  static int cObjRef;  
 >  };
-> 
 > #include  
 >  #include  
 >  #include  
@@ -256,82 +164,64 @@ En fin, os dejo con la evolución del Hola Mundo, espero que algunos Managers, C
 >  #include "pshlo.h"  
 >  #include "shlo.hxx"  
 >  #include "mycls.hxx"
-> 
 > int CHello::cObjRef = 0;
-> 
 > CHello::CHello(IUnknown *pUnk) : CHelloBase(pUnk)  
 >  {  
 >  cObjRef++;  
 >  return;  
 >  }
-> 
 > HRESULT __stdcall CHello::PrintSz(LPWSTR pwszString)  
 >  {  
 >  printf("%ws\n", pwszString);  
 >  return(ResultFromScode(S_OK));  
 >  }
-> 
 > CHello::~CHello(void)  
 >  {  
 >  // when the object count goes to zero, stop the server  
 >  cObjRef--;  
 >  if( cObjRef == 0 )  
 >  PulseEvent(hEvent);
-> 
 > return;  
 >  }
-> 
 > #include  
 >  #include  
 >  #include "pshlo.h"  
 >  #include "shlo.hxx"  
 >  #include "mycls.hxx"
-> 
 > HANDLE hEvent;
-> 
 > int _cdecl main( int argc, char * argv[])  
 >  {  
 >  ULONG ulRef;  
 >  DWORD dwRegistration;  
 >  CHelloCF *pCF = new CHelloCF();
-> 
 > hEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
-> 
 > // Initialize the OLE libraries  
 >  CoInitializeEx(NULL, COINIT_MULTITHREADED);  
 >  CoRegisterClassObject(CLSID_CHello, pCF, CLSCTX_LOCAL_SERVER,  
 >  REGCLS_MULTIPLEUSE, &dwRegistration);
-> 
 > // wait on an event to stop  
 >  WaitForSingleObject(hEvent, INFINITE);
-> 
 > // revoke and release the class object  
 >  CoRevokeClassObject(dwRegistration);  
 >  ulRef = pCF-Release();
-> 
 > // Tell OLE we are going away.  
 >  CoUninitialize();
-> 
 > return(0);  
 >  }
-> 
 > extern CLSID CLSID_CHello;  
 >  extern UUID LIBID_CHelloLib;
-> 
 > CLSID CLSID_CHello = { /* 2573F891-CFEE-101A-9A9F-00AA00342820 */  
 >  0x2573F891,  
 >  0xCFEE,  
 >  0x101A,  
 >  { 0x9A, 0x9F, 0x00, 0xAA, 0x00, 0x34, 0x28, 0x20 }  
 >  };
-> 
 > UUID LIBID_CHelloLib = { /* 2573F890-CFEE-101A-9A9F-00AA00342820 */  
 >  0x2573F890,  
 >  0xCFEE,  
 >  0x101A,  
 >  { 0x9A, 0x9F, 0x00, 0xAA, 0x00, 0x34, 0x28, 0x20 }  
 >  };
-> 
 > #include  
 >  #include  
 >  #include  
@@ -340,7 +230,6 @@ En fin, os dejo con la evolución del Hola Mundo, espero que algunos Managers, C
 >  #include "pshlo.h"  
 >  #include "shlo.hxx"  
 >  #include "clsid.h"
-> 
 > int _cdecl main( int argc, char * argv[])  
 >  {  
 >  HRESULT hRslt;  
@@ -349,7 +238,6 @@ En fin, os dejo con la evolución del Hola Mundo, espero que algunos Managers, C
 >  IMoniker * pmk;  
 >  WCHAR wcsT[_MAX_PATH];  
 >  WCHAR wcsPath[2 * _MAX_PATH];
-> 
 > // get object path  
 >  wcsPath[0] = '';  
 >  wcsT[0] = '';  
@@ -361,16 +249,13 @@ En fin, os dejo con la evolución del Hola Mundo, espero que algunos Managers, C
 >  fprintf(stderr, "Object path must be specified\n");  
 >  return(1);  
 >  }
-> 
 > // get print string  
 >  if(argc 2)  
 >  mbstowcs(wcsT, argv[2], strlen(argv[2]) + 1);  
 >  else  
 >  wcscpy(wcsT, L"Hello World");
-> 
 > printf("Linking to object %ws\n", wcsPath);  
 >  printf("Text String %ws\n", wcsT);
-> 
 > // Initialize the OLE libraries  
 >  hRslt = CoInitializeEx(NULL, COINIT_MULTITHREADED);  
 >  if(SUCCEEDED(hRslt)) {  
@@ -380,7 +265,6 @@ En fin, os dejo con la evolución del Hola Mundo, espero que algunos Managers, C
 >  if(SUCCEEDED(hRslt)) {  
 >  // print a string out  
 >  pHello- PrintSz(wcsT);
-> 
 > Sleep(2000);  
 >  ulCnt = pHello- Release();  
 >  }  
@@ -389,10 +273,8 @@ En fin, os dejo con la evolución del Hola Mundo, espero que algunos Managers, C
 >  // Tell OLE we are going away.  
 >  CoUninitialize();  
 >  }
-> 
 > return(0);  
 >  }
-> 
 > Apprentice Hacker  
 >  ==================  
 >  #!/usr/local/bin/perl  
@@ -408,29 +290,24 @@ En fin, os dejo con la evolución del Hola Mundo, espero que algunos Managers, C
 >  print ($msg);  
 >  }  
 >  1;
-> 
 > Experienced Hacker  
 >  ==================  
 >  #include  
 >  #define S "Hello, World\n"  
 >  main(){exit(printf(S) == strlen(S) ? 0 : 1);}
-> 
 > Seasoned Hacker  
 >  ==================  
 >  % cc -o a.out ~/src/misc/hw/hw.c  
 >  % a.out
-> 
 > Guru Hacker  
 >  ==================  
 >  % cat  
 >  Hello, world.  
 >  ^^D
-> 
 > New Manager  
 >  ==================  
 >  10 PRINT "HELLO WORLD"  
 >  20 END
-> 
 > Middle Manager  
 >  ==================  
 >  mail -s "Hello, world." bob@b12  
@@ -438,12 +315,10 @@ En fin, os dejo con la evolución del Hola Mundo, espero que algunos Managers, C
 >  world."?  
 >  I need it by tomorrow.  
 >  ^^D
-> 
 > Senior Manager  
 >  ==================  
 >  % zmail jim  
 >  I need a "Hello, world." program by this afternoon.
-> 
 > Chief Executive  
 >  ==================  
 >  % letter  
@@ -455,7 +330,5 @@ En fin, os dejo con la evolución del Hola Mundo, espero que algunos Managers, C
 >  % damn!  
 >  !: Event unrecognized  
 >  % logout 
-
 From: http://lists.xml.org/archives/xml-dev/199712/msg00322.html
-
 Os animáis a realizar un port a otra plataforma o lenguaje de programación?. Python, Ruby, PHP, Java, eh??

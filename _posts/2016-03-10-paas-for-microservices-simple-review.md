@@ -1,135 +1,56 @@
 ---
-layout: post
-title: PaaS or micro-PaaS for Microservices? - a simple technology review
-date: 2016-03-10 16:56:24.000000000 +01:00
-type: post
-parent_id: '0'
-published: true
-password: ''
-status: publish
-categories:
-- Cloud
-- Microservices
-- PaaS
-tags:
-- API
-- Docker
-- ESB
-- Opensource
-meta:
-  _wpcom_is_markdown: '1'
-  _edit_last: '578869'
-  geo_public: '0'
-  _wpas_skip_5053092: '1'
-  _publicize_job_id: '20624835946'
-  publicize_google_plus_url: https://plus.google.com/+RogerCarhuatocto/posts/CTL4Hoyi8oa
-  _publicize_done_5110107: '1'
-  _wpas_done_5053089: '1'
-  _publicize_done_external: a:1:{s:7:"twitter";a:1:{i:13849;s:54:"https://twitter.com/Chilcano/status/707958319139270656";}}
-  _publicize_done_17477: '1'
-  _wpas_done_13849: '1'
-  publicize_twitter_user: Chilcano
-author:
-  login: rcarhuatocto
-  email: roger@intix.info
-  display_name: Roger CARHUATOCTO
-  first_name: ''
-  last_name: ''
-permalink: "/2016/03/10/paas-for-microservices-simple-review/"
+layout:     post
+title:      'PaaS or micro-PaaS for Microservices? - a simple technology review'
+date:       2016-03-10 15:56:24
+categories: ['Cloud', 'Microservices', 'PaaS']
+tags:       ['API', 'Docker', 'ESB', 'Opensource']
+status:     publish 
+permalink:  "/2016/03/10/paas-for-microservices-simple-review/"
 ---
 _"How do you eat an elephant? One bite at a time"_ \- This phrase makes sense, everybody understands It but sometimes is forgotten.  
-  
 Happily some technology companies have managed to internalize this phrase in its processes and products.
 
-  
 ![https://holisticsecurity.files.wordpress.com/2019/11/blog-pass-microservices-how-do-you-eat-an-elephant-one-bite-at-a-time.png]({{ site.baseurl }}/assets/blog-pass-microservices-how-do-you-eat-an-elephant-one-bite-at-a-time.png)  
-  
 Below some examples:  
-  
 \- Netflix: Micro Services (http://techblog.netflix.com/2015/02/a-microscope-on-microservices.html)  
-  
 \- Docker: Containers (https://www.docker.com/what-docker)  
-  
 \- Snackson: Micro Learning (http://en.snackson.com/microlearning)  
-  
 \- Twitter: Micro Blogging (https://en.wikipedia.org/wiki/Microblogging)  
-  
 \- Raspberry Pi: Micro Personal Computer (https://en.wikipedia.org/wiki/Raspberry_Pi)
 
-  
 <!-- more -->
-
-  
 Many people and many companies make big mistake when they are entirely focused on big goals. If you have a big goal, you probably spend a lot of time and effort on achieving it.
-
-  
 Well, I will explain on this blog post How this simple concept is being applied to PaaS (Platform as a Service) today and will mention some opensource!.
 
-  
 ## 1\. Key concepts
-
-  
-  
-
   * Agile  
-  
-
     * You aren't avoiding the big goal, you are solving the problem step-by-step. And to do so, you need to be organized, forget obsolete methodologies and not waste time.
-  
-
     * `Pre-shaved Yaks` (https://www.flickr.com/photos/zimki/243779431/in/photostream).
-  
-
     * In other words, automates everything you can, organize small teams to create small and independent products, etc.
-  
-  
-
-  
-
   * K-I-S-S (Keep It simple, stupid)  
-  
-
     * The road is long and difficult (the learning curve is steep), then it makes it easy and enjoyable, and if the stretch is unavoidable, then try to automate it.
-  
-  
-
-  
-
   * Don't reinvent the wheel  
-  
-
     * Scrum, Kanban, TDD, Unix, Linux, etc. all these are `things that worked before and work now. Please, use them.
-  
-  
-
-  
-
   * Free as in beer  
-
     * Free and open source
 
 ## 2\. What is PaaS (Platform as a Service)?
 
 ![PaaS definition - Wikipedia]({{ site.baseurl }}/assets/blog-paas-microservice-1-paas-definition.png)
-
 Wikipedia mentions that `Zimki` was the first `PaaS` and was released in the year 2006. Zimki was an end-to-end JavaScript web application development and utility computing platform that removed all the repetitive tasks encountered when creating web applications and web services. After of Zimki born other:
-
   * Google App Engine
   * WSO2 Stratos (Apache Stratos)
   * Redhat's OpenShift
   * Saleforce's Heroku
   * Jelastic
   * Etc.
-
 I ask myself, Are they really suitable for creating Microservices today?. In my opinion, Yes, they are suitable but after a heavy lifting and re-designing.  
 There are good news about that because the main Software Companies are working on that, making them lighter, more agile and versatile, someone are focused to Cloud, to on-Premise, to Containers or to RAD (rapid application development). Just check out Openshift, CloudFoundry, etc.
 
 ## 3\. What's out there?
-
 Well, after searching the internet, the result is a first version of the PaaS list.
 
 ### PaaS
-
   1. Zato 
     * https://zato.io
     * Open-source ESB, SOA, REST, APIs and cloud integrations in Python.
@@ -175,7 +96,6 @@ Well, after searching the internet, the result is a first version of the PaaS li
     * AppFog, CenturyLink's Platform-as-a-Service (PaaS) based on Cloud Foundry, enables developers to focus on writing great cloud-based applications without having to worry about managing the underlying infrastructure.
 
 ### Microservices frameworks
-
   1. Dropwizard 
     * http://www.dropwizard.io
     * Dropwizard pulls together stable, mature libraries from the Java ecosystem into a simple, light-weight package that lets you focus on getting things done.
@@ -202,12 +122,10 @@ Well, after searching the internet, the result is a first version of the PaaS li
     * Unirest is a set of lightweight HTTP libraries available in multiple languages (Node.js, Ruby, PHP, Java, Python, Objective-C, .Net).
 
 ## 4\. Conclusions
-
   * As you can see, the trend is to provide a set of tools to do more easy the application development on-premise or/and on-cloud. The idea behind is to remove all the repetitive tasks encountered when creating web applications and web services (aspects related to infrastructure and operations from setting up servers, scaling, configuration, security and backups), the `Pre-Shaved Yaks` concept was introduced. 
   * In other side, there are custom PaaS created from existing lightweight frameworks using Docker Containers, below some references. This confirms, right now, that there are mature tools and frameworks ready to be used in the construction of these platforms.
 
 ## 5\. References
-
   * Introducing Empire: A self-hosted PaaS built on Docker & Amazon ECS 
     * By Eric Holmes
     * June 16, 2015

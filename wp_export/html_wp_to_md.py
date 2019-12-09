@@ -16,12 +16,18 @@ import html2text
 
 class Post:
 
-	def __init__(self, file_name, front_matter, body_html, body_markdown):
+	def __init__(self, file_name, front_matter, body_html, front_matter_compact, body_markdown):
 		self.file_name = file_name
 		self.front_matter = front_matter
 		self.body_html = body_html
+		self.front_matter_compact = front_matter_compact
 		self.body_markdown = body_markdown
 
+
+def gen_compact_front_matter(front_matter_content):
+	frontmatter_part = front_matter_content
+
+	return frontmatter_part
 
 def gen_markdown(html_content):
 	h = html2text.HTML2Text()
@@ -65,9 +71,9 @@ def load_and_split_posts(dir_in_html):
 		str_filename = os.path.basename(path_and_filename)
 		print("\t", str_filename)
 		if len(str_content_splitted) == 3:
-			posts_array.append( Post( os.path.splitext(str_filename)[0], str_content_splitted[1], str_content_splitted[2], gen_markdown( str_content_splitted[2] )) )
+			posts_array.append( Post( os.path.splitext(str_filename)[0], str_content_splitted[1], str_content_splitted[2], gen_compact_front_matter(str_content_splitted[1]), gen_markdown(str_content_splitted[2]) ) )
 		else: 
-			posts_array.append( Post( os.path.splitext(str_filename)[0], str_content_splitted[1], str_content_splitted[2], "no markdown" ))
+			posts_array.append( Post( os.path.splitext(str_filename)[0], str_content_splitted[1], str_content_splitted[2], "no compact font matter", "no markdown" ) )
 	return posts_array
 
 
@@ -78,7 +84,7 @@ def save_posts(out_dir, posts_array):
 	for p in posts_array:
 		print("\t", p.file_name + ".md")
 		with io.open( out_dir + p.file_name + ".md", 'w', encoding='UTF-8') as f:
-			f.write("---\n" + p.front_matter + "---\n" + p.body_markdown )
+			f.write("---\n" + p.front_matter_compact + "---\n" + p.body_markdown )
 
 
 def main():
