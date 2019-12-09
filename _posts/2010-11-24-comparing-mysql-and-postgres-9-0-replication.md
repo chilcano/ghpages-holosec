@@ -12,6 +12,7 @@ By By Robin Schumacher and Gary Carter, EnterpriseDB
 TheServerSide.com
 
 ## Comparing MySQL and Postgres 9.0 Replication
+
  _By Robin Schumacher and Gary Carter, www.enterprisedb.com_
 > Replication is one of the most popular features used in RDBMS’s today. Replication is used for disaster recovery purposes (i.e. backup or warm stand-by servers), reporting systems where query activity is offloaded onto another machine to conserve resources on the transactional server, and scale-out architectures that use sharding or other methods to increase overall query performance and data throughput.
 > 

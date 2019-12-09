@@ -14,12 +14,14 @@ But before we should define what is Portal?, is another buzz word?, Portal or We
 [caption id="" align="alignnone" width="498" caption="Enterprise Portal"]![Enterprise Portal]({{ site.baseurl }}/assets/portal-architecture.png)[/caption]
 
 ## What is Portal?
+
 From Wikipedia (http://en.wikipedia.org/wiki/Web_portal):
 > "A web portal or links page is a web site that functions as a point of access to information on the World Wide Web. A portal presents information from diverse sources in a unified way.  
 > Apart from the standard search engine feature, web portals offer other services such as e-mail, news, stock prices, information, databases and entertainment. Portals provide a way for enterprises to provide a consistent look and feel with access control and procedures for multiple applications and databases, which otherwise would have been different entities altogether.  
 > Examples of public web portals are AOL, Excite, iGoogle, MSN, Netvibes, and Yahoo!."
 
 ## ¿What is Software Portal?
+
 From SearchCIO.com (http://searchcio.techtarget.com/definition/portal-software):
 > "Portal software is a type of development tool used to create a portal (starting point) on a company's  
 > intranet so that employees can find a centralized starting place for access to consolidated  
@@ -31,6 +33,7 @@ From SearchCIO.com (http://searchcio.techtarget.com/definition/portal-software):
 > called an enterprise information"
 
 ## What types of portals are there?
+
 It is increasingly difficult to classify a Portal under a category, and that these categories are changing, also the portals have common details among themselves.  
 I have taken the definition of types of Portals from www.contentmanager.eu.com I think is wide and exact.  
 And these are:
@@ -73,6 +76,7 @@ Examples:
 * www.aol.com
 
 ## What type of portal you want to build?
+
 Apparently, from the types of portal, a personal website is a portal and a Facebook page too.  
 So it is most convenient identify the portal we want to implement and see if it fits the definition.
 
@@ -125,6 +129,7 @@ So it is most convenient identify the portal we want to implement and see if it 
 That is what the next step.
 
 ## What Software Portal can use?
+
 There are many products / software / technology to create the Portal we want.  
 There are 2 product lines well marked, the difference is whether they are aligned or not standards Portals
 The Portal standards are:
@@ -190,15 +195,18 @@ Sakai OAE: "The Sakai Open Academic Environment is a new system that embraces a 
 ![]({{ site.baseurl }}/assets/logo_14_uportal.jpg)Based on Apache Pluto, from its web:"uPortal is the leading open source enterprise portal framework built by and for the higher education community."
 
 ## What about software or products based on PHP, Python, Ruby, ... ?
+
 Yes, yes there are, and they are very good, in the following article we will discuss them and its level of maturity.
 
 ## So, Is Portal Software ready for use?
+
 Depending on the type of portal you want to implement, usually with the products listed above could implement almost everything with a little effort in customizing and developing some custom components.  
 Portlets (functional components that are deployed in Portales JSR-168) give the proper behavior of a portal type website.  
 For example, if I have my own Facebook-style social network, you first have to install the Portal solution (the container), then add the tipical Portlets of a social network such as:  
 Wall Portlet, RSS Reader Portlet, Chat Portlet, Portlet YouTube, etc.
 
 ## What features should have a Portal software?
+
 There are different features, they are:
 **1\. Content Management**  
 \- Document Library  
@@ -237,6 +245,7 @@ There are different features, they are:
 \- Mobile as thin client.
 
 ## What is the level of maturity of each portal software?
+
 Again, much depends on the needs and resources that are available, some solutions have a good base portal technology but lack the special features for WCM, for example.  
 While other solutions lack of features related to social networks, so it must be created from scratch.
 So now assess every one of these solutions and add aspects related to the strength of Community and the type of licensing (Free / Open Source, Commercial Open Source, Proprietary).  

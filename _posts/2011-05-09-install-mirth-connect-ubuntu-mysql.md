@@ -17,12 +17,14 @@ Well, we will explain how to install on Ubuntu and how to switch Derby database 
 
 ## 1\. Install Java
 
+
 [sourcecode language="text" gutter="true" wraplines="false"]  
 amawta@yachaywasi:~$ sudo apt-get install openjdk-6-jdk  
 
 [/sourcecode]
 
 ## 2\. Install Mirth Connect
+
 1\. Download and setup execution permissions:
 
 [sourcecode language="text" gutter="true" wraplines="false"]  
@@ -43,6 +45,7 @@ amawta@yachaywasi:/opt/mirthconnect$ sudo ./mcservice start
 verify again Mirth Connect is running.
 
 ## 3\. Switch from Derby database to MySQL server
+
 1\. Install MySQL:
 
 [sourcecode language="text" gutter="true" wraplines="false"]  

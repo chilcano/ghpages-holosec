@@ -14,6 +14,7 @@ The content model in Alfresco ECM allows us to identify types of documents, prop
 This post will explain how to modeling the content that our type of organization/business requires and also explains how to deploy it on an installation of Alfresco ECM.
 
 ## I. XML definition files 
+
 Create the following files:
 **1\. intix-model-context.xml**
 This is Spring file configuration for the new content model.
@@ -202,6 +203,7 @@ This configuration file enables Alfresco Explore/Web Client to load the new cont
 [/sourcecode]
 
 ## II. Deploy the content model 
+
 1\. Stop Alfresco.
 2\. Copy **intix-model-context.xml** to **${ALFRESCO_HOME}\tomcat\shared\classes\alfresco\extension**
 3\. Copy **intixModel.xml** to **${ALFRESCO_HOME}\tomcat\shared\classes\alfresco\extension**

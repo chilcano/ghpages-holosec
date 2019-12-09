@@ -39,6 +39,7 @@ So what alternatives do we have to WSO2 Message Broker comparable to robustness,
 Well, after of this little introduction, I will explain step-by-step how to integrate quickly WSO2 ESB with Apache Qpid, how to enable JMS transport for Synapse Proxies and how to implement the EIP related to messaging.
 
 ## II. Installation of Apache Qpid
+
 1.- Download Apache Qpid. The latest version is 0.30 (qpid-broker-0.30-bin.tar.gz) and you can download from here <http://qpid.apache.org/components/java-broker/index.html>
 2.- Unzip and run it.
 
@@ -51,9 +52,7 @@ Info: QPID_JAVA_GC not set. Defaulting to JAVA_GC -XX:+UseConcMarkSweepGC -XX:+H
 Info: QPID_JAVA_MEM not set. Defaulting to JAVA_MEM -Xmx2g  
 log4j:WARN No appenders could be found for logger (org.apache.qpid.server.plugin.QpidServiceLoader).  
 log4j:WARN Please initialize the log4j system properly.  
-log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html
-
-#noconfig for more info.  
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.  
 
 [Broker] BRK-1006 : Using configuration : /Users/Chilcano/0dev-env/2srv/qpid-work-std/config.json  
 
@@ -97,6 +96,7 @@ Check this information:
 <a href="http://qpid.apache.org/releases/qpid-0.30/java-broker/book/Java-Broker-High-Availability.html">http://qpid.apache.org/releases/qpid-0.30/java-broker/book/Java-Broker-High-Availability.html</a>
 
 ## III. Enabling JMS transport in WSO2 ESB for Apache Qpid
+
 
 ![Enabling JMS Transport]({{ site.baseurl }}/assets/blog20141122-qpid-01-jms-transport-wso2esb.png)  
 _Enabling JMS Transport_
@@ -145,31 +145,28 @@ queue
 2.- Now, download the Apache Qpid Java Client (qpid-client-0.30-bin.tar) from http://qpid.apache.org/components/qpid-jms/index.html, unzip it and copy the qpid-client-0.30.jar and qpid-common-0.30.jar to %WSO2ESB_HOME%/repository/components/lib/ and restart WSO2 ESB.
 3.- Edit the JNDI file (%WSO2ESB_HOME%/repository/conf/jndi.properties) as follow:
 
-```sh
+```sh  
 
 # register some connection factories  
 
-
 # connectionfactory.[jndiname] = [ConnectionURL]  
 
-
 ##connectionfactory.QueueConnectionFactory = amqp://admin:admin@clientID/test?brokerlist='tcp://localhost:5672'  
+
 connectionfactory.QueueConnectionFactory = amqp://admin:admin@clientID/default?brokerlist='tcp://localhost:5672'  
 connectionfactory.TopicConnectionFactory = amqp://admin:admin@clientID/default?brokerlist='tcp://localhost:5672'
 
 # register some queues in JNDI using the form  
-
 
 # queue.[jndiName] = [physicalName]  
 queue.MyJNDIQueue02 = QPID_QUEUE_02
 
 # register some topics in JNDI using the form  
 
-
 # topic.[jndiName] = [physicalName]  
 
-
 ##topic.MyTopic = example.MyTopic  
+
 ```
 
 Where:  
@@ -225,7 +222,6 @@ Message received from Apache Qpid queue (QPID_QUEUE_01)
 
 ## IV. WSO2 ESB Message Store and Message Processor for Apache Qpid
 
-
 ### IV.1. Creating a Message Store in WSO2 ESB
 1.- Create the WSO2 ESB Message Store pointing to QPID_QUEUE_02.
 
@@ -249,6 +245,7 @@ Store the message in the WSO2 ESB Message Store (MsgStoreQpid02)
 
 
 ### IV.2. Creating Message Sampling Processor in WSO2 ESB
+
 
 ![Message Sampling Processor with WSO2 ESB and Apache Qpid]({{ site.baseurl }}/assets/blog20141122-qpid-03-msg-sampling-processor.png)  
 _Message Sampling Processor with WSO2 ESB and Apache Qpid_

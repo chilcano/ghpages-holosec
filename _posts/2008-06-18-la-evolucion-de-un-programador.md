@@ -40,9 +40,7 @@ En fin, os dejo con la evolución del Hola Mundo, espero que algunos Managers, C
 > 
 > New professional  
 > ===============  
->
-
-#include 
+> #include 
 > 
 > void main(void)  
 > {  
@@ -55,12 +53,8 @@ En fin, os dejo con la evolución del Hola Mundo, espero que algunos Managers, C
 >  }
 > Seasoned professional  
 >  ====================  
->
-
-#include  
->
-
-#include 
+>  #include  
+>  #include 
 > class string  
 >  {  
 >  private:  
@@ -113,9 +107,7 @@ En fin, os dejo con la evolución del Hola Mundo, espero que algunos Managers, C
 >  importlib("actimp.tlb");  
 >  importlib("actexp.tlb");
 > // bring in my interfaces  
->
-
-#include "pshlo.idl"
+>  #include "pshlo.idl"
 > [  
 >  uuid(2573F8F5-CFEE-101A-9A9F-00AA00342820)  
 >  ]  
@@ -151,9 +143,7 @@ En fin, os dejo con la evolución del Hola Mundo, espero que algunos Managers, C
 >  cotype THello;  
 >  };  
 >  };
->
-
-#include "ipfix.hxx"
+> #include "ipfix.hxx"
 > extern HANDLE hEvent;
 > class CHello : public CHelloBase  
 >  {  
@@ -165,30 +155,14 @@ En fin, os dejo con la evolución del Hola Mundo, espero que algunos Managers, C
 > private:  
 >  static int cObjRef;  
 >  };
->
-
-#include  
->
-
-#include  
->
-
-#include  
->
-
-#include  
->
-
-#include "thlo.h"  
->
-
-#include "pshlo.h"  
->
-
-#include "shlo.hxx"  
->
-
-#include "mycls.hxx"
+> #include  
+>  #include  
+>  #include  
+>  #include  
+>  #include "thlo.h"  
+>  #include "pshlo.h"  
+>  #include "shlo.hxx"  
+>  #include "mycls.hxx"
 > int CHello::cObjRef = 0;
 > CHello::CHello(IUnknown *pUnk) : CHelloBase(pUnk)  
 >  {  
@@ -208,21 +182,11 @@ En fin, os dejo con la evolución del Hola Mundo, espero que algunos Managers, C
 >  PulseEvent(hEvent);
 > return;  
 >  }
->
-
-#include  
->
-
-#include  
->
-
-#include "pshlo.h"  
->
-
-#include "shlo.hxx"  
->
-
-#include "mycls.hxx"
+> #include  
+>  #include  
+>  #include "pshlo.h"  
+>  #include "shlo.hxx"  
+>  #include "mycls.hxx"
 > HANDLE hEvent;
 > int _cdecl main( int argc, char * argv[])  
 >  {  
@@ -257,30 +221,14 @@ En fin, os dejo con la evolución del Hola Mundo, espero que algunos Managers, C
 >  0x101A,  
 >  { 0x9A, 0x9F, 0x00, 0xAA, 0x00, 0x34, 0x28, 0x20 }  
 >  };
->
-
-#include  
->
-
-#include  
->
-
-#include  
->
-
-#include  
->
-
-#include  
->
-
-#include "pshlo.h"  
->
-
-#include "shlo.hxx"  
->
-
-#include "clsid.h"
+> #include  
+>  #include  
+>  #include  
+>  #include  
+>  #include  
+>  #include "pshlo.h"  
+>  #include "shlo.hxx"  
+>  #include "clsid.h"
 > int _cdecl main( int argc, char * argv[])  
 >  {  
 >  HRESULT hRslt;  
@@ -328,13 +276,9 @@ En fin, os dejo con la evolución del Hola Mundo, espero que algunos Managers, C
 >  }
 > Apprentice Hacker  
 >  ==================  
->
-
-#!/usr/local/bin/perl  
+>  #!/usr/local/bin/perl  
 >  $msg="Hello, world.\n";  
->  if ($
-
-#ARGV = 0) {  
+>  if ($#ARGV = 0) {  
 >  while(defined($arg=shift(@ARGV))) {  
 >  $outfilename = $arg;  
 >  open(FILE, " " . $outfilename) || die "Can't write $arg: $!\n";  
@@ -347,12 +291,8 @@ En fin, os dejo con la evolución del Hola Mundo, espero que algunos Managers, C
 >  1;
 > Experienced Hacker  
 >  ==================  
->
-
-#include  
->
-
-#define S "Hello, World\n"  
+>  #include  
+>  #define S "Hello, World\n"  
 >  main(){exit(printf(S) == strlen(S) ? 0 : 1);}
 > Seasoned Hacker  
 >  ==================  

@@ -13,12 +13,14 @@ A text editor is not enough for this, Eclipse IDE and PHP Development Tools are 
 In this post, you learn how to set your debug environment with XDebug, that seems to be one of the more popular ones and Eclipse PDT already has support for it.
 
 ## Requisites:
+
 1\. Download and install/unzip [XAMPP](http://www.apachefriends.org/en/xampp-windows.html) for win32 version 1.7.4-VC6.
 This bundle comes with severals tools:
 
-[sourcecode language="text" gutter="true" wraplines="false"]
+[sourcecode language="text" gutter="true" wraplines="false"]  
 
 ###### ApacheFriends XAMPP (Basispaket) version 1.7.4 ######
+
 \+ Apache 2.2.17  
 \+ MySQL 5.5.8 (Community Server)  
 \+ PHP 5.3.5 (VC6 X86 32bit) + PEAR  
@@ -43,6 +45,7 @@ This bundle comes with severals tools:
 3\. Install from Eclipse Marketplace the PHP Development Tools (PDT) plugin (version 3.0.0.x).
 
 ## Apache and PHP debugging configuration
+
 1\. Configure XDebug in XAMPP bundle.  
 Edit **php.ini** and enable XDebug and remote debugging, make sure to uncomment the bellow lines and put to "1" the parameters " **xdebug.remote_autostart** " and " **xdebug.remote_enable** ".
 
@@ -122,6 +125,7 @@ Re-start apache and verify that XDebug is loaded.
 [caption id="" align="alignnone" width="439" caption="XDebug library loaded in Apache HTTPD"]![XDebug library loaded in Apache HTTPD]({{ site.baseurl }}/assets/phpdebugging-1-xdebugloaded.png)[/caption]
 
 ## Eclipse & PDT configuration
+
 1\. In Apache HTTP Server add a root folder as your base web for PHP projects.  
 For example, my base folder is configured in httpd.conf file and looks like this:
 
@@ -143,9 +147,7 @@ Allow from all
 [sourcecode language="xml" gutter="true" wraplines="false"]  
 <?php  
 $msg = "crazy world";  
-echo "<h1>Test PHP Debugging
-
-#1 </h1>";  
+echo "<h1>Test PHP Debugging #1 </h1>";  
 echo "<hr>";  
 echo "<ol>";  
 for ($k = 0; $k < 10; $k++) {  

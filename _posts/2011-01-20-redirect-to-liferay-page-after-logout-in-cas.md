@@ -23,9 +23,7 @@ on the "logoutController" bean defined in the cas-servlet.xml.
 
 [sourcecode language="text" gutter="true" wraplines="false"]  
 
-[root@directorysrv1 ~]
-
-# vim /usr/share/tomcat5/webapps/cas-server-webapp-3.3.5/WEB-INF/cas-servlet.xml  
+[root@directorysrv1 ~]# vim /usr/share/tomcat5/webapps/cas-server-webapp-3.3.5/WEB-INF/cas-servlet.xml  
 
 [/sourcecode]
 
@@ -46,15 +44,11 @@ p:followServiceRedirects="true"/>
 
 [sourcecode language="text" gutter="true" wraplines="false"]  
 
-[root@directorysrv1 ~]
-
-# service tomcat5 restart  
+[root@directorysrv1 ~]# service tomcat5 restart  
 Stopping tomcat5: [ OK ]  
 Starting tomcat5: [ OK ]  
 
-[root@directorysrv1 ~]
-
-#  
+[root@directorysrv1 ~]#  
 
 [/sourcecode]
 5\. Test redirect.

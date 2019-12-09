@@ -16,13 +16,13 @@ The [Sample 100: Using WS-Security for Outgoing Messages](https://docs.wso2.com/
 Anyway, here I will explain how to fix it and I will review each followed step to get it.
 
 ## I. The problem.
+
 In the 21st century we still have restricted access to strong cryptography (<http://en.wikipedia.org/wiki/Export_of_cryptography_from_the_United_States>), for this reason the Java compiler required for our applications can not use strong cryptography (large key length, new algorithms or cryptographic providers). In this example we need 2 things:
 * To install the Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files in our box. If this is done, then my applications (my service or backend implementation in Axis2 and the WSO2 ESB) will work perfectly.
 * To share the Bouncy Castle library (cryptographic provider) existing in WSO2 ESB with the Axis2 Client application (not share with Axis2 Server because Axis2 Server and WSO2 ESB already use).
 If We do apply the above points, might only execute the secure service deployed in the Axis2 Server with the Axis2 client for this backend. But if We want to expose a unsecure service interface pointing to the secure backend, then we should deploy the WSO2 ESB Proxy correctly. To do that, We should deploy this Proxy in WSO2 ESB and load correctly the policy file (policy_3.xml) using Local 2Entry or the WSO2 ESB Registry. Then, come to do it.
 
 ## II. Fixing the sample.
-
 
 ### II.1. Installing Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files
 I am using `Java 1.7.0_51`, then I should download this JCE files from <http://www.oracle.com/technetwork/java/javase/downloads/jce-7-download-432124.html>, after that, unzip It and copy (or overwrite) the `local_policy.jar` and `US_export_policy.jar` to `$JAVA_HOME/jre/lib/security`.
@@ -39,6 +39,7 @@ $ echo $JAVA_HOME
 Remember, by installing the JCE, the WSO2 ESB and Axis2 Server or any Java Application in the same box will not have cryptographic restrictions.
 
 ### II.2. Install the Bouncy Castle library required for the Axis2 Client.
+
 By default, the Axis2 Client does not work because the Rampart (Axis2 module) requires an encryption algorithm provided for Bouncy Castle library (`bcprov-jdk15.jar`). To solve it, copy the `$WSO2ESB_HOME/repository/axis2/client/lib/bcprov-jdk15.jar` to `$WSO2ESB_HOME/repository/components/plugins/` folder. If you do not copy this library, probably you get this error when executing the Axis2 Client `StockQuoteClient.java`.
 
 ```sh  
@@ -85,9 +86,7 @@ By default, the Axis2 Client does not work because the Rampart (Axis2 module) re
 
 [java] ... 11 more  
 
-[java] Caused by: org.apache.ws.security.WSSecurityException: An unsupported signature or encryption algorithm was used (unsupported key transport encryption algorithm: No such algorithm: http://www.w3.org/2001/04/xmlenc
-
-#rsa-oaep-mgf1p); nested exception is:  
+[java] Caused by: org.apache.ws.security.WSSecurityException: An unsupported signature or encryption algorithm was used (unsupported key transport encryption algorithm: No such algorithm: http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p); nested exception is:  
 
 [java] java.security.NoSuchAlgorithmException: Cannot find any provider supporting RSA/ECB/OAEPPadding  
 
@@ -114,6 +113,7 @@ Total time: 4 seconds
 
 
 ### II.3. Deploying the Proxy Service and Policy correctly in WSO2 ESB.
+
 The Proxy Service used for the Sample 100 is placed in `$WSO2ESB_HOME/repository/samples/synapse_sample_100.xml` and if you open the `synapse_sample_100.xml` you can check that it uses `policy_3.xml` as definition of the Security Policy.  
 To deploy it and start the WSO2 ESB we have to execute from `$WSO2ESB_HOME/bin/` the following:
 
@@ -163,9 +163,11 @@ Where:
 3\. The Proxy Service removes the special Headers related to encryption in the Out Sequence. This is perfect for us because we will see in text plain the SOAP response message.
 
 ## III. Executing the Sample 100.
+
 Now, we are ready to run the sample 100.
 
 ### III.1. Compile and deploy the SecureStockQuoteService (backend service)
+
 
 ```sh  
 $ cd ~/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/src/SecureStockQuoteService  
@@ -203,6 +205,7 @@ Total time: 1 second
 
 
 ### III.2. Run the Axis2 Server
+
 
 ```sh  
 $ cd ~/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server  
@@ -256,9 +259,11 @@ Using AXIS2 Configuration : /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/
 
 
 ### III.3. Check if backend was deployed successfully in Axis2 Server
+
 Open Axis2 Server (`http://localhost:9000/services`) to list the deployed services. You should see the following: ![SecureStockQuoteService deployed successfully on Axis2 Server]({{ site.baseurl }}/assets/wso2esb-sample100-secure-backend-axis2-02-axis2server.png) SecureStockQuoteService deployed successfully on Axis2 Server Also, check the WSDL: `http://localhost:9000/services/SecureStockQuoteService?wsdl`
 
 ### III.4. Run the Axis2 Client for the Sample 100
+
 The idea behind of this sample is that the Axis2 Client calls to Proxy Service (the `StockQuoteProxy` in WSO2 ESB) and sends a SOAP unsecure message, the Proxy Service receives the SOAP message and adds specials Headers required for the backend and also defined for the `policy_3.xml`.
 
 ```sh  
@@ -339,6 +344,7 @@ That indicates that everything goes well.
 Now What?. Well, we are ready to understand what are happening behind of this Sample 100.
 
 ## IV. What use case are we implementing?
+
 Above, in the first diagram we can see the scenario being implemented with the Sample 100, where we are using a WSO2 Synapse Proxy to hide the complex part related with cryptography. But if we uncover this scenario and do see in depth, then we could play further more. Below in the diagram you will see what we can do further with this sample. ![Going beyond with WSO2 ESB Sample 100]({{ site.baseurl }}/assets/wso2esb-sample100-secure-backend-axis2-03-extended-scenarios.png) Going beyond with WSO2 ESB Sample 100 We could try 3 new flows:
 1. Send a SOAP request to SecureStockQuoteService using the new standalone Service Proxy (MyProxySample100) instead of the Synapse Sample 100 definition.
 2. Send a SOAP request to SecureStockQuoteService using the existing Axis2 Client (stockquote) using the new Proxy EndPoint.
@@ -346,6 +352,7 @@ Above, in the first diagram we can see the scenario being implemented with the S
 But even you do want to go further, I recommend the blog post of Sagara Gunathunga (Technical Leader of WSO2 Inc). There, Sagara explains in the first part the different use cases to apply WS-Security in Backend: http://ssagara.blogspot.co.uk/2013/07/wso2-esb-set-ws-security-ut-user-names.html I think that this post is great to get starting with WS-Security and WS-Policy in WSO2 ESB and hope this is also useful for you.
 
 ## V. Using a standalone Service Proxy instead of run WSO2 ESB with the Synapse definition
+
 WSO2 ESB has a lot of samples, more than 100 synapse samples, you can check them here `$WSO2ESB_HOME/repository/samples/` and here `https://docs.wso2.com/display/ESB481/Samples` for further details. But what I hate about this is run every time WSO2 ESB to load a single sample. Said that, why not convert the existing synapse-sample to a standalone synapse proxy where it can be deployed in runtime. This will avoid restart the WSO2 ESB and update the standalone directly on WSO2 ESB. Well, doing this is easy, below you can see the existing synapse proxy definition (check point II.3 or check synapse_sample_100.xml) and a little below the final standalone proxy.
 
 ```xml  
@@ -443,6 +450,7 @@ Also this could be also loaded as a resource stored in WSO2 ESB Local Registry.
 * Added a Log Mediator for tracking purposes.
 
 ## VI. Calling to the Backend from SoapUI using the new Proxy
+
 Using the new proxy, we gain flexibility and reduce complexity when creating SOAP messages where the backend requires WS-Security. Now, we can create a simple SOAP request message and the WSO2 ESB will add the required WS-Security headers and also will remove WS-Security headers to the SOAP response message. Then, create a new Project in SoapUI using the WSDL of Backend, remember, the backend is deployed in Axis2 Server and its WSDL is `http://localhost:9000/services/SecureStockQuoteService?wsdl`, for further details check the point III.3. (Check if backend was deployed successfully in Axis2 Server). The idea is to know how to create SOAP request messages to be sent to backend (Axis2 Server). ![]({{ site.baseurl }}/assets/wso2esb-sample100-secure-backend-axis2-04-soapui-axis2.png) Below you can see the request and response messages sent and received from backend.
 
 ![]({{ site.baseurl }}/assets/wso2esb-sample100-secure-backend-axis2-05-soapui-axis2-req-resp.png)
@@ -512,46 +520,24 @@ The successfully messages in WSO2 ESB side:
 
 [2015-03-18 00:02:22,807] INFO - LogMediator [MyProxySample100] = ===== outSeq ===== [MyProxySample100]  
 
-[2015-03-18 00:02:22,808] INFO - LogMediator [Header OUT] = <wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" soapenv:mustUnderstand="1"><wsu:Timestamp xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="Timestamp-49"><wsu:Created>2015-03-18T00:02:22.787Z</wsu:Created><wsu:Expires>2015-03-18T00:07:22.787Z</wsu:Expires></wsu:Timestamp><xenc:EncryptedKey xmlns:xenc="http://www.w3.org/2001/04/xmlenc
-
-#" Id="EncKeyId-6AFA2EA8E349AA0F54142663694279285"><xenc:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p"></xenc:EncryptionMethod><ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">  
-<wsse:SecurityTokenReference><wsse:KeyIdentifier EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0
-
-#Base64Binary" ValueType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509SubjectKeyIdentifier">Xeg55vRyK3ZhAEhEf+YT0z986L0=</wsse:KeyIdentifier></wsse:SecurityTokenReference>  
-</ds:KeyInfo><xenc:CipherData><xenc:CipherValue>MKh6EptMTgOBuw8eMwGpx+g2tzI2JjeBXGsjNCp5q4V9PC1mP0KxiHc4Kw9kF3iycKY9+Xfo+SMLbt7cVumAxylpiNy4lrlNwBDL/P3dBzDIi/mPG3OkuGS6TD/qz0v3ggQDi6QnzvJ97ZvGEUX+szQ/onnsAmtjIVSuOoYBehU=</xenc:CipherValue></xenc:CipherData><xenc:ReferenceList><xenc:DataReference URI="
-
-#EncDataId-51"></xenc:DataReference></xenc:ReferenceList></xenc:EncryptedKey><ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" Id="Signature-50">  
+[2015-03-18 00:02:22,808] INFO - LogMediator [Header OUT] = <wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" soapenv:mustUnderstand="1"><wsu:Timestamp xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="Timestamp-49"><wsu:Created>2015-03-18T00:02:22.787Z</wsu:Created><wsu:Expires>2015-03-18T00:07:22.787Z</wsu:Expires></wsu:Timestamp><xenc:EncryptedKey xmlns:xenc="http://www.w3.org/2001/04/xmlenc#" Id="EncKeyId-6AFA2EA8E349AA0F54142663694279285"><xenc:EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p"></xenc:EncryptionMethod><ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">  
+<wsse:SecurityTokenReference><wsse:KeyIdentifier EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary" ValueType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509SubjectKeyIdentifier">Xeg55vRyK3ZhAEhEf+YT0z986L0=</wsse:KeyIdentifier></wsse:SecurityTokenReference>  
+</ds:KeyInfo><xenc:CipherData><xenc:CipherValue>MKh6EptMTgOBuw8eMwGpx+g2tzI2JjeBXGsjNCp5q4V9PC1mP0KxiHc4Kw9kF3iycKY9+Xfo+SMLbt7cVumAxylpiNy4lrlNwBDL/P3dBzDIi/mPG3OkuGS6TD/qz0v3ggQDi6QnzvJ97ZvGEUX+szQ/onnsAmtjIVSuOoYBehU=</xenc:CipherValue></xenc:CipherData><xenc:ReferenceList><xenc:DataReference URI="#EncDataId-51"></xenc:DataReference></xenc:ReferenceList></xenc:EncryptedKey><ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" Id="Signature-50">  
 <ds:SignedInfo>  
-<ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n
-
-#"></ds:CanonicalizationMethod>  
-<ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig
-
-#rsa-sha1"></ds:SignatureMethod>  
-<ds:Reference URI="
-
-#Id-1182881922">  
+<ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"></ds:CanonicalizationMethod>  
+<ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"></ds:SignatureMethod>  
+<ds:Reference URI="#Id-1182881922">  
 <ds:Transforms>  
-<ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n
-
-#"></ds:Transform>  
+<ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"></ds:Transform>  
 </ds:Transforms>  
-<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig
-
-#sha1"></ds:DigestMethod>  
+<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>  
 <ds:DigestValue>81sPsUuNFAhrmLmb4nbfBDbNuj0=</ds:DigestValue>  
 </ds:Reference>  
-<ds:Reference URI="
-
-#Timestamp-49">  
+<ds:Reference URI="#Timestamp-49">  
 <ds:Transforms>  
-<ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n
-
-#"></ds:Transform>  
+<ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"></ds:Transform>  
 </ds:Transforms>  
-<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig
-
-#sha1"></ds:DigestMethod>  
+<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>  
 <ds:DigestValue>UlzoM6XGNsWviJUaLGYjj/WqaGk=</ds:DigestValue>  
 </ds:Reference>  
 </ds:SignedInfo>  
@@ -561,9 +547,7 @@ P3ZrLqFBUSOrZUVx4faHBoX2Wyd0CVDMgT+S9XxDN+y88Bkyftep1I3j77rvX0eoTwbCrcoVB/KY
 OruuM37y92qDjrI6sew=  
 </ds:SignatureValue>  
 <ds:KeyInfo Id="KeyId-6AFA2EA8E349AA0F54142663694278882">  
-<wsse:SecurityTokenReference xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="STRId-6AFA2EA8E349AA0F54142663694278883"><wsse:KeyIdentifier EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0
-
-#Base64Binary" ValueType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509SubjectKeyIdentifier">CuJdE1B2dUFd1dkLZSzQ5vj6MYg=</wsse:KeyIdentifier></wsse:SecurityTokenReference>  
+<wsse:SecurityTokenReference xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="STRId-6AFA2EA8E349AA0F54142663694278883"><wsse:KeyIdentifier EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary" ValueType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509SubjectKeyIdentifier">CuJdE1B2dUFd1dkLZSzQ5vj6MYg=</wsse:KeyIdentifier></wsse:SecurityTokenReference>  
 </ds:KeyInfo>  
 </ds:Signature></wsse:Security>  
 
@@ -578,6 +562,7 @@ Wed Mar 18 00:02:22 GMT 2015 SecureStockQuoteService :: Generating quote for : I
 
 
 ## VII. Calling to Backend directly from the Axis2 Client
+
 Sometimes It is necessary to call directly to the secured backend without using WSO2 Proxy Service because maybe I like to know how to compose a request message using WS-Security or to check the health of this service or simply to learn how to create a Axis2 Client using WS-Security.  
 So if that is the case, below I explain how to run the Axis2 Client to call to the secured backend and setting a new security policy and EndPoint.
 It is very important for this section you have deployed the Bouncly Castle library (cryptographic provider) to avoid errors.  
@@ -781,6 +766,7 @@ Mon Mar 09 23:15:59 GMT 2015 SecureStockQuoteService :: Generating quote for : I
 
 
 ## IIX. Conclusions
+
 I hope this has been useful and you were able to understand what is happening behind the execution of this example and can improve the security of their web services.  
 Now, you are ready to play with:
 * WS-Security with UserToken over Transport.

@@ -19,6 +19,7 @@ I provide a new Github repository with all the updated scripts required for this
 I would like to mention that this work is based on `https://github.com/twobitcircus/rpi-build-and-boot` where I've created a Vagrantfile for VirtualBox, tweaked the Ansible Playbook and I have documented the process I've followed to make it work successfully in my environment (VirtualBox instead of Parallels and booting from NFS).
 
 ## Requirements:
+
 I'm using a Mac OS X (El Capitan - Version 10.11.3) with the next tools:
 * VirtualBox 5.0.16
 * Vagrant 1.8.1
@@ -29,6 +30,7 @@ I'm using a Mac OS X (El Capitan - Version 10.11.3) with the next tools:
 * OpenFramework for cross-compiling (http://openframeworks.cc)
 
 ### Why _Ansible_ instead of other configuration management tools ?
+
 Why Ansible (http://docs.ansible.com/ansible/intro_installation.html) instead of other configuration management tools as Puppet, Chef, ...?. Because, Ansible is simple and agentless; you can use it with just with a simple SSH terminal, nothing special is required to be installed in the Host, also because it is written in Python and as you have seen in my previous post, I'm using intensively Python and it is becoming my favorite programming language. You can install Ansible using the same Python installation tools and obviously, you can `import ansible` from your Python scripts.  
 To install Ansible on Mac OS X (El Capitan - Version 10.11.3) is easy, just follow these steps:
 
@@ -91,10 +93,10 @@ Just if `mirrordirector.raspbian.org` mirror is not available, remove `http://mi
 pi@raspberrypi ~ $ sudo nano /etc/apt/sources.list
 
 #deb http://mirrordirector.raspbian.org/raspbian/ jessie main contrib non-free rpi  
+
 deb http://ftp.cica.es/mirrors/Linux/raspbian/raspbian/ jessie main contrib non-free rpi
 
 # Uncomment line below then 'apt-get update' to enable 'apt-get source'  
-
 
 #deb-src http://archive.raspbian.org/raspbian/ jessie main contrib non-free rpi  
 ```
@@ -183,24 +185,23 @@ $ vagrant plugin install vagrant-vbguest
 ```
 **3\. Create a new`Vagrantfile` with VirtualBox as provider in the same folder `rpi-build-and-boot`**
 
-```ruby
+```ruby  
 
 # -*- mode: ruby -*-  
 
-
 # vi: set ft=ruby :
-Vagrant.configure(2) do |config|
+Vagrant.configure(2) do |config|  
 
 # https://atlas.hashicorp.com/ubuntu/boxes/trusty64 [Official Ubuntu Server 14.04 LTS (Trusty Tahr) builds]  
+
 config.vm.box = "ubuntu/trusty64"  
 config.vm.provider "virtualbox" do |vb|  
 config.vbguest.auto_update = true  
 vb.customize ["modifyvm", :id, "\--memory", "6144"]  
 vb.customize ["modifyvm", :id, "\--cpus", "4"]  
-end
+end  
 
 # If you want to use this system to netboot Raspberry Pi, then uncomment this line  
-
 
 #config.vm.network "public_network", bridge: "en4: mac-eth0", ip: "10.0.0.1"  
 config.vm.network "public_network", bridge: "ask", ip: "10.0.0.1"  
@@ -233,9 +234,10 @@ $ diskutil unmountDisk /dev/disk3
 $ ./tool.py netboot 2015-09-24-raspbian-jessie-of2.img /dev/rdisk3
 2015-09-24-raspbian-jessie-of2.img /dev/rdisk3 10.0.0.101  
 The following partitions will be destroyed  
-/dev/disk3 (external, physical):
+/dev/disk3 (external, physical):  
 
 #: TYPE NAME SIZE IDENTIFIER  
+
 0: FDisk_partition_scheme *4.0 GB disk3  
 1: Windows_FAT_32 boot 58.7 MB disk3s1  
 2: Linux 3.9 GB disk3s2
@@ -306,10 +308,12 @@ tasks:
 \- lineinfile: dest=/etc/rc.local line="mount /opt/raspberrypi/boot" insertbefore="exit 0"
 
 # the rpi is unbootable unless it is told not to mount the root filesystem from the card!. also added dns to cmdline.txt and iptables filter.  
+
 \- lineinfile: dest=/opt/raspberrypi/root/etc/fstab regexp="^\/dev\/mmcblk0p2" state="absent"  
 \- replace: dest=/opt/raspberrypi/boot/cmdline.txt regexp="rootwait$" replace="dwc_otg.lpm_enable=0 console=ttyAMA0,115200 kgdboc=ttyAMA0,115200 console=tty1 elevator=deadline root=/dev/nfs rootfstype=nfs nfsroot=10.0.0.1:/opt/raspberrypi/root,udp,vers=3 rw fsck.repair=no rootwait ip=10.0.0.101:10.0.0.1:10.0.0.1:255.255.255.0:rpi:eth0:off:8.8.4.4:8.8.8.8 smsc95xx.turbo_mode=N" backup="no"
 
 # build helpies  
+
 \- file: path=/opt/RPI_BUILD_ROOT state=directory  
 \- file: src=/opt/raspberrypi/root/etc dest=/opt/RPI_BUILD_ROOT/etc state=link  
 \- file: src=/opt/raspberrypi/root/lib dest=/opt/RPI_BUILD_ROOT/lib state=link  
@@ -345,9 +349,10 @@ tasks:
 \- copy: src=build_cross_gcc.sh dest=/tmp/CROSS_BUILD_TOOLS/build_cross_gcc.sh mode=0744  
 \- shell: /tmp/CROSS_BUILD_TOOLS/build_cross_gcc.sh chdir=/tmp/CROSS_BUILD_TOOLS creates=/opt/cross/bin/arm-linux-gnueabihf-g++
 \- lineinfile: dest="/home/vagrant/.profile" line="export GST_VERSION=1.0"  
-\- lineinfile: dest="/home/vagrant/.profile" line="export RPI_ROOT=/opt/raspberrypi/root"
+\- lineinfile: dest="/home/vagrant/.profile" line="export RPI_ROOT=/opt/raspberrypi/root"  
 
 #######- lineinfile: dest="/home/vagrant/.profile" line="export RPI_BUILD_ROOT=/opt/RPI_BUILD_ROOT"  
+
 \- lineinfile: dest="/home/vagrant/.profile" line="export TOOLCHAIN_ROOT=/opt/cross/bin"  
 \- lineinfile: dest="/home/vagrant/.profile" line="export PLATFORM_OS=Linux"  
 \- lineinfile: dest="/home/vagrant/.profile" line="export PLATFORM_ARCH=armv7l"  
@@ -358,9 +363,8 @@ tasks:
 \- command: chown -R vagrant /opt/raspberrypi/root/opt/{{of_version}}
 
 # forwarding traffic from eth0 (internet) to eth1 (rpi connection) with iptables  
-\- replace: dest=/etc/sysctl.conf regexp="^
 
-#net.ipv4.ip_forward=1$" replace="net.ipv4.ip_forward=1"  
+\- replace: dest=/etc/sysctl.conf regexp="^#net.ipv4.ip_forward=1$" replace="net.ipv4.ip_forward=1"  
 \- shell: /bin/echo 1 > /proc/sys/net/ipv4/ip_forward  
 \- command: iptables -A FORWARD -o eth0 -i eth1 -m conntrack --ctstate NEW -j ACCEPT  
 \- command: iptables -A FORWARD -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT  

@@ -7,44 +7,43 @@ tags:       ['CAS', 'Liferay', 'SSO']
 status:     publish 
 permalink:  "/2011/07/29/sso-cas-ified-java-webapp-liferay/"
 ---
-
-
 ## 1\. Introduction
 When working a Liferay Portal in Organizations with existing web applications, generally new web applications will need to be integrated in current Authentication and Web-SSO service.
 This document explains how to create new java web applications knowing that they will use the AuthN service and will Web-SSO with Liferay.
 Although, this document is for new java web applications, existing web applications (based in java, php,. net, ruby, ...) can also use it as this document explains the most important steps to perform.  
 This document can be taken as a set of best practices (including source code) when you want to integrate with CAS.
 **Note:**
-* This document does not say how to do Single-Sign Out or logout, only Single-Sign On or login.
+* This document does not say how to do Single-Sign Out or logout, only Single-Sign On or login.  
 
 ## 2\. Use cases when CAS-ifying web applications
 
-
 ### Use case #1: Authentication
 
-[caption id="" align="alignnone" width="487" caption="Use case
-
-#1: Authentication"][![Use case #1: Authentication]({{ site.baseurl }}/assets/sso-liferay-casified-webapp_1usecaseauth.png)](http://dl.dropbox.com/u/2961879/blog20110728_sso_liferay_cas_ified_javawebapps/sso-liferay-casified-webapp_1usecaseauth.png)[/caption]
-
+[caption id="" align="alignnone" width="487" caption="Use case #1: Authentication"][![Use case #1: Authentication]({{ site.baseurl }}/assets/sso-liferay-casified-webapp_1usecaseauth.png)](http://dl.dropbox.com/u/2961879/blog20110728_sso_liferay_cas_ified_javawebapps/sso-liferay-casified-webapp_1usecaseauth.png)[/caption]
 
 ### Use case #2: Web-SSO
+
 To perform Web-SSO, we will need 2 webapps, the first one is Liferay, and the second one is webappA. Both should be authenticated with CAS-server.  
 The main difference between authentication and web-sso processes is that CAS shares authenticated session through CAS Service Manager.
 
 ### Use case #3: Web Single Sign Off or Single Log Out
+
 Single Sign Out or Single Log Out means that CAS-server contacts each webapp and notifies them that you have logged out. Then you should invalidate or delete all cookies stored in your web browser.  
 This protocol is implemented in Java CAS client library only.
 
 ### Use case #4: Logout
+
 To perform a logout means (involves) to close authenticated session in CAS-server side. Afterwards, you will need to make sure that the cookie does not exist in your web browser.
 
 ## 3\. Process of installation and deployment of a CAS-ified webapp
+
 When you install and deploy any web application in an environment where Web-SSO is enabled, you should to following steps.
 
 [caption id="" align="alignnone" width="507" caption="Task to do with/in CAS-ified webapp"][![Task to do with/in CAS-ified webapp]({{ site.baseurl }}/assets/sso-liferay-casified-webapp_2process.png)](http://dl.dropbox.com/u/2961879/blog20110728_sso_liferay_cas_ified_javawebapps/sso-liferay-casified-webapp_2process.png)[/caption]  
 Generally, the steps 1, 2 and 3 have already been made and it is only pending to how to configure CAS-client, CAS-service manager, java webapp, etc.
 
 ### CAS service manager
+
 It is necessary to define an URL for identify the new web application. This URL will be called the “URL Service”:
 * Identify the CAS-ified webapp trying to authenticate in CAS-server. In almost all cases, this will be the URL of the web application.  
 * In a successfully login process is used to redirect web browser to URL specified.  
@@ -56,6 +55,7 @@ To replace the URL/IP for yours.
 [caption id="" align="alignnone" width="590" caption="Define URL to filter webapp to perform SSO"][![Define URL to filter webapp to perform SSO]({{ site.baseurl }}/assets/sso-liferay-casified-webapp_4cassrvmngr.png)](http://dl.dropbox.com/u/2961879/blog20110728_sso_liferay_cas_ified_javawebapps/sso-liferay-casified-webapp_4cassrvmngr.png)[/caption]
 
 ### Develop your Java Webapp and configure Tomcat
+
 Firstly, you have to design your scenario to do Web-SSO. In this case, We have 3 servers:
 * lfry01 or svdapp85 (IP 192.168.56.101, HTTP port 6060): Liferay Portal 
 * lfry02 (IP 192.168.56.102 or IP 10.16.111.135, HTTP port 8080): Tomcat server hosting new CAS-ified Java Web App 
@@ -113,6 +113,7 @@ xmlValidation="false" xmlNamespaceAware="false">
 5\. Test this web application in HTTP and HTTPS mode.
 
 ### Connect your Java Webapp to CAS
+
 _We have created a basic sample of java web application based in JSP ( **webssptest1.war** ). We recommend that you try to deploy and configure this web application before trying something more complex._
 1\. In **blcr00** use existing standard model of authentication based on usr/pwd where both are equals. If Liferay has already used this model, this webapp should follow too.
 2\. In **lfry02** (tomcat **web.xml** ) configure CAS server, to use this sample file:

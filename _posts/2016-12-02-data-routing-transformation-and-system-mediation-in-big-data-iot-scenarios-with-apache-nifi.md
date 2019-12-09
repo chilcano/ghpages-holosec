@@ -16,6 +16,7 @@ Now, after several Big Data and Security projects, I can add to previous solutio
 
 
 ## Using Elasticsearch, Logstash and Kibana
+
 Well, the first approach I considered was starting with [ELK stack](https://www.elastic.co) (Elasticsearch, Logstash and Kibana), that is the natural way to follow.
 
 ![https://holisticsecurity.files.wordpress.com/2016/12/02-wifi-traffic-capture-elasticsearch-logstash-kibana.png]({{ site.baseurl }}/assets/02-wifi-traffic-capture-elasticsearch-logstash-kibana.png)
@@ -35,6 +36,7 @@ But, there are still some issues to face:
 Then, what can I do ?....
 
 ## Apache NiFi to the rescue!
+
 
 ![https://holisticsecurity.files.wordpress.com/2016/12/03-apache-nifi-logo.png]({{ site.baseurl }}/assets/03-apache-nifi-logo.png)
 I was involved in several Integration Project where I frequently used [WSO2 ESB](http://wso2.com/products/enterprise-service-bus/).

@@ -12,6 +12,7 @@ Message Brokering es el conjunto de mecanismos por el cual se gestiona la recepc
 *  **Confiabilidad** : A nivel de transacción y de persistencia.
 
 ## 1\. Casos de uso y beneficios
+
 Los beneficios son palpables, como por ejemplo:
 *  **Comunicación Síncrona/Asíncrona/Colas** : Hacer una solicitud (enviar un mensaje) y que te respondan después de cierto tiempo.
 *  **Persistencia de mensajes** : Hacer una solicitud y que la petición siga viva a pesar de que los sistemas no hayan estado operativos después de haber realizado la solicitud, almacenar de manera persistente los mensajes de las solicitudes excedentes efectuadas a un servicio o simplemente, almacenar con gran rapidez y garantía los mensajes de las solicitudes realizadas.
@@ -25,6 +26,7 @@ Hay diferentes casos de uso o escenarios donde son necesarios los Message Broker
 [caption id="" align="alignnone" width="751"]![Message Broker - Publicación y Suscripción]({{ site.baseurl }}/assets/chakray-message-broker-pubsub-store.png) Message Broker - Publicación y Suscripción[/caption]
 
 ## 2\. Message Brokers en el mundo real: Big Data
+
 Dependiendo del tipo de mensaje y del tipo de clientes existen muchos tipos de Message Brokers, algunos por ejemplo:
 * Sensores (clientes MB)
 * Monitorización (cliente suscriptor MB)
@@ -43,6 +45,7 @@ Entre los productos free/open source más usados tenemos:
 7. ActiveMQ Apollo (http://activemq.apache.org/apollo): es la nueva generación de Apache ActiveMQ que soporte protocolos como STOMP, AMQP, MQTT, Openwire, SSL y WebSockets.
 
 ## 3\. Escalando los Message Broker Systems
+
 Para escalar un Broker debemos considerar 3 dimensiones:
 * Número de mensajes soportados
 * Número de colas soportadas
@@ -52,12 +55,14 @@ Más información aquí:
 * Scalable Persistent Message Brokering with WSO2 Message Broker by Srinath Perera: <http://www.slideshare.net/hemapani/scalable-persistent-message-brokering-with-wso2-message-broker>
 
 ## 4\. Implementando Message Store EIP con WSO2
+
 En mi opinión, el uso de Message Broker para controlar la persistencia de mensajes es vital en Sistemas de Información Críticos. ¿De qué sirve si podemos recibir y/o entregar mensajes de manera muy rápida, si por algún problema de conectividad algunos mensajes se perderían?. Como indiqué líneas arriba, esto no es admitible en Sistemas de Información Críticos, por lo que lo el uso de Message Broker y sus características como la persistencia de mensajes es vital.
 En fin, a continuación implementaremos Message Store EIP con WSO2.
 
 [caption id="" align="alignnone" width="643"][![Enterprise Integration Pattern - Message Store]({{ site.baseurl }}/assets/chakray-message-broker-eip-messagestore.gif)](http://www.eaipatterns.com/MessageStore.html) Enterprise Integration Pattern - Message Store[/caption]
 
 ## 5\. Arquitectura de Referencia para Message Brokering y estrategias de integración
+
 Existen dos posibilidades de implementar Message Store EIP con WSO2, la primera únicamente con WSO2 ESB y la segunda con WSO2 ESB y WSO2 MB (Message Broker). En ambas configuraciones podemos implementar Message Store EIP con algunas pequeñas diferencias técnicas, aprovechando que WSO2 ESB está basado en Apache Synapse (https://synapse.apache.org), podemos mediar las peticiones y los mensajes haciendo que se persistan en diferentes tipos de medios ([WSO2 ESB Store - Mediator](https://docs.wso2.org/display/ESB481/Store+Mediator "WSO2 ESB - Store Mediator")), como:
 * In Memory Message Store (https://docs.wso2.org/display/ESB481/In+Memory+Message+Store): Es el almacenamiento por defecto, al reiniciar el ESB los mensajes se perderán. Al ser en memoria, es el más rápido que todos. Muy usado si queremos almacenamiento y entrega de alta-velocidad.
 * JMS Message Store (https://docs.wso2.org/display/ESB481/JMS+Message+Store)
@@ -69,6 +74,7 @@ Durante mis pruebas con WSO2 ESB 4.8.1 me he encontrado que la funcionalidad de 
 Antes de desarrollar cada escenarios, vamos a explicar cómo configurar WSO2 ESB con WSO2 MB.
 
 ###  5.1. Instalación y configuración de WSO2 ESB y WSO2 MB
+
 Para poder conectar WSO2 ESB con los Brokers, es necesario que estos implementen Java Message Service (JMS), conectando un Broker facilita comunicación desacoplada, confiable y asíncrona entre los diferentes componentes de un sistema distribuido.
 WSO2 ESB puede conectarse con:
 * ActiveMQ
@@ -122,19 +128,15 @@ java.net.SocketTimeoutException: Read timed out]
 5) Una vez WSO2 ESB y WSO2 MB (con Apache Cassandra embebida) iniciados, explore ambos servicios. Más información sobre configuración seguir la documentación oficial: <https://docs.wso2.org/display/ESB481/Configure+with+WSO2+Message+Broker>
 
 ###  5.2. Implementación de escenarios
+
 Los escenarios a implementar serán:
-* Escenario
-
-#1: Hacer una petición a un HTTP Proxy y almacenar el mensaje en un Message Store de tipo in memory. 
-* Escenario
-
-#2: Hacer una petición a un HTTP Proxy y almacenar el mensaje en una Cola del WSO2 MB. 
-* Escenario
-
-#3: Hacer una petición a un HTTP Proxy que hace de interfaz de un JMS Proxy. 
+* Escenario #1: Hacer una petición a un HTTP Proxy y almacenar el mensaje en un Message Store de tipo in memory. 
+* Escenario #2: Hacer una petición a un HTTP Proxy y almacenar el mensaje en una Cola del WSO2 MB. 
+* Escenario #3: Hacer una petición a un HTTP Proxy que hace de interfaz de un JMS Proxy. 
 WSO2 ESB viene con muchos ejemplos, entre ellos los relacionados a persistencia y entrega de mensajes. Toda la información para ejecutar los ejemplos puede ser encontrado aquí: <https://docs.wso2.org/display/ESB481/Store+and+Forward+Messaging+Patterns+with+Message+Stores+and+Processors>.
 
 ####  5.2.1. Escenario #1: Petición a un HTTP Proxy y almacenamiento del mensaje en un In Memory Message Store
+
 En este escenario almacenaremos el mensajes en un Message Store de tipo In Memory, es un almacenamiento muy rápido pero tiene la desventaja de que es volatil, es decir, si reiniciamos WSO2 ESB, los mensajes se perderán.
 
 [caption id="" align="alignnone" width="698"][![Message Store EIP with WSO2 ESB]({{ site.baseurl }}/assets/chakray-messagebroker-messagestore-arq1.png)](http://chakray.com) Message Store EIP with WSO2 ESB[/caption]
@@ -181,6 +183,7 @@ startOnLoad="true">
 [caption width="1024" align="alignnone"]![WSO2 ESB - Browsing stored messages]({{ site.baseurl }}/assets/chakray-wso2mb-ob-inmemory-storemsgs.png) WSO2 ESB - Browsing stored messages[/caption]
 
 ####  5.2.2. Escenario #2: Petición a un HTTP Proxy y almacenamiento del mensaje en WSO2 MB
+
 En este escenario introduciremos WSO2 MB para que sea él que gestione los mensajes, peticiones y entrega. En este caso configuraremos WSO2 ESB indicándole que el nuevo Broker será WSO2 MB.
 
 [caption id="" align="alignnone" width="698"][![Message Store EIP with WSO2 ESB and WSO2 Message Broker]({{ site.baseurl }}/assets/chakray-messagebroker-messagestore-arq2.png)](http://chakray.com) Message Store EIP with WSO2 ESB and WSO2 Message Broker[/caption]
@@ -188,16 +191,14 @@ Pasos:
 1) Detenga WSO2 ESB.
 2) Edite el fichero /repository/conf/jndi.properties y apunte al WSO2 MB (considere el port offset). Usar carbon como virtualhost en lugar de test. Comente el topic si no es usado, pero para evitar el error javax.naming.NameNotFoundException: TopicConnectionFactory, también configurar TopicConnectionFactory apuntando al Message Broker de igual forma que QueueConnectionFactory. El fichero quedaría así:
 
-[sourcecode language="xml" gutter="true" wraplines="false"]
+[sourcecode language="xml" gutter="true" wraplines="false"]  
 
 # register some connection factories  
-
 
 # connectionfactory.[jndiname] = [ConnectionURL]  
 connectionfactory.QueueConnectionFactory = amqp://admin:admin@clientID/carbon?brokerlist='tcp://localhost:5677'
 
 # register some queues in JNDI using the form  
-
 
 # queue.[jndiName] = [physicalName]  
 queue.proxy_openbravo1_qpid_queue = proxy_openbravo1_qpid_queue  
@@ -205,17 +206,15 @@ queue.msgstore_openbravo_wso2mb = msgstore_openbravo_wso2mb
 
 # register some topics in JNDI using the form  
 
-
 # topic.[jndiName] = [physicalName]  
-connectionfactory.TopicConnectionFactory = amqp://admin:admin@clientID/carbon?brokerlist='tcp://localhost:5677'
+connectionfactory.TopicConnectionFactory = amqp://admin:admin@clientID/carbon?brokerlist='tcp://localhost:5677'  
 
 # topic.MyTopic = example.MyTopic  
 
+
 [/sourcecode]
 Donde:
-* proxy_openbravo1_qpid_queue es una cola que usaremos en el escenario
-
-#3 
+* proxy_openbravo1_qpid_queue es una cola que usaremos en el escenario #3 
 * msgstore_openbravo_wso2mb es la cola que nos permitirá almacenar los mensajes en WSO2 MB 
 3) Iniciar WSO2 ESB.
 4) En WSO2 ESB crear un Message Store de tipo In Memory, tal como se muestra en la figura siguiente:
@@ -276,11 +275,10 @@ Si exploramos algún mensaje almacenado en esta cola, veremos que no podemos vis
 [caption width="1024" align="alignnone"]![WSO2 MB - Browsing stored messages in Queue]({{ site.baseurl }}/assets/chakray-escenario2-2-wso2mb-queue-msgs-list.png) WSO2 MB - Browsing stored messages in Queue[/caption]
 
 ####  5.2.3. Escenario #3: Petición a un HTTP Proxy que hace de interfaz de un JMS Proxy.
+
 Este escenario nos permite usar WSO2 ESB como un cliente JMS, es decir, que si queremos interactuar con un JMS Broker, basta con crear un JMS Proxy en WSO2 ESB, luego desde cualquier cliente SOAP (TryIt o SoapUI) podemos interactuar con el JMS Broker sin necesidad de programar un cliente JMS.
 Pasos a seguir:
-1) En el escenario
-
-#2 ya creamos una cola llamada proxy_openbravo1_qpid_queue que usaremos ahora para crear un JMS Proxy.
+1) En el escenario #2 ya creamos una cola llamada proxy_openbravo1_qpid_queue que usaremos ahora para crear un JMS Proxy.
 2) Detener WSO2 ESB, luego habilitar el transport JMS (sender y receiver), para ello edite el fichero /repository/conf/axis2/axis2.xml. Luego identifique el bloque para WSO2 MB 2.x y descomente el bloque. En el mismo fichero, descomente el bloque para JMSSender.
 3) Reiniciar WSO2 ESB, luego crear 2 Proxies en WSO2 ESB (HTTP Proxy que recibirá petición SOAP, que luego reenviará el mismo mensaje al Queue Proxy usando transporte JMS).
 proxy_openbravo1_qpid_proxy:  

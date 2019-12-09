@@ -22,7 +22,6 @@ Well, this first blog post I will explain how to use ELK to collect, store and v
 
 ## Part I: ELK (Elasticsearch, Logstash, Kibana)
 
-
 ### 1\. Starting with ELK Docker Container
 **1) Prepare the ELK container**
 We gonna use an existing Docker Image with ELK created by [Sébastien Pujadas](https://github.com/spujadas) `(http://elk-docker.readthedocs.org)` previously configured ready to be used. This Docker Image contains:  
@@ -95,10 +94,9 @@ $ docker-machine env default
 export DOCKER_TLS_VERIFY="1"  
 export DOCKER_HOST="tcp://192.168.99.100:2376"  
 export DOCKER_CERT_PATH="/Users/Chilcano/.docker/machine/machines/default"  
-export DOCKER_MACHINE_NAME="default"
+export DOCKER_MACHINE_NAME="default"  
 
 # Run this command to configure your shell:  
-
 
 # eval "$(docker-machine env default)"
 $ eval "$(docker-machine env default)"
@@ -147,17 +145,13 @@ In another terminal execute the next:
 ```sh  
 $ docker exec -it elk /bin/bash
 $ docker exec -it elk /bin/bash  
-root@788b97b04e9b:/
-
-# /opt/logstash/bin/logstash -e 'input { stdin { } } output { elasticsearch { hosts => ["localhost"] } }'  
+root@788b97b04e9b:/# /opt/logstash/bin/logstash -e 'input { stdin { } } output { elasticsearch { hosts => ["localhost"] } }'  
 Settings: Default filter workers: 1  
 Logstash startup completed  
 Hola Chilcano!!  
 ^CSIGINT received. Shutting down the pipeline. {:level=>:warn}
 Logstash shutdown completed  
-root@788b97b04e9b:/
-
-#  
+root@788b97b04e9b:/#  
 ```
 
 In other terminal using cURL or from a browser:
@@ -204,6 +198,7 @@ _Kibana - Viewing a dummy log event_
 ![Kibana - Viewing a dummy log event]({{ site.baseurl }}/assets/blog-chilcano-logs-wso2-docker-elk-rtail-3-kibana-dummy-logs-discovery.png)
 
 ### 2\. Sending WSO2 logs to the ELK Docker container
+
 For this part I will use a Vagrant box with several WSO2 products pre-installed and pre-configured. I explained how to use It in this blog, for further details check that post <https://holisticsecurity.wordpress.com/2015/11/11/creating-a-vm-with-wso2-servers-for-development>.
 > Filebeat is a lightweight, open source shipper for log file data. As the next-generation  
 >  Logstash Forwarder, Filebeat tails logs and quickly sends this information to Logstash  
@@ -314,6 +309,7 @@ $ cd /etc/pki/tls/certs/
 $ sudo wget https://raw.githubusercontent.com/spujadas/elk-docker/master/nginx-filebeat/logstash-beats.crt
 
 ### or from ELK container SCP the *.crt file to Vagrant (open 2222 port).  
+
 $ scp -P 2222 /etc/pki/tls/certs/logstash-beats.crt vagrant@192.168.1.43:/etc/pki/tls/certs/logstash-beats.crt  
 ```
 

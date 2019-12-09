@@ -37,6 +37,7 @@ Well, I will explain on this blog post How this simple concept is being applied 
 
 ## 2\. What is PaaS (Platform as a Service)?
 
+
 ![PaaS definition - Wikipedia]({{ site.baseurl }}/assets/blog-paas-microservice-1-paas-definition.png)
 Wikipedia mentions that `Zimki` was the first `PaaS` and was released in the year 2006. Zimki was an end-to-end JavaScript web application development and utility computing platform that removed all the repetitive tasks encountered when creating web applications and web services. After of Zimki born other:
 * Google App Engine
@@ -49,6 +50,7 @@ I ask myself, Are they really suitable for creating Microservices today?. In my 
 There are good news about that because the main Software Companies are working on that, making them lighter, more agile and versatile, someone are focused to Cloud, to on-Premise, to Containers or to RAD (rapid application development). Just check out Openshift, CloudFoundry, etc.
 
 ## 3\. What's out there?
+
 Well, after searching the internet, the result is a first version of the PaaS list.
 
 ### PaaS

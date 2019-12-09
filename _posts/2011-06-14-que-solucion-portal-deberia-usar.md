@@ -14,12 +14,14 @@ Pero antes definamos qué es Portal, es otra palabra de moda?, Portal o Web Port
 [caption id="" align="alignnone" width="498" caption="Enterprise Portal"]![Enterprise Portal]({{ site.baseurl }}/assets/portal-tipos.png)[/caption]
 
 ## ¿Qué es Portal?
+
 From Wikipedia (http://en.wikipedia.org/wiki/Web_portal): 
 > "A web portal or links page is a web site that functions as a point of access to information on the World Wide Web. A portal presents information from diverse sources in a unified way.  
 > Apart from the standard search engine feature, web portals offer other services such as e-mail, news, stock prices, information, databases and entertainment. Portals provide a way for enterprises to provide a consistent look and feel with access control and procedures for multiple applications and databases, which otherwise would have been different entities altogether.  
-> Examples of public web portals are AOL, Excite, iGoogle, MSN, Netvibes, and Yahoo!."
+> Examples of public web portals are AOL, Excite, iGoogle, MSN, Netvibes, and Yahoo!."  
 
 ## ¿Qué es Software Portal?
+
 From SearchCIO.com (http://searchcio.techtarget.com/definition/portal-software):
 > "Portal software is a type of development tool used to create a portal (starting point) on a company's  
 > intranet so that employees can find a centralized starting place for access to consolidated  
@@ -28,9 +30,10 @@ From SearchCIO.com (http://searchcio.techtarget.com/definition/portal-software):
 > varying degrees of enterprise or individual specificity. Portal software is similar to intranet  
 > software, but the end product typically features more complexity, automation, organization, and  
 > interactivity. Although the end product is sometimes referred to as an intranet portal, it is usually  
-> called an enterprise information"
+> called an enterprise information"  
 
 ## ¿Qué tipo de Portales existen?
+
 Cada vez es más difícil clasificar un Portal bajo una categoría, ya que las mismas categorías están cambiando y los Portales cada vez tienen detalles comunes entre sí.  
 He tomado la definición de tipos de Portales de la www.contentmanager.eu.com que creo es muy amplia y acertada.
 Aquí va:
@@ -49,7 +52,7 @@ Se suele usar para:
 Permite gestionar (crear, modificar, borrar, publicar, compartir, etc.) activos digitales (contenido, documentos, etc.) desde el Portal.  
 Se suele usar para:
 * Hacer check-in, check-out, hacer versionado, bloquear, etc. sobre los documentos. 
-* Realizar un flujo de trabajo sobre los documentos.
+* Realizar un flujo de trabajo sobre los documentos. 
 
 ### 2\. Application Centric Portals vs. Content Centric Portals
 **Application Centric Portals:**  
@@ -70,51 +73,52 @@ Ejemplos:
 Son portales que tratan o muestran información de diferentes tipos y están orientados a todos los públicos.  
 Ejemplos:
 * www.yahoo.com 
-* www.aol.com
+* www.aol.com 
 
 ## ¿Qué tipo de Portal quieres construir?
+
 Por lo visto, a partir de los tipos de portal, una página web personal es un portal y una página de Facebook también.  
-Entonces, lo más conveniente es identificar el portal que queramos implementar y ver si encaja en las definiciones.
+Entonces, lo más conveniente es identificar el portal que queramos implementar y ver si encaja en las definiciones.  
 
 ### Web Dashboard:
 * Mostrar información en tiempo real financiera de la Bolsa de Valores. 
 * Sacar reportes. 
-* Ver histórico de ciertos indicadores.
+* Ver histórico de ciertos indicadores. 
 
 ### Web para formación online:
 * Definir cursos, asociarle un temario, contenidos, pruebas, etc. 
 * Ver actividad de los alumnos de las aulas virtuales. 
 * Permitir la colaboración: en la edición de contenidos, organización, realización de pruebas, etc. 
 * Permitir la comunicación: a través de chat, instant messaging, email, llamadas VoIP, etc. 
-* Poder evaluar.
+* Poder evaluar. 
 
 ### Web para vender productos de manera online:
 * Definir catálogo de productos. 
 * Poder efectuar el pago. 
 * Poder hacer un pedido, un regalo, etc. 
 * Realizar una orden de entrega. 
-* Notificaciones.
+* Notificaciones. 
 
 ### Web de trámites administrativos:
 * Definir el catálogo de trámites. 
 * Tener un "inbox" donde recibiré mis notificaciones con el estado de mis trámites. 
 * Tener una carpeta con todos los trámites que puedo realizar. 
-* Tener una carpeta para poder guardar mis documentos que pueden ser usados en los trámites.
+* Tener una carpeta para poder guardar mis documentos que pueden ser usados en los trámites. 
 
 ### Web blog:
 * Definir categorías, tags relacionados a temas. 
 * Editor que permita componer artículos en mi blog. 
 * Tener elementos que me permita valorar la calidad, su aceptación, su importancia o simplemente que permita indicar si le gusta o no a alguien. 
-* Tener herramientas que permitan hacer difusión de los artículos publicados en el blog.
+* Tener herramientas que permitan hacer difusión de los artículos publicados en el blog. 
 
 ### Intranet:
 * Poder acceder al respositorio documental de la organización. 
 * Poder acceder al correo electrónico, instant messaging, al chat, al blog, etc. 
-* Poder acceder a algunas aplicaciones corporativas como SAP, CRM, ERP, etc.
+* Poder acceder a algunas aplicaciones corporativas como SAP, CRM, ERP, etc. 
 
 ### Web corporativa:
 * Poder crear una estructura de información: quiénes somos, servicios/productos, noticias, contacto, etc. 
-* Es la "carta de presentación" de mi organización en internet y como tal debe poderse encontrar a través de los motores de búsqueda o directorios de internet.
+* Es la "carta de presentación" de mi organización en internet y como tal debe poderse encontrar a través de los motores de búsqueda o directorios de internet. 
 
 ### Red Social:
 * Poder tener un Wall, al estilo de Facebook, donde publicar toda mi actividad. 
@@ -125,6 +129,7 @@ Entonces, lo más conveniente es identificar el portal que queramos implementar 
 De eso se trata el siguiente punto.
 
 ## ¿Qué Software de Portal puedo usar?
+
 Existen muchos productos/software/tecnología para crear el Portal que querramos.  
 Hay 2 líneas de productos bien marcados, la diferencia es si están alineados o no a los estándares de Portales:  
 Los estándares de portales son:
@@ -190,15 +195,18 @@ Sakai OAE: "The Sakai Open Academic Environment is a new system that embraces a 
 ![]({{ site.baseurl }}/assets/logo_14_uportal.jpg)Basado en Apache Pluto, de su web:"uPortal is the leading open source enterprise portal framework built by and for the higher education community."
 
 ## ¿Qué pasa con el software o los productos basados en PHP, Python, Ruby, ... ?
+
 Sí, lo hay, y muy buenos, en un siguiente artículo hablaremos de ellos y veremos su grado de madurez.
 
 ## Entonces, ¿el Software de Portal está listo para ser usado?
+
 Depende del tipo de Portal que quieras implementar, por lo general con los productos de la lista anterior podríamos implementar casi todo con un poco de esfuerzo en personalización y desarrollando algunos componentes a medida.  
 Los Portlets (componentes funcionales que se despliegan en los Portales JSR-168) dotan al portal de algún comportamiento propio del tipo de portal.  
 Por ejemplo, si quiero tener mi propia red social al estilo Facebook, pues primero tendré que instalar la solución de Portal (el contenedor) y luego añadir el/los Portlet/s propios de una red social tales como:  
 Wall Portlet, RSS Reader Portlet, Chat Portlet, YouTube Portlet, etc.
 
 ## ¿Qué características debería tener un software de Portal?
+
 Existen diferentes características, entre ellas están:
 **1\. Content Management**  
 \- Document Library  
@@ -234,9 +242,10 @@ Existen diferentes características, entre ellas están:
 \- Support for portlets frameworks: JSF, Wicket, Spring MVC, ICEfaces, Vaading, ...
 **7\. Ready for Mobility**  
 \- Aplicación móvil nativa  
-\- Usar el móvil como un client liviano.
+\- Usar el móvil como un client liviano.  
 
 ## ¿Cuál es el grado de madurez de cada software de Portal?
+
 Otra vez, depende mucho de las necesidades y los recursos con que se disponen, algunas soluciones de Portal tienen una buena base tecnológica pero carecen de funcionalidades especiales para WCM, por ejemplo.  
 Mientras que otras carecen de funcionalidades relacionadas a Redes Sociales, por lo que hay que crearlas desde cero.  
 Entonces, valoraré cada una de estas soluciones y añadiré aspectos relacionados a la fuerza de la comunidad y el tipo de licenciamiento (Free/Open Source, Commercial Open Source, Proprietary).  
@@ -273,7 +282,7 @@ Tampoco debemos olvidarnos de Jahia, Hippo y eXo, todas son buenas opciones.
 Como producto, pues a nivel tecnológico tiene de todo, sobretodo tiene una perfecta integración con **CAS** (solución de autenticación, autorización y SSO) que también es producto resultado del esfuerzo de su comunidad.  
 Particularmente a mi me ha agradado mucho porque es una alternativa muy ligera de Portal, en comparación con Liferay por ejemplo. Lo es también Hippo Portal (Optimized for low memory footprints and modest hardware requirements: Light-weight Installer 38MB including Tomcat 6, Light-weight Spring Portal Framework) y Apache JetSpeed-2.  
 Finalmente, si queremos crear una solución de Portal más potente y no queremos crearlo desde cero, pues una buena alternativa es usar como base Apache Pluto, Apache JetSpee-2 o JBoss GateIn. Estos tres son buenas implementaciones de los estándares de portales y muchos fabricantes suelen embeber dichos productos en sus productos avanzados.  
-Como es el caso de **Pentaho** (solución de Business Intelligence), el producto embebe JBoss Portal y sobre esto crean un Dashboard.
+Como es el caso de **Pentaho** (solución de Business Intelligence), el producto embebe JBoss Portal y sobre esto crean un Dashboard.  
 
 ## Conclusiones:
 1. Si quieres crear un Portal Corporativo, una Red Social, etc. que sepas que existe software para hacerlo de manera rápida y fácil. 

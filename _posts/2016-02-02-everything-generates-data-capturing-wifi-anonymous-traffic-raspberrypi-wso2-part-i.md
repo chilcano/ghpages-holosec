@@ -30,7 +30,6 @@ Well, now let's get down to work.
 
 ## I.- Enable `monitor` mode in Raspberry Pi
 
-
 ### 1\. Prepare the Raspberry Pi
 Obviously, I have a clean image of Raspbian installed in my Raspberry Pi 2 Model B.  
 The below steps explain how to prepare Raspberry Pi and install and configure Kismet to capture 802.11 anonymous traffic.
@@ -40,9 +39,7 @@ Before to do it, I have to prepare the Raspberry Pi, for example, configure a st
 ```sh  
 $ ssh pi@192.168.1.102  
 pi@192.168.1.102's password:  
-Linux rpi-chicha 3.18.11-v7+
-
-#781 SMP PREEMPT Tue Apr 21 18:07:59 BST 2015 armv7l
+Linux rpi-chicha 3.18.11-v7+ #781 SMP PREEMPT Tue Apr 21 18:07:59 BST 2015 armv7l
 The programs included with the Debian GNU/Linux system are free software;  
 the exact distribution terms for each program are described in the  
 individual files in /usr/share/doc/*/copyright.
@@ -200,9 +197,7 @@ Check the interfaces associated to `phy0`.
 
 ```sh  
 $ sudo iw dev  
-phy
-
-#0  
+phy#0  
 Interface mon0  
 ifindex 6  
 wdev 0x4  
@@ -221,9 +216,7 @@ Now, we need to remove the `wlan0`. If you do that, proably the `mon0` interface
 ```sh  
 $ sudo iw dev wlan0 del
 $ sudo iw dev  
-phy
-
-#0  
+phy#0  
 Interface mon0  
 ifindex 8  
 wdev 0x6  
@@ -243,9 +236,7 @@ Now, if you check the interface in `monitor` mode, you should see this:
 
 ```sh  
 $ sudo iw dev  
-phy
-
-#0  
+phy#0  
 Interface mon0  
 ifindex 8  
 wdev 0x6  
@@ -265,6 +256,7 @@ $ sudo apt-get upgrade
 $ sudo apt-get install libncurses5-dev libpcap-dev libpcre3-dev libnl-dev
 
 # latest version - 2015.05.01  
+
 $ wget http://www.kismetwireless.net/code/kismet-2013-03-R1b.tar.xz 
 $ xz -d kismet-2013-03-R1b.tar.xz
 $ tar -xf kismet-2013-03-R1b.tar
@@ -370,6 +362,7 @@ _Kismet - Capturing 802.11 anonymous traffic using Raspberry Pi_
 _Kismet - Capturing 802.11 anonymous traffic using Raspberry Pi_
 
 ## III.- Common Kismet errors
+
 _1) Error when start Kismet.`plugins` folder not found._
 
 ```sh  

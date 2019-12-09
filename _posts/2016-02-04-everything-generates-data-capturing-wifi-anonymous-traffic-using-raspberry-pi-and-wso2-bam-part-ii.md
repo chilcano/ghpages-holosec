@@ -23,6 +23,7 @@ Well, in this second blog post I will explain how to solve above difficults.
 
 
 ## I.- Looking for the Streaming and/or Communication Protocol
+
 There are some stream and communication protocols and implementations
 Really, there are many libraries and streaming protocols out there to solve the above issues, but if you are looking for a protocol/library open source, lightweight, low memory footprint and developer friendly there are a few. They are:
 **1) Elastic Logstash (https://www.elastic.co/products/logstash)**
@@ -57,9 +58,7 @@ Installing and configuring `Filebeat` is easy and you can use It with Logstash t
 **6) Apache Thrift (https://thrift.apache.org)**
 > Thrift is an interface definition language and binary communication protocol[1] that is used to define and create services for numerous languages.  
 >  It is used as a remote procedure call (RPC) framework and was developed at Facebook for "scalable cross-language services development". It  
->  combines a software stack with a code generation engine to build services that work efficiently to a varying degree and seamlessly between C
-
-#,  
+>  combines a software stack with a code generation engine to build services that work efficiently to a varying degree and seamlessly between C#,  
 >  C++ (on POSIX-compliant systems), Cappuccino, Cocoa, Delphi, Erlang, Go, Haskell, Java, Node.js, OCaml, Perl, PHP, Python, Ruby and Smalltalk.  
 >  Although developed at Facebook, it is now an open source project in the Apache Software Foundation. 
 
@@ -71,6 +70,7 @@ In this Proof-of-Concept I will use Apache Thrift for these reasons:
 * And finally, there is a [Python Client Library specific for Kismet](https://github.com/PaulMcMillan/kismetclient). This Python Kismet Client reads the traffic captured for Kismet.
 
 ## II.- Installing, configuring and running Python Kismet Client and Python Thrift library
+
 I cloned the above repositories ([Thrift Python Client](https://github.com/chilcano/iot-server-appliances/tree/master/Arduino%20Robot/PC_Clients/PythonRobotController/DirectPublishClient/BAMPythonPublisher) and [Python Kismet Client](https://github.com/chilcano/kismetclient)).
 
 ```sh  
@@ -109,9 +109,10 @@ Resolving deltas: 100% (57/57), done.
 **2.1) Creating a custom Python script to send the Kismet captured traffic to WSO2 BAM 2.5.0**
 Under `kismet_to_wso2bam` folder create this Python ([sendTrafficFromKismetToWSO2BAM.py](https://github.com/chilcano/wso2bam-wifi-thrift-cassandra-poc/tree/master/raspberrypi_wifi_traffic_capture/sendTrafficFromKismetToWSO2BAM.py)) script.
 
-```python
+```python  
 
 #!/usr/bin/env python  
+
 """  
 Python script to send 802.11 traffic captured for Kismet to WSO2 BAM 2.5.0.
 Author: Chilcano  
@@ -140,35 +141,29 @@ log.addHandler(logging.StreamHandler())
 log.setLevel(logging.DEBUG)
 
 # Kismet server  
+
 address = ('127.0.0.1', 2501)  
-k = KismetClient(address)
+k = KismetClient(address)  
 
 ##k.register_handler('TRACKINFO', handlers.print_fields)
 
-
 # BAM/CEP/Thrift Server  
-cep_ip = '192.168.1.43'
-
-# IP address of the server  
-cep_port = 7713
-
-# Thrift listen port of the server  
-cep_username = 'admin'
-
-# username  
-cep_password = 'admin'
-
-# passowrd
-
+cep_ip = '192.168.1.43' # IP address of the server  
+cep_port = 7713 # Thrift listen port of the server  
+cep_username = 'admin' # username  
+cep_password = 'admin' # passowrd
 
 # Initialize publisher with ip and port of server  
+
 publisher = Publisher()  
 publisher.init(cep_ip, cep_port)
 
 # Connect to server with username and password  
+
 publisher.connect(cep_username, cep_password)
 
 # Define the Input Stream  
+
 streamDefinition = "{ 'name':'rpi_kismet_stream_in', 'version':'1.0.0', 'nickName': 'rpi_k_in', 'description': '802.11 passive packet capture', 'tags': ['RPi 2 Model B', 'Kismet', 'Thrift'], 'metaData':[ {'name':'ipAdd','type':'STRING'},{'name':'deviceType','type':'STRING'},{'name':'owner','type':'STRING'}, {'name':'bssid','type':'STRING'}], 'payloadData':[ {'name':'macAddress','type':'STRING'}, {'name':'type','type':'STRING'}, {'name':'llcpackets','type':'STRING'}, {'name':'datapackets','type':'STRING'}, {'name':'cryptpackets','type':'STRING'},{'name':'signal_dbm','type':'STRING'}, {'name':'bestlat','type':'STRING'}, {'name':'bestlon','type':'STRING'}, {'name':'bestalt','type':'STRING'}, {'name':'channel','type':'STRING'}, {'name':'datasize','type':'STRING'}, {'name':'newpackets','type':'STRING'}] }";  
 publisher.defineStream(streamDefinition)
 def handle_client(client, bssid, mac, lasttime, type, llcpackets, datapackets, cryptpackets, signal_dbm, bestlat, bestlon, bestalt, channel, datasize, newpackets):  
@@ -293,9 +288,7 @@ Now, let's verify that WSO2 BAM is running in the Docker container.
 
 ```sh  
 $ docker exec -ti wso2bam-kismet bash
-root@fc9fb8368e7f:/opt/wso2bam02a/bin
-
-# tail -f ../repository/logs/wso2carbon.log  
+root@fc9fb8368e7f:/opt/wso2bam02a/bin# tail -f ../repository/logs/wso2carbon.log  
 TID: [0] [BAM] [2016-02-03 16:38:10,482] INFO {org.wso2.carbon.ntask.core.service.impl.TaskServiceImpl} - Task service starting in STANDALONE mode... {org.wso2.carbon.ntask.core.service.impl.TaskServiceImpl}  
 TID: [0] [BAM] [2016-02-03 16:38:10,664] INFO {org.apache.cassandra.net.OutboundTcpConnection} - Handshaking version with localhost/127.0.0.1 {org.apache.cassandra.net.OutboundTcpConnection}  
 TID: [0] [BAM] [2016-02-03 16:38:10,672] INFO {org.apache.cassandra.net.OutboundTcpConnection} - Handshaking version with localhost/127.0.0.1 {org.apache.cassandra.net.OutboundTcpConnection}  
@@ -361,12 +354,8 @@ $ curl -Ivsk https://192.168.1.43:9445/carbon/admin/login.jsp -o /dev/null
 < Date: Thu, 04 Feb 2016 12:14:09 GMT  
 < Server: WSO2 Carbon Server  
 <  
-* Connection
-
-#0 to host 192.168.1.43 left intact  
-* Closing connection
-
-#0  
+* Connection #0 to host 192.168.1.43 left intact  
+* Closing connection #0  
 * SSLv3, TLS alert, Client hello (1):  
 } [data not shown]  
 ```
@@ -412,6 +401,7 @@ TID: [0] [BAM] [2016-02-04 12:29:20,877] INFO {org.wso2.carbon.databridge.persis
 
 
 ## III.- Exploring the 802.11 captured traffic stored in Apache Cassandra (WSO2 BAM)
+
 Remember, the WSO2 BAM 2.5.0 Docker Container is running locally with a internal Docker Machine IP Address (`192.168.99.100`), also is running with a public IP Address by using the Host IP Address (`192.168.1.43`) because the internal IP address was forwarded.  
 In brief, WSO2 BAM has the below addresses:
 * From the Internal Docker Machine IP address: 

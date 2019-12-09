@@ -28,7 +28,6 @@ In short, I will explain in this post the following:
 
 ## 1\. Preparing your Raspberry Pi.
 
-
 ### 1.1. Prepare your MicroSD cards with the latest Raspbian image.
 I'm going to use Raspbian Jessie Lite 2017-01-11 (http://director.downloads.raspberrypi.org/raspbian_lite/images/raspbian_lite-2017-01-10/2017-01-11-raspbian-jessie-lite.zip).
 
@@ -43,6 +42,7 @@ $ diskutil unmountDisk /dev/disk3
 ... repeat this process as times as Raspberry Pis you have.
 
 ### 1.2. Connect all Raspberry Pis to the Network.
+
 Connect all Raspberry Pi to your Router, now your PC and all Pis are connected to same network, and if you have DHCP enabled your Raspberry Pi will have an IP address automatically.  
 Now, we have to get all IP addresses assigned to each Raspberry Pi. You could use Fing App in Android or install Fing in your PC.  
 I'm going to use [Fing on Mac OSX](https://www.fing.io/download-free-ip-scanner-for-desktop-linux-windows-and-osx).
@@ -91,6 +91,7 @@ $ ssh pi@192.168.0.17
 With this information (MAC and IP addresses) I'm ready to start with Ansible to do automation on my Raspberry Pi Cluster.
 
 ### 1.3. Initial configuration and provision for all Raspberry Pi through Ansible.
+
 To do the initial configuration in all Raspberry Pis I've used the next:  
 \- The [Raspberry Pi Dramble Ansible Git repository](https://github.com/geerlingguy/raspberry-pi-dramble). Although these Ansible Playbooks are to provision an Apache HTTPd, Drupal, MySQL Cluster, our intention is to use it initially to manage the Raspberry Pi cluster at infrastructure level.  
 \- The [mikolak.raspi-config](https://github.com/mikolak-net/ansible-raspi-config) Ansible Role to configure each Raspberry Pi like if used [raspi-config](https://www.raspberrypi.org/documentation/configuration/raspi-config.md) tool.
@@ -126,9 +127,10 @@ And update `networking/vars.yml`.
 
 ```text  
 $ nano setup/networking/vars.yml
-\---
+\---  
 
 # Mapping of what hardware MAC addresses should be configured with specific IPs.  
+
 mac_address_mapping:  
 "b8:27:eb:1e:12:63":  
 name: rpi17.intix.info  
@@ -144,6 +146,7 @@ name: rpi20.intix.info
 ip: "192.168.0.20"
 
 # Nameservers to use in resolv.conf.  
+
 dns_nameservers:  
 \- "8.8.8.8"  
 \- "8.8.4.4"
@@ -279,6 +282,7 @@ picuy@rpi17:~ $ exit
 In this point, you will be able to continue configuring your Raspberry Pis through Ansible Playbook performing Linux commands remotely.
 
 ### 1.4. Performing Linux commands remotely through Ansible.
+
 _Get free memory available in each Raspberry Pi._
 
 ```text  
@@ -336,6 +340,7 @@ No handlers could be found for logger "paramiko.transport"
 
 
 ### 1.5. Restoring the network configuration.
+
 If you try to connect to one Raspberry Pi and the SSH connection is taking a few seconds, or if you are running ping www.google.com and Raspberry Pi is not reaching that. Then, you probably are facing issues with gateway and networking configuration in your Raspberry Pi and need restore or enable default configuration.  
 Then, let's go to check the network configuration, basically you have to check these files in each Raspberry Pi:
 * /etc/dhcpcd.conf
@@ -353,6 +358,7 @@ $ ansible-playbook -i inventory main.yml -k
 
 
 ### 1.6. Set IP address automatically through DHCP on eth0.
+
 In previous step I updated the Ansible Playbooks and Jinja2 templates to restore default assignation of IP addresses through DHCP.  
 Well, now I'm going to use it. Just update `setup\networking\vars.yml` setting `rpi_nic_static.eth0` to `false`.
 Run `fing` to get all IP addresses re-assigned to all Raspberry Pis and update the `setup\networking\inventory` and provision your new configuration.
@@ -363,6 +369,7 @@ $ ansible-playbook -i inventory main.yml -k
 
 
 ## 2\. Massive provisioning of Kismet through Ansible on multiples Raspberry Pi.
+
 I'm going to create an Ansible Playbooks to:
 * Enable WIFI interface in `monitor mode` on each Raspberry Pi.
 * Download Kismet source code and build it for Raspberry Pi (ARM chipset).
@@ -463,6 +470,7 @@ Mar 17 11:28:28 rpi19.intix.info warpi.sh[9023]: CF, encryption no, channel 7, 1
 
 
 ## 3\. Massive provisioning of Apache MiNiFi through Ansible on multiples Raspberry Pi.
+
 If you have not read my [previous post about Apache NiFi](https://holisticsecurity.io/2016/12/02/data-routing-transformation-and-system-mediation-in-big-data-iot-scenarios-with-apache-nifi), well I can say that is a Data Mediator Engine and ETL with steroids suitable for BigData Projects and Apache MiNiFi is the perfect complement to it for IoT Projects.  
 Well, the scenario where I want to use Apache NiFi and Apache MiNiFi is in IoT, Security/Privacy space and the best way to validate this approach is using Ansible to do automation `massively` (Raspberry Pi in the `edge`) without pain.  
 I've created Ansible Playbooks to manage the installation and configuration of Apache MiNiFi in Raspberry Pi, they are located under `ansible-raspberrypi-wardriving/playbooks/minifi` in the Git repo (https://github.com/chilcano/ansible-raspberrypi-wardriving), and they are:
@@ -562,6 +570,7 @@ CGroup: /system.slice/minifipi.service
 In the next blog post I will explain how to integrate/connect each Raspberry Pi (Kismet and MiNiFi) to a centralized Apache NiFi by using Ansible, of course!.
 
 ## 5\. References.
+
 Using Ansible with Raspberry Pi cluster.  
 http://www.pidramble.com
 Setup a Headless Raspberry Pi with Raspbian Jessie on OS X.  

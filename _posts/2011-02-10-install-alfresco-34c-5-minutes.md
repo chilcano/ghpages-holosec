@@ -17,6 +17,7 @@ Well, this post explains how to do an installation quickly of Alfresco.
 * Alfresco 3.4c CE installer downloaded (alfresco-community-3.4.c-installer-win-x32.exe).
 
 ## II. Installation
+
 1\. Create an empty database for Alfresco named, in my case, "alf34c_db1".
 
 [sourcecode language="text" gutter="true" wraplines="false"]  

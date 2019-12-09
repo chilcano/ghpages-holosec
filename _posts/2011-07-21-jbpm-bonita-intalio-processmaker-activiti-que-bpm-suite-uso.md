@@ -48,6 +48,7 @@ De la Wikipedia (http://en.wikipedia.org/wiki/Business_rules_engine):
 Son aquellos componentes que hacen que los BPMS tengan más sentido dentro de la Organización, por ejemplo, un sistema de gestión de expedientes donde su motor sea un workflow no tiene sentido sin un repositorio documental para alojar los documentos entrantes y salientes.
 
 ## 3\. BPMS/Workflows Free/Open Source
+
 Existen muchos Workflows engine, BPMs free/open source y comerciales, nos centraremos únicamente en los proyectos FOSS y que de alguna forma están formados por los componentes antes indicados.
 Pero por si os de interés, la lista de BPMS/Workflows FOSS actualizada (basada en "Open Source Workflow Engines in Java" - http://java-source.net/open-source/workflow-engines) al 2009 es esta:
 
@@ -56,6 +57,7 @@ Pero por si os de interés, la lista de BPMS/Workflows FOSS actualizada (basada 
 [Download (XLS) Lista aquí](http://dl.dropbox.com/u/2961879/blog20110708_bpmfoss/www.INTIX.info-LIST-BPMS-FOSS-2009.xls).
 
 ## 4\. BPMS Free/Open Source
+
 Iniciaré una revisión con los BPMS siguientes, ya que en mi opinión, estos son los proyectos más activos en este momento:
 * 1\. jBPMEs el BPMS más veterano, Red Hat está detrás de esta iniciativa y en el 2010 hubo un cambio en el equipo de proyecto, esto dio paso al uso de Drools como BPM engine dentro de la versión 5.  
 También dió paso al nacimiento de otro proyecto BPMS llamado Activiti.  
@@ -81,6 +83,7 @@ Entonces, la valoración quedaría así:
 [caption id="" align="alignnone" width="431" caption="Evaluation of Activiti"][![Evaluation of Activiti]({{ site.baseurl }}/assets/bpmsfoss_6eval-activiti.png)](http://dl.dropbox.com/u/2961879/blog20110708_bpmfoss/bpmsfoss_6eval-activiti.png)[/caption]
 
 ## Conclusiones
+
 Después de valorar cuantitativamente cada una de los BPMS, concluímos:
 1. Si el día de mañana tenemos que iniciar un proyecto siguiendo BPM que requiera el uso de los estándares, que sea posible integrarlo a las diferentes aplicaciones legadas y que el volumen de usuarios es muy alto, entonces Bonita Open Solution es nuestra alternativa.  
 Partimos también que si iniciamos un proyecto nuevo dentro de la organización, es necesario contar con información técnica actualizada y abundantes ejemplos que puedan ayudar a cómo se construir rápidamente aplicaciones BPM.
@@ -95,6 +98,7 @@ Por otro lado, al igual que la gran mayoría de productos con licenciamiento dua
 [caption id="" align="alignnone" width="349" caption="jBPM vs. Bonita vs. Intalio vs. ProcessMaker vs. Activiti"][![jBPM vs. Bonita vs. Intalio vs. ProcessMaker vs. Activiti]({{ site.baseurl }}/assets/bpmsfoss_7resultado_rev2.png)](http://dl.dropbox.com/u/2961879/blog20110708_bpmfoss/bpmsfoss_7resultado_rev2.png)[/caption]
 
 ## Observaciones
+
 Este artículo expresa mi personal opinión acerca de estos proyectos resultado de haber pasado por varios procesos de revisión y conocimiento de cada BPMS antes de iniciar un proyecto de desarrollo.
 Entender que esta revisión pretende ser una forma rápida para identificar la solución BPMS que se ajusta a mis necesidades.
 No pretender ser una referencia absoluta, ni nunca lo será.
@@ -107,9 +111,7 @@ End.
 * Gestión de Expedientes con Alfresco ECM - <http://holisticsecurity.wordpress.com/2010/10/08/gestion-de-expedientes-con-alfresco-ecm>
 * Open Source Workflow Engines in Java - <http://java-source.net/open-source/workflow-engines>
 * jBPM5 vs Activiti5? dumb question? - <http://salaboy.wordpress.com/2011/01/19/jbpm5-vs-activiti5-dumb-question>
-* Activiti or jBPM, which should I use in my next project? - <http://www.activiti.org/faq.html
-
-#ActivitiOrJbpm>
+* Activiti or jBPM, which should I use in my next project? - <http://www.activiti.org/faq.html#ActivitiOrJbpm>
 * jBPM Form Builder follow-up - <http://blog.athico.com/2011/07/jbpm-form-builder-follow-up.html>
 * Business Process Simulation versus Emulation - <http://onbpms.com/2007/07/18/business-process-simulation-versus-emulation>
 * Process Simulation - <http://community.intalio.com/bpms-screencasts/process-simulation.html>

@@ -10,6 +10,7 @@ permalink:  "/2011/11/04/ria-clients-rad-frameworks-alfresco/"
 Some days ago I saw a post on the LinkedIn's Alfresco forums asking ['Which front end framework is Generally used with Alfresco?'](http://www.linkedin.com/groups/Which-front-end-framework-is-663827.S.69732274?view=&srchtype=discussedNews&gid=663827&item=69732274&type=member&trk=eml-anet_dig-b_pd-ttl-cn&ut=2MCRzVZGv0CAU1), for this reason I started to research and test them and discovered with joy that the trend is to use lightweight frameworks capable of creating rich interfaces quickly. Well here I put the review: Because I started to carefully review and discovered with joy that the trend is to use lightweight frameworks capable of creating rich interfaces quickly. Well here I put the review:
 
 ## I. What is a client for Alfresco ECM ?
+
 A client for Alfresco is any webapp or desktop app that consumes the Alfresco's services, this client app can be created with Alfresco's standard framework or with third party frameworks.
 Several endusers want always customize traditional and existing Alfresco's web clients, because these do not fit its requeriments.  
 Then, they quickly seek to modify existing Alfresco's webclient and if this is not possible, then seek a tool (framework) to build a desktop or client from scratch.
@@ -26,7 +27,6 @@ Well, there are several reasons:
 Well, this post will review existing initiatives, RIA, RDA (Rich Desktop App) and RAD frameworks for developing clients for Alfresco ECM.
 
 ## II. List of Clients
-
 
 ### 1\. Alfresco Explorer
 Alfresco Explorer is the clasic webapp bundled with Alfresco ECM, It is the principal web application to do document management, this offers some functionalities of system administratios.  
@@ -45,6 +45,7 @@ Alfresco Explorer based in JavaServerFace.
 Alfresco Share based in SpringSurf/Webscripts.
 
 ### 3\. Opsoro
+
 "opsoro is an alternative web client for the Alfresco Enterprise Content Management Plattform. It's goal is to provide an easier user interface with a richer user experience by leveraging the latest web technologies."
 * Version: ExtJS-version is 0.1beta  
 * Web: <http://www.opsoro.org>  
@@ -62,6 +63,7 @@ Basic document management features as:
 \- Inline view (supports text, pdf and images)
 
 ### 4\. FlexSpaces (in browser, portlet and Air)
+
 "Flex RIA client for Alfresco ECM"
 * Version: build 04052011 from 2011/05/10  
 * Web: <http://code.google.com/p/flexspaces>  
@@ -72,6 +74,7 @@ Basic document management features as:
 \- Supports document management, search, workflow and wcm.
 
 ### 5\. CMISSpaces (in browser, portlet and Air)
+
 · "Flex RIA client for CMIS content management APIs."  
 · Based on FlexSpaces
 * Version: Build 18 from 2011/05/23  
@@ -85,6 +88,7 @@ Basic document management features as:
 \- No workflow actions.
 
 ### 6\. ifresco
+
 "OpenSource Client for Alfresco  
 With the ifresco client we offer a powerful OpenSource Web-Client for Alfresco which has all features which are important and neccessary for the daily work with the DMS/ECM system and which can be operated easily and intuitiv.  
 ifresco is Web-browser based - but offers consumer-like experience of MS-Windows applications with sortable lists, context menus, drag and drop.  
@@ -122,6 +126,7 @@ I think this is a huge step forward demonstrating the strength of CMIS interface
 \- It is very usable in real scenarios.
 
 ### 8\. DoCASU
+
 "The goal of DoCASU is to provide to the Alfresco Community a Custom Alfresco UI with a strong focus on User eXperience. This will be less confusing for average end users and will permit a broader acceptance of the solution by a larger group of users."
 * Version: 1.6.3 from 2010/01/08  
 * Web: <http://docasu.sourceforge.net>  
@@ -136,6 +141,7 @@ DoCASU provides the functionality that average end users need to easily work wit
 \- No workflow actions
 
 ### 9\. ExtAlf
+
 "This is not an Opsoro or FlexSpaces alternative, rather than a developer toolkit or a simple SDK what supports embedding Alfresco backend functionality into Web2.0/AJAX portals and frontends."
 * Web: <http://louise.hu/poet/?p=753>  
 * License: ExtAlf is part of a bigger project what is closed-source yet.  
@@ -146,10 +152,12 @@ DoCASU provides the functionality that average end users need to easily work wit
 \- More info here: <http://louise.hu/poet/?p=927>
 
 ### 10\. CMIS Explorer
+
 <http://blogs.citytechinc.com/sjohnson/?p=60>  
 <http://code.google.com/p/cmis-explorer>
 
 ### 11\. Alfresco Office Plugin
+
 "Implemented on a mini-browser windows, all actions available through REST API (HTML response for UI, others JSON for responses to update UI and data retrieval".  
 Core services accessible through plugin:  
 \- Document management  
@@ -157,21 +165,25 @@ Core services accessible through plugin:
 \- Search
 
 ### 12\. SCAr
+
 <http://wiki.rivetlogic.org/display/SCAr/Home>
 
 ### 13\. AWPr
+
 "AWPr (Alfresco Web Script Portlet rivet) is a JSR-286 portlet that can be used to expose remote Alfresco Web scripts, including those that need user authentication."
 * Web: <http://wiki.rivetlogic.org/display/AWPr/About+AWPr>  
 * License: GNU Affero General Public License.  
 * Version:
 
 ### 14\. Alfresco Web Script Portlet
+
 "A webscript portlet for Liferay Portal, supporting multiple modes of authentication, a simple AJAX proxy and jQuery support."
 * Web: <http://forge.alfresco.com/projects/liferaywsp>  
 * License: MIT/X Consortium License  
 * Version: 1.0 of May/31/2010
 
 ### 15\. WeWeBu OpenWorkdesk
+
 "WeWebU OpenWorkdesk is an application suite (not just a CMIS browser!) for Enterprise Content Management (ECM) with an intuitive Web 2.0 front-end."
 * Web: http://openworkdesk.org (<http://sourceforge.net/projects/owd>)  
 * License: GNU General Public License version 3.0 (GPLv3) for Community Edition  
@@ -191,6 +203,7 @@ For an updated roadmap, you can see here:
 <http://www.openworkdesk.org/roadmap>
 
 ## III. Meta-frameworks
+
 1\. Jibe Framework (AlfExt)  
 <http://code.google.com/p/jibeframework>
 2\. Spring Surf  

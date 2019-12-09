@@ -17,10 +17,12 @@ In this post entry I will explain how to apply custom `WS-SecurityPolicy` to exp
 
 
 ## I. Use cases
+
 Again, I recommend the blog post of Sagara Gunathunga (Technical Leader of WSO2 Inc). There, Sagara explains the different use cases where we can apply WS-SecurityPolicy on services using WSO2. http://ssagara.blogspot.co.uk/2013/07/wso2-esb-set-ws-security-ut-user-names.html I think that this post is great to get starting with WS-Security and WS-Policy in WSO2 ESB/DSS and hope this is also useful for you.
 Below, I will explore some details about these scenarios or use cases.
 
 ### I.1. Using by default the existing WSO2 20 WS-SecurityPolicy
+
 This is the easiest way to apply security to services in WSO2 ESB and/or WSO2 DSS. The security module embeded into WSO2 ESB and DSS implements 20 security scenarios, they are in the local registry of WSO2 ESB/DSS, under `/_system/config/repository/components/org.wso2.carbon.security.mgt/policy/`:  
 
 ![WSO2 WS Security Policies]({{ site.baseurl }}/assets/wso2-ws-security-policy-2list-policies.png)
@@ -51,6 +53,7 @@ Now, if you send a request with valid credentials, then you will receive a succe
 * Any of 20 WS-SecurityPolicy uses or consider to WSO2 instance as container of user credentials. In other words, for example, if you select UsernameToken Authentication Policy, the authentication process will validate the Username Token againts to the WSO2 User Store.
 
 ### I.2. Apply a custom WS-SecurityPolicy
+
 What happens if your requirements are different and any of the 20 existing policies do not meets the requirements?. Well, if you have knowledge about WS-SecurityPolicy you could create one following your requirements. Remember, with WS-SecurityPolicy I can apply security at message-level, operaton-level and at transport-level, as example in this blog I will explain how to add HTTP support to secured SOAP Echo Service deployed by default in WSO2.
 **Sample of custom Policy: Adding HTTP support using custom WS-SecurityPolicy**
 Let me explain further on this sample. Whe you enable any of 20 WS-SecurityPolicy to improve the security on the services, it is common sense leave only enabled HTTPS (SOAP over SSL/TLS) automatically, because HTTP is insecure if this is used over public networks as Internet. Then, this sample scenario is only for testing purposes. Lets go to create the WS-SecurityPolicy file, in this case, I will use `scenario1_UTOverTransport.xml` Policy, will remove the part related to "TransportBinding" because I want to keep HTTP and HTTPS enabled for Echo Service.
@@ -75,6 +78,7 @@ Above is shown an error because the new Policy requires valid user credentials i
 ![]({{ site.baseurl }}/assets/wso2-ws-security-policy-12soapui-new-policy-ok.png)
 
 ### I.3. Applying advanced custom WS-SecurityPolicy
+
 Since it is possible to incorporate your own policies at WSO2, you could implement more complex or customized scenarios of security. Some more advanced scenarios are:
 1. The credentials repository is managed by Identity Management System in the backend, not by WSO2 ESB or WSO2 DSS.
 2. The external users who consume my services are authenticated with credentials that should be validated in the backend.
@@ -84,6 +88,7 @@ Since it is possible to incorporate your own policies at WSO2, you could impleme
 In the next posts I will explain each advanced scenarios. Stay tuned ;)
 
 ## II. Conclusions
+
 It is very important to learn the concepts of WS-Security and WS-Policy. Without this, if you implement a security policy and apply it on your web services, you probably would have security risks.  
 There are a lot of information on WS-Security and WS-Policy on Internet, below there is a list of resources. Also a great resource is (Apache Neethi)(http://ws.apache.org/neethi), it is a framework that implements WS-Security Policy, this is used in WSO2, this framework is accompanied by a series of examples that make your learning easier. Anyway you may incur to errors in the creation of the policies, then I recommend this Java application called [WS-Policy Editor](https://github.com/IAAS/WS-Policy-Editor) that allows easy editing.
 

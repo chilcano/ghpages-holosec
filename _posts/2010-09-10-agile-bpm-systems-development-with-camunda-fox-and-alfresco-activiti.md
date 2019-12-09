@@ -14,9 +14,7 @@ This is the main reason why I like Intalio BPMS (BPMN, BPEL, BRE, ESB/SOA, BAM/B
 <!-- more -->  
 Camunda Fox is "[...] an open source BPM platform. It helps you to build process-centric software solutions in Java." (http://fox.camunda.com)
 Camunda explains its approach in this blogpost: [Making the BPMN Roundtrip real](http://www.bpm-guide.de/2010/05/27/making-the-bpmn-roundtrip-real/ "Making the BPMN Roundtrip real")
-Activiti is "[...] Activiti is a Business Process Management (BPM) and workflow system targeted at [business people](http://www.activiti.org/cycle.html), [developers](http://www.activiti.org/components.html
-
-#engine) and [system admins](http://www.activiti.org/components.html#probe)." (http://www.activiti.org)
+Activiti is "[...] Activiti is a Business Process Management (BPM) and workflow system targeted at [business people](http://www.activiti.org/cycle.html), [developers](http://www.activiti.org/components.html#engine) and [system admins](http://www.activiti.org/components.html#probe)." (http://www.activiti.org)
 Activiti Cycle is collaborative approach in BPMS: "[...] The Process Cycle Layer identifies the layer on which business stakeholders, developers and IT operations people collaborate." (http://www.activiti.org/cycle.html)
 Now, Camunda Fox (Free/Open Source project) is integrating and aligning to Activiti Cycle (http://www.bpm-guide.de/2010/08/27/done-first-activiti-cycle-preview-out) .
 On 1st of september, Activi 5.0.beta1 was released containing the first Camunda contribution! (http://processdevelopments.blogspot.com/2010/09/activiti-50beta1-rocks.html)

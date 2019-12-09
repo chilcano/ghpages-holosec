@@ -18,9 +18,10 @@ I ask myself, why is not RabbitMQ integrated to WSO2 ESB?. The answer is simple,
 There is an Axis2 Transport Module available what implements the AMQP 0-9-1 protocol for RabbitMQ. This is a "beta" version because is not included as an official Axis2 Transport Module for WSO2 ESB 4.8.1.
 But, if you want to install and use it, I highly recommend the serie of post about of Axis2 AMQP Transport published in the Luis Peñarrubia's blog. In that blog is explained how to patch, deploy and use the Axis2 AMQP transport module in your WSO2 ESB 4.8.1:
 * https://luispenarrubia.wordpress.com/2014/12/10/integrate-wso2-esb-and-rabbitmq-using-amqp-transport/ 
-* https://luispenarrubia.wordpress.com/2015/05/04/how-to-integrate-wso2-esb-and-rabbitmq-using-amqp-transport-part-2/
+* https://luispenarrubia.wordpress.com/2015/05/04/how-to-integrate-wso2-esb-and-rabbitmq-using-amqp-transport-part-2/ 
 
 ## I. Scope and objetives
+
 The idea of this post is to explain how to integrate WSO2 ESB with RabbitMQ to work together in a "resilient" way and implementing the Enterprise Integration Patterns (EIPs - https://docs.wso2.com/display/IntegrationPatterns/Enterprise+Integration+Patterns+with+WSO2+ESB) related to messaging. Then, I would like to implement different messaging integration patterns as:
 * Dead Letter Queue
 * Wire Tap
@@ -30,11 +31,11 @@ For more information about Messaging Advanced EIPs, check this link: https://doc
 
 ## II. Implementation
 
-
 ### II.1. The strategia: WSO2 ESB Message Store & Message Processor
 The Message Store & Message Processor is the way as the integration between WSO2 ESB and RabbitMQ should be realized. If you want to know what is WSO2 ESB Message Store & Message Processor, I invite you to read my blog post about this subject (https://holisticsecurity.wordpress.com/2014/12/03/wso2-message-broker-vs-apache-qpid-messaging-eip)
 
 ### II.2. The strategia: Apache Qpid client library as bridge between JMS 1.1 and AMQP 0-9-1
+
 The strategia is to improve the existing implementation of WSO2 ESB Message Store & Message Processor (MS&MP) to make it compatible with RabbitMQ (AMQP 0-9-1). Create the WSO2 ESB MS&MP for RabbitMQ from scratch is not viable, because the current WSO2 ESB MS&MP implementation uses JMS and is not ready to be extended to AMQP 0-9-1. Then, We need some magical library that can resolve the problem of translating the JMS (WSO2 ESB) protocol to AMQP 0-9-1 (RabbitMQ), I tried different libraries to solve this issue such as:
 1. Spring JMS library (https://spring.io/guides/gs/messaging-jms). This requires to refactor big part of the WSO2 MS&MP's source code.
 2. Spring JMS and RabbitMQ's JMS connector (http://blog.pivotal.io/pivotal/products/messaging-with-jms-and-rabbitmq). This avoids to refactor part of the source code, but the RabbitMQ's JMS connector (vFabric RabbitMQ's JMS - https://www.vmware.com/support/vfabric-rabbitmq/doc/vfabric-rabbitmq-jms-client-compatibility.html) is not available for my purposes because It is commercial.
@@ -43,14 +44,16 @@ The strategia is to improve the existing implementation of WSO2 ESB Message Stor
 At the end, I used the Apache Qpid client library for its compatibility with JMS 1.1 and AMQP 0-9-1, this is very important because WSO2 ESB MS&MP follow the JMS and this solves the compatibility with RabbitMQ.
 
 ### II.3. Understanding how to work Apache Qpid library with RabbitMQ
+
 The idea is to create a simple sender(JMS publisher) and receiver(JMS consumer) client using Apache Qpid library for a RabbitMQ's queue (AMQP). After the great support in the [Apache Qpid's forum](http://mail-archives.apache.org/mod_mbox/qpid-users/), the conclusions were:
 1. This sample works if sender(JMS publisher) and receiver(JMS consumer) share the same connection with RabbitMQ but using different URI string definitions. Check below my JNDI configuration file.  
 2. JMS Publisher and Consumer should declare the server, virtual host, queue, exchange and routing key following this definition. Why?. After of several definitions, this combination worked !!. Remember, RabbitMQ adds "/" if your Virtual Host is "empty", for this reason I define my Virtual Host as "/" or "/my_virtual_host".
 
 ```text  
-java.naming.factory.initial = org.apache.qpid.jndi.PropertiesFileInitialContextFactory
+java.naming.factory.initial = org.apache.qpid.jndi.PropertiesFileInitialContextFactory  
 
 # RabbitMQ v3.4.4  
+
 connectionfactory.myRabbitMQConnectionFactory1 = amqp://usr_chk:CHANGE_ME@clientid/CHAKRAY_POC?brokerlist='tcp://your.rabbitmq.host.name:5672' destination.myJndiDestQueuePublisher1 = BURL:direct://chk.direct//?routingkey='rk.hello_1'  
 destination.myJndiDestQueueConsumer1 = BURL:direct://chk.direct/rk.hello_1/q.hello_1  
 ```
@@ -74,9 +77,7 @@ X:\@chilcano\\_workspace\wso2esb-rabbitmq-message-store>mvn exec:java -Dexec.mai
 
 [INFO] --- exec-maven-plugin:1.4.0:java (default-cli) @ wso2esb-rabbitmq-msmp ---  
 SLF4J: The requested version 1.5.6 by your slf4j binding is not compatible with [1.6]  
-SLF4J: See http://www.slf4j.org/codes.html
-
-#version_mismatch for further details.  
+SLF4J: See http://www.slf4j.org/codes.html#version_mismatch for further details.  
 log4j:WARN No appenders could be found for logger (org.apache.qpid.jndi.PropertiesFileInitialContextFactory).  
 log4j:WARN Please initialize the log4j system properly.  
 Hello RabbitMQ 3.4.4 !!  
@@ -100,6 +101,7 @@ Hello RabbitMQ 3.4.4 !!
 [![Publishing and consuming message to/from RabbitMQ from a JMS client]({{ site.baseurl }}/assets/wso2esb-rabbitmq-publish-consume-sample-message.png)](https://holisticsecurity.files.wordpress.com/2015/07/wso2esb-rabbitmq-publish-consume-sample-message.png)_Publishing and consuming message to/from RabbitMQ from a JMS client_
 
 ### II.4. First contact with the current WSO2 ESB MS&MP implementation source code
+
 We will use the current source code of the MS&MP for WSO2 ESB 4.8.1. This MS&MP uses JMS and works with JMS MEssage Brokers (ActiveMQ, Qpid, etc.) You can review/download from here <https://svn.wso2.org/repos/wso2/carbon/platform/branches/turing/dependencies/synapse/2.1.2-wso2v6>. I have cloned the current sourcecode of the JMS MessageStore&MessageProcessor implementation, the java classes cloned are:
 
 ```text  
@@ -110,15 +112,17 @@ synapse/2.1.2-wso2v6/modules/core/src/main/java/org/apache/synapse/message/store
 
 
 ### II.5. The new WSO2 ESB MS&MP implementation for RabbitMQ
+
 After of download the Apache Qpid library, I used the above sample source code to publish and consume a messages to/from RabbitMQ. This exercise Was necessary to do for a simple reason, because similar changes on the sample will be applied again in the new implementation of WSO2 ESB MS&MP for RabbitMQ. Was necessary to modify just one class (org.apache.synapse.message.store.impl.jms.JmsStore) and at the end, to do easily, I added a Publisher and Consumer instead of using only a Publisher in the new Message Store. I have uploaded my implementation in GitHub, you can use from here <https://github.com/Chilcano/wso2esb-rabbitmq-message-store>. Remember, this implementation is valid for:
 * WSO2 ESB 4.8.1
 * RabbitMQ 3.4.4
 * Java 1.7.0_75 / OpenJDK Runtime Environment (rhel-2.5.4.0.el6_6-x86_64 u75-b13)
 * All stuff are installed on CentOS 6.x
 **** Disclaimer: This implementation is not suitable for Production. This is just a PoC. ****
-I have created a Synapse MessageStore and Synapse API, they are the best way to test this MS&MP implementation. Obviously you need a RabbitMQ configured, do not worry, I have included a json file with the queue, routing keys and exchanges definition required to run this code. https://gist.github.com/4b51ef6b4421328ccc9f
+I have created a Synapse MessageStore and Synapse API, they are the best way to test this MS&MP implementation. Obviously you need a RabbitMQ configured, do not worry, I have included a json file with the queue, routing keys and exchanges definition required to run this code. https://gist.github.com/4b51ef6b4421328ccc9f 
 
 ## III. ToDo
+
 Yes, there are somethings to be improved.
 * This code needs be reviewed. This is not suitable to be used in Production.
 * Is very imporant to implement stress testing and load testing.

@@ -15,6 +15,7 @@ The last year I was working in a big UK's project where I had to help in creatio
 
 
 ## Microservice Infrastructure
+
 Well, before stating you should choose your preferred Products/Frameworks/Stacks/PaaS and set up your Development and Production Environment Infrastructure. Actually there are a few good Products/Frameworks/Stacks/PaaS ready to create and manage the Microservice Lifecycle such as:
 1. Dropwizard (http://www.dropwizard.io)
 2. Deis (http://deis.io)
@@ -47,14 +48,13 @@ $ docker build --rm -t chilcano/wso2-esb wso2esb/latest
 $ docker run -d -t --name=wso2esb01a -p 19449:9443 chilcano/wso2-esb  
 //Check the WSO2 server:  
 $ docker exec -i -t wso2esb01a bash  
-root@4178f21fcad3:/opt/wso2esb01a/bin
-
-# tail -f ../repository/logs/wso2carbon.log  
+root@4178f21fcad3:/opt/wso2esb01a/bin# tail -f ../repository/logs/wso2carbon.log  
 $ curl -v -k https://<IP_ADDRESS>:19449/services/Version  
 ```
 
 
 ## Microservice Methodology
+
 Obviously, the best methodology is what is created based on experience, there are good books and guides for that:
 * Building Microservices By Sam Newman (http://shop.oreilly.com/product/0636920033158.do)
 * Microservices by Eberhard Wolff (http://microservices-book.com)

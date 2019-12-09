@@ -28,9 +28,10 @@ Revisando alguna información de Apache ActiveMQ, me encontré con algunos comen
 Y
 >  ActiveMQ is still a very good choice for Enterprise Messaging. But ActiveMQ has gotten some competition, which is arriving with newer architectures, better performance, and with the support of standardized protocols in the area of the space deer.  
 >  Referencia:  
->  http://predic8.com/activemq-hornetq-rabbitmq-apollo-qpid-comparison.htm
+>  http://predic8.com/activemq-hornetq-rabbitmq-apollo-qpid-comparison.htm  
 
 ## I. Message Brokers
+
 La lista de Message Brokers opensource a considerar son los siguientes:  
 
 ![Lista de Message Brokers opensource a considerar \(Qpid, ActiveMQ, RabbitMQ, HornetQ, WSO2 MB, ZeroMQ, Apache Kafka, Apache Storm, OpenAMQP\)]({{ site.baseurl }}/assets/msgbroker-01-foss-brokers-wso2-esb-activemq-qpid-rabbitmq-hornetq-zeromq-kafka-storm.png)  
@@ -50,6 +51,7 @@ La lista de Message Brokers opensource a considerar son los siguientes:
 11\. ZeroMQ: http://zeromq.org
 
 ## II. Criterios de evaluación
+
 Dentro de los criterios de evaluación considero el nivel de integración con WSO2 ESB. Para mi fue de vital importancial su facilidad de integración. No quería "matar moscas a cañonazos", usar WSO2 Message Broker o Apache ActiveMQ lo eran.
 A continuación listo los criterios de evaluación.
 No. | Features/functionalities to be considered | Weight  
@@ -62,9 +64,10 @@ No. | Features/functionalities to be considered | Weight
 6. | Performance | 3/5  
 7. | Quality of documentation | 4/5  
 8. | Community behind | 4/5  
-9. | Successfully cases/Where is used? | 4/5
+9. | Successfully cases/Where is used? | 4/5  
 
 ## III. Resultados
+
 Los resultados son los siguientes:
 Order | Message Broker | Total  
 ---|---|---  

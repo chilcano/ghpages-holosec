@@ -25,9 +25,11 @@ This Docker container provides a Microservice (API Rest) to MAC Address Manufact
 This Docker Container will work in this scenario, as shown above image. Then, let's do it.
 
 ## I. Preparing the Python development environment in Mac OSX
+
 Follow this guide to setup your Python Development Environment in your Mac OSX: https://github.com/chilcano/how-tos/blob/master/Preparing-Python-Dev-Env-Mac-OSX.md
 
 ## II. Creating a MAC Address Manufacturer DB
+
 Exist in Internet several MAC Address Lookup Tools, in fact, the OUI's prefix used to identify the MAC Address are public available.
 But, in this case I am going to use the MAC Address List of Wireshark (https://www.wireshark.org/tools/oui-lookup.html).  
 Wireshark is a popular network protocol analyzer a.k.a. `network sniffer`, the Wireshark tool uses internally the MAC Address list to identity the Manufacturer of a NIC.  
@@ -37,20 +39,15 @@ Using the below Python script I will download the Wireshark MAC Address list int
 I will use SQLite Database where I will create an unique table and all information will be loaded there. The Table structure will be:
 
 ```sh  
-mac String
-
-# The original MAC Address  
-manuf String
-
-# The original Manufacturer name  
-manuf_desc String
-
-# The Manufacturer description, if exists.  
+mac String # The original MAC Address  
+manuf String # The original Manufacturer name  
+manuf_desc String # The Manufacturer description, if exists.  
 ```
 
 Here the Python script used to do that: [mac_manuf_wireshark_file.py](https://github.com/chilcano/docker-mac-address-manuf-lookup/blob/master/python/latest/mac_manuf_wireshark_file.py)
 
 ## III. Exposing the MAC Address Manufacturer DB as an API Rest
+
 After creating the database, the next step is to expose the data through a simple API Rest. The idea is to make a call `GET` to the API Rest with a `MAC Address` and get the `Manufacturer` as response.
 **1) Defining the API**
 The best way to define an API Rest and the `contract` is using the `Swagger` language (http://swagger.io). The idea is to create documentation about the API Rest and explain what resources are available or exposed, writte a request and response sample, etc.  
@@ -58,15 +55,9 @@ In this scenario I'm going to define in a simple way the API, also I'm going to 
 Then, below the API definition.
 
 ```sh  
-POST /chilcano/api/manuf
-
-# Add a new Manufacturer  
-PUT /chilcano/api/manuf
-
-# Update an existing Manufacturer  
-GET /chilcano/api/manuf/{macAddress}
-
-# Find Manufacturer by MAC Address  
+POST /chilcano/api/manuf # Add a new Manufacturer  
+PUT /chilcano/api/manuf # Update an existing Manufacturer  
+GET /chilcano/api/manuf/{macAddress} # Find Manufacturer by MAC Address  
 ```
 
 In this Proof-of-Concept I will implement only the `GET` resource for the API.
@@ -74,21 +65,18 @@ In this Proof-of-Concept I will implement only the `GET` resource for the API.
 I have created 2 Python scripts to implement the API Rest.  
 The first one ([`mac_manuf_table_def.py`](https://github.com/chilcano/docker-mac-address-manuf-lookup/blob/master/python/latest/mac_manuf_table_def.py)) is just a `Model` of the `MacAddressManuf` table.
 
-```python
+```python  
 
 #!/usr/bin/python  
 
-
 # -*- coding: utf-8 -*-  
-
 
 #  
 
-
 # file name: mac_manuf_table_def.py  
 
-
 #
+
 from sqlalchemy import create_engine, ForeignKey  
 from sqlalchemy import Column, Date, Integer, String  
 from sqlalchemy.ext.declarative import declarative_base
@@ -97,12 +85,9 @@ Base = declarative_base()
 
 #  
 
-
 # Model for 'MacAddressManuf':  
 
-
 # used for API Rest to get access to data from DB  
-
 
 #  
 class MacAddressManuf(Base):  
@@ -119,21 +104,18 @@ self.manuf_desc = manuf_desc
 
 And second Python script ([`mac_manuf_api_rest.py`](https://github.com/chilcano/docker-mac-address-manuf-lookup/blob/master/python/latest/mac_manuf_api_rest.py)) implements the API Rest. You can review the
 
-```python
+```python  
 
 #!/usr/bin/python  
 
-
 # -*- coding: utf-8 -*-  
-
 
 #  
 
-
 # file name: mac_manuf_api_rest.py  
 
-
 #
+
 import os, re  
 from flask import Flask, jsonify  
 from flask.ext.cors import CORS  
@@ -150,23 +132,21 @@ cors = CORS(app, resources={r"/chilcano/api/*": {"origins": "*"}})
 
 #  
 
-
 # API Rest:  
-
 
 # i.e. curl -i http://localhost:5000/chilcano/api/manuf/00:50:5a:e5:6e:cf  
 
-
 # i.e. curl -ik https://localhost:5443/chilcano/api/manuf/00:50:5a:e5:6e:cf  
 
-
 #  
+
 @app.route("/chilcano/api/manuf/<string:macAddress>", methods=["GET"])  
 def get_manuf(macAddress):  
 try:  
-if re.search(r'^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$', macAddress.strip(), re.I).group():
+if re.search(r'^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$', macAddress.strip(), re.I).group():  
 
 # expected MAC formats : a1-b2-c3-p4-q5-r6, a1:b2:c3:p4:q5:r6, A1:B2:C3:P4:Q5:R6, A1-B2-C3-P4-Q5-R6  
+
 mac1 = macAddress[:2] + ":" \+ macAddress[3:5] + ":" \+ macAddress[6:8]  
 mac2 = macAddress[:2] + "-" \+ macAddress[3:5] + "-" \+ macAddress[6:8]  
 mac3 = mac1.upper()  
@@ -182,9 +162,10 @@ return jsonify(mac=macAddress, manuf="Unknown", manuf_desc="Unknown"), 404
 except:  
 return jsonify(error="The MAC Address '" \+ macAddress + "' is malformed"), 400
 if __name__ == "__main__":  
-if HTTPS_ENABLED == "true":
+if HTTPS_ENABLED == "true":  
 
 # 'adhoc' means auto-generate the certificate and keypair  
+
 app.run(host="0.0.0.0", port=5443, ssl_context="adhoc", threaded=True, debug=True)  
 else:  
 app.run(host="0.0.0.0", port=5000, threaded=True, debug=True)  
@@ -231,9 +212,7 @@ Date: Thu, 03 Mar 2016 17:37:45 GMT
 {  
 "mac": "00:50:CA",  
 "manuf": "NetToNet",  
-"manuf_desc": "
-
-# NET TO NET TECHNOLOGIES"  
+"manuf_desc": "# NET TO NET TECHNOLOGIES"  
 }
 $ curl -ik https://127.0.0.1:5443/chilcano/api/manuf/11-50:Ca-Fe-Ca-Fe  
 HTTP/1.0 404 NOT FOUND  
@@ -265,9 +244,10 @@ But if you want to run in Production. In the `Flask` webpage (http://flask.pocoo
 **1) The Dockerfile**
 The latest version of the MAC Address Manufacturer lookup Docker container is the `python-latest` (aka `Docker MAC Manuf`) and has the next Dockerfile:
 
-```sh
+```sh  
 
 # Dockerfile to MAC Address Manufacturer Lookup container.
+
 FROM python:2.7
 MAINTAINER Roger CARHUATOCTO <chilcano at intix dot info>
 RUN pip install --upgrade pip  
@@ -278,6 +258,7 @@ RUN pip install pyOpenSSL
 RUN pip install -U flask-cors
 
 # Allocate the 5000/5443 to run a HTTP/HTTPS server  
+
 EXPOSE 5000 5443
 COPY mac_manuf_wireshark_file.py /  
 COPY mac_manuf_table_def.py /  
@@ -341,9 +322,7 @@ Date: Sat, 20 Feb 2016 09:01:38 GMT
 {  
 "mac": "00:50:CA",  
 "manuf": "NetToNet",  
-"manuf_desc": "
-
-# NET TO NET TECHNOLOGIES"  
+"manuf_desc": "# NET TO NET TECHNOLOGIES"  
 }  
 ```
 
@@ -359,14 +338,13 @@ Date: Mon, 29 Feb 2016 15:58:21 GMT
 {  
 "mac": "00:50:CA",  
 "manuf": "NetToNet",  
-"manuf_desc": "
-
-# NET TO NET TECHNOLOGIES"  
+"manuf_desc": "# NET TO NET TECHNOLOGIES"  
 }  
 ```
 
 
 ## V. And now what?, How to use the MAC Manuf Docker with the WSO2 BAM Docker?
+
 _Visualizing Captured WIFI Traffic in Realtime from WSO2 BAM Dashboard_  
 
 ![Visualizing Captured WIFI Traffic in Realtime]({{ site.baseurl }}/assets/chilcano-wso2bam-wifi-thrift-cassandra-4-kismet.png)
@@ -375,6 +353,7 @@ In this scenario, our `Docker MAC Manuf` will be useful because It will provide 
 The next blog post I will explain how to connect the MAC Address Manufacturer Docker Container with the WSO2 BAM Docker Container by using [Docker Compose](https://docs.docker.com/compose) to do a minimal orchestration.
 
 ## VI. Conclusions
+
 `Python` and a few modules (as Flask, SQLAlchemy, CORS, pyOpenssl, ...) more you can create quickly any kind of Applications (Business Applications, Web Applications, Mobile Applications, Microservices, ...). The development of this `(Micro)service` and put It into a Docker container was a smooth experience. It was possible to implement the older scripts to automatize some task while at the same time implement modern layered web applications as a microservice, and everything in a few lines of code.
 See you soon.
 

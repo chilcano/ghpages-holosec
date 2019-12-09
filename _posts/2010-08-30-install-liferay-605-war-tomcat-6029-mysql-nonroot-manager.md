@@ -46,6 +46,7 @@ In my case, DB user is "root" with empty password. You must create an empty DB i
 11.- Run **startup.bat/sh** , you will see in console when liferay creates and populates the portal database automatically. Now, you can open browser window and enter the folow URL _http://localhost:8080/liferay605_. Use " _test@liferay.com_ " and " _test_ " as user and password respectively.
 
 ## Configure Tomcat Manager
+
 Sometimes you need to deploy liferay in your favorite hosting provider but It is impossible because you can not change files of root context, in this case you can use only control panel of you ISP o Tomcat Manager.
 Tomcat Manager is included in standard Tomcat bundle but by default It is disabled. If you want to enable it, follow the next steps:
 

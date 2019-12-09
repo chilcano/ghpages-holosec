@@ -33,6 +33,7 @@ An Ansible Role that installs, configures and runs Apache MiNiFi in tiny devices
 * Run Apache MiNiFi as a `systemd` service.
 
 ## How to use everything
+
 Well, I've updated and deleted Ansible Tasks not used in the existing [Ansible Raspberry Pi Wardriving Github repo](https://github.com/chilcano/ansible-raspberrypi-wardriving) because now I'm using 3 Ansible Roles. Just download the same Github repo with `Tag 2.0.0` and execute the new Ansible Playbook with the same `inventory` file.
 Install all Ansible Roles needed as below or using `requirements.yml` file:
 

@@ -13,16 +13,20 @@ Actualmente existe una oferta muy rica de proveedores de infraestructura o hosti
 En mi caso, esta infraestructura la usaré para construir una plataforma donde provea servicios alrededor de productos como WSO2 ESB, Liferay Portal, Alfresco ECM, Drupal, etc., para ello he contratado un hosting medianamente decente en Hetzner (repito experiencia) y he empleado Proxmox VE.
 
 # I. Por qué Proxmox VE ?
+
 Principalmente, porque ya tenía experiencia previa con Proxmox con las versión 2.0 de años anteriores, aunque actualmente hay productos opensource y más sofisticados como Apache CloudStack, OpenStack y Eucalyptus, pero el conocimiento previo y su sencillez me hizo decidir su uso. Una cosa importante a destacar es el corto tiempo necesario para crear un nuevo servidor, por lo general me toma 10 minutos.
 
 # II. Qué servicios ofreceremos desde nuestra nube privada?
+
 Los servicios ofrecidos estarán alrededor del desarrollo de aplicaciones usando el Stack de WSO2, Liferay Portal, Alfresco ECM, Gestión de Identidades con WSO2 IS, etc. En otras palabras, nuestra nube privada será nuestra plataforma base para desarrollar y explotar nuestras aplicaciones construidas con las anteriores tecnologías mencionadas.
 
 # III. Por qué no usar WSO2 Stratos, RedHat OpenShift u otro PaaS
+
 Por la naturaleza del tipo de servicios a ofrecer, evidentemente lo mejor era usar algún PaaS stack y la más adecuada era WSO2 Stratos, aunque como indiqué en el punto anterior, el conocimiento previo de Proxmox me hizo decidir como primera opción.
 Bueno, una vez puesto mis argumentos, paso a explicar todo el proceso que seguí para tener mi nube privada.
 
 # IV. Defina una arquitectura de virtualización o mapa de VMs
+
 Sí, es muy importante planear cómo quedará tu nube privada, IPs, Redes Virtuales, DMZ, Storage vs. Partitions, RAM / VM, Security y Firewalling, etc.
 Aquí os muestro mi mapa de VMs.
 
@@ -30,6 +34,7 @@ Aquí os muestro mi mapa de VMs.
 Después de planear la arquitectura de tu nube, los siguientes pasos están relacionados a la instalación y post-configuración de tu hosting.
 
 # V. Preparando la infraestructura base
+
 Algunos requisitos previos:
 * Debian 7.0 (wheezy) o CentOS 6.4
 * Proxmox VE 3.0
@@ -43,16 +48,13 @@ Algunos requisitos previos:
 
 # shutdown -rf now
 
+
 [/sourcecode]
 * Verificar la versión de S.O. por defecto instalada en el Hosting
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
-root@chkry1 ~
-
-# uname -a  
-Linux chkry1 3.2.0-4-amd64
-
-#1 SMP Debian 3.2.46-1 x86_64 GNU/Linux  
+root@chkry1 ~ # uname -a  
+Linux chkry1 3.2.0-4-amd64 #1 SMP Debian 3.2.46-1 x86_64 GNU/Linux  
 
 [/sourcecode]
 
@@ -60,17 +62,13 @@ Linux chkry1 3.2.0-4-amd64
 **1) Cambiar password de root**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
-root@chkry1 ~
-
-# passwd root  
+root@chkry1 ~ # passwd root  
 
 [/sourcecode]
 **2) Actualizar Debian**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
-root@chkry1 ~
-
-# apt-get update  
+root@chkry1 ~ # apt-get update  
 
 [/sourcecode]
 **3) Renombrar host**
@@ -78,7 +76,6 @@ root@chkry1 ~
 [sourcecode language="html" gutter="true" wraplines="false"]
 
 # nano /etc/hostname
-
 
 # nano /etc/hosts
 
@@ -89,6 +86,7 @@ root@chkry1 ~
 
 # /etc/init.d/hostname.sh
 
+
 [/sourcecode]
 * Verifique los cambios, salga y vuelva a entrar o:
 
@@ -96,22 +94,19 @@ root@chkry1 ~
 
 # hostname --fqdn
 
+
 [/sourcecode]
 **4) Cambiar puerto SSH**
 * http://ubuntu-tutorials.com/2008/01/12/disabling-ssh-connections-on-ipv6/
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
-root@chkry1 ~
-
-# nano /etc/ssh/sshd_config  
+root@chkry1 ~ # nano /etc/ssh/sshd_config  
 
 [/sourcecode]
 * Reemplazar las líneas 'Port 22' y 'Port 222' por 'Port 4141' y añadir 'AddressFamily inet' (ipv4)
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
-root@chkry1 ~
-
-# service ssh restart  
+root@chkry1 ~ # service ssh restart  
 
 [/sourcecode]
 **5) Desabilite IPV6**
@@ -119,37 +114,27 @@ root@chkry1 ~
 * Verificar que realmente este funcionando ipv6
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
-root@chkry1 ~
-
-# netstat -tunlp |grep p6 |wc -l  
+root@chkry1 ~ # netstat -tunlp |grep p6 |wc -l  
 5  
 
 [/sourcecode]
 * Actualizar el kernel y hosts para no cargar ipv6
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
-root@chkry1 ~
-
-# echo net.ipv6.conf.all.disable_ipv6=1 > /etc/sysctl.d/disableipv6.conf  
-root@chkry1 ~
-
-# sed '/::/s/^/#/' /etc/hosts >/etc/dipv6-tmp; cp -a /etc/hosts /etc/hosts-backup && mv /etc/dipv6-tmp /etc/hosts  
+root@chkry1 ~ # echo net.ipv6.conf.all.disable_ipv6=1 > /etc/sysctl.d/disableipv6.conf  
+root@chkry1 ~ # sed '/::/s/^/#/' /etc/hosts >/etc/dipv6-tmp; cp -a /etc/hosts /etc/hosts-backup && mv /etc/dipv6-tmp /etc/hosts  
 
 [/sourcecode]
 * Al no tener avahi (multi-cast) instalado, no ejecutar esto:
 
 [sourcecode language="html" gutter="true" wraplines="true"]  
-root@chkry1 ~
-
-# sed '/ipv6=yes/s/yes/no/' /etc/avahi/avahi-daemon.conf > /etc/avahi/dipv6-tmp; cp -a /etc/avahi/avahi-daemon.conf /etc/avahi/avahi-daemon.conf-backup && mv /etc/avahi/dipv6-tmp /etc/avahi/avahi-daemon.conf  
+root@chkry1 ~ # sed '/ipv6=yes/s/yes/no/' /etc/avahi/avahi-daemon.conf > /etc/avahi/dipv6-tmp; cp -a /etc/avahi/avahi-daemon.conf /etc/avahi/avahi-daemon.conf-backup && mv /etc/avahi/dipv6-tmp /etc/avahi/avahi-daemon.conf  
 
 [/sourcecode]
 * NTP
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
-root@chkry1 ~
-
-# nano /etc/default/ntp  
+root@chkry1 ~ # nano /etc/default/ntp  
 
 [/sourcecode]
 .. debería quedar así "NTPD_OPTS='-4 -g'", luego reiniciar:
@@ -158,23 +143,21 @@ root@chkry1 ~
 
 # service ntp restart
 
+
 [/sourcecode]
 * RPCBIND (rpc.statd, rpc.mountd, verificar tambien HTTP)
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
-root@chkry1 ~
-
-# nano /etc/netconfig  
+root@chkry1 ~ # nano /etc/netconfig  
 
 [/sourcecode]
 dejarlo así:
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
 udp tpi_clts v inet udp - -  
-tcp tpi_cots_ord v inet tcp - -
+tcp tpi_cots_ord v inet tcp - -  
 
 #udp6 tpi_clts v inet6 udp - -  
-
 
 #tcp6 tpi_cots_ord v inet6 tcp - -  
 rawip tpi_raw - inet - - -  
@@ -185,20 +168,14 @@ unix tpi_cots_ord - loopback - - -
 * Quitar la interface eth0 de ipv6
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
-root@chkry1 ~
-
-# nano /etc/network/interfaces  
+root@chkry1 ~ # nano /etc/network/interfaces  
 
 [/sourcecode]
 * Rebootear y probar si ipv6 aún funciona
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
-root@chkry1 ~
-
-# shutdown -rf now
-root@chkry1 ~
-
-# netstat -tunlp
+root@chkry1 ~ # shutdown -rf now
+root@chkry1 ~ # netstat -tunlp
 Active Internet connections (only servers)  
 Proto Recv-Q Send-Q Local Address Foreign Address State PID/Program name  
 tcp 0 0 0.0.0.0:4141 0.0.0.0:* LISTEN 2340/sshd  
@@ -215,18 +192,14 @@ udp 0 0 0.0.0.0:123 0.0.0.0:* 2277/ntpd
 * Crear una carpeta destinada a alojar los backups (iso, config files, etc.) de PVE (lo haremos desde la Consola Web de Proxmox)
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
-root@chkry1 ~
-
-# mkdir -p /datos_pve_backups (lo configuraremos desde PVE Web)  
+root@chkry1 ~ # mkdir -p /datos_pve_backups (lo configuraremos desde PVE Web)  
 
 [/sourcecode]
 * Verificar que esté usando GUID Partition Table (no MS-DOS) ya que permite usar más de 2T de disco usando gdisk (fdisk es para otro tipo de FS como MS-DOS) o df -h
 * http://wiki.hetzner.de/index.php/Partitionsgr%C3%B6%C3%9Fenlimit_bei_gro%C3%9Fen_Festplatten/en
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
-root@chkry1 ~
-
-# gdisk -l /dev/sda  
+root@chkry1 ~ # gdisk -l /dev/sda  
 GPT fdisk (gdisk) version 0.8.5
 Partition table scan:  
 MBR: protective  
@@ -252,9 +225,7 @@ Number Start (sector) End (sector) Size Code Name
 y el otro disco:
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
-root@chkry1 ~
-
-# gdisk -l /dev/sdb  
+root@chkry1 ~ # gdisk -l /dev/sdb  
 GPT fdisk (gdisk) version 0.8.5
 Partition table scan:  
 MBR: protective  
@@ -295,17 +266,13 @@ tmpfs 9,5G 22M 9,5G 1% /run/shm
 * Configurar el idioma:
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
-root@chkry1 ~
-
-# dpkg-reconfigure locales  
+root@chkry1 ~ # dpkg-reconfigure locales  
 
 [/sourcecode]
 * Configurar la zona horaria:
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
-root@chkry1 ~
-
-# dpkg-reconfigure tzdata  
+root@chkry1 ~ # dpkg-reconfigure tzdata  
 
 [/sourcecode]
 * Para evitar warnings como este:
@@ -323,38 +290,23 @@ are supported and installed on your system.
 .. hay que regenerar los locales:
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
-root@chkry1 ~
-
-# locale-gen es_ES.UTF-8  
+root@chkry1 ~ # locale-gen es_ES.UTF-8  
 
 [/sourcecode]
 ... o comentar en '/etc/ssh/sshd_config' la siguiente línea 'AcceptEnv LANG LC_*'
 
 # VI. Instalación del software de virtualización
 
-
 ## 4\. Instalación de Promox VE
 * Añadir a la sourcelist de apt lo sgte:
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
-root@chkry1 ~
-
-# echo "deb http://download.proxmox.com/debian wheezy pve" >> /etc/apt/sources.list  
-root@chkry1 ~
-
-# wget -O- "http://download.proxmox.com/debian/key.asc" | apt-key add -  
-root@chkry1 ~
-
-# apt-get upgrade  
-root@chkry1 ~
-
-# aptitude upgrade  
-root@chkry1 ~
-
-# aptitude full-upgrade  
-root@chkry1 ~
-
-# aptitude install proxmox-ve-2.6.32
+root@chkry1 ~ # echo "deb http://download.proxmox.com/debian wheezy pve" >> /etc/apt/sources.list  
+root@chkry1 ~ # wget -O- "http://download.proxmox.com/debian/key.asc" | apt-key add -  
+root@chkry1 ~ # apt-get upgrade  
+root@chkry1 ~ # aptitude upgrade  
+root@chkry1 ~ # aptitude full-upgrade  
+root@chkry1 ~ # aptitude install proxmox-ve-2.6.32
 
 [...]  
 The following packages have unmet dependencies:  
@@ -375,14 +327,11 @@ Accept this solution? [Y/n/q/?] Y
 Basta con comentar los protocolos en /etc/netconfig
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
-root@chkry1 ~
-
-# nano /etc/netconfig  
+root@chkry1 ~ # nano /etc/netconfig  
 
 [/sourcecode]
 
 # VII. Post configuración
-
 
 ## 5\. Configuración de Redes virtuales con Promox VE
 **1) Crear 2 redes virtuales de tipo Bridge desde la consola de Proxmox.**
@@ -401,9 +350,7 @@ Reiniciar para que los cambios sean aplicados.
 * Verificar la existencia de 3 interfaces de red después de reiniciar.
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
-root@chkry1 ~
-
-# ifconfig  
+root@chkry1 ~ # ifconfig  
 eth0 Link encap:Ethernet HWaddr 08:60:6e:68:14:cc  
 inet addr:144.76.70.175 Bcast:144.76.70.191 Mask:255.255.255.255  
 UP BROADCAST RUNNING MULTICAST MTU:1500 Metric:1  
@@ -438,9 +385,7 @@ RX bytes:0 (0.0 B) TX bytes:0 (0.0 B)
 * Por cada VM creada en cualquier subred virtual, aparecerá una nueva interfaz de red virtual:
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
-root@chkry1 ~
-
-# ifconfig
+root@chkry1 ~ # ifconfig
 tap100i0 Link encap:Ethernet HWaddr da:ec:a5:7f:fa:59  
 UP BROADCAST RUNNING PROMISC MULTICAST MTU:1500 Metric:1  
 RX packets:0 errors:0 dropped:0 overruns:0 frame:0  
@@ -452,13 +397,9 @@ RX bytes:0 (0.0 B) TX bytes:0 (0.0 B)
 **2) Verificar y configurar Kernel**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
-root@chkry1 ~
-
-# nano /etc/sysctl.conf
-
+root@chkry1 ~ # nano /etc/sysctl.conf
 
 ### Hetzner Online AG installimage
-
 
 # sysctl config
 net.ipv4.ip_forward=1  
@@ -481,17 +422,13 @@ nano /etc/resolv.conf (también es posible modificarlos desde Proxmox)
 **1) Instalar ShoreWall**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
-root@chkry1 ~
-
-# apt-get install shorewall  
+root@chkry1 ~ # apt-get install shorewall  
 
 [/sourcecode]
 **2) Configurar ShoreWall para auto-inicio**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
-root@chkry1 ~
-
-# nano /etc/default/shorewall
+root@chkry1 ~ # nano /etc/default/shorewall
 Cambiar:  
 startup = 0  
 a:  
@@ -499,9 +436,7 @@ startup = 1
 <strong>3) Continuar configurando ShoreWall</strong>
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
-root@chkry1 ~
-
-# nano /etc/shorewall/shorewall.conf  
+root@chkry1 ~ # nano /etc/shorewall/shorewall.conf  
 
 [/sourcecode]
 Cambiar:  
@@ -513,18 +448,14 @@ DISABLE_IPV6=Yes
 **4) Configurar las Zones en ShoreWall**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
-root@chkry1 ~
-
-# nano /etc/shorewall/zones
-
+root@chkry1 ~ # nano /etc/shorewall/zones
 
 # http://linux.die.net/man/5/shorewall-zones
 
-
 #ZONE TYPE OPTIONS IN OUT
 
-
 # OPTIONS OPTIONS
+
 fw firewall  
 net ipv4  
 loc ipv4  
@@ -534,13 +465,9 @@ dmz ipv4
 **5) Configurar las Interfaces en ShoreWall**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
-root@chkry1 ~
-
-# nano /etc/shorewall/interfaces
-
+root@chkry1 ~ # nano /etc/shorewall/interfaces
 
 # http://linux.die.net/man/5/shorewall-interfaces
-
 
 #ZONE INTERFACE BROADCAST OPTIONS  
 net eth0 detect logmartians,tcpflags,nosmurfs  
@@ -551,42 +478,44 @@ loc vmbr1 detect logmartians,bridge,routefilter
 **6) Configurar Policy en ShoreWall**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
-root@chkry1 ~
-
-# nano /etc/shorewall/policy
-
+root@chkry1 ~ # nano /etc/shorewall/policy
 
 # http://linux.die.net/man/5/shorewall-policy
 
-
 #SOURCE DEST POLICY LOG LEVEL LIMIT:BURST
 
-
 # 1\. fw - loc
+
 fw loc ACCEPT  
 loc fw ACCEPT
 
 # 2\. fw - dmz
+
 fw dmz ACCEPT  
 dmz fw DROP info
 
 # 3\. fw - net
+
 fw net ACCEPT  
 net fw DROP info
 
 # 4\. dmz - net
+
 dmz net ACCEPT  
 net dmz DROP info
 
 # 5\. loc - dmz
+
 loc dmz ACCEPT  
 dmz loc DROP info
 
 # 6\. loc - net
+
 loc net ACCEPT  
 net loc DROP info
 
 # THE FOLLOWING POLICY MUST BE LAST
+
 all all REJECT info  
 
 [/sourcecode]
@@ -594,31 +523,21 @@ all all REJECT info
 * http://www.shorewall.net/three-interface.htm
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
-root@chkry1 ~
-
-# nano /etc/shorewall/rules
-
+root@chkry1 ~ # nano /etc/shorewall/rules
 
 # http://linux.die.net/man/5/shorewall-rules
 
-
 #ACTION SOURCE DEST PROTO DEST SOURCE ORIGINAL RATE
-
 
 # PORT PORT(S) DEST LIMIT
 
-
 #
-
 
 # Accept particular connections from Internet
 
-
 #
 
-
 # Permit access to SSH port 4646
-
 
 ##ACCEPT net fw tcp 22 - - 6/min:5  
 ACCEPT net fw tcp 8080 - - 6/min:5  
@@ -626,18 +545,15 @@ ACCEPT net fw tcp 4646 - - 6/min:5
 
 #
 
-
 # Permit access to Proxmox Manager and Console
 ACCEPT net fw tcp 443,5900:5999,8006
 
 #
 
-
 # PING Rules
 Ping/ACCEPT all all
 
 #
-
 
 # Permit traffic to - certain - VMs in DMZ (via DNAT)
 DNAT net dmz:$MY_PROXYWEB_IP tcp 80  
@@ -645,20 +561,15 @@ DNAT net dmz:$MY_PROXYWEB_IP tcp 443
 
 #
 
-
 # LAST LINE -- DO NOT REMOVE
 
 [/sourcecode]
 **8) Configurar NAT en ShoreWall**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
-root@chkry1 ~
-
-# nano /etc/shorewall/masq
-
+root@chkry1 ~ # nano /etc/shorewall/masq
 
 # implements SNAT on vmbr0
-
 
 #INTERFACE SOURCE ADDRESS PROTO PORT(S) IPSEC MARK  
 eth0 10.10.10.0/24  
@@ -667,12 +578,11 @@ eth0 10.10.10.0/24
 **9) Definir la variable o parámetro MY_PROXYWEB_IP**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
-root@chkry1 ~
-
-# nano /etc/shorewall/params
-MY_PROXYWEB_IP=10.10.10.11
+root@chkry1 ~ # nano /etc/shorewall/params
+MY_PROXYWEB_IP=10.10.10.11  
 
 #LAST LINE -- DO NOT REMOVE  
+
 
 [/sourcecode]
 **10) Validar y habilitar la configuración de ShoreWall**
@@ -680,56 +590,39 @@ Es muy útil para probar antes de aplicarlo permanentemente.
 * Verificar la configuración
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
-root@chkry1 ~
-
-# shorewall check  
+root@chkry1 ~ # shorewall check  
 
 [/sourcecode]
 * Habilitar la configuración de ShoreWall por 120 segundos
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
-root@chkry1 ~
-
-# shorewall try /etc/shorewall 120s  
+root@chkry1 ~ # shorewall try /etc/shorewall 120s  
 
 [/sourcecode]
 **11) Si todo está OK, reiniciar el servidor o Shorewall**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
-root@chkry1 ~
-
-# shorewall stop  
-root@chkry1 ~
-
-# shorewall start  
-root@chkry1 ~
-
-# shorewall restart  
+root@chkry1 ~ # shorewall stop  
+root@chkry1 ~ # shorewall start  
+root@chkry1 ~ # shorewall restart  
 
 [/sourcecode]
 
 # VIII. Virtualizando con Proxmox VE
 
-
 ## 7\. Crear una primera VM (Proxy Web)
 Previamente hay que descargar una ISO del S.O. de la VM que vamos a crear.
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
-root@chkry1 ~
-
-# cd /var/lib/vz/template/iso/  
-root@chkry1 /var/lib/vz/template/iso
-
-# wget http://ftp.cica.es/CentOS/6.4/isos/x86_64/CentOS-6.4-x86_64-minimal.iso  
+root@chkry1 ~ # cd /var/lib/vz/template/iso/  
+root@chkry1 /var/lib/vz/template/iso # wget http://ftp.cica.es/CentOS/6.4/isos/x86_64/CentOS-6.4-x86_64-minimal.iso  
 
 [/sourcecode]
 **1) Configurar Red de la VM**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
 
-[root@chky-apache1 ~]
-
-# vi /etc/sysconfig/network-scripts/ifcfg-eth0
+[root@chky-apache1 ~]# vi /etc/sysconfig/network-scripts/ifcfg-eth0
 DEVICE="eth0"  
 HWADDR=0a:98:a1:3b:9a:48  
 TYPE=Ethernet  
@@ -747,9 +640,7 @@ IPV6INIT=no
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
 
-[root@soadev1 ~]
-
-# vi /etc/sysconfig/network
+[root@soadev1 ~]# vi /etc/sysconfig/network
 NETWORKING=yes  
 HOSTNAME=chky-apache1  
 GATEWAY=10.10.10.1  
@@ -760,12 +651,10 @@ por ejemplo:
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
 
-[root@chky-apache1 ~]
-
-# nano /etc/udev/rules.d/70-persistent-net.rules
-
+[root@chky-apache1 ~]# nano /etc/udev/rules.d/70-persistent-net.rules
 
 # PCI device 0x8086:0x100e (e1000) (custom name provided by external tool)
+
 SUBSYSTEM=="net", ACTION=="add", DRIVERS=="? _" , ATTR{address}=="0a:98:a1:3b:9a:48", ATTR{type}=="1", KERNEL=="eth_", NAME="eth0"  
 
 [/sourcecode]
@@ -773,26 +662,20 @@ SUBSYSTEM=="net", ACTION=="add", DRIVERS=="? _" , ATTR{address}=="0a:98:a1:3b:9a
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
 
-[root@chky-apache1 ~]
-
-# /etc/init.d/network restart  
+[root@chky-apache1 ~]# /etc/init.d/network restart  
 
 [/sourcecode]
 **4) Instalar Apache**
 * http://dev.antoinesolutions.com/apache-server
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
-root@chky-apache1 ~]
-
-# yum install httpd  
+root@chky-apache1 ~]# yum install httpd  
 
 [/sourcecode]
 **5) Set the apache service to start on boot**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
-root@chky-apache1 ~]
-
-# chkconfig --levels 235 httpd on  
+root@chky-apache1 ~]# chkconfig --levels 235 httpd on  
 
 [/sourcecode]
 **6) Habilite name-based virtual hosting on port 80**
@@ -803,9 +686,7 @@ Save the file"
 **7) Restart the Apache HTTP Server daemon**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
-root@chky-apache0 ~]
-
-# service httpd restart  
+root@chky-apache0 ~]# service httpd restart  
 
 [/sourcecode]
 * Ignore the "NameVirtualHost *:80 has no VirtualHosts" warning for now.
@@ -813,9 +694,7 @@ root@chky-apache0 ~]
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
 
-[root@chk-apache1 ~]
-
-# nano /etc/sysconfig/iptables  
+[root@chk-apache1 ~]# nano /etc/sysconfig/iptables  
 
 [/sourcecode]
 ...deberia quedar así:
@@ -823,7 +702,6 @@ root@chky-apache0 ~]
 [sourcecode language="html" gutter="true" wraplines="false"]
 
 # Firewall configuration written by system-config-firewall
-
 
 # Manual customization of this file is not recommended.
 *filter  
@@ -844,9 +722,7 @@ COMMIT
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
 
-[root@chk-apache1 ~]
-
-# /etc/init.d/iptables restart  
+[root@chk-apache1 ~]# /etc/init.d/iptables restart  
 
 [/sourcecode]
 **10) Ahora desde un navegador probar lo sgte:**
@@ -859,15 +735,14 @@ http://your-server.com
 Finalmente, deberías configurar este Apache HTTP para que haga de Proxy Web a las otras VM que expongan una interfase HTTP
 
 ## 8\. Crear una segunda VM (Liferay Portal)
+
 Esta segunda VM será un clone de la primera VM, es posible configurar la RAM, HD, NICs, etc. fácilmente desde la Consola Web de Proxmox.
 **1) Instalar Jdk**
 * http://wiki.centos.org/HowTos/JavaOnCentOS
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
 
-[root@chk-lfry1 ~]
-
-# yum list *java-1* | grep open
+[root@chk-lfry1 ~]# yum list *java-1* | grep open
 java-1.6.0-openjdk.x86_64 1:1.6.0.0-1.62.1.11.11.90.el6_4 updates  
 java-1.6.0-openjdk-demo.x86_64 1:1.6.0.0-1.62.1.11.11.90.el6_4 updates  
 java-1.6.0-openjdk-devel.x86_64 1:1.6.0.0-1.62.1.11.11.90.el6_4 updates  
@@ -879,18 +754,14 @@ java-1.7.0-openjdk-devel.x86_64 1:1.7.0.25-2.3.10.4.el6_4 updates
 java-1.7.0-openjdk-javadoc.noarch 1:1.7.0.25-2.3.10.4.el6_4 updates  
 java-1.7.0-openjdk-src.x86_64 1:1.7.0.25-2.3.10.4.el6_4 updates  
 
-[root@chk-lfry1 ~]
-
-# yum install java-1.6.0-openjdk.x86_64  
+[root@chk-lfry1 ~]# yum install java-1.6.0-openjdk.x86_64  
 
 [/sourcecode]
 **2) Verificar instalación de JDK**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
 
-[root@chky-apache0 ~]
-
-# java -version  
+[root@chky-apache0 ~]# java -version  
 java version "1.6.0_24"  
 OpenJDK Runtime Environment (IcedTea6 1.11.11.90) (rhel-1.62.1.11.11.90.el6_4-x86_64)  
 OpenJDK 64-Bit Server VM (build 20.0-b12, mixed mode)  
@@ -900,18 +771,14 @@ OpenJDK 64-Bit Server VM (build 20.0-b12, mixed mode)
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
 
-[root@chk-lfry1 tempo-files]
-
-# wget http://sourceforge.net/projects/lportal/files/Liferay%20Portal/6.1.1%20GA2/liferay-portal-tomcat-6.1.1-ce-ga2-20120731132656558.zip  
+[root@chk-lfry1 tempo-files]# wget http://sourceforge.net/projects/lportal/files/Liferay%20Portal/6.1.1%20GA2/liferay-portal-tomcat-6.1.1-ce-ga2-20120731132656558.zip  
 
 [/sourcecode]
 **4) Añadir la regla a iptables para aceptar tráfico HTTP en el puerto 8080, 8009**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
 
-[root@chk-lfry1 ~]
-
-# nano /etc/sysconfig/iptables  
+[root@chk-lfry1 ~]# nano /etc/sysconfig/iptables  
 
 [/sourcecode]
 ...deberia quedar así:
@@ -919,7 +786,6 @@ OpenJDK 64-Bit Server VM (build 20.0-b12, mixed mode)
 [sourcecode language="html" gutter="true" wraplines="false"]
 
 # Firewall configuration written by system-config-firewall
-
 
 # Manual customization of this file is not recommended.
 *filter  
@@ -941,31 +807,26 @@ COMMIT
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
 
-[root@chk-lfry1 ~]
-
-# /etc/init.d/iptables restart  
+[root@chk-lfry1 ~]# /etc/init.d/iptables restart  
 
 [/sourcecode]
 
 ## 9\. Crear una tercera VM (MySQL Server)
+
 De igual forma que la segunda VM, esta tercera VM es, o podría ser, un clone de la primera VM, evidentemente con tamaño de HD diferente, RAM, CPUs/Cores, IP (privada y no en la DMZ), ... unas configuraciones fácilmente de hacerlas a través de la Consola Web de Proxmox.
 * http://dev.antoinesolutions.com/mysql
 **1) Instalar MySQL**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
 
-[root@chk-mysql1 ~]
-
-# yum install mysql-server mysql  
+[root@chk-mysql1 ~]# yum install mysql-server mysql  
 
 [/sourcecode]
 **2) Hacer que inicie cuando bootee la VM**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
 
-[root@chk-mysql1 ~]
-
-# chkconfig --levels 235 mysqld on  
+[root@chk-mysql1 ~]# chkconfig --levels 235 mysqld on  
 
 [/sourcecode]
 **3) Iniciar y acceder a MySQL**
@@ -1000,9 +861,7 @@ exit
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
 
-[root@chk-mysql1 ~]
-
-# nano /etc/sysconfig/iptables  
+[root@chk-mysql1 ~]# nano /etc/sysconfig/iptables  
 
 [/sourcecode]
 ...deberia quedar así:
@@ -1010,7 +869,6 @@ exit
 [sourcecode language="html" gutter="true" wraplines="false"]
 
 # Firewall configuration written by system-config-firewall
-
 
 # Manual customization of this file is not recommended.
 *filter  
@@ -1031,9 +889,7 @@ COMMIT
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
 
-[root@chk-mysql1 ~]
-
-# /etc/init.d/iptables restart  
+[root@chk-mysql1 ~]# /etc/init.d/iptables restart  
 
 [/sourcecode]
 

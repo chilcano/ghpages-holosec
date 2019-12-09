@@ -181,13 +181,9 @@ C:\01bizlife\wso2esb-4.8.1-dev\bin>tcpmon.bat
 
 [/sourcecode]
 Usar estos valores en TCPmon:
-Listen Port
-
-#: 8280  
+Listen Port #: 8280  
 Target Hostname: 127.0.0.1  
-Target Port
-
-#: 8283
+Target Port #: 8283
 Ahora, ejecutar el cliente Axis2. Seguir estos pasos para ejecutarlo:
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
@@ -257,7 +253,7 @@ BUILD SUCCESSFUL
 Total time: 3 seconds  
 
 [/sourcecode]
-Según los logs, se ha podido enviar satisfactoriamente una imagen ubicada en `C:>1bizlife\wso2esb-4.8.1-dev\repository\samples\resources\mtom\asf-logo.gif`, además, la imagen recibida ha sido guardada en el lado servidor en esta ruta `C:>1bizlife\wso2esb-4.8.1-dev\tmp\sampleClient\mtom-7597224514139522188.gif`
+Según los logs, se ha podido enviar satisfactoriamente una imagen ubicada en `C:>1bizlife\wso2esb-4.8.1-dev\repository\samples\resources\mtom\asf-logo.gif`, además, la imagen recibida ha sido guardada en el lado servidor en esta ruta `C:>1bizlife\wso2esb-4.8.1-dev\tmp\sampleClient\mtom-7597224514139522188.gif`  
 
 ## VI. Revisando el request y response SOAP MTOM.
 * * *

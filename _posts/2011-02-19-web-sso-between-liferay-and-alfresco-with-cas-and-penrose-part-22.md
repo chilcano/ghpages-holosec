@@ -48,222 +48,213 @@ caption="LDAP and CAS configuration in Liferay"]
 4. CAS-client (3.1.10)
 
 ## I. Enable LDAP Authentication and LDAP users import in Alfresco
+
 To do Web-SSO is not necessary this step, but i recommend to do it because you can do users management from Alfresco Admin Console (Browser/Explorer or Share) (edit, delete, to do groups and give permissions).
 1\. Create the following folders in "\subsystems\Authentication\ldap\ldap1" in ﻿${ALF_HOME}\tomcat\shared\classes\alfresco\extension
 2\. Copy the file ﻿${ALF_HOME}\tomcat\webapps\alfresco\WEB-INF\classes\alfresco\subsystems\Authentication\ldap\﻿ldap-authentication.properties in the folder before created.
 3\. Modify ldap-authentication.properties enabling LDAP authN and sync. For example, you can use my file (This only works for my LDAP tree with UID as RDN and authN with CN. See my LDAP tree):
 
 [sourcecode language="text" gutter="true" wraplines="false"]  
-﻿
-
-# This flag enables use of this LDAP subsystem for authentication. It may be  
-
+﻿# This flag enables use of this LDAP subsystem for authentication. It may be  
 
 # that this subsytem should only be used for synchronization, in which case  
-
 
 # this flag should be set to false.  
 ldap.authentication.active=true
 
 #  
 
-
 # This properties file brings together the common options for LDAP authentication rather than editing the bean definitions  
 
-
 #  
-ldap.authentication.allowGuestLogin=true
+
+ldap.authentication.allowGuestLogin=true  
 
 # How to map the user id entered by the user to that passed through to LDAP  
 
-
 # - simple  
-
 
 # - this must be a DN and would be something like  
 
-
 # uid=%s,ou=People,dc=company,dc=com  
-
 
 # - digest  
 
-
 # - usually pass through what is entered  
-
 
 # %s  
 
-
 # If not set, an LDAP query involving ldap.synchronization.personQuery and ldap.synchronization.userIdAttributeName will  
-
 
 # be performed to resolve the DN dynamically. This allows directories to be structured and doesn't require the user ID to  
 
-
 # appear in the DN.  
-
 
 ### intix: always search DN by RDN attribute, in my case uid (see ldap tree)  
 
-
 ### ldap.authentication.userNameFormat=cn=%s,ou=Employees,dc=intix,dc=info  
 
-
 ### intix: this config is better than above, because i want to searh by CN.  
-
 
 ### It is necessary set ldap.synchronization.personQuery=inetOrgPerson and ldap.synchronization.userIdAttributeName=cn  
 ldap.authentication.userNameFormat=
 
 # The LDAP context factory to use  
+
 ldap.authentication.java.naming.factory.initial=com.sun.jndi.ldap.LdapCtxFactory
 
 # The URL to connect to the LDAP server  
+
 ldap.authentication.java.naming.provider.url=ldap://directorysrv1:10389
 
 # The authentication mechanism to use for password validation  
+
 ldap.authentication.java.naming.security.authentication=simple
 
 # Escape commas entered by the user at bind time  
-
 
 # Useful when using simple authentication and the CN is part of the DN and contains commas  
 ldap.authentication.escapeCommasInBind=false
 
 # Escape commas entered by the user when setting the authenticated user  
 
-
 # Useful when using simple authentication and the CN is part of the DN and contains commas, and the escaped \, is  
 
-
 # pulled in as part of an LDAP sync  
-
 
 # If this option is set to true it will break the default home folder provider as space names can not contain \  
 ldap.authentication.escapeCommasInUid=false
 
 # Comma separated list of user names who should be considered administrators by default  
 
-
 ### intix: administration user (CN) when ldap authN is enabled.  
 
-
 ### The "admin" user is valid when alfrescoNtlm authN is enabled.  
+
 ldap.authentication.defaultAdministratorUserNames=aamodwroclawski
 
 # This flag enables use of this LDAP subsystem for user and group  
 
-
 # synchronization. It may be that this subsytem should only be used for  
 
-
 # authentication, in which case this flag should be set to false.  
+
 ldap.synchronization.active=true
 
 # The authentication mechanism to use for synchronization  
+
 ldap.synchronization.java.naming.security.authentication=simple
 
 # The default principal to use (only used for LDAP sync)  
+
 ldap.synchronization.java.naming.security.principal=uid\=admin,ou\=system
 
 # The password for the default principal (only used for LDAP sync)  
+
 ldap.synchronization.java.naming.security.credentials=secret
 
 # If positive, this property indicates that RFC 2696 paged results should be  
 
-
 # used to split query results into batches of the specified size. This  
 
-
 # overcomes any size limits imposed by the LDAP server.  
+
 ldap.synchronization.queryBatchSize=0
 
 # If positive, this property indicates that range retrieval should be used to fetch  
 
-
 # multi-valued attributes (such as member) in batches of the specified size.  
 
-
 # Overcomes any size limits imposed by Active Directory.  
+
 ldap.synchronization.attributeBatchSize=0
 
 # The query to select all objects that represent the groups to import.  
-
 
 ### ldap.synchronization.groupQuery=(objectclass\=groupOfNames)  
 ldap.synchronization.groupQuery=(objectclass\=groupOfUniqueNames)
 
 # The query to select objects that represent the groups to import that have changed since a certain time.  
 
-
 ### ldap.synchronization.groupDifferentialQuery=(&(objectclass\=groupOfNames)(!(modifyTimestamp<\={0})))  
 ldap.synchronization.groupDifferentialQuery=(&(objectclass\=groupOfUniqueNames)(!(modifyTimestamp<\={0})))
 
 # The query to select all objects that represent the users to import.  
+
 ldap.synchronization.personQuery=(objectclass\=inetOrgPerson)
 
 # The query to select objects that represent the users to import that have changed since a certain time.  
+
 ldap.synchronization.personDifferentialQuery=(&(objectclass\=inetOrgPerson)(!(modifyTimestamp<\={0})))
 
 # The group search base restricts the LDAP group query to a sub section of tree on the LDAP server.  
+
 ldap.synchronization.groupSearchBase=ou\=Groups,dc\=intix,dc\=info
 
 # The user search base restricts the LDAP user query to a sub section of tree on the LDAP server.  
+
 ldap.synchronization.userSearchBase=ou\=Employees,dc\=intix,dc\=info
 
 # The name of the operational attribute recording the last update time for a group or user.  
+
 ldap.synchronization.modifyTimestampAttributeName=modifyTimestamp
 
 # The timestamp format. Unfortunately, this varies between directory servers.  
+
 ldap.synchronization.timestampFormat=yyyyMMddHHmmss'Z'
 
 # The attribute name on people objects found in LDAP to use as the uid in Alfresco  
 
-
 ### ldap.synchronization.userIdAttributeName=uid  
 
-
 ### intix: CN is necessary to authN by this attribute when searching LDAP  
+
 ldap.synchronization.userIdAttributeName=cn
 
 # The attribute on person objects in LDAP to map to the first name property in Alfresco  
+
 ldap.synchronization.userFirstNameAttributeName=givenName
 
 # The attribute on person objects in LDAP to map to the last name property in Alfresco  
+
 ldap.synchronization.userLastNameAttributeName=sn
 
 # The attribute on person objects in LDAP to map to the email property in Alfresco  
+
 ldap.synchronization.userEmailAttributeName=mail
 
 # The attribute on person objects in LDAP to map to the organizational id property in Alfresco  
+
 ldap.synchronization.userOrganizationalIdAttributeName=o
 
 # The default home folder provider to use for people created via LDAP import  
+
 ldap.synchronization.defaultHomeFolderProvider=userHomesHomeFolderProvider
 
 # The attribute on LDAP group objects to map to the authority name property in Alfresco  
+
 ldap.synchronization.groupIdAttributeName=cn
 
 # The attribute on LDAP group objects to map to the authority display name property in Alfresco  
+
 ldap.synchronization.groupDisplayNameAttributeName=description
 
 # The group type in LDAP  
-
 
 ### ldap.synchronization.groupType=groupOfNames  
 ldap.synchronization.groupType=groupOfUniqueNames
 
 # The person type in LDAP  
+
 ldap.synchronization.personType=inetOrgPerson
 
 # The attribute in LDAP on group objects that defines the DN for its members  
-
 
 ### ldap.synchronization.groupMemberAttributeName=member  
 ldap.synchronization.groupMemberAttributeName=uniqueMember
 
 # If true progress estimation is enabled. When enabled, the user query has to be run twice in order to count entries.  
+
 ldap.synchronization.enableProgressEstimation=true  
 
 [/sourcecode]
@@ -273,6 +264,7 @@ ldap.synchronization.enableProgressEstimation=true
 [caption id="" align="alignnone" width="517" caption="Imported users from LDAP tree in Alfresco"]![Imported users from LDAP tree in Alfresco]({{ site.baseurl }}/assets/sso_alfr_lfry-04-showusers.png)[/caption]
 
 ## II. Configure CAS in Alfresco
+
 We are setting up Alfresco so that when someone log into Alfresco it is redirected to CAS for authentication.
 Through the CAS filter, Alfresco catchs any request to access and these are redirected to CAS-login.
 When you has successfully authenticated with CAS, after you will be redirected to the My Alfresco Dashboard, then Alfresco will need to retrieve the values of session which is placed there by the CAS Filter.
@@ -523,20 +515,20 @@ Certificate was added to keystore
 [/sourcecode]
 
 ## III. Tuning Authentication in Alfresco
+
 Right now, we have configured Alfresco and CAS, where the user management can be done syncronizing or importing users stored in LDAP tree.
 We can do user, groups and roles management via Alfresco LDAP subsystem and Authentication-SSO via EXTERNAL subsystem. To do this, we must modify the file alfresco-global.properties.
 
 [sourcecode language="text" gutter="true" wraplines="false"]  
 
 [...]  
-﻿
-
-### authentication.chain=alfrescoNtlm1:alfrescoNtlm,ldap1:ldap  
+﻿### authentication.chain=alfrescoNtlm1:alfrescoNtlm,ldap1:ldap  
 ﻿authentication.chain=external1:external,ldap1:ldap  
 
 [/sourcecode]
 
 ## IV. Test Web Single Sign On between Liferay 6.0.5 CE and Alfresco 3.4.c CE
+
 Open a browser with http://alfr01:8080/alfresco, you get redirected to CAS-login page. Enter aamodwroclawski/test, then you should be redirected to Alfresco My Dashboard page (authenticated).
 In this time you should see Logout (aamodwroclawski) in the top right of the Alfresco page indicating that you have sucessfully logged in.
 
@@ -547,6 +539,7 @@ Then, open other browser with http://lfry01:8080/intixportal/user/aamodwroclawsk
 In other direction (Liferay to Alfresco) it does work too.
 
 ## V. Conclusions
+
 1\. Authentication and users sync in Alfresco 3.4c does work with authentication subsystem LDAP.
 2\. SSO with CAS in Alfresco 3.4c does work by enabling authentication subsystem EXTERNAL.
 3\. There is an issue when importing users from LDAP tree in Liferay. The passwords are created with random value and no with "test".

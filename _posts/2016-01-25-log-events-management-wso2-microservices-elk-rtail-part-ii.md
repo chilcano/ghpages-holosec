@@ -20,7 +20,6 @@ In this second blog post I will explain how to use rTail to view all streams/log
 
 ## Part II: rTail (a node.js application to debug and monitor in realtime)
 
-
 ### 1\. Starting with rTail Server Docker Container
 **1) Prepare the rTail Server Docker Container**
 I have created and published a rTail Docker Image in Docker Hub ready to use it.  
@@ -93,9 +92,10 @@ bdbb0476fa20 chilcano/rtail-srv "/bin/sh -c 'rtail-se" 5 seconds ago Up 5 second
 Just open the rTail Server Web Console from a browser using this URL `http://192.168.99.100:8181`.  
 But if you want check if rTail Server Container is reacheable remotely (from other VM) to send log events, just execute this:
 
-```sh
+```sh  
 
 # use netcat instead of telnet, because telnet doesn't use UDP  
+
 $ nc -vuzw 3 <IP_ADDRESS_RTAIL_CONTAINER> 9191  
 Connection to 192.168.99.100 9191 port [udp/*] succeeded!  
 ```
@@ -112,6 +112,7 @@ Where:
 \- `9191` port is listening for UDP traffic (log events).
 
 ### 2\. Send log events to rTail Server Docker Container
+
 You can send any type of log events, from a syslog event, an echo message or a log by tailing. Before, you have to install rTail application again in the box/VM from where you want send log events.  
 I have created a [Puppet module for rTail](https://github.com/chilcano/vagrant-wso2-dev-srv/tree/master/provision/wso2-stack-srv/puppet/modules/rtail_sender) and I have included It to the Vagrant box to have the rTail (client) ready to be used.
 **1) Using rTail (client) to send log events to rTail Server**
@@ -122,9 +123,11 @@ $ git clone https://github.com/chilcano/vagrant-wso2-dev-srv.git
 $ cd ~/github-repo/vagrant-wso2-dev-srv
 
 # start  
+
 $ vagrant up
 
 # re-load and provision  
+
 $ vagrant reload --provision  
 ```
 **2) Check if rTail (as Client) is working in the Vagrant box and if can reach to Docker Container**
@@ -134,10 +137,12 @@ To check if rTail was installed/provisioned properly, get SSH access, try to rea
 $ vagrant ssh
 
 # use netcat instead of telnet, because telnet doesn't use UDP  
+
 $ nc -vuzw 3 9191  
 Connection to 192.168.99.100 9191 port [udp/*] succeeded!
 
 # send ping events to IP address  
+
 $ ping 8.8.4.4 | rtail --id logs-ping --host 192.168.99.100 --port 9191 --mute  
 $  
 ```
@@ -148,36 +153,42 @@ _rTail - Browsing log events_
 **3) Send log events to rTail Server Docker Container from the Vagrant box**
 Wiremock is a mock server that should be running in the box. Then, we will send the Wiremock traces/events to the rTail server.
 
-```sh
+```sh  
 
 # start wiremock  
+
 $ sudo service wiremock start  
 
 [wiremock] server starting ... success (pid 15601)
 
 # tailing a log file  
+
 $ tail -f /opt/wiremock/wiremock.log | rtail --id wiremock --host 192.168.99.100 --port 9191 --mute  
 ```
 
 Now, to send the multiple log events of multiple log files to unique merged stream we will use in this case the `multitail`.
 
-```sh
+```sh  
 
 # install 'multitail'  
+
 $ sudo apt-get install multitail
 
 # test 'multitail' (merge the output of 2 commands)  
+
 $ multitail -l "ping 8.8.8.8" -L "ping 8.8.4.4"
 
 # send 2 ping output to rTail  
+
 $ multitail -l "ping 8.8.8.8" -L "ping 8.8.4.4" | rtail --id logs-ping --host 192.168.99.100 --port 9191 --mute  
 ```
 
 Now, to send 3 log file to rTail Server to an unique merged stream using this process/pattern, i.e.: WSO2 API Manager, WSO2 ESB and as backend Wiremock (`wso2am02a -&gt; wso2esb02a -&gt; wiremock`), then you should `multitail` the 3 log files
 
-```sh
+```sh  
 
 # tailing the flow 'wso2am02a -> wso2esb02a -> wiremock'  
+
 $ multitail -ke "[ \t]+$" /opt/wso2am02a/repository/logs/wso2carbon.log -I /opt/wso2esb02a/repository/logs/wso2carbon.log -I /opt/wiremock/wiremock.log | rtail --id logs-wso2-01 --host 192.168.99.100 --port 9191 --tty --mute  
 ```
 
@@ -204,9 +215,10 @@ _rTail - Multiple log tailing using`tail`_
 **4) Shell scripts to send multiple WSO2 log files**
 I have created a bash script to send all log events to the rTail server. You can find the bash script under `/etc/init.d/rtail-send-logs` and can run it whenever.
 
-```sh
+```sh  
 
 # initial status of rtail scripts  
+
 $ service --status-all  
 ...  
 
@@ -216,6 +228,7 @@ $ service --status-all
 ...
 
 # start rTail Server, useful just for rTail Server Docker Container  
+
 $ sudo service rtail-server status  
 
 [rTail] server is running (pid 1234)  
@@ -224,9 +237,10 @@ $ sudo service rtail-server status
 There is a rTail Puppet module to enable the rTail server to start automatically when booting the VM.  
 In other words, rTail server always is listening in the port UDP to receive events and logs.
 
-```sh
+```sh  
 
 # start, stop and status of WSO2 log files simultaneously (not merged)  
+
 $ sudo service rtail-send-logs status  
 
 [wso2am02a] is sending logs to rTail.  

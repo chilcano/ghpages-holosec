@@ -18,6 +18,7 @@ This post discusses how to use the Eclipse IDE for remote debugging on Liferay.
 * Liferay IDE 1.2
 
 ## Remote Debugging configuration
+
 1\. In your Liferay server side, if you have installed Tomcat bundle, to add this line into $TOMCAT_HOME/bin/setenv.bat or setenv.sh before you set any JAVA_OPTS:
 In windows:
 
@@ -27,9 +28,10 @@ set JAVA_OPTS=-Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspen
 [/sourcecode]
 In Mac OSX the file will be as follow:
 
-[sourcecode language="text" gutter="true" wraplines="false"]
+[sourcecode language="text" gutter="true" wraplines="false"]  
 
 ## intix - remote debugging  
+
 JAVA_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n"  
 JAVA_OPTS="$JAVA_OPTS -Dfile.encoding=UTF8 -Duser.timezone=GMT -Xmx1024m -XX:MaxPermSize=256m"  
 

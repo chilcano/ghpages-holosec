@@ -22,7 +22,7 @@ This repository ([wso2bam-wifi-thrift-cassandra-poc](https://github.com/chilcano
 ## Considerations
 * I've used WSO2 BAM 2.5.0 (standard configuration without changes and with offset 0)
 * I've used a Raspberry Pi as agent to send captured 802.11 traffic to WSO2 BAM by using Apache Thrift. 
-* I've used a Python Thrift and Kismet script to send the captured traffic.
+* I've used a Python Thrift and Kismet script to send the captured traffic. 
 
 ## How to use
 **1) Send Kismet traffic to WSO2 BAM using Apache Thrift listener**

@@ -26,9 +26,10 @@ and
 
 [sourcecode language="text" gutter="true" wraplines="false" highlight="3"]  
 
-[...]
+[...]  
 
 #### added  
+
 chilcano ALL=NOPASSWD: /usr/lib/openssh/sftp-server  
 
 [/sourcecode]

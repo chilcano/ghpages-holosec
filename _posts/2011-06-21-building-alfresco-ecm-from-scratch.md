@@ -12,15 +12,14 @@ This article show us how to build Alfresco from scratch which is useful when ext
 [caption id="" align="aligncenter" width="236" caption="Alfresco ECM"]![Alfresco ECM]({{ site.baseurl }}/assets/logo_01_alfresco.png)[/caption]
 
 ## Requisites:
+
 1\. Windows XP  
 2\. Java/JDK 1.6.0_21 (<http://www.oracle.com/technetwork/java/javase/downloads/index.html>)  
 3\. Eclipse EE Helios SR2 (<http://www.eclipse.org/downloads/packages/eclipse-ide-java-ee-developers/heliossr2>)  
 4\. Subversion plugin for Eclipse (downloaded from Eclipse Marketplace)  
 5\. Apache Tomcat 6.0.32 (<http://tomcat.apache.org/download-60.cgi>)  
 6\. MySQL (XAMPP - <http://www.apachefriends.org/en/xampp-windows.html>)  
-7\. ImageMagick ﻿6.7.0-Q16 (<http://www.imagemagick.org/script/binary-releases.php
-
-#windows>)  
+7\. ImageMagick ﻿6.7.0-Q16 (<http://www.imagemagick.org/script/binary-releases.php#windows>)  
 8\. SWFTools 0.9.1 (<http://www.swftools.org/download.html>)  
 9\. OpenOffice 3.2 (<http://download.openoffice.org/index.html>)  
 10\. Alfresco source code downloaded from SVN on 15/June.
@@ -28,7 +27,6 @@ This article show us how to build Alfresco from scratch which is useful when ext
 [caption id="" align="alignnone" width="493" caption="Alfresco ECM: Community - version 4.0.0"]![Alfresco ECM: Community - version 4.0.0]({{ site.baseurl }}/assets/build_alfresco_scratch_0.png)[/caption]
 
 ## Setup development environment:
-
 
 ### JDK 
 1\. Install JDK and set two system variables (JAVA_HOME and PATH):
@@ -40,6 +38,7 @@ PATH=%PATH%;%JAVA_HOME%\bin
 [/sourcecode]
 
 ### Apache Tomcat 
+
 1\. Install/Unzip Apache Tomcat in the folder above, for example, **C:\1bpms-demo\alfresco_scratch\tomcat-6.0.32_app**
 2\. Create **setenv.bat** in **C:\1bpms-demo\alfresco_scratch\tomcat-6.0.32_app\bin** file with the following content:
 
@@ -50,6 +49,7 @@ set JAVA_OPTS=%JAVA_OPTS%
 [/sourcecode]
 
 ### Eclipse 
+
 1\. Unzip Eclipse into **C:\1bpms-demo\eclipse-jee-helios-SR2**.
 2\. Open Eclipse and install Subclipse plugin from Eclipse Marketplace.
 3\. Create a folder where will download and build the Alfresco source code, for example﻿ **C:\1bpms-demo\alfresco_scratch**.
@@ -72,6 +72,7 @@ In my case, env.VIRTUAL_TOMCAT_HOME is an empty folder.
 \- Browse to the build.xml file located in the HEAD\root directory.
 
 ### MySQL, OpenOffice, SWFTools, ImageMagick and others 
+
 1\. Install/Unzip MySQL (XAMPP) and create an empty database, for example:
 
 [sourcecode language="text" gutter="true" wraplines="false"]  
@@ -86,20 +87,23 @@ grant all on alfresco.* to alfresco@localhost.localdomain identified by 'alfresc
 Copy **Win32Utils.dll** and **Win32NetBIOS.dll** placed in (C:\2workspace\alfresco20110615\HEAD\root\projects\alfresco-jlan\jni) to the **env.TOMCAT_HOME/bin** folder.
 
 ## Pre-configure Alfresco before building
+
 1\. Create the file **alfresco-global.properties** ﻿in **C:\1bpms-demo\alfresco_scratch\tomcat-6.0.32_app\shared\classes** with the following content:
 
 [sourcecode language="text" gutter="true" wraplines="false"]  
 dir.root=C:/1bpms-demo/alfresco_scratch/tomcat-6.0.32_app/alf_data  
-web.application.context.url=http://127.0.0.1:8080/alfresco
+web.application.context.url=http://127.0.0.1:8080/alfresco  
 
 ### database connection properties ###  
+
 db.driver=org.gjt.mm.mysql.Driver  
 db.username=root  
 db.password=  
 db.name=alfresco  
-db.url=jdbc:mysql://localhost/alfresco
+db.url=jdbc:mysql://localhost/alfresco  
 
 ### External executable locations ###  
+
 ooo.exe=C:/1bpms-demo/openoffice-3.2/App/openoffice/program/soffice.exe  
 ooo.enabled=false  
 img.root=C:/1bpms-demo/ImageMagick-6.7.0-Q16  
@@ -120,6 +124,7 @@ shared.loader=${catalina.base}/shared/classes,${catalina.base}/shared/lib/*.jar
 [/sourcecode]
 
 ## Building:
+
 All targets for building Alfresco are within **build.xml**.  
 You can use ant -projecthelp to see all the available options. Here are a few of the common commands:
 
@@ -140,6 +145,7 @@ ant test runs unit tests for the entire project
 [caption id="" align="alignnone" width="631" caption="Alfresco ECM deployed from Eclipse"]![Alfresco ECM deployed from Eclipse]({{ site.baseurl }}/assets/build_alfresco_scratch.png)[/caption]
 
 ## Launch Tomcat/Alfresco 
+
 1\. Run Tomcat from C:\1bpms-demo\alfresco_scratch\tomcat-6.0.32_app\bin\startup.bat. Make sure MySQL is running before.
 Alfresco database schema will be created and you will see all log of activity in the console.
 2\. If you want deploy/run alfresco from Eclipse: 
@@ -158,5 +164,6 @@ Edit launch configuration properties of this server adding new VM arguments as:
 Now, from Eclipse Server window run Tomcat instance.
 
 ## Test Alfresco
+
 Open a browser and go to http://localhost:8080/alfresco or http://localhost:8080/share and enter admin/admin as user/password.
 END.
