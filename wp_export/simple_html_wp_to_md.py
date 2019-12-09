@@ -86,7 +86,6 @@ def gen_markdown(html_content):
 	markdown_part = re.sub(r"\n\[", r"\n\n[", markdown_part, flags=re.UNICODE)
 	markdown_part = re.sub(r"\n```(.*?)\n```\n", r"\n\n```\1\n```  \n\n", markdown_part, flags=re.UNICODE|re.MULTILINE|re.DOTALL)
 	markdown_part = re.sub(r"\n<!-- more -->\n", r"\n\n<!-- more -->\n\n", markdown_part, flags=re.UNICODE)
-	
 	markdown_part = re.sub(r"\n\s*\*\*(.*?)\*\*\n", r"\n\n**\1**\n\n", markdown_part, flags=re.UNICODE)
 
 	# removing spacing and blank lines in <ol><li>, <ul><li>
