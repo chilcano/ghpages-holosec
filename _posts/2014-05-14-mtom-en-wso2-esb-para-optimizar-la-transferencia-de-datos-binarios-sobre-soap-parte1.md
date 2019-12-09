@@ -15,7 +15,9 @@ Hace poco estaba explorando las características de WSO2 ESB para el envío ópt
 * * *
 WSO2 ESB viene con más de 102 ejemplos de Proxy de Apache Synapse, cada uno de ellos implementa diferentes casos de usos necesarios para integrar aplicaciones con diferencias estrategias.
 El ejemplo "Sample 51" implementa MTOM y SwA sobre SOAP y esta entrada al blog usa esta implementación.
- **Requisitos:**
+
+**Requisitos:**
+
   * Sample 51: MTOM and SwA Optimizations and Request/Response Correlation (<https://docs.wso2.org/pages/viewpage.action?pageId=33136025>)
   * SoapUI (<http://www.soapui.org>)
   * WSO2 ESB 4.8.1 (<http://wso2.com/products/enterprise-service-bus>)
@@ -258,6 +260,7 @@ Según los logs, se ha podido enviar satisfactoriamente una imagen ubicada en `C
 ## VI. Revisando el request y response SOAP MTOM.
 * * *
 Gracias al uso de TCPmon hemos podido interceptar el request y el response, aunque sólo serán legibles las cabeceras SOAP mientras que parte de los payloads no ya que contienen información en formato binario.
+
 **MTOM SOAP request message** :
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
@@ -300,6 +303,7 @@ GIF89a ...<<binary-content>>
 0  
 
 [/sourcecode]
+
 **MTOM SOAP response message:**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
@@ -478,6 +482,7 @@ Si ahora creamos un nuevo proyecto con el Proxy, el proyecto sería el siguiente
 
 [caption id="" align="aligncenter" width="458"][![Proyecto SoapUI: Proxy MTOMSwASampleService]({{ site.baseurl }}/assets/wso2-esb-mtom-MTOMSwASampleService-soapui-03-proxy.png)](https://dl.dropboxusercontent.com/u/2961879/blog.sec/blog20140430_wso2_mtom/wso2-esb-mtom-MTOMSwASampleService-soapui-03-proxy.png) Proyecto SoapUI: Proxy MTOMSwASampleService[/caption]
 Los request message para cada operación son los siguientes.
+
 **Request message para oneWayUploadUsingMTOM** :
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
@@ -491,6 +496,7 @@ xmlns:ser="http://services.samples">
 </soapenv:Envelope>  
 
 [/sourcecode]
+
 **Request message SOAP para uploadFileUsingMTOM:**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
@@ -507,6 +513,7 @@ xmlns:ser="http://services.samples">
 </soapenv:Envelope>  
 
 [/sourcecode]
+
 **El mensaje request SOAP para uploadFileUsingSwA usado es:**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  

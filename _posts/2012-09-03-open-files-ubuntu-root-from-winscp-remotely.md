@@ -9,13 +9,15 @@ permalink:  "/2012/09/03/open-files-ubuntu-root-from-winscp-remotely/"
 ---
 I would like to share a tip, frequently we need modify protected files (i.e. in an Ubuntu box) from **WinSCP** remotely, but sometimes that is impossible.
 If you have a non-privileged user and want to edit a root protected file of an Ubuntu box but with WinSCP, you can do it with a few changes.
- **Requirements** :
+
+**Requirements** :
 1\. Server:
 \- Ubuntu 11.04  
 \- Non-privileged user: chilcano
 2\. Client: 
 \- Any S.O. but with WinSCP 4.3.6 (http://winscp.net)
- **Steps** :
+
+**Steps** :
 1\. In the server side add this line to /etc/sudoers
 
 [sourcecode language="text" gutter="true" wraplines="false"]  

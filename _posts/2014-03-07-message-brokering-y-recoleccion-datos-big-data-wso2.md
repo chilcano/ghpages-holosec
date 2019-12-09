@@ -81,7 +81,9 @@ WSO2 ESB puede conectarse con:
   * Oracle WebLogic 10.3.4.0
   * Y WSO2 Message Broker
 Emplearemos WSO2 MB 2.1.0 (con offset 4) y WSO2 ESB 4.8.1 (con offset 2), ambos sobre Mac OSX 10.9.1 y Java 7.x. Descargarlos y descomprimirlos. Luego configurar WSO2 MB para que no tenga conflictos con WSO2 ESB, para ello cambiar los puertos (offset) de ambas aplicaciones.
+
 **Configuración de WSO2 MB:**
+
 1) Actualizar offset en \repository\conf\carbon.xml
 2) Actualizar puertos de Apache Cassandra en \repository\conf\advanced\qpid-virtualhosts.xml
 3) Con Mac OS X (Mavericks) y Java 7.x hay que actualizar la librería Java Snappy ya que si no se hace, WSO2 MB o WSO2 BAM no funcionaría ya que ambos embeben Apache Cassandra (https://code.google.com/p/snappy-java/issues/detail?id=39). Sólo hay que descargar snappy-java-1.0.5.jar, luego extraer snappy-java-1.0.5/org/xerial/snappy/native/Mac/x86_64/libsnappyjava.jnilib y copiarlo a /Library/Java/JavaVirtualMachines/jdk1.7.0_51.jdk/Contents/Home/jre/lib/ con este nombre libsnappyjava.dylib. Más información aquí: <https://github.com/thinkaurelius/titan/issues/62>
@@ -97,6 +99,7 @@ $ sudo cp libsnappyjava.jnilib /Library/Java/JavaVirtualMachines/jdk1.7.0_51.jdk
 
 [2014-03-05 14:14:24,270] INFO {org.wso2.carbon.core.transports.http.HttpTransportListener} - HTTP port : 9763  
 java(682,0x1111b8000) malloc: *** error for object 0x1111a3ff0: pointer being freed was not allocated  
+
 *** set a breakpoint in malloc_error_break to debug  
 ./wso2server.sh: line 299: 682 Abort trap: 6 $JAVACMD -Xbootclasspath/a:"$CARBON_XBOOTCLASSPATH" -Xms256m -Xmx1024m -XX:MaxPermSize=256m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath="$CARBON_HOME/repository/logs/heap-dump.hprof" -javaagent:"$CARBON_HOME/repository/components/plugins/jamm_0.2.5.wso2v2.jar" $JAVA_OPTS -DandesConfig=qpid-config.xml -Ddisable.cassandra.server.startup=true -Dcom.sun.management.jmxremote -classpath "$CARBON_CLASSPATH" -Djava.endorsed.dirs="$JAVA_ENDORSED_DIRS" -Djava.io.tmpdir="$CARBON_HOME/tmp" -Dcatalina.base="$CARBON_HOME/lib/tomcat" -Dwso2.server.standalone=true -Dcarbon.registry.root=/ -Djava.command="$JAVACMD" -Dcarbon.home="$CARBON_HOME" -Djava.util.logging.config.file="$CARBON_HOME/repository/conf/log4j.properties" -Dcarbon.config.dir.path="$CARBON_HOME/repository/conf" -Dcomponents.repo="$CARBON_HOME/repository/components/plugins" -Dconf.location="$CARBON_HOME/repository/conf" -Dcom.atomikos.icatch.file="$CARBON_HOME/lib/transactions.properties" -Dcom.atomikos.icatch.hide_init_file_path=true -Dorg.apache.jasper.runtime.BodyContentImpl.LIMIT_BUFFER=true -Dcom.sun.jndi.ldap.connect.pool.authentication=simple -Dcom.sun.jndi.ldap.connect.pool.timeout=3000 -Dorg.terracotta.quartz.skipUpdateCheck=true -Djava.security.egd=file:/dev/./urandom -Dfile.encoding=UTF8 org.wso2.carbon.bootstrap.Bootstrap $*  
 
@@ -112,7 +115,9 @@ java.net.SocketTimeoutException: Read timed out]
 
 [/sourcecode]
 6) Dejo Mac OS X y paso a Windows. En este caso no es necesario actualizar la librería java snappy, sólo cambiar los puertos.
+
 **Configuración de WSO2 ESB:**
+
 1) Actualizar offset en \repository\conf\carbon.xml
 2) ~~Habilite JMS para configurarlo con el WSO2 MB externo editando el fichero /repository/conf/axis2/axis2.xml. Luego identifique el bloque para WSO2 MB 2.x y descomente el bloque~~.
 3) ~~En el mismo fichero, descomente el bloque para JMSSender~~.

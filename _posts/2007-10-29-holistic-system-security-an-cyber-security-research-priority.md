@@ -23,6 +23,7 @@ Well, everything sounds known, but what does **Holistic System Security** mean?.
 <!-- more -->  
 The report answers perfectly and explains why it is a priority:
 >  **4\. Holistic System Security**
+
 > 
 > Effective security in a complex, many-layered, global infrastructure such as the Internet and its nodes requires more than the security of its component parts. Establishing sound methods for authentication, secure protocols for basic Web operations, and improved software engineering will undoubtedly become  
 > part of an evolving solution to this problem. But most importantly, researchers must recognize from the outset that an end-to-end architectural approach to the security of the whole necessarily transcends the security of the individual parts.For example, customers assume that their online banking transactions, based on secure socket layer (SSL), are indeed secure. But by spoofing the associated underlying protocols or end-user software, a malicious party can make a user’s transaction appear secured by SSL while allowing the theft of confidential data. It is also possible to compromise the security of the end computing systems, obtaining the data even though it was secure in transit.

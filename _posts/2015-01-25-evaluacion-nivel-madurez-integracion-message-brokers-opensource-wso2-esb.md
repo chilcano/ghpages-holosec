@@ -35,7 +35,9 @@ La lista de Message Brokers opensource a considerar son los siguientes:
 
 ![Lista de Message Brokers opensource a considerar \(Qpid, ActiveMQ, RabbitMQ, HornetQ, WSO2 MB, ZeroMQ, Apache Kafka, Apache Storm, OpenAMQP\)]({{ site.baseurl }}/assets/msgbroker-01-foss-brokers-wso2-esb-activemq-qpid-rabbitmq-hornetq-zeromq-kafka-storm.png)  
  _Lista de Message Brokers opensource a considerar (Qpid, ActiveMQ, RabbitMQ, HornetQ, WSO2 MB, ZeroMQ, Apache Kafka, Apache Storm, OpenAMQP)_
- **Standard Message Brokers**  
+
+**Standard Message Brokers**
+
 1\. RabbitMQ: https://www.rabbitmq.com  
 2\. Apache Qpid: https://qpid.apache.org  
 3\. WSO2 Message Broker: http://wso2.com/products/message-broker  
@@ -44,7 +46,9 @@ La lista de Message Brokers opensource a considerar son los siguientes:
 6\. Apache Kafka: http://kafka.apache.org  
 7\. Apache Storm: http://storm.apache.org  
 8\. OpenAMQP: http://www.openamq.org
-**Especialized Message Brokers**  
+
+**Especialized Message Brokers**
+
 9\. OpenMAMA: http://www.openmama.org  
 10\. ZebroGaMQ: https://github.com/simatic/ZebroGaMQ  
 11\. ZeroMQ: http://zeromq.org
@@ -58,7 +62,9 @@ No. | Features/functionalities to be considered | Weight
 2. | Support of AMQP | 5/5  
 3. | Message Store backend | 3/5  
 4. | Reliability & Clustering | 3/5  
-**5.** | **Maturity level of WSO2 integration** | **5/5**  
+
+**5.** | **Maturity level of WSO2 integration** | **5/5**
+
 6. | Performance | 3/5  
 7. | Quality of documentation | 4/5  
 8. | Community behind | 4/5  

@@ -28,25 +28,35 @@ The third, fourth and fifth instances will run over HTTPS with Client Certificat
 I've created an Ansible Playbook for you, you can download from this Git repository: https://github.com/chilcano/ansible-apache-nifi-multi-nodes
 
 ## How to use it - steps
- **1\. Clone the Ansible playbooks**
+
+**1\. Clone the Ansible playbooks**
+
 ```text  
 $ git clone https://github.com/chilcano/ansible-apache-nifi-multi-nodes  
 ```
- **2\. Install`chilcano.apache-nifi`and `chilcano.apache-nifi-toolkit` Ansible Roles**
+
+**2\. Install`chilcano.apache-nifi`and `chilcano.apache-nifi-toolkit` Ansible Roles**
+
 ```text  
 $ cd ansible-apache-nifi-multi-nodes  
 $ ansible-galaxy install -r playbooks/requirements.yml  
 ```
- **3\. Create all VMs with Vagrant**
+
+**3\. Create all VMs with Vagrant**
+
 Create all 6 VMs by using Vagrant.
+
 ```text  
 $ cd infra/Vagrant  
 $ vagrant up  
 ```
+
 **4\. Ansible provisioning with Vagrant**
+
 Now, I'm going to provision (run Ansible Playbooks) through Vagrant. This step will install Apache NiFi TLS Toolkit in the `nftk1` VM, once provisioned, Vagrant will provision 5 VMs following the Ansible Playbook `playbooks/main.yml`.  
 It is very important to start the provision of all NiFi instances after provisioning `nftk1`.  
 In the `playbooks/main.yml` you will see the `nftk1` is declared on top and after `nf1, nf2, nf3, nf4` and `nf5`.
+
 ```text  
 $ vagrant provision
 $ vagrant status  
@@ -61,6 +71,7 @@ This environment represents multiple VMs. The VMs are all listed
 above with their current state. For more information about a specific  
 VM, run `vagrant status NAME`.  
 ```
+
 Now we can verify if all instances are running as expected, before we have to install the `Client Certificate` ( _CN=chilcano_OU=INTIX.p12_ ) generated in our browser.
 
 [![Install the Client Certificate]({{ site.baseurl }}/assets/nifi-multi-node-client-cert-1install.png)](https://holisticsecurity.files.wordpress.com/2017/05/nifi-multi-node-client-cert-1install.png)

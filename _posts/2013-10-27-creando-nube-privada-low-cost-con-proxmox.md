@@ -53,18 +53,21 @@ Linux chkry1 3.2.0-4-amd64 #1 SMP Debian 3.2.46-1 x86_64 GNU/Linux
 [/sourcecode]
 
 ## 2\. Preparación básica del S.O. (Debian Wheezy)
+
 **1) Cambiar password de root**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
 root@chkry1 ~ # passwd root  
 
 [/sourcecode]
+
 **2) Actualizar Debian**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
 root@chkry1 ~ # apt-get update  
 
 [/sourcecode]
+
 **3) Renombrar host**
 
 [sourcecode language="html" gutter="true" wraplines="false"]
@@ -88,7 +91,9 @@ root@chkry1 ~ # apt-get update
 # hostname --fqdn
 
 [/sourcecode]
+
 **4) Cambiar puerto SSH**
+
   * http://ubuntu-tutorials.com/2008/01/12/disabling-ssh-connections-on-ipv6/
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
@@ -101,7 +106,9 @@ root@chkry1 ~ # nano /etc/ssh/sshd_config
 root@chkry1 ~ # service ssh restart  
 
 [/sourcecode]
+
 **5) Desabilite IPV6**
+
   * http://forums.debian.net/viewtopic.php?f=16&t=85551
   * Verificar que realmente este funcionando ipv6
 
@@ -325,7 +332,9 @@ root@chkry1 ~ # nano /etc/netconfig
 # VII. Post configuración
 
 ## 5\. Configuración de Redes virtuales con Promox VE
+
 **1) Crear 2 redes virtuales de tipo Bridge desde la consola de Proxmox.**
+
   * Name: vmbr0
   * IP address: 10.10.10.1
   * Subnet mask: 255.255.255.0
@@ -385,6 +394,7 @@ collisions:0 txqueuelen:500
 RX bytes:0 (0.0 B) TX bytes:0 (0.0 B)  
 
 [/sourcecode]
+
 **2) Verificar y configurar Kernel**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
@@ -400,6 +410,7 @@ net.ipv4.conf.all.proxy_arp=1
 net.ipv4.conf.default.proxy_arp=1  
 
 [/sourcecode]
+
 **3) Configurar hostname, hosts y DNS**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
@@ -410,12 +421,14 @@ nano /etc/resolv.conf (también es posible modificarlos desde Proxmox)
 [/sourcecode]
 
 ## 6\. Seguridad y Firewall
+
 **1) Instalar ShoreWall**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
 root@chkry1 ~ # apt-get install shorewall  
 
 [/sourcecode]
+
 **2) Configurar ShoreWall para auto-inicio**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
@@ -436,6 +449,7 @@ DISABLE_IPV6=No
 a:  
 IP_FORWARDING=On  
 DISABLE_IPV6=Yes
+
 **4) Configurar las Zones en ShoreWall**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
@@ -452,6 +466,7 @@ loc ipv4
 dmz ipv4  
 
 [/sourcecode]
+
 **5) Configurar las Interfaces en ShoreWall**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
@@ -465,6 +480,7 @@ dmz vmbr0 detect logmartians,bridge,routefilter
 loc vmbr1 detect logmartians,bridge,routefilter  
 
 [/sourcecode]
+
 **6) Configurar Policy en ShoreWall**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
@@ -502,7 +518,9 @@ net loc DROP info
 all all REJECT info  
 
 [/sourcecode]
+
 **7) Configurar las Rules en ShoreWall**
+
   * http://www.shorewall.net/three-interface.htm
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
@@ -547,6 +565,7 @@ DNAT net dmz:$MY_PROXYWEB_IP tcp 443
 # LAST LINE -- DO NOT REMOVE
 
 [/sourcecode]
+
 **8) Configurar NAT en ShoreWall**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
@@ -558,6 +577,7 @@ root@chkry1 ~ # nano /etc/shorewall/masq
 eth0 10.10.10.0/24  
 
 [/sourcecode]
+
 **9) Definir la variable o parámetro MY_PROXYWEB_IP**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
@@ -567,7 +587,9 @@ MY_PROXYWEB_IP=10.10.10.11
 #LAST LINE -- DO NOT REMOVE  
 
 [/sourcecode]
+
 **10) Validar y habilitar la configuración de ShoreWall**
+
 Es muy útil para probar antes de aplicarlo permanentemente.
   * Verificar la configuración
 
@@ -581,6 +603,7 @@ root@chkry1 ~ # shorewall check
 root@chkry1 ~ # shorewall try /etc/shorewall 120s  
 
 [/sourcecode]
+
 **11) Si todo está OK, reiniciar el servidor o Shorewall**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
@@ -600,6 +623,7 @@ root@chkry1 ~ # cd /var/lib/vz/template/iso/
 root@chkry1 /var/lib/vz/template/iso # wget http://ftp.cica.es/CentOS/6.4/isos/x86_64/CentOS-6.4-x86_64-minimal.iso  
 
 [/sourcecode]
+
 **1) Configurar Red de la VM**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
@@ -618,6 +642,7 @@ DNS1=213.133.99.99
 IPV6INIT=no  
 
 [/sourcecode]
+
 **2) Configure default gateway y hostname**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
@@ -628,7 +653,9 @@ HOSTNAME=chky-apache1
 GATEWAY=10.10.10.1  
 
 [/sourcecode]
+
 **3) En el GUEST verificar que la MACs esté asociada a la interface eth0**
+
 por ejemplo:
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
@@ -639,6 +666,7 @@ por ejemplo:
 SUBSYSTEM=="net", ACTION=="add", DRIVERS=="? _" , ATTR{address}=="0a:98:a1:3b:9a:48", ATTR{type}=="1", KERNEL=="eth_", NAME="eth0"  
 
 [/sourcecode]
+
 **3) Reinicie las interfases de red o la VM**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
@@ -646,24 +674,30 @@ SUBSYSTEM=="net", ACTION=="add", DRIVERS=="? _" , ATTR{address}=="0a:98:a1:3b:9a
 [root@chky-apache1 ~]# /etc/init.d/network restart  
 
 [/sourcecode]
+
 **4) Instalar Apache**
+
   * http://dev.antoinesolutions.com/apache-server
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
 root@chky-apache1 ~]# yum install httpd  
 
 [/sourcecode]
+
 **5) Set the apache service to start on boot**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
 root@chky-apache1 ~]# chkconfig --levels 235 httpd on  
 
 [/sourcecode]
+
 **6) Habilite name-based virtual hosting on port 80**
+
 No es necesario para proxy web:
 "Open the httpd configuration file located at /etc/httpd/conf/httpd.conf  
 Un-comment the line containing the text NameVirtualHost *:80  
 Save the file"
+
 **7) Restart the Apache HTTP Server daemon**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
@@ -671,6 +705,7 @@ root@chky-apache0 ~]# service httpd restart
 
 [/sourcecode]
   * Ignore the "NameVirtualHost *:80 has no VirtualHosts" warning for now.
+
 **8) Añadir la regla a iptables para aceptar tráfico HTTP**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
@@ -699,6 +734,7 @@ root@chky-apache0 ~]# service httpd restart
 COMMIT  
 
 [/sourcecode]
+
 **9) Reiniciar iptables**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
@@ -706,18 +742,23 @@ COMMIT
 [root@chk-apache1 ~]# /etc/init.d/iptables restart  
 
 [/sourcecode]
+
 **10) Ahora desde un navegador probar lo sgte:**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
 http://your-server.com  
 
 [/sourcecode]
+
 **11) Configura Apache HTTP como Proxy Web**
+
 Finalmente, deberías configurar este Apache HTTP para que haga de Proxy Web a las otras VM que expongan una interfase HTTP
 
 ## 8\. Crear una segunda VM (Liferay Portal)
 Esta segunda VM será un clone de la primera VM, es posible configurar la RAM, HD, NICs, etc. fácilmente desde la Consola Web de Proxmox.
+
 **1) Instalar Jdk**
+
   * http://wiki.centos.org/HowTos/JavaOnCentOS
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
@@ -737,6 +778,7 @@ java-1.7.0-openjdk-src.x86_64 1:1.7.0.25-2.3.10.4.el6_4 updates
 [root@chk-lfry1 ~]# yum install java-1.6.0-openjdk.x86_64  
 
 [/sourcecode]
+
 **2) Verificar instalación de JDK**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
@@ -747,6 +789,7 @@ OpenJDK Runtime Environment (IcedTea6 1.11.11.90) (rhel-1.62.1.11.11.90.el6_4-x8
 OpenJDK 64-Bit Server VM (build 20.0-b12, mixed mode)  
 
 [/sourcecode]
+
 **3) Instalar liferay 6.1.1ga2**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
@@ -754,6 +797,7 @@ OpenJDK 64-Bit Server VM (build 20.0-b12, mixed mode)
 [root@chk-lfry1 tempo-files]# wget http://sourceforge.net/projects/lportal/files/Liferay%20Portal/6.1.1%20GA2/liferay-portal-tomcat-6.1.1-ce-ga2-20120731132656558.zip  
 
 [/sourcecode]
+
 **4) Añadir la regla a iptables para aceptar tráfico HTTP en el puerto 8080, 8009**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
@@ -783,6 +827,7 @@ OpenJDK 64-Bit Server VM (build 20.0-b12, mixed mode)
 COMMIT  
 
 [/sourcecode]
+
 **4) Reiniciar IPtables**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
@@ -794,6 +839,7 @@ COMMIT
 ## 9\. Crear una tercera VM (MySQL Server)
 De igual forma que la segunda VM, esta tercera VM es, o podría ser, un clone de la primera VM, evidentemente con tamaño de HD diferente, RAM, CPUs/Cores, IP (privada y no en la DMZ), ... unas configuraciones fácilmente de hacerlas a través de la Consola Web de Proxmox.
   * http://dev.antoinesolutions.com/mysql
+
 **1) Instalar MySQL**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
@@ -801,6 +847,7 @@ De igual forma que la segunda VM, esta tercera VM es, o podría ser, un clone de
 [root@chk-mysql1 ~]# yum install mysql-server mysql  
 
 [/sourcecode]
+
 **2) Hacer que inicie cuando bootee la VM**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
@@ -808,6 +855,7 @@ De igual forma que la segunda VM, esta tercera VM es, o podría ser, un clone de
 [root@chk-mysql1 ~]# chkconfig --levels 235 mysqld on  
 
 [/sourcecode]
+
 **3) Iniciar y acceder a MySQL**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
@@ -836,6 +884,7 @@ DROP USER ''@'localhost.localdomain';
 exit  
 
 [/sourcecode]
+
 **4) Añadir la regla a IPtables para aceptar tráfico MySQL desde chk-lfry1**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
@@ -864,6 +913,7 @@ exit
 COMMIT  
 
 [/sourcecode]
+
 **4) Reiniciar iptables**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  

@@ -15,6 +15,7 @@ In the last two months I had to perform many Liferay instalations with different
 <!-- more -->
 
   1. Unzip **liferay-portal-XXX.zip** in **%LIFERAY_HOME%**
+
   2.   
 Change the default portsand avoid conflicts. Edit the file **%LIFERAY_HOME%\tomcat-YYY\conf\server.xml** and change the follow ports:
 > 8080 -> 9090  
@@ -34,5 +35,6 @@ Ensure that the MySQL JDBC Driver exists in **%LIFERAY_HOME%\tomcat-YYY\lib\ext*
 > CREATE DATABASE lportal_db CHARACTER SET utf8;  
 >  GRANT ALL ON lportal_db.* TO “YourUserName“@”localhost”; 
   1. Start Liferay Portal server. Execute **%LIFERAY_HOME%\tomcat-YYY\bin\startup.bat**
+
 These notes also apply to linux too.  
 Bye.

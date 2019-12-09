@@ -520,8 +520,11 @@ In other direction (Liferay to Alfresco) it does work too.
 1\. Authentication and users sync in Alfresco 3.4c does work with authentication subsystem LDAP.
 2\. SSO with CAS in Alfresco 3.4c does work by enabling authentication subsystem EXTERNAL.
 3\. There is an issue when importing users from LDAP tree in Liferay. The passwords are created with random value and no with "test".
+
 **END**
+
 **References:**
+
 1\. CAS in Alfresco
 http://wiki.alfresco.com/wiki/Central_Authentication_Service_Configuration
 2\. CAS SSO for Alfresco 3.3 and Share

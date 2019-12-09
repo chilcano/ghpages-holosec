@@ -32,31 +32,42 @@ Exist in Internet several MAC Address Lookup Tools, in fact, the OUI's prefix us
 But, in this case I am going to use the MAC Address List of Wireshark (https://www.wireshark.org/tools/oui-lookup.html).  
 Wireshark is a popular network protocol analyzer a.k.a. `network sniffer`, the Wireshark tool uses internally the MAC Address list to identity the Manufacturer of a NIC.  
 I'm going to download and create a API Rest for you. Below the steps.
- **1) Downloading the Wireshark MAC Addresses Manufacturer file and loading into a DB**
+
+**1) Downloading the Wireshark MAC Addresses Manufacturer file and loading into a DB**
+
 Using the below Python script I will download the Wireshark MAC Address list into a file and to get the hash. The idea is to parse the file and load it into a minimalist DB.  
 I will use SQLite Database where I will create an unique table and all information will be loaded there. The Table structure will be:
+
 ```sh  
 mac String # The original MAC Address  
 manuf String # The original Manufacturer name  
 manuf_desc String # The Manufacturer description, if exists.  
 ```
+
 Here the Python script used to do that: [mac_manuf_wireshark_file.py](https://github.com/chilcano/docker-mac-address-manuf-lookup/blob/master/python/latest/mac_manuf_wireshark_file.py)
 
 ## III. Exposing the MAC Address Manufacturer DB as an API Rest
 After creating the database, the next step is to expose the data through a simple API Rest. The idea is to make a call `GET` to the API Rest with a `MAC Address` and get the `Manufacturer` as response.
- **1) Defining the API**
+
+**1) Defining the API**
+
 The best way to define an API Rest and the `contract` is using the `Swagger` language (http://swagger.io). The idea is to create documentation about the API Rest and explain what resources are available or exposed, writte a request and response sample, etc.  
 In this scenario I'm going to define in a simple way the API, also I'm going to use JSON to define the request and response.  
 Then, below the API definition.
+
 ```sh  
 POST /chilcano/api/manuf # Add a new Manufacturer  
 PUT /chilcano/api/manuf # Update an existing Manufacturer  
 GET /chilcano/api/manuf/{macAddress} # Find Manufacturer by MAC Address  
 ```
+
 In this Proof-of-Concept I will implement only the `GET` resource for the API.
+
 **2) Implementing the API Rest**
+
 I have created 2 Python scripts to implement the API Rest.  
 The first one ([`mac_manuf_table_def.py`](https://github.com/chilcano/docker-mac-address-manuf-lookup/blob/master/python/latest/mac_manuf_table_def.py)) is just a `Model` of the `MacAddressManuf` table.
+
 ```python  
 
 #!/usr/bin/python  
@@ -92,7 +103,9 @@ def __init__(self, manuf, manuf_desc):
 self.manuf = manuf  
 self.manuf_desc = manuf_desc  
 ```
+
 And second Python script ([`mac_manuf_api_rest.py`](https://github.com/chilcano/docker-mac-address-manuf-lookup/blob/master/python/latest/mac_manuf_api_rest.py)) implements the API Rest. You can review the
+
 ```python  
 
 #!/usr/bin/python  
@@ -155,13 +168,17 @@ app.run(host="0.0.0.0", port=5443, ssl_context="adhoc", threaded=True, debug=Tru
 else:  
 app.run(host="0.0.0.0", port=5000, threaded=True, debug=True)  
 ```
+
 This second Python script performs the next tasks:
   * Calls the Model (`mac_manuf_table_def.py`).
   * Connects to SQLite Database and creates a Session.
   * Runs a query by using `macAddress` as parameter.
   * And creates a JSON response with the query's result.
+
 **3) Running and Testing the API Rest**
+
 We could use the `Flask` buit-in HTTP server just for testing and debugging. To run the above Python Web Application (API Rest) just execute the Python script. Note that actually I have 3 versions (py-1.0, py-1.1 and py-latest)
+
 ```sh  
 Chilcano@Pisc0 : ~/1github-repo/docker-mac-address-manuf-lookup/python/1.0  
 $ python mac_manuf_api_rest.py  
@@ -182,7 +199,9 @@ $ python mac_manuf_api_rest.py
 * Debugger is active!  
 * Debugger pin code: 258-876-642  
 ```
+
 Now, from other Terminal call the API Rest using `curl`, I'm going to use only the `python-lates` version:
+
 ```sh  
 $ curl -ik https://127.0.0.1:5443/chilcano/api/manuf/00-50:Ca-Fe-Ca-Fe  
 HTTP/1.0 200 OK  
@@ -214,6 +233,7 @@ Date: Thu, 03 Mar 2016 17:39:23 GMT
 "error": "The MAC Address '00-50:Ca-Fe-Ca-Fe---' is malformed"  
 }  
 ```
+
 But if you want to run in Production. In the `Flask` webpage (http://flask.pocoo.org/docs/0.10/deploying/wsgi-standalone) recommends these HTTP servers (Standalone WSGI Containers):
   * Gunicorn
   * Tornado
@@ -221,8 +241,11 @@ But if you want to run in Production. In the `Flask` webpage (http://flask.pocoo
   * Twisted Web
 
 ## IV. Putting everything in a Docker Container
+
 **1) The Dockerfile**
+
 The latest version of the MAC Address Manufacturer lookup Docker container is the `python-latest` (aka `Docker MAC Manuf`) and has the next Dockerfile:
+
 ```sh  
 
 # Dockerfile to MAC Address Manufacturer Lookup container.
@@ -243,14 +266,19 @@ COPY mac_manuf_api_rest.py /
 RUN python mac_manuf_wireshark_file.py  
 CMD python mac_manuf_api_rest.py  
 ```
+
 **2) Using the Docker Container**
+
 Clone the Github repository and build it.
+
 ```sh  
 $ git clone https://github.com/chilcano/docker-mac-address-manuf-lookup.git  
 $ cd docker-mac-address-manuf-lookup  
 $ docker build --rm -t chilcano/mac-manuf:py-latest python/latest/.  
 ```
+
 Or Pull from Docker Hub.
+
 ```sh  
 $ docker login  
 $ docker pull chilcano/mac-manuf-lookup:py-latest  
@@ -258,18 +286,24 @@ $ docker images
 REPOSITORY TAG IMAGE ID CREATED VIRTUAL SIZE  
 chilcano/mac-manuf-lookup py-latest 19d33a4f3ec1 16 minutes ago 714.8 MB  
 ```
+
 Run and check the container.
+
 ```sh  
 $ docker run -dt --name=mac-manuf-py-latest -p 5443:5443/tcp chilcano/mac-manuf-lookup:py-latest
 $ docker ps  
 CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES  
 4b0bb0b5b518 chilcano/mac-manuf-lookup:py-latest "/bin/sh -c 'python m" 2 minutes ago Up 2 minutes 5000/tcp, 0.0.0.0:5443->5443/tcp mac-manuf-py-latest  
 ```
+
 Gettting SSH access to the Container to check if SQLite DB exists.
+
 ```sh  
 $ docker exec -ti mac-manuf-py-latest bash  
 ```
+
 Getting the Docker Machine IP Address.
+
 ```sh  
 $ docker-machine ls  
 NAME ACTIVE DRIVER STATE URL SWARM ERRORS  
@@ -277,7 +311,9 @@ default * virtualbox Running tcp://192.168.99.100:2376
 machine-dev - virtualbox Stopped  
 machine-test - virtualbox Stopped  
 ```
+
 Testing/Calling the Microservice (API Rest).
+
 ```sh  
 $ curl -i http://192.168.99.100:5000/chilcano/api/manuf/00-50:Ca-ca-fe-ca  
 HTTP/1.0 200 OK  
@@ -291,7 +327,9 @@ Date: Sat, 20 Feb 2016 09:01:38 GMT
 "manuf_desc": "# NET TO NET TECHNOLOGIES"  
 }  
 ```
+
 If the embedded server was started on HTTPS, you could test it as shown below.
+
 ```sh  
 $ curl -ik https://192.168.99.100:5443/chilcano/api/manuf/00-50:Ca-ca-fe-ca  
 HTTP/1.0 200 OK  
@@ -305,6 +343,7 @@ Date: Mon, 29 Feb 2016 15:58:21 GMT
 "manuf_desc": "# NET TO NET TECHNOLOGIES"  
 }  
 ```
+
 
 ## V. And now what?, How to use the MAC Manuf Docker with the WSO2 BAM Docker?
 _Visualizing Captured WIFI Traffic in Realtime from WSO2 BAM Dashboard_  

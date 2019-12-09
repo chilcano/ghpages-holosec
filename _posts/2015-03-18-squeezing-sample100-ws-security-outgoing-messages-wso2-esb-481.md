@@ -25,6 +25,7 @@ If We do apply the above points, might only execute the secure service deployed 
 
 ### II.1. Installing Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files
 I am using `Java 1.7.0_51`, then I should download this JCE files from <http://www.oracle.com/technetwork/java/javase/downloads/jce-7-download-432124.html>, after that, unzip It and copy (or overwrite) the `local_policy.jar` and `US_export_policy.jar` to `$JAVA_HOME/jre/lib/security`.
+
 ```sh  
 $ java -version  
 java version "1.7.0_51"  
@@ -33,10 +34,12 @@ Java HotSpot(TM) 64-Bit Server VM (build 24.51-b03, mixed mode)
 $ echo $JAVA_HOME  
 /Library/Java/JavaVirtualMachines/jdk1.7.0_51.jdk/Contents/Home  
 ```
+
 Remember, by installing the JCE, the WSO2 ESB and Axis2 Server or any Java Application in the same box will not have cryptographic restrictions.
 
 ### II.2. Install the Bouncy Castle library required for the Axis2 Client.
 By default, the Axis2 Client does not work because the Rampart (Axis2 module) requires an encryption algorithm provided for Bouncy Castle library (`bcprov-jdk15.jar`). To solve it, copy the `$WSO2ESB_HOME/repository/axis2/client/lib/bcprov-jdk15.jar` to `$WSO2ESB_HOME/repository/components/plugins/` folder. If you do not copy this library, probably you get this error when executing the Axis2 Client `StockQuoteClient.java`.
+
 ```sh  
 
 [...]  
@@ -106,13 +109,17 @@ BUILD SUCCESSFUL
 Total time: 4 seconds  
 ```
 
+
 ### II.3. Deploying the Proxy Service and Policy correctly in WSO2 ESB.
 The Proxy Service used for the Sample 100 is placed in `$WSO2ESB_HOME/repository/samples/synapse_sample_100.xml` and if you open the `synapse_sample_100.xml` you can check that it uses `policy_3.xml` as definition of the Security Policy.  
 To deploy it and start the WSO2 ESB we have to execute from `$WSO2ESB_HOME/bin/` the following:
+
 ```sh  
 $ ./wso2esb-samples.sh -sn 100  
 ```
+
 After of deploying it, we can check if the Proxy Service was deployed successfully in WSO2 ESB. Open `https://localhost:9443/carbon` and go to Service Bus > Source View, there is an unique Synapse definitions and its content is:
+
 ```xml  
 <?xml version="1.0" encoding="UTF-8"?>  
 <definitions xmlns="http://ws.apache.org/ns/synapse">  
@@ -146,6 +153,7 @@ action="remove"/>
 </sequence>  
 </definitions>  
 ```
+
 Where:  
 1\. There is a `localEntry`, where `sec_policy` is the key of the security policy placed in `file:repository/samples/resources/policy/policy_3.xml`.  
 2\. The backend service is `http://localhost:9000/services/SecureStockQuoteService`, has `enableAddressing` enabled and also requires the security policy enabled (sec_policy).  
@@ -155,6 +163,7 @@ Where:
 Now, we are ready to run the sample 100.
 
 ### III.1. Compile and deploy the SecureStockQuoteService (backend service)
+
 ```sh  
 $ cd ~/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/src/SecureStockQuoteService  
 $ ant  
@@ -189,7 +198,9 @@ BUILD SUCCESSFUL
 Total time: 1 second  
 ```
 
+
 ### III.2. Run the Axis2 Server
+
 ```sh  
 $ cd ~/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server  
 $ ./axis2server.sh  
@@ -240,11 +251,13 @@ Using AXIS2 Configuration : /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/
 15/03/06 20:38:42 INFO util.SampleAxis2ServerManager: [SimpleAxisServer] Started  
 ```
 
+
 ### III.3. Check if backend was deployed successfully in Axis2 Server
 Open Axis2 Server (`http://localhost:9000/services`) to list the deployed services. You should see the following: ![SecureStockQuoteService deployed successfully on Axis2 Server]({{ site.baseurl }}/assets/wso2esb-sample100-secure-backend-axis2-02-axis2server.png) SecureStockQuoteService deployed successfully on Axis2 Server Also, check the WSDL: `http://localhost:9000/services/SecureStockQuoteService?wsdl`
 
 ### III.4. Run the Axis2 Client for the Sample 100
 The idea behind of this sample is that the Axis2 Client calls to Proxy Service (the `StockQuoteProxy` in WSO2 ESB) and sends a SOAP unsecure message, the Proxy Service receives the SOAP message and adds specials Headers required for the backend and also defined for the `policy_3.xml`.
+
 ```sh  
 $ cd ~/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Client  
 $ ant stockquote -Dtrpurl=http://localhost:8280/  
@@ -307,7 +320,9 @@ stockquote:
 BUILD SUCCESSFUL  
 Total time: 3 seconds  
 ```
+
 Lines above you can see the next:
+
 ```sh  
 
 [...]  
@@ -316,6 +331,7 @@ Lines above you can see the next:
 BUILD SUCCESSFUL  
 Total time: 3 seconds  
 ```
+
 That indicates that everything goes well.
 Now What?. Well, we are ready to understand what are happening behind of this Sample 100.
 
@@ -328,6 +344,7 @@ But even you do want to go further, I recommend the blog post of Sagara Gunathun
 
 ## V. Using a standalone Service Proxy instead of run WSO2 ESB with the Synapse definition
 WSO2 ESB has a lot of samples, more than 100 synapse samples, you can check them here `$WSO2ESB_HOME/repository/samples/` and here `https://docs.wso2.com/display/ESB481/Samples` for further details. But what I hate about this is run every time WSO2 ESB to load a single sample. Said that, why not convert the existing synapse-sample to a standalone synapse proxy where it can be deployed in runtime. This will avoid restart the WSO2 ESB and update the standalone directly on WSO2 ESB. Well, doing this is easy, below you can see the existing synapse proxy definition (check point II.3 or check synapse_sample_100.xml) and a little below the final standalone proxy.
+
 ```xml  
 
 <!-- synapse_sample_100.xml -->  
@@ -356,7 +373,9 @@ action="remove"/>
 </sequence>  
 </definitions>  
 ```
+
 This Synapse Proxy is the new standalone Proxy create from `synapse_sample_100.xml`.
+
 ```xml  
 
 <!-- MyProxySample100 created from synapse_sample_100.xml -->  
@@ -406,18 +425,23 @@ action="remove"/>
 <description>Proxy created from synapse_sample_100.xml</description>  
 </proxy>  
 ```
+
 I have changed/updated the following:
   * `in` for `inSequence`.
   * `out` for `outSequence`.
   * Added a reference for Security Policy definition to be used for `MyProxySample100.xml`. In this Proxy, the Security Policy is loaded as a Local Entry called `my_sec_policy`.
+
 ```xml  
 <localEntry key="my_sec_policy" src="file:repository/samples/resources/policy/policy_3.xml"/>  
 ```
+
 Also this could be also loaded as a resource stored in WSO2 ESB Local Registry.  
 * Added a Header Property for SOAP Action.
+
 ```xml  
 <header name="Action" value="urn:getQuote"/>  
 ```
+
   * Added a Log Mediator for tracking purposes.
 
 ## VI. Calling to the Backend from SoapUI using the new Proxy
@@ -425,6 +449,7 @@ Using the new proxy, we gain flexibility and reduce complexity when creating SOA
 
 ![]({{ site.baseurl }}/assets/wso2esb-sample100-secure-backend-axis2-05-soapui-axis2-req-resp.png)
 And in the Axis2 Server side you will get an error as shown below:
+
 ```sh  
 15/03/15 12:42:18 INFO util.SampleAxis2ServerManager: [SimpleAxisServer] Started  
 15/03/15 12:42:26 ERROR engine.AxisEngine: Missing wsse:Security header in request  
@@ -466,6 +491,7 @@ at org.apache.rampart.RampartEngine.process(RampartEngine.java:146)
 at org.apache.rampart.handler.RampartReceiver.invoke(RampartReceiver.java:92)  
 ... 11 more  
 ```
+
 This happens because we are sending a SOAP request message without WS-Security Header well formatted. Keys to hashing, timestamps, etc. are missing, this is the reason of the Proxy in WSO2 ESB, it solves this cryptography issues.
 Well, now we will use SoapUI to send a SOAP request to backend via Synapse Proxy. Before, we will add the WSO2 ESB Proxy EndPoint or WSDL to SoapUI project and send and receive the messages.  
 Remember, the new WSO2 ESB Proxy is `MyProxySample100` and has this WSDL `http://localhost:8280/services/MyProxySample100?wsdl` and this EndPoint `http://localhost:8280/services/MyProxySample100`.
@@ -476,6 +502,7 @@ SOAP request from SoapUI, you will receive a plain (unsecure) SOAP response from
 
 ![]({{ site.baseurl }}/assets/wso2esb-sample100-secure-backend-axis2-07-soapui-proxy-ok.png)
 The successfully messages in WSO2 ESB side:
+
 ```sh  
 2015-03-18 00:02:22,752] INFO - LogMediator [MyProxySample100] = ===== inSeq ===== [MyProxySample100]  
 
@@ -520,31 +547,39 @@ OruuM37y92qDjrI6sew=
 
 [2015-03-18 00:02:22,809] INFO - LogMediator [Body OUT] = <ns:getQuoteResponse xmlns:ns="http://services.samples"><ns:return xmlns:ax23="http://services.samples/xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ax23:GetQuoteResponse"><ax23:change>-2.427092238886098</ax23:change><ax23:earnings>-8.594640198504722</ax23:earnings><ax23:high>-85.41697924761516</ax23:high><ax23:last>85.45769312029174</ax23:last><ax23:lastTradeTimestamp>Wed Mar 18 00:02:22 GMT 2015</ax23:lastTradeTimestamp><ax23:low>88.84901052393411</ax23:low><ax23:marketCap>-5312065.376447097</ax23:marketCap><ax23:name>IBM Company</ax23:name><ax23:open>89.06565721533335</ax23:open><ax23:peRatio>-17.80304620448777</ax23:peRatio><ax23:percentageChange>3.0694536514961186</ax23:percentageChange><ax23:prevClose>-79.07245114136454</ax23:prevClose><ax23:symbol>IBM</ax23:symbol><ax23:volume>9040</ax23:volume></ns:return></ns:getQuoteResponse>  
 ```
+
 And the successfully messages in Axis2 Server side:
+
 ```sh  
 Wed Mar 18 00:02:22 GMT 2015 SecureStockQuoteService :: Generating quote for : IBM  
 ```
+
 
 ## VII. Calling to Backend directly from the Axis2 Client
 Sometimes It is necessary to call directly to the secured backend without using WSO2 Proxy Service because maybe I like to know how to compose a request message using WS-Security or to check the health of this service or simply to learn how to create a Axis2 Client using WS-Security.  
 So if that is the case, below I explain how to run the Axis2 Client to call to the secured backend and setting a new security policy and EndPoint.
 It is very important for this section you have deployed the Bouncly Castle library (cryptographic provider) to avoid errors.  
 After that, run the Axis2 Server.
+
 ```sh  
 $ cd ~/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server  
 $ ./axis2server.sh  
 ```
+
 ...and now, run the Axis2 client.
+
 ```sh  
 $ cd ~/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Client  
 $ ant stockquote -Daddurl=http://localhost:9000/services/SecureStockQuoteService -Dmode=quote -Dsymbol=IBM -Dpolicy=../../repository/samples/resources/policy/client_policy_3.xml  
 ```
+
 Where:
   * `-Daddurl=http://localhost:9000/services/SecureStockQuoteService` is the secured backend deployed in Axis2 Server. 
   * `-Dmode=quote` with this parameter the Axis2 Client will call the SOAP Action / Operation correctly. 
   * `-Dsymbol=IBM` with this the Axis2 Client will create a adequate payload expected for the backend. 
   * `-Dpolicy=../../repository/samples/resources/policy/client_policy_3.xml` is the new security policy suitable for this example because has the correct paths a configurations. 
 Above you can see `client_policy_3.xml`, where the unique difference with `policy_3.xml` is the line 62 (the path `repository/samples/resources/security/store.jks`).
+
 ```xml  
 <wsp:Policy wsu:Id="SigEncr"  
 xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"  
@@ -628,7 +663,9 @@ sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeTok
 </wsp:ExactlyOne>  
 </wsp:Policy>  
 ```
+
 If everything goes well, the following is shown:
+
 ```sh  
 Buildfile: /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Client/build.xml
 init:
@@ -691,7 +728,9 @@ stockquote:
 BUILD SUCCESSFUL  
 Total time: 3 seconds  
 ```
+
 And in the Axis2 Server side is shown:
+
 ```sh  
 $ ./axis2server.sh  
 Using JAVA_HOME: /Library/Java/JavaVirtualMachines/jdk1.7.0_51.jdk/Contents/Home  
@@ -717,6 +756,7 @@ Using AXIS2 Configuration : /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/
 15/03/09 23:15:21 INFO util.SampleAxis2ServerManager: [SimpleAxisServer] Started  
 Mon Mar 09 23:15:59 GMT 2015 SecureStockQuoteService :: Generating quote for : IBM  
 ```
+
 
 ## IIX. Conclusions
 I hope this has been useful and you were able to understand what is happening behind the execution of this example and can improve the security of their web services.  

@@ -27,13 +27,16 @@ Well, before stating you should choose your preferred Products/Frameworks/Stacks
   9. Zato (https://zato.io - in Python)
 >  If you want start working with Microservices but using WSO2 technology, I have created a set of (Docker WSO2 containers)(https://github.com/chilcano/docker-wso2-dev-srv) where in a few minutes you will have a development platform running.  
 Just follow these steps:
+
 ```text  
 $ git clone https://github.com/chilcano/docker-wso2-dev-srv.git  
 $ cd docker-wso2-dev-srv  
 $ docker build --rm -t chilcano/wso2-esb:4.8.1 wso2esb/4.8.1  
 $ docker run --detach -t --name=wso2esb01a -p 19449:9443 chilcano/wso2-esb:4.8.1  
 ```
+
 Or you can use the existing containers available in DockerHub (https://hub.docker.com/r/chilcano):
+
 ```text  
 //Previous steps:  
 $ git clone https://github.com/chilcano/docker-wso2-dev-srv.git  
@@ -47,6 +50,7 @@ $ docker exec -i -t wso2esb01a bash
 root@4178f21fcad3:/opt/wso2esb01a/bin# tail -f ../repository/logs/wso2carbon.log  
 $ curl -v -k https://<IP_ADDRESS>:19449/services/Version  
 ```
+
 
 ## Microservice Methodology
 Obviously, the best methodology is what is created based on experience, there are good books and guides for that:

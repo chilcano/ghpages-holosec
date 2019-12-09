@@ -54,6 +54,7 @@ In some case, you need to copy jaxb-api-2.1.jar from ${ALF_HOME}/tomcat/webapps/
 6\. Restart.
 When finished, open browser and go to <http://localhost:8080/alfresco>. You can log in to Alfresco with admin/admin.
 END.
+
 **References** :
 1) Error al arrancar el servidor alfresco 3.2  
 

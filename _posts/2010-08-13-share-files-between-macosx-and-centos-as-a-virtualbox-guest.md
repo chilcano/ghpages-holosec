@@ -18,6 +18,7 @@ Share files between two SO is easy because there are different protocols for sha
 
 ![]({{ site.baseurl }}/assets/sharefilescentosmacosx-1-mount-dvdiso.png)
 3.- In CentOS guest now you can see DVD iso mounted as **/media/CentOS_5.5_Final**
+
 4.- You can install packages directly off the mounted DVD ISO. Now, modify **/etc/yum.repos.d/CentOS-Media.repo** file, enter:
     [root@localhost ~]# vi /etc/yum.repos.d/CentOS-Media.repo
 5.- Make sure enabled is set to 1:
@@ -77,6 +78,7 @@ In CentOS (guest):
 
 ![]({{ site.baseurl }}/assets/sharefilescentosmacosx-5-verify-mounted-guest.png)
 4.- End.
+
 **References** :
   * CentOS: Install Packages Via yum Command Using DVD / CD as Repo  
 http://www.cyberciti.biz/faq/centos-linux-install-packages-from-dvd-using-yum/

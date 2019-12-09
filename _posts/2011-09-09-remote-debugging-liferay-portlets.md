@@ -74,5 +74,6 @@ Your IDE will ask you if you want to change to "Debug perspective". You accept i
 7\. Open your browser and go to your webapp's URL, if you put breakpoints are in appropriate places, then Eclipse will show the line of code being executed.
 You have nice debug on Liferay!.
 Bye.
+
 **References** :
   * <http://www.liferay.com/community/wiki/-/wiki/Main/Eclipse>

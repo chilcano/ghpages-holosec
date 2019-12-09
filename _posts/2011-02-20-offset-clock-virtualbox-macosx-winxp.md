@@ -38,6 +38,8 @@ All rights reserved.
 pisco:~ chilcano$  
 
 [/sourcecode]
- **References**
+
+**References**
+
   1. About the clock of a VM (http://forum.virtualbox.org/viewtopic.php?f=7&p=150430) 
   2. Detener la sincronización de tiempo/fechas entre Host y Guest en Virtual Box (http://holisticsecurity.wordpress.com/2009/11/27/detener-la-sincronizacion-de-tiempofechas-entre-host-y-guest-en-virtual-box) 

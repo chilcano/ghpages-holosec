@@ -15,7 +15,9 @@ This post will explain how to modeling the content that our type of organization
 
 ## I. XML definition files 
 Create the following files:
- **1\. intix-model-context.xml**
+
+**1\. intix-model-context.xml**
+
 This is Spring file configuration for the new content model.
 
 [sourcecode language="xml" gutter="true" wraplines="false"]  
@@ -36,7 +38,9 @@ depends-on="dictionaryBootstrap">
 </beans>  
 
 [/sourcecode]
- **2\. intixModel.xml**
+
+**2\. intixModel.xml**
+
 This xml file contains our custom model.
 
 [sourcecode language="xml" gutter="true" wraplines="false"]  
@@ -135,7 +139,9 @@ This xml file contains our custom model.
 </model>  
 
 [/sourcecode]
+
 **3\. web-client-config-custom.xml**
+
 This configuration file enables Alfresco Explore/Web Client to load the new content model in the Alfresco UI.
 
 [sourcecode language="xml" gutter="true" wraplines="false"]  
@@ -218,10 +224,13 @@ This configuration file enables Alfresco Explore/Web Client to load the new cont
 ## II. Deploy the content model 
 1\. Stop Alfresco.
 2\. Copy **intix-model-context.xml** to **${ALFRESCO_HOME}\tomcat\shared\classes\alfresco\extension**
+
 3\. Copy **intixModel.xml** to **${ALFRESCO_HOME}\tomcat\shared\classes\alfresco\extension**
+
 4\. At this point, you will still not actually can not "see" the new custom model on the Alfresco UI (Alfresco Explorer/Web Client).  
 For that, you will need to set up the property dialogs for each of the content types.
 Then, copy **web-client-config-custom.xml** to **${ALFRESCO_HOME}\tomcat\shared\classes\alfresco\extension**
+
 5\. Start Alfresco.
 6\. Verify successfully deployment of new content model by browsing on Alfresco Explorer/Web Client.
 

@@ -99,7 +99,9 @@ Open connection:
 Remote access in CentOS:  
 
 ![]({{ site.baseurl }}/assets/vnc_centos-2-centos.png)
-**References:**  
+
+**References:**
+
 * VNC ( Virtual Network Computing )  
 http://wiki.centos.org/es/HowTos/VNC-Server
   * Conexión a VNC a través de firewalls y proxys utilizando túneles SSH  

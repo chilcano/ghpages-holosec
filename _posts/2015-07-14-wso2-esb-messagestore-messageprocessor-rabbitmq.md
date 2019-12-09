@@ -45,6 +45,7 @@ At the end, I used the Apache Qpid client library for its compatibility with JMS
 The idea is to create a simple sender(JMS publisher) and receiver(JMS consumer) client using Apache Qpid library for a RabbitMQ's queue (AMQP). After the great support in the [Apache Qpid's forum](http://mail-archives.apache.org/mod_mbox/qpid-users/), the conclusions were:
 1. This sample works if sender(JMS publisher) and receiver(JMS consumer) share the same connection with RabbitMQ but using different URI string definitions. Check below my JNDI configuration file.  
 2. JMS Publisher and Consumer should declare the server, virtual host, queue, exchange and routing key following this definition. Why?. After of several definitions, this combination worked !!. Remember, RabbitMQ adds "/" if your Virtual Host is "empty", for this reason I define my Virtual Host as "/" or "/my_virtual_host".
+
 ```text  
 java.naming.factory.initial = org.apache.qpid.jndi.PropertiesFileInitialContextFactory  
 
@@ -52,7 +53,9 @@ java.naming.factory.initial = org.apache.qpid.jndi.PropertiesFileInitialContextF
 connectionfactory.myRabbitMQConnectionFactory1 = amqp://usr_chk:CHANGE_ME@clientid/CHAKRAY_POC?brokerlist='tcp://your.rabbitmq.host.name:5672' destination.myJndiDestQueuePublisher1 = BURL:direct://chk.direct//?routingkey='rk.hello_1'  
 destination.myJndiDestQueueConsumer1 = BURL:direct://chk.direct/rk.hello_1/q.hello_1  
 ```
+
 Now If runs this sample JMS client, you should see a message created in RabbitMQ and after 10 seconds this message will be consumed.
+
 ```text  
 X:\@chilcano\\_workspace\wso2esb-rabbitmq-message-store>mvn exec:java -Dexec.mainClass="com.chakray.chilcano.wso2.rabbitmq.sample.HelloRabbitMQ"  
 
@@ -90,15 +93,18 @@ Hello RabbitMQ 3.4.4 !!
 [INFO] ------------------------------------------------------------------------  
 ```
 
+
 [![Publishing and consuming message to/from RabbitMQ from a JMS client]({{ site.baseurl }}/assets/wso2esb-rabbitmq-publish-consume-sample-message.png)](https://holisticsecurity.files.wordpress.com/2015/07/wso2esb-rabbitmq-publish-consume-sample-message.png)_Publishing and consuming message to/from RabbitMQ from a JMS client_
 
 ### II.4. First contact with the current WSO2 ESB MS&MP implementation source code
 We will use the current source code of the MS&MP for WSO2 ESB 4.8.1. This MS&MP uses JMS and works with JMS MEssage Brokers (ActiveMQ, Qpid, etc.) You can review/download from here <https://svn.wso2.org/repos/wso2/carbon/platform/branches/turing/dependencies/synapse/2.1.2-wso2v6>. I have cloned the current sourcecode of the JMS MessageStore&MessageProcessor implementation, the java classes cloned are:
+
 ```text  
 synapse/2.1.2-wso2v6/modules/core/src/main/java/org/apache/synapse/message/store/impl/jms/JmsStore.java  
 synapse/2.1.2-wso2v6/modules/core/src/main/java/org/apache/synapse/message/store/impl/jms/JmsProducer.java  
 synapse/2.1.2-wso2v6/modules/core/src/main/java/org/apache/synapse/message/store/impl/jms/JmsConsumer.java  
 ```
+
 
 ### II.5. The new WSO2 ESB MS&MP implementation for RabbitMQ
 After of download the Apache Qpid library, I used the above sample source code to publish and consume a messages to/from RabbitMQ. This exercise Was necessary to do for a simple reason, because similar changes on the sample will be applied again in the new implementation of WSO2 ESB MS&MP for RabbitMQ. Was necessary to modify just one class (org.apache.synapse.message.store.impl.jms.JmsStore) and at the end, to do easily, I added a Publisher and Consumer instead of using only a Publisher in the new Message Store. I have uploaded my implementation in GitHub, you can use from here <https://github.com/Chilcano/wso2esb-rabbitmq-message-store>. Remember, this implementation is valid for:
@@ -106,7 +112,9 @@ After of download the Apache Qpid library, I used the above sample source code t
   * RabbitMQ 3.4.4
   * Java 1.7.0_75 / OpenJDK Runtime Environment (rhel-2.5.4.0.el6_6-x86_64 u75-b13)
   * All stuff are installed on CentOS 6.x
+
 **** Disclaimer: This implementation is not suitable for Production. This is just a PoC. ****
+
 I have created a Synapse MessageStore and Synapse API, they are the best way to test this MS&MP implementation. Obviously you need a RabbitMQ configured, do not worry, I have included a json file with the queue, routing keys and exchanges definition required to run this code. https://gist.github.com/4b51ef6b4421328ccc9f 
 
 ## III. ToDo

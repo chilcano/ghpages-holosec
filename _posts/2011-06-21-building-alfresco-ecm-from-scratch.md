@@ -38,6 +38,7 @@ PATH=%PATH%;%JAVA_HOME%\bin
 
 ### Apache Tomcat 
 1\. Install/Unzip Apache Tomcat in the folder above, for example, **C:\1bpms-demo\alfresco_scratch\tomcat-6.0.32_app**
+
 2\. Create **setenv.bat** in **C:\1bpms-demo\alfresco_scratch\tomcat-6.0.32_app\bin** file with the following content:
 
 [sourcecode language="text" gutter="true" wraplines="false"]  
@@ -109,6 +110,7 @@ jodconverter.portNumbers=8101
 
 [/sourcecode]
 2\. Copy **mysql-connector-java-5.1.13-bin.jar** to **C:\1bpms-demo\alfresco_scratch\tomcat-6.0.32_app\lib**
+
 3\. Modify **shared.loader** property of the catalina.properties file with following value:
 
 [sourcecode language="text" gutter="true" wraplines="false"]  

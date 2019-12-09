@@ -219,7 +219,8 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;  
 import javax.portlet.ResourceRequest;  
 import javax.portlet.ResourceResponse;
-/**  
+/**
+
 * Portlet implementation class AjaxAlfrescoFolderBrowser  
 */  
 public class AjaxAlfrescoFolderBrowser extends GenericPortlet {
@@ -228,7 +229,8 @@ editJSP = getInitParameter("edit-jsp");
 helpJSP = getInitParameter("help-jsp");  
 viewJSP = getInitParameter("view-jsp");  
 }
-/**  
+/**
+
 * intix: Changes are persisted when the store method is called.  
 * The store method can only be invoked within the scope of a processAction call.  
 * Changes that are not persisted are discarded when the processAction or render method ends.  
@@ -248,7 +250,8 @@ prefs.setValue("jQuery", actionRequest.getParameter("jQuery"));
 prefs.store();  
 actionResponse.setPortletMode(PortletMode.EDIT);  
 }
-/**  
+/**
+
 * intix:  
 */  
 public void doEdit(  
@@ -274,7 +277,8 @@ RenderRequest renderRequest, RenderResponse renderResponse)
 throws IOException, PortletException {
 include(helpJSP, renderRequest, renderResponse);  
 }
-/**  
+/**
+
 * intix:  
 */  
 public void doView(  
@@ -315,7 +319,8 @@ else {
 portletRequestDispatcher.include(renderRequest, renderResponse);  
 }  
 }
-/**  
+/**
+
 * intix: serveResource does HTTP and Ajax call behind of Liferay  
 */  
 public void serveResource(ResourceRequest request, ResourceResponse response) throws PortletException, IOException {  

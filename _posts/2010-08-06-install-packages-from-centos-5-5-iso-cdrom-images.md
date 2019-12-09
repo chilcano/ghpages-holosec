@@ -50,6 +50,7 @@ append:
 >     # yum search my-package-name
   1. Troubleshooting:
   * Sometimes when installing, searching or updating packages, Yum shows errors as "Bad id for repo: ....", for solve it you could to delete strange chars or blank spaces in **/etc/yum.repos.d/centos55_i386_iso.repo**
+
 * When yum shows following error:
 >     Could not retrieve mirrorlist http://mirrorlist.centos.org/?release=5&arch=i386&repo=addons error was
 >     [Errno 4] IOError:
@@ -61,7 +62,9 @@ append to each section:
 >     enabled=0
 then, clean cache again:
 >     # yum clean all
-**References:**  
+
+**References:**
+
 * Howto Setup yum repositories to update or install package from ISO CDROM Image  
 
 [ http://www.cyberciti.biz/tips/redhat-centos-fedora-linux-setup-repo.html](http://www.cyberciti.biz/tips/redhat-centos-fedora-linux-setup-repo.html)
