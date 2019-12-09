@@ -14,8 +14,8 @@ Then, remote debugging means you could debug an application or portlet on server
 This post discusses how to use the Eclipse IDE for remote debugging on Liferay.
 
 ## Versions used
-  * Liferay Portal bundled with Tomcat: liferay-portal-tomcat-6.0.6-20110225.zip
-  * Liferay IDE 1.2
+* Liferay Portal bundled with Tomcat: liferay-portal-tomcat-6.0.6-20110225.zip
+* Liferay IDE 1.2
 
 ## Remote Debugging configuration
 1\. In your Liferay server side, if you have installed Tomcat bundle, to add this line into $TOMCAT_HOME/bin/setenv.bat or setenv.sh before you set any JAVA_OPTS:
@@ -27,7 +27,7 @@ set JAVA_OPTS=-Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspen
 [/sourcecode]
 In Mac OSX the file will be as follow:
 
-[sourcecode language="text" gutter="true" wraplines="false"]  
+[sourcecode language="text" gutter="true" wraplines="false"]
 
 ## intix - remote debugging  
 JAVA_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n"  
@@ -74,6 +74,5 @@ Your IDE will ask you if you want to change to "Debug perspective". You accept i
 7\. Open your browser and go to your webapp's URL, if you put breakpoints are in appropriate places, then Eclipse will show the line of code being executed.
 You have nice debug on Liferay!.
 Bye.
-
 **References** :
-  * <http://www.liferay.com/community/wiki/-/wiki/Main/Eclipse>
+* <http://www.liferay.com/community/wiki/-/wiki/Main/Eclipse>

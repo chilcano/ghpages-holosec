@@ -25,9 +25,9 @@ pisco:~ chilcano$
 
 [/sourcecode]
 Notes:
-  *  _ **intix_winxp**_ is the name of guest vm.  
-  *  _ **-63072000000**_ are milisecs (365 + 365 days).  
-  * The command _**vboxmanage**_ is in lowercase.  
+*  _ **intix_winxp**_ is the name of guest vm.  
+*  _ **-63072000000**_ are milisecs (365 + 365 days).  
+* The command _**vboxmanage**_ is in lowercase.  
 and if you want to reset time offset you have to run this:
 
 [sourcecode language="text" gutter="true" wraplines="false" highlight="1"]  
@@ -38,8 +38,6 @@ All rights reserved.
 pisco:~ chilcano$  
 
 [/sourcecode]
-
 **References**
-
-  1. About the clock of a VM (http://forum.virtualbox.org/viewtopic.php?f=7&p=150430) 
-  2. Detener la sincronización de tiempo/fechas entre Host y Guest en Virtual Box (http://holisticsecurity.wordpress.com/2009/11/27/detener-la-sincronizacion-de-tiempofechas-entre-host-y-guest-en-virtual-box) 
+1. About the clock of a VM (http://forum.virtualbox.org/viewtopic.php?f=7&p=150430) 
+2. Detener la sincronización de tiempo/fechas entre Host y Guest en Virtual Box (http://holisticsecurity.wordpress.com/2009/11/27/detener-la-sincronizacion-de-tiempofechas-entre-host-y-guest-en-virtual-box) 

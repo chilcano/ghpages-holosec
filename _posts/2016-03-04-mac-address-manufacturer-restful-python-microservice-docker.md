@@ -32,51 +32,61 @@ Exist in Internet several MAC Address Lookup Tools, in fact, the OUI's prefix us
 But, in this case I am going to use the MAC Address List of Wireshark (https://www.wireshark.org/tools/oui-lookup.html).  
 Wireshark is a popular network protocol analyzer a.k.a. `network sniffer`, the Wireshark tool uses internally the MAC Address list to identity the Manufacturer of a NIC.  
 I'm going to download and create a API Rest for you. Below the steps.
-
 **1) Downloading the Wireshark MAC Addresses Manufacturer file and loading into a DB**
-
 Using the below Python script I will download the Wireshark MAC Address list into a file and to get the hash. The idea is to parse the file and load it into a minimalist DB.  
 I will use SQLite Database where I will create an unique table and all information will be loaded there. The Table structure will be:
 
 ```sh  
-mac String # The original MAC Address  
-manuf String # The original Manufacturer name  
-manuf_desc String # The Manufacturer description, if exists.  
+mac String
+
+# The original MAC Address  
+manuf String
+
+# The original Manufacturer name  
+manuf_desc String
+
+# The Manufacturer description, if exists.  
 ```
 
 Here the Python script used to do that: [mac_manuf_wireshark_file.py](https://github.com/chilcano/docker-mac-address-manuf-lookup/blob/master/python/latest/mac_manuf_wireshark_file.py)
 
 ## III. Exposing the MAC Address Manufacturer DB as an API Rest
 After creating the database, the next step is to expose the data through a simple API Rest. The idea is to make a call `GET` to the API Rest with a `MAC Address` and get the `Manufacturer` as response.
-
 **1) Defining the API**
-
 The best way to define an API Rest and the `contract` is using the `Swagger` language (http://swagger.io). The idea is to create documentation about the API Rest and explain what resources are available or exposed, writte a request and response sample, etc.  
 In this scenario I'm going to define in a simple way the API, also I'm going to use JSON to define the request and response.  
 Then, below the API definition.
 
 ```sh  
-POST /chilcano/api/manuf # Add a new Manufacturer  
-PUT /chilcano/api/manuf # Update an existing Manufacturer  
-GET /chilcano/api/manuf/{macAddress} # Find Manufacturer by MAC Address  
+POST /chilcano/api/manuf
+
+# Add a new Manufacturer  
+PUT /chilcano/api/manuf
+
+# Update an existing Manufacturer  
+GET /chilcano/api/manuf/{macAddress}
+
+# Find Manufacturer by MAC Address  
 ```
 
 In this Proof-of-Concept I will implement only the `GET` resource for the API.
-
 **2) Implementing the API Rest**
-
 I have created 2 Python scripts to implement the API Rest.  
 The first one ([`mac_manuf_table_def.py`](https://github.com/chilcano/docker-mac-address-manuf-lookup/blob/master/python/latest/mac_manuf_table_def.py)) is just a `Model` of the `MacAddressManuf` table.
 
-```python  
+```python
 
 #!/usr/bin/python  
 
+
 # -*- coding: utf-8 -*-  
+
 
 #  
 
+
 # file name: mac_manuf_table_def.py  
+
 
 #
 from sqlalchemy import create_engine, ForeignKey  
@@ -87,9 +97,12 @@ Base = declarative_base()
 
 #  
 
+
 # Model for 'MacAddressManuf':  
 
+
 # used for API Rest to get access to data from DB  
+
 
 #  
 class MacAddressManuf(Base):  
@@ -106,15 +119,19 @@ self.manuf_desc = manuf_desc
 
 And second Python script ([`mac_manuf_api_rest.py`](https://github.com/chilcano/docker-mac-address-manuf-lookup/blob/master/python/latest/mac_manuf_api_rest.py)) implements the API Rest. You can review the
 
-```python  
+```python
 
 #!/usr/bin/python  
 
+
 # -*- coding: utf-8 -*-  
+
 
 #  
 
+
 # file name: mac_manuf_api_rest.py  
+
 
 #
 import os, re  
@@ -133,17 +150,21 @@ cors = CORS(app, resources={r"/chilcano/api/*": {"origins": "*"}})
 
 #  
 
+
 # API Rest:  
+
 
 # i.e. curl -i http://localhost:5000/chilcano/api/manuf/00:50:5a:e5:6e:cf  
 
+
 # i.e. curl -ik https://localhost:5443/chilcano/api/manuf/00:50:5a:e5:6e:cf  
+
 
 #  
 @app.route("/chilcano/api/manuf/<string:macAddress>", methods=["GET"])  
 def get_manuf(macAddress):  
 try:  
-if re.search(r'^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$', macAddress.strip(), re.I).group():  
+if re.search(r'^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$', macAddress.strip(), re.I).group():
 
 # expected MAC formats : a1-b2-c3-p4-q5-r6, a1:b2:c3:p4:q5:r6, A1:B2:C3:P4:Q5:R6, A1-B2-C3-P4-Q5-R6  
 mac1 = macAddress[:2] + ":" \+ macAddress[3:5] + ":" \+ macAddress[6:8]  
@@ -161,7 +182,7 @@ return jsonify(mac=macAddress, manuf="Unknown", manuf_desc="Unknown"), 404
 except:  
 return jsonify(error="The MAC Address '" \+ macAddress + "' is malformed"), 400
 if __name__ == "__main__":  
-if HTTPS_ENABLED == "true":  
+if HTTPS_ENABLED == "true":
 
 # 'adhoc' means auto-generate the certificate and keypair  
 app.run(host="0.0.0.0", port=5443, ssl_context="adhoc", threaded=True, debug=True)  
@@ -170,13 +191,11 @@ app.run(host="0.0.0.0", port=5000, threaded=True, debug=True)
 ```
 
 This second Python script performs the next tasks:
-  * Calls the Model (`mac_manuf_table_def.py`).
-  * Connects to SQLite Database and creates a Session.
-  * Runs a query by using `macAddress` as parameter.
-  * And creates a JSON response with the query's result.
-
+* Calls the Model (`mac_manuf_table_def.py`).
+* Connects to SQLite Database and creates a Session.
+* Runs a query by using `macAddress` as parameter.
+* And creates a JSON response with the query's result.
 **3) Running and Testing the API Rest**
-
 We could use the `Flask` buit-in HTTP server just for testing and debugging. To run the above Python Web Application (API Rest) just execute the Python script. Note that actually I have 3 versions (py-1.0, py-1.1 and py-latest)
 
 ```sh  
@@ -212,7 +231,9 @@ Date: Thu, 03 Mar 2016 17:37:45 GMT
 {  
 "mac": "00:50:CA",  
 "manuf": "NetToNet",  
-"manuf_desc": "# NET TO NET TECHNOLOGIES"  
+"manuf_desc": "
+
+# NET TO NET TECHNOLOGIES"  
 }
 $ curl -ik https://127.0.0.1:5443/chilcano/api/manuf/11-50:Ca-Fe-Ca-Fe  
 HTTP/1.0 404 NOT FOUND  
@@ -235,18 +256,16 @@ Date: Thu, 03 Mar 2016 17:39:23 GMT
 ```
 
 But if you want to run in Production. In the `Flask` webpage (http://flask.pocoo.org/docs/0.10/deploying/wsgi-standalone) recommends these HTTP servers (Standalone WSGI Containers):
-  * Gunicorn
-  * Tornado
-  * Gevent
-  * Twisted Web
+* Gunicorn
+* Tornado
+* Gevent
+* Twisted Web
 
 ## IV. Putting everything in a Docker Container
-
 **1) The Dockerfile**
-
 The latest version of the MAC Address Manufacturer lookup Docker container is the `python-latest` (aka `Docker MAC Manuf`) and has the next Dockerfile:
 
-```sh  
+```sh
 
 # Dockerfile to MAC Address Manufacturer Lookup container.
 FROM python:2.7
@@ -266,9 +285,7 @@ COPY mac_manuf_api_rest.py /
 RUN python mac_manuf_wireshark_file.py  
 CMD python mac_manuf_api_rest.py  
 ```
-
 **2) Using the Docker Container**
-
 Clone the Github repository and build it.
 
 ```sh  
@@ -324,7 +341,9 @@ Date: Sat, 20 Feb 2016 09:01:38 GMT
 {  
 "mac": "00:50:CA",  
 "manuf": "NetToNet",  
-"manuf_desc": "# NET TO NET TECHNOLOGIES"  
+"manuf_desc": "
+
+# NET TO NET TECHNOLOGIES"  
 }  
 ```
 
@@ -340,7 +359,9 @@ Date: Mon, 29 Feb 2016 15:58:21 GMT
 {  
 "mac": "00:50:CA",  
 "manuf": "NetToNet",  
-"manuf_desc": "# NET TO NET TECHNOLOGIES"  
+"manuf_desc": "
+
+# NET TO NET TECHNOLOGIES"  
 }  
 ```
 
@@ -358,9 +379,9 @@ The next blog post I will explain how to connect the MAC Address Manufacturer Do
 See you soon.
 
 ## Inspirational reference
-  * [A great blogpost explaining the "Developing a RESTful micro service in Python" - http://www.skybert.net/python/developing-a-restful-micro-service-in-python](http://www.skybert.net/python/developing-a-restful-micro-service-in-python)
+* [A great blogpost explaining the "Developing a RESTful micro service in Python" - http://www.skybert.net/python/developing-a-restful-micro-service-in-python](http://www.skybert.net/python/developing-a-restful-micro-service-in-python)
 
 ## MAC Address references
-  * [Wikipedia - MAC Address](https://en.wikipedia.org/wiki/MAC_address)
-  * [The Wireshark OUI lookup tool](https://www.wireshark.org/tools/oui-lookup.html)
-  * [IEEE MAC Address Registration Authority](https://regauth.standards.ieee.org/standards-ra-web/pub/view.html)
+* [Wikipedia - MAC Address](https://en.wikipedia.org/wiki/MAC_address)
+* [The Wireshark OUI lookup tool](https://www.wireshark.org/tools/oui-lookup.html)
+* [IEEE MAC Address Registration Authority](https://regauth.standards.ieee.org/standards-ra-web/pub/view.html)

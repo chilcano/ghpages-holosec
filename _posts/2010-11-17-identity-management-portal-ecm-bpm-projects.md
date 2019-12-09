@@ -33,25 +33,25 @@ Authorization is the process of decision based on certain attributes by which al
 ### "Single Sing On" Service.
 This service is logs in once and gains access to all systems without being prompted to log in again at each of them. Single sign-off is the reverse property whereby a single action of signing out terminates access to multiple software systems.
 Solutions Free/Open Source most used are:
-  * CAS (Central Authentication Service) - <http://www.jasig.org/cas>
-  * OpenSSO (now of Oracle, it has an uncertain future) - <http://opensso.dev.java.net>
-  * OpenAM (a branch of OpenSSO) - <http://forgerock.com/openam.html>
+* CAS (Central Authentication Service) - <http://www.jasig.org/cas>
+* OpenSSO (now of Oracle, it has an uncertain future) - <http://opensso.dev.java.net>
+* OpenAM (a branch of OpenSSO) - <http://forgerock.com/openam.html>
 
 [caption id="" align="alignnone" width="449" caption="Virtual Directory services"]![Virtual Directory services]({{ site.baseurl }}/assets/1.virtualdirectory_services.png)[/caption]
 
 ## What is the difference between Virtual and Meta Directory?
 Virtual Directory is a service that operates between applications and identity data as a real directory. A virtual directory receives queries and directs them to the appropriate data sources.
-  * Virtual Directory loosely couple identity data and applications.
-  * Virtual and Meta Directory provide a consolidated view of identity data by adding a layer on native repositories (ldap, rdbms, ...).
-  * Meta Directory draw identity data from native repositories and store it in a new consolidated real directory that faces enterprise applications.
-  * Meta Directory (tight coupling) is a good in which identity data is not updated frequently.
-  * Virtual Directory offers a way to provide that consolidated view of identity data without having to reconstruct an entire real directory infrastructure.
+* Virtual Directory loosely couple identity data and applications.
+* Virtual and Meta Directory provide a consolidated view of identity data by adding a layer on native repositories (ldap, rdbms, ...).
+* Meta Directory draw identity data from native repositories and store it in a new consolidated real directory that faces enterprise applications.
+* Meta Directory (tight coupling) is a good in which identity data is not updated frequently.
+* Virtual Directory offers a way to provide that consolidated view of identity data without having to reconstruct an entire real directory infrastructure.
 > "[...]Instead of creating new identity repositories, virtual directory handle identity queries on a case-by-case basis, drawing the required, authorized data (and only the required data) in real time from its native repositories around a network and presenting it to an enterprise application as needed. When the query is complete the virtual directory disappears; once again, the data exists only in its native repositories, under the control of the original owner."
 (Penrose FAQ - <http://docs.safehaus.org/display/PENROSE/FAQ>)
 There are few solutions for Virtual Directory, here are some FOSS and Commercial:
-  * Penrose - http://penrose.redhat.com/display/PENROSE/Home
-  * Atlassian Crowd - http://www.atlassian.com/software/crowd/
-  * Radiant Logic VDS - http://www.radiantlogic.com/main/products_vds.html
+* Penrose - http://penrose.redhat.com/display/PENROSE/Home
+* Atlassian Crowd - http://www.atlassian.com/software/crowd/
+* Radiant Logic VDS - http://www.radiantlogic.com/main/products_vds.html
 
 ## List of FOSS products and technologies for IdM
 

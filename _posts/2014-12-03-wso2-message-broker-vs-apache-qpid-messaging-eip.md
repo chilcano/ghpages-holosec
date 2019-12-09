@@ -12,10 +12,10 @@ If you want to define an Integration Architecture based on Messaging with WSO2, 
 ![Enabling JMS Transport]({{ site.baseurl }}/assets/blog20141122-qpid-01-jms-transport-wso2esb.png)  
  _Enabling JMS Transport_
 Initially to use WSO2 ESB and Apache ActiveMQ was the de-facto solution to implement the Messaging Integration Architecture, but now all the focus are on WSO2 Message Broker. The product strategy for WSO2 Message Broker is being used in big and critical projects, for example, below some use cases:
-  * Guarantee Delivery
-  * Large volumes of messages
-  * Persistence of several and big messages
-  * High availability & scalability
+* Guarantee Delivery
+* Large volumes of messages
+* Persistence of several and big messages
+* High availability & scalability
 
 <!-- more -->
 
@@ -24,18 +24,18 @@ Apache ActiveMQ is a good alternative, JBoss HornetQ, RabbitMQ and other. Some t
 So what alternatives do we have to WSO2 Message Broker comparable to robustness, scalability, interoperability, lightweight without losing functionalities?. The answer is Apache Qpid. Now we will explain why.
 
 ## I. Why Apache Qpid is a good comparable alternative to WSO2 Message Broker?
-  1. Earlier releases of WSO2 Message Broker had Apache Qpid embedded.
-  2. Last release of WSO2 Message Broker uses WSO2 Andes, an extended version of Apache Qpid, to connect to Apache Cassandra as message store backend.
-  3. WSO2 ESB solves the most common EIPs for messaging (guarantee delivery, persistence of messages, routing, selective channels, etc.) by developing 2 features as are the MessageStore and MessageProcessor. These features are implement on top of JMS and are technically agnostic. In other words, if the Message Broker implements JMS, then there are many possibilities that the Message Broker can be integrated to WSO2 ESB.
-  4. Apache Qpid is a Message Broker lightweight, powerful, robust and has different message implementation, they are:  
-    * In-memory message store.
-    * Apache Derby store.
-    * Message store based on Oracle Berkeley DB, suitable to create high available messaging platforms.
-  5. Apache Qpid is compatible with: JMS 1.1, AMQP 1.0, 0-8, 0-9 and 0-9-1.
-  6. If you want to play with WSO2 Message Broker, you should do it on an robust and powerful infraestructura, however, that is not necessary for Apache Qpid. You can run Apache Qpid in constrained infraestructure.
-  7. Other alternatives to WSO2 Message Broker could be:  
-    * Apache ActiveMQ, although is a project mature, it is big compared to Apache Qpid and its architecture is its limit.
-    * RabbitMQ, it is bigger than Apache Qpid, but its architecture is based on plugins, it is faster but does not implement AMQP 1.0 natively, is necessary install an experimental plugin (https://www.rabbitmq.com/specification.html).
+1. Earlier releases of WSO2 Message Broker had Apache Qpid embedded.
+2. Last release of WSO2 Message Broker uses WSO2 Andes, an extended version of Apache Qpid, to connect to Apache Cassandra as message store backend.
+3. WSO2 ESB solves the most common EIPs for messaging (guarantee delivery, persistence of messages, routing, selective channels, etc.) by developing 2 features as are the MessageStore and MessageProcessor. These features are implement on top of JMS and are technically agnostic. In other words, if the Message Broker implements JMS, then there are many possibilities that the Message Broker can be integrated to WSO2 ESB.
+4. Apache Qpid is a Message Broker lightweight, powerful, robust and has different message implementation, they are:  
+* In-memory message store.
+* Apache Derby store.
+* Message store based on Oracle Berkeley DB, suitable to create high available messaging platforms.
+5. Apache Qpid is compatible with: JMS 1.1, AMQP 1.0, 0-8, 0-9 and 0-9-1.
+6. If you want to play with WSO2 Message Broker, you should do it on an robust and powerful infraestructura, however, that is not necessary for Apache Qpid. You can run Apache Qpid in constrained infraestructure.
+7. Other alternatives to WSO2 Message Broker could be:  
+* Apache ActiveMQ, although is a project mature, it is big compared to Apache Qpid and its architecture is its limit.
+* RabbitMQ, it is bigger than Apache Qpid, but its architecture is based on plugins, it is faster but does not implement AMQP 1.0 natively, is necessary install an experimental plugin (https://www.rabbitmq.com/specification.html).
 Well, after of this little introduction, I will explain step-by-step how to integrate quickly WSO2 ESB with Apache Qpid, how to enable JMS transport for Synapse Proxies and how to implement the EIP related to messaging.
 
 ## II. Installation of Apache Qpid
@@ -51,7 +51,9 @@ Info: QPID_JAVA_GC not set. Defaulting to JAVA_GC -XX:+UseConcMarkSweepGC -XX:+H
 Info: QPID_JAVA_MEM not set. Defaulting to JAVA_MEM -Xmx2g  
 log4j:WARN No appenders could be found for logger (org.apache.qpid.server.plugin.QpidServiceLoader).  
 log4j:WARN Please initialize the log4j system properly.  
-log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.  
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html
+
+#noconfig for more info.  
 
 [Broker] BRK-1006 : Using configuration : /Users/Chilcano/0dev-env/2srv/qpid-work-std/config.json  
 
@@ -103,25 +105,15 @@ _Enabling JMS Transport_
 ```xml  
 
 [...]
-
 <!-- ================================================= -->  
-
 <!-- Transport Ins (Listeners) -->  
-
 <!-- ================================================= -->
 
-
 [...]
-
 <!-- SAP Transport Listeners -->  
-
 <!-- -->  
-
 <!-- -->
-
-
 <!-- **** JMS Transport LISTENER support with Apache Qpid **** -->
-
 org.apache.qpid.jndi.PropertiesFileInitialContextFactory  
 repository/conf/jndi.properties  
 TopicConnectionFactory  
@@ -134,32 +126,18 @@ org.apache.qpid.jndi.PropertiesFileInitialContextFactory
 repository/conf/jndi.properties  
 QueueConnectionFactory  
 queue
-
 <!-- ================================================= -->  
-
 <!-- Transport Outs (Senders) -->  
-
 <!-- ================================================= -->
-
 
 [...]
-
 <!-- SAP Transport Senders -->  
-
 <!-- -->  
-
 <!-- -->
-
-
 <!-- **** JMS Transport SENDER support with Apache Qpid **** -->
-
-
 <!-- ================================================= -->  
-
 <!-- Global Engaged Modules -->  
-
 <!-- ================================================= -->
-
 
 [...]  
 ```
@@ -167,11 +145,13 @@ queue
 2.- Now, download the Apache Qpid Java Client (qpid-client-0.30-bin.tar) from http://qpid.apache.org/components/qpid-jms/index.html, unzip it and copy the qpid-client-0.30.jar and qpid-common-0.30.jar to %WSO2ESB_HOME%/repository/components/lib/ and restart WSO2 ESB.
 3.- Edit the JNDI file (%WSO2ESB_HOME%/repository/conf/jndi.properties) as follow:
 
-```sh  
+```sh
 
 # register some connection factories  
 
+
 # connectionfactory.[jndiname] = [ConnectionURL]  
+
 
 ##connectionfactory.QueueConnectionFactory = amqp://admin:admin@clientID/test?brokerlist='tcp://localhost:5672'  
 connectionfactory.QueueConnectionFactory = amqp://admin:admin@clientID/default?brokerlist='tcp://localhost:5672'  
@@ -179,12 +159,15 @@ connectionfactory.TopicConnectionFactory = amqp://admin:admin@clientID/default?b
 
 # register some queues in JNDI using the form  
 
+
 # queue.[jndiName] = [physicalName]  
 queue.MyJNDIQueue02 = QPID_QUEUE_02
 
 # register some topics in JNDI using the form  
 
+
 # topic.[jndiName] = [physicalName]  
+
 
 ##topic.MyTopic = example.MyTopic  
 ```
@@ -236,11 +219,12 @@ Message received from Apache Qpid queue (QPID_QUEUE_01)
 ```
 
 7.- Conclusions:
-  * The first time you run the "ProxyQpidSender" proxy, the proxy will automatically create the "QPID_QUEUE_01" queue in Apache Qpid.
-  * If you run several times the "ProxyQpidSender" proxy to send and store message in "QPID_QUEUE_01" queue, they will be processed quickly for the "ProxyQpidReceiver" proxy, because this proxy is listen permanently for messages in this queue. But, if you want inspect the payload of the messages, I recommend you disable the "ProxyQpidReceiver" proxy in WSO2 ESB. Of this way, using Apache Qpid Web Console you can review any aspect of message (header and payload).
-  * The "ProxyQpidSender" proxy has as transport the HTTP protocol and "ProxyQpidReceiver" proxy is using JMS transport.
+* The first time you run the "ProxyQpidSender" proxy, the proxy will automatically create the "QPID_QUEUE_01" queue in Apache Qpid.
+* If you run several times the "ProxyQpidSender" proxy to send and store message in "QPID_QUEUE_01" queue, they will be processed quickly for the "ProxyQpidReceiver" proxy, because this proxy is listen permanently for messages in this queue. But, if you want inspect the payload of the messages, I recommend you disable the "ProxyQpidReceiver" proxy in WSO2 ESB. Of this way, using Apache Qpid Web Console you can review any aspect of message (header and payload).
+* The "ProxyQpidSender" proxy has as transport the HTTP protocol and "ProxyQpidReceiver" proxy is using JMS transport.
 
 ## IV. WSO2 ESB Message Store and Message Processor for Apache Qpid
+
 
 ### IV.1. Creating a Message Store in WSO2 ESB
 1.- Create the WSO2 ESB Message Store pointing to QPID_QUEUE_02.
@@ -302,9 +286,7 @@ true
 
 
 ### IV.3. Creating Message Forwarding Processor in WSO2 ESB
-
 **1.- Create a Message Forwarding Processor implementing the OUT-ONLY pattern**
-
 In this case, if the backend service processes very well the request, then the message processor will delete the message from message store.
 
 ![Message Forwarding Processor with OUT-ONLY implemented]({{ site.baseurl }}/assets/blog20141122-qpid-04-msg-forwarding-processor-out-only.png)  
@@ -363,9 +345,7 @@ true
 
 [2014-11-27 23:26:00,012] INFO - LogMediator To: http://www.w3.org/2005/08/addressing/anonymous, WSAction: , SOAPAction: , MessageID: urn:uuid:8916ed21-10a3-43ee-9d0e-6acf8a3f4de7, Direction: response, Envelope:  
 ```
-
 **2.- Create a Message Forwarding Processor implementing IN-OUT pattern**
-
 The only difference with the above is that it requires two Synapse Sequences (Reply and Fault sequences) that will post-process the SOAP response of Backend Service in a blocking-mode as It is a succesfully response or unseccsfully response, in other words, if everything goes well, the message processor will send an ACK to message store to consume (delete) the stored message and the message processor will trigger the reply sequence, otherwise the message processor will trigger the fault squence (the message is not consumed/deleted of message store).
 
 ![Message Forwarding Processor with IN-OUT implemented]({{ site.baseurl }}/assets/blog20141122-qpid-05-msg-forwarding-processor-in-out.png)  
@@ -401,8 +381,8 @@ true
 ```
 
 Where:
-  * SequenceQpidReplyFwdInOut will process Backend message response in blocking-mode (with ACK)
-  * SequenceQpidFaultFwdInOut, if there is an exception or Backend service give an error (HTTP_SC error), then this sequence will be executed and any ACK will be send.
+* SequenceQpidReplyFwdInOut will process Backend message response in blocking-mode (with ACK)
+* SequenceQpidFaultFwdInOut, if there is an exception or Backend service give an error (HTTP_SC error), then this sequence will be executed and any ACK will be send.
 2.4.- Check the logs.
 
 ```sh  
@@ -428,5 +408,5 @@ Where:
 
 
 ## V. Conclusions
-  * Apache Qpid as good alternative to WSO2 Message Broker because you have robustness, integration patterns based messaging implemented, scalability, compatible with JMS and AMQP standard, everything in a lightweight bundle and easy to install it. 
-  * WSO2 ESB is perfectly integrated to Apache Qpid, it is not necessary to program or extend some library, all integration can be achieved based on configurations only. No need to write any line of code.
+* Apache Qpid as good alternative to WSO2 Message Broker because you have robustness, integration patterns based messaging implemented, scalability, compatible with JMS and AMQP standard, everything in a lightweight bundle and easy to install it. 
+* WSO2 ESB is perfectly integrated to Apache Qpid, it is not necessary to program or extend some library, all integration can be achieved based on configurations only. No need to write any line of code.

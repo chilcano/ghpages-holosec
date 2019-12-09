@@ -36,43 +36,31 @@ And next screen select the user credentials to be required.
 ![]({{ site.baseurl }}/assets/wso2-ws-security-policy-5apply-sec.png)
 After that, you are ready to deploy your service in a secure way. To know what happened behind of this, we should review the Policy applied. Below a copy of Usertoken Authentication Policy (scenario1 UTOverTransport):  
 https://gist.github.com/9805c4369612be163ccc
-
 **Interpreting the WS-SecurityPolicy UsenameTokenOverTransport**
-
-  * HTTPS is required instead of HTTP. HTTP is not already available. 
-  * Send credentials (user and password) in the message over HTTPS 
-  * The password should be encrypted 
-
+* HTTPS is required instead of HTTP. HTTP is not already available. 
+* Send credentials (user and password) in the message over HTTPS 
+* The password should be encrypted 
 **Testing the Echo Service with WS-SecurityPolicy UsenameTokenOverTransport enabled**
-
 Using SoapUI will create a soapui project from the new WSDL of Echo Service. After this, send a request without the required valid credentials.  
 
 ![]({{ site.baseurl }}/assets/wso2-ws-security-policy-6soapui-ut-https.png)
 Now, if you send a request with valid credentials, then you will receive a successfully message.  
 
 ![]({{ site.baseurl }}/assets/wso2-ws-security-policy-7soapui-ut-https.png)
-
 **Observations**
-
-  * Any of 20 WS-SecurityPolicy uses or consider to WSO2 instance as container of user credentials. In other words, for example, if you select UsernameToken Authentication Policy, the authentication process will validate the Username Token againts to the WSO2 User Store.
+* Any of 20 WS-SecurityPolicy uses or consider to WSO2 instance as container of user credentials. In other words, for example, if you select UsernameToken Authentication Policy, the authentication process will validate the Username Token againts to the WSO2 User Store.
 
 ### I.2. Apply a custom WS-SecurityPolicy
 What happens if your requirements are different and any of the 20 existing policies do not meets the requirements?. Well, if you have knowledge about WS-SecurityPolicy you could create one following your requirements. Remember, with WS-SecurityPolicy I can apply security at message-level, operaton-level and at transport-level, as example in this blog I will explain how to add HTTP support to secured SOAP Echo Service deployed by default in WSO2.
-
 **Sample of custom Policy: Adding HTTP support using custom WS-SecurityPolicy**
-
 Let me explain further on this sample. Whe you enable any of 20 WS-SecurityPolicy to improve the security on the services, it is common sense leave only enabled HTTPS (SOAP over SSL/TLS) automatically, because HTTP is insecure if this is used over public networks as Internet. Then, this sample scenario is only for testing purposes. Lets go to create the WS-SecurityPolicy file, in this case, I will use `scenario1_UTOverTransport.xml` Policy, will remove the part related to "TransportBinding" because I want to keep HTTP and HTTPS enabled for Echo Service.
 The remaining part of scenario1_UTOverTransport.xml Policy is related to the required credentials to call this service. The new Policy (UTOverTransport policy with HTTP support added) will be as shown below.  
 https://gist.github.com/42aab5c3b67e9c667dba
-
 **Upload the UsenameTokenOverTransport Policy with HTTP support added to WSO2's Registry repository**
-
 Basically, upload the new Policy file to WSO2's Registry repository, in my case I have uploaded it as resource under `/_system/config/repository/components/org.wso2.carbon.security.mgt/policy`, but you could place it in any location.  
 
 ![]({{ site.baseurl }}/assets/wso2-ws-security-policy-8policy-ut-http.png)
-
 **Testing the Echo Service UsenameTokenOverTransport with HTTP support added**
-
 Before testing, we have to apply this new Policy the Echo Service. Follow the steps as in the previous Policy escenario.  
 
 ![]({{ site.baseurl }}/assets/wso2-ws-security-policy-9wso2-set-new-policy.png)
@@ -88,11 +76,11 @@ Above is shown an error because the new Policy requires valid user credentials i
 
 ### I.3. Applying advanced custom WS-SecurityPolicy
 Since it is possible to incorporate your own policies at WSO2, you could implement more complex or customized scenarios of security. Some more advanced scenarios are:
-  1. The credentials repository is managed by Identity Management System in the backend, not by WSO2 ESB or WSO2 DSS.
-  2. The external users who consume my services are authenticated with credentials that should be validated in the backend.
-  3. Specified parts of a message, such as header, body, and so on, should be signed or encrypted.
-  4. Specified elements within a message should be signed or encrypted.
-  5. Specials encryption algorithms or timestamps in a message are requireds.
+1. The credentials repository is managed by Identity Management System in the backend, not by WSO2 ESB or WSO2 DSS.
+2. The external users who consume my services are authenticated with credentials that should be validated in the backend.
+3. Specified parts of a message, such as header, body, and so on, should be signed or encrypted.
+4. Specified elements within a message should be signed or encrypted.
+5. Specials encryption algorithms or timestamps in a message are requireds.
 In the next posts I will explain each advanced scenarios. Stay tuned ;)
 
 ## II. Conclusions
@@ -100,11 +88,11 @@ It is very important to learn the concepts of WS-Security and WS-Policy. Without
 There are a lot of information on WS-Security and WS-Policy on Internet, below there is a list of resources. Also a great resource is (Apache Neethi)(http://ws.apache.org/neethi), it is a framework that implements WS-Security Policy, this is used in WSO2, this framework is accompanied by a series of examples that make your learning easier. Anyway you may incur to errors in the creation of the policies, then I recommend this Java application called [WS-Policy Editor](https://github.com/IAAS/WS-Policy-Editor) that allows easy editing.
 
 ## III. References
-  * Understanding WS-SecurityPolicy. By Nandana Mihindukulasooriya (http://wso2.com/library/3132)
-  * Java Web services: Granular use of WS-Security: Applying WS-Security at the operation or message level (https://www.ibm.com/developerworks/webservices/library/j-jws7)
-  * Understanding web services specifications, Part 5: WS-Policy (http://www.ibm.com/developerworks/webservices/tutorials/ws-understand-web-services5)
-  * Java web services: Modeling and verifying WS-SecurityPolicy (http://www.ibm.com/developerworks/library/j-jws21)
-  * WS-SecurityPolicy 1.3, OASIS Standard, 2 February 2009 (http://docs.oasis-open.org/ws-sx/ws-securitypolicy/v1.3/os/ws-securitypolicy-1.3-spec-os.html)
-  * Web Services Policy 1.5 - Framework. W3C Recommendation 04 September 2007 (http://www.w3.org/TR/ws-policy)
-  * A Java-Swing-based editor for WS-Policies (https://github.com/IAAS/WS-Policy-Editor)
-  * Apache Neethi, the referent framework to use WS Policy (http://ws.apache.org/neethi)
+* Understanding WS-SecurityPolicy. By Nandana Mihindukulasooriya (http://wso2.com/library/3132)
+* Java Web services: Granular use of WS-Security: Applying WS-Security at the operation or message level (https://www.ibm.com/developerworks/webservices/library/j-jws7)
+* Understanding web services specifications, Part 5: WS-Policy (http://www.ibm.com/developerworks/webservices/tutorials/ws-understand-web-services5)
+* Java web services: Modeling and verifying WS-SecurityPolicy (http://www.ibm.com/developerworks/library/j-jws21)
+* WS-SecurityPolicy 1.3, OASIS Standard, 2 February 2009 (http://docs.oasis-open.org/ws-sx/ws-securitypolicy/v1.3/os/ws-securitypolicy-1.3-spec-os.html)
+* Web Services Policy 1.5 - Framework. W3C Recommendation 04 September 2007 (http://www.w3.org/TR/ws-policy)
+* A Java-Swing-based editor for WS-Policies (https://github.com/IAAS/WS-Policy-Editor)
+* Apache Neethi, the referent framework to use WS Policy (http://ws.apache.org/neethi)

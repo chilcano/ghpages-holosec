@@ -15,12 +15,10 @@ Hace poco estaba explorando las características de WSO2 ESB para el envío ópt
 * * *
 WSO2 ESB viene con más de 102 ejemplos de Proxy de Apache Synapse, cada uno de ellos implementa diferentes casos de usos necesarios para integrar aplicaciones con diferencias estrategias.
 El ejemplo "Sample 51" implementa MTOM y SwA sobre SOAP y esta entrada al blog usa esta implementación.
-
 **Requisitos:**
-
-  * Sample 51: MTOM and SwA Optimizations and Request/Response Correlation (<https://docs.wso2.org/pages/viewpage.action?pageId=33136025>)
-  * SoapUI (<http://www.soapui.org>)
-  * WSO2 ESB 4.8.1 (<http://wso2.com/products/enterprise-service-bus>)
+* Sample 51: MTOM and SwA Optimizations and Request/Response Correlation (<https://docs.wso2.org/pages/viewpage.action?pageId=33136025>)
+* SoapUI (<http://www.soapui.org>)
+* WSO2 ESB 4.8.1 (<http://wso2.com/products/enterprise-service-bus>)
 
 ## II. Desplegar los servicios de back-end (Sample 51) en Axis2 server.
 * * *
@@ -69,9 +67,9 @@ Total time: 1 second
 
 [/sourcecode]
 Sólo comentar que "MTOMSwASampleService" implementa el servicio de back-end y tiene 3 operaciones:
-  * uploadFileUsingMTOM (in-out): Acepta una imagen en binario desde el request SOAP como MTOM y devuelve esta misma imagen como response SOAP.
-  * uploadFileUsingSwA (in-out): Acepta una imagen en binario desde el request SOAP como SwA y devuelve esta misma imagen as response SOAP.
-  * oneWayUploadUsingMTOM (in-only): Guarda el mensaje de request al disco.
+* uploadFileUsingMTOM (in-out): Acepta una imagen en binario desde el request SOAP como MTOM y devuelve esta misma imagen como response SOAP.
+* uploadFileUsingSwA (in-out): Acepta una imagen en binario desde el request SOAP como SwA y devuelve esta misma imagen as response SOAP.
+* oneWayUploadUsingMTOM (in-only): Guarda el mensaje de request al disco.
 
 ## III. Iniciar Axis2 server.
 * * *
@@ -183,9 +181,13 @@ C:\01bizlife\wso2esb-4.8.1-dev\bin>tcpmon.bat
 
 [/sourcecode]
 Usar estos valores en TCPmon:
-Listen Port #: 8280  
+Listen Port
+
+#: 8280  
 Target Hostname: 127.0.0.1  
-Target Port #: 8283
+Target Port
+
+#: 8283
 Ahora, ejecutar el cliente Axis2. Seguir estos pasos para ejecutarlo:
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
@@ -255,12 +257,11 @@ BUILD SUCCESSFUL
 Total time: 3 seconds  
 
 [/sourcecode]
-Según los logs, se ha podido enviar satisfactoriamente una imagen ubicada en `C:>1bizlife\wso2esb-4.8.1-dev\repository\samples\resources\mtom\asf-logo.gif`, además, la imagen recibida ha sido guardada en el lado servidor en esta ruta `C:>1bizlife\wso2esb-4.8.1-dev\tmp\sampleClient\mtom-7597224514139522188.gif`  
+Según los logs, se ha podido enviar satisfactoriamente una imagen ubicada en `C:>1bizlife\wso2esb-4.8.1-dev\repository\samples\resources\mtom\asf-logo.gif`, además, la imagen recibida ha sido guardada en el lado servidor en esta ruta `C:>1bizlife\wso2esb-4.8.1-dev\tmp\sampleClient\mtom-7597224514139522188.gif`
 
 ## VI. Revisando el request y response SOAP MTOM.
 * * *
 Gracias al uso de TCPmon hemos podido interceptar el request y el response, aunque sólo serán legibles las cabeceras SOAP mientras que parte de los payloads no ya que contienen información en formato binario.
-
 **MTOM SOAP request message** :
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
@@ -303,7 +304,6 @@ GIF89a ...<<binary-content>>
 0  
 
 [/sourcecode]
-
 **MTOM SOAP response message:**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
@@ -482,7 +482,6 @@ Si ahora creamos un nuevo proyecto con el Proxy, el proyecto sería el siguiente
 
 [caption id="" align="aligncenter" width="458"][![Proyecto SoapUI: Proxy MTOMSwASampleService]({{ site.baseurl }}/assets/wso2-esb-mtom-MTOMSwASampleService-soapui-03-proxy.png)](https://dl.dropboxusercontent.com/u/2961879/blog.sec/blog20140430_wso2_mtom/wso2-esb-mtom-MTOMSwASampleService-soapui-03-proxy.png) Proyecto SoapUI: Proxy MTOMSwASampleService[/caption]
 Los request message para cada operación son los siguientes.
-
 **Request message para oneWayUploadUsingMTOM** :
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
@@ -496,7 +495,6 @@ xmlns:ser="http://services.samples">
 </soapenv:Envelope>  
 
 [/sourcecode]
-
 **Request message SOAP para uploadFileUsingMTOM:**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
@@ -513,7 +511,6 @@ xmlns:ser="http://services.samples">
 </soapenv:Envelope>  
 
 [/sourcecode]
-
 **El mensaje request SOAP para uploadFileUsingSwA usado es:**
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
@@ -567,13 +564,13 @@ Asi que siga sintonizado :)
 
 ## X. Conclusiones.
 * * *
-  * En un escenario SOA lo más probable es que todo sean servicios implementados en SOAP y si se requiere enviar de manera optimizada ficheros en formato binario de manera óptima y de una forma estándar, lo recomendable es usar MTOM sobre SOAP.
-  * Si estamos fuera de un proyecto SOA, podemos disponer de opciones como FTP, VFS o Formulario HTML con CGI en el lado servidor.
-  * Hay que destacar que el uso de MTOM sobre SOAP es un forma de envio de ficheros en binario de una manera óptima y eficiente, además el envío de ficheros grandes también sigue siendo de una manera óptima. Si estáis buscando el envío de grandes volúmenes de ficheros grandes, considerar MTOM sobre SOAP como una buena opción.
+* En un escenario SOA lo más probable es que todo sean servicios implementados en SOAP y si se requiere enviar de manera optimizada ficheros en formato binario de manera óptima y de una forma estándar, lo recomendable es usar MTOM sobre SOAP.
+* Si estamos fuera de un proyecto SOA, podemos disponer de opciones como FTP, VFS o Formulario HTML con CGI en el lado servidor.
+* Hay que destacar que el uso de MTOM sobre SOAP es un forma de envio de ficheros en binario de una manera óptima y eficiente, además el envío de ficheros grandes también sigue siendo de una manera óptima. Si estáis buscando el envío de grandes volúmenes de ficheros grandes, considerar MTOM sobre SOAP como una buena opción.
 
 ## XI. Referencias.
 * * *
-  * WSO2 ESB: Sample 51: MTOM and SwA Optimizations and Request/Response Correlation   
+* WSO2 ESB: Sample 51: MTOM and SwA Optimizations and Request/Response Correlation   
 <https://docs.wso2.org/pages/viewpage.action?pageId=33136025>
-  * SoapUI: Adding Headers and Attachments   
+* SoapUI: Adding Headers and Attachments   
 <http://www.soapui.org/SOAP-and-WSDL/adding-headers-and-attachments.html>

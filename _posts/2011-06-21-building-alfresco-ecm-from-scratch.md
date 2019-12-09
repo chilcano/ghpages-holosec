@@ -18,7 +18,9 @@ This article show us how to build Alfresco from scratch which is useful when ext
 4\. Subversion plugin for Eclipse (downloaded from Eclipse Marketplace)  
 5\. Apache Tomcat 6.0.32 (<http://tomcat.apache.org/download-60.cgi>)  
 6\. MySQL (XAMPP - <http://www.apachefriends.org/en/xampp-windows.html>)  
-7\. ImageMagick ﻿6.7.0-Q16 (<http://www.imagemagick.org/script/binary-releases.php#windows>)  
+7\. ImageMagick ﻿6.7.0-Q16 (<http://www.imagemagick.org/script/binary-releases.php
+
+#windows>)  
 8\. SWFTools 0.9.1 (<http://www.swftools.org/download.html>)  
 9\. OpenOffice 3.2 (<http://download.openoffice.org/index.html>)  
 10\. Alfresco source code downloaded from SVN on 15/June.
@@ -26,6 +28,7 @@ This article show us how to build Alfresco from scratch which is useful when ext
 [caption id="" align="alignnone" width="493" caption="Alfresco ECM: Community - version 4.0.0"]![Alfresco ECM: Community - version 4.0.0]({{ site.baseurl }}/assets/build_alfresco_scratch_0.png)[/caption]
 
 ## Setup development environment:
+
 
 ### JDK 
 1\. Install JDK and set two system variables (JAVA_HOME and PATH):
@@ -38,7 +41,6 @@ PATH=%PATH%;%JAVA_HOME%\bin
 
 ### Apache Tomcat 
 1\. Install/Unzip Apache Tomcat in the folder above, for example, **C:\1bpms-demo\alfresco_scratch\tomcat-6.0.32_app**
-
 2\. Create **setenv.bat** in **C:\1bpms-demo\alfresco_scratch\tomcat-6.0.32_app\bin** file with the following content:
 
 [sourcecode language="text" gutter="true" wraplines="false"]  
@@ -88,14 +90,14 @@ Copy **Win32Utils.dll** and **Win32NetBIOS.dll** placed in (C:\2workspace\alfres
 
 [sourcecode language="text" gutter="true" wraplines="false"]  
 dir.root=C:/1bpms-demo/alfresco_scratch/tomcat-6.0.32_app/alf_data  
-web.application.context.url=http://127.0.0.1:8080/alfresco  
+web.application.context.url=http://127.0.0.1:8080/alfresco
 
 ### database connection properties ###  
 db.driver=org.gjt.mm.mysql.Driver  
 db.username=root  
 db.password=  
 db.name=alfresco  
-db.url=jdbc:mysql://localhost/alfresco  
+db.url=jdbc:mysql://localhost/alfresco
 
 ### External executable locations ###  
 ooo.exe=C:/1bpms-demo/openoffice-3.2/App/openoffice/program/soffice.exe  
@@ -110,7 +112,6 @@ jodconverter.portNumbers=8101
 
 [/sourcecode]
 2\. Copy **mysql-connector-java-5.1.13-bin.jar** to **C:\1bpms-demo\alfresco_scratch\tomcat-6.0.32_app\lib**
-
 3\. Modify **shared.loader** property of the catalina.properties file with following value:
 
 [sourcecode language="text" gutter="true" wraplines="false"]  

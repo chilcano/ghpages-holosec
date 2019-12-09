@@ -20,10 +20,9 @@ In this second blog post I will explain how to use rTail to view all streams/log
 
 ## Part II: rTail (a node.js application to debug and monitor in realtime)
 
+
 ### 1\. Starting with rTail Server Docker Container
-
 **1) Prepare the rTail Server Docker Container**
-
 I have created and published a rTail Docker Image in Docker Hub ready to use it.  
 Just download and run it.
 
@@ -90,13 +89,11 @@ $ docker ps
 CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES  
 bdbb0476fa20 chilcano/rtail-srv "/bin/sh -c 'rtail-se" 5 seconds ago Up 5 seconds 9191/tcp, 0.0.0.0:9191->9191/udp, 0.0.0.0:8181->8181/tcp rtail-srv  
 ```
-
 **2) Check if the rTail Server Docker Container is working**
-
 Just open the rTail Server Web Console from a browser using this URL `http://192.168.99.100:8181`.  
 But if you want check if rTail Server Container is reacheable remotely (from other VM) to send log events, just execute this:
 
-```sh  
+```sh
 
 # use netcat instead of telnet, because telnet doesn't use UDP  
 $ nc -vuzw 3 <IP_ADDRESS_RTAIL_CONTAINER> 9191  
@@ -104,7 +101,6 @@ Connection to 192.168.99.100 9191 port [udp/*] succeeded!
 ```
 
 To stop, start or restart rTail Server just stop, start or restart the Docker container
-
 **3) Get Shell access to rTail Server Container**
 
 ```sh  
@@ -118,9 +114,7 @@ Where:
 ### 2\. Send log events to rTail Server Docker Container
 You can send any type of log events, from a syslog event, an echo message or a log by tailing. Before, you have to install rTail application again in the box/VM from where you want send log events.  
 I have created a [Puppet module for rTail](https://github.com/chilcano/vagrant-wso2-dev-srv/tree/master/provision/wso2-stack-srv/puppet/modules/rtail_sender) and I have included It to the Vagrant box to have the rTail (client) ready to be used.
-
 **1) Using rTail (client) to send log events to rTail Server**
-
 To get a Vagrant box with rTail (client) pre-installed, you could use these Vagrant scripts (<https://github.com/chilcano/vagrant-wso2-dev-srv>).
 
 ```sh  
@@ -133,9 +127,7 @@ $ vagrant up
 # re-load and provision  
 $ vagrant reload --provision  
 ```
-
 **2) Check if rTail (as Client) is working in the Vagrant box and if can reach to Docker Container**
-
 To check if rTail was installed/provisioned properly, get SSH access, try to reach and send some traces to the existing rTail Server Docker Container.
 
 ```sh  
@@ -153,12 +145,10 @@ $
 _rTail - Browsing log events_  
 
 ![rTail - Browsing log events]({{ site.baseurl }}/assets/chilcano-logs-rtail-microservices-2-ping-tail.png)
-
 **3) Send log events to rTail Server Docker Container from the Vagrant box**
-
 Wiremock is a mock server that should be running in the box. Then, we will send the Wiremock traces/events to the rTail server.
 
-```sh  
+```sh
 
 # start wiremock  
 $ sudo service wiremock start  
@@ -171,7 +161,7 @@ $ tail -f /opt/wiremock/wiremock.log | rtail --id wiremock --host 192.168.99.100
 
 Now, to send the multiple log events of multiple log files to unique merged stream we will use in this case the `multitail`.
 
-```sh  
+```sh
 
 # install 'multitail'  
 $ sudo apt-get install multitail
@@ -185,7 +175,7 @@ $ multitail -l "ping 8.8.8.8" -L "ping 8.8.4.4" | rtail --id logs-ping --host 19
 
 Now, to send 3 log file to rTail Server to an unique merged stream using this process/pattern, i.e.: WSO2 API Manager, WSO2 ESB and as backend Wiremock (`wso2am02a -&gt; wso2esb02a -&gt; wiremock`), then you should `multitail` the 3 log files
 
-```sh  
+```sh
 
 # tailing the flow 'wso2am02a -> wso2esb02a -> wiremock'  
 $ multitail -ke "[ \t]+$" /opt/wso2am02a/repository/logs/wso2carbon.log -I /opt/wso2esb02a/repository/logs/wso2carbon.log -I /opt/wiremock/wiremock.log | rtail --id logs-wso2-01 --host 192.168.99.100 --port 9191 --tty --mute  
@@ -198,25 +188,23 @@ $ tail -f /opt/wso2am02a/repository/logs/wso2carbon.log -f /opt/wso2esb02a/repos
 ```
 
 Where:
-  * `-ts` add a timestamp (format configurable in `multitail.conf`) before each line
-  * `-ke "[ \t]+$"` remove TABs and blankspaces in every line.
-  * `-I` merge the log file.
-  * `--tty` keeps ansi colors.
+* `-ts` add a timestamp (format configurable in `multitail.conf`) before each line
+* `-ke "[ \t]+$"` remove TABs and blankspaces in every line.
+* `-I` merge the log file.
+* `--tty` keeps ansi colors.
 Observations:
-  * `multitail` consolidate multiple log lines in on2 line associated a to timestamp (`date+hh:mm:ss`), but doesn't accept milliseconds.
-  * Using `tail` you require create a shell script to remove header or apply filters to standarize Date formats, etc.
+* `multitail` consolidate multiple log lines in on2 line associated a to timestamp (`date+hh:mm:ss`), but doesn't accept milliseconds.
+* Using `tail` you require create a shell script to remove header or apply filters to standarize Date formats, etc.
 _rTail - Multiple log tailing using`multitail`_  
 
 ![rTail - Multiple log tailing using 'multitail']({{ site.baseurl }}/assets/chilcano-logs-rtail-microservices-3-multitail.png)
 _rTail - Multiple log tailing using`tail`_  
 
 ![rTail - Multiple log tailing using 'tail']({{ site.baseurl }}/assets/chilcano-logs-rtail-microservices-4-multiple-tail.png)
-
 **4) Shell scripts to send multiple WSO2 log files**
-
 I have created a bash script to send all log events to the rTail server. You can find the bash script under `/etc/init.d/rtail-send-logs` and can run it whenever.
 
-```sh  
+```sh
 
 # initial status of rtail scripts  
 $ service --status-all  
@@ -236,7 +224,7 @@ $ sudo service rtail-server status
 There is a rTail Puppet module to enable the rTail server to start automatically when booting the VM.  
 In other words, rTail server always is listening in the port UDP to receive events and logs.
 
-```sh  
+```sh
 
 # start, stop and status of WSO2 log files simultaneously (not merged)  
 $ sudo service rtail-send-logs status  

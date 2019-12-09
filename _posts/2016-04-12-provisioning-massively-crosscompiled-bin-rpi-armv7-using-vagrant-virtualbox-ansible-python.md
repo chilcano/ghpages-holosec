@@ -20,13 +20,13 @@ I would like to mention that this work is based on `https://github.com/twobitcir
 
 ## Requirements:
 I'm using a Mac OS X (El Capitan - Version 10.11.3) with the next tools:
-  * VirtualBox 5.0.16
-  * Vagrant 1.8.1
-  * Ansible 2.0.1.0 (installed via Pip)
-  * Python 2.7.11
-  * Raspberry Pi 2 Model B 
-  * Raspbian OS (2015-09-24-raspbian-jessie.img)
-  * OpenFramework for cross-compiling (http://openframeworks.cc)
+* VirtualBox 5.0.16
+* Vagrant 1.8.1
+* Ansible 2.0.1.0 (installed via Pip)
+* Python 2.7.11
+* Raspberry Pi 2 Model B 
+* Raspbian OS (2015-09-24-raspbian-jessie.img)
+* OpenFramework for cross-compiling (http://openframeworks.cc)
 
 ### Why _Ansible_ instead of other configuration management tools ?
 Why Ansible (http://docs.ansible.com/ansible/intro_installation.html) instead of other configuration management tools as Puppet, Chef, ...?. Because, Ansible is simple and agentless; you can use it with just with a simple SSH terminal, nothing special is required to be installed in the Host, also because it is written in Python and as you have seen in my previous post, I'm using intensively Python and it is becoming my favorite programming language. You can install Ansible using the same Python installation tools and obviously, you can `import ansible` from your Python scripts.  
@@ -42,9 +42,7 @@ $ sudo pip install --upgrade pip
 
 
 ## Preparing the Raspberry Pi
-
 **1\. Copy RPi image to SD**
-
 Identify the disk (not partition) of your SD card, unmount and copy the image there:
 
 ```sh  
@@ -53,9 +51,7 @@ $ diskutil unmountDisk /dev/disk2
 $ cd /Users/Chilcano/Downloads/@isos_vms/raspberrypi-imgs  
 $ sudo dd bs=1m if=2015-09-24-raspbian-jessie.img of=/dev/rdisk2  
 ```
-
 **2\. Connect the Raspberry Pi directly to your Host (MAC OS X)**
-
 Using an ethernet cable, connect your Raspberry Pi to your Host, in my case I've a MAC OS X and I'm going to share my WIFI Network connection.  
 Then, enabling `Internet Sharing` and the "Thunderbolt Ethernet" an IP address will be assigned to the Raspberry Pi, also Raspberry Pi will have Internet access/Network access and the MAC OS X can connect via SSH to the Raspberry Pi.  
 All that will be possible without a hub, switch, router, screen or keyboard, etc. This will be useful, because we are going to install new software in Raspberry Pi.
@@ -81,9 +77,7 @@ PING www.docker.com (104.239.220.248) 56(84) bytes of data.
 2 packets transmitted, 2 received, 0% packet loss, time 6970ms  
 rtt min/avg/max/mdev = 207.205/213.294/217.893/3.513 ms  
 ```
-
 **3\. Configure your RPi**
-
 Boot your RPi and open a shell. Then enter:
 
 ```sh  
@@ -101,11 +95,10 @@ deb http://ftp.cica.es/mirrors/Linux/raspbian/raspbian/ jessie main contrib non-
 
 # Uncomment line below then 'apt-get update' to enable 'apt-get source'  
 
+
 #deb-src http://archive.raspbian.org/raspbian/ jessie main contrib non-free rpi  
 ```
-
 **4\. Install OpenFrameworks tools and dependencies into Raspberry Pi**
-
 Download and unzip OpenFrameworks into RPi under `/opt`.
 
 ```sh  
@@ -138,9 +131,7 @@ pi@raspberrypi:~ $ sudo make -C /opt/of_v0.9.0_linuxarmv7l_release/apps/myApps/e
 pi@raspberrypi:~ $ cd /opt/of_v0.9.0_linuxarmv7l_release/apps/myApps/emptyExample  
 pi@raspberrypi /opt/of_v0.9.0_linuxarmv7l_release/apps/myApps/emptyExample $ bin/emptyExample  
 ```
-
 **5\. Make an new image file from the existing and updated Raspberry Pi**
-
 Remove the SD card from the Raspberry Pi, insert the SD card in your Host (in my case is MAC OS X) and use `dd` to make an new image file.
 
 ```sh  
@@ -153,7 +144,7 @@ $ sudo dd bs=1m if=/dev/rdisk2 of=2015-09-24-raspbian-jessie-of2.img
 ```
 
 _Very important_ :
-  * The `2015-09-24-raspbian-jessie-of.img` will be `shared` and after `mounted` from the guest VM, for that, set the user and permissions to `2015-09-24-raspbian-jessie-of.img` as shown below:
+* The `2015-09-24-raspbian-jessie-of.img` will be `shared` and after `mounted` from the guest VM, for that, set the user and permissions to `2015-09-24-raspbian-jessie-of.img` as shown below:
 
 ```sh  
 $ sudo chmod +x 2015-09-24-raspbian-jessie-of2.img  
@@ -172,7 +163,6 @@ drwxr-xr-x 35 Chilcano staff 1190 Mar 23 19:26 ../
 
 
 ## Building the Vagrant box
-
 **1\. In your MAC OS X, to clone the`rpi-build-and-boot` github repository**
 
 ```sh  
@@ -185,22 +175,21 @@ Copy/Move the newest RPi image created above into `rpi-build-and-boot` folder.
 ```sh  
 $ mv /Users/Chilcano/Downloads/@isos_vms/raspberrypi-imgs/2015-09-24-raspbian-jessie-of2.img .  
 ```
-
 **2\. Install Vagrant and vbguest plugin into MAC OS X**
 
 ```sh  
 $ wget https://releases.hashicorp.com/vagrant/1.8.1/vagrant_1.8.1.dmg  
 $ vagrant plugin install vagrant-vbguest  
 ```
-
 **3\. Create a new`Vagrantfile` with VirtualBox as provider in the same folder `rpi-build-and-boot`**
 
-```ruby  
+```ruby
 
 # -*- mode: ruby -*-  
 
+
 # vi: set ft=ruby :
-Vagrant.configure(2) do |config|  
+Vagrant.configure(2) do |config|
 
 # https://atlas.hashicorp.com/ubuntu/boxes/trusty64 [Official Ubuntu Server 14.04 LTS (Trusty Tahr) builds]  
 config.vm.box = "ubuntu/trusty64"  
@@ -208,9 +197,10 @@ config.vm.provider "virtualbox" do |vb|
 config.vbguest.auto_update = true  
 vb.customize ["modifyvm", :id, "\--memory", "6144"]  
 vb.customize ["modifyvm", :id, "\--cpus", "4"]  
-end  
+end
 
 # If you want to use this system to netboot Raspberry Pi, then uncomment this line  
+
 
 #config.vm.network "public_network", bridge: "en4: mac-eth0", ip: "10.0.0.1"  
 config.vm.network "public_network", bridge: "ask", ip: "10.0.0.1"  
@@ -219,9 +209,7 @@ ansible.playbook = "playbook.yml"
 end  
 end  
 ```
-
 **4\. Getting`boot` and `root` partitions offsets to do loop mounting in Vagrant**
-
 Using `./tool.py offsets` I will get the offsets of the `boot` and `root` partitions, after getting offset, copy the output of this tool to the top of `playbook.yml`.  
 To run `tool.py` in MAC OS X, you will need `Python` configured.
 
@@ -233,9 +221,7 @@ offset_root: 62914560
 ```
 
 The idea to loop-mount the RPi image is to create a full structure of directories and files of a Raspberry Pi distribution under a mounting-point in a Vagrant box. This structure is required to do `cross-compiling` and move/copy new binaries and ARM cross-compiled binaries.
-
 **5\. Mounting Raspberry Pi image and booting from Vagrant using NFS**
-
 Using `./tool.py netboot image.img /dev/rdiskX [--ip=10.0.0.Y]` you will copy just the `boot` partition in a new and tiny SD card.  
 This new SD card with a fresh `boot` partition will be useful to boot from the network/remotely. The RPi will download the `root` partition from Vagrant, in fact, Vagrant will be sharing the custom RPi image (`2015-09-24-raspbian-jessie-of2.img`) via NFS to any Raspberry Pi connected to same network and having a pre-loaded `boot` partition.
 The idea behind is to provision a custom RPi image massively avoiding to waste time copying and creating SD card for each Raspberry Pi. Also, this method is useful to provision software, configuration, packages, or in my case, provide cross-compiled software for ARM architectures massively.
@@ -247,7 +233,7 @@ $ diskutil unmountDisk /dev/disk3
 $ ./tool.py netboot 2015-09-24-raspbian-jessie-of2.img /dev/rdisk3
 2015-09-24-raspbian-jessie-of2.img /dev/rdisk3 10.0.0.101  
 The following partitions will be destroyed  
-/dev/disk3 (external, physical):  
+/dev/disk3 (external, physical):
 
 #: TYPE NAME SIZE IDENTIFIER  
 0: FDisk_partition_scheme *4.0 GB disk3  
@@ -266,9 +252,7 @@ Disk /dev/rdisk3 ejected
 
 Note that `tool.py netboot` automatically will assigns to RPi the `10.0.0.101` as IP address and `8.8.8.8` and `8.8.4.4` as DNS servers to `eth0`.  
 You can check or modify previously these values by editing the `cmdline.txt` file placed in the `boot` RPi partition. You can edit it from a running Raspberry Pi or from a mounted partition.
-
 **6\. Download and unzip oF (OpenFramework) into`rpi-build-and-boot` folder**
-
 If you forgot copy OpenFramework in your RPi, you can do now. Using the Ansible `playbook.yml`, the `oF` will be copied to your RPi.
 
 ```sh  
@@ -276,9 +260,7 @@ $ cd rpi-build-and-boot
 $ wget http://openframeworks.cc/versions/v0.9.0/of_v0.9.0_linuxarmv7l_release.tar.gz  
 $ tar -zxf of_v0.9.0_linuxarmv7l_release.tar.gz  
 ```
-
 **7\. Update the Ansible`playbook.yml`**
-
 I've had to tweak the `playbook.yml` to avoid warnings, add DNS to `cmdline.txt` and add `iptables` filters to get Internet access on RPi using Host shared NIC. Here the updated Ansible `playbook.yml`:
 
 ```python  
@@ -363,7 +345,7 @@ tasks:
 \- copy: src=build_cross_gcc.sh dest=/tmp/CROSS_BUILD_TOOLS/build_cross_gcc.sh mode=0744  
 \- shell: /tmp/CROSS_BUILD_TOOLS/build_cross_gcc.sh chdir=/tmp/CROSS_BUILD_TOOLS creates=/opt/cross/bin/arm-linux-gnueabihf-g++
 \- lineinfile: dest="/home/vagrant/.profile" line="export GST_VERSION=1.0"  
-\- lineinfile: dest="/home/vagrant/.profile" line="export RPI_ROOT=/opt/raspberrypi/root"  
+\- lineinfile: dest="/home/vagrant/.profile" line="export RPI_ROOT=/opt/raspberrypi/root"
 
 #######- lineinfile: dest="/home/vagrant/.profile" line="export RPI_BUILD_ROOT=/opt/RPI_BUILD_ROOT"  
 \- lineinfile: dest="/home/vagrant/.profile" line="export TOOLCHAIN_ROOT=/opt/cross/bin"  
@@ -376,7 +358,9 @@ tasks:
 \- command: chown -R vagrant /opt/raspberrypi/root/opt/{{of_version}}
 
 # forwarding traffic from eth0 (internet) to eth1 (rpi connection) with iptables  
-\- replace: dest=/etc/sysctl.conf regexp="^#net.ipv4.ip_forward=1$" replace="net.ipv4.ip_forward=1"  
+\- replace: dest=/etc/sysctl.conf regexp="^
+
+#net.ipv4.ip_forward=1$" replace="net.ipv4.ip_forward=1"  
 \- shell: /bin/echo 1 > /proc/sys/net/ipv4/ip_forward  
 \- command: iptables -A FORWARD -o eth0 -i eth1 -m conntrack --ctstate NEW -j ACCEPT  
 \- command: iptables -A FORWARD -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT  
@@ -385,7 +369,6 @@ tasks:
 \- service: name=ufw state=restarted  
 handlers:
 ```
-
 **8\. Create the Vagrant box**
 
 ```sh  
@@ -407,11 +390,9 @@ default: Adapter 2: bridged
 ==> default: Forwarding ports...  
 default: 22 (guest) => 2222 (host) (adapter 1)  
 ...  
-TASK [service] *****************************************************************
-
+TASK [service] *****************************************************************  
 changed: [default]
-PLAY RECAP *********************************************************************
-
+PLAY RECAP *********************************************************************  
 default : ok=82 changed=76 unreachable=0 failed=0  
 ```
 
@@ -544,9 +525,7 @@ PING google.com (216.58.211.206) 56(84) bytes of data.
 3 packets transmitted, 3 received, 0% packet loss, time 2008ms  
 rtt min/avg/max/mdev = 13.521/13.883/14.137/0.296 ms  
 ```
-
 **9\. Check if ARM cross-compiling works in the VirtualBox guest**
-
 Check if the cross-compiling Variables have been defined.
 
 ```sh  
@@ -575,36 +554,36 @@ $ make -C /opt/openframeworks/apps/myApps/emptyExample
 
 
 ## Conclusions
-  * As you have seen above, using Vagrant, Ansible and Python you can build easily a Provisioning system for massive delivery of binaries/packages for Raspberry Pi or Mobile Devices.
-  * Also, you could replace OpenFramework tool (http://openframeworks.cc) used for ARM cross-compiling for other similar Tool if you have different target Device, to do that, just modify the part related to that in the Ansible Playbook.
+* As you have seen above, using Vagrant, Ansible and Python you can build easily a Provisioning system for massive delivery of binaries/packages for Raspberry Pi or Mobile Devices.
+* Also, you could replace OpenFramework tool (http://openframeworks.cc) used for ARM cross-compiling for other similar Tool if you have different target Device, to do that, just modify the part related to that in the Ansible Playbook.
 Finally, in the next blog post, I will explain how to cross-compile the Kismet tool (https://www.kismetwireless.net/download.shtml) from source for Raspberry Pi (ARM).
 I hope you have enjoyed.  
 See you soon.
 
 ## References:
-  1. Loop-mounting partitions from a disk image: 
-    * http://www.andremiller.net/content/mounting-hard-disk-image-including-partitions-using-linux
-    * http://madduck.net/blog/2006.10.20:loop-mounting-partitions-from-a-disk-image
-  2. Ansible documentation: 
-    * http://docs.ansible.com/ansible
-  3. TCPDump cross-compiling for Android: 
-    * http://www.androidtcpdump.com/android-tcpdump/compile
-  4. ARM Cross Compiling with Mac OS X: 
-    * http://www.welzels.de/blog/en/arm-cross-compiling-with-mac-os-x
-  5. Pre-built environment for Raspberry Pi cross-compiling and NFS booting: 
-    * https://forum.openframeworks.cc/t/pre-built-environment-for-raspberry-pi-cross-compiling-and-nfs-booting/16206/26
-    * https://github.com/twobitcircus/rpi-build-and-boot
-  6. How to Build a GCC Cross-Compiler: 
-    * http://preshing.com/20141119/how-to-build-a-gcc-cross-compiler
-  7. A Vagrant plugin to keep your VirtualBox Guest Additions up to date: 
-    * https://github.com/dotless-de/vagrant-vbguest
-  8. openFrameworks - an open source C++ toolkit: 
-    * http://openframeworks.cc/download
-  9. Vboxvfs lacks support for symbolic / hard links 
-    * https://www.virtualbox.org/ticket/818
+1. Loop-mounting partitions from a disk image: 
+* http://www.andremiller.net/content/mounting-hard-disk-image-including-partitions-using-linux
+* http://madduck.net/blog/2006.10.20:loop-mounting-partitions-from-a-disk-image
+2. Ansible documentation: 
+* http://docs.ansible.com/ansible
+3. TCPDump cross-compiling for Android: 
+* http://www.androidtcpdump.com/android-tcpdump/compile
+4. ARM Cross Compiling with Mac OS X: 
+* http://www.welzels.de/blog/en/arm-cross-compiling-with-mac-os-x
+5. Pre-built environment for Raspberry Pi cross-compiling and NFS booting: 
+* https://forum.openframeworks.cc/t/pre-built-environment-for-raspberry-pi-cross-compiling-and-nfs-booting/16206/26
+* https://github.com/twobitcircus/rpi-build-and-boot
+6. How to Build a GCC Cross-Compiler: 
+* http://preshing.com/20141119/how-to-build-a-gcc-cross-compiler
+7. A Vagrant plugin to keep your VirtualBox Guest Additions up to date: 
+* https://github.com/dotless-de/vagrant-vbguest
+8. openFrameworks - an open source C++ toolkit: 
+* http://openframeworks.cc/download
+9. Vboxvfs lacks support for symbolic / hard links 
+* https://www.virtualbox.org/ticket/818
   10. Cross compiler for OF 0.9.0/Jessie/arm6/RPi1 
-    * https://forum.openframeworks.cc/t/cross-compiler-for-of-0-9-0-jessie-arm6-rpi1/21336
+* https://forum.openframeworks.cc/t/cross-compiler-for-of-0-9-0-jessie-arm6-rpi1/21336
   11. How to cross compile an application for OpenWRT 
-    * https://blog.netbeast.co/app-openwrt
+* https://blog.netbeast.co/app-openwrt
   12. Cross-Compiling or Building Android tcpdump? 
-    * http://www.androidtcpdump.com/android-tcpdump/compile
+* http://www.androidtcpdump.com/android-tcpdump/compile

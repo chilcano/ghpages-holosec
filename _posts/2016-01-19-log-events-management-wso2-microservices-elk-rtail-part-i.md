@@ -22,10 +22,9 @@ Well, this first blog post I will explain how to use ELK to collect, store and v
 
 ## Part I: ELK (Elasticsearch, Logstash, Kibana)
 
+
 ### 1\. Starting with ELK Docker Container
-
 **1) Prepare the ELK container**
-
 We gonna use an existing Docker Image with ELK created by [Sébastien Pujadas](https://github.com/spujadas) `(http://elk-docker.readthedocs.org)` previously configured ready to be used. This Docker Image contains:  
 \- Elasticsearch (version 2.1.1)  
 \- Logstash (version 2.1.1)  
@@ -46,7 +45,6 @@ de9c48daf08c: Pull complete
 Digest: sha256:ce7b3a1dfe285d1d9b862905bf0ee6df951f1a035120b92af71280217b6f3422  
 Status: Downloaded newer image for sebp/elk:latest  
 ```
-
 **2) Run the container**
 
 ```sh  
@@ -84,9 +82,7 @@ waiting for Elasticsearch to be up (7/30)
 
 [2016-01-14 08:48:13,180][INFO ][cluster.metadata ] [Zero] [.kibana] creating index, cause [api], templates [], shards [1]/[1], mappings [config]  
 ```
-
 **3) Check the status of ELK in the running container**
-
 In other Terminal/Shell execute the next:
 
 ```sh  
@@ -99,9 +95,10 @@ $ docker-machine env default
 export DOCKER_TLS_VERIFY="1"  
 export DOCKER_HOST="tcp://192.168.99.100:2376"  
 export DOCKER_CERT_PATH="/Users/Chilcano/.docker/machine/machines/default"  
-export DOCKER_MACHINE_NAME="default"  
+export DOCKER_MACHINE_NAME="default"
 
 # Run this command to configure your shell:  
+
 
 # eval "$(docker-machine env default)"
 $ eval "$(docker-machine env default)"
@@ -111,11 +108,10 @@ CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES
 ```
 
 The ports opened are:
-  * 5601 (Kibana web interface).
-  * 9200 (Elasticsearch JSON interface).
-  * 5044 (Logstash Beats interface, receives logs from Beats such as Filebeat).
-  * 5000 (Logstash Lumberjack interface, receives logs from Logstash forwarders).
-
+* 5601 (Kibana web interface).
+* 9200 (Elasticsearch JSON interface).
+* 5044 (Logstash Beats interface, receives logs from Beats such as Filebeat).
+* 5000 (Logstash Lumberjack interface, receives logs from Logstash forwarders).
 **4) Check Elasticsearch server**
 
 ```sh  
@@ -145,21 +141,23 @@ elk
 $ docker start elk  
 elk  
 ```
-
 **5) Sending a dummy logs to ELK**
-
 In another terminal execute the next:
 
 ```sh  
 $ docker exec -it elk /bin/bash
 $ docker exec -it elk /bin/bash  
-root@788b97b04e9b:/# /opt/logstash/bin/logstash -e 'input { stdin { } } output { elasticsearch { hosts => ["localhost"] } }'  
+root@788b97b04e9b:/
+
+# /opt/logstash/bin/logstash -e 'input { stdin { } } output { elasticsearch { hosts => ["localhost"] } }'  
 Settings: Default filter workers: 1  
 Logstash startup completed  
 Hola Chilcano!!  
 ^CSIGINT received. Shutting down the pipeline. {:level=>:warn}
 Logstash shutdown completed  
-root@788b97b04e9b:/#  
+root@788b97b04e9b:/
+
+#  
 ```
 
 In other terminal using cURL or from a browser:
@@ -211,7 +209,6 @@ For this part I will use a Vagrant box with several WSO2 products pre-installed 
 >  Logstash Forwarder, Filebeat tails logs and quickly sends this information to Logstash  
 >  for further parsing and enrichment or to Elasticsearch for centralized storage and analysis.  
 >  _[www.elastic.co/products/beats/filebeat](https://www.elastic.co/products/beats/filebeat)_
-
 **1) Start the WSO2 Vagrant box**
 
 ```sh  
@@ -258,7 +255,6 @@ drwxr-xr-x 13 vagrant vagrant 4096 Jan 12 10:41 wso2greg01a/
 
 If you already are running this Vagrant box with WSO2 ESB, WSO2 API Manager, WSO2 DSS, Wiremock, etc. then the next step is configure It to send the different generated logs to ELK Docker Container.  
 In the documentation explains that It will be used [Filebeat](https://www.elastic.co/products/beats/filebeat), for that we have to install and configure Filebeat in this Vagrant box.
-
 **2) Install Filebeat into Vagrant box**
 
 ```sh  
@@ -266,7 +262,6 @@ $ sudo curl -L -O https://download.elastic.co/beats/filebeat/filebeat_1.0.1_i386
 $ sudo dpkg -i filebeat_1.0.1_i386.deb  
 $ sudo rm filebeat_1.0.1_i386.deb  
 ```
-
 **3) Configure Filebeat to forward WSO2 logs to ELK Docker Container**
 
 ```sh  
@@ -328,9 +323,7 @@ To avoid the below error, to update the `host` with a hostname (not IP address) 
 $ sudo /etc/init.d/filebeat start  
 2016/01/15 17:30:22.910725 transport.go:125: ERR SSL client failed to connect with: x509: cannot validate certificate for 192.168.99.100 because it doesn't contain any IP SANs  
 ```
-
 **4) Loading the Index Template in Elasticsearch**
-
 Before starting Filebeat for the first time, run this command to load the default index template in Elasticsearch from the Vagrant box:
 
 ```sh  
@@ -339,7 +332,6 @@ $ curl -XPUT 'http://192.168.99.100:9200/_template/filebeat?pretty' -d@/etc/file
 "acknowledged" : true  
 }  
 ```
-
 **5) Start Filebeat daemon**
 
 ```sh  
@@ -361,9 +353,7 @@ or if You have created `filebeat.yml` in a different folder.
 ```sh  
 $ sudo ./filebeat -e -c /myfolder/filebeat.yml  
 ```
-
 **6) Check if Filebeat is running**
-
 I have created a `filebeat.yml` file with the logs section enabled. That's suitable to verify of everything is OK.
 
 ```sh  
@@ -433,9 +423,7 @@ $ sudo tail -10000f /var/log/filebeat/filebeat.log
 ```
 
 The filebeat.log indicates that Filebeat daemon is sending the events to Logstash (ELK container).
-
 **7) Viewing the raw log events from Kibana**
-
 I am not filtering the log events, Logstash will be received the informations as it is.  
 In a next blog post I will explain how to visualize the log events using filters, queries and graphs.
 To view the raw log events, just open Kibana from a browser, in my case is in `http://192.168.99.100:5601`.  
@@ -484,8 +472,6 @@ In the above figure, a raw log event for WSO2 API Manager in JSON format is like
 As I said above, in a next blog post I will explain how to visualize the log events using filters to parse simple event and multiple events.
 That's all.  
 I hope you enjoyed it.
-
-**References:**
-
+**References:**  
 * Vagrant box with WSO2 stack and Wiremock (https://github.com/Chilcano/box-vagrant-wso2-dev-srv)  
 * Elasticsearch, Logstash, Kibana (ELK) Docker image by Sébastien Pujadas (https://github.com/spujadas/elk-docker)

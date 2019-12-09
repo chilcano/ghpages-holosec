@@ -8,13 +8,18 @@ status:     publish
 permalink:  "/2010/08/16/remote-access-to-centos-with-vnc-viewer/"
 ---
 ![]({{ site.baseurl }}/assets/vnc_centos-0-real-vnc-1.png)
-
 <!-- more -->  
 First, install VNC in CentOS:
-    [root@svdapp95 ~]# yum  --nogpgcheck install vnc
-  1. Create another user:
-    [root@svdapp95 ~]# useradd roger  
-    [root@svdapp95 ~]# su - roger  
+    [root@svdapp95 ~]
+
+# yum  --nogpgcheck install vnc
+1. Create another user:
+    [root@svdapp95 ~]
+
+# useradd roger  
+    [root@svdapp95 ~]
+
+# su - roger  
     [roger@svdapp95 ~]$ vncpasswd  
     Password:  
     Verify:  
@@ -22,24 +27,38 @@ First, install VNC in CentOS:
     [roger@svdapp95 .vnc]$ ll  
     total 8  
     -rw------- 1 roger roger 8 Aug  6 17:04 passwd
-  1. Create vnc password for root too:
-    [root@svdapp95 ~]# vncpasswd  
+1. Create vnc password for root too:
+    [root@svdapp95 ~]
+
+# vncpasswd  
     Password:  
     Verify:  
-    [root@svdapp95 ~]# ls -la  
+    [root@svdapp95 ~]
+
+# ls -la  
     [...]  
-    [root@svdapp95 ~]# cd .vnc/  
-    [root@svdapp95 .vnc]# ll  
+    [root@svdapp95 ~]
+
+# cd .vnc/  
+    [root@svdapp95 .vnc]
+
+# ll  
     total 8  
     -rw------- 1 root root 8 Aug  6 16:45 passwd  
-    [root@svdapp95 .vnc]#
-  1. Edit configuration of VNC server:
-    [root@svdapp95 ~]# nano /etc/sysconfig/vncservers
+    [root@svdapp95 .vnc]
+
+#
+1. Edit configuration of VNC server:
+    [root@svdapp95 ~]
+
+# nano /etc/sysconfig/vncservers
     VNCSERVERS="1:roger 2:root"
     VNCSERVERARGS[1]="-geometry 800x600"
     VNCSERVERARGS[2]="-geometry 1024x800"
-  1. Create xstartup script with root:
-    [root@svdapp95 .vnc]# /sbin/service vncserver start
+1. Create xstartup script with root:
+    [root@svdapp95 .vnc]
+
+# /sbin/service vncserver start
     Starting VNC server: 1:roger xauth:  creating new authority file /home/roger/.Xauthority
     New 'svdapp95:1 (roger)' desktop is svdapp95:1
     Creating default startup script /home/roger/.vnc/xstartup
@@ -51,16 +70,29 @@ First, install VNC in CentOS:
     Starting applications specified in /root/.vnc/xstartup
     Log file is /root/.vnc/svdapp95:2.log
                                                                [  OK  ]
-    [root@svdapp95 .vnc]# /sbin/service vncserver stop
+    [root@svdapp95 .vnc]
+
+# /sbin/service vncserver stop
     Shutting down VNC server: 1:roger 2:root                   [  OK  ]
-    [root@svdapp95 .vnc]#
-  1. Edit xstartup config file created in step 4 for each user added in vncservers in step 3:
-    [root@svdapp95 ~]# nano /root/.vnc/xstartup
+    [root@svdapp95 .vnc]
+
+#
+1. Edit xstartup config file created in step 4 for each user added in vncservers in step 3:
+    [root@svdapp95 ~]
+
+# nano /root/.vnc/xstartup
 Initial file for root:
-    #!/bin/sh
-    # Uncomment the following two lines for normal desktop:
-    # unset SESSION_MANAGER
-    # exec /etc/X11/xinit/xinitrc
+
+#!/bin/sh
+
+
+# Uncomment the following two lines for normal desktop:
+
+
+# unset SESSION_MANAGER
+
+
+# exec /etc/X11/xinit/xinitrc
     [ -x /etc/vnc/xstartup ] && exec /etc/vnc/xstartup
     [ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
     xsetroot -solid grey
@@ -68,10 +100,14 @@ Initial file for root:
     xterm -geometry 80x24+10+10 -ls -title "$VNCDESKTOP Desktop" &
     twm &
 New file for root:
-    #!/bin/sh
-    # Add the following line to ensure you always have an xterm available.
+
+#!/bin/sh
+
+
+# Add the following line to ensure you always have an xterm available.
     ( while true ; do xterm ; done ) &
-    # Uncomment the following two lines for normal desktop:
+
+# Uncomment the following two lines for normal desktop:
     unset SESSION_MANAGER
     exec /etc/X11/xinit/xinitrc
     [ -x /etc/vnc/xstartup ] && exec /etc/vnc/xstartup
@@ -81,28 +117,28 @@ New file for root:
     xterm -geometry 80x24+10+10 -ls -title "$VNCDESKTOP Desktop" &
     twm &
 ... repeat for "roger" user too.
-  1. Start VNC server:
-    [root@svdapp95 ~]# /sbin/service vncserver start
-  1. Login to VNC server from web browser:
+1. Start VNC server:
+    [root@svdapp95 ~]
+
+# /sbin/service vncserver start
+1. Login to VNC server from web browser:
 From another PC (you connect to VNC server with both users configured, for example:  
 \- Open web browser  
 \- Go to http://<ip-vncserver>:5801 for user "roger" and http://<ip-vncserver>:5802 for user "root".  
 \- In my case: http://172.23.3.197:5801
 
 ![]({{ site.baseurl }}/assets/vnc_centos-3-real-vnc.png)
-  1. Login to VNC server from any vcn client, for example, vnc viewer:
-  * Open VNC Viewer
-  * Go to http://<ip-vncserver>:1 for user "roger" and http://<ip-vncserver>:2 for user "root".
+1. Login to VNC server from any vcn client, for example, vnc viewer:
+* Open VNC Viewer
+* Go to http://<ip-vncserver>:1 for user "roger" and http://<ip-vncserver>:2 for user "root".
 Open connection:  
 
 ![]({{ site.baseurl }}/assets/vnc_centos-1-open.png)
 Remote access in CentOS:  
 
 ![]({{ site.baseurl }}/assets/vnc_centos-2-centos.png)
-
-**References:**
-
+**References:**  
 * VNC ( Virtual Network Computing )  
 http://wiki.centos.org/es/HowTos/VNC-Server
-  * Conexión a VNC a través de firewalls y proxys utilizando túneles SSH  
+* Conexión a VNC a través de firewalls y proxys utilizando túneles SSH  
 http://www.eslomas.com/index.php/archives/2006/07/05/conexion-remota-vnc-proxy-firewall-tunel-ssh/

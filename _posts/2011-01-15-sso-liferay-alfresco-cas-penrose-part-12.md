@@ -9,16 +9,14 @@ permalink:  "/2011/01/15/sso-liferay-alfresco-cas-penrose-part-12/"
 ---
 I know it, It is nothing new. But I always encounter this situation and I have always come back to explain again and again.
 The requirements are:
-  1. CAS for Authentication and SSO.
-  2. Web application to do SSO between they: Liferay Portal 6.0.5 CE and Alfresco 3.2 CE.
-  3. Penrose Virtual Directory with OpenDS as backend to store user credentials and to get a LDAP interface.
+1. CAS for Authentication and SSO.
+2. Web application to do SSO between they: Liferay Portal 6.0.5 CE and Alfresco 3.2 CE.
+3. Penrose Virtual Directory with OpenDS as backend to store user credentials and to get a LDAP interface.
 This post is based on a previous one about [Liferay Portal Server LDAP Authentication with Penrose Server](http://holisticsecurity.wordpress.com/2010/12/22/authentication-penrose-directory-liferay), I recommend you read it for it will be easier to follow.
 
 ## I. Install and configure CAS server
-
 **Note:**
-
-  * CAS server v3.3.5 comes with appropriate libraries for Tomcat 5 and OpenJDK bundled in CentOS. Otherwise you will have to recompile and / or include some libraries more.
+* CAS server v3.3.5 comes with appropriate libraries for Tomcat 5 and OpenJDK bundled in CentOS. Otherwise you will have to recompile and / or include some libraries more.
 1\. See preview post on "Liferay Portal Server LDAP Authentication with Penrose Server" ([here](http://holisticsecurity.wordpress.com/2010/12/22/authentication-penrose-directory-liferay))
 2\. Download CAS server (http://www.jasig.org/cas/download/cas-server-335-final) and deploy cas-server-webapp-3.3.5.war into any Java Web Server, in this case we will deploy into Tomcat server previuosly installed in CentOS box.
 In my case, CentOS has installed Penrose Virtual Directory Server and has already loaded a LDAP tree with several users/identities (see [details](Liferay Portal Server LDAP Authentication with Penrose Server) in last blog post).
@@ -26,7 +24,9 @@ In my case, CentOS has installed Penrose Virtual Directory Server and has alread
 
 [sourcecode language="text" gutter="true" wraplines="false" highlight="1"]  
 
-[root@directorysrv1 /]# rpm -ql tomcat5  
+[root@directorysrv1 /]
+
+# rpm -ql tomcat5  
 /etc/logrotate.d/tomcat5  
 /etc/rc.d/init.d/tomcat5  
 /etc/sysconfig/tomcat5  
@@ -37,35 +37,47 @@ In my case, CentOS has installed Penrose Virtual Directory Server and has alread
 /var/log/tomcat5  
 /var/log/tomcat5/catalina.out  
 
-[root@directorysrv1 /]#  
+[root@directorysrv1 /]
+
+#  
 
 [/sourcecode]
 If tomcat is not installed, you can download RPM packages and then install it:
 
 [sourcecode language="text" gutter="true" wraplines="false" highlight="1"]  
 
-[root@directorysrv1 /]# yum install tomcat5 tomcat5-webapps tomcat5-admin-webapps  
+[root@directorysrv1 /]
+
+# yum install tomcat5 tomcat5-webapps tomcat5-admin-webapps  
 
 [/sourcecode]
 We are using OpenJDK (this is the CentOS Java by default):
 
 [sourcecode language="text" gutter="true" wraplines="false" highlight="1"]  
 
-[root@directorysrv1 /]# java -version  
+[root@directorysrv1 /]
+
+# java -version  
 java version "1.6.0"  
 OpenJDK Runtime Environment (build 1.6.0-b09)  
 OpenJDK Client VM (build 1.6.0-b09, mixed mode)  
 
-[root@directorysrv1 /]#  
+[root@directorysrv1 /]
+
+#  
 
 [/sourcecode]
 4\. Copy CAS server (cas-server-webapp-3.3.5.war) in Tomcat and start the server:
 
 [sourcecode language="text" gutter="true" wraplines="false" highlight="1,10"]  
 
-[root@directorysrv1 /]# cp /temp/cas-server-webapp-3.3.5.war /usr/share/tomcat5/webapps/  
+[root@directorysrv1 /]
 
-[root@directorysrv1 /]# ll /usr/share/tomcat5/webapps/  
+# cp /temp/cas-server-webapp-3.3.5.war /usr/share/tomcat5/webapps/  
+
+[root@directorysrv1 /]
+
+# ll /usr/share/tomcat5/webapps/  
 total 19248  
 -rw-r--r-- 1 root root 19658857 Dec 31 11:00 cas-server-webapp-3.3.5.war  
 drwxrwxr-x 21 root tomcat 4096 Aug 13 11:35 jsp-examples  
@@ -74,10 +86,14 @@ drwxrwxr-x 4 root tomcat 4096 Aug 13 11:35 servlets-examples
 drwxrwxr-x 12 root tomcat 4096 Aug 13 11:35 tomcat-docs  
 drwxrwxr-x 3 root tomcat 4096 Aug 13 11:35 webdav  
 
-[root@directorysrv1 /]# service tomcat5 start  
+[root@directorysrv1 /]
+
+# service tomcat5 start  
 Starting tomcat5: [ OK ]  
 
-[root@directorysrv1 /]#  
+[root@directorysrv1 /]
+
+#  
 
 [/sourcecode]
 To have tomcat start automatically when the system boots, use "chkconfig tomcat5 on".
@@ -88,9 +104,13 @@ Then, edit CAS's log4j.xml or log4j.properties and add a valid path (for example
 
 [sourcecode language="text" gutter="true" wraplines="false" highlight="2"]  
 
-[root@directorysrv1 /]# cd /usr/share/tomcat5/webapps/cas-server-webapp-3.3.5/WEB-INF/classes  
+[root@directorysrv1 /]
 
-[root@directorysrv1 /]# nano log4j.properties  
+# cd /usr/share/tomcat5/webapps/cas-server-webapp-3.3.5/WEB-INF/classes  
+
+[root@directorysrv1 /]
+
+# nano log4j.properties  
 
 [/sourcecode]
 Add a valid path to log file.
@@ -99,10 +119,10 @@ Add a valid path to log file.
 ...  
 log4j.appender.logfile=org.apache.log4j.RollingFileAppender  
 log4j.appender.logfile.File=/usr/share/tomcat5/logs/cas.log  
-log4j.appender.logfile.MaxFileSize=512KB  
+log4j.appender.logfile.MaxFileSize=512KB
 
 # Keep three backup files.  
-log4j.appender.logfile.MaxBackupIndex=3  
+log4j.appender.logfile.MaxBackupIndex=3
 
 # Pattern to output: date priority [category] - message  
 ...  
@@ -124,17 +144,19 @@ userid=roger@intix.info and password=xxxx in CAS.
 
 [sourcecode language="text" gutter="true" wraplines="false" highlight="2"]  
 
-[root@directorysrv1 /]# cd /usr/share/tomcat5/webapps/cas-server-webapp-3.3.5/WEB-INF  
+[root@directorysrv1 /]
 
-[root@directorysrv1 /]# nano deployerConfigContext.xml  
+# cd /usr/share/tomcat5/webapps/cas-server-webapp-3.3.5/WEB-INF  
+
+[root@directorysrv1 /]
+
+# nano deployerConfigContext.xml  
 
 [/sourcecode]
 .. comment SimpleTestUsernamePasswordAuthenticationHandler and add these lines:
 
 [sourcecode language="xml" wraplines="false" highlight="3,6,7,8,15" padlinenumbers="2"]  
-
 <!-- step 1 SimpleTestUsernamePasswordAuthenticationHandler disabled -->  
-
 <!-- bean class="org.jasig.cas.authentication.handler.support.SimpleTestUsernamePasswordAuthenticationHandler" /--></p>  
 <p><!-- step 2 Add new AuthN handler for Penrose Virtual Directory Server -->  
 <bean class="org.jasig.cas.adaptors.ldap.BindLdapAuthenticationHandler" >  
@@ -156,7 +178,6 @@ userid=roger@intix.info and password=xxxx in CAS.
 <property name="userDn" value="uid=admin,ou=system"/>  
 <property name="password" value="secret"/>  
 <property name="baseEnvironmentProperties">  
-
 <!-- Set the LDAP connect and read timeout(in ms) for the java ldap class See http://java.sun.com/products/jndi/tutorial/ldap/connect/create.html -->  
 <map>  
 <entry>  
@@ -206,12 +227,10 @@ In the catalina.out you can see the following:
 [/sourcecode]
 
 ## III. Enable HTTPS and configure SSL Certificate on Tomcat server that contains CAS server
-
 **Note:**
-
-  * SSL Certificate is used to enable secure channel by communication between CAS server and any Webapp that does the authentication and Web-SSO with CAS.
-  * It is necessary to install the Root SSL Certificate of the CAS server for each trusted certificate repository of Web Server container (or Java Virtual Machine).
-  * All certificates will be selfsigned, only for testing purposes.
+* SSL Certificate is used to enable secure channel by communication between CAS server and any Webapp that does the authentication and Web-SSO with CAS.
+* It is necessary to install the Root SSL Certificate of the CAS server for each trusted certificate repository of Web Server container (or Java Virtual Machine).
+* All certificates will be selfsigned, only for testing purposes.
 1\. Create a key pairs for the new SSL certificate for CAS server with 730 days of validity:
 
 [sourcecode language="text" gutter="true" wraplines="false" highlight="1"]  
@@ -225,7 +244,9 @@ CAS_KEYSTORE is "cas-3_3_5.keystore"
 
 [sourcecode language="text" gutter="true" wraplines="false" highlight="1"]  
 
-[root@directorysrv1 /]# keytool -genkey -alias tomcat -keypass changeit -keyalg RSA -keystore /usr/share/tomcat5/cas-3_3_5.keystore -validity 730  
+[root@directorysrv1 /]
+
+# keytool -genkey -alias tomcat -keypass changeit -keyalg RSA -keystore /usr/share/tomcat5/cas-3_3_5.keystore -validity 730  
 Enter keystore password:  
 Re-enter new password:  
 What is your first and last name?  
@@ -249,24 +270,29 @@ What is the two-letter country code for this unit?
 Is CN=directorysrv1, OU="INTIX I+D", O=INTIX.info, L=BARCELONA, ST=CATALUNYA, C=ES correct?  
 
 [no]: yes</p>  
-<p>[root@directorysrv1 bin]#  
+<p>[root@directorysrv1 bin]
+
+#  
 
 [/sourcecode]
 2\. Export the SSL certificate:
 
 [sourcecode language="text" gutter="true" wraplines="false" highlight="1"]  
 
-[root@directorysrv1 /]# keytool -export -alias tomcat -keypass changeit -keystore /usr/share/tomcat5/cas-3_3_5.keystore -storepass changeit -file /usr/share/tomcat5/directorysrv1_730days.crt  
+[root@directorysrv1 /]
+
+# keytool -export -alias tomcat -keypass changeit -keystore /usr/share/tomcat5/cas-3_3_5.keystore -storepass changeit -file /usr/share/tomcat5/directorysrv1_730days.crt  
 Certificate stored in file </usr/share/tomcat5/directorysrv1_730days.crt>  
 
-[root@directorysrv1 /]#  
+[root@directorysrv1 /]
+
+#  
 
 [/sourcecode]
 3\. Remove comments in /usr/share/tomcat5/conf/server.xml and enable HTTPS:
 
 [sourcecode language="xml" gutter="true" wraplines="false" highlight="4,10,11"]  
 ...  
-
 <!-- Define a SSL HTTP/1.1 Connector on port 8443 --></p>  
 <p><!-- sept 1, SSL in CAS server -->  
 <Connector port="8443" maxHttpHeaderSize="8192" maxThreads="150" minSpareThreads="25" maxSpareThreads="75" enableLookups="false" disableUploadTimeout="true" acceptCount="100" scheme="https" secure="true" clientAuth="false" sslProtocol="TLS" keystoreFile="/usr/share/tomcat5/cas-3_3_5.keystore" keystorePass="changeit" /></p>  
@@ -315,14 +341,14 @@ In last blog post We configured LDAP Authentication in Liferay, in this new exam
 
 [caption id="" align="alignnone" width="494" caption="CAS configuration in Liferay Control Panel"]![CAS configuration in Liferay Control Panel]({{ site.baseurl }}/assets/05sso-liferay_ldap_cas_authn_config.png)[/caption]
 3\. Test LDAP Authentication and CAS with Liferay:
-  * Go to Liferay http://lfry01:8080
-  * Click on "Sign in" link located on the top right 
+* Go to Liferay http://lfry01:8080
+* Click on "Sign in" link located on the top right 
 
 [caption id="" align="alignnone" width="190" caption="Click on "Sign in" (top right on guest page of Liferay)"]![Click on "Sign in" \(top right on guest page of Liferay\)]({{ site.baseurl }}/assets/06sso-liferay_ldap_cas_authn_signin.png)[/caption]
-  * CAS login form appears, enter with userid=Aamod.Wroclawski@intix.info and pwd=test 
+* CAS login form appears, enter with userid=Aamod.Wroclawski@intix.info and pwd=test 
 
 [caption id="" align="alignnone" width="484" caption="Login page when requesting a protected resource in Liferay"]![Login page when requesting a protected resource in Liferay]({{ site.baseurl }}/assets/06sso-liferay_ldap_cas_authn_signin2.png)[/caption]
-  * If authentication is OK, then you will be redirected to the Aamod.Wroclawski's page within liferay 
+* If authentication is OK, then you will be redirected to the Aamod.Wroclawski's page within liferay 
 
 [caption id="" align="alignnone" width="466" caption="When doing a successful logon in CAS, we are redirected to the requested page in Liferay"]![When doing a successful logon in CAS, we are redirected to the requested page in Liferay]({{ site.baseurl }}/assets/06sso-liferay_ldap_cas_authn_signin3.png)[/caption]
 
@@ -330,12 +356,12 @@ In last blog post We configured LDAP Authentication in Liferay, in this new exam
 In the next post will explain how to configure Alfresco with CAS to do SSO and Authentication.
 We also will see the importance of using an LDAP for supplying identidates and verify the SSO between Liferay and Alfresco.
 See you soon.
-
 **References:**
-
-  * Alfresco Authentication Subsystems:  
+* Alfresco Authentication Subsystems:  
 http://wiki.alfresco.com/wiki/Alfresco_Authentication_Subsystems
-  * External authentication subsystem:  
-http://wiki.alfresco.com/wiki/Alfresco_Authentication_Subsystems#External
-  * Alfresco With mod auth CAS:  
+* External authentication subsystem:  
+http://wiki.alfresco.com/wiki/Alfresco_Authentication_Subsystems
+
+#External
+* Alfresco With mod auth CAS:  
 http://wiki.alfresco.com/wiki/Alfresco_With_mod_auth_cas

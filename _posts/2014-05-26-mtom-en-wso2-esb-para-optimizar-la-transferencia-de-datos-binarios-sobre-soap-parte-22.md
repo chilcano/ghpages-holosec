@@ -27,11 +27,11 @@ Si tenemos un cliente MTOM/SOAP que nos permita subir ficheros, lo enviaremos a 
 ## II. Implementando el escenario.
 * * *
 Para implementar este escenario necesitamos lo siguiente:
-  1. WSO2 ESB 4.8.1 (<http://wso2.com/products/enterprise-service-bus>)
-  2. Proxy_01, similar al "Sample 51" ([MTOM and SwA Optimizations and Request/Response Correlation](https://docs.wso2.org/pages/viewpage.action?pageId=33136025)) desplegado en WSO2 ESB.
-  3. Proxy_02 que reciba la petición de envio de fichero codificada en "multipart/form-data" realizada desde un formulario HTML.
-  4. El formulario HTML para enviar el fichero.
-  5. Modificar la implementación del servicio MTOM SOAP en el lado del Axis2 Server.
+1. WSO2 ESB 4.8.1 (<http://wso2.com/products/enterprise-service-bus>)
+2. Proxy_01, similar al "Sample 51" ([MTOM and SwA Optimizations and Request/Response Correlation](https://docs.wso2.org/pages/viewpage.action?pageId=33136025)) desplegado en WSO2 ESB.
+3. Proxy_02 que reciba la petición de envio de fichero codificada en "multipart/form-data" realizada desde un formulario HTML.
+4. El formulario HTML para enviar el fichero.
+5. Modificar la implementación del servicio MTOM SOAP en el lado del Axis2 Server.
 
 ### II.1. Proxy_01 para el envio de ficheros usando MTOM y SOAP.
 * * *
@@ -221,9 +221,9 @@ Binary file: <input type="file" name="myimagefile" size="50" multiple>
 
 [/sourcecode]
 Las 3 partes a prestar atención aquí son:
-  1. El `Action` del form apunta al `Proxy_02`, asegurarse que el puerto sea el correcto y corresponda al del WSO2 ESB.
-  2. El `enctype` debe indicar la codificación con el que se enviará el fichero.
-  3. El `input` del form es de tipo `file` y debe tener un nombre, como en este caso `myimagefile`, con el que podamos luego leerlo para hacer la transformación.
+1. El `Action` del form apunta al `Proxy_02`, asegurarse que el puerto sea el correcto y corresponda al del WSO2 ESB.
+2. El `enctype` debe indicar la codificación con el que se enviará el fichero.
+3. El `input` del form es de tipo `file` y debe tener un nombre, como en este caso `myimagefile`, con el que podamos luego leerlo para hacer la transformación.
 Finalmente, recordar que no será necesario un Servidor Web para invocar este formulario HTML, basta con abrir el formulario desde cualquier navegador y elegir el fichero que queremos enviar desde nuestro disco duro.
 
 ### II.4. Modificar el servicio de backend que implementa el envio y recepción de ficheros.
@@ -382,11 +382,11 @@ Veréis que he implementado una nueva operación al servicio (método java) llam
 Si deseas añadir más código para efectuar acciones más complejas te recomiendo que crees un proyecto nuevo desde WSO2 Studio haciendo uso de Maven, luego importes esta clase.
 Una vez actualizado, debemos compilarlo y desplegarlo en Axis2 Server. El `WSDL` será actualizado automáticamente.  
 Sólo seguir los siguientes pasos:
-  1. Editar el fichero `%ESB_HOME%/samples/axis2Server/src/MTOMSwASampleService/src/samples/servicesMTOMSwASampleService.java`, dejarlo como se indica líneas arriba.
-  2. Grabar `servicesMTOMSwASampleService.java` para preservar los cambios.
-  3. Desde la línea de comandos, ejecutar ANT para compilar el servicio y desplegarlo en el Axis2 server.
-  4. Si todo ha ido bien, iniciemos Axis2 server.
-  5. Para verificar que hemos implementado una nueva operación, podemos consultar el actualizado `WSDL` en la siguiente dirección: <http://localhost:9000/services/MTOMSwASampleService?wsdl>
+1. Editar el fichero `%ESB_HOME%/samples/axis2Server/src/MTOMSwASampleService/src/samples/servicesMTOMSwASampleService.java`, dejarlo como se indica líneas arriba.
+2. Grabar `servicesMTOMSwASampleService.java` para preservar los cambios.
+3. Desde la línea de comandos, ejecutar ANT para compilar el servicio y desplegarlo en el Axis2 server.
+4. Si todo ha ido bien, iniciemos Axis2 server.
+5. Para verificar que hemos implementado una nueva operación, podemos consultar el actualizado `WSDL` en la siguiente dirección: <http://localhost:9000/services/MTOMSwASampleService?wsdl>
 
 [sourcecode language="text" gutter="true" wraplines="false"]  
 Chilcano@Pisc0 $ cd ~/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/src/MTOMSwASampleService  
@@ -499,7 +499,7 @@ sourcecode language="text" gutter="true" wraplines="false"]
 
 ## IV. Conclusiones.
 * * *
-  * Hemos demostrado que WSO2 ESB nos permite transformar tanto la estructura del mensaje como el protocolo de transporte (de HTTP a SOAP) de manera fácil creando únicamente 2 Proxies.
-  * Hemos implementado un patrón de integración llamado [Content-Based Router (CBR)](https://docs.wso2.org/display/IntegrationPatterns/Content-Based+Router) todo ello gracias a la capacidades de `Mediation` de WSO2 ESB.
-  * El uso de MTOM directamente desde un form HTML no es posible, es necesario usar otro proxy que transforme la petición `multipart/form-data` a MTOM.
+* Hemos demostrado que WSO2 ESB nos permite transformar tanto la estructura del mensaje como el protocolo de transporte (de HTTP a SOAP) de manera fácil creando únicamente 2 Proxies.
+* Hemos implementado un patrón de integración llamado [Content-Based Router (CBR)](https://docs.wso2.org/display/IntegrationPatterns/Content-Based+Router) todo ello gracias a la capacidades de `Mediation` de WSO2 ESB.
+* El uso de MTOM directamente desde un form HTML no es posible, es necesario usar otro proxy que transforme la petición `multipart/form-data` a MTOM.
 Espero que os haya servido!.

@@ -17,15 +17,16 @@ Then, they quickly seek to modify existing Alfresco's webclient and if this is n
 [caption id="" align="alignnone" width="429" caption="How to client applications can be connected to Alfresco ECM"][![How to client applications can be connected to Alfresco ECM]({{ site.baseurl }}/assets/ria_clients_alfresco_rev1.png)](http://dl.dropbox.com/u/2961879/blog20111104_riaclientsalfresco/ria_clients_alfresco_rev1.png)[/caption]
 What are the main reasons why you need to modify Alfresco's webclients or create new ones?  
 Well, there are several reasons:
-  * The technology stack in the company is not Java.
-  * Is very difficult to make changes. Although there is much online information available on how to make customizations to Alfresco Explorer and Alfresco Share.
-  * Make changes in existing webapp are not supported.
-  * UI (look&feel) is not aligned to corporate graphical style.
-  * Alfresco's content must be delivered for any devices: iPad, Android tablet, PC, etc.
-  * ... or simply, everybody has different requirements.
+* The technology stack in the company is not Java.
+* Is very difficult to make changes. Although there is much online information available on how to make customizations to Alfresco Explorer and Alfresco Share.
+* Make changes in existing webapp are not supported.
+* UI (look&feel) is not aligned to corporate graphical style.
+* Alfresco's content must be delivered for any devices: iPad, Android tablet, PC, etc.
+* ... or simply, everybody has different requirements.
 Well, this post will review existing initiatives, RIA, RDA (Rich Desktop App) and RAD frameworks for developing clients for Alfresco ECM.
 
 ## II. List of Clients
+
 
 ### 1\. Alfresco Explorer
 Alfresco Explorer is the clasic webapp bundled with Alfresco ECM, It is the principal web application to do document management, this offers some functionalities of system administratios.  
@@ -224,6 +225,6 @@ If you have documents stored in your ECM repository and want to expose them (or 
 \- Lucene Search for Limited Result Query's
 
 ## IV. Conclusions
-  * This review concludes that the trend is to use existing products (ifresco, Drupal, OpenAtrium, Liferay, ....) enabling rapid integration with Alfresco services.
-  * The second option is to create RIA applications from scratch, and quickly, taking advantage of existing metaframeworks, we can see in doCASU, ExtAlf, AWPr, FlexSpace, etc.., The fact that they have started as a proof of concept and then have become standalone products confirms this trend.
-  * You can download a resume table with all features of each product reviewed from here.
+* This review concludes that the trend is to use existing products (ifresco, Drupal, OpenAtrium, Liferay, ....) enabling rapid integration with Alfresco services.
+* The second option is to create RIA applications from scratch, and quickly, taking advantage of existing metaframeworks, we can see in doCASU, ExtAlf, AWPr, FlexSpace, etc.., The fact that they have started as a proof of concept and then have become standalone products confirms this trend.
+* You can download a resume table with all features of each product reviewed from here.

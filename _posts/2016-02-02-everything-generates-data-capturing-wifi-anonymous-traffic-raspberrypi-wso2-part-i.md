@@ -8,11 +8,8 @@ status:     publish
 permalink:  "/2016/02/02/everything-generates-data-capturing-wifi-anonymous-traffic-raspberrypi-wso2-part-i/"
 ---
 Yes, in this digital world, everything generates data, but before to do `BigData`, you have to follow these steps:
-
 **1\. Capture** : Acquires, Integrates data.  
-
 **2\. Store** : Classification, Consolidate, Transformation, Storage Design, etc.  
-
 **3\. Analysis** : Exploration, visualization, modeling, prediction, etc.
 
 ![Everything generates data - IoT, BigData, Privacy, Security]({{ site.baseurl }}/assets/chilcano-raspberrypi-bigdata-wifi-1-bigdata.jpg)  
@@ -33,17 +30,19 @@ Well, now let's get down to work.
 
 ## I.- Enable `monitor` mode in Raspberry Pi
 
+
 ### 1\. Prepare the Raspberry Pi
 Obviously, I have a clean image of Raspbian installed in my Raspberry Pi 2 Model B.  
 The below steps explain how to prepare Raspberry Pi and install and configure Kismet to capture 802.11 anonymous traffic.
 Before to do it, I have to prepare the Raspberry Pi, for example, configure a static IP address to Ethernet interface (`eth0`) to get SSH access remotely. After that, I can configure the Wireless interface (`wlan0`) and install Kismet.
-
 **1.1) Get SSH access to Raspberry Pi**
 
 ```sh  
 $ ssh pi@192.168.1.102  
 pi@192.168.1.102's password:  
-Linux rpi-chicha 3.18.11-v7+ #781 SMP PREEMPT Tue Apr 21 18:07:59 BST 2015 armv7l
+Linux rpi-chicha 3.18.11-v7+
+
+#781 SMP PREEMPT Tue Apr 21 18:07:59 BST 2015 armv7l
 The programs included with the Debian GNU/Linux system are free software;  
 the exact distribution terms for each program are described in the  
 individual files in /usr/share/doc/*/copyright.
@@ -51,7 +50,6 @@ Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
 permitted by applicable law.  
 Last login: Fri Jan 29 11:32:20 2016 from 192.168.1.43  
 ```
-
 **1.2) Connect the USB WIFI dongle**
 
 ```sh  
@@ -101,7 +99,6 @@ Retry short limit:7 RTS thr:off Fragment thr:off
 Encryption key:off  
 Power Management:off  
 ```
-
 **1.3) Set static IP address to`eth0` and configure `wlan0` (optional)**
 
 ```sh  
@@ -143,9 +140,7 @@ Reload the changes.
 ```sh  
 $ sudo service networking reload  
 ```
-
 **1.4) Enable`wlan0` in monitor mode (option 1)**
-
 Run these 2 commands together (*):
 
 ```sh  
@@ -183,9 +178,7 @@ $ sudo service ifplugd status
 
 [info] all: device all is either not present or not functional.  
 ```
-
 **1.5) Enable`wlan0` in monitor mode (option 2)**
-
 If above (option 1) configuration not worked, the you could try this alternative by using the `iw` scripts. Then, gonna try it.
 
 ```sh  
@@ -207,7 +200,9 @@ Check the interfaces associated to `phy0`.
 
 ```sh  
 $ sudo iw dev  
-phy#0  
+phy
+
+#0  
 Interface mon0  
 ifindex 6  
 wdev 0x4  
@@ -226,7 +221,9 @@ Now, we need to remove the `wlan0`. If you do that, proably the `mon0` interface
 ```sh  
 $ sudo iw dev wlan0 del
 $ sudo iw dev  
-phy#0  
+phy
+
+#0  
 Interface mon0  
 ifindex 8  
 wdev 0x6  
@@ -246,7 +243,9 @@ Now, if you check the interface in `monitor` mode, you should see this:
 
 ```sh  
 $ sudo iw dev  
-phy#0  
+phy
+
+#0  
 Interface mon0  
 ifindex 8  
 wdev 0x6  
@@ -258,7 +257,6 @@ channel 6 (2437 MHz), width: 20 MHz (no HT), center1: 2437 MHz
 After that, check if `wlan0` or `mon0` are running in `monitor` mode, if so, then you are ready to start Kismet.
 
 ## II.- Install, configure and start Kismet
-
 **2.1) Installation of Kismet**
 
 ```sh  
@@ -277,9 +275,7 @@ $ sudo make suidinstall
 $ sudo usermod -a -G kismet pi
 $ sudo reboot  
 ```
-
 **2.2) Configure Kismet**
-
 Edit `/usr/local/etc/kismet.conf` to point at the WIFI adaptor configured in `monitor` mode, in this case to add `ncsource=mon0` or `ncsource=wlan0` and `hidedata=true`.
 
 ```sh  
@@ -294,9 +290,7 @@ $ cd /usr/share/wireshark/
 $ sudo wget -O manuf http://anonsvn.wireshark.org/wireshark/trunk/manuf
 $ sudo cp manuf /etc/manuf  
 ```
-
 **2.3) Start Kismet Server and Client**
-
 If you have configured and updated `/usr/local/etc/kismet.conf`, then you can start Kismet running this command (without parameters):
 
 ```sh  
@@ -390,7 +384,6 @@ No such file or directory
 ERROR: Failed to open primary plugin directory (/usr/lib/kismet/): No such file or directory  
 ERROR: Failed to open user plugin directory (/root/.kismet//plugins/): No such file or directory  
 ```
-
 **Solution:**
 
 ```sh  
@@ -417,7 +410,6 @@ the configuration of the network device: ifplugd. If Kismet stops
 running or stops capturing packets, try killing one (or all) of  
 these processes or stopping the network for this interface.  
 ```
-
 **Solution:**
 
 ```sh  
@@ -431,7 +423,6 @@ ERROR: Could not open OUI file '/etc/manuf': No such file or directory
 ERROR: Could not open OUI file '/usr/share/wireshark/wireshark/manuf': No  
 such file or directory  
 ```
-
 **Solution:**
 
 ```sh  
@@ -449,7 +440,5 @@ the interface is already in monitor mode. Perhaps an existing
 monitor mode VAP was specified. To override this and create a new  
 monitor mode vap no matter what, use the forcevap=true source option  
 ```
-
-**Solution:**
-
+**Solution:**  
 Check if mon0 is being used for other process or restart and reconfigure your wireless interface.

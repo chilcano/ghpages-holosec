@@ -16,12 +16,9 @@ We will explain how to install Liferay 6.0.5 CE WAR bundle in an existing Apache
 1.- Download and install [Apache Tomcat 6.0.29](http://apache.rediris.es//tomcat/tomcat-6/v6.0.29/bin/apache-tomcat-6.0.29-windows-x86.zip) standard bundle (with Tomcat Manager included).
  ~~2.- Copy **%TOMCAT_HOME%/webapps/ROOT** folder to **%TOMCAT_HOME%/webapps/liferay605** folder.~~
 3.- Download **liferay-portal-6.0.5.war** and **liferay-portal-dependencies-6.0.5.zip**
-
 4.- Unzip **liferay-portal-6.0.5.war** file and copy all content into the new Tomcat Context, in this example will be %TOMCAT_HOME%/webapps/ **liferay605** folder.
 5.- Unzip and copy all dependencies to ~~**%TOMCAT_HOME%/lib**~~ **%TOMCAT_HOME%/lib/ext**
-
 6.- Download and copy **02** extra libraries ( **jta.jar** and **mail.jar** ) to ~~**%TOMCAT_HOME%/lib**~~ **%TOMCAT_HOME%/lib/ext**
-
 7.- Create **liferay605.xml** file into **%TOMCAT_HOME%/conf/Catalina/localhost** folder. It looks like this:
 
 ```text  
@@ -54,7 +51,6 @@ Tomcat Manager is included in standard Tomcat bundle but by default It is disabl
 
 ![]({{ site.baseurl }}/assets/liferay605war_2tomcatmanager.png)
 1.- Edit %TOMCAT_HOME%/conf/ **tomcat-users.xml**
-
 2.- Add user, for example:
 
 ```text  
@@ -72,7 +68,6 @@ Tomcat Manager is included in standard Tomcat bundle but by default It is disabl
 
 ![]({{ site.baseurl }}/assets/liferay605war_3tomcatmanagerliferay.png)
 6.- End.
-
 **References** :
-  * [Installing 5.2 SP3 WAR on Tomcat 6](http://www.liferay.com/es/community/wiki/-/wiki/Main/Installing+5.2+SP3+WAR+on+Tomcat+6)
-  * [Execute Liferay Portal on non ROOT context](http://holisticsecurity.wordpress.com/2010/07/19/execute-liferay-root-context)
+* [Installing 5.2 SP3 WAR on Tomcat 6](http://www.liferay.com/es/community/wiki/-/wiki/Main/Installing+5.2+SP3+WAR+on+Tomcat+6)
+* [Execute Liferay Portal on non ROOT context](http://holisticsecurity.wordpress.com/2010/07/19/execute-liferay-root-context)

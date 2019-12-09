@@ -16,7 +16,7 @@ In this post, you learn how to set your debug environment with XDebug, that seem
 1\. Download and install/unzip [XAMPP](http://www.apachefriends.org/en/xampp-windows.html) for win32 version 1.7.4-VC6.
 This bundle comes with severals tools:
 
-[sourcecode language="text" gutter="true" wraplines="false"]  
+[sourcecode language="text" gutter="true" wraplines="false"]
 
 ###### ApacheFriends XAMPP (Basispaket) version 1.7.4 ######
 \+ Apache 2.2.17  
@@ -143,7 +143,9 @@ Allow from all
 [sourcecode language="xml" gutter="true" wraplines="false"]  
 <?php  
 $msg = "crazy world";  
-echo "<h1>Test PHP Debugging #1 </h1>";  
+echo "<h1>Test PHP Debugging
+
+#1 </h1>";  
 echo "<hr>";  
 echo "<ol>";  
 for ($k = 0; $k < 10; $k++) {  
@@ -158,10 +160,10 @@ echo "</ol>";
 [caption id="" align="alignnone" width="358" caption="Configuring PHP Debug in Eclipse IDE"]![Configuring PHP Debug in Eclipse IDE]({{ site.baseurl }}/assets/phpdebugging-3-eclipsephpdebug.png)[/caption]
 5\. Now, you are ready for launching debugging from Eclipse. Firstly, put a breakpoint in **helloworld.php** and then go to left side on Navigator, right click on **helloworld.php** file and select " **Debug Configurations** ".  
 In the next window configure following:
-  * **Name** : Your debug profile configuration, in this example is "Test debug 01".
-  * **Server Debugger** : XDebug
-  * **File** : Your php script that trigger debug environment. This file has to a breakpoint. In this example is "/testdebug01/helloworld.php".
-  * **Auto Generate** : Unchecked if you want change URL of your php application. In this example is "/myphpprojects/testdebug01/helloworld.php".
+* **Name** : Your debug profile configuration, in this example is "Test debug 01".
+* **Server Debugger** : XDebug
+* **File** : Your php script that trigger debug environment. This file has to a breakpoint. In this example is "/testdebug01/helloworld.php".
+* **Auto Generate** : Unchecked if you want change URL of your php application. In this example is "/myphpprojects/testdebug01/helloworld.php".
 
 [caption id="" align="alignnone" width="481" caption="Launching debug from PHP Project in Eclipse IDE"]![Launching debug from PHP Project in Eclipse IDE]({{ site.baseurl }}/assets/phpdebugging-4-debugconf.png)[/caption]
 Click in " **Run** " button and if all is OK, Eclipse switchs to Debug perspective where you can debug your PHP application.
@@ -169,5 +171,5 @@ Click in " **Run** " button and if all is OK, Eclipse switchs to Debug perspecti
 [caption id="" align="alignnone" width="449" caption="Debugging PHP Project from Eclipse IDE"]![Debugging PHP Project from Eclipse IDE]({{ site.baseurl }}/assets/phpdebugging-5-debugging.png)[/caption]
 
 ## Conclusions:
-  * With XDebug you can debug remotely from Eclipse and PDT. In this case you have to change localhost for you server-name in **php.ini** file and **Eclipse > Preferences > PHP > PHP Servers**.
-  * If you set " **/** " as web base path instead of " **/myphpprojects** " you could avoid to configure special URL in Auto Generate box (Debug Configurations window). Always you URL will be " **http://localhost/your-php-project-name** ".
+* With XDebug you can debug remotely from Eclipse and PDT. In this case you have to change localhost for you server-name in **php.ini** file and **Eclipse > Preferences > PHP > PHP Servers**.
+* If you set " **/** " as web base path instead of " **/myphpprojects** " you could avoid to configure special URL in Auto Generate box (Debug Configurations window). Always you URL will be " **http://localhost/your-php-project-name** ".

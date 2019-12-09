@@ -14,29 +14,23 @@ This blog post is implementing the same scenario used in the previous post [Mass
 <!-- more -->
 
 Then, I've refactored all Ansible Tasks and I've created 3 Ansible Roles. They are in Ansible Galaxy and are:
-
 **Ansible Role Kismet RPi Build (https://galaxy.ansible.com/chilcano/kismet-rpi-build)**
-
 An Ansible Role that builds / compiles from scratch and packs (Debian/Raspbian binary) Kismet on a Raspberry Pi. This Role provides the following features:
-  * Download the Kismet source code.
-  * Compile the source code in a Raspberry Pi.
-  * Generate a Kismet Debian/Raspbian package suitable for Raspberry Pi (ARMv7).
-
+* Download the Kismet source code.
+* Compile the source code in a Raspberry Pi.
+* Generate a Kismet Debian/Raspbian package suitable for Raspberry Pi (ARMv7).
 **Ansible Role Kismet RPi Wardriving (https://galaxy.ansible.com/chilcano/kismet-rpi-wardriving)**
-
 An Ansible Role that installs, configures and runs Kismet on a Raspberry Pi. This Role provides the following features:
-  * Install Kismet and dependencies.
-  * Configure Kismet by deploying an customized `kismet.conf`.
-  * Download MAC Addresses Manufacturer List.
-  * Enable monitor mode in the Raspberry Pi before starting Kismet.
-  * Run Kismet as a `systemd` service.
-
+* Install Kismet and dependencies.
+* Configure Kismet by deploying an customized `kismet.conf`.
+* Download MAC Addresses Manufacturer List.
+* Enable monitor mode in the Raspberry Pi before starting Kismet.
+* Run Kismet as a `systemd` service.
 **Ansible Role Apache MiNiFi (https://galaxy.ansible.com/chilcano/apache-minifi)**
-
 An Ansible Role that installs, configures and runs Apache MiNiFi in tiny devices like a Raspberry Pi, although you can use it on any distro. This Role provides the following features:
-  * Install Apache MiNiFi and Java SDK.
-  * Configure Apache MiNiFi.
-  * Run Apache MiNiFi as a `systemd` service.
+* Install Apache MiNiFi and Java SDK.
+* Configure Apache MiNiFi.
+* Run Apache MiNiFi as a `systemd` service.
 
 ## How to use everything
 Well, I've updated and deleted Ansible Tasks not used in the existing [Ansible Raspberry Pi Wardriving Github repo](https://github.com/chilcano/ansible-raspberrypi-wardriving) because now I'm using 3 Ansible Roles. Just download the same Github repo with `Tag 2.0.0` and execute the new Ansible Playbook with the same `inventory` file.

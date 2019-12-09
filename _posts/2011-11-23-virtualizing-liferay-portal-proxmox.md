@@ -21,9 +21,13 @@ When installing Proxmox in your hosting provider you will have as principal publ
 its initial configuration is as follow:
 
 [sourcecode language="text" gutter="true" wraplines="false" highlight="1"]  
-root@kns ~ # nano /etc/network/interfaces
+root@kns ~
+
+# nano /etc/network/interfaces
+
 
 ### Hetzner Online AG - installimage  
+
 
 # Loopback device:  
 auto lo  
@@ -45,7 +49,9 @@ up route add -net 176.9.30.32 netmask 255.255.255.224 gw 176.9.30.33 eth0
 [/sourcecode]  
 
 [sourcecode language="text" gutter="true" wraplines="false" highlight="1"]  
-root@kns ~ # more /etc/resolv.conf
+root@kns ~
+
+# more /etc/resolv.conf
 search  
 nameserver 213.133.100.100  
 nameserver 213.133.98.98  
@@ -57,7 +63,10 @@ After of installing Proxmox, you have to create virtual network with a private I
 ### 1.1. Creating Virtual Network with Proxmox
 
 [sourcecode language="text" gutter="true" wraplines="false" highlight="1"]  
-root@kns ~ # nano /etc/network/interfaces
+root@kns ~
+
+# nano /etc/network/interfaces
+
 
 # Loopback device:  
 auto lo  
@@ -89,7 +98,10 @@ post-down iptables -t nat -D POSTROUTING -s '10.10.10.0/24' -o eth0 -j MASQUERAD
 [/sourcecode]  
 
 [sourcecode language="text" gutter="true" wraplines="false" highlight="1"]  
-root@kns ~ # nano /etc/sysctl.d/10-no-icmp-redirects.conf
+root@kns ~
+
+# nano /etc/sysctl.d/10-no-icmp-redirects.conf
+
 
 #### my bridge to VM  
 net.ipv4.conf.all.send_redirects = 0  
@@ -97,9 +109,13 @@ net.ipv4.conf.all.send_redirects = 0
 [/sourcecode]  
 
 [sourcecode language="text" gutter="true" wraplines="false" highlight="1"]  
-root@kns ~ # nano /etc/sysctl.conf
+root@kns ~
+
+# nano /etc/sysctl.conf
+
 
 ### Hetzner Online AG installimage  
+
 
 # sysctl config  
 net.ipv4.conf.all.rp_filter=1  
@@ -109,6 +125,7 @@ net.ipv4.ip_forward=1
 [/sourcecode]
 
 ## 2\. Installation of second server with Liferay 6.0.6 CE (a Guest VM)
+
 
 ### 2.1. Install your prefered Linux distro in your new VM
 With Proxmox VE is easy and quickly to create VM from ISO image.  
@@ -121,7 +138,9 @@ Then, from Proxmox VE (interface web) go to your recently VM created and open a 
 
 [sourcecode language="text" gutter="true" wraplines="false" highlight="1"]  
 
-[root@pisco ~]# nano /etc/sysconfig/network-scripts/ifcfg-eth0
+[root@pisco ~]
+
+# nano /etc/sysconfig/network-scripts/ifcfg-eth0
 DEVICE="eth0"  
 NM_CONTROLLED="yes"  
 ONBOOT=yes  
@@ -142,7 +161,9 @@ UUID=5fb06bd0-0bb0-7ffb-45f1-d6edd65f3e03
 
 [sourcecode language="text" gutter="true" wraplines="false" highlight="1"]  
 
-[root@pisco ~]# more /etc/resolv.conf
+[root@pisco ~]
+
+# more /etc/resolv.conf
 search local  
 nameserver 213.133.99.99  
 
@@ -151,14 +172,18 @@ nameserver 213.133.99.99
 
 [sourcecode language="text" gutter="true" wraplines="false" highlight="1"]  
 
-[root@pisco ~]# ip route add 176.9.30.36 dev eth0  
+[root@pisco ~]
+
+# ip route add 176.9.30.36 dev eth0  
 
 [/sourcecode]
 ..add default path
 
 [sourcecode language="text" gutter="true" wraplines="false" highlight="1"]  
 
-[root@pisco ~]# ip route add default via 176.9.30.36  
+[root@pisco ~]
+
+# ip route add default via 176.9.30.36  
 
 [/sourcecode]
 
@@ -166,7 +191,9 @@ nameserver 213.133.99.99
 
 [sourcecode language="text" gutter="true" wraplines="false" highlight="1"]  
 
-[root@pisco ~]# ping www.google.com
+[root@pisco ~]
+
+# ping www.google.com
 PING www.l.google.com (74.125.39.103) 56(84) bytes of data.  
 64 bytes from fx-in-f103.1e100.net (74.125.39.103): icmp_seq=1 ttl=55 time=6.77 ms  
 64 bytes from fx-in-f103.1e100.net (74.125.39.103): icmp_seq=2 ttl=53 time=6.81 ms  
@@ -187,5 +214,5 @@ From Internet you can call this URL: **http://myliferay.intix.info/kns** , **htt
 Bye.
 
 ## References
-  * Proxmox - Network model:  
+* Proxmox - Network model:  
 <http://pve.proxmox.com/wiki/Network_Model>

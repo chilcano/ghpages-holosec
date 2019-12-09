@@ -10,7 +10,6 @@ permalink:  "/2007/11/26/ultra-mobile-pc-umpc-pc-portalites-de-bajo-coste-seguro
 Después de la iniciativa de Nicholas Negroponte con su OLPC, PC Portátil para niños de 100 USD para fines educacionales, los fabricantes de Portátiles han visto una interesante oportunidad de negocio; hacer portátiles low-cost. Asustek, que fabrica portátiles para HP, Dell y Apple, además de su marca Asus, ha lanzado la propia hace algunos meses llamado Asus EeePC a sólo 249 USD, luego otros fabricantes han sacado sus propios modelos por ejemplo el Intel Classmate PC, VIA NanoBook y el PackardBell EasyNote XS, éstos dos últimos basados en el mismo chipset.
 
 ![One Laptop per Child - A security, usable and accessible approach]({{ site.baseurl }}/assets/Green_and_white_machine.jpg)
-
 <!-- more -->  
 La intención de Nicholas Negroponte con la Fundación OLPC era dar acceso a recursos informáticos a los niños para fines educacionales de los paises pobres y para ello solicitó a la taiwanesa Quanta la fabricación de un portátil muy barato, accesible, usable, seguro y que consuma pocos recursos. Estos portátiles OLPC tienen procesador AMD y Linux.  
 Pero lo que ha despertado esta iniciativa en el sector tecnológico es que los fabricantes miren a los portátiles low-cost como una oportunidad de negocio.

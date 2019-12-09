@@ -20,18 +20,18 @@ Well, the first approach I considered was starting with [ELK stack](https://www.
 
 ![https://holisticsecurity.files.wordpress.com/2016/12/02-wifi-traffic-capture-elasticsearch-logstash-kibana.png]({{ site.baseurl }}/assets/02-wifi-traffic-capture-elasticsearch-logstash-kibana.png)
 But, there are still some issues to face:
-  * Deal with the resilience.  
-    * Several times Logstash stops because it was processing a malformed incoming message.
-  * Portability.  
-    * Logstash uses Java, Ruby and should be compiled and tuned for ARM architectures (Raspberry Pi). Yes, there are some instructions to do that, but I don't want to spent time to do that and I would like to focus on data analysis.
-  * Large scaling.  
-    * I would like to avoid to deploy Logstash in each Raspberry Pi just to transform in JSON the captured 802.11 (WIFI) traffic and send it to Elasticsearch. Other approach what I want to avoid is to deploy Logstash with the UDP/TCP Input Plugin in the Elasticsearch side, because both choices need parse/transform/filter the captured traffic by using [GROK ](https://www.elastic.co/guide/en/logstash/current/plugins-filters-grok.html)and Elasticsearch Index Templates for each Logstash instance deployed. What if I have 100 or more Raspberry Pi distributed in different locations?.
-  * Security.  
-    * I'm using Kismet installed in each Raspberry Pi to capture 802.11 traffic, by default Kismet sends that traffic over UDP, UDP is faster but not secure. The big problem with Logstash listening UDP traffic over a port is that Logstash is susceptible to DoS attacks and the traffic to be spoofed. I have to update UDP to the "secure UDP", UDP over SSL/TLS for example.
-  * Monitoring/Tracking.  
-    * How to monitor if Kismet is running in the Raspberry Pi?, How to know if Raspberry Pi is healthy ?.
-  * Administrable remotely. 
-    * Definitely I can't do that in a massively distributed Raspberry Pi's.
+* Deal with the resilience.  
+* Several times Logstash stops because it was processing a malformed incoming message.
+* Portability.  
+* Logstash uses Java, Ruby and should be compiled and tuned for ARM architectures (Raspberry Pi). Yes, there are some instructions to do that, but I don't want to spent time to do that and I would like to focus on data analysis.
+* Large scaling.  
+* I would like to avoid to deploy Logstash in each Raspberry Pi just to transform in JSON the captured 802.11 (WIFI) traffic and send it to Elasticsearch. Other approach what I want to avoid is to deploy Logstash with the UDP/TCP Input Plugin in the Elasticsearch side, because both choices need parse/transform/filter the captured traffic by using [GROK ](https://www.elastic.co/guide/en/logstash/current/plugins-filters-grok.html)and Elasticsearch Index Templates for each Logstash instance deployed. What if I have 100 or more Raspberry Pi distributed in different locations?.
+* Security.  
+* I'm using Kismet installed in each Raspberry Pi to capture 802.11 traffic, by default Kismet sends that traffic over UDP, UDP is faster but not secure. The big problem with Logstash listening UDP traffic over a port is that Logstash is susceptible to DoS attacks and the traffic to be spoofed. I have to update UDP to the "secure UDP", UDP over SSL/TLS for example.
+* Monitoring/Tracking.  
+* How to monitor if Kismet is running in the Raspberry Pi?, How to know if Raspberry Pi is healthy ?.
+* Administrable remotely. 
+* Definitely I can't do that in a massively distributed Raspberry Pi's.
 Then, what can I do ?....
 
 ## Apache NiFi to the rescue!
@@ -62,17 +62,17 @@ What do you think about that? Do you think that Apache NiFi can help me ?. Yes, 
 
 ![https://holisticsecurity.files.wordpress.com/2016/12/04-wifi-traffic-capture-apache-nifi-minifi.png]({{ site.baseurl }}/assets/04-wifi-traffic-capture-apache-nifi-minifi.png)
 The above choice covers basically all gaps above explained. In the side of Raspberry Pi we could use [Apache MiNiFi](https://cwiki.apache.org/confluence/display/MINIFI/MiNiFi), a subproject of NiFi suitable for constrained resources. The specific goals comprise:
-  * small and lightweight footprint
-  * central management of agents
-  * generation of data provenanceFor other side, the below choice is also a valid alternative. Even as PoC that demonstrates the ease and the power of using Apache NiFi, this approach is enough.
+* small and lightweight footprint
+* central management of agents
+* generation of data provenanceFor other side, the below choice is also a valid alternative. Even as PoC that demonstrates the ease and the power of using Apache NiFi, this approach is enough.
 
 ![https://holisticsecurity.files.wordpress.com/2016/12/05-wifi-traffic-capture-apache-nifi.png]({{ site.baseurl }}/assets/05-wifi-traffic-capture-apache-nifi.png)
 In the next post I will share technical details and code to implement the above approach. Meanwhile I share four great resources:
-  * When SysOps need workflow.... Introducing Apache NiFi (https://www.linkedin.com/pulse/when-sysops-need-workflow-introducing-apache-nifi-jeroen-jacobs)
-  * Real-Time Data Flows with Apache NiFi (http://www.slideshare.net/manishgforce/realtime-data-flows-with-apache-nifi)
-  * Integrating Apache Spark and NiFi for Data Lakes (http://www.slideshare.net/HadoopSummit/integrating-apache-spark-and-nifi-for-data-lakes)
-  * Integrating Apache NiFi and Apache Kafka (http://bryanbende.com/development/2016/09/15/apache-nifi-and-apache-kafka)
+* When SysOps need workflow.... Introducing Apache NiFi (https://www.linkedin.com/pulse/when-sysops-need-workflow-introducing-apache-nifi-jeroen-jacobs)
+* Real-Time Data Flows with Apache NiFi (http://www.slideshare.net/manishgforce/realtime-data-flows-with-apache-nifi)
+* Integrating Apache Spark and NiFi for Data Lakes (http://www.slideshare.net/HadoopSummit/integrating-apache-spark-and-nifi-for-data-lakes)
+* Integrating Apache NiFi and Apache Kafka (http://bryanbende.com/development/2016/09/15/apache-nifi-and-apache-kafka)
 
 ## Conclusions
-  * Apache NiFi as system mediator (data routing, transformation, etc.) to does data routing, data streaming, move big data chunks, pull, push and put from/to different sources of data, is the perfect companion for Big Data projects.
-  * Apache NiFi speaks different languages through [Processors](https://nifi.apache.org/docs/nifi-docs/). I can replace Logstash with all Input and Output Plugins easily. I can connect Apache NiFi to Elasticsearch (Put/Fetch Elasticsearch), Apache Hadoop (PutHDFS, FetchHDFS), Twitter, Kafka, etc.
+* Apache NiFi as system mediator (data routing, transformation, etc.) to does data routing, data streaming, move big data chunks, pull, push and put from/to different sources of data, is the perfect companion for Big Data projects.
+* Apache NiFi speaks different languages through [Processors](https://nifi.apache.org/docs/nifi-docs/). I can replace Logstash with all Input and Output Plugins easily. I can connect Apache NiFi to Elasticsearch (Put/Fetch Elasticsearch), Apache Hadoop (PutHDFS, FetchHDFS), Twitter, Kafka, etc.

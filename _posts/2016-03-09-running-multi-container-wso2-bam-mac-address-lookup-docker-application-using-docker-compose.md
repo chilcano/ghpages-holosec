@@ -8,12 +8,12 @@ status:     publish
 permalink:  "/2016/03/09/running-multi-container-wso2-bam-mac-address-lookup-docker-application-using-docker-compose/"
 ---
 In my 4 previous blog post I explained each part of this Proof-of-concept, they are:
-  1. Analysing Wireless traffic in real time with WSO2 BAM, Apache Cassandra, Complex Event Processor (CEP Siddhi), Apache Thrift and Python:  
-    * Part I (http://wp.me/p8pPj-pE)
-    * Part II (http://wp.me/p8pPj-pW)
-    * Part III (http://wp.me/p8pPj-qe)
-  2. A Python Microservice in a Docker Container (MAC Address Manufacturer Lookup):  
-    * http://wp.me/p8pPj-qG
+1. Analysing Wireless traffic in real time with WSO2 BAM, Apache Cassandra, Complex Event Processor (CEP Siddhi), Apache Thrift and Python:  
+* Part I (http://wp.me/p8pPj-pE)
+* Part II (http://wp.me/p8pPj-pW)
+* Part III (http://wp.me/p8pPj-qe)
+2. A Python Microservice in a Docker Container (MAC Address Manufacturer Lookup):  
+* http://wp.me/p8pPj-qG
 Now, in this blog post I'm going to explain how to run two Docker Containers, the WSO2 BAM and the MAC Address Manufacturer Lookup containers, by using Docker Compose.  
 
 ![802.11 traffic capture PoC - Docker Compose]({{ site.baseurl }}/assets/chilcano-wso2bam-cep-siddhi-wifi-kismet-thrift-cassandra-docker-compose.png)

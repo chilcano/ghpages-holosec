@@ -19,9 +19,9 @@ Hace poco leí un caso de éxito que combina Cloud Computing y Content Delivery 
 También he podido observar que existen iniciativa similares en el mercado Español y Latinoamericano pero orientada a contenidos educativos.  
 Quiero recalcar que en ambos escenario Alfresco ECM es una herramienta ideal para construir dichas plataformas, evidentemente, hay otras alternativas, pero no tan versátiles y escalables como lo es Alfresco.
 Aqui os dejo los links:
-  * [EL CASO DE ÉXITO DE NETFLIX: CÓMO UNA GRAN CORPORACIÓN MIGRA A LA NUBE PÚBLICA](http://www.nubeblog.com/2010/10/28/el-caso-de-exito-de-netflix-como-una-gran-corporacion-migra-a-la-nube-publica/) (publicado en Nubeblog)
-  * [Las editoriales crean una plataforma digital de contenidos educativos](http://www.elpais.com/articulo/sociedad/editoriales/crean/plataforma/digital/contenidos/educativos/elpepusocedu/20100314elpepusoc_3/Tes)
-  * Proyecto eduCAT 1x1 - [Aventia gana el concurso para gestionar la plataforma de material escolar digital](http://www.elmundo.es/elmundo/2010/08/02/barcelona/1280731375.html)
-  * [Digital - Text, libros de texto multimedia](http://www.digital-text.com/es/ver-contenido/quienes.htm)
+* [EL CASO DE ÉXITO DE NETFLIX: CÓMO UNA GRAN CORPORACIÓN MIGRA A LA NUBE PÚBLICA](http://www.nubeblog.com/2010/10/28/el-caso-de-exito-de-netflix-como-una-gran-corporacion-migra-a-la-nube-publica/) (publicado en Nubeblog)
+* [Las editoriales crean una plataforma digital de contenidos educativos](http://www.elpais.com/articulo/sociedad/editoriales/crean/plataforma/digital/contenidos/educativos/elpepusocedu/20100314elpepusoc_3/Tes)
+* Proyecto eduCAT 1x1 - [Aventia gana el concurso para gestionar la plataforma de material escolar digital](http://www.elmundo.es/elmundo/2010/08/02/barcelona/1280731375.html)
+* [Digital - Text, libros de texto multimedia](http://www.digital-text.com/es/ver-contenido/quienes.htm)
 En fin, os comentarios son bienvenidos.  
 Saludos.

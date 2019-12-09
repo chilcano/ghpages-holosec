@@ -28,6 +28,7 @@ In short, I will explain in this post the following:
 
 ## 1\. Preparing your Raspberry Pi.
 
+
 ### 1.1. Prepare your MicroSD cards with the latest Raspbian image.
 I'm going to use Raspbian Jessie Lite 2017-01-11 (http://director.downloads.raspberrypi.org/raspbian_lite/images/raspbian_lite-2017-01-10/2017-01-11-raspbian-jessie-lite.zip).
 
@@ -94,8 +95,8 @@ To do the initial configuration in all Raspberry Pis I've used the next:
 \- The [Raspberry Pi Dramble Ansible Git repository](https://github.com/geerlingguy/raspberry-pi-dramble). Although these Ansible Playbooks are to provision an Apache HTTPd, Drupal, MySQL Cluster, our intention is to use it initially to manage the Raspberry Pi cluster at infrastructure level.  
 \- The [mikolak.raspi-config](https://github.com/mikolak-net/ansible-raspi-config) Ansible Role to configure each Raspberry Pi like if used [raspi-config](https://www.raspberrypi.org/documentation/configuration/raspi-config.md) tool.
 That means:
-  * Resize SD, update Raspbian and manage shutdown and reboot operations.
-  * Set a proper Hostname, configure Network interfaces (eth0 and wlan0), DNS, etc.
+* Resize SD, update Raspbian and manage shutdown and reboot operations.
+* Set a proper Hostname, configure Network interfaces (eth0 and wlan0), DNS, etc.
 I've updated and extended the [Raspberry Pi Dramble Ansible Git repository](https://github.com/geerlingguy/raspberry-pi-dramble) to reset the Network configuration and to build from source code, to install and to start Kismet (http://www.kismetwireless.net).
 You can download my Ansible Playbooks from here: https://github.com/chilcano/ansible-raspberrypi-wardriving
 
@@ -125,7 +126,7 @@ And update `networking/vars.yml`.
 
 ```text  
 $ nano setup/networking/vars.yml
-\---  
+\---
 
 # Mapping of what hardware MAC addresses should be configured with specific IPs.  
 mac_address_mapping:  
@@ -161,9 +162,7 @@ $ cd setup/networking
 $ ansible-playbook -i inventory main.yml -k
 SSH password:
 PLAY ***************************************************************************
-
 TASK [setup] *******************************************************************
-
 paramiko: The authenticity of host '192.168.0.17' can't be established.  
 The ssh-rsa key fingerprint is 66cf86cb30b2ca92658808f26d453c31.  
 Are you sure you want to continue connecting (yes/no)?  
@@ -184,20 +183,17 @@ ok: [192.168.0.17]
 ok: [192.168.0.18]  
 ok: [192.168.0.20]  
 ok: [192.168.0.19]
-TASK [Set the current MAC address for eth0.] ***********************************
-
+TASK [Set the current MAC address for eth0.] ***********************************  
 ok: [192.168.0.17]  
 ok: [192.168.0.18]  
 ok: [192.168.0.19]  
 ok: [192.168.0.20]
-TASK [Set variables based on eth0 MAC address.] ********************************
-
+TASK [Set variables based on eth0 MAC address.] ********************************  
 ok: [192.168.0.17]  
 ok: [192.168.0.18]  
 ok: [192.168.0.19]  
 ok: [192.168.0.20]
-TASK [Set up networking-related files.] ****************************************
-
+TASK [Set up networking-related files.] ****************************************  
 changed: [192.168.0.18] => (item={u'dest': u'/etc/hostname', u'template': u'hostname.j2'})  
 changed: [192.168.0.18] => (item={u'dest': u'/etc/hosts', u'template': u'hosts.j2'})  
 changed: [192.168.0.18] => (item={u'dest': u'/etc/network/interfaces', u'template': u'interfaces.j2'})  
@@ -218,14 +214,12 @@ changed: [192.168.0.20] => (item={u'dest': u'/etc/hosts', u'template': u'hosts.j
 changed: [192.168.0.20] => (item={u'dest': u'/etc/network/interfaces', u'template': u'interfaces.j2'})  
 changed: [192.168.0.20] => (item={u'dest': u'/etc/resolv.conf', u'template': u'resolv.conf.j2'})  
 changed: [192.168.0.20] => (item={u'dest': u'/etc/dhcpcd.conf', u'template': u'dhcpcd.conf.j2'})
-RUNNING HANDLER [update hostname] **********************************************
-
+RUNNING HANDLER [update hostname] **********************************************  
 changed: [192.168.0.19]  
 changed: [192.168.0.18]  
 changed: [192.168.0.17]  
 changed: [192.168.0.20]
-RUNNING HANDLER [delete dhcp leases] *******************************************
-
+RUNNING HANDLER [delete dhcp leases] *******************************************  
 changed: [192.168.0.19] => (item=/var/lib/dhcp/dhclient.leases)  
 ok: [192.168.0.19] => (item=/var/lib/dhcpcd5/dhcpcd-eth0.lease)  
 changed: [192.168.0.17] => (item=/var/lib/dhcp/dhclient.leases)  
@@ -234,8 +228,7 @@ changed: [192.168.0.18] => (item=/var/lib/dhcp/dhclient.leases)
 ok: [192.168.0.18] => (item=/var/lib/dhcpcd5/dhcpcd-eth0.lease)  
 changed: [192.168.0.20] => (item=/var/lib/dhcp/dhclient.leases)  
 ok: [192.168.0.20] => (item=/var/lib/dhcpcd5/dhcpcd-eth0.lease)
-PLAY RECAP *********************************************************************
-
+PLAY RECAP *********************************************************************  
 192.168.0.17 : ok=6 changed=3 unreachable=0 failed=0  
 192.168.0.18 : ok=6 changed=3 unreachable=0 failed=0  
 192.168.0.19 : ok=6 changed=3 unreachable=0 failed=0  
@@ -345,12 +338,12 @@ No handlers could be found for logger "paramiko.transport"
 ### 1.5. Restoring the network configuration.
 If you try to connect to one Raspberry Pi and the SSH connection is taking a few seconds, or if you are running ping www.google.com and Raspberry Pi is not reaching that. Then, you probably are facing issues with gateway and networking configuration in your Raspberry Pi and need restore or enable default configuration.  
 Then, let's go to check the network configuration, basically you have to check these files in each Raspberry Pi:
-  * /etc/dhcpcd.conf
-  * /etc/hosts
-  * /etc/network/interfaces
+* /etc/dhcpcd.conf
+* /etc/hosts
+* /etc/network/interfaces
 I've updated above cloned Ansible scripts for you with the right configuration. Basically I have updated the Ansible templates (Jinja2) to do:
-  * Restoring `etc/network/interfaces` to get IP address automatically through DHCP.
-  * Configuring `/etc/dhcpcd.conf` with our default gateway on eth0.
+* Restoring `etc/network/interfaces` to get IP address automatically through DHCP.
+* Configuring `/etc/dhcpcd.conf` with our default gateway on eth0.
 Also I have updated the `setup/networking/main.yml` Ansible Playbook and the `setup/networking/vars.yml` to restore default network configuration.
 Again, run the updated Ansible Playbook and verify if the changes with the right gateway, DNS, etc. were applied.
 
@@ -371,9 +364,9 @@ $ ansible-playbook -i inventory main.yml -k
 
 ## 2\. Massive provisioning of Kismet through Ansible on multiples Raspberry Pi.
 I'm going to create an Ansible Playbooks to:
-  * Enable WIFI interface in `monitor mode` on each Raspberry Pi.
-  * Download Kismet source code and build it for Raspberry Pi (ARM chipset).
-  * Install and configure Kismet on each Raspberry Pi.
+* Enable WIFI interface in `monitor mode` on each Raspberry Pi.
+* Download Kismet source code and build it for Raspberry Pi (ARM chipset).
+* Install and configure Kismet on each Raspberry Pi.
 To do that I will follow my previous blog posts ([Capturing WIFI anonymous traffic using Raspberry Pi and WSO2 BAM - Part I](https://holisticsecurity.io/2016/02/02/everything-generates-data-capturing-wifi-anonymous-traffic-raspberrypi-wso2-part-i)) where I explained step by step all commands to be performed in order to run Kismet on Raspberry Pi.  
 The result final is a set of Ansible Playbooks located under `ansible-raspberrypi-wardriving/playbooks/kismet` in the Git repo (https://github.com/chilcano/ansible-raspberrypi-wardriving), and they are:
 
@@ -419,32 +412,26 @@ And if you get the below message, then you have already provisioned successfully
 ```text  
 ...  
 ...  
-TASK [Copying 'warpi.sh.j2' template.] *****************************************
-
+TASK [Copying 'warpi.sh.j2' template.] *****************************************  
 changed: [192.168.0.19]  
 changed: [192.168.0.18]
-TASK [Copying 'warpi.service.j2' template.] ************************************
-
+TASK [Copying 'warpi.service.j2' template.] ************************************  
 changed: [192.168.0.18]  
 changed: [192.168.0.19]
-TASK [Reloading 'warpi' systemd service.] **************************************
-
+TASK [Reloading 'warpi' systemd service.] **************************************  
 changed: [192.168.0.18]  
 changed: [192.168.0.19]
-TASK [Starting 'warpi' systemd service.] ***************************************
-
+TASK [Starting 'warpi' systemd service.] ***************************************  
 changed: [192.168.0.19]  
 changed: [192.168.0.18]
-TASK [debug] *******************************************************************
-
+TASK [debug] *******************************************************************  
 ok: [192.168.0.18] => {  
 "msg": "Service 'warpi' started successfully. Now Kismet is sending events on 2501 port ( nc -vz localhost 2501 )"  
 }  
 ok: [192.168.0.19] => {  
 "msg": "Service 'warpi' started successfully. Now Kismet is sending events on 2501 port ( nc -vz localhost 2501 )"  
 }
-PLAY RECAP *********************************************************************
-
+PLAY RECAP *********************************************************************  
 192.168.0.18 : ok=34 changed=17 unreachable=0 failed=0  
 192.168.0.19 : ok=37 changed=14 unreachable=0 failed=0  
 ```
@@ -509,13 +496,11 @@ And if you get the below message, then you have already provisioned successfully
 ```text  
 ...  
 ...  
-TASK [debug] *******************************************************************
-
+TASK [debug] *******************************************************************  
 ok: [192.168.0.18] => {  
 "msg": "The MiNiFi service 'minifipi.service' has started successfully."  
 }
-PLAY RECAP *********************************************************************
-
+PLAY RECAP *********************************************************************  
 192.168.0.18 : ok=22 changed=8 unreachable=0 failed=0  
 ```
 
@@ -546,8 +531,8 @@ FragmentPath=/etc/systemd/system/minifipi.service
 ```
 
 This results means:
-  * In RPi `192.168.0.17` the `warpi` (Kismet) and `minifipi` (MiNiFi) services are not running.
-  * In RPi `192.168.0.18` the `warpi` (Kismet) and `minifipi` (MiNiFi) services are running.
+* In RPi `192.168.0.17` the `warpi` (Kismet) and `minifipi` (MiNiFi) services are not running.
+* In RPi `192.168.0.18` the `warpi` (Kismet) and `minifipi` (MiNiFi) services are running.
 And if you want further details about the Apache MiNiFi running in RPi `192.168.0.18`, just execute this command:
 
 ```sh  
@@ -567,13 +552,13 @@ CGroup: /system.slice/minifipi.service
 
 
 ## 4\. Conclusions.
-  * You can see the really value of using Ansible when you are provisioning multiple devices. Just execute Ansible command to start performing Linux command and create your own Ansible Playbooks to provision software like Kismet and MiNiFi.
-  * Remember I never provisioned / installed an Ansible agent in the Device side, just download my Playbooks in my PC and ready !.
-  * For other side you can tweak your Playbooks in order to deploy your services with restricted Linux privileged users. That is required when you are doing Automation in a constrained / restricted devices or VMs.
-  * The Kismet and MiNiFi Ansible Playbooks are ready to be used in a PoC, but I don't recommend to use it in PROD because they need to be improved. For example I have to: 
-    * Implement them as Ansible Roles.
-    * Implement Ansible Tasks to start Kismet and MiNiFi as `systemd` services with restricted Linux user, no `root`.
-    * Implement Ansible Tasks to read and send in batch the logs or event files for Kismet and MiNiFi to external system as Syslog Server or Solr or Elasticsearch.
+* You can see the really value of using Ansible when you are provisioning multiple devices. Just execute Ansible command to start performing Linux command and create your own Ansible Playbooks to provision software like Kismet and MiNiFi.
+* Remember I never provisioned / installed an Ansible agent in the Device side, just download my Playbooks in my PC and ready !.
+* For other side you can tweak your Playbooks in order to deploy your services with restricted Linux privileged users. That is required when you are doing Automation in a constrained / restricted devices or VMs.
+* The Kismet and MiNiFi Ansible Playbooks are ready to be used in a PoC, but I don't recommend to use it in PROD because they need to be improved. For example I have to: 
+* Implement them as Ansible Roles.
+* Implement Ansible Tasks to start Kismet and MiNiFi as `systemd` services with restricted Linux user, no `root`.
+* Implement Ansible Tasks to read and send in batch the logs or event files for Kismet and MiNiFi to external system as Syslog Server or Solr or Elasticsearch.
 In the next blog post I will explain how to integrate/connect each Raspberry Pi (Kismet and MiNiFi) to a centralized Apache NiFi by using Ansible, of course!.
 
 ## 5\. References.

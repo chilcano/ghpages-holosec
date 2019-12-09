@@ -10,10 +10,10 @@ permalink:  "/2016/02/04/everything-generates-data-capturing-wifi-anonymous-traf
 After configuring the Raspberry Pi to capture WIFI/802.11 traffic ([first blog post](https://holisticsecurity.wordpress.com/2016/02/02/everything-generates-data-capturing-wifi-anonymous-traffic-raspberrypi-wso2-part-i)), we have to store this traffic in a Database (NoSQL and RDBMS).  
 Because, the idea is to process in real-time and/or batch the stored data.
 To capture this type of traffic (WIFI/802.11 traffic) is so difficult for next reasons:
-  * Kismet captures 802.11 layer-2 wireless network traffic (Network IP blocks such as TCP, UDP, ARP, and DHCP packets) what should be decoded.
-  * The traffic should be captured and stored in real-time, we have to use a protocol optimized to capture quickly and low latency.
-  * The library that implements that protocol should have low memory footprint, because Kismet will run in a Raspberry Pi.
-  * The protocol to be used should be developer-friendly in both sides (Raspberry Pi side and WSO2 BAM - Apache Cassandra side).
+* Kismet captures 802.11 layer-2 wireless network traffic (Network IP blocks such as TCP, UDP, ARP, and DHCP packets) what should be decoded.
+* The traffic should be captured and stored in real-time, we have to use a protocol optimized to capture quickly and low latency.
+* The library that implements that protocol should have low memory footprint, because Kismet will run in a Raspberry Pi.
+* The protocol to be used should be developer-friendly in both sides (Raspberry Pi side and WSO2 BAM - Apache Cassandra side).
 Well, in this second blog post I will explain how to solve above difficults.  
 
 ![Architecture IoT/BigData – Storing WIFI traffic in Apache Cassandra \(WSO2 BAM and Apache Thrift\)]({{ site.baseurl }}/assets/chilcano-02-raspberrypi-bigdata-wifi-thrift-1-architecture.png)  
@@ -25,30 +25,22 @@ Well, in this second blog post I will explain how to solve above difficults.
 ## I.- Looking for the Streaming and/or Communication Protocol
 There are some stream and communication protocols and implementations
 Really, there are many libraries and streaming protocols out there to solve the above issues, but if you are looking for a protocol/library open source, lightweight, low memory footprint and developer friendly there are a few. They are:
-
 **1) Elastic Logstash (https://www.elastic.co/products/logstash)**
-
 Logstash is a set of tools to collect heterogeneous type of data and It's to used with Elasticsearch, It requires Java and for this reason It is too heavy to run in a Raspberry Pi. The best choice is to use only `Logstash Forwarder`.  
 
 [`Logstash Forwarder` (a.k.a. `lumberjack`)](https://github.com/elastic/logstash-forwarder) is the protocol used to ship, parse and collect streams or log-events when using ELK.  
 `Logstash Forwarder` can be downloaded and compiled using the Go compiler on your Raspberry Pi, [for further information you can use this link](http://michaelblouin.ca/blog/2015/06/08/build-run-logstash-forwarder-rasperry-pi).
-
 **2) Elastic Filebeat (https://github.com/elastic/beats/tree/master/filebeat)**
-
 >  Filebeat is a lightweight, open source shipper for log file data. As the next-generation [`Logstash Forwarder`](https://github.com/elastic/logstash-forwarder), Filebeat tails logs and  
 >  quickly sends this information to Logstash for further parsing and enrichment or to Elasticsearch for centralized storage and analysis.  
 Installing and configuring `Filebeat` is easy and you can use It with Logstash to perform additional processing on the data collected and the `Filebeat` replaces `Logstash Forwarder`.
-
 **3) Apache Flume (https://flume.apache.org)**
-
 >  Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of  
 >  log data. It has a simple and flexible architecture based on streaming data flows. It is robust and fault tolerant with tunable  
 >  reliability mechanisms and many failover and recovery mechanisms. It uses a simple extensible data model that allows for online  
 >  analytic application.  
 `Apache Flume` used Java and requires high (memory and CPU) resources.
-
 **4) Mozilla Heka (https://github.com/mozilla-services/heka)**
-
 > Heka is an open source stream processing software system developed by Mozilla. Heka is a “Swiss Army Knife” type tool for data  
 >  processing, useful for a wide variety of different tasks, such as:
 >   * Loading and parsing log files from a file system.
@@ -58,27 +50,25 @@ Installing and configuring `Filebeat` is easy and you can use It with Logstash t
 >   * Shipping data from one location to another via the use of an external transport (such as AMQP) or directly (via TCP).
 >   * Delivering processed data to one or more persistent data stores.
 `Mozilla Heka` is very similar to `Logstash Forwarder`, both are written in Go, but `Mozilla Heka` can process the log-events in real-time also Heka is also able to provide graphs of this data directly, those are great advantages. These graphs will be updated in real time, as the data is flowing through Heka, without the latency of the data store driven graphs.
-
 **5) Fluentd (https://github.com/fluent/fluentd)**
-
 > Fluentd is similar to Logstash in that there are inputs and outputs for a large variety of sources and destination. Some of it’s design tenets  
 >  are easy installation and small footprint. It doesn’t provide any storage tier itself but allows you to easily configure where your logs should  
 >  be collected. 
-
 **6) Apache Thrift (https://thrift.apache.org)**
-
 > Thrift is an interface definition language and binary communication protocol[1] that is used to define and create services for numerous languages.  
 >  It is used as a remote procedure call (RPC) framework and was developed at Facebook for "scalable cross-language services development". It  
->  combines a software stack with a code generation engine to build services that work efficiently to a varying degree and seamlessly between C#,  
+>  combines a software stack with a code generation engine to build services that work efficiently to a varying degree and seamlessly between C
+
+#,  
 >  C++ (on POSIX-compliant systems), Cappuccino, Cocoa, Delphi, Erlang, Go, Haskell, Java, Node.js, OCaml, Perl, PHP, Python, Ruby and Smalltalk.  
 >  Although developed at Facebook, it is now an open source project in the Apache Software Foundation. 
 
 [`Facebook Scribe`](https://github.com/facebookarchive/scribe) is a project what uses the `Thrift` protocol and is a server for aggregating log data streamed in real time from a large number of servers.
 In this Proof-of-Concept I will use Apache Thrift for these reasons:
-  * Apache Thrift is embedded in WSO2 BAM 2.5.0.
-  * The WSO2 BAM 2.5.0 is a very important component because also It embeds Apache Cassandra to persist the data stream/log-events. You don't need to do anything, all log-events captured will be stored automatically in Apache Cassandra.
-  * There are lightweight Python libraries implementing the Apache Thrift protocol, this [Thrift Python Client](https://github.com/wso2-incubator/iot-server-appliances/tree/master/Arduino%20Robot/PC_Clients/PythonRobotController/DirectPublishClient/BAMPythonPublisher) is suitable to be used in a Raspberry Pi and publish events int WSO2 BAM (Apache Cassandra).
-  * And finally, there is a [Python Client Library specific for Kismet](https://github.com/PaulMcMillan/kismetclient). This Python Kismet Client reads the traffic captured for Kismet.
+* Apache Thrift is embedded in WSO2 BAM 2.5.0.
+* The WSO2 BAM 2.5.0 is a very important component because also It embeds Apache Cassandra to persist the data stream/log-events. You don't need to do anything, all log-events captured will be stored automatically in Apache Cassandra.
+* There are lightweight Python libraries implementing the Apache Thrift protocol, this [Thrift Python Client](https://github.com/wso2-incubator/iot-server-appliances/tree/master/Arduino%20Robot/PC_Clients/PythonRobotController/DirectPublishClient/BAMPythonPublisher) is suitable to be used in a Raspberry Pi and publish events int WSO2 BAM (Apache Cassandra).
+* And finally, there is a [Python Client Library specific for Kismet](https://github.com/PaulMcMillan/kismetclient). This Python Kismet Client reads the traffic captured for Kismet.
 
 ## II.- Installing, configuring and running Python Kismet Client and Python Thrift library
 I cloned the above repositories ([Thrift Python Client](https://github.com/chilcano/iot-server-appliances/tree/master/Arduino%20Robot/PC_Clients/PythonRobotController/DirectPublishClient/BAMPythonPublisher) and [Python Kismet Client](https://github.com/chilcano/kismetclient)).
@@ -116,12 +106,10 @@ remote: Total 100 (delta 0), reused 0 (delta 0), pack-reused 100
 Receiving objects: 100% (100/100), 15.84 KiB, done.  
 Resolving deltas: 100% (57/57), done.  
 ```
-
 **2.1) Creating a custom Python script to send the Kismet captured traffic to WSO2 BAM 2.5.0**
-
 Under `kismet_to_wso2bam` folder create this Python ([sendTrafficFromKismetToWSO2BAM.py](https://github.com/chilcano/wso2bam-wifi-thrift-cassandra-poc/tree/master/raspberrypi_wifi_traffic_capture/sendTrafficFromKismetToWSO2BAM.py)) script.
 
-```python  
+```python
 
 #!/usr/bin/env python  
 """  
@@ -153,15 +141,25 @@ log.setLevel(logging.DEBUG)
 
 # Kismet server  
 address = ('127.0.0.1', 2501)  
-k = KismetClient(address)  
+k = KismetClient(address)
 
 ##k.register_handler('TRACKINFO', handlers.print_fields)
 
+
 # BAM/CEP/Thrift Server  
-cep_ip = '192.168.1.43' # IP address of the server  
-cep_port = 7713 # Thrift listen port of the server  
-cep_username = 'admin' # username  
-cep_password = 'admin' # passowrd
+cep_ip = '192.168.1.43'
+
+# IP address of the server  
+cep_port = 7713
+
+# Thrift listen port of the server  
+cep_username = 'admin'
+
+# username  
+cep_password = 'admin'
+
+# passowrd
+
 
 # Initialize publisher with ip and port of server  
 publisher = Publisher()  
@@ -241,11 +239,9 @@ $ tree -L 3
 ```
 
 Notes:
-  * You have to update the `sendTrafficFromKismetToWSO2BAM.py` with IP Address, Username, Password and Ports where WSO2 BAM is running.
-  * The above Python script reads the captured traffic and defines previously a structure of data to be send to WSO2 BAM (Apache Thrift). You can modify that data structure by adding or removing 802.11 fields.
-
+* You have to update the `sendTrafficFromKismetToWSO2BAM.py` with IP Address, Username, Password and Ports where WSO2 BAM is running.
+* The above Python script reads the captured traffic and defines previously a structure of data to be send to WSO2 BAM (Apache Thrift). You can modify that data structure by adding or removing 802.11 fields.
 **2.2) Install and configure WSO2 BAM to receive the Kismet traffic**
-
 Before you run the `sendTrafficFromKismetToWSO2BAM.py`, WSO2 BAM 2.5.0 should be running and the Thrift listener port should be open.  
 The Thrift listener standard port is `7711`, in my case I have an offset of `+2`.
 I recommend you [my Docker container created to get a fully functional WSO2 BAM 2.5.0](https://hub.docker.com/r/chilcano/wso2-bam/) ready for use in this PoC with Kismet.  
@@ -297,7 +293,9 @@ Now, let's verify that WSO2 BAM is running in the Docker container.
 
 ```sh  
 $ docker exec -ti wso2bam-kismet bash
-root@fc9fb8368e7f:/opt/wso2bam02a/bin# tail -f ../repository/logs/wso2carbon.log  
+root@fc9fb8368e7f:/opt/wso2bam02a/bin
+
+# tail -f ../repository/logs/wso2carbon.log  
 TID: [0] [BAM] [2016-02-03 16:38:10,482] INFO {org.wso2.carbon.ntask.core.service.impl.TaskServiceImpl} - Task service starting in STANDALONE mode... {org.wso2.carbon.ntask.core.service.impl.TaskServiceImpl}  
 TID: [0] [BAM] [2016-02-03 16:38:10,664] INFO {org.apache.cassandra.net.OutboundTcpConnection} - Handshaking version with localhost/127.0.0.1 {org.apache.cassandra.net.OutboundTcpConnection}  
 TID: [0] [BAM] [2016-02-03 16:38:10,672] INFO {org.apache.cassandra.net.OutboundTcpConnection} - Handshaking version with localhost/127.0.0.1 {org.apache.cassandra.net.OutboundTcpConnection}  
@@ -309,9 +307,7 @@ TID: [0] [BAM] [2016-02-03 16:38:14,044] INFO {org.wso2.carbon.dashboard.common.
 TID: [0] [BAM] [2016-02-03 16:38:14,714] INFO {org.wso2.carbon.ui.internal.CarbonUIServiceComponent} - Mgt Console URL : https://172.17.0.2:9443/carbon/ {org.wso2.carbon.ui.internal.CarbonUIServiceComponent}  
 TID: [0] [BAM] [2016-02-03 16:38:14,714] INFO {org.wso2.carbon.ui.internal.CarbonUIServiceComponent} - Gadget Server Default Context : http://172.17.0.2:9763/portal {org.wso2.carbon.ui.internal.CarbonUIServiceComponent}  
 ```
-
 **2.3) Remote access of different network (i.e. Raspberry Pi) to the WSO2 BAM Docker container**
-
 If you want to get access to WSO2 BAM from a web browser, to use this URL `https://192.168.99.100:9445/carbon/admin`, but if you want to connect to embedded Thrift listener, to use this IP Address `192.168.99.100` and this `7713` port.  
 That is valid if you are in the same Host PC, but how to get access remotely, for example from the above Raspberry Pi, to the WSO2 BAM Docker Container?.  
 To do that, follow this explanation ([Remote access to Docker with TLS](https://sheerun.net/2014/05/17/remote-access-to-docker-with-tls/)), as It is mentioned, there are 3 choices, as I'm running Docker deamon in a Mac OS X, the easy way to expose and to do available the Docker container to Raspberry Pi network is to do `port forwarding` or `SSH tunneling` using `docker-machine`.
@@ -331,9 +327,9 @@ $ docker-machine ssh default -f -N -L 192.168.1.43:9445:localhost:9445
 ```
 
 Where:
-  * `'-f'` requests SSH to go to background just before command execution.
-  * `'-N'` allows empty command (useful here to forward ports only).
-  * The user/password for `boot2docker` is `docker/tcuser`.
+* `'-f'` requests SSH to go to background just before command execution.
+* `'-N'` allows empty command (useful here to forward ports only).
+* The user/password for `boot2docker` is `docker/tcuser`.
 You also can do the same but using the `ssh` command:
 
 ```sh  
@@ -365,14 +361,16 @@ $ curl -Ivsk https://192.168.1.43:9445/carbon/admin/login.jsp -o /dev/null
 < Date: Thu, 04 Feb 2016 12:14:09 GMT  
 < Server: WSO2 Carbon Server  
 <  
-* Connection #0 to host 192.168.1.43 left intact  
-* Closing connection #0  
+* Connection
+
+#0 to host 192.168.1.43 left intact  
+* Closing connection
+
+#0  
 * SSLv3, TLS alert, Client hello (1):  
 } [data not shown]  
 ```
-
 **2.4) Running the custom Python script to send the captured traffic by Kismet to WSO2 BAM**
-
 Make sure that Python is installed, install It if It's not installed.
 
 ```sh  
@@ -416,12 +414,12 @@ TID: [0] [BAM] [2016-02-04 12:29:20,877] INFO {org.wso2.carbon.databridge.persis
 ## III.- Exploring the 802.11 captured traffic stored in Apache Cassandra (WSO2 BAM)
 Remember, the WSO2 BAM 2.5.0 Docker Container is running locally with a internal Docker Machine IP Address (`192.168.99.100`), also is running with a public IP Address by using the Host IP Address (`192.168.1.43`) because the internal IP address was forwarded.  
 In brief, WSO2 BAM has the below addresses:
-  * From the Internal Docker Machine IP address: 
-    * WSO2 BAM Admin Web Console: https://192.168.99.100:9445/carbon/admin
-    * Thrift listener: tcp://192.168.99.100:7713
-  * From the Public IP address: 
-    * WSO2 BAM Admin Web Console: https://192.168.1.43:9445/carbon/admin
-    * Thrift listener: tcp://192.168.1.43:7713
+* From the Internal Docker Machine IP address: 
+* WSO2 BAM Admin Web Console: https://192.168.99.100:9445/carbon/admin
+* Thrift listener: tcp://192.168.99.100:7713
+* From the Public IP address: 
+* WSO2 BAM Admin Web Console: https://192.168.1.43:9445/carbon/admin
+* Thrift listener: tcp://192.168.1.43:7713
 Then, let's go to explore the 802.11 traffic stored in Apache Cassandra.  
 Below a set of images took when browsing the Apache Cassandra embedded in WSO2 BAM.
 _01 / WSO2 BAM / Apache Cassandra - Key Spaces_  

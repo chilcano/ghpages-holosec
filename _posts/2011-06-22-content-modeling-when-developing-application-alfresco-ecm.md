@@ -15,16 +15,13 @@ This post will explain how to modeling the content that our type of organization
 
 ## I. XML definition files 
 Create the following files:
-
 **1\. intix-model-context.xml**
-
 This is Spring file configuration for the new content model.
 
 [sourcecode language="xml" gutter="true" wraplines="false"]  
 <?xml version='1.0' encoding='UTF-8'?>  
 <!DOCTYPE beans PUBLIC '-//SPRING//DTD BEAN//EN' 'http://www.springframework.org/dtd/spring-beans.dtd'>  
 <beans>  
-
 <!-- Registration of new models -->  
 <bean id="intix.dictionaryBootstrap"  
 parent="dictionaryModelBootstrap"  
@@ -38,29 +35,23 @@ depends-on="dictionaryBootstrap">
 </beans>  
 
 [/sourcecode]
-
 **2\. intixModel.xml**
-
 This xml file contains our custom model.
 
 [sourcecode language="xml" gutter="true" wraplines="false"]  
 <?xml version="1.0" encoding="UTF-8"?>  
-
 <!-- Definition of new Model -->  
 <model name="ix:intixmodel" xmlns="http://www.alfresco.org/model/dictionary/1.0">  
-
 <!-- Optional meta-data about the model -->  
 <description>INTIX.info Content Model</description>  
 <author>Roger Carhuatocto</author>  
 <version>1.0</version>
-
 <!-- Imports are required to allow references to definitions in other models -->  
 <imports>  
 <import uri="http://www.alfresco.org/model/dictionary/1.0" prefix="d" />  
 <import uri="http://www.alfresco.org/model/content/1.0" prefix="cm" />  
 <import uri="http://www.alfresco.org/model/system/1.0" prefix="sys" />  
 </imports>
-
 <!-- Introduction of new namespaces defined by this model -->  
 <namespaces>  
 <namespace uri="http://www.intix.info/model/content/1.0" prefix="ix" />  
@@ -77,7 +68,6 @@ This xml file contains our custom model.
 </constraint>  
 </constraints>
 <types>  
-
 <!-- Enterprise-wide generic document type -->  
 <type name="ix:doc">  
 <title>INTIX.info Document</title>  
@@ -139,42 +129,35 @@ This xml file contains our custom model.
 </model>  
 
 [/sourcecode]
-
 **3\. web-client-config-custom.xml**
-
 This configuration file enables Alfresco Explore/Web Client to load the new content model in the Alfresco UI.
 
 [sourcecode language="xml" gutter="true" wraplines="false"]  
 <alfresco-config>  
-
 <!-- show related documents association on doc property sheet -->  
 <config evaluator="node-type" condition="ix:doc">  
 <property-sheet>  
 <show-association name="ix:relatedDocuments" />  
 </property-sheet>  
 </config>  
-
 <!-- show related documents association on FOLDER property sheet -->  
 <config evaluator="node-type" condition="ix:fld">  
 <property-sheet>  
 <show-association name="ix:relatedFolder2Docs" />  
 </property-sheet>  
 </config>  
-
 <!-- show PROJECT on marketingDoc property sheet -->  
 <config evaluator="node-type" condition="ix:marketingDoc">  
 <property-sheet>  
 <show-property name="ix:project" display-label-id="project" />  
 </property-sheet>  
 </config>  
-
 <!-- show related documents association on DOC property sheet -->  
 <config evaluator="node-type" condition="ix:doc">  
 <property-sheet>  
 <show-association name="ix:relatedDocuments" />  
 </property-sheet>  
 </config>  
-
 <!-- add NEW CONTENT types to add content list wizard -->  
 <config evaluator="string-compare" condition="Content Wizards">  
 <content-types>  
@@ -183,7 +166,6 @@ This configuration file enables Alfresco Explore/Web Client to load the new cont
 <type name="ix:marketingDoc" />  
 </content-types>  
 </config>  
-
 <!-- add new FOLDER types to add content list wizard -->  
 <config evaluator="string-compare" condition="Space Wizards">  
 <folder-types>  
@@ -191,14 +173,12 @@ This configuration file enables Alfresco Explore/Web Client to load the new cont
 </folder-types>  
 </config>  
 <config evaluator="string-compare" condition="Action Wizards">  
-
 <!-- The list of types shown in the is-subtype condition -->  
 <subtypes>  
 <type name="ix:doc" />  
 <type name="ix:legalDoc" />  
 <type name="ix:marketingDoc" />  
 </subtypes>  
-
 <!-- The list of content and/or folder types shown in the specialise-type action -->  
 <specialise-types>  
 <type name="ix:doc" />  
@@ -224,13 +204,10 @@ This configuration file enables Alfresco Explore/Web Client to load the new cont
 ## II. Deploy the content model 
 1\. Stop Alfresco.
 2\. Copy **intix-model-context.xml** to **${ALFRESCO_HOME}\tomcat\shared\classes\alfresco\extension**
-
 3\. Copy **intixModel.xml** to **${ALFRESCO_HOME}\tomcat\shared\classes\alfresco\extension**
-
 4\. At this point, you will still not actually can not "see" the new custom model on the Alfresco UI (Alfresco Explorer/Web Client).  
 For that, you will need to set up the property dialogs for each of the content types.
 Then, copy **web-client-config-custom.xml** to **${ALFRESCO_HOME}\tomcat\shared\classes\alfresco\extension**
-
 5\. Start Alfresco.
 6\. Verify successfully deployment of new content model by browsing on Alfresco Explorer/Web Client.
 

@@ -11,10 +11,10 @@ Sometimes it is necessary a fresh installation of Alfresco for testing purposes 
 Well, this post explains how to do an installation quickly of Alfresco.
 
 ## I. Pre-requisites
-  * Virtual Box machine with Windows XP SP2 as guest S.O. and 1024 MB Ram.
-  * JDK 1.6.0_13 installed.
-  * MySQL Server 5.1.33-community.
-  * Alfresco 3.4c CE installer downloaded (alfresco-community-3.4.c-installer-win-x32.exe).
+* Virtual Box machine with Windows XP SP2 as guest S.O. and 1024 MB Ram.
+* JDK 1.6.0_13 installed.
+* MySQL Server 5.1.33-community.
+* Alfresco 3.4c CE installer downloaded (alfresco-community-3.4.c-installer-win-x32.exe).
 
 ## II. Installation
 1\. Create an empty database for Alfresco named, in my case, "alf34c_db1".
@@ -54,7 +54,6 @@ In some case, you need to copy jaxb-api-2.1.jar from ${ALF_HOME}/tomcat/webapps/
 6\. Restart.
 When finished, open browser and go to <http://localhost:8080/alfresco>. You can log in to Alfresco with admin/admin.
 END.
-
 **References** :
 1) Error al arrancar el servidor alfresco 3.2  
 

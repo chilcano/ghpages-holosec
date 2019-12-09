@@ -8,9 +8,10 @@ status:     publish
 permalink:  "/2018/01/12/using-weave-scope-to-explore-microservices-communication-and-service-mesh-openshift-and-istio/"
 ---
 If you are working with ESB, Message Brokers, BPMS, SOA or Microservices, you will notice that you are solving the same problems of Standalone Applications but in different way, because all of them are different kind of Distributed Application. Those problems are:
-  * Users Management, Authentication and Authorisation
-  * Logging, Debugging, Monitoring and Alerting
-  * Clustering, High Availability, Load Balancing, etc...
+* Users Management, Authentication and Authorisation
+* Logging, Debugging and Alerting
+* Clustering, High Availability, Load Balancing
+* Monitoring and Alerting
 
 <!-- more -->
 
@@ -23,9 +24,9 @@ Generally a Service Mesh, based on the Microservices and/or APIs, is deployed by
 
 ### Deployment Container Patterns
 Like to EIP (Enterprise Integration Patterns) and Software Design Patterns, the Deployment of Service Mesh in a Containerised Platform also has Patterns. Google, Microsoft, Netflix, etc. recommend to use some patterns to implement solutions for the problems stated above. For example, Google explains very well 3 patterns:
-  * Sidecar Pattern
-  * Ambassador Pattern
-  * Adapter Pattern
+* Sidecar Pattern
+* Ambassador Pattern
+* Adapter Pattern
 All of them support the building of the Service Mesh based on Containers. For further details read this paper: [Design patterns for container-based distributed systems. By Brendan Burns and David Oppenheimer](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/45406.pdf)
 
 ### What is Istio?
@@ -50,9 +51,9 @@ Extracted from [Istio.io](https://istio.io/docs/concepts/what-is-istio/overview.
 
 ### Get a container-based Service Mesh with Istio
 I've created 3 Ansible Roles to get easily a minimalist OpenShift Cluster (by using Minishift), Weave Scope (https://github.com/weaveworks/scope), Istio and BookInfo Application (API and Microservices on containers) to understand what challenges we have to face. The 3 Ansible Role are:
-  1. **[Minishift Ansible Role](https://github.com/chilcano/ansible-role-minishift)** To get OpenShift Cluster in a VM by using [Minishift](https://github.com/minishift/minishift)
-  2. **[Weave Scope Ansible Role](https://github.com/chilcano/ansible-role-weave-scope)** To deploy Weave Scope Application in an OpenShift running locally
-  3. **[Istio Ansible Role](https://github.com/chilcano/ansible-role-istio)** To deploy and configure Istio in OpenShift running locally, to deploy BookInfo Application and inject sidecar proxies(Envoy Proxy)
+1. **[Minishift Ansible Role](https://github.com/chilcano/ansible-role-minishift)** To get OpenShift Cluster in a VM by using [Minishift](https://github.com/minishift/minishift)
+2. **[Weave Scope Ansible Role](https://github.com/chilcano/ansible-role-weave-scope)** To deploy Weave Scope Application in an OpenShift running locally
+3. **[Istio Ansible Role](https://github.com/chilcano/ansible-role-istio)** To deploy and configure Istio in OpenShift running locally, to deploy BookInfo Application and inject sidecar proxies(Envoy Proxy)
 
 [I have also created some examples so that you can have an environment where you can test and try quickly with all this.](https://github.com/chilcano/ansible-minishift-istio-security) [Weave Scope Application](https://github.com/weaveworks/scope) will play a important role here, because It will allow us to monitor, visualise, troubleshot and manage **easily** whole the container-based Service Mesh. Once completed [the step-by-step guide](https://github.com/chilcano/ansible-minishift-istio-security), you will get next: [![]({{ site.baseurl }}/assets/api-mesh-security-7-weave-scope-istio-system.png)](https://holisticsecurity.files.wordpress.com/2018/01/api-mesh-security-7-weave-scope-istio-system.png) [![]({{ site.baseurl }}/assets/api-mesh-security-8-weave-scope-bookinfo.png)](https://holisticsecurity.files.wordpress.com/2018/01/api-mesh-security-8-weave-scope-bookinfo.png) [![]({{ site.baseurl }}/assets/api-mesh-security-9-weave-scope-bookinfo-mesh.png)](https://holisticsecurity.files.wordpress.com/2018/01/api-mesh-security-9-weave-scope-bookinfo-mesh.png) ..and [![]({{ site.baseurl }}/assets/api-mesh-security-4-istio-zipkin.png)](https://holisticsecurity.files.wordpress.com/2018/01/api-mesh-security-4-istio-zipkin.png) [![]({{ site.baseurl }}/assets/api-mesh-security-5-istio-grafana.png)](https://holisticsecurity.files.wordpress.com/2018/01/api-mesh-security-5-istio-grafana.png) [![]({{ site.baseurl }}/assets/api-mesh-security-6-istio-servicegraph.png)](https://holisticsecurity.files.wordpress.com/2018/01/api-mesh-security-6-istio-servicegraph.png)
 Hope this helps!.  
