@@ -11,6 +11,7 @@ It is very difficult to install services on servers that are not connected to th
 The situation is compounded when these critical servers are virtualized. If this is your case, I recommend you use the DVD / CD ISO images and mount them as your CentOS repositories.
 
 <!-- more -->
+
 If you are in doubt, follow this example for Tomcat:
   1. Mount DVD Iso image as a media-repo in your CentOS Guest Virtual Box
 

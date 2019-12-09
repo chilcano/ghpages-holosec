@@ -11,6 +11,7 @@ Share files between two SO is easy because there are different protocols for sha
 
 <!-- more -->
 
+
 ## Mount DVD ISO image in CentOS VirtualBox guest
 1.- Previously, I have download DVD ISO image, then I have copied to my Mac OSX Host.
 2.- From Virtual Box menu, goes to Devices > CD/DVD Devices and mount selecting CentOS's DVD ISO image (ISO previuosly added to VBox's "Virtual Media Manager").

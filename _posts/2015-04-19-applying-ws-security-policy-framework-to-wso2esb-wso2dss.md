@@ -15,6 +15,7 @@ In this post entry I will explain how to apply custom `WS-SecurityPolicy` to exp
 
 <!-- more -->
 
+
 ## I. Use cases
 Again, I recommend the blog post of Sagara Gunathunga (Technical Leader of WSO2 Inc). There, Sagara explains the different use cases where we can apply WS-SecurityPolicy on services using WSO2. http://ssagara.blogspot.co.uk/2013/07/wso2-esb-set-ws-security-ut-user-names.html I think that this post is great to get starting with WS-Security and WS-Policy in WSO2 ESB/DSS and hope this is also useful for you.
 Below, I will explore some details about these scenarios or use cases.

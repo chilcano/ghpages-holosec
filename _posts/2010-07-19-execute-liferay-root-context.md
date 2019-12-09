@@ -11,6 +11,7 @@ Sometime we need to execute Liferay Portal in a different web context, for examp
 Then, in this scenario we have to follow next steps:  
 
 <!-- more -->
+
   1. Rename //webapps/ROOT to //webapps/myportal
   2. Edit or create `//webapps/myportal/WEB-INF/classes/portal-ext.properties`:
 > ...  

@@ -12,6 +12,7 @@ This VM is suitable to develop with WSO2 products and puts focus only in the _se
 ![Vagrant box - WSO2 Development Server Map]({{ site.baseurl }}/assets/chilcano-box-vagrant-wso2-dev-srv-map1.png)Vagrant box - WSO2 Development Server Map
 
 <!-- more -->
+
 The main objetive is to have a VM with all WSO2 products installed and configured to be ready for development and following the most common Middleware infrastructure pattern used to create Microservices.
 The _naming_ used in _hostnames_ tries to use pre-defined values what also will be used in Integration and Production Environments. The _ports_ and _offsets_ used do not follow any special rule.
 The WSO2 servers and tools installed and configured are:

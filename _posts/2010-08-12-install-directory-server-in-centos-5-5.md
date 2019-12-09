@@ -14,6 +14,7 @@ or
     [root@svdapp95 ~]# wget -m http://mirror.centos.org/centos/5.5/extras/i386
 
 <!-- more -->
+
   1. Upload RPMs packages to you Linux box, for example to /centos-ds_rpm_tmp
   2.   
 Verify that you have installed Java:

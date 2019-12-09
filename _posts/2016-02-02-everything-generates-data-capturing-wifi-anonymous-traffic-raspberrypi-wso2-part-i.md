@@ -16,6 +16,7 @@ Yes, in this digital world, everything generates data, but before to do `BigData
  _Everything generates data - IoT, BigData, Privacy, Security_
 
 <!-- more -->
+
 In this first blog post I will explain how to capture anonymous [WIFI/802.11 traffic](https://en.wikipedia.org/wiki/IEEE_802.11) using a [Raspberry Pi 2 Model B](https://www.raspberrypi.org/products/raspberry-pi-2-model-b), Kismet ([An 802.11 layer2 wireless network detector, sniffer, and intrusion detection system](https://www.kismetwireless.net)) and in the second blog post I will use [WSO2 BAM 2.5.0](http://wso2.com/more-downloads/business-activity-monitor) to collect the anonymous WIFI traffic to generate a simple Dashboard showing data in live or real time.
 The final idea is create a simple Dashboard showing the Mobile Devices as mobile phones identified around of the Raspberry Pi.  
 Anyway, you can use this traffic for different purposes such as:  

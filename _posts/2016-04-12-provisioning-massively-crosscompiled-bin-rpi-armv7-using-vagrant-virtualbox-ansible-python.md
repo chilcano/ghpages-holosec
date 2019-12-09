@@ -13,6 +13,7 @@ With this Proof-of-concept I will shown you how to build the app binary provisio
 ![blog-cross-compiling-kismet-raspberrypi-arm.png]({{ site.baseurl }}/assets/blog-cross-compiling-kismet-raspberrypi-arm.png)
 
 <!-- more -->
+
 To implement this I will use Vagrant to create an Ubuntu VM mounts the Raspbian OS image internally ready to be used for ARM cross-compiling. There is a special part in this blog post where explains how to NFS mount to provide remote booting for all Raspberry Pi's connected to same network.
 I provide a new Github repository with all the updated scripts required for this PoC. You can download from here:  
 I would like to mention that this work is based on `https://github.com/twobitcircus/rpi-build-and-boot` where I've created a Vagrantfile for VirtualBox, tweaked the Ansible Playbook and I have documented the process I've followed to make it work successfully in my environment (VirtualBox instead of Parallels and booting from NFS).

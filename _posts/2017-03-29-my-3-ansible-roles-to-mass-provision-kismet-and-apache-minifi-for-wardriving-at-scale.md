@@ -12,6 +12,7 @@ This blog post is implementing the same scenario used in the previous post [Mass
 ![https://holisticsecurity.files.wordpress.com/2017/03/mass-provisioning-kismet-minifi-raspberrypi-ansible-2-pkg.png]({{ site.baseurl }}/assets/mass-provisioning-kismet-minifi-raspberrypi-ansible-2-pkg.png)
 
 <!-- more -->
+
 Then, I've refactored all Ansible Tasks and I've created 3 Ansible Roles. They are in Ansible Galaxy and are:
  **Ansible Role Kismet RPi Build (https://galaxy.ansible.com/chilcano/kismet-rpi-build)**
 An Ansible Role that builds / compiles from scratch and packs (Debian/Raspbian binary) Kismet on a Raspberry Pi. This Role provides the following features:

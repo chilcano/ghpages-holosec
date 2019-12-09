@@ -13,6 +13,7 @@ En mi anterior post expliqué como usar Apache Qpid junto con WSO2 ESB (https://
  _Integración de Message Brokers opensource con WSO2 ESB_
 
 <!-- more -->
+
 Claro, vosotros preguntaréis, porqué no usar Apache ActiveMQ sabiendo que es un producto opensource, maduro, muy bien integrado a WSO2 ESB y a otros ESB y Mediators Engines como Apache Camel?, pues, en base a mis requerimientos en proyectos, buscaba por algún message broker fiel a los estándares y con una arquitectura capaz de crear complejos y críticos escenarios, pero muy orientado a los usos clásicos del message broker (comunicación asíncrona, desacoplamiento, integrable con legacy systems), y en este caso Apache Qpid y Apache ActiveMQ lo son, sin embargo me incliné por Apache Qpid porque pude integrarlo en poco minutos con WSO2 ESB e implementar los EIPs otros minutos más.
 
 ![Google Trends 2015: Apache ActiveMQ, RabbitMQ, Apache Qpid y JBoss HornetQ]({{ site.baseurl }}/assets/msgbroker-02-foss-brokers-wso2-esb-2015-google-trends.png)  

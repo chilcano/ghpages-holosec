@@ -13,6 +13,7 @@ Concretamente usamos en estos webinars Alfresco ECM e Intalio BPMS y BonitaSoft,
 [![Alfresco, Intalio, BonitaSoft, OpenX, JW Player]({{ site.baseurl }}/assets/plan-webinars_logos_tecnologia2.png)](http://holisticsecurity.files.wordpress.com/2010/01/plan-webinars_logos_tecnologia2.png)  
 
 <!-- more -->
+
 Todos los webinars serán en Castellano. No dispongo de mucho tiempo para cada uno de ellos, trataré de ser práctico proporcionando información relevante para cada uno de vosotros pueda abordar proyectos similares, también dispondremos de unos 15 minutos finales a las preguntas y respuestas.
 Aquí la descripción de los webinars y el links para que podáis inscribiros.
   * ﻿ **Migraciones de Websites - 26 January 2010 – 16:00pm CEST** **** **** Aprenda a definir una estrategia de migración de su Website (ASP, JSP o PHP, por ejemplo) a Alfresco WCM sin perder un segundo de servicio, manteniendo e incluso mejorando los niveles de calidad y performance. Finalmente, mostraremos cómo incorporar a su Website elementos Web2.0. ([Para más información y registrarse a este webinar](http://www.alfresco.com/es/about/events/2010/01/migracion_de_websites/))

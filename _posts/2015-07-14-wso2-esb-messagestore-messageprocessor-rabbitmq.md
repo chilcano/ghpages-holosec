@@ -13,6 +13,7 @@ In this [post](https://holisticsecurity.wordpress.com/2015/01/25/evaluacion-nive
  _WSO2 MessageStore and MessageProcessor approach for resilient messaging_
 
 <!-- more -->
+
 I ask myself, why is not RabbitMQ integrated to WSO2 ESB?. The answer is simple, RabbitMQ is a Message Broker with strong focus in [AMQP (Advanced Message Queuing Protocol)](https://www.amqp.org) and not in the JMS (Java Messaging Service). JMS as a reference protocol in the Message Brokers is not "complete"; AMQP tries to cover that gap what JMS does not cover. Also, RabbitMQ, by default uses AMQP 0-9-1 and not the latest version AMQP 1.0. Yes, there is an experimental [AMQP 1.0 pluging](http://www.rabbitmq.com/plugins.html) for RabbitMQ and is not suitable for production, also I do not see that it will change soon.
 There is an Axis2 Transport Module available what implements the AMQP 0-9-1 protocol for RabbitMQ. This is a "beta" version because is not included as an official Axis2 Transport Module for WSO2 ESB 4.8.1.
 But, if you want to install and use it, I highly recommend the serie of post about of Axis2 AMQP Transport published in the Luis Peñarrubia's blog. In that blog is explained how to patch, deploy and use the Axis2 AMQP transport module in your WSO2 ESB 4.8.1:

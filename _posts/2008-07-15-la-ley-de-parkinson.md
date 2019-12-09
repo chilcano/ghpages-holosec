@@ -15,6 +15,7 @@ Os invito a leerlo: [¿Te falta tiempo? ¿o es que no tienes claras tus priorida
 Esto es en cierta forma "normal", considerando como normal cualquier comportamiento pensado o no por un ser humano. La Ley de Parkinson explica este comportamiento "normal".  
 
 <!-- more -->
+
 > Las tres leyes fundamentales de Parkinson son:  
 > 1º. "El trabajo crece hasta llenar el tiempo de que se dispone para su realización".  
 > 2º. "Los gastos aumentan hasta cubrir todos los ingresos".  

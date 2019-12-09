@@ -12,6 +12,7 @@ The [Sample 100: Using WS-Security for Outgoing Messages](https://docs.wso2.com/
 ![WSO2 ESB 4.8.1 - Sample 100: Using WS-Security for Outgoing Messages]({{ site.baseurl }}/assets/wso2esb-sample100-secure-backend-axis2-01-architecture.png)
 
 <!-- more -->
+
 Anyway, here I will explain how to fix it and I will review each followed step to get it.
 
 ## I. The problem.

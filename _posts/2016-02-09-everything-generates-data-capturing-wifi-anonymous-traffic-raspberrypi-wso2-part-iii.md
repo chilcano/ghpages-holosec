@@ -13,6 +13,7 @@ After configuring the Raspberry Pi in monitor WIFI/802.11 mode ([first blog post
  _Architecture IoT/BigData – Visualizing WIFI traffic in realtime from a WSO2 BAM Dashboard_
 
 <!-- more -->
+
 Well, to make it easier, I created a Github repository ([wso2bam-wifi-thrift-cassandra-poc](https://github.com/chilcano/wso2bam-wifi-thrift-cassandra-poc)) where I copied a number of scripts required for this third blog post. I encourage you to download and follow the instructions below.  
 This repository ([wso2bam-wifi-thrift-cassandra-poc](https://github.com/chilcano/wso2bam-wifi-thrift-cassandra-poc)) contains:
   * A toolbox to view incoming Kismet traffic (802.11) in realtime valid for WSO2 BAM 2.5.0.

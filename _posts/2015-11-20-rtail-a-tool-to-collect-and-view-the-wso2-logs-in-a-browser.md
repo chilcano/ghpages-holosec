@@ -13,6 +13,7 @@ From rTail Github page <https://github.com/kilianc/rtail>:
 
 <!-- more -->
 
+
 ## Why logging is important in Microservices?
 If you think that implement (Micro)services is to put your services in containers and forgot of them, then you are wrong. You have to monitor the performance and health at Application and System level.
 There are many tools out there, opensource, commercial, on-cloud, such as log.io, ELK, Clarity, Tailon, frontail, etc. In my opinion, for development and a VM the most simple, fresh and lightweight tool is rTail.

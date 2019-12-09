@@ -283,6 +283,7 @@ To do this you have to create/modify the Java code (CasAuthenticationFilter.java
 </filter>  
 
 <!-- End new CAS filter -->
+
 <filter>  
 <filter-name>Global Authentication Filter</filter-name>  
 <description>Authentication filter mapped to all authenticated URLs. Mainly for SSO support</description>  
@@ -421,6 +422,7 @@ To do this you have to create/modify the Java code (CasAuthenticationFilter.java
 </filter-mapping>  
 
 <!-- ******* End of CAS urls -->
+
 <filter-mapping>  
 <filter-name>Global Localization Filter</filter-name>  
 <url-pattern>/*</url-pattern>  
@@ -438,6 +440,7 @@ To do this you have to create/modify the Java code (CasAuthenticationFilter.java
 <filter-name>Authentication Filter</filter-name>  
 <url-pattern>/faces/*</url-pattern>  
 </filter-mapping-->
+
 <filter-mapping>  
 <filter-name>WebDAV Authentication Filter</filter-name>  
 <url-pattern>/webdav/*</url-pattern>  

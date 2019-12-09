@@ -19,6 +19,7 @@ Now, in this blog post I'm going to explain how to run two Docker Containers, th
 ![802.11 traffic capture PoC - Docker Compose]({{ site.baseurl }}/assets/chilcano-wso2bam-cep-siddhi-wifi-kismet-thrift-cassandra-docker-compose.png)
 
 <!-- more -->
+
 ```sh  
 // clone 2 repositories  
 $ git clone https://github.com/chilcano/docker-wso2bam-kismet-poc.git  

@@ -18,6 +18,7 @@ Initially to use WSO2 ESB and Apache ActiveMQ was the de-facto solution to imple
   * High availability & scalability
 
 <!-- more -->
+
 Well, WSO2 Message Broker is perfect for BigData or IoT Projects, but what if we want implement and solve the same requirements but without losing functionalities. Then, What Message Broker or MOM tool should I use?.
 Apache ActiveMQ is a good alternative, JBoss HornetQ, RabbitMQ and other. Some time ago I wrote about of this, here the blog post: <https://holisticsecurity.wordpress.com/2014/03/07/message-brokering-y-recoleccion-datos-big-data-wso2>
 So what alternatives do we have to WSO2 Message Broker comparable to robustness, scalability, interoperability, lightweight without losing functionalities?. The answer is Apache Qpid. Now we will explain why.
@@ -104,6 +105,7 @@ _Enabling JMS Transport_
 
 <!-- ================================================= -->
 
+
 [...]
 
 <!-- SAP Transport Listeners -->  
@@ -112,7 +114,9 @@ _Enabling JMS Transport_
 
 <!-- -->
 
+
 <!-- **** JMS Transport LISTENER support with Apache Qpid **** -->
+
 org.apache.qpid.jndi.PropertiesFileInitialContextFactory  
 repository/conf/jndi.properties  
 TopicConnectionFactory  
@@ -132,6 +136,7 @@ queue
 
 <!-- ================================================= -->
 
+
 [...]
 
 <!-- SAP Transport Senders -->  
@@ -140,13 +145,16 @@ queue
 
 <!-- -->
 
+
 <!-- **** JMS Transport SENDER support with Apache Qpid **** -->
+
 
 <!-- ================================================= -->  
 
 <!-- Global Engaged Modules -->  
 
 <!-- ================================================= -->
+
 
 [...]  
 ```

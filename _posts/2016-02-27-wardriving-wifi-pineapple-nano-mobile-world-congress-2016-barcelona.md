@@ -15,6 +15,7 @@ The idea is to do a quick wardriving around of the [Mobile World Congress at Bar
 [![The arsenal at Mobile World Congress 2016 Barcelona - Wardriving with WIFI Pineapple Nano, Android & Kismet]({{ site.baseurl }}/assets/chilcano-00-android-gps-kismet-pineapple-adb.png)](http://holisticsecurity.io/2016/02/27/wardriving-wifi-pineapple-nano-mobile-world-congress-2016-barcelona/)
 
 <!-- more -->
+
 At the end, after wardriving, you will get the following files:
   * xyz.alert
   * xyz.gpsxml

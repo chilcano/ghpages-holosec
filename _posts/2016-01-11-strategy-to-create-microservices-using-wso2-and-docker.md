@@ -13,6 +13,7 @@ The last year I was working in a big UK's project where I had to help in creatio
 
 <!-- more -->
 
+
 ## Microservice Infrastructure
 Well, before stating you should choose your preferred Products/Frameworks/Stacks/PaaS and set up your Development and Production Environment Infrastructure. Actually there are a few good Products/Frameworks/Stacks/PaaS ready to create and manage the Microservice Lifecycle such as:
   1. Dropwizard (http://www.dropwizard.io)

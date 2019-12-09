@@ -15,6 +15,7 @@ The log event management is a task very important when working with (Micro)servi
 ![Kibana - Viewing WSO2 and Wiremock raw log events]({{ site.baseurl }}/assets/blog-chilcano-logs-wso2-docker-elk-rtail-0-architecture.png)Collecting WSO2 and Wiremock log events with ELK and rTail
 
 <!-- more -->
+
 You should be agile, for this reason, [Elasticsearch-Logstash-Kibana](https://www.elastic.co) is the perfect Stack to do that in an agile way.  
 Really, there are many tools out there, opensource, commercial, on-cloud, such as log.io, Clarity, rTail, Tailon, frontail, etc. In my opinion, for a development environment, the most simple, fresh and lightweight tool is rTail (http://rtail.org), with rTail I can collect different log files, track and visualize them from a Browser in real time. rTail is very easy to use, just install NodeJS and deploy rTail application and you will be ready to send any type of traces to Browser directly avoiding store/persist logs, index and parse/filter them.  
 Well, this first blog post I will explain how to use ELK to collect, store and view the different log event of WSO2 ESB, API Manager, DSS, GREG and Wiremock.

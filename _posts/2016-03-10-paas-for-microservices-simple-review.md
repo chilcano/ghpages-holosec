@@ -19,6 +19,7 @@ Below some examples:
 \- Raspberry Pi: Micro Personal Computer (https://en.wikipedia.org/wiki/Raspberry_Pi)
 
 <!-- more -->
+
 Many people and many companies make big mistake when they are entirely focused on big goals. If you have a big goal, you probably spend a lot of time and effort on achieving it.
 Well, I will explain on this blog post How this simple concept is being applied to PaaS (Platform as a Service) today and will mention some opensource!.
 

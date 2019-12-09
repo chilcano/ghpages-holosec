@@ -12,6 +12,7 @@ Trailing and checking the performance and the health of (micro)services are impo
 ![rTail - Viewing WSO2 and Wiremock raw log events]({{ site.baseurl }}/assets/chilcano-logs-rtail-microservices-1-arch-rtail.png)rTail - Viewing WSO2 and Wiremock raw log events
 
 <!-- more -->
+
 With rTail I can collect different log files, track and visualize them from a Browser in **real time**. rTail is very easy to use, just install NodeJS and deploy rTail application and you will be ready to send any type of traces to Browser directly avoiding store/persist logs, index and parse/filter them.
 In this second blog post I will explain how to use rTail to view all streams/log-events from a Browser in real time. For that, we require:  
 * rTail Server Docker Container who will centralize and view all stream/log-events.  

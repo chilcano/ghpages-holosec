@@ -13,6 +13,7 @@ This WS layer enables to Business Application easier integration of content mana
 ![SoapUI Testing Alfresco Webservices]({{ site.baseurl }}/assets/smartbear-soapui-logo-300x140.png)
 
 <!-- more -->
+
  **Design of Test Master Plan: Define the scope**
 For testing purposes, I recommend that you first define the scope of testing:
   * What do you want to test?:

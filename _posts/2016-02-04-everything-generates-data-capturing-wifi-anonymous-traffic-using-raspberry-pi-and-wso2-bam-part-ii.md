@@ -21,6 +21,7 @@ Well, in this second blog post I will explain how to solve above difficults.
 
 <!-- more -->
 
+
 ## I.- Looking for the Streaming and/or Communication Protocol
 There are some stream and communication protocols and implementations
 Really, there are many libraries and streaming protocols out there to solve the above issues, but if you are looking for a protocol/library open source, lightweight, low memory footprint and developer friendly there are a few. They are:

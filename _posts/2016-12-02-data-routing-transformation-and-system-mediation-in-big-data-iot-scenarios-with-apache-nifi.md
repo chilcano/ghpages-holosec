@@ -14,6 +14,7 @@ Now, after several Big Data and Security projects, I can add to previous solutio
 
 <!-- more -->
 
+
 ## Using Elasticsearch, Logstash and Kibana
 Well, the first approach I considered was starting with [ELK stack](https://www.elastic.co) (Elasticsearch, Logstash and Kibana), that is the natural way to follow.
 

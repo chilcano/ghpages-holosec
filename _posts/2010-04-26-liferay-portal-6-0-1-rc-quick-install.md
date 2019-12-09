@@ -13,6 +13,7 @@ In the last two months I had to perform many Liferay instalations with different
 [![Liferay Portal 6.0.1 RC1]({{ site.baseurl }}/assets/liferay_601.png)](http://holisticsecurity.files.wordpress.com/2010/04/liferay_601.png) _Liferay Portal 6.0.1 RC1_  
 
 <!-- more -->
+
   1. Unzip **liferay-portal-XXX.zip** in **%LIFERAY_HOME%**
   2.   
 Change the default portsand avoid conflicts. Edit the file **%LIFERAY_HOME%\tomcat-YYY\conf\server.xml** and change the follow ports:

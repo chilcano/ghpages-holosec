@@ -16,6 +16,7 @@ Further details and samples about both Ansible Roles can be found at Ansible Gal
 Once presented both Ansible Roles, I'm going to explain how to automate the creation of several instances of Apache NiFi, secure and not secure.
 
 <!-- more -->
+
 See image below:  
 
 [![Automated provisioning Apache NiFi multi-node cluster with Ansible and Vagrant]({{ site.baseurl }}/assets/nifi-multi-node-ansible-automation.png)](https://holisticsecurity.files.wordpress.com/2017/05/nifi-multi-node-ansible-automation.png)

@@ -14,6 +14,7 @@ In other words, **Holism** is a property of any **System**. But what is **System
 Then, **Holism** could be used as an **approach** to understand the reality or abstraction. No?. Yes!.  
 
 <!-- more -->
+
 A map-printed is a **system** , in this case it represents a specific geography/location (reality). Its elements or parts are: paths, orientation, size/scale, blocks, streets, traffic signs, etc.  
 Commonly, this map-printed is called **model**.
 A PC is other example of system. In Software Engineering a Database Server is a set of elements as PC-server, DDBB engine, tables, rows, columns, metadata, data, constrains, etc. A representation of the Database Server could be a **Entity-Relation model**.

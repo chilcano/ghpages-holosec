@@ -17,6 +17,7 @@ With this post I will start a serie of articles explaining how to do "Data Inges
 ...everything, near to real-time ;)
 
 <!-- more -->
+
 And if you want to explore in deep other use cases, this article is a must read: (EDGE INTELLIGENCE FOR IOT WITH APACHE MINIFI)[https://hortonworks.com/blog/edge-intelligence-iot-apache-minifi/]
 In short, I will explain in this post the following:  
 \- Manage several devices in the `Edge` by using Ansible.  

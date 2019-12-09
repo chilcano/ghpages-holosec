@@ -12,6 +12,7 @@ We will explain how to install Liferay 6.0.5 CE WAR bundle in an existing Apache
 ![]({{ site.baseurl }}/assets/liferay605war_1login.png)  
 
 <!-- more -->
+
 1.- Download and install [Apache Tomcat 6.0.29](http://apache.rediris.es//tomcat/tomcat-6/v6.0.29/bin/apache-tomcat-6.0.29-windows-x86.zip) standard bundle (with Tomcat Manager included).
  ~~2.- Copy **%TOMCAT_HOME%/webapps/ROOT** folder to **%TOMCAT_HOME%/webapps/liferay605** folder.~~
 3.- Download **liferay-portal-6.0.5.war** and **liferay-portal-dependencies-6.0.5.zip**

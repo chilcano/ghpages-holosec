@@ -12,6 +12,7 @@ Mi primer contacto con Alfresco fue en el 2004, fue un [compañero de batallas](
 ![Soluciones verticales con Alfresco]({{ site.baseurl }}/assets/blog-20090807-ecm-usecases.png)  
 
 <!-- more -->
+
 La barrera de entrada a este negocio es muy baja, actualmente, hay muchos players, pequeñas integradoras open source, medianos y grandes integradores, hay firmas especializadas en formación de Alfresco, también [competidores de Alfresco](http://www.nuxeo.com/ "Nuxeo"), en fin, la tendencia de que Alfresco sea una "commodity" se acentúa, ante ello, Alfresco ECM ha evolucionado.
 Creo que una estrategia comercial en donde haya mucha formación-consultoría especializada permitirá hacer más negocio, creo que es simple, hay que capitalizar estas nuevas funcionalidades. Por ejemplo, he participado en junio y julio del 2009 en varios proyectos con Alfresco a través de formación-consultoría especializada, esto también lo podría hacer una consultora-integradora. Como indico, únicamente hay que capitalizar estas nuevas funcionalidades: Alfresco Surf, Share, Studio, Implementación de Sharepoint Protocol, framework de desarrollo al que llaman WebScripts (FreeMarker/JSON, RESTful, JavaScript), uso de Flex para RIA, CMIS para interoperabilidad, etc.
 Alfresco no sólo es un WCM/CMS clásico, es una plataforma donde se puede construir aplicaciones verticales pero siempre alrededor del "contenido" (en su máximo significado: asset?).
