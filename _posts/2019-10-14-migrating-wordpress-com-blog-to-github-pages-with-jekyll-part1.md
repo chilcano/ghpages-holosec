@@ -27,10 +27,13 @@ How to set up DNS records on gandi.net to use a custom domain on Github Pages
 
 This step must be executed once in the computer.
 First of all, install Ruby.
+
 ```sh
 $ sudo apt-get install ruby-full build-essential zlib1g-dev
 ```
+
 Now, configure Ruby for my Linux's user.
+
 ```sh
 $ echo '# Install Ruby Gems to ~/gems' >> ~/.bashrc
 $ echo 'export GEM_HOME="$HOME/gems"' >> ~/.bashrc
@@ -103,13 +106,14 @@ $ bundle exec ruby -r rubygems -e 'require "jekyll-import";
 ```sh
 $ bundle exec jekyll serve
 ```
+
 You will see that all posts were imported.
 ![Holistic Security About page](/assets/img/2019-10-14-wp-to-github-holosec-1st.png)
 
 ## References
 
-- [https://jekyllrb.com/docs/installation/ubuntu/](https://jekyllrb.com/docs/installation/ubuntu/)
-- [https://jekyllrb.com/tutorials/using-jekyll-with-bundler/](https://jekyllrb.com/tutorials/using-jekyll-with-bundler/)
-- [https://import.jekyllrb.com/docs/installation/](https://import.jekyllrb.com/docs/installation/)
-- [https://import.jekyllrb.com/docs/wordpressdotcom/](https://import.jekyllrb.com/docs/wordpressdotcom/)
+- [Jekyll, Installation on Ubuntu](https://jekyllrb.com/docs/installation/ubuntu/)
+- [Jekyll, Using with Bundler](https://jekyllrb.com/tutorials/using-jekyll-with-bundler/)
+- [Jekyll, Using the Importers Gems](https://import.jekyllrb.com/docs/installation/)
+- [WordPress.com Jekyll Importer](https://import.jekyllrb.com/docs/wordpressdotcom/)
 
