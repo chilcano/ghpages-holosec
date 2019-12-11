@@ -107,7 +107,7 @@ You can view these files here:
 * [`<GHPAGE_SITE_ROOT>/_layouts/post.html`](/_layouts/post.html)
 
 
-## Blog post pagination
+## Blog post Pagination and Excerpts
 
 By default Jekyll since version 3 includes the `jekyll-paginate` plugin in the `Gemfile` and in the `_config.yml` under the plugins section.
 But if you don't have it, add it with this command:
@@ -116,7 +116,7 @@ But if you don't have it, add it with this command:
 chilcano@inti:~/git-repos/ghpages-holosec$ bundle add jekyll-paginate
 ```
 
-Now to configure the pagination we have to edit the `` file adding this:
+To configure the Blog pagination and the showing excerpts we have to edit the `_config.yml` file which affect at global level.
 
 ```yaml
 ...
@@ -129,29 +129,40 @@ paginate_path: "/blog/pg:num"
 excerpt_separator: <!-- more -->
 ```
 
+Once done, we have to create the `<GHPAGE_SITE_ROOT>/blog/index.html` which it will render the Blog Posts list. I recommend to start with the code snippet available [here - https://jekyllrb.com/docs/pagination/](https://jekyllrb.com/docs/pagination/), or if you prefer you can use my modified `<GHPAGE_SITE_ROOT>/blog/index.html` [file](/blog/index.html).
+
+```yaml
+---
+layout: page
+title: Blog
+show_excerpts: true
+#excerpt_separator: <!-- more -->
+---
+
+{%- if site.posts.size > 0 -%}
+
+...
+```
+
 Where:
 
-- `paginate: 5` means 5 blog post for each page.
-- `paginate_path: "/blog/pg:num"` the path with which the messages will be viewed.
-- `show_excerpts: false` is xxxxxxxxxxxx
-- `excerpt_separator: <!-- more -->` xxxxxxxxxx 
+- `paginate: 5`: means 5 blog post for each page.
+- `paginate_path: "/blog/pg:num"`: the path to the file with which all Blog Posts will be rendered and viewed, also it will include the pagination controls.
+- `#show_excerpts: false`: inclusion of excerpts is disabled at global level, but enabled in `<GHPAGE_SITE_ROOT>/blog/index.html`.
+- `excerpt_separator: <!-- more -->`: excerpt deparator is enabled at global level, but disabled in `<GHPAGE_SITE_ROOT>/blog/index.html`.
 
 
 ## Converting HTML post files to Markdown using Python
 
-```yaml
-[...]
-plugins:
-  - jekyll-feed
-  - jekyll-paginate
-[...]
-paginate: 5
-paginate_path: "/blog/page:num/"
-```
+If you have gone through exportation and importation process you will have a Blog with some WordPress's HTML with unrecognizable tags and metadata, and missing links, that is normal and annoying too. For that, I looked out for some Ruby Gems or Python scripts to convert to Markdown, tweak the code and improve the readibility of new Markdown converted Posts.
+
+I've used the (`Jekyll WordPress.com Importer`)[https://import.jekyllrb.com/docs/wordpressdotcom/], it extract all posts from the WordPress Export XML File
+
+
 
 ## References
 
 - [Jekyll Layouts](https://jekyllrb.com/docs/layouts/)
 - [Jekyll Themes](https://jekyllrb.com/docs/themes/)
 - [Jekyll Pagination](https://jekyllrb.com/docs/pagination/)
-
+- [WordPress.com Jekyll Importer](https://import.jekyllrb.com/docs/wordpressdotcom/)
