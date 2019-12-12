@@ -22,7 +22,7 @@ Then, the best way to change the Look&Feel of your Github Page site is changing 
 * [Jekyll Layouts](https://jekyllrb.com/docs/layouts/)
 * [Jekyll Themes](https://jekyllrb.com/docs/themes/)
 
-So, in order to make changes in the Look&Feel I will override theme the Minima's Gem. First of all I'll locate where the Minima's Theme/Layout Gem is:
+So, in order to make changes in the Look&Feel I will override the Minima's Gem. First of all I'll locate where the Minima's Theme/Layout Gem is:
 
 ```sh
 chilcano@inti:~/git-repos/ghpages-holosec$ bundle show
@@ -101,9 +101,9 @@ For example:
 
 You can view these files here:
 
-* [`<GHPAGE_SITE_ROOT>/assets/main.scss`](/assets/main.scss)
-* [`<GHPAGE_SITE_ROOT>/_layouts/home.html`](/_layouts/home.html)
-* [`<GHPAGE_SITE_ROOT>/_layouts/post.html`](/_layouts/post.html)
+* `<GHPAGE_SITE_ROOT>/assets/main.scss`
+* `<GHPAGE_SITE_ROOT>/_layouts/home.html`
+* `<GHPAGE_SITE_ROOT>/_layouts/post.html`
 
 
 ## Blog post Pagination and Excerpts
