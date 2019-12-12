@@ -6,8 +6,7 @@ categories: misc cms github wordpress ruby jekyll migration
 tags: misc cms github wordpress ruby jekyll migration 
 permalink: "/2019/10/29/migrating-wordpress-com-blog-to-github-pages-with-jekyll-part2"
 ---
-In the first blog post I explained 
-In this blog post (Part 2) I will explain how to manage the look&feel, theme, layouts and pagination of a previous migrated WordPress.com's blog to GitHub Pages. 
+In the first blog post [I explained how to export your WordPress.com blog and use it to generate your static blog site to be hosted in GitHub Pages](/2019/10/14/migrating-wordpress-com-blog-to-github-pages-with-jekyll-part1 "Migrating WordPress.com's blog to GitHub Pages with Jekyll - Part 1"). Now, in this blog post (Part 2) I will explain how to manage the look&feel, theme, layouts and pagination of a previous migrated WordPress.com's blog to GitHub Pages. 
 Also I'll explain how to convert all HTML post files, obtained by using the `JekyllImport::Importers::WordpressDotCom`, to Markdown format by using a simple Python script.
 
 ![Migrating WordPress.com's blog to GitHub Pages by using Jekyll Part2](/assets/img/20191210-wp-github-jekyll-python-part2-1.png)
@@ -120,7 +119,7 @@ To configure the Blog pagination and the showing excerpts we have to edit the `_
 
 ```yaml
 ...
-
+...
 ## Pagination for blog posts: https://jekyllrb.com/docs/pagination/
 paginate: 5
 paginate_path: "/blog/pg:num"
@@ -138,9 +137,7 @@ title: Blog
 show_excerpts: true
 #excerpt_separator: <!-- more -->
 ---
-
-{%- if site.posts.size > 0 -%}
-
+...
 ...
 ```
 
@@ -156,12 +153,22 @@ Where:
 
 If you have gone through exportation and importation process you will have a Blog with some WordPress's HTML with unrecognizable tags and metadata, and missing links, that is normal and annoying too. For that, I looked out for some Ruby Gems or Python scripts to convert to Markdown, tweak the code and improve the readibility of new Markdown converted Posts.
 
-I've used the (`Jekyll WordPress.com Importer`)[https://import.jekyllrb.com/docs/wordpressdotcom/], it extract all posts from the WordPress Export XML File
+I've used the (`Jekyll WordPress.com Importer`)[https://import.jekyllrb.com/docs/wordpressdotcom/], it extracts all posts and download attachments from the WordPress Export XML File and place them into `<GHPAGE_SITE_ROOT>/_posts/` and `<GHPAGE_SITE_ROOT>/assets/` folders, once done I'll run the prepared Python script to:
 
+1. Convert HTML to Markdown.
+2. Update all Markdown files to Jekyll's Markdown with a Front Matter's header.
+3. Tweak all Markdown files to do compatible with Jekyll, it is removing no used tags, metadata, removing blank lines, adding break lines, etc.
 
+You can download the Python script here: [simple_html_wp_to_md.py](/wp_export/simple_html_wp_to_md.py).
+
+I had issues trying to improve the generated Markdown files, I used `BeautifulSoup` to manage XML, `html2text` to generate the Markdown and `re` massively to tweak the Markdown. If you know a best option, please, let me know it.
+
+That's all, if you find this post helpful, please, share it.
+Regards.
 
 ## References
 
+- [Migrating WordPress.com's blog to GitHub Pages with Jekyll - Part 1](/2019/10/14/migrating-wordpress-com-blog-to-github-pages-with-jekyll-part1)
 - [Jekyll Layouts](https://jekyllrb.com/docs/layouts/)
 - [Jekyll Themes](https://jekyllrb.com/docs/themes/)
 - [Jekyll Pagination](https://jekyllrb.com/docs/pagination/)
