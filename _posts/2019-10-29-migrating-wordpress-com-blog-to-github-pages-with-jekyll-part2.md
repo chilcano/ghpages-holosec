@@ -1,10 +1,10 @@
 ---
 layout: post
 title:  "Migrating WordPress.com's blog to GitHub Pages with Jekyll - Part 2"
-date:   2019-12-12 10:00:00 +0100
+date:   2019-12-10 10:00:00 +0100
 categories: misc cms 
 tags: github wordpress jekyll migration python
-permalink: "/2019/12/12/migrating-wordpress-com-blog-to-github-pages-with-jekyll-part2"
+permalink: "/2019/12/10/migrating-wordpress-com-blog-to-github-pages-with-jekyll-part2"
 ---
 In the first blog post [I explained how to export your WordPress.com blog and use it to generate your static blog site to be hosted in GitHub Pages](/2019/10/14/migrating-wordpress-com-blog-to-github-pages-with-jekyll-part1 "Migrating WordPress.com's blog to GitHub Pages with Jekyll - Part 1"). Now, in this blog post (Part 2) I will explain how to manage the look&feel, theme, layouts and pagination of a previous migrated WordPress.com's blog to GitHub Pages. 
 Also I'll explain how to convert all HTML post files, obtained by using the `JekyllImport::Importers::WordpressDotCom`, to Markdown format by using a simple Python script.
