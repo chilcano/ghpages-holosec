@@ -17,13 +17,13 @@
  7. WordPress will then import each of the posts, pages, comments, categories, etc.
     contained in this file into your site.
 -->
-<!-- generator="WordPress.com" created="2019-12-13 10:34"-->
+<!-- generator="WordPress.com" created="2019-12-13 15:18"-->
 <rss version="2.0" xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:wp="http://wordpress.org/export/1.2/">
   <channel>
 <title>Holistic Security</title>
 <link>https://holisticsecurity.wordpress.com</link>
 <description>Open Source, Security, BigData, DevOps in SDLC and Cloud</description>
-<pubDate>Fri, 13 Dec 2019 10:34:46 +0000</pubDate>
+<pubDate>Fri, 13 Dec 2019 15:18:56 +0000</pubDate>
 <language>en</language>
 <wp:wxr_version>1.2</wp:wxr_version>
 <wp:base_site_url>http://wordpress.com/</wp:base_site_url>
@@ -35471,13 +35471,9 @@ I'm going to use Raspbian Jessie Lite 2017-01-11 (http://director.downloads.rasp
 
 [code lang=text]
 $ diskutil list
-
 $ diskutil unmountDisk /dev/disk3
-
 $ sudo dd bs=1m if=2017-01-11-raspbian-jessie-lite.img of=/dev/rdisk3
-
 $ touch /Volumes/boot/ssh
-
 $ diskutil unmountDisk /dev/disk3
 [/code]
 
@@ -35540,21 +35536,25 @@ With this information (MAC and IP addresses) I'm ready to start with Ansible to 
 <h3>1.3. Initial configuration and provision for all Raspberry Pi through Ansible.</h3>
 
 To do the initial configuration in all Raspberry Pis I've used the next:
-- The <a href="https://github.com/geerlingguy/raspberry-pi-dramble">Raspberry Pi Dramble Ansible Git repository</a>. Although these Ansible Playbooks are to provision an Apache HTTPd, Drupal, MySQL Cluster, our intention is to use it initially to manage the Raspberry Pi cluster at infrastructure level.
-- The <a href="https://github.com/mikolak-net/ansible-raspi-config">mikolak.raspi-config</a> Ansible Role to configure each Raspberry Pi like if used <a href="https://www.raspberrypi.org/documentation/configuration/raspi-config.md">raspi-config</a> tool.
+
+<ul>
+<li>The <a href="https://github.com/geerlingguy/raspberry-pi-dramble">Raspberry Pi Dramble Ansible Git repository</a>. Although these Ansible Playbooks are to provision an Apache HTTPd, Drupal, MySQL Cluster, our intention is to use it initially to manage the Raspberry Pi cluster at infrastructure level.</li>
+<li>The <a href="https://github.com/mikolak-net/ansible-raspi-config">mikolak.raspi-config</a> Ansible Role to configure each Raspberry Pi like if used <a href="https://www.raspberrypi.org/documentation/configuration/raspi-config.md">raspi-config</a> tool.  </li>
+</ul>
 
 That means:
 
 <ul>
-<li>Resize SD, update Raspbian and manage shutdown and reboot operations.</li>
-<li>Set a proper Hostname, configure Network interfaces (eth0 and wlan0), DNS, etc.</li>
+<li>Resize SD, update Raspbian and manage shutdown and reboot operations. </li>
+<li>Set a proper Hostname, configure Network interfaces (eth0 and wlan0), DNS, etc.  </li>
 </ul>
 
 I've updated and extended the <a href="https://github.com/geerlingguy/raspberry-pi-dramble">Raspberry Pi Dramble Ansible Git repository</a> to reset the Network configuration and to build from source code, to install and to start Kismet (http://www.kismetwireless.net).
 
-You can download my Ansible Playbooks from here: https://github.com/chilcano/ansible-raspberrypi-wardriving
+You can download my Ansible Playbooks from here: <a href="https://github.com/chilcano/ansible-raspberrypi-wardriving">https://github.com/chilcano/ansible-raspberrypi-wardriving
+</a>
 
-[code lang=text]
+[code lang=sh]
 $ git clone https://github.com/chilcano/ansible-raspberrypi-wardriving
 
 $ cd ansible-raspberrypi-wardriving
@@ -35562,7 +35562,7 @@ $ cd ansible-raspberrypi-wardriving
 
 Now update <code>networking/inventory</code>. You will need to use all MAC Addresses and IP assigned to each Raspberry Pi collected in previous step. The final file look like:
 
-[code lang=text]
+[code lang=sh]
 $ nano setup/networking/inventory
 
 [pis]
@@ -35579,7 +35579,7 @@ path_to_ssh_key=/Users/Chilcano/.ssh/id_rsa.pub
 
 And update <code>networking/vars.yml</code>.
 
-[code lang=text]
+[code lang=sh]
 $ nano setup/networking/vars.yml
 
 ---
@@ -35614,9 +35614,8 @@ rpi_nic_static:
 
 Finally, It is time to run the Ansible Playbook to provision the initial configuration.
 
-[code lang=text]
+[code lang=sh]
 $ cd setup/networking
-
 $ ansible-playbook -i inventory main.yml -k
 
 SSH password:
@@ -35709,7 +35708,7 @@ PLAY RECAP *********************************************************************
 The above result means you have connected to each Raspberry Pi and a proper Hostname based on each MAC Address have been assigned successfully.
 First of all, I will check that using Ansible.
 
-[code lang=text]
+[code lang=sh]
 $ cd ansible-raspberrypi-wardriving/setup/networking
 
 $ ansible pis -i inventory -m ping -k
@@ -35735,7 +35734,7 @@ SSH password:
 
 Now, you can use SSH to connect to all Raspberry Pi and check the hostname assigned.
 
-[code lang=text]
+[code lang=sh]
 $ ssh picuy@192.168.0.17
 picuy@192.168.0.17&#039;s password:
 
@@ -35791,25 +35790,21 @@ Swap:           99          0         99
 
 [code lang=text]
 $ ansible pis -i inventory -a &quot;cat /etc/hostname&quot; -k
-
 $ ansible pis -i inventory -a &quot;cat /etc/hosts&quot; -k
-
 $ ansible pis -i inventory -a &quot;ping -c 2 pi17.intix.info&quot; -k
-
 $ ansible pis -i inventory -a &quot;ping -c 3 holisticsecurity.io&quot; -k
-
 $ ansible pis -i inventory -a &quot;df -h&quot; -k
 [/code]
 
 But, if some command require <code>sudo</code> you can provide it using <code>-s</code> flag, although it is deprecated, it is still valid.
 
-[code lang=text]
+[code lang=sh]
 $ ansible pis -i inventory -a &quot;ifconfig wlan0&quot; -s -k
 [/code]
 
 ...or rebooting all Raspberry Pi.
 
-[code lang=text]
+[code lang=sh]
 $ ansible pis -i inventory -a &quot;shutdown -r now&quot; -s -k
 
 SSH password:
@@ -35829,9 +35824,9 @@ If you try to connect to one Raspberry Pi and the SSH connection is taking a few
 Then, let's go to check the network configuration, basically you have to check these files in each Raspberry Pi:
 
 <ul>
-<li>/etc/dhcpcd.conf</li>
-<li>/etc/hosts</li>
-<li>/etc/network/interfaces</li>
+<li><code>/etc/dhcpcd.conf</code>.</li>
+<li><code>/etc/hosts</code>.</li>
+<li><code>/etc/network/interfaces</code>.</li>
 </ul>
 
 I've updated above cloned Ansible scripts for you with the right configuration. Basically I have updated the Ansible templates (Jinja2) to do:
@@ -35845,7 +35840,7 @@ Also I have updated the <code>setup/networking/main.yml</code> Ansible Playbook 
 
 Again, run the updated Ansible Playbook and verify if the changes with the right gateway, DNS, etc. were applied.
 
-[code lang=text]
+[code lang=sh]
 $ ansible-playbook -i inventory main.yml -k
 [/code]
 
@@ -35856,7 +35851,7 @@ Well, now I'm going to use it. Just update <code>setup\networking\vars.yml</code
 
 Run <code>fing</code> to get all IP addresses re-assigned to all Raspberry Pis and update the <code>setup\networking\inventory</code> and provision your new configuration.
 
-[code lang=text]
+[code lang=sh]
 $ ansible-playbook -i inventory main.yml -k
 [/code]
 
@@ -35873,7 +35868,7 @@ I'm going to create an Ansible Playbooks to:
 To do that I will follow my previous blog posts (<a href="https://holisticsecurity.io/2016/02/02/everything-generates-data-capturing-wifi-anonymous-traffic-raspberrypi-wso2-part-i">Capturing WIFI anonymous traffic using Raspberry Pi and WSO2 BAM - Part I</a>) where I explained step by step all commands to be performed in order to run Kismet on Raspberry Pi.
 The result final is a set of Ansible Playbooks located under <code>ansible-raspberrypi-wardriving/playbooks/kismet</code> in the Git repo (https://github.com/chilcano/ansible-raspberrypi-wardriving), and they are:
 
-[code lang=text]
+[code lang=sh]
 $ tree ansible-raspberrypi-wardriving/playbooks/kismet
 
 ansible-raspberrypi-wardriving/playbooks/kismet
@@ -35899,17 +35894,20 @@ ansible-raspberrypi-wardriving/playbooks/kismet
 [/code]
 
 Now, to run these Ansible Playbooks I have to follow the same steps above explained:
-- Get all IP addresses and MAC addresses.
-- Automatic assignation of IP addresses (DHCP).
-- Assignation of a proper hostname.
-- Change default username and password.
+
+<ul>
+<li>Get all IP addresses and MAC addresses.</li>
+<li>Automatic assignation of IP addresses (DHCP).</li>
+<li>Assignation of a proper hostname.</li>
+<li>Change default username and password.</li>
+</ul>
 
 To do that, just follow the steps in section <code>1.3. Initial configuration and provision for all Raspberry Pi through Ansible</code> of this post.
 After that, You have to update your <code>ansible-raspberrypi-wardriving/inventory</code> and <code>ansible-raspberrypi-wardriving/playbooks/kismet/vars.yml</code> files.
 
 Now, You are ready to run these Kismet Ansible Playbooks, then let's do it:
 
-[code lang=text]
+[code lang=sh]
 $ cd ansible-raspberrypi-wardriving
 $ ansible-playbook -i inventory main_kismet_install.yml -k
 
@@ -35951,7 +35949,7 @@ PLAY RECAP *********************************************************************
 
 And if you connect to your Raspberry Pi through SSH you can the status of Kismet there:
 
-[code lang=text]
+[code lang=sh]
 $ ssh picuy@192.168.0.19
 
 ...
@@ -35983,7 +35981,7 @@ If you have not read my <a href="https://holisticsecurity.io/2016/12/02/data-rou
 Well, the scenario where I want to use Apache NiFi and Apache MiNiFi is in IoT, Security/Privacy space and the best way to validate this approach is using Ansible to do automation <code>massively</code> (Raspberry Pi in the <code>edge</code>) without pain.
 I've created Ansible Playbooks to manage the installation and configuration of Apache MiNiFi in Raspberry Pi, they are located under <code>ansible-raspberrypi-wardriving/playbooks/minifi</code> in the Git repo (https://github.com/chilcano/ansible-raspberrypi-wardriving), and they are:
 
-[code lang=text]
+[code lang=sh]
 $ tree ansible-raspberrypi-wardriving/playbooks/minifi
 
 ansible-raspberrypi-wardriving/playbooks/minifi
@@ -36004,7 +36002,7 @@ The same Ansible Playbooks should work in other devices too.
 I'm going to repeat the same previous steps before running MiNiFi Ansible Playbooks. Check the section <code>2. Massive provisioning of Kismet through Ansible on multiples Raspberry Pi.</code> for further details.
 Now, You are ready to run these MiNiFi Ansible Playbooks, then let's do it:
 
-[code lang=text]
+[code lang=sh]
 $ cd ansible-raspberrypi-wardriving
 
 $ ansible-playbook -i inventory main_minifi_install.yml -k
@@ -36012,7 +36010,7 @@ $ ansible-playbook -i inventory main_minifi_install.yml -k
 
 And if you get the below message, then you have already provisioned successfully Apache MiNiFi in all Raspberry Pi configured in your <code>ansible-raspberrypi-wardriving/inventory</code>.
 
-[code lang=text]
+[code lang=sh]
 ...
 ...
 TASK [debug] *******************************************************************
@@ -36026,7 +36024,7 @@ PLAY RECAP *********************************************************************
 
 Remember that you can execute the command remotely via Ansible, commands like <code>ping</code>, <code>shutdown</code>, <code>free</code>:
 
-[code lang=text]
+[code lang=sh]
 $ cd ansible-raspberrypi-wardriving/setup/networking
 
 $ ansible pis -i inventory -m ping -k
@@ -36065,7 +36063,7 @@ This results means:
 
 And if you want further details about the Apache MiNiFi running in RPi <code>192.168.0.18</code>, just execute this command:
 
-[code lang=bash]
+[code lang=sh]
 $ ansible 192.168.0.18 -i inventory -a &quot;systemctl status minifipi&quot; -k
 
 SSH password:
@@ -36083,31 +36081,28 @@ SSH password:
 
 <h2>4. Conclusions.</h2>
 
-<ul>
+<ol>
 <li>You can see the really value of using Ansible when you are provisioning multiple devices. Just execute Ansible command to start performing Linux command and create your own Ansible Playbooks to provision software like Kismet and MiNiFi.</li>
 <li>Remember I never provisioned / installed an Ansible agent in the Device side, just download my Playbooks in my PC and ready !.</li>
 <li>For other side you can tweak your Playbooks in order to deploy your services with restricted Linux privileged users. That is required when you are doing Automation in a constrained / restricted devices or VMs.</li>
-<li>The Kismet and MiNiFi Ansible Playbooks are ready to be used in a PoC, but I don't recommend to use it in PROD because they need to be improved. For example I have to:
+<li>The Kismet and MiNiFi Ansible Playbooks are ready to be used in a PoC, but I don't recommend to use it in PROD because they need to be improved. For example I have to:<br />
 
 <ul>
 <li>Implement them as Ansible Roles.</li>
 <li>Implement Ansible Tasks to start Kismet and MiNiFi as <code>systemd</code> services with restricted Linux user, no <code>root</code>.</li>
 <li>Implement Ansible Tasks to read and send in batch the logs or event files for Kismet and MiNiFi to external system as Syslog Server or Solr or Elasticsearch.</li>
 </ul></li>
-</ul>
+</ol>
 
 In the next blog post I will explain how to integrate/connect each Raspberry Pi (Kismet and MiNiFi) to a centralized Apache NiFi by using Ansible, of course!.
 
 <h2>5. References.</h2>
 
-Using Ansible with Raspberry Pi cluster.
-http://www.pidramble.com
-
-Setup a Headless Raspberry Pi with Raspbian Jessie on OS X.
-http://blog.smalleycreative.com/linux/setup-a-headless-raspberry-pi-with-raspbian-jessie-on-os-x/
-
-macOS Sierra SSH “Permission Denied”.
-https://rolfje.wordpress.com/2016/11/12/macos-sierra-ssh-permission-denied/]]></content:encoded>
+<ul>
+<li><a href="http://www.pidramble.com">Using Ansible with Raspberry Pi cluster</a></li>
+<li><a href="http://blog.smalleycreative.com/linux/setup-a-headless-raspberry-pi-with-raspbian-jessie-on-os-x/">Setup a Headless Raspberry Pi with Raspbian Jessie on OS X</a></li>
+<li><a href="https://rolfje.wordpress.com/2016/11/12/macos-sierra-ssh-permission-denied/">macOS Sierra SSH “Permission Denied”</a></li>
+</ul>]]></content:encoded>
   <excerpt:encoded><![CDATA[]]></excerpt:encoded>
   <wp:post_id>1908</wp:post_id>
   <wp:post_date>2017-03-20 22:35:53</wp:post_date>
@@ -36258,6 +36253,14 @@ https://rolfje.wordpress.com/2016/11/12/macos-sierra-ssh-permission-denied/]]></
     <wp:meta_key>_oembed_c3db3c042f19a75ae1e8bd40b08c455d</wp:meta_key>
     <wp:meta_value><![CDATA[{{unknown}}]]></wp:meta_value>
   </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_pingme</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
+  <wp:postmeta>
+    <wp:meta_key>_encloseme</wp:meta_key>
+    <wp:meta_value><![CDATA[1]]></wp:meta_value>
+  </wp:postmeta>
   <wp:comment>
     <wp:comment_id>2980</wp:comment_id>
     <wp:comment_author><![CDATA[Last week in Stream Processing &amp; Analytics – 27.03.2017 | Enjoy IT - SOA, Java, Event-Driven Computing and Integration]]></wp:comment_author>
@@ -36334,7 +36337,7 @@ https://rolfje.wordpress.com/2016/11/12/macos-sierra-ssh-permission-denied/]]></
 
 Then, I've refactored all Ansible Tasks and I've created 3 Ansible Roles. They are in Ansible Galaxy and are:
 
-<strong>Ansible Role Kismet RPi Build (https://galaxy.ansible.com/chilcano/kismet-rpi-build)</strong>
+<strong>Ansible Role Kismet RPi Build <a href="https://galaxy.ansible.com/chilcano/kismet-rpi-build">https://galaxy.ansible.com/chilcano/kismet-rpi-build</a></strong>
 
 An Ansible Role that builds / compiles from scratch and packs (Debian/Raspbian binary) Kismet on a Raspberry Pi. This Role provides the following features:
 
@@ -36344,7 +36347,7 @@ An Ansible Role that builds / compiles from scratch and packs (Debian/Raspbian b
 <li>Generate a Kismet Debian/Raspbian package suitable for Raspberry Pi (ARMv7).</li>
 </ul>
 
-<strong>Ansible Role Kismet RPi Wardriving (https://galaxy.ansible.com/chilcano/kismet-rpi-wardriving)</strong>
+<strong>Ansible Role Kismet RPi Wardriving <a href="https://galaxy.ansible.com/chilcano/kismet-rpi-wardriving">https://galaxy.ansible.com/chilcano/kismet-rpi-wardriving</a></strong>
 
 An Ansible Role that installs, configures and runs Kismet on a Raspberry Pi. This Role provides the following features:
 
@@ -36356,7 +36359,7 @@ An Ansible Role that installs, configures and runs Kismet on a Raspberry Pi. Thi
 <li>Run Kismet as a <code>systemd</code> service.</li>
 </ul>
 
-<strong>Ansible Role Apache MiNiFi (https://galaxy.ansible.com/chilcano/apache-minifi)</strong>
+<strong>Ansible Role Apache MiNiFi <a href="https://galaxy.ansible.com/chilcano/apache-minifi">https://galaxy.ansible.com/chilcano/apache-minifi</a></strong>
 
 An Ansible Role that installs, configures and runs Apache MiNiFi in tiny devices like a Raspberry Pi, although you can use it on any distro. This Role provides the following features:
 
@@ -36372,7 +36375,7 @@ Well, I've updated and deleted Ansible Tasks not used in the existing <a href="h
 
 Install all Ansible Roles needed as below or using <code>requirements.yml</code> file:
 
-[code lang=text]
+[code lang=sh]
 $ sudo ansible-galaxy install geerlingguy.apache
 $ sudo ansible-galaxy install chilcano.kismet-rpi-build
 $ sudo ansible-galaxy install chilcano.kismet-rpi-wardriving
@@ -36491,9 +36494,12 @@ Bye.]]></content:encoded>
   <description/>
   <content:encoded><![CDATA[I've created 2 Ansible Roles (<a href="https://galaxy.ansible.com/chilcano/apache-nifi">chilcano.apache-nifi</a> and <a href="https://galaxy.ansible.com/chilcano/apache-nifi-toolkit">chilcano.apache-nifi-toolkit</a>) to automate the creation of a multi-node and secure NiFi cluster. At the moment, the <a href="https://galaxy.ansible.com/chilcano/apache-nifi">chilcano.apache-nifi</a> Ansible Role doesn't implement <a href="https://nifi.apache.org/docs/nifi-docs/html/administration-guide.html#state_management">Cluster State coordination</a> through Apache ZooKeeper. It will be implemented in the next version of this Ansible Role. Also I've implemented only <a href="https://nifi.apache.org/docs/nifi-docs/html/administration-guide.html#tls-generation-toolkit">TLS Toolkit Standalone mode</a> in the <a href="https://galaxy.ansible.com/chilcano/apache-nifi-toolkit">chilcano.apache-nifi-toolkit</a> Ansible Role.
 
-Further details and samples about both Ansible Roles can be found at Ansible Galaxy:<br />
-*   <a href="https://galaxy.ansible.com/chilcano/apache-nifi-toolkit">chilcano.apache-nifi-toolkit</a>
-*   <a href="https://galaxy.ansible.com/chilcano/apache-nifi">chilcano.apache-nifi</a>
+Further details and samples about both Ansible Roles can be found at Ansible Galaxy:
+
+<ul>
+<li><a href="https://galaxy.ansible.com/chilcano/apache-nifi-toolkit">chilcano.apache-nifi-toolkit</a></li>
+<li><a href="https://galaxy.ansible.com/chilcano/apache-nifi">chilcano.apache-nifi</a>  </li>
+</ul>
 
 Once presented both Ansible Roles, I'm going to explain how to automate the creation of several instances of Apache NiFi, secure and not secure.
 
@@ -36568,7 +36574,7 @@ Open the URL (<code>http://nf1:8080/nifi</code>, <code>http://nf2:9443/nifi</cod
 <ol>
 <li>Improve the Ansible Role <code>chilcano.apache-nifi</code> to implement Cluster Status coordination through <code>Apache ZooKeeper</code>.</li>
 <li>Improve the Ansible Role <code>chilcano.apache-nifi-toolkit</code> to implement Client/Server mode.</li>
-<li>Deploy a sample DataFlow in NiFi.</li>
+<li>Deploy a sample DataFlow in NiFi.  </li>
 </ol>
 
 End.]]></content:encoded>

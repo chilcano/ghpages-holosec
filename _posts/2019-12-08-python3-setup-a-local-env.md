@@ -97,6 +97,6 @@ $ source myenv3/bin/activate
 
 ## References
 
-- https://www.digitalocean.com/community/tutorials/how-to-install-python-3-and-set-up-a-local-programming-environment-on-ubuntu-18-04
-- https://www.digitalocean.com/community/tutorials/how-to-import-modules-in-python-3 
-- https://help.dreamhost.com/hc/en-us/articles/215489338-Installing-and-using-virtualenv-with-Python-2
+- [https://www.digitalocean.com/community/tutorials/how-to-install-python-3-and-set-up-a-local-programming-environment-on-ubuntu-18-04](https://www.digitalocean.com/community/tutorials/how-to-install-python-3-and-set-up-a-local-programming-environment-on-ubuntu-18-04)
+- [https://www.digitalocean.com/community/tutorials/how-to-import-modules-in-python-3](https://www.digitalocean.com/community/tutorials/how-to-import-modules-in-python-3)
+- [https://help.dreamhost.com/hc/en-us/articles/215489338-Installing-and-using-virtualenv-with-Python-2](https://help.dreamhost.com/hc/en-us/articles/215489338-Installing-and-using-virtualenv-with-Python-2)
