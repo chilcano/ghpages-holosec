@@ -2,7 +2,7 @@
 layout:     post
 title:      'Squeezing the Sample 100 (Using WS-Security for Outgoing Messages) of WSO2 ESB 4.8.1'
 date:       2015-03-18 00:35:59
-categories: ['Security', 'SOA']
+categories: ['IAM', 'Security', 'SOA']
 tags:       ['WS-Policy', 'WS-Security', 'WSO2 ESB']
 status:     publish 
 permalink:  "/2015/03/18/squeezing-sample100-ws-security-outgoing-messages-wso2-esb-481/"

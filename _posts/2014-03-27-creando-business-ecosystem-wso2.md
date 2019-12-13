@@ -3,7 +3,7 @@ layout:     post
 title:      'Creando rápidamente un "Business Ecosystem" en las Organizaciones usando WSO2'
 date:       2014-03-27 18:21:30
 categories: ['BAM', 'BPM', 'CRM', 'ECM', 'ERP', 'SOA']
-tags:       ['BIZLIFE', 'Bonita', 'Liferay', 'Openbravo', 'OPENIA', 'WSO2']
+tags:       ['Bonita', 'Liferay', 'Openbravo', 'Openia', 'WSO2']
 status:     publish 
 permalink:  "/2014/03/27/creando-business-ecosystem-wso2/"
 ---

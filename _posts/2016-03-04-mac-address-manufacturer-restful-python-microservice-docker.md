@@ -2,8 +2,8 @@
 layout:     post
 title:      'A MAC Address Manufacturer DB and RESTful Python Microservice in a Docker Container'
 date:       2016-03-04 11:06:14
-categories: ['Big Data', 'Microservices', 'Security', 'SOA']
-tags:       ['Docker', 'Flask', 'Kismet', 'Python', 'WSO2 BAM']
+categories: ['BAM', 'Big Data', 'Microservices', 'Security', 'SOA']
+tags:       ['Docker', 'Flask', 'Kismet', 'Python', 'WSO2']
 status:     publish 
 permalink:  "/2016/03/04/mac-address-manufacturer-restful-python-microservice-docker/"
 ---

@@ -3,13 +3,13 @@ layout:     post
 title:      'BPM trend: ¿Agile BPM?'
 date:       2010-11-25 00:24:35
 categories: ['BPM']
-tags:       []
+tags:       ['Bonita', 'Intalio']
 status:     publish 
 permalink:  "/2010/11/25/bpm-trend-agile-bpm/"
 ---
 Marco Brambilla posted on his blog "[Working @ Web and Business Process Engineering](http://marcobrambi.blogspot.com/)" his view on[ history and trend of BPM](http://marcobrambi.blogspot.com/2010/10/bpm-history-in-one-picture.html) and I totally agree with it.
 
-[caption id="" align="alignnone" width="430" caption="BPM history in one picture"][![BPM history in one picture]({{ site.baseurl }}/assets/BPM_history.png)](http://marcobrambi.blogspot.com/2010/10/bpm-history-in-one-picture.html)[/caption]
+[caption id="" align="alignnone" width="430" caption="BPM history in one picture"][![BPM history in one picture]({{ site.baseurl }}/assets/e7ef8-bpm_history.png)](http://marcobrambi.blogspot.com/2010/10/bpm-history-in-one-picture.html)[/caption]
 Nowadays, companies want to develop business applications in an agile way (quickly and low cost), this does apply to any business applications and not only to BPM apps. This is called "rapid application development" (RAD) and in this escenario we should make use of 2 things mainly:
 1.  **Methodology** : Best practices for proper and quick implementation and applications.
 2.  **Tools** : a set of tools that support the "Software Development Life Cycle" (SDLC) over and obviously speeds up the entire production cycle.

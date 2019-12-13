@@ -2,8 +2,8 @@
 layout:     post
 title:      'Provisioning massively cross-compiled binaries to Raspberry Pi (arm) using Vagrant, VirtualBox, Ansible and Python'
 date:       2016-04-12 15:46:31
-categories: ['DevOps', 'IoT', 'Linux']
-tags:       ['Ansible', 'ARM', 'Python', 'Raspberry Pi', 'Vagrant']
+categories: ['DevOps', 'IoT', 'Open Source']
+tags:       ['Ansible', 'ARM', 'Linux', 'Python', 'Raspberry Pi', 'Vagrant']
 status:     publish 
 permalink:  "/2016/04/12/provisioning-massively-crosscompiled-bin-rpi-armv7-using-vagrant-virtualbox-ansible-python/"
 ---

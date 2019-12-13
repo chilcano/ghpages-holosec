@@ -3,7 +3,7 @@ layout:     post
 title:      'How to set back the clock of Mac OS X host in Virtual Box'
 date:       2011-02-20 10:38:18
 categories: ['Security']
-tags:       ['virtualbox']
+tags:       ['Virtual Box']
 status:     publish 
 permalink:  "/2011/02/20/offset-clock-virtualbox-macosx-winxp/"
 ---

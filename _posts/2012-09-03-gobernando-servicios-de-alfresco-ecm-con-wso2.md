@@ -3,7 +3,7 @@ layout:     post
 title:      'Gobernando Servicios de Alfresco ECM con WSO2'
 date:       2012-09-03 16:57:49
 categories: ['ECM', 'SOA']
-tags:       ['Alfresco', 'Gobierno', 'Registry', 'soapUI', 'WSDL', 'WSO2']
+tags:       ['Alfresco', 'soapUI', 'WSDL', 'WSO2']
 status:     publish 
 permalink:  "/2012/09/03/gobernando-servicios-de-alfresco-ecm-con-wso2/"
 ---

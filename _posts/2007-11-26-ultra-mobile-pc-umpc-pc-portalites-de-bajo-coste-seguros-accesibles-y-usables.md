@@ -2,8 +2,8 @@
 layout:     post
 title:      'Ultra-mobile PC (UMPC): PC Portálites de bajo-coste, seguros, accesibles y usables'
 date:       2007-11-26 18:02:56
-categories: ['Holism', 'Security', 'Usability']
-tags:       ['accesibility']
+categories: ['Security', 'System Thinking']
+tags:       ['Accesibility', 'Holism', 'Usability']
 status:     publish 
 permalink:  "/2007/11/26/ultra-mobile-pc-umpc-pc-portalites-de-bajo-coste-seguros-accesibles-y-usables/"
 ---

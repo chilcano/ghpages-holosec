@@ -2,8 +2,8 @@
 layout:     post
 title:      'Install Directory Server in CentOS 5.5'
 date:       2010-08-12 14:13:06
-categories: ['Linux', 'Portal', 'Security']
-tags:       ['LDAP']
+categories: ['Open Source', 'Portal', 'Security']
+tags:       ['LDAP', 'Linux']
 status:     publish 
 permalink:  "/2010/08/12/install-directory-server-in-centos-5-5/"
 ---

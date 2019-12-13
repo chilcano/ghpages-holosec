@@ -2,8 +2,8 @@
 layout:     post
 title:      'Creando túneles SSH a SSH Server, MySQL Server y a LDAP Server desde Windows y con Tunnelier'
 date:       2013-03-14 18:54:56
-categories: ['Linux', 'Security']
-tags:       ['LDAP', 'mysql', 'port forwarding', 'ssh', 'tunnel', 'windows']
+categories: ['Security']
+tags:       ['LDAP', 'Linux', 'MySQL', 'Port Forwarding', 'SSH', 'Windows']
 status:     publish 
 permalink:  "/2013/03/14/creando-tuneles-ssh-mysql-ldap-windows-tunnelier/"
 ---

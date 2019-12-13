@@ -2,8 +2,8 @@
 layout:     post
 title:      "Tomcat installation on VirtualBox's image of CentOS 5.5"
 date:       2010-08-13 09:41:05
-categories: ['Linux', 'Security']
-tags:       ['JAVA', 'tomcat']
+categories: ['Development', 'Open Source', 'Security']
+tags:       ['Java', 'Linux', 'Tomcat']
 status:     publish 
 permalink:  "/2010/08/13/tomcat-installation-on-virtualboxs-image-of-centos-5-5/"
 ---

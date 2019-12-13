@@ -2,8 +2,8 @@
 layout:     post
 title:      'Eclipse Helios in Mac OS X 10.6.6'
 date:       2011-03-12 11:41:25
-categories: ['Linux']
-tags:       []
+categories: ['Open Source']
+tags:       ['Eclipse IDE', 'Linux']
 status:     publish 
 permalink:  "/2011/03/12/eclipse-helios-macosx-1066/"
 ---

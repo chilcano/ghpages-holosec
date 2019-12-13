@@ -2,8 +2,8 @@
 layout:     post
 title:      'Open files in Ubuntu as ROOT from WinSCP remotely'
 date:       2012-09-03 12:29:55
-categories: ['Linux']
-tags:       []
+categories: ['Open Source']
+tags:       ['Linux']
 status:     publish 
 permalink:  "/2012/09/03/open-files-ubuntu-root-from-winscp-remotely/"
 ---

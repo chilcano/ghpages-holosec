@@ -3,7 +3,7 @@ layout:     post
 title:      'Everything generates data: Capturing WIFI anonymous traffic using Raspberry Pi and WSO2 BAM (Part III)'
 date:       2016-02-09 18:49:21
 categories: ['Big Data', 'IoT', 'Security']
-tags:       ['Apache Cassandra', 'CEP', 'Kismet', 'Privacy', 'Raspberry Pi']
+tags:       ['Apache Cassandra', 'Kismet', 'Privacy', 'Raspberry Pi']
 status:     publish 
 permalink:  "/2016/02/09/everything-generates-data-capturing-wifi-anonymous-traffic-raspberrypi-wso2-part-iii/"
 ---

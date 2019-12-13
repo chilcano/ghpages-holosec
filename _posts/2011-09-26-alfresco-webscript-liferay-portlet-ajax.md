@@ -2,15 +2,15 @@
 layout:     post
 title:      "Calling Alfresco's Webscripts from a Liferay Portlet using Ajax"
 date:       2011-09-26 11:42:59
-categories: ['ECM', 'Portal']
-tags:       ['ajax', 'Alfresco', 'jquery', 'jsr-286', 'Liferay', 'portlet', 'rest', 'serveresource', 'surf', 'webscript']
+categories: ['ECM', 'Micro Frontend', 'Microservices', 'Portal']
+tags:       ['Alfresco', 'Java Script', 'JSR-286', 'Liferay', 'Portlet']
 status:     publish 
 permalink:  "/2011/09/26/alfresco-webscript-liferay-portlet-ajax/"
 ---
 I think that we are reaching the maturity level in Liferay and Alfresco, because we can create applications on top of them of fastly and easy way.
 Alfresco ECM has functionalities exposed as a RESTful API, as know as Alfresco Webscripts, built on the basis of Spring Surf.  
 Liferay Portal has Liferay IDE based on Eclipse where we can create from scratch different types of Portlets. Also Liferay allows to include external libraries as jQuery, ExtJS, Vaadin, etc. that allows to develop highly customized portlets.
-Right now, when several people ask me how to integrate Alfresco into Liferay, after I ask them what does mean when you said *integrate*?. Well I say that implies several thing as:
+Right now, when several people ask me how to integrate Alfresco into Liferay, after I ask them what does mean when you said _integrate_?. Well I say that implies several thing as:
 Integration mean:
 1. User and roles, SSO ?
 2. Include Alfresco Explorer or Share as a Portlet?
@@ -33,8 +33,7 @@ This post explain how to do a portlet calling to Alfresco's Webscripts (REST URI
 6. jQuery version 1.6.3 added to new portlet
 
 ## Process
-
-1\. From Liferay IDE create a new Liferay Project that implement GenericPortlet as follow:
+1. From Liferay IDE create a new Liferay Project that implement GenericPortlet as follow:
 
 [caption id="" align="alignnone" width="322" caption="Liferay IDE - creating new Liferay Project (1/6)"][![Liferay IDE - creating new Liferay Project \(1/6\)]({{ site.baseurl }}/assets/ajaxalflfry_2newproj.png)](http://dl.dropbox.com/u/2961879/blog20110920_ajaxalfrescoliferayportlet/ajaxalflfry_2newproj.png)[/caption]
 
@@ -47,10 +46,10 @@ This post explain how to do a portlet calling to Alfresco's Webscripts (REST URI
 [caption id="" align="alignnone" width="368" caption="Liferay IDE - creating new Liferay Project (5/6)"][![Liferay IDE - creating new Liferay Project \(5/6\) ]({{ site.baseurl }}/assets/ajaxalflfry_6newproj.png)](http://dl.dropbox.com/u/2961879/blog20110920_ajaxalfrescoliferayportlet/ajaxalflfry_6newproj.png)[/caption]
 
 [caption id="" align="alignnone" width="344" caption="Liferay IDE - creating new Liferay Project (6/6)"][![Liferay IDE - creating new Liferay Project \(6/6\) ]({{ site.baseurl }}/assets/ajaxalflfry_7newproj.png)](http://dl.dropbox.com/u/2961879/blog20110920_ajaxalfrescoliferayportlet/ajaxalflfry_7newproj.png)[/caption]
-2\. The structure of Project in Liferay IDE will be as follow:
+1. The structure of Project in Liferay IDE will be as follow:
 
 [caption id="" align="alignnone" width="378" caption="Liferay IDE - folder structure of new project"][![Liferay IDE - folder structure of new project]({{ site.baseurl }}/assets/ajaxalflfry_8structureproj.png)](http://dl.dropbox.com/u/2961879/blog20110920_ajaxalfrescoliferayportlet/ajaxalflfry_8structureproj.png)[/caption]
-3\. Add code in view.jsp to call serverResource method and to do ajax call to Alfresco. Also, in view.jsp you will add JavaScript code (jQuery) for parsing HTML/XML ajax responses.
+1. Add code in view.jsp to call serverResource method and to do ajax call to Alfresco. Also, in view.jsp you will add JavaScript code (jQuery) for parsing HTML/XML ajax responses.
 
 [sourcecode language="html" gutter="true" wraplines="false"]  
 <%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
@@ -188,7 +187,7 @@ return false;
 <div class="div_bg_white" id="<portlet:namespace/>alfrescowscontent">:)</div>  
 
 [/sourcecode]
-4\. AjaxAlfrescoFolderBrowser.java extends GenericPortlet, in the serverResource method manages ajax calls and returns ResourceResponse to be parsed in view.jsp
+1. AjaxAlfrescoFolderBrowser.java extends GenericPortlet, in the serverResource method manages ajax calls and returns ResourceResponse to be parsed in view.jsp
 
 [sourcecode language="java" gutter="true" wraplines="false"]  
 package info.intix.lfry.samples;
@@ -403,7 +402,7 @@ private static Log _log = LogFactoryUtil.getLog(AjaxAlfrescoFolderBrowser.class)
 }  
 
 [/sourcecode]
-5\. When you have successfully deployed the portlet, open a browser, login, then add the new portlet to any page. Then you see the following:
+1. When you have successfully deployed the portlet, open a browser, login, then add the new portlet to any page. Then you see the following:
 
 [caption id="" align="alignnone" width="303" caption="Ajax Portlet calling Alfresco Webscripts"][![Ajax Portlet calling Alfresco Webscripts]({{ site.baseurl }}/assets/ajaxalflfry_9ajaxportlet.png)](http://dl.dropbox.com/u/2961879/blog20110920_ajaxalfrescoliferayportlet/ajaxalflfry_9ajaxportlet.png)[/caption]
 

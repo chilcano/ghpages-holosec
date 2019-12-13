@@ -3,7 +3,7 @@ layout:     post
 title:      'Migración de Websites a Alfresco WCM'
 date:       2010-11-08 22:32:19
 categories: ['ECM', 'Portal']
-tags:       []
+tags:       ['Alfresco']
 status:     publish 
 permalink:  "/2010/11/08/migracion-de-websites-a-alfresco-wcm/"
 ---

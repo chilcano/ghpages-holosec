@@ -3,7 +3,7 @@ layout:     post
 title:      'Agile BPM Systems development with Camunda Fox and Alfresco Activiti'
 date:       2010-09-10 13:45:51
 categories: ['BPM']
-tags:       ['Activiti bpm', 'camunda bpm']
+tags:       ['Activiti', 'Camunda']
 status:     publish 
 permalink:  "/2010/09/10/agile-bpm-systems-development-with-camunda-fox-and-alfresco-activiti/"
 ---

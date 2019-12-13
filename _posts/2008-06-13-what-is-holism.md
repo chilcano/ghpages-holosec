@@ -2,8 +2,8 @@
 layout:     post
 title:      'What is Holism?'
 date:       2008-06-12 22:49:40
-categories: ['Holism', 'Security']
-tags:       ['holistic', 'model', 'system']
+categories: ['System Thinking']
+tags:       ['Holism']
 status:     publish 
 permalink:  "/2008/06/13/what-is-holism/"
 ---

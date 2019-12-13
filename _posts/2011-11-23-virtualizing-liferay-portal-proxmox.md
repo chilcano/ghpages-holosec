@@ -3,7 +3,7 @@ layout:     post
 title:      'Virtualizing Liferay Portal with Proxmox VE'
 date:       2011-11-23 17:50:25
 categories: ['Security']
-tags:       []
+tags:       ['Virtual Box']
 status:     publish 
 permalink:  "/2011/11/23/virtualizing-liferay-portal-proxmox/"
 ---

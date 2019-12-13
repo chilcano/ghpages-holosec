@@ -2,8 +2,8 @@
 layout:     post
 title:      'Creando un nube privada "low cost" con Proxmox VE 3.0'
 date:       2013-10-27 19:55:47
-categories: ['Cloud', 'Linux', 'PaaS']
-tags:       ['cloud', 'Debian Wheezy', 'proxmox', 'Security', 'virtualization', 'VM']
+categories: ['Cloud', 'Open Source', 'PaaS', 'Virtualization']
+tags:       ['Linux', 'Proxmox']
 status:     publish 
 permalink:  "/2013/10/27/creando-nube-privada-low-cost-con-proxmox/"
 ---

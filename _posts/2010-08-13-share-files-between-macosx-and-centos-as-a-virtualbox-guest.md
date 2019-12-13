@@ -2,8 +2,8 @@
 layout:     post
 title:      'Share Files between MacOSX and CentOS as a VirtualBox guest'
 date:       2010-08-13 13:04:51
-categories: ['Linux', 'Security']
-tags:       ['CentOS', 'virtualbox']
+categories: ['Open Source', 'Security']
+tags:       ['Linux', 'Virtual Box']
 status:     publish 
 permalink:  "/2010/08/13/share-files-between-macosx-and-centos-as-a-virtualbox-guest/"
 ---

@@ -2,8 +2,8 @@
 layout:     post
 title:      'Business Activity Monitoring aplicado a Openbravo ERP usando WSO2 ESB y WSO2 BAM'
 date:       2014-03-20 17:16:03
-categories: ['ERP', 'SOA']
-tags:       ['BAM', 'KPI', 'WSO2']
+categories: ['BAM', 'ERP', 'Observability', 'SOA']
+tags:       ['WSO2']
 status:     publish 
 permalink:  "/2014/03/20/business-activity-monitoring-aplicado-a-openbravo-erp-usando-wso2-esb-y-wso2-bam/"
 ---

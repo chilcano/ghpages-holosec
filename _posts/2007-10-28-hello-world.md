@@ -2,8 +2,8 @@
 layout:     post
 title:      'Systems Thinking, Holism, Trust, Security and Usability .. my first post'
 date:       2007-10-28 10:51:58
-categories: ['Holism', 'Security']
-tags:       ['welcome']
+categories: ['Security', 'System Thinking']
+tags:       ['Holism']
 status:     publish 
 permalink:  "/2007/10/28/hello-world/"
 ---

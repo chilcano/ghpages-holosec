@@ -2,8 +2,8 @@
 layout:     post
 title:      'Remote access to CentOS with VNC Viewer'
 date:       2010-08-16 14:56:44
-categories: ['Linux', 'Security']
-tags:       ['CentOS']
+categories: ['Open Source', 'Security']
+tags:       ['Linux']
 status:     publish 
 permalink:  "/2010/08/16/remote-access-to-centos-with-vnc-viewer/"
 ---

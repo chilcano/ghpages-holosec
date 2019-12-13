@@ -2,8 +2,8 @@
 layout:     post
 title:      'Identity Management (IdM) in Portal, ECM and BPM Projects'
 date:       2010-11-17 02:40:58
-categories: ['BPM', 'ECM', 'Security']
-tags:       ['FOSS', 'IdM', 'Portal', 'SSO']
+categories: ['BPM', 'ECM', 'IAM', 'Portal', 'Security']
+tags:       ['Authentication', 'Authorization', 'SSO']
 status:     publish 
 permalink:  "/2010/11/17/identity-management-portal-ecm-bpm-projects/"
 ---

@@ -2,8 +2,8 @@
 layout:     post
 title:      'Starting with WSO2 Identity Server (Security as Service)'
 date:       2013-11-28 17:48:40
-categories: ['PaaS', 'Security', 'SOA']
-tags:       ['IdM', 'LDAP', 'SSO', 'WSO2', 'WSO2IS']
+categories: ['IAM', 'PaaS', 'Security', 'SOA']
+tags:       ['LDAP', 'SSO', 'WSO2 Identity Server']
 status:     publish 
 permalink:  "/2013/11/28/starting-wso2-identity-server/"
 ---

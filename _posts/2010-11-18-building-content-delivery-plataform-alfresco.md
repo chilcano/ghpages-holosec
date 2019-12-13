@@ -3,7 +3,7 @@ layout:     post
 title:      'Building a content delivery plataform with Alfresco'
 date:       2010-11-18 01:17:06
 categories: ['ECM', 'Portal']
-tags:       ['Alfresco', 'FOSS', 'webcast']
+tags:       ['Alfresco']
 status:     publish 
 permalink:  "/2010/11/18/building-content-delivery-plataform-alfresco/"
 ---

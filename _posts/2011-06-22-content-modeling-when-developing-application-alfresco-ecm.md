@@ -3,7 +3,7 @@ layout:     post
 title:      'Content Modeling when developing application in Alfresco ECM'
 date:       2011-06-21 23:24:23
 categories: ['ECM']
-tags:       ['Alfresco', 'model']
+tags:       ['Alfresco']
 status:     publish 
 permalink:  "/2011/06/22/content-modeling-when-developing-application-alfresco-ecm/"
 ---

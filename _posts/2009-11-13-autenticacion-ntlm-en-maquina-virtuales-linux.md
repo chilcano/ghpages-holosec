@@ -2,8 +2,8 @@
 layout:     post
 title:      'Autenticación NTLM en máquina virtuales Linux'
 date:       2009-11-13 13:01:39
-categories: ['Linux']
-tags:       ['cntlm', 'NTLM', 'proxy', 'Virtual Box']
+categories: ['Open Source']
+tags:       ['CNTLM', 'Linux', 'Proxy', 'Virtual Box']
 status:     publish 
 permalink:  "/2009/11/13/autenticacion-ntlm-en-maquina-virtuales-linux/"
 ---

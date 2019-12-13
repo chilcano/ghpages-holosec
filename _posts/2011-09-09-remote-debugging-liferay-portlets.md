@@ -3,7 +3,7 @@ layout:     post
 title:      'Remote debugging of Liferay portlets'
 date:       2011-09-08 22:20:08
 categories: ['Portal']
-tags:       ['debug', 'eclipse', 'ide', 'Liferay']
+tags:       ['Eclipse IDE', 'Liferay']
 status:     publish 
 permalink:  "/2011/09/09/remote-debugging-liferay-portlets/"
 ---

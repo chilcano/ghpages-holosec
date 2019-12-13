@@ -3,7 +3,7 @@ layout:     post
 title:      'Building a Social eCommerce solution'
 date:       2013-06-25 11:22:03
 categories: ['Portal', 'SOA']
-tags:       ['ECOMMERCE', 'KONAKART', 'Liferay', 'WSO2']
+tags:       ['Konakart', 'Liferay', 'WSO2']
 status:     publish 
 permalink:  "/2013/06/25/building-social-ecommerce-solution/"
 ---

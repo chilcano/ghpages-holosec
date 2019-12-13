@@ -2,8 +2,8 @@
 layout:     post
 title:      'Web-SSO between Liferay and Alfresco with CAS and Penrose (part 1/2)'
 date:       2011-01-15 21:57:59
-categories: ['ECM', 'Security']
-tags:       ['Alfresco', 'LDAP', 'Penrose', 'Portal', 'SSO']
+categories: ['ECM', 'IAM', 'Portal', 'Security']
+tags:       ['Alfresco', 'LDAP', 'Penrose', 'SSO']
 status:     publish 
 permalink:  "/2011/01/15/sso-liferay-alfresco-cas-penrose-part-12/"
 ---

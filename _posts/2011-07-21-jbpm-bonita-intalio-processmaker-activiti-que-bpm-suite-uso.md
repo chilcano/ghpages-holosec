@@ -3,7 +3,7 @@ layout:     post
 title:      'jBPM, Bonita, Intalio, ProcessMaker, Activiti. Qué BPM Suite uso?'
 date:       2011-07-20 23:09:05
 categories: ['BPM']
-tags:       ['activiti', 'Bonita', 'Intalio', 'jbpm', 'processmaker']
+tags:       ['Activiti', 'Bonita', 'Intalio', 'jbpm', 'ProcessMaker']
 status:     publish 
 permalink:  "/2011/07/21/jbpm-bonita-intalio-processmaker-activiti-que-bpm-suite-uso/"
 ---

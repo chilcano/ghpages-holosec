@@ -3,7 +3,7 @@ layout:     post
 title:      'Alfresco ECM, una plataforma de gestión de contenidos'
 date:       2009-08-07 08:20:42
 categories: ['ECM', 'Portal']
-tags:       ['Alfresco ECM']
+tags:       ['Alfresco']
 status:     publish 
 permalink:  "/2009/08/07/alfresco-ecm-una-plataforma-de-gestion-de-contenidos/"
 ---

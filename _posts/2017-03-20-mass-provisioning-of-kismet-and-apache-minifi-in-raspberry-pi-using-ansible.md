@@ -3,26 +3,26 @@ layout:     post
 title:      'Mass provisioning of Kismet and Apache MiNiFi in Raspberry Pi using Ansible'
 date:       2017-03-20 21:35:53
 categories: ['Big Data', 'DevOps', 'IoT', 'Security']
-tags:       ['Ansible', 'Apache MiNiFi', 'Apache NiFi', 'Data Ingestion', 'Kismet', 'Raspberry Pi']
+tags:       ['Ansible', 'Apache MiNiFi', 'Apache NiFi', 'Kismet', 'Raspberry Pi']
 status:     publish 
 permalink:  "/2017/03/20/mass-provisioning-of-kismet-and-apache-minifi-in-raspberry-pi-using-ansible/"
 ---
 Lately I'm focusing on Automation in Big-Data Projects, and with my experience in Cyber Security I can bring new approaches and ideas to those Big-Data Projects are related to IT Security aspects (Threat Analisys, Privacy, Intrusion Detection, etc.).  
-With this post I will start a serie of articles explaining how to do "Data Ingestion/Capture" in the `Edge` by using:  
-\- Ansible to do `provisioning`.  
-\- Multiple and remote devices in the `Edge` (Raspberry Pi).  
-\- Kismet to capture WIFI Anonymous traffic in the `Edge`.  
-\- Apache MiNiFi to enrich and route the captured traffic in the `Edge`.  
-\- Apache NiFi to collect the enriched traffic and forward to Solr / ElasticSearch.  
+With this post I will start a serie of articles explaining how to do "Data Ingestion/Capture" in the `Edge` by using:
+* Ansible to do `provisioning`.
+* Multiple and remote devices in the `Edge` (Raspberry Pi).
+* Kismet to capture WIFI Anonymous traffic in the `Edge`.
+* Apache MiNiFi to enrich and route the captured traffic in the `Edge`.
+* Apache NiFi to collect the enriched traffic and forward to Solr / ElasticSearch.  
 ...everything, near to real-time ;)
 
 <!-- more -->
 
 And if you want to explore in deep other use cases, this article is a must read: (EDGE INTELLIGENCE FOR IOT WITH APACHE MINIFI)[https://hortonworks.com/blog/edge-intelligence-iot-apache-minifi/]
-In short, I will explain in this post the following:  
-\- Manage several devices in the `Edge` by using Ansible.  
-\- Mass provision of Kismet and Apache MiNiFi.  
-\- Performing operational tasks in several devices.
+In short, I will explain in this post the following:
+* Manage several devices in the `Edge` by using Ansible.
+* Mass provision of Kismet and Apache MiNiFi.
+* Performing operational tasks in several devices.
 
 ![https://raw.githubusercontent.com/chilcano/ansible-raspberrypi-wardriving/master/images/mass-provisioning-kismet-minifi-raspberrypi-ansible-1-arch.png]({{ site.baseurl }}/assets/mass-provisioning-kismet-minifi-raspberrypi-ansible-1-arch.png)
 

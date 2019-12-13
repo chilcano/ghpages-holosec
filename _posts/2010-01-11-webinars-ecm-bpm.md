@@ -2,8 +2,8 @@
 layout:     post
 title:      'Webinars ECM y BPM'
 date:       2010-01-11 16:55:50
-categories: ['ECM']
-tags:       ['Alfresco', 'Bonita', 'Drupal', 'Intalio', 'JW Player', 'OpenX', 'webcast']
+categories: ['BPM', 'ECM', 'Portal']
+tags:       ['Alfresco', 'Bonita', 'Drupal', 'Intalio', 'JW Player', 'OpenX']
 status:     publish 
 permalink:  "/2010/01/11/webinars-ecm-bpm/"
 ---

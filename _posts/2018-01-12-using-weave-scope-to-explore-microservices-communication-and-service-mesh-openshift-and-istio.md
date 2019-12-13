@@ -2,16 +2,15 @@
 layout:     post
 title:      'Using Weave Scope to explore Microservices Communication and Service Mesh (OpenShift and Istio)'
 date:       2018-01-12 00:50:10
-categories: ['DevOps', 'Microservices', 'PaaS']
-tags:       ['Envoy Proxy', 'Istio Mesh', 'OpenShift', 'Weave-Scope']
+categories: ['DevOps', 'PaaS', 'Service Mesh']
+tags:       ['Envoy Proxy', 'Istio', 'OpenShift', 'Weave Scope']
 status:     publish 
 permalink:  "/2018/01/12/using-weave-scope-to-explore-microservices-communication-and-service-mesh-openshift-and-istio/"
 ---
 If you are working with ESB, Message Brokers, BPMS, SOA or Microservices, you will notice that you are solving the same problems of Standalone Applications but in different way, because all of them are different kind of Distributed Application. Those problems are:
 * Users Management, Authentication and Authorisation
-* Logging, Debugging and Alerting
-* Clustering, High Availability, Load Balancing
-* Monitoring and Alerting
+* Logging, Debugging, Monitoring and Alerting
+* Clustering, High Availability, Load Balancing, etc...
 
 <!-- more -->
 

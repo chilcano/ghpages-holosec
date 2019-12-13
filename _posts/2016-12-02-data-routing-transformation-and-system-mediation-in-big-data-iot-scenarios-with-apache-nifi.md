@@ -2,8 +2,8 @@
 layout:     post
 title:      'Data routing, transformation, and system mediation in Big Data & IoT scenarios with Apache NiFi'
 date:       2016-12-02 00:06:47
-categories: ['Big Data', 'DevOps', 'IoT']
-tags:       ['BAM']
+categories: ['BAM', 'Big Data', 'DevOps', 'IoT', 'Observability']
+tags:       ['Apache NiFi']
 status:     publish 
 permalink:  "/2016/12/02/data-routing-transformation-and-system-mediation-in-big-data-iot-scenarios-with-apache-nifi/"
 ---

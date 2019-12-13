@@ -2,8 +2,8 @@
 layout:     post
 title:      'PaaS or micro-PaaS for Microservices? - a simple technology review'
 date:       2016-03-10 15:56:24
-categories: ['Cloud', 'Microservices', 'PaaS']
-tags:       ['API', 'Docker', 'ESB', 'Opensource']
+categories: ['Cloud', 'ESB', 'Microservices', 'PaaS', 'SOA']
+tags:       ['Docker', 'Restful API']
 status:     publish 
 permalink:  "/2016/03/10/paas-for-microservices-simple-review/"
 ---

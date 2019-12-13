@@ -2,8 +2,8 @@
 layout:     post
 title:      'Hacker Ethic'
 date:       2008-06-12 23:47:32
-categories: ['Holism', 'Security']
-tags:       ['Book', 'ethic', 'hacker']
+categories: ['Security', 'System Thinking']
+tags:       ['Book', 'Ethic hacker']
 status:     publish 
 permalink:  "/2008/06/13/hacker-ethic/"
 ---

@@ -2,8 +2,8 @@
 layout:     post
 title:      'Liferay Portal 5.2.3 & 6.0.1 RC quick install'
 date:       2010-04-26 15:09:15
-categories: ['Portal']
-tags:       ['Liferay Portal']
+categories: ['Open Source', 'Portal']
+tags:       ['Liferay']
 status:     publish 
 permalink:  "/2010/04/26/liferay-portal-6-0-1-rc-quick-install/"
 ---

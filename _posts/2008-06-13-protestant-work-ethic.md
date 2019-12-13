@@ -2,8 +2,8 @@
 layout:     post
 title:      'Protestant work ethic'
 date:       2008-06-12 23:50:46
-categories: ['Holism', 'Security']
-tags:       ['ethic', 'free software', 'hacker', 'open source']
+categories: ['Open Source', 'Security', 'System Thinking']
+tags:       ['Ethic hacker', 'Holism']
 status:     publish 
 permalink:  "/2008/06/13/protestant-work-ethic/"
 ---

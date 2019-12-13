@@ -3,7 +3,7 @@ layout:     post
 title:      'Running multi-container (WSO2 BAM & MAC Address Lookup) Docker Application using Docker Compose'
 date:       2016-03-09 11:20:44
 categories: ['Big Data', 'Microservices', 'Security', 'SOA']
-tags:       ['Cassandra', 'Docker', 'Kismet', 'Raspberry Pi', 'Siddhi']
+tags:       ['Apache Cassandra', 'Docker', 'Kismet', 'Raspberry Pi', 'Siddhi']
 status:     publish 
 permalink:  "/2016/03/09/running-multi-container-wso2-bam-mac-address-lookup-docker-application-using-docker-compose/"
 ---

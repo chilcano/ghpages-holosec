@@ -3,7 +3,7 @@ layout:     post
 title:      'Revisión del libro "Activiti 5.x Business Process Management"'
 date:       2014-04-29 16:54:11
 categories: ['BPM']
-tags:       ['activiti', 'libro', 'open source', 'revisión']
+tags:       ['Activiti']
 status:     publish 
 permalink:  "/2014/04/29/revision-libro-activiti-5x-business-process-management/"
 ---

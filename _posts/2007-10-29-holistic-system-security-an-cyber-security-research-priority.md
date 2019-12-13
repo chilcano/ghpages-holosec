@@ -2,8 +2,8 @@
 layout:     post
 title:      'Holistic System Security an cyber-security research priority'
 date:       2007-10-29 10:34:42
-categories: ['Holism', 'Security']
-tags:       ['System Thinking']
+categories: ['Security', 'System Thinking']
+tags:       ['Holism']
 status:     publish 
 permalink:  "/2007/10/29/holistic-system-security-an-cyber-security-research-priority/"
 ---

@@ -2,8 +2,8 @@
 layout:     post
 title:      'Install Mirth Connect 2.1 on Ubuntu 10.10 with MySQL Server'
 date:       2011-05-09 16:02:49
-categories: ['HL7', 'Linux', 'SOA']
-tags:       ['ESB', 'MIRTH', 'MULE']
+categories: ['EIP', 'ESB', 'Health Care', 'Open Source', 'SOA']
+tags:       ['HL7', 'Mirth Connect', 'Mule']
 status:     publish 
 permalink:  "/2011/05/09/install-mirth-connect-ubuntu-mysql/"
 ---

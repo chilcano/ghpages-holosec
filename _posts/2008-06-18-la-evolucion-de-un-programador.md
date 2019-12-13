@@ -2,8 +2,8 @@
 layout:     post
 title:      'La Evolución de un Programador'
 date:       2008-06-17 23:21:20
-categories: ['Misc']
-tags:       ['joke programming hello world']
+categories: ['Development', 'Misc']
+tags:       ['Java', 'Java Script', 'PHP']
 status:     publish 
 permalink:  "/2008/06/18/la-evolucion-de-un-programador/"
 ---

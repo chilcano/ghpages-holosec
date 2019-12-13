@@ -2,7 +2,7 @@
 layout:     post
 title:      'MTOM en WSO2 ESB para optimizar la transferencia de datos binarios sobre SOAP (Parte 2/2)'
 date:       2014-05-26 20:02:00
-categories: ['SOA']
+categories: ['Middleware', 'SOA']
 tags:       ['Apache Axiom', 'Axis2', 'MTOM', 'SOAP', 'soapUI', 'SwA', 'WSO2 ESB']
 status:     publish 
 permalink:  "/2014/05/26/mtom-en-wso2-esb-para-optimizar-la-transferencia-de-datos-binarios-sobre-soap-parte-22/"

@@ -2,8 +2,8 @@
 layout:     post
 title:      'Execute Liferay Portal on non ROOT context'
 date:       2010-07-19 15:24:34
-categories: ['Portal']
-tags:       ['Liferay Portal']
+categories: ['Open Source', 'Portal']
+tags:       ['Liferay']
 status:     publish 
 permalink:  "/2010/07/19/execute-liferay-root-context/"
 ---

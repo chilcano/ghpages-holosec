@@ -3,7 +3,7 @@ layout:     post
 title:      'Gestión de Expedientes con Alfresco ECM'
 date:       2010-10-08 09:29:48
 categories: ['BPM', 'ECM', 'Portal']
-tags:       ['Alfresco ECM']
+tags:       ['Alfresco']
 status:     publish 
 permalink:  "/2010/10/08/gestion-de-expedientes-con-alfresco-ecm/"
 ---

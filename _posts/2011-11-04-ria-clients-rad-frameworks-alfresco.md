@@ -2,8 +2,8 @@
 layout:     post
 title:      'Review: RIA Clients and RAD Frameworks for Alfresco ECM'
 date:       2011-11-04 17:03:54
-categories: ['ECM']
-tags:       ['Alfresco', 'cms', 'extjs', 'flex', 'JAVA', 'Liferay', 'php', 'portlet', 'rad', 'ria']
+categories: ['Development', 'ECM', 'Portal']
+tags:       ['Alfresco', 'Java', 'Java Script', 'Liferay', 'PHP', 'Portlet']
 status:     publish 
 permalink:  "/2011/11/04/ria-clients-rad-frameworks-alfresco/"
 ---

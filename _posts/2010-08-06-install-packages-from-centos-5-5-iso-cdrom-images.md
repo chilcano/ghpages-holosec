@@ -2,8 +2,8 @@
 layout:     post
 title:      'Install packages from CentOS 5.5 ISO CDROM images'
 date:       2010-08-06 19:56:49
-categories: ['Linux', 'Security']
-tags:       ['CentOS']
+categories: ['Open Source', 'Security']
+tags:       ['Linux']
 status:     publish 
 permalink:  "/2010/08/06/install-packages-from-centos-5-5-iso-cdrom-images/"
 ---

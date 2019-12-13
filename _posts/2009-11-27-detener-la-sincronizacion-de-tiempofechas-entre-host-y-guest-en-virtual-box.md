@@ -2,8 +2,8 @@
 layout:     post
 title:      'Detener la sincronización de tiempo/fechas entre Host y Guest en Virtual Box'
 date:       2009-11-27 09:10:33
-categories: ['Linux']
-tags:       ['virtualbox']
+categories: ['Open Source']
+tags:       ['Virtual Box']
 status:     publish 
 permalink:  "/2009/11/27/detener-la-sincronizacion-de-tiempofechas-entre-host-y-guest-en-virtual-box/"
 ---

@@ -2,7 +2,7 @@
 layout:     post
 title:      'Strategy to create Microservice using WSO2 and Docker'
 date:       2016-01-11 12:14:23
-categories: ['Microservices', 'SOA']
+categories: ['Microservices', 'Service Mesh', 'SOA']
 tags:       ['Docker', 'WSO2']
 status:     publish 
 permalink:  "/2016/01/11/strategy-to-create-microservices-using-wso2-and-docker/"

@@ -2,8 +2,8 @@
 layout:     post
 title:      'Message Brokering y recolección de datos para Big Data con WSO2'
 date:       2014-03-07 17:35:56
-categories: ['Big Data', 'Broker', 'IoT', 'SOA']
-tags:       ['AMQP', 'Apache Cassandra', 'QPid', 'WSO2 ESB', 'WSO2 MB']
+categories: ['Big Data', 'IoT', 'Middleware', 'SOA']
+tags:       ['AMQP', 'Apache Cassandra', 'QPid', 'WSO2 ESB', 'WSO2 Message Broker']
 status:     publish 
 permalink:  "/2014/03/07/message-brokering-y-recoleccion-datos-big-data-wso2/"
 ---

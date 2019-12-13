@@ -2,8 +2,8 @@
 layout:     post
 title:      'La Ley de Parkinson'
 date:       2008-07-15 20:27:49
-categories: ['Holism', 'Security']
-tags:       ['parkinsons law', 'pmbok', 'time']
+categories: ['Security', 'System Thinking']
+tags:       ['Holism', 'Parkinsons law']
 status:     publish 
 permalink:  "/2008/07/15/la-ley-de-parkinson/"
 ---

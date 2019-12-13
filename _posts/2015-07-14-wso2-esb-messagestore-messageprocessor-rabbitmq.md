@@ -2,7 +2,7 @@
 layout:     post
 title:      'WSO2 ESB MessageStore and MessageProcessor implementation for RabbitMQ'
 date:       2015-07-14 04:51:58
-categories: ['Broker', 'EIP', 'SOA']
+categories: ['EIP', 'Middleware', 'SOA']
 tags:       ['RabbitMQ', 'WSO2 ESB']
 status:     publish 
 permalink:  "/2015/07/14/wso2-esb-messagestore-messageprocessor-rabbitmq/"

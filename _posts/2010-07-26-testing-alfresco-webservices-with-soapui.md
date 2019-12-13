@@ -3,7 +3,7 @@ layout:     post
 title:      'Testing Alfresco Webservices with soapUI'
 date:       2010-07-26 14:11:09
 categories: ['ECM']
-tags:       ['Alfresco ECM', 'soapUI']
+tags:       ['Alfresco', 'soapUI']
 status:     publish 
 permalink:  "/2010/07/26/testing-alfresco-webservices-with-soapui/"
 ---

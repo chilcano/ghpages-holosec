@@ -2,7 +2,7 @@
 layout:     post
 title:      'Creating a VM with WSO2 servers for development with Vagrant & Puppet'
 date:       2015-11-11 22:43:38
-categories: ['Cloud', 'Linux', 'SOA']
+categories: ['Cloud', 'Open Source', 'SOA']
 tags:       ['Puppet', 'Ubuntu', 'Vagrant', 'Wiremock', 'WSO2']
 status:     publish 
 permalink:  "/2015/11/11/creating-a-vm-with-wso2-servers-for-development/"

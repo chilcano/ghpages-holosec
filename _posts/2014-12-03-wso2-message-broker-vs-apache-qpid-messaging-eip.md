@@ -2,8 +2,8 @@
 layout:     post
 title:      'WSO2 Message Broker vs. Apache Qpid - Messaging Integration Patterns'
 date:       2014-12-02 23:17:51
-categories: ['Big Data', 'Broker', 'SOA']
-tags:       ['ActiveMQ', 'Apache Qpid', 'Message Broker', 'RabbitMQ', 'WSO2 ESB', 'WSO2 MB']
+categories: ['Big Data', 'EIP', 'Middleware', 'SOA']
+tags:       ['ActiveMQ', 'Apache Qpid', 'RabbitMQ', 'WSO2 ESB', 'WSO2 Message Broker']
 status:     publish 
 permalink:  "/2014/12/03/wso2-message-broker-vs-apache-qpid-messaging-eip/"
 ---

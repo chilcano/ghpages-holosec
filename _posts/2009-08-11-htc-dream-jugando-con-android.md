@@ -3,7 +3,7 @@ layout:     post
 title:      'HTC Dream, jugando con Android'
 date:       2009-08-11 06:48:23
 categories: ['Misc']
-tags:       ['ANDROID', 'FOSS', 'GOOGLE', 'JAVA']
+tags:       ['Android']
 status:     publish 
 permalink:  "/2009/08/11/htc-dream-jugando-con-android/"
 ---

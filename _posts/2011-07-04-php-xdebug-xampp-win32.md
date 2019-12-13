@@ -3,7 +3,7 @@ layout:     post
 title:      'PHP debugging with XDebug and XAMPP on Win32'
 date:       2011-07-04 16:16:54
 categories: ['Security']
-tags:       ['apache', 'eclipse', 'php', 'xampp', 'xdebug']
+tags:       ['Eclipse IDE', 'PHP', 'XAMPP', 'XDebug']
 status:     publish 
 permalink:  "/2011/07/04/php-xdebug-xampp-win32/"
 ---
@@ -13,8 +13,7 @@ A text editor is not enough for this, Eclipse IDE and PHP Development Tools are 
 In this post, you learn how to set your debug environment with XDebug, that seems to be one of the more popular ones and Eclipse PDT already has support for it.
 
 ## Requisites:
-
-1\. Download and install/unzip [XAMPP](http://www.apachefriends.org/en/xampp-windows.html) for win32 version 1.7.4-VC6.
+1. Download and install/unzip [XAMPP](http://www.apachefriends.org/en/xampp-windows.html) for win32 version 1.7.4-VC6.
 This bundle comes with severals tools:
 
 [sourcecode language="text" gutter="true" wraplines="false"]  
@@ -41,12 +40,12 @@ This bundle comes with severals tools:
 [/sourcecode]
 
 [XDebug](http://xdebug.org) comes pre-installed in this bundle.
-2\. Download Eclipse IDE (Helios SR2).
-3\. Install from Eclipse Marketplace the PHP Development Tools (PDT) plugin (version 3.0.0.x).
+1. Download Eclipse IDE (Helios SR2).
+2.   
+Install from Eclipse Marketplace the PHP Development Tools (PDT) plugin (version 3.0.0.x).
 
 ## Apache and PHP debugging configuration
-
-1\. Configure XDebug in XAMPP bundle.  
+1. Configure XDebug in XAMPP bundle.  
 Edit **php.ini** and enable XDebug and remote debugging, make sure to uncomment the bellow lines and put to "1" the parameters " **xdebug.remote_autostart** " and " **xdebug.remote_enable** ".
 
 [sourcecode language="text" gutter="true" wraplines="false"]  
@@ -125,42 +124,49 @@ Re-start apache and verify that XDebug is loaded.
 [caption id="" align="alignnone" width="439" caption="XDebug library loaded in Apache HTTPD"]![XDebug library loaded in Apache HTTPD]({{ site.baseurl }}/assets/phpdebugging-1-xdebugloaded.png)[/caption]
 
 ## Eclipse & PDT configuration
-
-1\. In Apache HTTP Server add a root folder as your base web for PHP projects.  
+1. In Apache HTTP Server add a root folder as your base web for PHP projects.  
 For example, my base folder is configured in httpd.conf file and looks like this:
 
 [sourcecode language="xml" gutter="true" wraplines="false"]  
-Alias /myphpprojects "C:/2workspace"  
-<Directory "C:/2workspace">  
+Alias /myphpprojects "C:/2workspace"
 AllowOverride none  
 Options None  
 Order allow,deny  
-Allow from all  
-</Directory>  
+Allow from all
 
 [/sourcecode]
-2\. In Eclipse, create a test php project in " **C:/2workspace** " and select PHP 5.3 runtime when creating. For example, create " **testdebug01** " php project.
+1. In Eclipse, create a test php project in " **C:/2workspace** " and select PHP 5.3 runtime when creating. For example, create " **testdebug01** " php project.
 
 [caption id="" align="alignnone" width="322" caption="Creating PHP Project from Eclipse IDE and PDT"]![Creating PHP Project from Eclipse IDE and PDT]({{ site.baseurl }}/assets/phpdebugging-2-eclipsecreateproj.png)[/caption]
-3\. Create a **helloworld.php** as you test PHP script in above project, the script looks like this:
+1. Create a **helloworld.php** as you test PHP script in above project, the script looks like this:
 
 [sourcecode language="xml" gutter="true" wraplines="false"]  
 <?php  
 $msg = "crazy world";  
-echo "<h1>Test PHP Debugging #1 </h1>";  
-echo "<hr>";  
-echo "<ol>";  
+echo "  
+
+# Test PHP Debugging #1 
+
+";  
+echo "  
+* * *
+";  
+echo " 
+";  
 for ($k = 0; $k < 10; $k++) {  
-print("<li>Hello, $msg ($k)! <br>");  
+print("
+1. Hello, $msg ($k)!   
+");  
 }  
-echo "</ol>";  
+echo "
+";  
 ?>  
 
 [/sourcecode]
-4\. In Eclipse, go to **Windows > Preferences > PHP > Debug** and make sure XDebug is selected as default PHP Debugger.
+1. In Eclipse, go to **Windows > Preferences > PHP > Debug** and make sure XDebug is selected as default PHP Debugger.
 
 [caption id="" align="alignnone" width="358" caption="Configuring PHP Debug in Eclipse IDE"]![Configuring PHP Debug in Eclipse IDE]({{ site.baseurl }}/assets/phpdebugging-3-eclipsephpdebug.png)[/caption]
-5\. Now, you are ready for launching debugging from Eclipse. Firstly, put a breakpoint in **helloworld.php** and then go to left side on Navigator, right click on **helloworld.php** file and select " **Debug Configurations** ".  
+1. Now, you are ready for launching debugging from Eclipse. Firstly, put a breakpoint in **helloworld.php** and then go to left side on Navigator, right click on **helloworld.php** file and select " **Debug Configurations** ".  
 In the next window configure following:
 * **Name** : Your debug profile configuration, in this example is "Test debug 01".
 * **Server Debugger** : XDebug

@@ -2,8 +2,8 @@
 layout:     post
 title:      'Evaluación del nivel y madurez de integración de Message Brokers opensource con WSO2 ESB'
 date:       2015-01-25 19:16:31
-categories: ['Broker', 'EIP']
-tags:       ['ActiveMQ', 'HornetQ', 'QPid', 'RabbitMQ', 'WSO2 ESB', 'WSO2 MB']
+categories: ['EIP', 'Middleware', 'SOA']
+tags:       ['ActiveMQ', 'HornetQ', 'QPid', 'RabbitMQ', 'WSO2 ESB', 'WSO2 Message Broker']
 status:     publish 
 permalink:  "/2015/01/25/evaluacion-nivel-madurez-integracion-message-brokers-opensource-wso2-esb/"
 ---

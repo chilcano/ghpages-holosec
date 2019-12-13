@@ -3,7 +3,7 @@ layout:     post
 title:      'Comparing MySQL and Postgres 9.0 Replication'
 date:       2010-11-24 22:34:15
 categories: ['Security']
-tags:       []
+tags:       ['MySQL', 'Postgres']
 status:     publish 
 permalink:  "/2010/11/24/comparing-mysql-and-postgres-9-0-replication/"
 ---

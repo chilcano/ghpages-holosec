@@ -2,8 +2,8 @@
 layout:     post
 title:      'The Principle of Psychological acceptability'
 date:       2007-10-29 11:15:00
-categories: ['Holism', 'Security']
-tags:       ['Acceptability', 'human interface', 'Psychological']
+categories: ['Security', 'System Thinking']
+tags:       ['Holism']
 status:     publish 
 permalink:  "/2007/10/29/the-principle-of-psycological-acceptability/"
 ---

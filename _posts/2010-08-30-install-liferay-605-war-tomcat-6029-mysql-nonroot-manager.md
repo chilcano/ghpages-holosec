@@ -2,8 +2,8 @@
 layout:     post
 title:      'Install Liferay 6.0.5 CE WAR on Tomcat 6.0.29 and MySQL as non root webapp and without Tomcat Manager'
 date:       2010-08-30 15:24:49
-categories: ['Linux', 'Portal']
-tags:       ['Liferay Portal']
+categories: ['Open Source', 'Portal']
+tags:       ['Liferay']
 status:     publish 
 permalink:  "/2010/08/30/install-liferay-605-war-tomcat-6029-mysql-nonroot-manager/"
 ---

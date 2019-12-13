@@ -2,8 +2,8 @@
 layout:     post
 title:      'Gestión de Identidades y Accesos en las Organizaciones con WSO2 IS'
 date:       2014-01-13 11:51:46
-categories: ['BPM', 'CRM', 'ECM', 'ERP', 'Portal', 'Security', 'SOA']
-tags:       ['Authentication', 'Authorization', 'IAM', 'LDAP', 'SSO', 'WSO2']
+categories: ['BPM', 'CRM', 'ECM', 'ERP', 'IAM', 'Portal', 'Security', 'SOA']
+tags:       ['Authentication', 'Authorization', 'LDAP', 'SSO', 'WSO2']
 status:     publish 
 permalink:  "/2014/01/13/iam-organizaciones-con-wso2is/"
 ---

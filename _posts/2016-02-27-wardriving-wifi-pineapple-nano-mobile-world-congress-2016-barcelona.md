@@ -2,8 +2,8 @@
 layout:     post
 title:      'Wardriving with WIFI Pineapple Nano in Mobile World Congress 2016 at Barcelona'
 date:       2016-02-27 12:27:02
-categories: ['Big Data', 'IoT', 'Linux', 'Security']
-tags:       ['Barcelona', 'MWC', 'OpenWRT', 'Pineapple', 'Wardriving']
+categories: ['Big Data', 'IoT', 'Open Source', 'Security']
+tags:       ['OpenWRT', 'Pineapple', 'Wardriving']
 status:     publish 
 permalink:  "/2016/02/27/wardriving-wifi-pineapple-nano-mobile-world-congress-2016-barcelona/"
 ---
