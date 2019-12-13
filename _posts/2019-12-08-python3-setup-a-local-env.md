@@ -7,6 +7,14 @@ tags: python
 permalink: "/2019/12/08/python3-setting-a-local-env"
 ---
 
+This post will guide you through installing Python 3, and Python 2.x, on your local Linux machine and setting up a programming environment via the command line. This post will explicitly cover the installation procedures for Ubuntu 18.04 or above, but the general principles apply to any other distribution of Debian Linux.
+
+![Python 3](/assets/img/20191208-python.png "Setting a Python 3 local programming environment")
+
+
+<!-- more -->
+
+
 ## Step 1 — Setting Up Python 3
 
 ```sh
