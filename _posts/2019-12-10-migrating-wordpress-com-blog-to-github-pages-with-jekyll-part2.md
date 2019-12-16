@@ -185,6 +185,15 @@ You can download the Python script here: [simple_html_wp_to_md.py](/wp_export/si
 
 I had issues trying to improve the generated Markdown files, I used `BeautifulSoup` to manage XML, `html2text` to generate the Markdown and `re` massively to tweak the Markdown. If you know a best option, please, let me know it.
 
+## More things to consider
+
+- [A Jekyll plugin that copies static files from the _posts to the _site folder](https://nhoizey.github.io/jekyll-postfiles/)
+- [Building a Stats Page for Jekyll Blogs](https://www.raymondcamden.com/2018/07/21/building-a-stats-page-for-jekyll-blogs)
+- [A simple script to generate some stats about a Jekyll blog.](https://github.com/fluca1978/jekyll-simple-stats)
+- [Plugin to easily add webanalytics to your jekyll site](https://github.com/hendrikschneider/jekyll-analytics)
+- [Google Analytics for Jekyll](https://desiredpersona.com/google-analytics-jekyll/)
+
+
 That's all, if you find this post helpful, please, share it.
 Regards.
 
