@@ -1,13 +1,13 @@
 ---
 layout: post
 title:  "Building your own affordable Cloud to host a Service Mesh"
-date:   2019-11-05 10:00:00 +0100
+date:   2019-12-20 10:00:00 +0100
 categories: cloud apaas "service mesh" 
 tags: aws gcp azure docker kubernetes 
-permalink: "/2019/12/20/diy-affordable-cloud-to-host-service-mesh"
+permalink: "/2019/12/20/building-your-own-affordable-cloud-to-host-a-service-mesh"
 ---
 
-![Migrating WordPress.com's blog to GitHub Pages by using Jekyll](/assets/img/2019-10-14-blog-migration-wp-github.png)
+![Service Mesh hosted in a Container-based Cloud](/assets/img/20191220-service-mesh-01-reference-architecture.png "Service Mesh hosted in a Container-based Cloud")
 
 <!-- more -->
 
