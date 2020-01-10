@@ -2,7 +2,7 @@
 layout: post
 title:  "Building your own affordable Cloud to host a Service Mesh"
 date:   2020-01-20 10:00:00 +0100
-categories: cloud apaas "service mesh" 
+categories: cloud apaas service mesh 
 tags: aws gcp azure docker kubernetes 
 permalink: "/2020/01/20/observing-within-the-service-mesh"
 ---
