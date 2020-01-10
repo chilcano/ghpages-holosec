@@ -1,10 +1,10 @@
 ---
 layout: post
 title:  "Building your own affordable Cloud to host a Service Mesh"
-date:   2019-12-20 10:00:00 +0100
+date:   2020-01-20 10:00:00 +0100
 categories: cloud apaas "service mesh" 
 tags: aws gcp azure docker kubernetes 
-permalink: "/2019/12/30/observing-within-the-service-mesh"
+permalink: "/2020/01/20/observing-within-the-service-mesh"
 ---
 
 Application performance monitor tool for distributed systems, especially designed for microservices, cloud native and container-based (Docker, K8s, Mesos) architectures.
