@@ -49,7 +49,7 @@ The next post will explain how to create an affordable Data Plane in AWS, to do 
 * Auto Scaling of worker nodes.
 * Persistent Volumes using GP2 storage on EBS.
 
-Stay tunned, in the next post I will share the Git repo with the updated Terraform scripts.
+Stay tuned, in the next post I will share the Git repo with the updated Terraform scripts.
 Meantime, below I've selected a set of good references to read related to this article and that will surely interest you.
 Regards.
 
