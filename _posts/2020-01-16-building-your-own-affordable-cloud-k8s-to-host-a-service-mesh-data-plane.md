@@ -114,8 +114,12 @@ aws_secret_access_key = <SECRET-ACCESS-KEY>
 
 1. Clone the Github repo.
 
+
+You can clone the original GitHub repo tag `0.2.1` and update the scripts according the steps below. 
+
 ```sh
 chilcano@inti:~/git-repos$ git clone https://github.com/chilcano/kubeadm-aws affordable-k8s-tf
+
 Cloning into 'affordable-k8s-tf'...
 remote: Enumerating objects: 327, done.
 remote: Total 327 (delta 0), reused 0 (delta 0), pack-reused 327
@@ -138,9 +142,19 @@ On branch 0.2.1-chilcano
 nothing to commit, working tree clean
 ```
 
-2. Update `variables.tf`. 
+Also you can clone the `0.2.1-chilcano` branch of GitHub repo as follow:
 
+```sh
+chilcano@inti:~/git-repos$ git clone --single-branch --branch 0.2.1-chilcano https://github.com/chilcano/kubeadm-aws affordable-k8s-tf
+```
+
+
+2. Update `variables.tf`.
+
+
+> 
 > Hard-coding any credentials into any Terraform configuration is not recommended. I recommend to provide your AWS credentials via `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables.
+>  
 
 
 ```sh
@@ -160,6 +174,7 @@ In my case I'm not going to update any variables in `variables.tf`, I will overw
 * worker-instance-type = "m1.small"
 
 > If you change the `master-instance-type` and `worker-instance-type` values to `t2.micro` for example, that isn't going to work because the `t2.micro` AMIs are prepared to be autoscaled.
+>  
 
 
 3. Update `main.tf` and initialize the Terraform Providers.
@@ -231,6 +246,7 @@ Your version of Terraform is out of date! The latest version
 is 0.12.19. You can update by downloading from www.terraform.io/downloads.html
 ```
 
+
 5. Visual exploration of the AWS resources are going to be created by Terraform.
 
 
@@ -299,8 +315,10 @@ Cloud-init v. 19.3-41-gc4735dd3-0ubuntu1~18.04.1 running 'modules:final' at Wed,
 Cloud-init v. 19.3-41-gc4735dd3-0ubuntu1~18.04.1 finished at Wed, 15 Jan 2020 15:33:22 +0000. Datasource DataSourceEc2Local.  Up 594.92 seconds
 ```
 
+>  
 > If you see above logs, that means that likely everything worked and Kubernetes Cluster was created successfully.
 > But, if you see below logs, that means Kubernetes Cluster wasn't created. In the below logs there are errors about Kubernetes packages (`kubeadm`, `kubelet` and `kubernetes-cni`) dependencies unmet when using `kubernetes-version="1.13.4"` (default version of these Terraform scripts). To fix it we should change it to `kubernetes-version="1.14.3"`.
+>  
 
 ```sh
 ubuntu@ip-10-0-100-4:~$ cat /var/log/cloud-init-output.log
@@ -323,8 +341,10 @@ Cloud-init v. 19.3-41-gc4735dd3-0ubuntu1~18.04.1 running 'modules:final' at Wed,
 Cloud-init v. 19.3-41-gc4735dd3-0ubuntu1~18.04.1 finished at Wed, 15 Jan 2020 11:16:18 +0000. Datasource DataSourceEc2Local.  Up 119.65 seconds
 ```
 
+>  
 > The below log shows other error related with incompatible `apiVersion` in `init-config.yaml` file created by `master.sh`. 
 > It shoud be changed to `apiVersion: kubeadm.k8s.io/v1beta1`.
+>  
 
 
 ```sh
