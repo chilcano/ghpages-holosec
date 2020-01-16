@@ -78,33 +78,33 @@ Although AWS CLI isn't needed for the purpose of running Terraform, that will be
 
 1. Install AWS CLI. It requires Pip 3.
 
-  ```sh
-  chilcano@inti:~$ pip3 --version
-  pip 18.1 from /usr/lib/python3/dist-packages/pip (python 3.7)
-
-  chilcano@inti:~$ pip3 install awscli --upgrade --user
-
-  chilcano@inti:~$ aws --version
-  aws-cli/1.16.314 Python/3.7.5 Linux/5.3.0-26-generic botocore/1.13.50
-
-  chilcano@inti:~$ which aws
-  /home/chilcano/.local/bin/aws
-  ```
+   ```sh
+   chilcano@inti:~$ pip3 --version
+   pip 18.1 from /usr/lib/python3/dist-packages/pip (python 3.7)
+   
+   chilcano@inti:~$ pip3 install awscli --upgrade --user
+   
+   chilcano@inti:~$ aws --version
+   aws-cli/1.16.314 Python/3.7.5 Linux/5.3.0-26-generic botocore/1.13.50
+   
+   chilcano@inti:~$ which aws
+   /home/chilcano/.local/bin/aws
+   ```
 
 2. Configure the AWS account.
 
-  ```sh
-  chilcano@inti:~$ aws configure --profile affordablek8s01
-  AWS Access Key ID [None]: <ACCESS-KEY-ID>
-  AWS Secret Access Key [None]: <SECRET-ACCESS-KEY>
-  Default region name [None]: us-west-2
-  Default output format [None]: json
-
-  chilcano@inti:~$ cat .aws/credentials 
-  [affordablek8s01]
-  aws_access_key_id = <ACCESS-KEY-ID>
-  aws_secret_access_key = <SECRET-ACCESS-KEY>
-  ```
+   ```sh
+   chilcano@inti:~$ aws configure --profile affordablek8s01
+   AWS Access Key ID [None]: <ACCESS-KEY-ID>
+   AWS Secret Access Key [None]: <SECRET-ACCESS-KEY>
+   Default region name [None]: us-west-2
+   Default output format [None]: json
+ 
+   chilcano@inti:~$ cat .aws/credentials 
+   [affordablek8s01]
+   aws_access_key_id = <ACCESS-KEY-ID>
+   aws_secret_access_key = <SECRET-ACCESS-KEY>
+   ```
 
 3. Create a SSH key under the AZ where the resources will be created. In my case I'll create in `us-east-1` (Virginia) from the `AWS Web Console > NETWORK & SECURITY > Key Pairs`. This SSH key will be used to get access to all nodes created in AWS for that specific AZ.
 
@@ -114,179 +114,169 @@ Although AWS CLI isn't needed for the purpose of running Terraform, that will be
 
 1. Clone the Github repo.
 
-You can clone the original GitHub repo tag `0.2.1` and update the scripts according the steps below. 
-
-```sh
-chilcano@inti:~/git-repos$ git clone https://github.com/chilcano/kubeadm-aws affordable-k8s-tf
-
-Cloning into 'affordable-k8s-tf'...
-remote: Enumerating objects: 327, done.
-remote: Total 327 (delta 0), reused 0 (delta 0), pack-reused 327
-Receiving objects: 100% (327/327), 71.68 KiB | 638.00 KiB/s, done.
-Resolving deltas: 100% (210/210), done.
-
-chilcano@inti:~/git-repos$ cd affordable-k8s-tf/
-
-chilcano@inti:~/git-repos/affordable-k8s-tf$ git tag -l
-0.1.0
-0.1.1
-0.1.2
-0.2.0
-0.2.1
-chilcano@inti:~/git-repos/affordable-k8s-tf$ git checkout tags/0.2.1 -b 0.2.1-chilcano
-Switched to a new branch '0.2.1-chilcano'
-
-chilcano@inti:~/git-repos/affordable-k8s-tf$ git status
-On branch 0.2.1-chilcano
-nothing to commit, working tree clean
-```
-
-Also you can clone the `0.2.1-chilcano` branch of GitHub repo as follow:
-
-```sh
-chilcano@inti:~/git-repos$ git clone --single-branch --branch 0.2.1-chilcano https://github.com/chilcano/kubeadm-aws affordable-k8s-tf
-```
-
+   You can clone the original GitHub repo tag `0.2.1` and update the scripts according the steps below. 
+   
+   ```sh
+   chilcano@inti:~/git-repos$ git clone https://github.com/chilcano/kubeadm-aws affordable-k8s-tf
+   
+   Cloning into 'affordable-k8s-tf'...
+   remote: Enumerating objects: 327, done.
+   remote: Total 327 (delta 0), reused 0 (delta 0), pack-reused 327
+   Receiving objects: 100% (327/327), 71.68 KiB | 638.00 KiB/s, done.
+   Resolving deltas: 100% (210/210), done.
+   
+   chilcano@inti:~/git-repos$ cd affordable-k8s-tf/
+   
+   chilcano@inti:~/git-repos/affordable-k8s-tf$ git tag -l
+   0.1.0
+   0.1.1
+   0.1.2
+   0.2.0
+   0.2.1
+   chilcano@inti:~/git-repos/affordable-k8s-tf$ git checkout tags/0.2.1 -b 0.2.1-chilcano
+   Switched to a new branch '0.2.1-chilcano'
+   
+   chilcano@inti:~/git-repos/affordable-k8s-tf$ git status
+   On branch 0.2.1-chilcano
+   nothing to commit, working tree clean
+   ```
+   
+   Also you can clone the `0.2.1-chilcano` branch of GitHub repo as follow:
+   
+   ```sh
+   chilcano@inti:~/git-repos$ git clone --single-branch --branch 0.2.1-chilcano https://github.com/chilcano/kubeadm-aws affordable-k8s-tf
+   ```
 
 2. Update `variables.tf`.
 
-> 
-> Hard-coding any credentials into any Terraform configuration is not recommended. I recommend to provide your AWS credentials via `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables.
->  
-
-
-```sh
-$ export AWS_ACCESS_KEY_ID="an-access-key"
-$ export AWS_SECRET_ACCESS_KEY="a-secret-key"
-```
-
-In my case I'm not going to update any variables in `variables.tf`, I will overwrite them when running `terraform apply`. But if you want to do, the variables you have to modify are:
-
-* cluster-name = "MY-CHEAP-K8S"
-* access_key = "ENV-VAR-VALUE-WILL-BE-READ"
-* secret_key = "ENV-VAR-VALUE-WILL-BE-READ"
-* k8s-ssh-key = "SSH-KEY-NAME-CREATED-IN-AWS-CONSOLE"
-* admin-cidr-blocks = "YOUR-PUBLIC-IP-ADDRESS/32"
-* region = "us-east-1"
-* master-instance-type = "m1.small"
-* worker-instance-type = "m1.small"
-
-> If you change the `master-instance-type` and `worker-instance-type` values to `t2.micro` for example, that isn't going to work because the `t2.micro` AMIs are prepared to be autoscaled.
->  
-
+   > 
+   > Hard-coding any credentials into any Terraform configuration is not recommended. I recommend to provide your AWS credentials via `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables.
+   >  
+   
+   ```sh
+   $ export AWS_ACCESS_KEY_ID="an-access-key"
+   $ export AWS_SECRET_ACCESS_KEY="a-secret-key"
+   ```
+   
+   In my case I'm not going to update any variables in `variables.tf`, I will overwrite them when running `terraform apply`. But if you want to do, the variables you have to modify are:
+   
+   * cluster-name = "MY-CHEAP-K8S"
+   * access_key = "ENV-VAR-VALUE-WILL-BE-READ"
+   * secret_key = "ENV-VAR-VALUE-WILL-BE-READ"
+   * k8s-ssh-key = "SSH-KEY-NAME-CREATED-IN-AWS-CONSOLE"
+   * admin-cidr-blocks = "YOUR-PUBLIC-IP-ADDRESS/32"
+   * region = "us-east-1"
+   * master-instance-type = "m1.small"
+   * worker-instance-type = "m1.small"
+   
+   > If you change the `master-instance-type` and `worker-instance-type` values to `t2.micro` for example, that isn't going to work because the `t2.micro` AMIs are prepared to be autoscaled.
+   >  
 
 3. Update `main.tf` and initialize the Terraform Providers.
 
-I will update `main.tf` to configure the 2 Terraform providers (`aws` and `random`) with proper versions according `Terraform v0.11.15-oci` version:
-
-```json
-provider "aws" {
-  #version    = "~> 1.48"
-  version    = "~> 2.44.0"
-  access_key = "${var.access_key}"
-  secret_key = "${var.secret_key}"
-  region     = "${var.region}"
-}
-
-provider "template" {
-  version    = "1.0.0"
-}
-
-provider "random" {
-  #version    = "2.0.0"
-  version    = "2.1.0"
-}
-```
-
-Now, initialize Terraform.
-
-```sh
-chilcano@inti:~/git-repos/affordable-k8s-tf$ terraform init
-
-Initializing provider plugins...
-- Checking for available provider plugins on https://releases.hashicorp.com...
-- Downloading plugin for provider "template" (1.0.0)...
-- Downloading plugin for provider "random" (2.1.0)...
-- Downloading plugin for provider "aws" (2.44.0)...
-
-Terraform has been successfully initialized!
-
-You may now begin working with Terraform. Try running "terraform plan" to see
-any changes that are required for your infrastructure. All Terraform commands
-should now work.
-
-If you ever set or change modules or backend configuration for Terraform,
-rerun this command to reinitialize your working directory. If you forget, other
-commands will detect it and remind you to do so if necessary.
-
-```
-
+   I will update `main.tf` to configure the 2 Terraform providers (`aws` and `random`) with proper versions according `Terraform v0.11.15-oci` version:
+   
+   ```json
+   provider "aws" {
+     #version    = "~> 1.48"
+     version    = "~> 2.44.0"
+     access_key = "${var.access_key}"
+     secret_key = "${var.secret_key}"
+     region     = "${var.region}"
+   }
+   
+   provider "template" {
+     version    = "1.0.0"
+   }
+   
+   provider "random" {
+     #version    = "2.0.0"
+     version    = "2.1.0"
+   }
+   ```
+   
+   Now, initialize Terraform.
+   
+   ```sh
+   chilcano@inti:~/git-repos/affordable-k8s-tf$ terraform init
+   
+   Initializing provider plugins...
+   - Checking for available provider plugins on https://releases.hashicorp.com...
+   - Downloading plugin for provider "template" (1.0.0)...
+   - Downloading plugin for provider "random" (2.1.0)...
+   - Downloading plugin for provider "aws" (2.44.0)...
+   
+   Terraform has been successfully initialized!
+   
+   You may now begin working with Terraform. Try running "terraform plan" to see
+   any changes that are required for your infrastructure. All Terraform commands
+   should now work.
+   
+   If you ever set or change modules or backend configuration for Terraform,
+   rerun this command to reinitialize your working directory. If you forget, other
+   commands will detect it and remind you to do so if necessary.
+   ```
 
 4. Get the Terraform Plan.
 
-```sh
-chilcano@inti:~/git-repos/affordable-k8s-tf$ terraform plan \
-  -var cluster-name="cheapk8s" \
-  -var k8s-ssh-key="ssh-key-for-us-east-1" \
-  -var admin-cidr-blocks="83.46.128.76/32" \
-  -var region="us-east-1" \
-  -var kubernetes-version="1.14.3"
-
-chilcano@inti:~/git-repos/affordable-k8s-tf$ terraform -v
-Terraform v0.11.15-oci
-+ provider.aws v2.44.0
-+ provider.random v2.1.0
-+ provider.template v1.0.0
-
-Your version of Terraform is out of date! The latest version
-is 0.12.19. You can update by downloading from www.terraform.io/downloads.html
-```
-
+   ```sh
+   chilcano@inti:~/git-repos/affordable-k8s-tf$ terraform plan \
+     -var cluster-name="cheapk8s" \
+     -var k8s-ssh-key="ssh-key-for-us-east-1" \
+     -var admin-cidr-blocks="83.46.128.76/32" \
+     -var region="us-east-1" \
+     -var kubernetes-version="1.14.3"
+   
+   chilcano@inti:~/git-repos/affordable-k8s-tf$ terraform -v
+   Terraform v0.11.15-oci
+   + provider.aws v2.44.0
+   + provider.random v2.1.0
+   + provider.template v1.0.0
+   
+   Your version of Terraform is out of date! The latest version
+   is 0.12.19. You can update by downloading from www.terraform.io/downloads.html
+   ```
 
 5. Visual exploration of the AWS resources are going to be created by Terraform.
 
-Terraform is able to export all Terraform scripts into a file in [DOT format](https://www.graphviz.org/doc/info/lang.html), useful to generate a graph through [GraphViz](http://www.graphviz.org). All details are explained here ["Terraform - Command: graph"](https://www.terraform.io/docs/commands/graph.html).
-
-```sh
-chilcano@inti:~/git-repos/affordable-k8s-tf$ sudo apt install graphviz
-terraform graph | dot -Tsvg > your-graph.svg
-```
-
-In my case I'm going to tweaking the DOT file to get a better graph. In fact, you can do it and once done, using an online service like this [Graphviz Online](https://dreampuf.github.io/GraphvizOnline) generate SVG file.
-
-```sh
-chilcano@inti:~/git-repos/affordable-k8s-tf$ terraform graph -draw-cycles -module-depth=1 -type=apply > affordable-k8s-aws-graph.dot
-```
-
-
-![Affordable K8s Data Plane hosted in AWS Graph](/assets/img/20200116-service-mesh-02-affordable-k8s-aws-graph.svg "Affordable K8s Data Plane hosted in AWS Graph")
-
+   Terraform is able to export all Terraform scripts into a file in [DOT format](https://www.graphviz.org/doc/info/lang.html), useful to generate a graph through [GraphViz](http://www.graphviz.org). All details are explained here ["Terraform - Command: graph"](https://www.terraform.io/docs/commands/graph.html).
+   
+   ```sh
+   chilcano@inti:~/git-repos/affordable-k8s-tf$ sudo apt install graphviz
+   terraform graph | dot -Tsvg > your-graph.svg
+   ```
+   
+   In my case I'm going to tweaking the DOT file to get a better graph. In fact, you can do it and once done, using an online service like this [Graphviz Online](https://dreampuf.github.io/GraphvizOnline) generate SVG file.
+   
+   ```sh
+   chilcano@inti:~/git-repos/affordable-k8s-tf$ terraform graph -draw-cycles -module-depth=1 -type=apply > affordable-k8s-aws-graph.dot
+   ```
+   
+   ![Affordable K8s Data Plane hosted in AWS Graph](/assets/img/20200116-service-mesh-02-affordable-k8s-aws-graph.svg "Affordable K8s Data Plane hosted in AWS Graph")
 
 6. Apply the Terraform Plan.
 
-```sh
-chilcano@inti:~/git-repos/affordable-k8s-tf$ terraform apply \
-  -var cluster-name="cheapk8s" \
-  -var k8s-ssh-key="ssh-key-for-us-east-1" \
-  -var admin-cidr-blocks="83.46.128.76/32" \
-  -var region="us-east-1" \
-  -var kubernetes-version="1.14.3"
-```
-
-And if you want to destroy all resources recently created by `terraform apply`, you can do it executing this:
-
-```sh
-chilcano@inti:~/git-repos/affordable-k8s-tf$ terraform destroy \
-  -var cluster-name="cheapk8s" \
-  -var k8s-ssh-key="ssh-key-for-us-east-1" \
-  -var admin-cidr-blocks="83.46.128.76/32" \
-  -var region="us-east-1" \
-  -var kubernetes-version="1.14.3"
-```
-
+   ```sh
+   chilcano@inti:~/git-repos/affordable-k8s-tf$ terraform apply \
+     -var cluster-name="cheapk8s" \
+     -var k8s-ssh-key="ssh-key-for-us-east-1" \
+     -var admin-cidr-blocks="83.46.128.76/32" \
+     -var region="us-east-1" \
+     -var kubernetes-version="1.14.3"
+   ```
+   
+   And if you want to destroy all resources recently created by `terraform apply`, you can do it executing this:
+   
+   ```sh
+   chilcano@inti:~/git-repos/affordable-k8s-tf$ terraform destroy \
+     -var cluster-name="cheapk8s" \
+     -var k8s-ssh-key="ssh-key-for-us-east-1" \
+     -var admin-cidr-blocks="83.46.128.76/32" \
+     -var region="us-east-1" \
+     -var kubernetes-version="1.14.3"
+   ```
 
 **4. Check the Kubernetes Cluster**
-
 
 If we want to check the Kubernetes Cluster creation, we have to review the `/var/log/cloud-init-output.log`. Before we should get remote access to Kubernetes Master host.
 
@@ -359,47 +349,42 @@ Cloud-init v. 19.3-41-gc4735dd3-0ubuntu1~18.04.1 running 'modules:final' at Wed,
 Cloud-init v. 19.3-41-gc4735dd3-0ubuntu1~18.04.1 finished at Wed, 15 Jan 2020 12:10:10 +0000. Datasource DataSourceEc2Local.  Up 357.91 seconds
 ```
 
-
 **5. Access to Kubernetes Cluster**
-
 
 If you want to know if your Kubernetes Cluster was created successfully, then you should do these checkings:
 
-
 1. Check that there are no errors in `/var/log/cloud-init-output.log` log file.
 
-```sh
-chilcano@inti:~/git-repos/affordable-k8s-tf$ ssh ubuntu@$(terraform output master_dns) -i ~/Downloads/ssh-key-for-us-east-1.pem -- cat /var/log/cloud-init-output.log
-```
-
+   ```sh
+   chilcano@inti:~/git-repos/affordable-k8s-tf$ ssh ubuntu@$(terraform output master_dns) -i ~/Downloads/ssh-key-for-us-east-1.pem -- cat /var/log/cloud-init-output.log
+   ```
 
 2. Check that `kubelet` has started successfully.
 
-```sh
-chilcano@inti:~/git-repos/affordable-k8s-tf$ ssh ubuntu@$(terraform output master_dns) -i ~/Downloads/ssh-key-for-us-east-1.pem -- systemctl status kubelet
-```
-
+   ```sh
+   chilcano@inti:~/git-repos/affordable-k8s-tf$ ssh ubuntu@$(terraform output master_dns) -i ~/Downloads/ssh-key-for-us-east-1.pem -- systemctl status kubelet
+   ```
 
 3. Finally, ask to Kubernetes API to show all Cluster Nodes.
 
-```sh
-chilcano@inti:~/git-repos/affordable-k8s-tf$ ssh ubuntu@$(terraform output master_dns) -i ~/Downloads/ssh-key-for-us-east-1.pem -- kubectl get nodes
-
-NAME                           STATUS   ROLES    AGE   VERSION
-ip-10-0-100-154.ec2.internal   Ready    <none>   48m   v1.14.3
-ip-10-0-100-4.ec2.internal     Ready    master   49m   v1.14.3
-```
-
-![Affordable K8s Data Plane hosted in AWS](/assets/img/20200116-service-mesh-03-affordable-k8s-aws.png "Affordable K8s Data Plane hosted in AWS")
-
-> 
-> If you want a cheap K8s Infrastructure on AWS, I recommend to use this GitHub repo I've updated for you, once cloned just follow the above steps.
->  
-> [https://github.com/chilcano/kubeadm-aws/tree/0.2.1-chilcano](https://github.com/chilcano/kubeadm-aws/tree/0.2.1-chilcano)
->  
-
-Below I've selected a set of good references to read related to this article and that will surely interest you.
-I hope this helps.
+   ```sh
+   chilcano@inti:~/git-repos/affordable-k8s-tf$ ssh ubuntu@$(terraform output master_dns) -i ~/Downloads/ssh-key-for-us-east-1.pem -- kubectl get nodes
+   
+   NAME                           STATUS   ROLES    AGE   VERSION
+   ip-10-0-100-154.ec2.internal   Ready    <none>   48m   v1.14.3
+   ip-10-0-100-4.ec2.internal     Ready    master   49m   v1.14.3
+   ```
+   
+   ![Affordable K8s Data Plane hosted in AWS](/assets/img/20200116-service-mesh-03-affordable-k8s-aws.png "Affordable K8s Data Plane hosted in AWS")
+   
+   > 
+   > If you want a cheap K8s Infrastructure on AWS, I recommend to use this GitHub repo I've updated for you, once cloned just follow the above steps.
+   >  
+   > [https://github.com/chilcano/kubeadm-aws/tree/0.2.1-chilcano](https://github.com/chilcano/kubeadm-aws/tree/0.2.1-chilcano)
+   >  
+   
+   Below I've selected a set of good references to read related to this article and that will surely interest you.
+   I hope this helps.
 
 
 ## References
