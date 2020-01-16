@@ -57,19 +57,19 @@ Then, in this post I will explain how to create an affordable Data Plane in AWS,
 
 1. Download Terraform bundle.
 
-> I've attempted to use Terraform 12.x, but unfortunately Terraform scrips need to be tweaked before, for that, for this blog post I recommend download and install [Terraform 11.15-oci](https://releases.hashicorp.com/terraform/) version.  
-> The `oci` suffix means that Terraform is compatible with [Oracle Cloud Infrastructure](https://www.terraform.io/docs/providers/oci/guides/faq.html). 
+   > I've attempted to use Terraform 12.x, but unfortunately Terraform scrips need to be tweaked before, for that, for this blog post I recommend download and install [Terraform 11.15-oci](https://releases.hashicorp.com/terraform/) version.  
+   > The `oci` suffix means that Terraform is compatible with [Oracle Cloud Infrastructure](https://www.terraform.io/docs/providers/oci/guides/faq.html). 
 
 2. Extract the downloaded `terraform` binary file and move it into a directory searched for executables.
 
-```sh
-chilcano@inti:~$ unzip ~/Downloads/terraform_0.11.15-oci_linux_amd64.zip 
-
-chilcano@inti:~$ sudo mv terraform /usr/local/bin/
-
-chilcano@inti:~$ terraform -v
-Terraform v0.11.15-oci
-```
+   ```sh
+   chilcano@inti:~$ unzip ~/Downloads/terraform_0.11.15-oci_linux_amd64.zip 
+ 
+   chilcano@inti:~$ sudo mv terraform /usr/local/bin/
+   
+   chilcano@inti:~$ terraform -v
+   Terraform v0.11.15-oci
+   ```
 
 **2. AWS (optional)**
 
@@ -78,33 +78,33 @@ Although AWS CLI isn't needed for the purpose of running Terraform, that will be
 
 1. Install AWS CLI. It requires Pip 3.
 
-```sh
-chilcano@inti:~$ pip3 --version
-pip 18.1 from /usr/lib/python3/dist-packages/pip (python 3.7)
+  ```sh
+  chilcano@inti:~$ pip3 --version
+  pip 18.1 from /usr/lib/python3/dist-packages/pip (python 3.7)
 
-chilcano@inti:~$ pip3 install awscli --upgrade --user
+  chilcano@inti:~$ pip3 install awscli --upgrade --user
 
-chilcano@inti:~$ aws --version
-aws-cli/1.16.314 Python/3.7.5 Linux/5.3.0-26-generic botocore/1.13.50
+  chilcano@inti:~$ aws --version
+  aws-cli/1.16.314 Python/3.7.5 Linux/5.3.0-26-generic botocore/1.13.50
 
-chilcano@inti:~$ which aws
-/home/chilcano/.local/bin/aws
-```
+  chilcano@inti:~$ which aws
+  /home/chilcano/.local/bin/aws
+  ```
 
 2. Configure the AWS account.
 
-```sh
-chilcano@inti:~$ aws configure --profile affordablek8s01
-AWS Access Key ID [None]: <ACCESS-KEY-ID>
-AWS Secret Access Key [None]: <SECRET-ACCESS-KEY>
-Default region name [None]: us-west-2
-Default output format [None]: json
+  ```sh
+  chilcano@inti:~$ aws configure --profile affordablek8s01
+  AWS Access Key ID [None]: <ACCESS-KEY-ID>
+  AWS Secret Access Key [None]: <SECRET-ACCESS-KEY>
+  Default region name [None]: us-west-2
+  Default output format [None]: json
 
-chilcano@inti:~$ cat .aws/credentials 
-[affordablek8s01]
-aws_access_key_id = <ACCESS-KEY-ID>
-aws_secret_access_key = <SECRET-ACCESS-KEY>
-```
+  chilcano@inti:~$ cat .aws/credentials 
+  [affordablek8s01]
+  aws_access_key_id = <ACCESS-KEY-ID>
+  aws_secret_access_key = <SECRET-ACCESS-KEY>
+  ```
 
 3. Create a SSH key under the AZ where the resources will be created. In my case I'll create in `us-east-1` (Virginia) from the `AWS Web Console > NETWORK & SECURITY > Key Pairs`. This SSH key will be used to get access to all nodes created in AWS for that specific AZ.
 
