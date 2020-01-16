@@ -114,7 +114,6 @@ aws_secret_access_key = <SECRET-ACCESS-KEY>
 
 1. Clone the Github repo.
 
-
 You can clone the original GitHub repo tag `0.2.1` and update the scripts according the steps below. 
 
 ```sh
@@ -151,7 +150,6 @@ chilcano@inti:~/git-repos$ git clone --single-branch --branch 0.2.1-chilcano htt
 
 2. Update `variables.tf`.
 
-
 > 
 > Hard-coding any credentials into any Terraform configuration is not recommended. I recommend to provide your AWS credentials via `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables.
 >  
@@ -178,7 +176,6 @@ In my case I'm not going to update any variables in `variables.tf`, I will overw
 
 
 3. Update `main.tf` and initialize the Terraform Providers.
-
 
 I will update `main.tf` to configure the 2 Terraform providers (`aws` and `random`) with proper versions according `Terraform v0.11.15-oci` version:
 
@@ -227,7 +224,6 @@ commands will detect it and remind you to do so if necessary.
 
 4. Get the Terraform Plan.
 
-
 ```sh
 chilcano@inti:~/git-repos/affordable-k8s-tf$ terraform plan \
   -var cluster-name="cheapk8s" \
@@ -249,7 +245,6 @@ is 0.12.19. You can update by downloading from www.terraform.io/downloads.html
 
 5. Visual exploration of the AWS resources are going to be created by Terraform.
 
-
 Terraform is able to export all Terraform scripts into a file in [DOT format](https://www.graphviz.org/doc/info/lang.html), useful to generate a graph through [GraphViz](http://www.graphviz.org). All details are explained here ["Terraform - Command: graph"](https://www.terraform.io/docs/commands/graph.html).
 
 ```sh
@@ -268,7 +263,6 @@ chilcano@inti:~/git-repos/affordable-k8s-tf$ terraform graph -draw-cycles -modul
 
 
 6. Apply the Terraform Plan.
-
 
 ```sh
 chilcano@inti:~/git-repos/affordable-k8s-tf$ terraform apply \
@@ -378,11 +372,13 @@ If you want to know if your Kubernetes Cluster was created successfully, then yo
 chilcano@inti:~/git-repos/affordable-k8s-tf$ ssh ubuntu@$(terraform output master_dns) -i ~/Downloads/ssh-key-for-us-east-1.pem -- cat /var/log/cloud-init-output.log
 ```
 
+
 2. Check that `kubelet` has started successfully.
 
 ```sh
 chilcano@inti:~/git-repos/affordable-k8s-tf$ ssh ubuntu@$(terraform output master_dns) -i ~/Downloads/ssh-key-for-us-east-1.pem -- systemctl status kubelet
 ```
+
 
 3. Finally, ask to Kubernetes API to show all Cluster Nodes.
 
@@ -404,6 +400,7 @@ ip-10-0-100-4.ec2.internal     Ready    master   49m   v1.14.3
 
 Below I've selected a set of good references to read related to this article and that will surely interest you.
 I hope this helps.
+
 
 ## References
 
