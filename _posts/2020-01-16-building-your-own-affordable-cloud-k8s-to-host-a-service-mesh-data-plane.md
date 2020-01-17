@@ -249,9 +249,13 @@ Although AWS CLI isn't needed for the purpose of running Terraform, that will be
    In my case I'm going to tweaking the DOT file to get a better graph. In fact, you can do it and once done, using an online service like this [Graphviz Online](https://dreampuf.github.io/GraphvizOnline) generate SVG file.
    
    ```sh
-   chilcano@inti:~/git-repos/affordable-k8s-tf$ terraform graph -draw-cycles -module-depth=1 -type=apply > affordable-k8s-aws-graph.dot
+   chilcano@inti:~/git-repos/affordable-k8s-tf$ terraform graph -draw-cycles -module-depth=1 -type=apply > 20200116-service-mesh-02-affordable-k8s-aws-graph.dot
    ```
    
+   > 
+   > You can download my updated DOT file from here [20200116-service-mesh-02-affordable-k8s-aws-graph.dot](/assets/img/20200116-service-mesh-02-affordable-k8s-aws-graph.dot).
+   > 
+
    ![Affordable K8s Data Plane hosted in AWS Graph](/assets/img/20200116-service-mesh-02-affordable-k8s-aws-graph.svg "Affordable K8s Data Plane hosted in AWS Graph")
 
 6. Apply the Terraform Plan.
