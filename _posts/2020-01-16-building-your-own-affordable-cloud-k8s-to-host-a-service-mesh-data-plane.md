@@ -160,15 +160,16 @@ Although AWS CLI isn't needed for the purpose of running Terraform, that will be
    
    In my case I'm not going to update any variables in `variables.tf`, I will overwrite them when running `terraform apply`. But if you want to do, the variables you have to modify are:
    
-   * cluster-name = "MY-CHEAP-K8S"
-   * access_key = "ENV-VAR-VALUE-WILL-BE-READ"
-   * secret_key = "ENV-VAR-VALUE-WILL-BE-READ"
-   * k8s-ssh-key = "SSH-KEY-NAME-CREATED-IN-AWS-CONSOLE"
-   * admin-cidr-blocks = "YOUR-PUBLIC-IP-ADDRESS/32"
-   * region = "us-east-1"
-   * master-instance-type = "m1.small"
-   * worker-instance-type = "m1.small"
+   * `cluster-name = "MY-CHEAP-K8S"`
+   * `access_key = "ENV-VAR-VALUE-WILL-BE-READ"`
+   * `secret_key = "ENV-VAR-VALUE-WILL-BE-READ"`
+   * `k8s-ssh-key = "SSH-KEY-NAME-CREATED-IN-AWS-CONSOLE"`
+   * `admin-cidr-blocks = "YOUR-PUBLIC-IP-ADDRESS/32"`
+   * `region = "us-east-1"`
+   * `master-instance-type = "m1.small"`
+   * `worker-instance-type = "m1.small"`
    
+   > 
    > If you change the `master-instance-type` and `worker-instance-type` values to `t2.micro` for example, that isn't going to work because the `t2.micro` AMIs are prepared to be autoscaled.
    >  
 
