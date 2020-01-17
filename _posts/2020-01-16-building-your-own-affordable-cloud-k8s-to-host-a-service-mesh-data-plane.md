@@ -370,7 +370,7 @@ If you want to know if your Kubernetes Cluster was created successfully, then yo
    chilcano@inti:~/git-repos/affordable-k8s-tf$ ssh ubuntu@$(terraform output master_dns) -i ~/Downloads/ssh-key-for-us-east-1.pem -- systemctl status kubelet
    ```
 
-3. Finally, ask to Kubernetes API to show all Cluster Nodes.
+3. Finally, ask to Kubernetes to show all Cluster Nodes and its status.
 
    ```sh
    chilcano@inti:~/git-repos/affordable-k8s-tf$ ssh ubuntu@$(terraform output master_dns) -i ~/Downloads/ssh-key-for-us-east-1.pem -- kubectl get nodes
@@ -378,6 +378,10 @@ If you want to know if your Kubernetes Cluster was created successfully, then yo
    NAME                           STATUS   ROLES    AGE   VERSION
    ip-10-0-100-154.ec2.internal   Ready    <none>   48m   v1.14.3
    ip-10-0-100-4.ec2.internal     Ready    master   49m   v1.14.3
+
+   chilcano@inti:~/git-repos/affordable-k8s-tf$ ssh ubuntu@$(terraform output master_dns) -i ~/Downloads/ssh-key-for-us-east-1.pem -- kubectl cluster-info
+   Kubernetes master is running at https://10.0.100.4:6443
+   KubeDNS is running at https://10.0.100.4:6443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
    ```
    
    ![Affordable K8s Data Plane hosted in AWS](/assets/img/20200116-service-mesh-03-affordable-k8s-aws.png "Affordable K8s Data Plane hosted in AWS")
