@@ -177,7 +177,7 @@ Although AWS CLI isn't needed for the purpose of running Terraform, that will be
 
    I will update `main.tf` to configure the 2 Terraform providers (`aws` and `random`) with proper versions according `Terraform v0.11.15-oci` version:
    
-   ```json
+   ```terraform
    provider "aws" {
      #version    = "~> 1.48"
      version    = "~> 2.44.0"
