@@ -5,6 +5,7 @@ date:   2020-01-16 10:00:00 +0100
 categories: ['cloud', 'apaas', 'service mesh'] 
 tags: ['aws', 'gcp', 'azure', 'docker', 'kubernetes', 'data plane']
 permalink: "/2020/01/16/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-data-plane"
+comments: true
 ---
 I want to build a Container-based Cloud to deploy any kind of workload (RESTful API, Microservices, Event-Driven, Functions, etc.) but it should be affordable, ready to use, reliable, secure and productionable. This means:
 

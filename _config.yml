@@ -48,3 +48,7 @@ excerpt_separator: <!-- more -->
 
 ## Google Analytics
 google_analytics: UA-156433649-1
+
+## Disqus Comments
+disqus:
+  shortname: holosec

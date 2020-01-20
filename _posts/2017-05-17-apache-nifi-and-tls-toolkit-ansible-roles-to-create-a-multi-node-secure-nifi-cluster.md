@@ -6,6 +6,7 @@ categories: ['Big Data', 'DevOps', 'Security']
 tags:       ['Ansible', 'Apache NiFi', 'TLS', 'Vagrant']
 status:     publish 
 permalink:  "/2017/05/17/apache-nifi-and-tls-toolkit-ansible-roles-to-create-a-multi-node-secure-nifi-cluster/"
+comments:   true
 ---
 I've created 2 Ansible Roles ([chilcano.apache-nifi](https://galaxy.ansible.com/chilcano/apache-nifi) and [chilcano.apache-nifi-toolkit](https://galaxy.ansible.com/chilcano/apache-nifi-toolkit)) to automate the creation of a multi-node and secure NiFi cluster. At the moment, the [chilcano.apache-nifi](https://galaxy.ansible.com/chilcano/apache-nifi) Ansible Role doesn't implement [Cluster State coordination](https://nifi.apache.org/docs/nifi-docs/html/administration-guide.html#state_management) through Apache ZooKeeper. It will be implemented in the next version of this Ansible Role. Also I've implemented only [TLS Toolkit Standalone mode](https://nifi.apache.org/docs/nifi-docs/html/administration-guide.html#tls-generation-toolkit) in the [chilcano.apache-nifi-toolkit](https://galaxy.ansible.com/chilcano/apache-nifi-toolkit) Ansible Role.
 Further details and samples about both Ansible Roles can be found at Ansible Galaxy:

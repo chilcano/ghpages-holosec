@@ -5,6 +5,7 @@ date:   2020-01-16 10:00:00 +0100
 categories: ['cloud', 'apaas', 'service mesh'] 
 tags: ['aws', 'gcp', 'azure', 'docker', 'kubernetes', 'data plane', 'ingress']
 permalink: "/2020/01/16/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-part2-ingress"
+comments: true
 ---
 
 ## Deployment of Hello Microservices on a cheap K8s hosted on AWS
@@ -69,7 +70,6 @@ $ curl http://${HELLO_SVC_CIP}/hello
 **2. Calling Hello Microservice through LoadBalancer SVC**
 
 ```sh
-$ 
 $ export HELLO_SVC_LB=$(ssh ubuntu@$(terraform output master_dns) -i ~/Downloads/ssh-key-for-us-east-1.pem -- kubectl get svc hello-svc-lb -n hello -o jsonpath='{.spec.ports[0].nodePort}')
 $ curl -s http://$(terraform output master_dns):${HELLO_SVC_LB}/hello
 ```
