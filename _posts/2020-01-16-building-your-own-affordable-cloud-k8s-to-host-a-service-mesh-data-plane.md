@@ -15,7 +15,7 @@ I want to build a Container-based Cloud to deploy any kind of workload (RESTful 
 - Ready to use: able to be automated (DevOps and IaC) with a mature management API.
 
 Below a high level architecture of Container-based Cloud I want to get. I will focus on the Service Mesh Data Plane.  
-[![Service Mesh hosted in a Container-based Cloud](/assets/img/20200116-service-mesh-01-reference-architecture.png "Service Mesh hosted in a Container-based Cloud")](/assets/img/20200116-service-mesh-01-reference-architecture.png){:target="_blank"}
+[![Service Mesh hosted in a Container-based Cloud](/assets/img/20200116-service-mesh-01-reference-arch-2.png "Service Mesh hosted in a Container-based Cloud")](/assets/img/20200116-service-mesh-01-reference-arch-2.png){:target="_blank"}
 
 These requeriments restric some options, all of them using any Public Cloud Provider, but considering the [AWS Spot Instances](https://aws.amazon.com/ec2/spot) and [Google Cloud Preemptible VM Instances](https://cloud.google.com/preemptible-vms). Unfortunately Microsoft Azure only provides Low-Priority VMs to be used from Azure Batch Service. But if you are new user, you could apply for using the Free Tier in all of 3 Cloud Providers. 
 
