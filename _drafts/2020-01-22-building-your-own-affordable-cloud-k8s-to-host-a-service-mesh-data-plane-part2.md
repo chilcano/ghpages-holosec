@@ -1,14 +1,19 @@
 ---
 layout: post
 title:  "Building your own affordable Cloud (K8s) to host a Service Mesh - Part2 Ingress"
-date:   2020-01-16 10:00:00 +0100
+date:   2020-01-22 10:00:00 +0100
 categories: ['cloud', 'apaas', 'service mesh'] 
 tags: ['aws', 'gcp', 'azure', 'docker', 'kubernetes', 'data plane', 'ingress']
-permalink: "/2020/01/16/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-part2-ingress"
+permalink: "/2020/01/22/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-part2-ingress"
 comments: true
 ---
 
 ## Deployment of Hello Microservices on a cheap K8s hosted on AWS
+
+
+
+
+[![Service Mesh hosted using AWS Spot Instances](/assets/img/20200122-service-mesh-01-affordableK8s-aws-arch.png "Service Mesh using AWS Spot Instances")](/assets/img/20200122-service-mesh-01-affordableK8s-aws-arch){:target="_blank"}
 
 
 **Check the K8s Cluster status**
