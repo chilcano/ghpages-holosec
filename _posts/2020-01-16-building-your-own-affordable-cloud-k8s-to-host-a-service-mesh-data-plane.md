@@ -53,7 +53,7 @@ Then, in this post I will explain how to create an affordable Data Plane in AWS,
 ### Steps
 
 
-**1. Terraform**
+**1) Terraform**
 
 
 1. Download Terraform bundle.
@@ -72,7 +72,7 @@ Then, in this post I will explain how to create an affordable Data Plane in AWS,
    Terraform v0.11.15-oci
    ```
 
-**2. AWS (optional)**
+**2) AWS (optional)**
 
 
 Although AWS CLI isn't needed for the purpose of running Terraform, that will be useful in the next blog posts.
@@ -110,12 +110,12 @@ Although AWS CLI isn't needed for the purpose of running Terraform, that will be
 3. Create a SSH key under the AZ where the resources will be created. In my case I'll create in `us-east-1` (Virginia) from the `AWS Web Console > NETWORK & SECURITY > Key Pairs`. This SSH key will be used to get access to all nodes created in AWS for that specific AZ.
 
 
-**3. Create the Kubernetes Cluster in AWS using Terraform**
+**3) Create the Kubernetes Cluster in AWS using Terraform**
 
 
 1. Clone the Github repo.
 
-   You can clone the original GitHub repo tag `0.2.1` and update the scripts according the steps below. 
+   You can clone the [forked GitHub repo](https://github.com/chilcano/kubeadm-aws){:target="_blank"} and switch to `0.2.1-chilcano` branch. 
    
    ```sh
    chilcano@inti:~/git-repos$ git clone https://github.com/chilcano/kubeadm-aws affordable-k8s-tf
@@ -134,15 +134,33 @@ Although AWS CLI isn't needed for the purpose of running Terraform, that will be
    0.1.2
    0.2.0
    0.2.1
-   chilcano@inti:~/git-repos/affordable-k8s-tf$ git checkout tags/0.2.1 -b 0.2.1-chilcano
+
+   chilcano@inti:~/git-repos/affordable-k8s-tf$ git branch -a
+   * master
+     remotes/origin/0.2.1-chilcano
+     remotes/origin/HEAD -> origin/master
+     remotes/origin/master
+
+   chilcano@inti:~/git-repos/affordable-k8s-tf$ git branch -r
+     origin/0.2.1-chilcano
+     origin/HEAD -> origin/master
+     origin/master
+   ```
+   Now, let's switch to `0.2.1-chilcano` branch.
+
+   ```sh
+   chilcano@inti:~/git-repos/affordable-k8s-tf$ git checkout 0.2.1-chilcano
+   Branch '0.2.1-chilcano' set up to track remote branch '0.2.1-chilcano' from 'origin'.
    Switched to a new branch '0.2.1-chilcano'
-   
+
    chilcano@inti:~/git-repos/affordable-k8s-tf$ git status
    On branch 0.2.1-chilcano
+   Your branch is up to date with 'origin/0.2.1-chilcano'.
+   
    nothing to commit, working tree clean
    ```
    
-   Also you can clone the `0.2.1-chilcano` branch of GitHub repo as follow:
+   Also you can clone the `0.2.1-chilcano` branch only of GitHub repo as follow:
    
    ```sh
    chilcano@inti:~/git-repos$ git clone --single-branch --branch 0.2.1-chilcano https://github.com/chilcano/kubeadm-aws affordable-k8s-tf
@@ -282,7 +300,7 @@ Although AWS CLI isn't needed for the purpose of running Terraform, that will be
      -var kubernetes-version="1.14.3"
    ```
 
-**4. Check the Kubernetes Cluster**
+**4) Check the Kubernetes Cluster**
 
 If we want to check the Kubernetes Cluster creation, we have to review the `/var/log/cloud-init-output.log`. Before we should get remote access to Kubernetes Master host.
 
@@ -355,7 +373,7 @@ Cloud-init v. 19.3-41-gc4735dd3-0ubuntu1~18.04.1 running 'modules:final' at Wed,
 Cloud-init v. 19.3-41-gc4735dd3-0ubuntu1~18.04.1 finished at Wed, 15 Jan 2020 12:10:10 +0000. Datasource DataSourceEc2Local.  Up 357.91 seconds
 ```
 
-**5. Access to Kubernetes Cluster**
+**5) Access to Kubernetes Cluster**
 
 If you want to know if your Kubernetes Cluster was created successfully, then you should do these checkings:
 

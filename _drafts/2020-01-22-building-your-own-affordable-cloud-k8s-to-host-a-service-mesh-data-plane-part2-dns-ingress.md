@@ -193,8 +193,26 @@ chilcano@inti:~/git-repos/affordable-k8s-tf$ dig +short @ns-789.awsdns-34.net. i
 54.159.75.179
 ```
 
+Both above IP addresses are the `IPv4 Public IP` addresses assigned to Kubernetes Master Node and Kubernetes Worker Node. If I add a new Node to existing Kubernetes Cluster, the `NGINX Ingress Controller` will be installed in the new Node and its new `IPv4 Public IP` address will resolve to `ingress-nginx.cloud.holisticsecurity.io`, that is why the `NGINX Ingress Controller` was deployed into Kubernetes as a [`DaemonSet`](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/){:target="_blank"}. Let's to verify it.
 
-**3) Verify ExternalDNS and NGINX Ingress work together**
+
+```sh
+chilcano@inti:~/git-repos/affordable-k8s-tf$ ssh ubuntu@$(terraform output master_dns) -i ~/Downloads/ssh-key-for-us-east-1.pem
+
+ubuntu@ip-10-0-100-4:~$ kubectl get daemonset -n ingress-nginx
+NAME                       DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
+nginx-ingress-controller   2         2         2       2            2           <none>          14h
+
+
+ubuntu@ip-10-0-100-4:~$ kubectl get pods -n ingress-nginx -o wide
+NAME                                    READY   STATUS    RESTARTS   AGE   IP            NODE                          NOMINATED NODE   READINESS GATES
+default-http-backend-5c9bb94849-pf5pj   1/1     Running   0          14h   10.244.1.3    ip-10-0-100-22.ec2.internal   <none>           <none>
+nginx-ingress-controller-bwhdp          1/1     Running   0          14h   10.0.100.22   ip-10-0-100-22.ec2.internal   <none>           <none>
+nginx-ingress-controller-q4bgh          1/1     Running   0          14h   10.0.100.4    ip-10-0-100-4.ec2.internal    <none>           <none>
+```
+
+
+**3) Verify ExternalDNS and NGINX Ingress work together (Health Check example)**
 
 
 Since the `CheapK8s` only exposes RESTful services over `80` and `443` ports, then to verify I need to call the `Health Check` service of my [NGINX Ingress Controller](https://github.com/chilcano/kubeadm-aws/blob/0.2.1-chilcano/manifests/nginx-ingress-mandatory.yaml){:target="_blank"} deployed through Terraform in previous step.
