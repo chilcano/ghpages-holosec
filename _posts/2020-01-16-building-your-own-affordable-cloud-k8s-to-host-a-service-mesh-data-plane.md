@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Building your own affordable Cloud (K8s) to host a Service Mesh Data Plane"
+title:  "Building your own affordable K8s to host a Service Mesh Data Plane"
 date:   2020-01-16 10:00:00 +0100
 categories: ['cloud', 'apaas', 'service mesh'] 
 tags: ['aws', 'gcp', 'azure', 'docker', 'kubernetes', 'data plane']
