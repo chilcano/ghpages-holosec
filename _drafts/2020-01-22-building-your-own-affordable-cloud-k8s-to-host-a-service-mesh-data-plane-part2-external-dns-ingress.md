@@ -1,13 +1,13 @@
 ---
 layout: post
-title:  "Building your own affordable Cloud (K8s) to host a Service Mesh - Part2 DNS to Ingress"
+title:  "Building your own affordable Cloud (K8s) to host a Service Mesh - Part2 External DNS & Ingress"
 date:   2020-01-22 10:00:00 +0100
 categories: ['cloud', 'apaas', 'service mesh'] 
-tags: ['aws', 'docker', 'kubernetes', 'data plane', 'dns', 'ingress']
-permalink: "/2020/01/22/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-part2-dns-ingress"
+tags: ['aws', 'docker', 'kubernetes', 'data plane', 'external dns', 'ingress']
+permalink: "/2020/01/22/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-part2-external-dns-ingress"
 comments: true
 ---
-In order to get an affordable Kubernetes, every part we're going to use should be affordable too, and ones of the expensive and tricky things are the [AWS Elastic Load Balancing](https://aws.amazon.com/elasticloadbalancing){:target="_blank"} (ELB) and the [AWS Route 53](https://aws.amazon.com/route53){:target="_blank"} (DNS). Fortunately, Kubernetes SIGs are working to address this gap with the [Kubernetes ExternalDNS](https://github.com/kubernetes-sigs/external-dns){:target="_blank"}.
+In order to get an affordable Kubernetes, every part we're going to use should be affordable too, and ones of the expensive and tricky things are the [AWS Elastic Load Balancing (ELB)](https://aws.amazon.com/elasticloadbalancing){:target="_blank"} and the [AWS Route 53 (DNS)](https://aws.amazon.com/route53){:target="_blank"}. Fortunately, Kubernetes SIGs are working to address this gap with the [Kubernetes ExternalDNS](https://github.com/kubernetes-sigs/external-dns){:target="_blank"}.
 
 **But what is the problem?**
 
@@ -243,13 +243,73 @@ Note: Unnecessary use of -X or --request, GET is already inferred.
 
 **4) Verify ExternalDNS and NGINX Ingress work together (Ingress resource example)**
 
-xxxx
+
+```sh
+chilcano@inti:~/git-repos/affordable-k8s-tf$ ssh ubuntu@$(terraform output master_dns) -i ~/Downloads/ssh-key-for-us-east-1.pem
+
+
+```
 
 **5) Verify ExternalDNS and NGINX Ingress work together (Service example)**
 
 
+```sh
+chilcano@inti:~/git-repos/affordable-k8s-tf$ ssh ubuntu@$(terraform output master_dns) -i ~/Downloads/ssh-key-for-us-east-1.pem
+
+ubuntu@ip-10-0-100-4:~$ kubectl apply -f https://raw.githubusercontent.com/chilcano/kubeadm-aws/0.2.1-chilcano/examples/hello-cheapk8s.yaml
+namespace/hello created
+serviceaccount/hello-sa created
+deployment.extensions/hello-v1 created
+deployment.extensions/hello-v2 created
+service/hello-svc-cip created
+service/hello-svc-lb created
+service/hello-svc-np created
+
+ubuntu@ip-10-0-100-4:~$ kubectl get pod,svc,sa -n hello -o wide
+NAME                            READY   STATUS    RESTARTS   AGE     IP           NODE                          NOMINATED NODE   READINESS GATES
+pod/hello-v1-5cb886df9d-9lqs6   1/1     Running   0          6m50s   10.244.1.4   ip-10-0-100-22.ec2.internal   <none>           <none>
+pod/hello-v2-6c7fbbb654-tbv6n   1/1     Running   0          6m50s   10.244.1.5   ip-10-0-100-22.ec2.internal   <none>           <none>
+
+NAME                    TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE     SELECTOR
+service/hello-svc-cip   ClusterIP      10.107.236.58    <none>        80/TCP         6m49s   app=hello
+service/hello-svc-lb    LoadBalancer   10.107.193.76    <pending>     80:31936/TCP   6m47s   app=hello
+service/hello-svc-np    NodePort       10.111.252.162   <none>        80:32478/TCP   6m46s   app=hello
+
+NAME                      SECRETS   AGE
+serviceaccount/default    1         6m52s
+serviceaccount/hello-sa   1         6m52s
 
 
+
+ubuntu@ip-10-0-100-4:~$ export HELLO_SVC_CIP=$(kubectl get svc/hello-svc-cip -n hello -o jsonpath='{.spec.clusterIP}'):$(kubectl get svc/hello-svc-cip -n hello -o jsonpath='{.spec.ports[0].port}')
+ubuntu@ip-10-0-100-4:~$ curl http://${HELLO_SVC_CIP}/hello
+Hello version: v1, instance: hello-v1-5cb886df9d-k7rcq
+
+ubuntu@ip-10-0-100-4:~$ curl http://${HELLO_SVC_CIP}/hello
+Hello version: v2, instance: hello-v2-6c7fbbb654-kq6sq
+
+ubuntu@ip-10-0-100-4:~$ curl http://${HELLO_SVC_CIP}/hello
+Hello version: v1, instance: hello-v1-5cb886df9d-k7rcq
+
+ubuntu@ip-10-0-100-4:~$ kubectl logs -f -l app=hello -n hello
+ * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+ * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+10.244.0.0 - - [22/Jan/2020 11:20:45] "GET /hello HTTP/1.1" 200 -
+10.244.0.0 - - [22/Jan/2020 11:22:27] "GET /hello HTTP/1.1" 200 -
+10.244.0.0 - - [22/Jan/2020 11:22:33] "GET /hello HTTP/1.1" 200 -
+```
+
+
+```sh
+curl -X GET http://hello-svc-cip.cloud.holisticsecurity.io -v   ## no work
+curl -X GET http://hello-svc-np.cloud.holisticsecurity.io -v    ## 404 erros but resolves because i've created a DNS entry
+curl -X GET http://hello-svc-lb.cloud.holisticsecurity.io -v    ## no work
+
+curl -X GET http://hello-svc-cip.ingress-nginx.cloud.holisticsecurity.io -v   ## no work
+curl -X GET http://hello-svc-np.ingress-nginx.cloud.holisticsecurity.io -v    ## no work
+curl -X GET http://hello-svc-lb.ingress-nginx.cloud.holisticsecurity.io -v    ## no work
+
+```
 
 
 
