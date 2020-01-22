@@ -253,51 +253,102 @@ chilcano@inti:~/git-repos/affordable-k8s-tf$ ssh ubuntu@$(terraform output maste
 **5) Verify ExternalDNS and NGINX Ingress work together (Service example)**
 
 
+1. Deploy Hello Microservice and check the deployment status
+
+   ```sh
+   chilcano@inti:~/git-repos/affordable-k8s-tf$ ssh ubuntu@$(terraform output master_dns) -i ~/Downloads/ssh-key-for-us-east-1.pem
+   
+   ubuntu@ip-10-0-100-4:~$ kubectl apply -f https://raw.githubusercontent.com/chilcano/kubeadm-aws/0.2.1-chilcano/examples/hello-cheapk8s.yaml
+   namespace/hello created
+   serviceaccount/hello-sa created
+   deployment.extensions/hello-v1 created
+   deployment.extensions/hello-v2 created
+   service/hello-svc-cip created
+   service/hello-svc-lb created
+   service/hello-svc-np created
+   
+   ubuntu@ip-10-0-100-4:~$ kubectl get pod,svc,sa -n hello -o wide
+   NAME                            READY   STATUS    RESTARTS   AGE     IP           NODE                          NOMINATED NODE   READINESS GATES
+   pod/hello-v1-5cb886df9d-9lqs6   1/1     Running   0          6m50s   10.244.1.4   ip-10-0-100-22.ec2.internal   <none>           <none>
+   pod/hello-v2-6c7fbbb654-tbv6n   1/1     Running   0          6m50s   10.244.1.5   ip-10-0-100-22.ec2.internal   <none>           <none>
+   
+   NAME                    TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE     SELECTOR
+   service/hello-svc-cip   ClusterIP      10.107.236.58    <none>        80/TCP         6m49s   app=hello
+   service/hello-svc-lb    LoadBalancer   10.107.193.76    <pending>     80:31936/TCP   6m47s   app=hello
+   service/hello-svc-np    NodePort       10.111.252.162   <none>        80:32478/TCP   6m46s   app=hello
+   
+   NAME                      SECRETS   AGE
+   serviceaccount/default    1         6m52s
+   serviceaccount/hello-sa   1         6m52s
+   ```
+
+
+2. Calling Hello Microservice through `ClusterIP` SVC
+
+>  
+> `ClusterIP`: Exposes the Service on a cluster-internal IP. Choosing this value makes the Service only reachable from within the cluster. This is the default `ServiceType`.
+>  
+> Info: [Kubernetes - Publishing Services (ServiceTypes)](https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types){:target="_blank"}
+>  
+
 ```sh
-chilcano@inti:~/git-repos/affordable-k8s-tf$ ssh ubuntu@$(terraform output master_dns) -i ~/Downloads/ssh-key-for-us-east-1.pem
+$ kubectl get svc/hello-svc-cip -o jsonpath='{.spec.clusterIP}'
+$ kubectl get svc/hello-svc-cip -o jsonpath='{.spec.ports[0].port}'
+$ export HELLO_SVC_CIP=$(kubectl get svc/hello-svc-cip -n hello -o jsonpath='{.spec.clusterIP}'):$(kubectl get svc/hello-svc-cip -n hello -o jsonpath='{.spec.ports[0].port}')
 
-ubuntu@ip-10-0-100-4:~$ kubectl apply -f https://raw.githubusercontent.com/chilcano/kubeadm-aws/0.2.1-chilcano/examples/hello-cheapk8s.yaml
-namespace/hello created
-serviceaccount/hello-sa created
-deployment.extensions/hello-v1 created
-deployment.extensions/hello-v2 created
-service/hello-svc-cip created
-service/hello-svc-lb created
-service/hello-svc-np created
-
-ubuntu@ip-10-0-100-4:~$ kubectl get pod,svc,sa -n hello -o wide
-NAME                            READY   STATUS    RESTARTS   AGE     IP           NODE                          NOMINATED NODE   READINESS GATES
-pod/hello-v1-5cb886df9d-9lqs6   1/1     Running   0          6m50s   10.244.1.4   ip-10-0-100-22.ec2.internal   <none>           <none>
-pod/hello-v2-6c7fbbb654-tbv6n   1/1     Running   0          6m50s   10.244.1.5   ip-10-0-100-22.ec2.internal   <none>           <none>
-
-NAME                    TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE     SELECTOR
-service/hello-svc-cip   ClusterIP      10.107.236.58    <none>        80/TCP         6m49s   app=hello
-service/hello-svc-lb    LoadBalancer   10.107.193.76    <pending>     80:31936/TCP   6m47s   app=hello
-service/hello-svc-np    NodePort       10.111.252.162   <none>        80:32478/TCP   6m46s   app=hello
-
-NAME                      SECRETS   AGE
-serviceaccount/default    1         6m52s
-serviceaccount/hello-sa   1         6m52s
-
-
-
-ubuntu@ip-10-0-100-4:~$ export HELLO_SVC_CIP=$(kubectl get svc/hello-svc-cip -n hello -o jsonpath='{.spec.clusterIP}'):$(kubectl get svc/hello-svc-cip -n hello -o jsonpath='{.spec.ports[0].port}')
-ubuntu@ip-10-0-100-4:~$ curl http://${HELLO_SVC_CIP}/hello
+$ curl http://${HELLO_SVC_CIP}/hello
 Hello version: v1, instance: hello-v1-5cb886df9d-k7rcq
 
-ubuntu@ip-10-0-100-4:~$ curl http://${HELLO_SVC_CIP}/hello
+$ curl http://${HELLO_SVC_CIP}/hello
 Hello version: v2, instance: hello-v2-6c7fbbb654-kq6sq
 
-ubuntu@ip-10-0-100-4:~$ curl http://${HELLO_SVC_CIP}/hello
+$ curl http://${HELLO_SVC_CIP}/hello
 Hello version: v1, instance: hello-v1-5cb886df9d-k7rcq
 
-ubuntu@ip-10-0-100-4:~$ kubectl logs -f -l app=hello -n hello
+$ kubectl logs -f -l app=hello -n hello
  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
  * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
 10.244.0.0 - - [22/Jan/2020 11:20:45] "GET /hello HTTP/1.1" 200 -
 10.244.0.0 - - [22/Jan/2020 11:22:27] "GET /hello HTTP/1.1" 200 -
 10.244.0.0 - - [22/Jan/2020 11:22:33] "GET /hello HTTP/1.1" 200 -
 ```
+
+3. Calling Hello Microservice through `NodePort` SVC
+
+>  
+> `NodePort`: Exposes the Service on each Node’s IP at a static port (the `NodePort`). A `ClusterIP` Service, to which the `NodePort` Service routes, is automatically created. You’ll be able to contact the `NodePort` Service, from outside the cluster, by requesting `<NodeIP>:<NodePort>`.
+>  
+> Info: [Kubernetes - Publishing Services (ServiceTypes)](https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types){:target="_blank"}
+>  
+
+```sh
+$ export HELLO_SVC_NP=$(ssh ubuntu@$(terraform output master_dns) -i ~/Downloads/ssh-key-for-us-east-1.pem -- kubectl get svc hello-svc-np -n hello -o jsonpath='{.spec.ports[0].nodePort}')
+$ curl -s http://$(terraform output master_dns):${HELLO_SVC_NP}/hello
+```
+
+4. Calling Hello Microservice through `LoadBalancer` SVC
+
+>  
+> `LoadBalancer`: Exposes the Service externally using a cloud provider’s load balancer. `NodePort` and `ClusterIP` Services, to which the external load balancer routes, are automatically created.
+>  
+> Info: [Kubernetes - Publishing Services (ServiceTypes)](https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types){:target="_blank"}
+>  
+
+```sh
+$ export HELLO_SVC_LB=$(ssh ubuntu@$(terraform output master_dns) -i ~/Downloads/ssh-key-for-us-east-1.pem -- kubectl get svc hello-svc-lb -n hello -o jsonpath='{.spec.ports[0].nodePort}')
+$ curl -s http://$(terraform output master_dns):${HELLO_SVC_LB}/hello
+``` 
+
+
+## References
+
+1. [Kubernetes SIGs ExternalDNS's github repo](https://github.com/kubernetes-sigs/external-dns){:target="_blank"}
+2. [The missing piece - Kubernetes ExternalDNS by Lachlan Evenson, 9 Aug 2017](https://www.youtube.com/watch?v=9HQ2XgL9YVI){:target="_blank"}
+3. [The NGINX Ingress Controller](https://github.com/kubernetes/ingress-nginx){:target="_blank"}
+4. [Kubernetes concepts - Service](https://kubernetes.io/docs/concepts/services-networking/service/){:target="_blank"}
+5. [Kubernetes concepts - Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/){:target="_blank"}
+
+
 
 
 ```sh
@@ -311,76 +362,4 @@ curl -X GET http://hello-svc-lb.ingress-nginx.cloud.holisticsecurity.io -v    ##
 
 ```
 
-
-
-
-
-
-**1. Deploy microservices**
-
-You can clone the Hello Microservices available in the [Service Mesh Workshop](https://github.com/chilcano/service-mesh-workshop){:target="_blank"} GitHub repo I published many months ago.
-
-```sh
-$ git clone https://github.com/chilcano/service-mesh-workshop
-$ cd $PWD/service-mesh-workshop/labs
-$ kubectl apply -f 01-delivering-on-k8s/hello-app.yaml 
-```
-
-Or just deploy the [`hello-app.yaml` Kubernetes Deployment file](https://raw.githubusercontent.com/chilcano/service-mesh-workshop/master/labs/01-delivering-on-k8s/hello-app.yaml){:target="_blank"}.
-
-```sh
-$ kubectl apply -f https://raw.githubusercontent.com/chilcano/service-mesh-workshop/master/labs/01-delivering-on-k8s/hello-app.yaml
-```
-
-**2. Check microservices deployment**
-
- Once completed the deployment, check if the microservices were deployed successfully.
-
-```sh
-$ kubectl get pods,svc -n hello -o wide
-NAME                            READY   STATUS    RESTARTS   AGE   IP           NODE                           NOMINATED NODE   READINESS GATES
-pod/hello-v1-5cb886df9d-nvb9j   1/1     Running   0          21s   10.244.1.4   ip-10-0-100-154.ec2.internal   <none>           <none>
-pod/hello-v2-6c7fbbb654-hdqfr   1/1     Running   0          21s   10.244.1.5   ip-10-0-100-154.ec2.internal   <none>           <none>
-
-NAME                    TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE   SELECTOR
-service/hello-svc-cip   ClusterIP      10.104.114.129   <none>        5010/TCP         20s   app=hello
-service/hello-svc-lb    LoadBalancer   10.98.9.14       <pending>     5020:31653/TCP   18s   app=hello
-service/hello-svc-np    NodePort       10.109.14.191    <none>        5030:30796/TCP   17s   app=hello
-```
-
-### Call the Hello Microservices
-
-
-**1. Calling Hello Microservice through ClusterIP SVC**
-
-```sh
-$ kubectl get svc/hello-svc-cip -o jsonpath='{.spec.clusterIP}'
-$ kubectl get svc/hello-svc-cip -o jsonpath='{.spec.ports[0].port}'
-
-$ export HELLO_SVC_CIP=$(kubectl get svc/hello-svc-cip -n hello -o jsonpath='{.spec.clusterIP}'):$(kubectl get svc/hello-svc-cip -n hello -o jsonpath='{.spec.ports[0].port}')
-$ curl http://${HELLO_SVC_CIP}/hello
-```
-
-**2. Calling Hello Microservice through LoadBalancer SVC**
-
-```sh
-$ export HELLO_SVC_LB=$(ssh ubuntu@$(terraform output master_dns) -i ~/Downloads/ssh-key-for-us-east-1.pem -- kubectl get svc hello-svc-lb -n hello -o jsonpath='{.spec.ports[0].nodePort}')
-$ curl -s http://$(terraform output master_dns):${HELLO_SVC_LB}/hello
-```
-
-**3. Calling Hello Microservice through NodePort SVC**
-
-```sh
-$ export HELLO_SVC_NP=$(ssh ubuntu@$(terraform output master_dns) -i ~/Downloads/ssh-key-for-us-east-1.pem -- kubectl get svc hello-svc-np -n hello -o jsonpath='{.spec.ports[0].nodePort}')
-$ curl -s http://$(terraform output master_dns):${HELLO_SVC_NP}/hello
-```
-
-
-## References
-
-1. [Kubernetes SIGs ExternalDNS's github repo](https://github.com/kubernetes-sigs/external-dns){:target="_blank"}
-2. [The missing piece - Kubernetes ExternalDNS by Lachlan Evenson, 9 Aug 2017](https://www.youtube.com/watch?v=9HQ2XgL9YVI){:target="_blank"}
-3. [The NGINX Ingress Controller](https://github.com/kubernetes/ingress-nginx){:target="_blank"}
-4. [Kubernetes concepts - Service](https://kubernetes.io/docs/concepts/services-networking/service/){:target="_blank"}
-5. [Kubernetes concepts - Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/){:target="_blank"}
 
