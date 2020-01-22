@@ -215,7 +215,7 @@ nginx-ingress-controller-q4bgh          1/1     Running   0          14h   10.0.
 **3) Verify ExternalDNS and NGINX Ingress work together (Health Check example)**
 
 
-Since the `CheapK8s` only exposes RESTful services over `80` and `443` ports, then to verify I need to call the `Health Check` service of my [NGINX Ingress Controller](https://github.com/chilcano/kubeadm-aws/blob/0.2.1-chilcano/manifests/nginx-ingress-mandatory.yaml){:target="_blank"} deployed through Terraform in previous step.
+Since the `CheapK8s` only exposes RESTful services over `80` and `443` ports, then to verify that I need to call the `Health Check` service of my [NGINX Ingress Controller](https://github.com/chilcano/kubeadm-aws/blob/0.2.1-chilcano/manifests/nginx-ingress-mandatory.yaml){:target="_blank"} deployed through Terraform in previous step. This procedure also verify that the `NGINX Ingress Controller` has got a DNS name (subdomain `ingress-nginx.cloud.holisticsecurity.io`) from `ExternalDNS` successfully. This part has been configured in the file [`manifests/nginx-ingress-nodeport.yaml.tmpl`](https://github.com/chilcano/kubeadm-aws/blob/0.2.1-chilcano/manifests/nginx-ingress-nodeport.yaml.tmpl){:target="_blank"}.
 
 
 ```sh
@@ -240,17 +240,7 @@ Note: Unnecessary use of -X or --request, GET is already inferred.
 * Connection #0 to host ingress-nginx.cloud.holisticsecurity.io left intact
 ```
 
-
-**4) Verify ExternalDNS and NGINX Ingress work together (Ingress resource example)**
-
-
-```sh
-chilcano@inti:~/git-repos/affordable-k8s-tf$ ssh ubuntu@$(terraform output master_dns) -i ~/Downloads/ssh-key-for-us-east-1.pem
-
-
-```
-
-**5) Verify ExternalDNS and NGINX Ingress work together (Service example)**
+**4) Verify ExternalDNS and NGINX Ingress work together (Service example)**
 
 
 1. Deploy Hello Microservice and check the deployment status
@@ -258,108 +248,103 @@ chilcano@inti:~/git-repos/affordable-k8s-tf$ ssh ubuntu@$(terraform output maste
    ```sh
    chilcano@inti:~/git-repos/affordable-k8s-tf$ ssh ubuntu@$(terraform output master_dns) -i ~/Downloads/ssh-key-for-us-east-1.pem
    
-   ubuntu@ip-10-0-100-4:~$ kubectl apply -f https://raw.githubusercontent.com/chilcano/kubeadm-aws/0.2.1-chilcano/examples/hello-cheapk8s.yaml
+   ubuntu@ip-10-0-100-4:~$ kubectl apply -f https://raw.githubusercontent.com/chilcano/kubeadm-aws/0.2.1-chilcano/examples/hello-cheapk8s-app.yaml
    namespace/hello created
    serviceaccount/hello-sa created
    deployment.extensions/hello-v1 created
    deployment.extensions/hello-v2 created
+      
+   ubuntu@ip-10-0-100-4:~/affordable-k8s$ kubectl apply -f https://raw.githubusercontent.com/chilcano/kubeadm-aws/0.2.1-chilcano/examples/hello-cheapk8s-svc.yaml
    service/hello-svc-cip created
    service/hello-svc-lb created
    service/hello-svc-np created
    
-   ubuntu@ip-10-0-100-4:~$ kubectl get pod,svc,sa -n hello -o wide
-   NAME                            READY   STATUS    RESTARTS   AGE     IP           NODE                          NOMINATED NODE   READINESS GATES
-   pod/hello-v1-5cb886df9d-9lqs6   1/1     Running   0          6m50s   10.244.1.4   ip-10-0-100-22.ec2.internal   <none>           <none>
-   pod/hello-v2-6c7fbbb654-tbv6n   1/1     Running   0          6m50s   10.244.1.5   ip-10-0-100-22.ec2.internal   <none>           <none>
+   ubuntu@ip-10-0-100-4:~/affordable-k8s$ kubectl apply -f https://raw.githubusercontent.com/chilcano/kubeadm-aws/0.2.1-chilcano/examples/hello-cheapk8s-ingress.yaml
+   ingress.extensions/hello-ingress-cip created
+   ingress.extensions/hello-ingress-np created
+
+   ubuntu@ip-10-0-100-4:~$ kubectl get pod,svc,ingress -n hello -o wide
+   NAME                            READY   STATUS    RESTARTS   AGE   IP            NODE                          NOMINATED NODE   READINESS GATES
+   pod/hello-v1-66fc9c7d98-7b4b5   1/1     Running   0          32m   10.244.1.16   ip-10-0-100-22.ec2.internal   <none>           <none>
+   pod/hello-v1-66fc9c7d98-kb2kn   1/1     Running   0          32m   10.244.1.17   ip-10-0-100-22.ec2.internal   <none>           <none>
+   pod/hello-v2-845749f774-fzg5f   1/1     Running   0          32m   10.244.1.18   ip-10-0-100-22.ec2.internal   <none>           <none>
+   pod/hello-v2-845749f774-q9bk5   1/1     Running   0          31m   10.244.1.19   ip-10-0-100-22.ec2.internal   <none>           <none>
    
-   NAME                    TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE     SELECTOR
-   service/hello-svc-cip   ClusterIP      10.107.236.58    <none>        80/TCP         6m49s   app=hello
-   service/hello-svc-lb    LoadBalancer   10.107.193.76    <pending>     80:31936/TCP   6m47s   app=hello
-   service/hello-svc-np    NodePort       10.111.252.162   <none>        80:32478/TCP   6m46s   app=hello
+   NAME                    TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE   SELECTOR
+   service/hello-svc-cip   ClusterIP      10.108.175.6    <none>        5080/TCP         22m   app=hello
+   service/hello-svc-lb    LoadBalancer   10.102.10.180   <pending>     5080:32379/TCP   22m   app=hello
+   service/hello-svc-np    NodePort       10.105.22.106   <none>        5080:31002/TCP   22m   app=hello
    
-   NAME                      SECRETS   AGE
-   serviceaccount/default    1         6m52s
-   serviceaccount/hello-sa   1         6m52s
+   NAME                                   HOSTS                                     ADDRESS   PORTS   AGE
+   ingress.extensions/hello-ingress-cip   ingress-nginx.cloud.holisticsecurity.io             80      17m
+   ingress.extensions/hello-ingress-np    hello-svc-np.cloud.holisticsecurity.io              80      17m
    ```
 
+2. Understanding how works microservice exposicion and how they should be called
 
-2. Calling Hello Microservice through `ClusterIP` SVC
+   Since the `ExternalDNS` and `NGINX Ingress Controller` have been configured in the `CheapK8s` Cluster, the only way to call the [Hello Microservices](https://github.com/chilcano/kubeadm-aws/blob/0.2.1-chilcano/examples/hello-cheapk8s-app.yaml){:target="_blank"} is through their [`Ingress Resources`](https://github.com/chilcano/kubeadm-aws/blob/0.2.1-chilcano/examples/hello-cheapk8s-ingress.yaml){:target="_blank"} and their [`Services`](https://github.com/chilcano/kubeadm-aws/blob/0.2.1-chilcano/examples/hello-cheapk8s-svc.yaml){:target="_blank"}.
+   
+   It is very important to understand how Kubernetes exposes our microservices. Next, I copy some concepts (Kubernetes's primitives) and references to understand the whole operation.
+   
+   >  
+   > * `ClusterIP`: Exposes the Service on a cluster-internal IP. Choosing this value makes the Service only reachable from within the cluster. This is the default `ServiceType`.
+   > * `LoadBalancer`: Exposes the Service externally using a cloud provider’s load balancer. `NodePort` and `ClusterIP` Services, to which the external load balancer routes, are automatically created.
+   > * `NodePort`: Exposes the Service on each Node’s IP at a static port (the `NodePort`). A `ClusterIP` Service, to which the `NodePort` Service routes, is automatically created. You’ll be able to contact the `NodePort` Service, from outside the cluster, by requesting `<NodeIP>:<NodePort>`.
+   >  
+   > Info: [Kubernetes - Publishing Services (ServiceTypes)](https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types){:target="_blank"}
+   >  
+   
+   And this is my favorite one.
+   > 
+   > [The Hardest Part of Microservices: Calling Your Services by Christian Posta, 2017/April/25](https://blog.christianposta.com/microservices/the-hardest-part-of-microservices-calling-your-services){:target="_blank"}
+   >  
+   
+3. Calling Hello Microservices
 
->  
-> `ClusterIP`: Exposes the Service on a cluster-internal IP. Choosing this value makes the Service only reachable from within the cluster. This is the default `ServiceType`.
->  
-> Info: [Kubernetes - Publishing Services (ServiceTypes)](https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types){:target="_blank"}
->  
-
-```sh
-$ kubectl get svc/hello-svc-cip -o jsonpath='{.spec.clusterIP}'
-$ kubectl get svc/hello-svc-cip -o jsonpath='{.spec.ports[0].port}'
-$ export HELLO_SVC_CIP=$(kubectl get svc/hello-svc-cip -n hello -o jsonpath='{.spec.clusterIP}'):$(kubectl get svc/hello-svc-cip -n hello -o jsonpath='{.spec.ports[0].port}')
-
-$ curl http://${HELLO_SVC_CIP}/hello
-Hello version: v1, instance: hello-v1-5cb886df9d-k7rcq
-
-$ curl http://${HELLO_SVC_CIP}/hello
-Hello version: v2, instance: hello-v2-6c7fbbb654-kq6sq
-
-$ curl http://${HELLO_SVC_CIP}/hello
-Hello version: v1, instance: hello-v1-5cb886df9d-k7rcq
-
-$ kubectl logs -f -l app=hello -n hello
- * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
- * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
-10.244.0.0 - - [22/Jan/2020 11:20:45] "GET /hello HTTP/1.1" 200 -
-10.244.0.0 - - [22/Jan/2020 11:22:27] "GET /hello HTTP/1.1" 200 -
-10.244.0.0 - - [22/Jan/2020 11:22:33] "GET /hello HTTP/1.1" 200 -
-```
-
-3. Calling Hello Microservice through `NodePort` SVC
-
->  
-> `NodePort`: Exposes the Service on each Node’s IP at a static port (the `NodePort`). A `ClusterIP` Service, to which the `NodePort` Service routes, is automatically created. You’ll be able to contact the `NodePort` Service, from outside the cluster, by requesting `<NodeIP>:<NodePort>`.
->  
-> Info: [Kubernetes - Publishing Services (ServiceTypes)](https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types){:target="_blank"}
->  
-
-```sh
-$ export HELLO_SVC_NP=$(ssh ubuntu@$(terraform output master_dns) -i ~/Downloads/ssh-key-for-us-east-1.pem -- kubectl get svc hello-svc-np -n hello -o jsonpath='{.spec.ports[0].nodePort}')
-$ curl -s http://$(terraform output master_dns):${HELLO_SVC_NP}/hello
-```
-
-4. Calling Hello Microservice through `LoadBalancer` SVC
-
->  
-> `LoadBalancer`: Exposes the Service externally using a cloud provider’s load balancer. `NodePort` and `ClusterIP` Services, to which the external load balancer routes, are automatically created.
->  
-> Info: [Kubernetes - Publishing Services (ServiceTypes)](https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types){:target="_blank"}
->  
-
-```sh
-$ export HELLO_SVC_LB=$(ssh ubuntu@$(terraform output master_dns) -i ~/Downloads/ssh-key-for-us-east-1.pem -- kubectl get svc hello-svc-lb -n hello -o jsonpath='{.spec.ports[0].nodePort}')
-$ curl -s http://$(terraform output master_dns):${HELLO_SVC_LB}/hello
-``` 
-
+   
+   Calling through Services (ClusterIP, LoadBalancer and NodePort) from inside of Kubernetes Cluster. Although below I'm using `ClusterIP`, you can repeat similar process using the `LoadBalancer` and `NodePort`.
+   
+   ```sh
+   $ kubectl get svc/hello-svc-cip -o jsonpath='{.spec.clusterIP}'
+   $ kubectl get svc/hello-svc-cip -o jsonpath='{.spec.ports[0].port}'
+   $ export HELLO_SVC_CIP=$(kubectl get svc/hello-svc-cip -n hello -o jsonpath='{.spec.clusterIP}'):$(kubectl get svc/hello-svc-cip -n hello -o jsonpath='{.spec.ports[0].port}')
+   $ echo $HELLO_SVC_CIP
+   
+   $ curl http://${HELLO_SVC_CIP}/hello
+   Hello version: v1, instance: hello-v1-5cb886df9d-k7rcq
+   
+   $ curl http://${HELLO_SVC_CIP}/hello
+   Hello version: v2, instance: hello-v2-6c7fbbb654-kq6sq
+   
+   $ curl http://${HELLO_SVC_CIP}/hello
+   Hello version: v1, instance: hello-v1-5cb886df9d-k7rcq
+   
+   $ kubectl logs -f -l app=hello -n hello
+    * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+    * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+   10.244.0.0 - - [22/Jan/2020 11:20:45] "GET /hello HTTP/1.1" 200 -
+   10.244.0.0 - - [22/Jan/2020 11:22:27] "GET /hello HTTP/1.1" 200 -
+   10.244.0.0 - - [22/Jan/2020 11:22:33] "GET /hello HTTP/1.1" 200 -
+   ```
+   
+   Calling from Internet through Kubernetes Ingress Controller and its Fully Qualified Domain Name (`FQDN`).
+   
+   ```sh
+   chilcano@inti:~$ curl http://ingress-nginx.cloud.holisticsecurity.io/hello
+   Hello version: v2, instance: hello-v2-845749f774-q9bk5
+   
+   chilcano@inti:~$ curl http://hello-svc-np.cloud.holisticsecurity.io/hello
+   Hello version: v1, instance: hello-v1-66fc9c7d98-7b4b5
+   ```
 
 ## References
 
 1. [Kubernetes SIGs ExternalDNS's github repo](https://github.com/kubernetes-sigs/external-dns){:target="_blank"}
-2. [The missing piece - Kubernetes ExternalDNS by Lachlan Evenson, 9 Aug 2017](https://www.youtube.com/watch?v=9HQ2XgL9YVI){:target="_blank"}
+2. [The missing piece - Kubernetes ExternalDNS by Lachlan Evenson, 2017/Aug/09](https://www.youtube.com/watch?v=9HQ2XgL9YVI){:target="_blank"}
 3. [The NGINX Ingress Controller](https://github.com/kubernetes/ingress-nginx){:target="_blank"}
 4. [Kubernetes concepts - Service](https://kubernetes.io/docs/concepts/services-networking/service/){:target="_blank"}
 5. [Kubernetes concepts - Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/){:target="_blank"}
+6. [The Hardest Part of Microservices: Calling Your Services by Christian Posta, 2017/April/25](https://blog.christianposta.com/microservices/the-hardest-part-of-microservices-calling-your-services){:target="_blank"}
 
-
-
-
-```sh
-curl -X GET http://hello-svc-cip.cloud.holisticsecurity.io -v   ## no work
-curl -X GET http://hello-svc-np.cloud.holisticsecurity.io -v    ## 404 erros but resolves because i've created a DNS entry
-curl -X GET http://hello-svc-lb.cloud.holisticsecurity.io -v    ## no work
-
-curl -X GET http://hello-svc-cip.ingress-nginx.cloud.holisticsecurity.io -v   ## no work
-curl -X GET http://hello-svc-np.ingress-nginx.cloud.holisticsecurity.io -v    ## no work
-curl -X GET http://hello-svc-lb.ingress-nginx.cloud.holisticsecurity.io -v    ## no work
-
-```
-
-
+In the next blog post I'll explain how to generate TLS Certificates for your Microservices.
+Stay tuned.
