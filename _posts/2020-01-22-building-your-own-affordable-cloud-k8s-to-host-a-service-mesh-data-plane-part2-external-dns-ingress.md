@@ -130,6 +130,7 @@ chilcano@inti:~/git-repos/affordable-k8s-tf$ terraform apply \
 **2) Verify ExternalDNS has synchronized subdomain in AWS Route 53**
 
 Get the Hosted Zone ID of the hosted zone above I just created.
+
 ```sh
 chilcano@inti:~/git-repos/affordable-k8s-tf$ aws route53 list-hosted-zones-by-name \
   --output json \
@@ -139,6 +140,7 @@ chilcano@inti:~/git-repos/affordable-k8s-tf$ aws route53 list-hosted-zones-by-na
 ```
 
 Get all nameservers that were assigned initially and recently synchronized by ExternalDNS to my new zone.
+
 ```sh
 chilcano@inti:~/git-repos/affordable-k8s-tf$ aws route53 list-resource-record-sets \
   --output json --hosted-zone-id "/hostedzone/Z3O9PQMEP4619Y" \
@@ -175,6 +177,7 @@ chilcano@inti:~/git-repos/affordable-k8s-tf$ aws route53 list-resource-record-se
 ```
 
 Or if you are of the old-school, you can ask to any of four AWS Route 53's DNS server if the subdomain has been created and updated.
+
 ```sh
 chilcano@inti:~/git-repos/affordable-k8s-tf$ dig +short @ns-1954.awsdns-52.co.uk. ingress-nginx.cloud.holisticsecurity.io.
 174.129.123.159
@@ -197,12 +200,12 @@ Both above IP addresses are the `IPv4 Public IP` addresses assigned to Kubernete
 
 
 ```sh
+# Get SSH access to K8s master node
 chilcano@inti:~/git-repos/affordable-k8s-tf$ ssh ubuntu@$(terraform output master_dns) -i ~/Downloads/ssh-key-for-us-east-1.pem
 
 ubuntu@ip-10-0-100-4:~$ kubectl get daemonset -n ingress-nginx
 NAME                       DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
 nginx-ingress-controller   2         2         2       2            2           <none>          14h
-
 
 ubuntu@ip-10-0-100-4:~$ kubectl get pods -n ingress-nginx -o wide
 NAME                                    READY   STATUS    RESTARTS   AGE   IP            NODE                          NOMINATED NODE   READINESS GATES
@@ -220,6 +223,7 @@ Since the `CheapK8s` only exposes RESTful services over `80` and `443` ports, th
 
 ```sh
 chilcano@inti:~/git-repos/affordable-k8s-tf$ curl -X GET http://ingress-nginx.cloud.holisticsecurity.io/healthz -v
+
 Note: Unnecessary use of -X or --request, GET is already inferred.
 *   Trying 174.129.123.159:80...
 * TCP_NODELAY set
@@ -246,23 +250,28 @@ Note: Unnecessary use of -X or --request, GET is already inferred.
 1. Deploy Hello Microservice and check the deployment status
 
    ```sh
+   # Get SSH access to K8s master node
    chilcano@inti:~/git-repos/affordable-k8s-tf$ ssh ubuntu@$(terraform output master_dns) -i ~/Downloads/ssh-key-for-us-east-1.pem
    
+   # Deploy Hello microservices
    ubuntu@ip-10-0-100-4:~$ kubectl apply -f https://raw.githubusercontent.com/chilcano/kubeadm-aws/0.2.1-chilcano/examples/hello-cheapk8s-app.yaml
    namespace/hello created
    serviceaccount/hello-sa created
    deployment.extensions/hello-v1 created
    deployment.extensions/hello-v2 created
-      
+   
+   # Create ClusterIP, LoadBalancer and NodePort Services for above Hello microservices
    ubuntu@ip-10-0-100-4:~/affordable-k8s$ kubectl apply -f https://raw.githubusercontent.com/chilcano/kubeadm-aws/0.2.1-chilcano/examples/hello-cheapk8s-svc.yaml
    service/hello-svc-cip created
    service/hello-svc-lb created
    service/hello-svc-np created
    
+   # Create 2 Ingress Resources for above ClusterIP and NodePort Services
    ubuntu@ip-10-0-100-4:~/affordable-k8s$ kubectl apply -f https://raw.githubusercontent.com/chilcano/kubeadm-aws/0.2.1-chilcano/examples/hello-cheapk8s-ingress.yaml
    ingress.extensions/hello-ingress-cip created
    ingress.extensions/hello-ingress-np created
-
+   
+   # Get status
    ubuntu@ip-10-0-100-4:~$ kubectl get pod,svc,ingress -n hello -o wide
    NAME                            READY   STATUS    RESTARTS   AGE   IP            NODE                          NOMINATED NODE   READINESS GATES
    pod/hello-v1-66fc9c7d98-7b4b5   1/1     Running   0          32m   10.244.1.16   ip-10-0-100-22.ec2.internal   <none>           <none>
