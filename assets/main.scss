@@ -68,7 +68,7 @@ div.holosec-excerpts-hover {
 // post-title h1
 // page-heading h1
 
-// *********************************** _based.scss
+// ****************************************************** _base.scss
 
 /**
  * Basic styling
@@ -599,8 +599,7 @@ $text-color-site-nav-menu: #1478ff;
 
 
 
-// ******************************************************************************* _syntax-highlighting.scss
-
+// ****************************************************** _syntax-highlighting.scss
 
  /**
  * Syntax highlighting styles
@@ -650,7 +649,8 @@ $text-color-site-nav-menu: #1478ff;
     .nf    { color: #900; font-weight: bold } // Name.Function
     .nn    { color: #555 } // Name.Namespace
     .nt    { color: #000080 } // Name.Tag
-    .nv    { color: #008080 } // Name.Variable
+    ////////////////////////////////////////////////////////////////////////.nv    { color: #008080 } // Name.Variable
+    .nv    { color: #008080; font-weight: bold } // Name.Variable
     .ow    { font-weight: bold } // Operator.Word
     .w     { color: #bbb } // Text.Whitespace
     .mf    { color: #099 } // Literal.Number.Float
