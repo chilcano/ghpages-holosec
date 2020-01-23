@@ -28,6 +28,24 @@ For further information, you can read these articles:
 
 The automation can be achieved using Terraform, Python, Bash, etc. and the 2 Cloud Providers (AWS and Google Cloud) choosen for this project have a mature Management API which can be used to automatization and configuration.
 
+## How much will the Kubernetes Cluster cost me?
+
+Well, It is too difficult to know the cost exactly right now, however, I can estimate what it will cost me for a month. Below you can see two images, the first one is the High level AWS design and the next one is the approximate cost of the all AWS resources used during a month.
+
+[![Service Mesh hosted using AWS Spot Instances](/assets/img/20200122-service-mesh-01-affordableK8s-aws-arch.png "Service Mesh using AWS Spot Instances")](/assets/img/20200122-service-mesh-01-affordableK8s-aws-arch.png){:target="_blank"}
+
+
+You can see below that my K8s Cluster using AWS Spot instances will cost approx. `6.79 Euros`, that includes:
+* Instances EC2 Spot: 2
+* Type: m1.small
+* AZ: us-east-1
+* S3 Storage 1GB
+* S3 Put/Copy/Post / mo(K): 96
+* S3 Get and other / mo(K): 2880
+* Backup into S3 cron expression: "*/15 * * * *" 
+
+[![K8s Cluster hosted using AWS Spot Instances - Cost](/assets/img/20200116-service-mesh-04-affordable-k8s-aws-budget.png "K8s Cluster hosted using AWS Spot Instances - Cost")](/assets/img/20200116-service-mesh-04-affordable-k8s-aws-budget.png){:target="_blank"}
+
 
 ## What about Digital Ocean, Hetzner Cloud, Scaleway and other Providers?
 
