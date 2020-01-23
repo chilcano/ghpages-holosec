@@ -3,7 +3,7 @@ layout: post
 title:  "Building your own affordable K8s to host a Service Mesh - Part 2: External DNS and Ingress"
 date:   2020-01-22 10:00:00 +0100
 categories: ['cloud', 'apaas', 'service mesh'] 
-tags: ['aws', 'docker', 'kubernetes', 'data plane', 'external dns', 'ingress']
+tags: ['aws', 'docker', 'kubernetes', 'data plane', 'external dns', 'ingress', 'nginx', 'microservice']
 permalink: "/2020/01/22/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-part2-external-dns-ingress"
 comments: true
 ---
@@ -16,7 +16,7 @@ Yes, [Kubernetes brings by default a DNS](https://github.com/kubernetes/dns){:ta
 
 **The Solution**
 
-The Kubernetes ExternalDNS will run a program in our affordable K8s wich it will synchronize exposed Kubernetes Services and Ingresses with the Cloud Provider's DNS Service, in this case with AWS Route 53. Below you can view a high level diagram and current status of my [Affordable Kubernetes Data Plane, I recommend look at first post about it](http://holisticsecurity.io/2020/01/16/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-data-plane){:target="_blank"}.
+The Kubernetes ExternalDNS will run a program in our affordable K8s which it will synchronize exposed Kubernetes Services and Ingresses with the Cloud Provider's DNS Service, in this case with AWS Route 53. Below you can view a high level diagram and current status of my [Affordable Kubernetes Data Plane, I recommend look at first post about it](http://holisticsecurity.io/2020/01/16/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-data-plane){:target="_blank"}.
 
 [![Service Mesh hosted using AWS Spot Instances](/assets/img/20200122-service-mesh-01-affordableK8s-aws-arch.png "Service Mesh using AWS Spot Instances")](/assets/img/20200122-service-mesh-01-affordableK8s-aws-arch.png){:target="_blank"}
 
@@ -102,7 +102,7 @@ If you have read the first post about how to create an affordable Kubernetes Dat
 >  
 
 Once cloned, first of all run `terraform destroy .....` to remove all AWS resources provisioned previously. TThat will avoid increasing your bill.
-After cleaning up, re aprovision a fresh Kubernetes Cluster.
+After cleaning up, reprovision a fresh Kubernetes Cluster.
 
 ```sh
 chilcano@inti:~/git-repos/affordable-k8s-tf$ terraform plan \
@@ -280,11 +280,11 @@ Note: Unnecessary use of -X or --request, GET is already inferred.
    ingress.extensions/hello-ingress-np    hello-svc-np.cloud.holisticsecurity.io              80      17m
    ```
 
-2. Understanding how works microservice exposicion and how they should be called
+2. Understanding how works microservice exposition and how they should be called
 
    Since the `ExternalDNS` and `NGINX Ingress Controller` have been configured in the `CheapK8s` Cluster, the only way to call the [Hello Microservices](https://github.com/chilcano/kubeadm-aws/blob/0.2.1-chilcano/examples/hello-cheapk8s-app.yaml){:target="_blank"} is through their [`Ingress Resources`](https://github.com/chilcano/kubeadm-aws/blob/0.2.1-chilcano/examples/hello-cheapk8s-ingress.yaml){:target="_blank"} and their [`Services`](https://github.com/chilcano/kubeadm-aws/blob/0.2.1-chilcano/examples/hello-cheapk8s-svc.yaml){:target="_blank"}.
    
-   It is very important to understand how Kubernetes exposes our microservices. Next, I copy some concepts (Kubernetes's primitives) and references to understand the whole operation.
+   It is very important to understand how Kubernetes exposes our microservices. Next, I copy some concepts (Kubernetes' primitives) and references to understand the whole operation.
    
    >  
    > * `ClusterIP`: Exposes the Service on a cluster-internal IP. Choosing this value makes the Service only reachable from within the cluster. This is the default `ServiceType`.
