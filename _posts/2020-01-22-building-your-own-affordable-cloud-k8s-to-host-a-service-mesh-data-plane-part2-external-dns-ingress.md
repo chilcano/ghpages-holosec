@@ -32,29 +32,20 @@ I'm going to register the subdomain `cloud.holisticsecurity.io` of existing Root
 
 * [Using Amazon Route 53 as the DNS Service for Subdomains Without Migrating the Parent Domain](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/creating-migrating.html){:target="_blank"}
 
-You can create subdomain records using either the Amazon Route 53 console or the Route 53 API. Since I have already `AWS CLI` configured, then let's use it.
+You can create subdomain records using either the Amazon Route 53 console or the Route 53 API. Since I have already `AWS CLI` configured in my PC, then let's use it.
 
 **1) Create a Hosted Zone in AWS 53 for the Subdomain**
 
 ```sh
 # Create a DNS zone which will contain the managed DNS records.
-chilcano@inti:~/git-repos/affordable-k8s-tf$ aws route53 create-hosted-zone \
-  --name "cloud.holisticsecurity.io." \
-  --caller-reference "cloud-holosec-io-$(date +%s)" \
-  --hosted-zone-config "Comment='HostedZone for subdomain',PrivateZone=false"
+$ aws route53 create-hosted-zone --name "cloud.holisticsecurity.io." --caller-reference "cloud-holosec-io-$(date +%s)" --hosted-zone-config "Comment='HostedZone for subdomain',PrivateZone=false"
 
 # Make a note of the ID of the hosted zone I just created, which will serve as the value for my-hostedzone-identifier.
-chilcano@inti:~/git-repos/affordable-k8s-tf$ aws route53 list-hosted-zones-by-name \
-  --output json \
-  --dns-name "cloud.holisticsecurity.io." | jq -r '.HostedZones[0].Id'
-
+$ aws route53 list-hosted-zones-by-name --output json --dns-name "cloud.holisticsecurity.io." | jq -r '.HostedZones[0].Id'
 /hostedzone/Z3O9PQMEP4619Y
 
 # Make a note of the nameservers that were assigned to my new zone.
-chilcano@inti:~/git-repos/affordable-k8s-tf$ aws route53 list-resource-record-sets \
-  --output json --hosted-zone-id "/hostedzone/Z3O9PQMEP4619Y" \
-  --query "ResourceRecordSets[?Type == 'NS']" | jq -r '.[0].ResourceRecords[].Value'
-
+$ aws route53 list-resource-record-sets --output json --hosted-zone-id "/hostedzone/Z3O9PQMEP4619Y" --query "ResourceRecordSets[?Type == 'NS']" | jq -r '.[0].ResourceRecords[].Value'
 ns-1954.awsdns-52.co.uk.
 ns-157.awsdns-19.com.
 ns-1053.awsdns-03.org.
@@ -67,7 +58,7 @@ After changes to Amazon Route 53 records have propagated, the next step is to up
 
 I will need the above four nameserver that I got querying with `AWSCLI`. Note that those nameservers are for my subdomain, likely you got others.
 
-```sh
+```
 ns-1954.awsdns-52.co.uk.
 ns-157.awsdns-19.com.
 ns-1053.awsdns-03.org.
@@ -101,11 +92,11 @@ If you have read the first post about how to create an affordable Kubernetes Dat
 > [https://github.com/chilcano/kubeadm-aws/tree/0.2.1-chilcano](https://github.com/chilcano/kubeadm-aws/tree/0.2.1-chilcano){:target="_blank"}
 >  
 
-Once cloned, first of all run `terraform destroy .....` to remove all AWS resources provisioned previously. TThat will avoid increasing your bill.
+Once cloned, first of all run `terraform destroy` to remove all AWS resources provisioned previously. TThat will avoid increasing your bill.
 After cleaning up, reprovision a fresh Kubernetes Cluster.
 
 ```sh
-chilcano@inti:~/git-repos/affordable-k8s-tf$ terraform plan \
+$ terraform plan \
   -var cluster-name="cheapk8s" \
   -var k8s-ssh-key="ssh-key-for-us-east-1" \
   -var admin-cidr-blocks="83.50.9.220/32" \
@@ -115,7 +106,7 @@ chilcano@inti:~/git-repos/affordable-k8s-tf$ terraform plan \
   -var nginx-ingress-enabled="1" \
   -var nginx-ingress-domain="ingress-nginx.cloud.holisticsecurity.io" 
 
-chilcano@inti:~/git-repos/affordable-k8s-tf$ terraform apply \
+$ terraform apply \
   -var cluster-name="cheapk8s" \
   -var k8s-ssh-key="ssh-key-for-us-east-1" \
   -var admin-cidr-blocks="83.50.9.220/32" \
@@ -132,9 +123,7 @@ chilcano@inti:~/git-repos/affordable-k8s-tf$ terraform apply \
 Get the Hosted Zone ID of the hosted zone above I just created.
 
 ```sh
-chilcano@inti:~/git-repos/affordable-k8s-tf$ aws route53 list-hosted-zones-by-name \
-  --output json \
-  --dns-name "cloud.holisticsecurity.io." | jq -r '.HostedZones[0].Id'
+$ aws route53 list-hosted-zones-by-name --output json --dns-name "cloud.holisticsecurity.io." | jq -r '.HostedZones[0].Id'
 
 /hostedzone/Z3O9PQMEP4619Y
 ```
@@ -142,14 +131,9 @@ chilcano@inti:~/git-repos/affordable-k8s-tf$ aws route53 list-hosted-zones-by-na
 Get all nameservers that were assigned initially and recently synchronized by ExternalDNS to my new zone.
 
 ```sh
-chilcano@inti:~/git-repos/affordable-k8s-tf$ aws route53 list-resource-record-sets \
-  --output json --hosted-zone-id "/hostedzone/Z3O9PQMEP4619Y" \
-  --query "ResourceRecordSets[?Type == 'A']" | jq -r '.[0].ResourceRecords[].Value'
+$ aws route53 list-resource-record-sets --output json --hosted-zone-id "/hostedzone/Z3O9PQMEP4619Y" --query "ResourceRecordSets[?Type == 'A']" | jq -r '.[0].ResourceRecords[].Value'
 
-
-chilcano@inti:~/git-repos/affordable-k8s-tf$ aws route53 list-resource-record-sets \
-  --output json --hosted-zone-id "/hostedzone/Z3O9PQMEP4619Y" \
-  --query "ResourceRecordSets[?Name == 'ingress-nginx.cloud.holisticsecurity.io.'].{Name:Name,Type:Type,ResourceRecords:ResourceRecords}" 
+$ aws route53 list-resource-record-sets --output json --hosted-zone-id "/hostedzone/Z3O9PQMEP4619Y" --query "ResourceRecordSets[?Name == 'ingress-nginx.cloud.holisticsecurity.io.'].{Name:Name,Type:Type,ResourceRecords:ResourceRecords}" 
 
 [
     {
@@ -179,19 +163,19 @@ chilcano@inti:~/git-repos/affordable-k8s-tf$ aws route53 list-resource-record-se
 Or if you are of the old-school, you can ask to any of four AWS Route 53's DNS server if the subdomain has been created and updated.
 
 ```sh
-chilcano@inti:~/git-repos/affordable-k8s-tf$ dig +short @ns-1954.awsdns-52.co.uk. ingress-nginx.cloud.holisticsecurity.io.
+$ dig +short @ns-1954.awsdns-52.co.uk. ingress-nginx.cloud.holisticsecurity.io.
 174.129.123.159
 54.159.75.179
 
-chilcano@inti:~/git-repos/affordable-k8s-tf$ dig +short @ns-157.awsdns-19.com. ingress-nginx.cloud.holisticsecurity.io.
+$ dig +short @ns-157.awsdns-19.com. ingress-nginx.cloud.holisticsecurity.io.
 174.129.123.159
 54.159.75.179
 
-chilcano@inti:~/git-repos/affordable-k8s-tf$ dig +short @ns-1053.awsdns-03.org. ingress-nginx.cloud.holisticsecurity.io.
+$ dig +short @ns-1053.awsdns-03.org. ingress-nginx.cloud.holisticsecurity.io.
 174.129.123.159
 54.159.75.179
 
-chilcano@inti:~/git-repos/affordable-k8s-tf$ dig +short @ns-789.awsdns-34.net. ingress-nginx.cloud.holisticsecurity.io.
+$ dig +short @ns-789.awsdns-34.net. ingress-nginx.cloud.holisticsecurity.io.
 174.129.123.159
 54.159.75.179
 ```
@@ -201,7 +185,7 @@ Both above IP addresses are the `IPv4 Public IP` addresses assigned to Kubernete
 
 ```sh
 # Get SSH access to K8s master node
-chilcano@inti:~/git-repos/affordable-k8s-tf$ ssh ubuntu@$(terraform output master_dns) -i ~/Downloads/ssh-key-for-us-east-1.pem
+$ ssh ubuntu@$(terraform output master_dns) -i ~/Downloads/ssh-key-for-us-east-1.pem
 
 ubuntu@ip-10-0-100-4:~$ kubectl get daemonset -n ingress-nginx
 NAME                       DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
@@ -222,7 +206,7 @@ Since the `CheapK8s` only exposes RESTful services over `80` and `443` ports, th
 
 
 ```sh
-chilcano@inti:~/git-repos/affordable-k8s-tf$ curl -X GET http://ingress-nginx.cloud.holisticsecurity.io/healthz -v
+$ curl -X GET http://ingress-nginx.cloud.holisticsecurity.io/healthz -v
 
 Note: Unnecessary use of -X or --request, GET is already inferred.
 *   Trying 174.129.123.159:80...
@@ -251,7 +235,7 @@ Note: Unnecessary use of -X or --request, GET is already inferred.
 
    ```sh
    # Get SSH access to K8s master node
-   chilcano@inti:~/git-repos/affordable-k8s-tf$ ssh ubuntu@$(terraform output master_dns) -i ~/Downloads/ssh-key-for-us-east-1.pem
+   $ ssh ubuntu@$(terraform output master_dns) -i ~/Downloads/ssh-key-for-us-east-1.pem
    
    # Deploy Hello microservices
    ubuntu@ip-10-0-100-4:~$ kubectl apply -f https://raw.githubusercontent.com/chilcano/kubeadm-aws/0.2.1-chilcano/examples/hello-cheapk8s-app.yaml
