@@ -52,9 +52,9 @@ ns-1053.awsdns-03.org.
 ns-789.awsdns-34.net.
 ```
 
-**2) Update the DNS Service with Name Server Records for the Subdomain**
+**2) Add `Name Server Records` for the specified Subdomain in the DNS Service Provider Console**
 
-After changes to Amazon Route 53 records have propagated, the next step is to update the DNS service for the parent domain by adding `NS` type records for the subdomain. This is known as delegating responsibility for the subdomain to Route 53. 
+ After changes to Amazon Route 53 records have propagated, the next step is to update the DNS service for the parent domain by adding `NS` type records for the specified subdomain. This is known as delegating responsibility for the subdomain to Route 53. 
 
 I will need the above four nameserver that I got querying with `AWSCLI`. Note that those nameservers are for my subdomain, likely you got others.
 
