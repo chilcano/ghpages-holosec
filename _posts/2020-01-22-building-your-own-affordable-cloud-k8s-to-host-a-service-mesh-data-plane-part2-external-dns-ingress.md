@@ -87,77 +87,77 @@ If you have read the first post about how to create an affordable Kubernetes Dat
 
 1. Clone the Affordable K8s Cluster Github repo
 
-> If you want a cheap K8s Infrastructure on AWS, I recommend to clone this GitHub repo I've updated for you.
->  
-> [https://github.com/chilcano/kubeadm-aws/tree/0.2.1-chilcano](https://github.com/chilcano/kubeadm-aws/tree/0.2.1-chilcano){:target="_blank"}
->  
-
-Once cloned, first of all run `terraform destroy` to remove all AWS resources provisioned previously. TThat will avoid increasing your bill.
-After cleaning up, reprovision a fresh Kubernetes Cluster.
-
-```sh
-$ terraform plan \
-  -var cluster-name="cheapk8s" \
-  -var k8s-ssh-key="ssh-key-for-us-east-1" \
-  -var admin-cidr-blocks="83.50.9.220/32" \
-  -var region="us-east-1" \
-  -var kubernetes-version="1.14.3" \
-  -var external-dns-enabled="1" \
-  -var nginx-ingress-enabled="1" \
-  -var nginx-ingress-domain="ingress-nginx.cloud.holisticsecurity.io" 
-
-$ terraform apply \
-  -var cluster-name="cheapk8s" \
-  -var k8s-ssh-key="ssh-key-for-us-east-1" \
-  -var admin-cidr-blocks="83.50.9.220/32" \
-  -var region="us-east-1" \
-  -var kubernetes-version="1.14.3" \
-  -var external-dns-enabled="1" \
-  -var nginx-ingress-enabled="1" \
-  -var nginx-ingress-domain="ingress-nginx.cloud.holisticsecurity.io" 
-```
+   > If you want a cheap K8s Infrastructure on AWS, I recommend to clone this GitHub repo I've updated for you.
+   >  
+   > [https://github.com/chilcano/kubeadm-aws/tree/0.2.1-chilcano](https://github.com/chilcano/kubeadm-aws/tree/0.2.1-chilcano){:target="_blank"}
+   >  
+   
+   Once cloned, first of all run `terraform destroy` to remove all AWS resources provisioned previously. TThat will avoid increasing your bill.
+   After cleaning up, reprovision a fresh Kubernetes Cluster.
+   
+   ```sh
+   $ terraform plan \
+     -var cluster-name="cheapk8s" \
+     -var k8s-ssh-key="ssh-key-for-us-east-1" \
+     -var admin-cidr-blocks="83.50.9.220/32" \
+     -var region="us-east-1" \
+     -var kubernetes-version="1.14.3" \
+     -var external-dns-enabled="1" \
+     -var nginx-ingress-enabled="1" \
+     -var nginx-ingress-domain="ingress-nginx.cloud.holisticsecurity.io" 
+   
+   $ terraform apply \
+     -var cluster-name="cheapk8s" \
+     -var k8s-ssh-key="ssh-key-for-us-east-1" \
+     -var admin-cidr-blocks="83.50.9.220/32" \
+     -var region="us-east-1" \
+     -var kubernetes-version="1.14.3" \
+     -var external-dns-enabled="1" \
+     -var nginx-ingress-enabled="1" \
+     -var nginx-ingress-domain="ingress-nginx.cloud.holisticsecurity.io" 
+   ```
 
 2. Clean up unwanted Name Server Records under the AWS Route 53 Hosted Zone for the specified Subdomain.
 
-If you have been playing with AWS Route 53 Hosted Zone for the specified Subdomain (`cloud.holisticsecurity.io`), it's likely you have added records and require removing them before creating fresh records. Then, below I explain you how to do:
-
-```sh
-# A fresh AWS Route 53 Hosted Zone has 2 records: Record Type NS and Record Type SOA.
-$ export MY_SUBDOMAIN="cloud.holisticsecurity.io"
-$ export HZ_ID=$(aws route53 list-hosted-zones-by-name --dns-name "${MY_SUBDOMAIN}." | jq -r '.HostedZones[0].Id')
-$ aws route53 list-resource-record-sets --hosted-zone-id $HZ_ID --query "ResourceRecordSets[?Name == '${MY_SUBDOMAIN}.'].{Name:Name,Type:Type}" | jq -c '.[]'
-{"Name":"cloud.holisticsecurity.io.","Type":"NS"}
-{"Name":"cloud.holisticsecurity.io.","Type":"SOA"}
-
-# I should remove those 10 records (of type A, TXT and SRV) 
-$ aws route53 list-resource-record-sets --hosted-zone-id $HZ_ID --query "ResourceRecordSets[?Name != '${MY_SUBDOMAIN}.'].{Name:Name,Type:Type}" | jq -c '.[]'
-{"Name":"hello-svc-np.cloud.holisticsecurity.io.","Type":"A"}
-{"Name":"hello-svc-np.cloud.holisticsecurity.io.","Type":"TXT"}
-{"Name":"_http._tcp.hello-svc-np.cloud.holisticsecurity.io.","Type":"SRV"}
-{"Name":"_http._tcp.hello-svc-np.cloud.holisticsecurity.io.","Type":"TXT"}
-{"Name":"ingress-nginx.cloud.holisticsecurity.io.","Type":"A"}
-{"Name":"ingress-nginx.cloud.holisticsecurity.io.","Type":"TXT"}
-{"Name":"_http._tcp.ingress-nginx.cloud.holisticsecurity.io.","Type":"SRV"}
-{"Name":"_http._tcp.ingress-nginx.cloud.holisticsecurity.io.","Type":"TXT"}
-{"Name":"_https._tcp.ingress-nginx.cloud.holisticsecurity.io.","Type":"SRV"}
-{"Name":"_https._tcp.ingress-nginx.cloud.holisticsecurity.io.","Type":"TXT"}
-
-# Removing those 10 records.
-$ aws route53 list-resource-record-sets --hosted-zone-id $HZ_ID --query "ResourceRecordSets[?Name != '${MY_SUBDOMAIN}.']" | jq -c '.[]' |
-  while read -r RRS; do
-    read -r name type <<< $(jq -jr '.Name, " ", .Type' <<< "$RRS") 
-    CHG_ID=$(aws route53 change-resource-record-sets --hosted-zone-id $HZ_ID --change-batch '{"Changes":[{"Action":"DELETE","ResourceRecordSet": '"$RRS"' }]}' --output text --query 'ChangeInfo.Id')
-    echo " - DELETING: $type $name - CHANGE ID: $CHG_ID"    
-  done
-
- - DELETING: TXT ccc.cloud.holisticsecurity.io. - CHANGE ID: /change/CMCJ8CXRBIZ7M
- - DELETING: SRV ddd.cloud.holisticsecurity.io. - CHANGE ID: /change/C2KU4TEHWEDV2Y
-```
-
-Only if it is required, you can delete the AWS Hosted Zone in this way:
-```sh
-$ aws route53 delete-hosted-zone --id $HZ_ID --output text --query 'ChangeInfo.Id'
-```
+   If you have been playing with AWS Route 53 Hosted Zone for the specified Subdomain (`cloud.holisticsecurity.io`), it's likely you have added records and require removing them before creating fresh records. Then, below I explain you how to do:
+   
+   ```sh
+   # A fresh AWS Route 53 Hosted Zone has 2 records: Record Type NS and Record Type SOA.
+   $ export MY_SUBDOMAIN="cloud.holisticsecurity.io"
+   $ export HZ_ID=$(aws route53 list-hosted-zones-by-name --dns-name "${MY_SUBDOMAIN}." | jq -r '.HostedZones[0].Id')
+   $ aws route53 list-resource-record-sets --hosted-zone-id $HZ_ID --query "ResourceRecordSets[?Name == '${MY_SUBDOMAIN}.'].{Name:Name,Type:Type}" | jq -c '.[]'
+   {"Name":"cloud.holisticsecurity.io.","Type":"NS"}
+   {"Name":"cloud.holisticsecurity.io.","Type":"SOA"}
+   
+   # I should remove those 10 records (of type A, TXT and SRV) 
+   $ aws route53 list-resource-record-sets --hosted-zone-id $HZ_ID --query "ResourceRecordSets[?Name != '${MY_SUBDOMAIN}.'].{Name:Name,Type:Type}" | jq -c '.[]'
+   {"Name":"hello-svc-np.cloud.holisticsecurity.io.","Type":"A"}
+   {"Name":"hello-svc-np.cloud.holisticsecurity.io.","Type":"TXT"}
+   {"Name":"_http._tcp.hello-svc-np.cloud.holisticsecurity.io.","Type":"SRV"}
+   {"Name":"_http._tcp.hello-svc-np.cloud.holisticsecurity.io.","Type":"TXT"}
+   {"Name":"ingress-nginx.cloud.holisticsecurity.io.","Type":"A"}
+   {"Name":"ingress-nginx.cloud.holisticsecurity.io.","Type":"TXT"}
+   {"Name":"_http._tcp.ingress-nginx.cloud.holisticsecurity.io.","Type":"SRV"}
+   {"Name":"_http._tcp.ingress-nginx.cloud.holisticsecurity.io.","Type":"TXT"}
+   {"Name":"_https._tcp.ingress-nginx.cloud.holisticsecurity.io.","Type":"SRV"}
+   {"Name":"_https._tcp.ingress-nginx.cloud.holisticsecurity.io.","Type":"TXT"}
+   
+   # Removing those 10 records.
+   $ aws route53 list-resource-record-sets --hosted-zone-id $HZ_ID --query "ResourceRecordSets[?Name != '${MY_SUBDOMAIN}.']" | jq -c '.[]' |
+     while read -r RRS; do
+       read -r name type <<< $(jq -jr '.Name, " ", .Type' <<< "$RRS") 
+       CHG_ID=$(aws route53 change-resource-record-sets --hosted-zone-id $HZ_ID --change-batch '{"Changes":[{"Action":"DELETE","ResourceRecordSet": '"$RRS"' }]}' --output text --query 'ChangeInfo.Id')
+       echo " - DELETING: $type $name - CHANGE ID: $CHG_ID"    
+     done
+   
+    - DELETING: TXT ccc.cloud.holisticsecurity.io. - CHANGE ID: /change/CMCJ8CXRBIZ7M
+    - DELETING: SRV ddd.cloud.holisticsecurity.io. - CHANGE ID: /change/C2KU4TEHWEDV2Y
+   ```
+   
+   Only if it is required, you can delete the AWS Hosted Zone in this way:
+   ```sh
+   $ aws route53 delete-hosted-zone --id $HZ_ID --output text --query 'ChangeInfo.Id'
+   ```
 
 **2) Verify ExternalDNS has synchronized subdomain in AWS Route 53**
 
