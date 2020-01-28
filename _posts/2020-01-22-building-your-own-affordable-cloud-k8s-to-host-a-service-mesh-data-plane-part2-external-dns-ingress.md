@@ -40,11 +40,11 @@ You can create subdomain records using either the Amazon Route 53 console or the
 # Create a DNS zone which will contain the managed DNS records.
 $ aws route53 create-hosted-zone --name "cloud.holisticsecurity.io." --caller-reference "cloud-holosec-io-$(date +%s)" --hosted-zone-config "Comment='HostedZone for subdomain',PrivateZone=false"
 
-# Get the Hosted Zone ID (AWS_HZ_ID) of the hosted zone I just created, which will serve as the value for my-hostedzone-identifier.
-$ export AWS_HZ_ID=$(aws route53 list-hosted-zones-by-name --output json --dns-name "cloud.holisticsecurity.io." | jq -r '.HostedZones[0].Id')
+# Get the Hosted Zone ID (HZ_ID) of the hosted zone I just created, which will serve as the value for my-hostedzone-identifier.
+$ export HZ_ID=$(aws route53 list-hosted-zones-by-name --output json --dns-name "cloud.holisticsecurity.io." | jq -r '.HostedZones[0].Id')
 
 # Make a note of the nameservers that were assigned to my new zone.
-$ aws route53 list-resource-record-sets --output json --hosted-zone-id "${AWS_HZ_ID}" --query "ResourceRecordSets[?Type == 'NS']" | jq -r '.[0].ResourceRecords[].Value'
+$ aws route53 list-resource-record-sets --output json --hosted-zone-id "${HZ_ID}" --query "ResourceRecordSets[?Type == 'NS']" | jq -r '.[0].ResourceRecords[].Value'
 ns-1954.awsdns-52.co.uk.
 ns-157.awsdns-19.com.
 ns-1053.awsdns-03.org.
@@ -159,17 +159,19 @@ If you have read the first post about how to create an affordable Kubernetes Dat
    $ aws route53 delete-hosted-zone --id $HZ_ID --output text --query 'ChangeInfo.Id'
    ```
 
-**2) Verify ExternalDNS has synchronized subdomain in AWS Route 53**
+**2) Verify ExternalDNS has synchronized the Ingress' subdomain with AWS Route 53**
 
+The domain name that the Ingress' subdomain will request is `ingress-nginx.cloud.holisticsecurity.io`, that domain name has been created during the Affordable K8s Cluster creation. Then, let's check it.
 
 ```sh
-# Get the Hosted Zone (AWS_HZ_ID) ID of the hosted zone I just created.
-$ export AWS_HZ_ID=$(aws route53 list-hosted-zones-by-name --output json --dns-name "cloud.holisticsecurity.io." | jq -r '.HostedZones[0].Id')
+$ export MY_SUBDOMAIN="cloud.holisticsecurity.io"
+$ export INGRESS_NS="ingress-nginx.${MY_SUBDOMAIN}"
+
+# Get the Hosted Zone (HZ_ID) ID of the hosted zone I just created.
+$ export HZ_ID=$(aws route53 list-hosted-zones-by-name --dns-name "${MY_SUBDOMAIN}." | jq -r '.HostedZones[0].Id')
 
 # Get all nameservers that were assigned initially and recently synchronized by ExternalDNS to my new zone.
-$ aws route53 list-resource-record-sets --output json --hosted-zone-id "${AWS_HZ_ID}" --query "ResourceRecordSets[?Type == 'A']" | jq -r '.[0].ResourceRecords[].Value'
-
-$ aws route53 list-resource-record-sets --output json --hosted-zone-id "${AWS_HZ_ID}" --query "ResourceRecordSets[?Name == 'ingress-nginx.cloud.holisticsecurity.io.'].{Name:Name,Type:Type,ResourceRecords:ResourceRecords}" 
+$ aws route53 list-resource-record-sets --output json --hosted-zone-id "${HZ_ID}" --query "ResourceRecordSets[?Name == 'ingress-nginx.cloud.holisticsecurity.io.'].{Name:Name,Type:Type,ResourceRecords:ResourceRecords}" 
 
 [
     {
