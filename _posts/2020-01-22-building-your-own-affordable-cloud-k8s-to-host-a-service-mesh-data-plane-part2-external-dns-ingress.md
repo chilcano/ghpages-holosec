@@ -171,31 +171,10 @@ $ export INGRESS_NS="ingress-nginx.${MY_SUBDOMAIN}"
 $ export HZ_ID=$(aws route53 list-hosted-zones-by-name --dns-name "${MY_SUBDOMAIN}." | jq -r '.HostedZones[0].Id')
 
 # Get all nameservers that were assigned initially and recently synchronized by ExternalDNS to my new zone.
-$ aws route53 list-resource-record-sets --output json --hosted-zone-id "${HZ_ID}" --query "ResourceRecordSets[?Name == 'ingress-nginx.cloud.holisticsecurity.io.'].{Name:Name,Type:Type,ResourceRecords:ResourceRecords}" 
+$ aws route53 list-resource-record-sets --output text --hosted-zone-id "${HZ_ID}" --query "ResourceRecordSets[?Name == '${INGRESS_NS}.'].{Name:Name,Type:Type}"
 
-[
-    {
-        "Name": "ingress-nginx.cloud.holisticsecurity.io.",
-        "Type": "A",
-        "ResourceRecords": [
-            {
-                "Value": "174.129.123.159"
-            },
-            {
-                "Value": "54.159.75.179"
-            }
-        ]
-    },
-    {
-        "Name": "ingress-nginx.cloud.holisticsecurity.io.",
-        "Type": "TXT",
-        "ResourceRecords": [
-            {
-                "Value": "\"heritage=external-dns,external-dns/owner=k8s,external-dns/resource=service/ingress-nginx/ingress-nginx\""
-            }
-        ]
-    }
-]
+ingress-nginx.cloud.holisticsecurity.io.	A
+ingress-nginx.cloud.holisticsecurity.io.	TXT
 ```
 
 Or if you are of the old-school, you can ask to any of four AWS Route 53's DNS server if the subdomain has been created and updated.
