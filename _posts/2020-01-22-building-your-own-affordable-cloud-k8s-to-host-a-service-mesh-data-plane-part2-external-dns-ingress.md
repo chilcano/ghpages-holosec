@@ -142,7 +142,7 @@ If you have read the first post about how to create an affordable Kubernetes Dat
    {"Name":"_https._tcp.ingress-nginx.cloud.holisticsecurity.io.","Type":"SRV"}
    {"Name":"_https._tcp.ingress-nginx.cloud.holisticsecurity.io.","Type":"TXT"}
    
-   # Removing those 10 records.
+   # Removing those unwanted records.
    $ aws route53 list-resource-record-sets --hosted-zone-id $HZ_ID --query "ResourceRecordSets[?Name != '${MY_SUBDOMAIN}.']" | jq -c '.[]' |
      while read -r RRS; do
        read -r name type <<< $(jq -jr '.Name, " ", .Type' <<< "$RRS") 
