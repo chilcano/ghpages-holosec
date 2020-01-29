@@ -24,6 +24,13 @@ At this point you must have created a Kubernetes Cluster with ExternalDNS and NG
 
 ### 1) Cleaning everything
 
+If you are using the Terraform scripts to create an affordable K8s Cluster I've forked and updated for you, then first of all you should clean up to start creating a new fresh K8s Cluster for following this scenario.
+
+
+> If you want a cheap K8s Infrastructure on AWS, I recommend to use this GitHub repo I've updated for you:
+>  
+> [https://github.com/chilcano/kubeadm-aws/tree/0.2.1-chilcano](https://github.com/chilcano/kubeadm-aws/tree/0.2.1-chilcano)
+
 ```sh
 # Removing existing CheapK8s Cluster
 $ terraform destroy \
