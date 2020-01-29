@@ -8,7 +8,7 @@ permalink: "/2020/01/22/building-your-own-affordable-cloud-k8s-to-host-a-service
 comments: true
 ---
 
-xyz xyz xyz 
+In this blog post I'll explain how to get a X.509 TLS Certificate from Let's Encrypt automatically during the Terraform provision time. In this point you should get a Kubernetes 
 
 
 ## Steps
@@ -62,8 +62,34 @@ $ terraform apply \
 
 ### 3) Checking recently created K8s Cluster and JetStack Cert-Manager
 
+**1. Exploring the JetStack Cert-Manager resources created in the K8s Cluster**
 
-Calling `health check` over TLS.
+```sh
+# List all namespaces
+ubuntu@ip-10-0-100-4:~$ kubectl get ns
+NAME              STATUS   AGE
+cert-manager      Active   159m
+default           Active   161m
+ingress-nginx     Active   158m
+kube-node-lease   Active   161m
+kube-public       Active   161m
+kube-system       Active   161m
+
+# Listing all resources under namespace 'cert-manager'
+ubuntu@ip-10-0-100-4:~$ kubectl get all -n cert-manager
+NAME                                READY   STATUS    RESTARTS   AGE
+pod/cert-manager-54d94bb6fc-9zchz   1/1     Running   0          5h22m
+
+NAME                           READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/cert-manager   1/1     1            1           5h22m
+
+NAME                                      DESIRED   CURRENT   READY   AGE
+replicaset.apps/cert-manager-54d94bb6fc   1         1         1       5h22m
+```
+
+
+**2. Calling Ingress' `health check` over TLS.**
+
 ```sh
 $ curl https://ingress-nginx.cloud.holisticsecurity.io/healthz -v -k
 
@@ -111,7 +137,8 @@ $ curl https://ingress-nginx.cloud.holisticsecurity.io/healthz -v -k
 * Connection #0 to host ingress-nginx.cloud.holisticsecurity.io left intact
 ```
 
-Showing TLS Certificate using `openssl`.
+**3. Getting the TLS Certificate using `openssl`**
+
 ```sh
 $ echo | openssl s_client -showcerts -servername ingress-nginx.cloud.holisticsecurity.io -connect ingress-nginx.cloud.holisticsecurity.io:443 2>/dev/null | openssl x509 -inform pem -noout -text
 

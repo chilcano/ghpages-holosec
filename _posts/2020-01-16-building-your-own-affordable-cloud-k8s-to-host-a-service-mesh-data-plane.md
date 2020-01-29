@@ -178,11 +178,10 @@ Although AWS CLI isn't needed for the purpose of running Terraform, that will be
    nothing to commit, working tree clean
    ```
    
-   Also you can clone the `0.2.1-chilcano` branch only of GitHub repo as follow:
-   
-   ```sh
-   chilcano@inti:~/git-repos$ git clone --single-branch --branch 0.2.1-chilcano https://github.com/chilcano/kubeadm-aws affordable-k8s-tf
-   ```
+   > Alternatively to all above steps you can clone the `0.2.1-chilcano` branch only of GitHub repo as follow:
+   > ```sh
+   > chilcano@inti:~/git-repos$ git clone --single-branch --branch 0.2.1-chilcano https://github.com/chilcano/kubeadm-aws affordable-k8s-tf
+   > ```
 
 2. Update `variables.tf`.
 
