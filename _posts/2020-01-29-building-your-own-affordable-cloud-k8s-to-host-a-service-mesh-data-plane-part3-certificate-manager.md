@@ -17,6 +17,8 @@ At this point you must have created a Kubernetes Cluster with ExternalDNS and NG
 
 [![K8s Cluster created using AWS Spot Instances - Cert-Manager and Let's Encrypt](/assets/img/20200129-affordablek8s-aws-01-arch-ingress-dns-tls-cert-manager.png "K8s Cluster created using AWS Spot Instances - Cert-Manager and Let's Encrypt")](/assets/img/20200129-affordablek8s-aws-01-arch-ingress-dns-tls-cert-manager.png){:target="_blank"}
 
+<!-- more -->
+
 ## Steps
 
 ### 1) Cleaning everything
