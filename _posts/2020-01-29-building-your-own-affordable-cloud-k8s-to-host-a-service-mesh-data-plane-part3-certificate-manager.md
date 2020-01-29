@@ -1,10 +1,10 @@
 ---
 layout: post
 title:  "Building your own affordable K8s to host a Service Mesh - Part 3: Certificate Manager"
-date:   2020-01-22 10:00:00 +0100
+date:   2020-01-29 10:00:00 +0100
 categories: ['cloud', 'apaas', 'service mesh'] 
 tags: ['aws', 'docker', 'kubernetes', 'data plane', 'microservice', 'x509', 'certificate', 'pki', 'tls']
-permalink: "/2020/01/22/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-part3-certificate-manager"
+permalink: "/2020/01/29/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-part3-certificate-manager"
 comments: true
 ---
 
@@ -34,11 +34,23 @@ $ terraform destroy \
   -var nginx-ingress-domain="ingress-nginx.cloud.holisticsecurity.io" 
 
 # Removing unwanted records in our AWS Hosted Zone
-
-
+$ export MY_SUBDOMAIN="cloud.holisticsecurity.io"
+$ export HZ_ID=$(aws route53 list-hosted-zones-by-name --dns-name "${MY_SUBDOMAIN}." | jq -r '.HostedZones[0].Id')
+$ aws route53 list-resource-record-sets --hosted-zone-id $HZ_ID --query "ResourceRecordSets[?Name != '${MY_SUBDOMAIN}.']" | jq -c '.[]' |
+  while read -r RRS; do
+    read -r name type <<< $(jq -jr '.Name, " ", .Type' <<< "$RRS") 
+    CHG_ID=$(aws route53 change-resource-record-sets --hosted-zone-id $HZ_ID --change-batch '{"Changes":[{"Action":"DELETE","ResourceRecordSet": '"$RRS"' }]}' --output text --query 'ChangeInfo.Id')
+    echo " - DELETING: $type $name - CHANGE ID: $CHG_ID"    
+  done
 ```
 
+For further details and an explanation about above step review this post:
+* [Part 2 - Building your own affordable K8s - ExternalDNS and NGINX as Ingress](http://holisticsecurity.io/2020/01/22/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-part2-external-dns-ingress){:target="_blank"}.
+
+
 ### 2) Create a fresh K8s Cluster with JetStack Cert-Manager installed
+
+Note the `cert-manager-enabled="1"` and `cert-manager-email="cheapk8s@holisticsecurity.io"` parameters which are required to create a Kubernetes Cluster with the [JetStack Cert-Manager](https://github.com/jetstack/cert-manager){:target="_blank"} installed.
 
 ```sh
 $ terraform plan \
@@ -209,24 +221,175 @@ Certificate:
          2b:63:38:22
 ```
 
-### 4) Using JetStack Cert-Manager
+### 4) Calling a Microservice over HTTPS (port 443)
 
-**1. Enabling TLS for a Microservice**
+Since all Microservices and RESTful API were configured to be invoked over 80/HTTP and 443/HTTPS and routed through the NGINX Ingress Controller. The only thing to do is call them through their FQDN (Fully Qualified Domain Name) and the Microservices' FQDN could be `https://ingress-nginx.cloud.holisticsecurity.io/<MICROSERVICE_NAME>`.
+
+Then, let's try it using the `Hello Microservice`.
+
 ```sh
-
+# Get SSH access to K8s master node
+$ ssh ubuntu@$(terraform output master_dns) -i ~/Downloads/ssh-key-for-us-east-1.pem
+   
+# Deploy Hello microservices, services and ingress
+ubuntu@ip-10-0-100-4:~$ kubectl apply -f https://raw.githubusercontent.com/chilcano/kubeadm-aws/0.2.1-chilcano/examples/hello-cheapk8s-app.yaml
+ubuntu@ip-10-0-100-4:~$ kubectl apply -f https://raw.githubusercontent.com/chilcano/kubeadm-aws/0.2.1-chilcano/examples/hello-cheapk8s-svc.yaml
+ubuntu@ip-10-0-100-4:~$ kubectl apply -f https://raw.githubusercontent.com/chilcano/kubeadm-aws/0.2.1-chilcano/examples/hello-cheapk8s-ingress.yaml
+ubuntu@ip-10-0-100-4:~$ kubectl apply -f https://raw.githubusercontent.com/chilcano/kubeadm-aws/0.2.1-chilcano/examples/hello-cheapk8s-ingress-tls.yaml
+   
+# Get status
+ubuntu@ip-10-0-100-4:~$ kubectl get pod,svc,ingress -n hello -o wide
+[...]
+NAME                                       HOSTS                                     ADDRESS   PORTS     AGE
+ingress.extensions/hello-ingress-cip       ingress-nginx.cloud.holisticsecurity.io             80        16m
+ingress.extensions/hello-ingress-cip-tls   ingress-nginx.cloud.holisticsecurity.io             80, 443   15s
+ingress.extensions/hello-ingress-np        hello-svc-np.cloud.holisticsecurity.io              80        16m
+ingress.extensions/hello-ingress-np-tls    hello-svc-np.cloud.holisticsecurity.io              80, 443   15s
 ```
 
-**2. Enabling Mutual TLS Authentication for a Web Application**
+Now, from any computer in Internet execute this command:
+
 ```sh
+# Calling Hello Microservices over HTTP
+$ curl http://ingress-nginx.cloud.holisticsecurity.io/hello
+$ curl http://hello-svc-np.cloud.holisticsecurity.io/hello 
+
+# Calling Hello Microservices over HTTPS/TLS through `hello-ingress-cip-tls`
+$ curl https://ingress-nginx.cloud.holisticsecurity.io/hello -v -k
+
+*   Trying 34.236.145.206:443...
+* TCP_NODELAY set
+* Connected to ingress-nginx.cloud.holisticsecurity.io (34.236.145.206) port 443 (#0)
+* ALPN, offering h2
+* ALPN, offering http/1.1
+* successfully set certificate verify locations:
+*   CAfile: none
+  CApath: /etc/ssl/certs
+* TLSv1.3 (OUT), TLS handshake, Client hello (1):
+* TLSv1.3 (IN), TLS handshake, Server hello (2):
+* TLSv1.2 (IN), TLS handshake, Certificate (11):
+* TLSv1.2 (IN), TLS handshake, Server key exchange (12):
+* TLSv1.2 (IN), TLS handshake, Server finished (14):
+* TLSv1.2 (OUT), TLS handshake, Client key exchange (16):
+* TLSv1.2 (OUT), TLS change cipher, Change cipher spec (1):
+* TLSv1.2 (OUT), TLS handshake, Finished (20):
+* TLSv1.2 (IN), TLS handshake, Finished (20):
+* SSL connection using TLSv1.2 / ECDHE-RSA-AES256-GCM-SHA384
+* ALPN, server accepted to use h2
+* Server certificate:
+*  subject: O=Acme Co; CN=Kubernetes Ingress Controller Fake Certificate
+*  start date: Jan 29 17:23:09 2020 GMT
+*  expire date: Jan 28 17:23:09 2021 GMT
+*  issuer: O=Acme Co; CN=Kubernetes Ingress Controller Fake Certificate
+*  SSL certificate verify result: unable to get local issuer certificate (20), continuing anyway.
+* Using HTTP2, server supports multi-use
+* Connection state changed (HTTP/2 confirmed)
+* Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0
+* Using Stream ID: 1 (easy handle 0x5558d18e71d0)
+> GET /hello HTTP/2
+> Host: ingress-nginx.cloud.holisticsecurity.io
+> User-Agent: curl/7.65.3
+> Accept: */*
+> 
+* Connection state changed (MAX_CONCURRENT_STREAMS == 128)!
+< HTTP/2 200 
+< server: nginx/1.15.5
+< date: Wed, 29 Jan 2020 17:45:08 GMT
+< content-type: text/html; charset=utf-8
+< content-length: 55
+< strict-transport-security: max-age=15724800; includeSubDomains
+< 
+Hello version: v1, instance: hello-v1-66fc9c7d98-tljkw
+* Connection #0 to host ingress-nginx.cloud.holisticsecurity.io left intact
+
+# Calling Hello Microservices over HTTPS/TLS through `hello-ingress-np-tls`
+$ curl https://hello-svc-np.cloud.holisticsecurity.io/hello -v -k
+
+*   Trying 34.236.145.206:443...
+* TCP_NODELAY set
+* Connected to hello-svc-np.cloud.holisticsecurity.io (34.236.145.206) port 443 (#0)
+* ALPN, offering h2
+* ALPN, offering http/1.1
+* successfully set certificate verify locations:
+*   CAfile: none
+  CApath: /etc/ssl/certs
+* TLSv1.3 (OUT), TLS handshake, Client hello (1):
+* TLSv1.3 (IN), TLS handshake, Server hello (2):
+* TLSv1.2 (IN), TLS handshake, Certificate (11):
+* TLSv1.2 (IN), TLS handshake, Server key exchange (12):
+* TLSv1.2 (IN), TLS handshake, Server finished (14):
+* TLSv1.2 (OUT), TLS handshake, Client key exchange (16):
+* TLSv1.2 (OUT), TLS change cipher, Change cipher spec (1):
+* TLSv1.2 (OUT), TLS handshake, Finished (20):
+* TLSv1.2 (IN), TLS handshake, Finished (20):
+* SSL connection using TLSv1.2 / ECDHE-RSA-AES256-GCM-SHA384
+* ALPN, server accepted to use h2
+* Server certificate:
+*  subject: O=Acme Co; CN=Kubernetes Ingress Controller Fake Certificate
+*  start date: Jan 29 17:23:09 2020 GMT
+*  expire date: Jan 28 17:23:09 2021 GMT
+*  issuer: O=Acme Co; CN=Kubernetes Ingress Controller Fake Certificate
+*  SSL certificate verify result: unable to get local issuer certificate (20), continuing anyway.
+* Using HTTP2, server supports multi-use
+* Connection state changed (HTTP/2 confirmed)
+* Copying HTTP/2 data in stream buffer to connection buffer after upgrade: len=0
+* Using Stream ID: 1 (easy handle 0x55d3ae3fb1d0)
+> GET /hello HTTP/2
+> Host: hello-svc-np.cloud.holisticsecurity.io
+> User-Agent: curl/7.65.3
+> Accept: */*
+> 
+* Connection state changed (MAX_CONCURRENT_STREAMS == 128)!
+< HTTP/2 200 
+< server: nginx/1.15.5
+< date: Wed, 29 Jan 2020 17:45:32 GMT
+< content-type: text/html; charset=utf-8
+< content-length: 55
+< strict-transport-security: max-age=15724800; includeSubDomains
+< 
+Hello version: v2, instance: hello-v2-845749f774-tft56
+* Connection #0 to host hello-svc-np.cloud.holisticsecurity.io left intact
 
 ```
 
 ## Conclusions
 
-1. xxx
-2. yyy
-3. zzz
+1. NGINX Ingress Controller routes HTTP and HTTPS/TLS traffic to Hello Microservices.
+2. NGINX Ingress Controller manages TLS Termination, that means that Hello Microservices don't require X.509 TLS Certificate. In other words, the NGINX Ingress Controller redirect the ingress traffic to downstream microservice over HTTP standard.
+3. Hello Microservices are exposed through NGINX Ingress enabling TLS and requesting X.509 TLS Certificate. Note the `annotations` used in the `Ingress Resource` definition. Below details:
+
+```yaml
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: hello-ingress-cip-tls
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    certmanager.k8s.io/issuer: "letsencrypt-prod"
+    certmanager.k8s.io/acme-challenge-type: http01
+  namespace: hello
+spec:
+  tls:
+  - hosts:
+    - ingress-nginx.cloud.holisticsecurity.io
+    secretName: ingress-nginx-cloud-holisticsecurity-io-https
+  rules:
+  - host: ingress-nginx.cloud.holisticsecurity.io
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: hello-svc-cip
+          servicePort: 5080
+---
+```
+
+In the next post I'll explain how to enable Mutual TLS Authentication for Microservices.
+Stay tuned.
 
 ## References
 
 1. [JetStack Cert Manager - x.509 Certs for Kubernetes](https://github.com/jetstack/cert-manager){:target="_blank"}
+2. [Part 1 - Building your own affordable K8s to host a Service Mesh](http://holisticsecurity.io/2020/01/16/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-data-plane){:target="_blank"}.
+3. [Part 2 - Building your own affordable K8s - ExternalDNS and NGINX as Ingress](http://holisticsecurity.io/2020/01/22/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-part2-external-dns-ingress){:target="_blank"}.

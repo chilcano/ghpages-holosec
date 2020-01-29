@@ -261,13 +261,13 @@ Note: Unnecessary use of -X or --request, GET is already inferred.
    deployment.extensions/hello-v2 created
    
    # Create ClusterIP, LoadBalancer and NodePort Services for above Hello microservices
-   ubuntu@ip-10-0-100-4:~/affordable-k8s$ kubectl apply -f https://raw.githubusercontent.com/chilcano/kubeadm-aws/0.2.1-chilcano/examples/hello-cheapk8s-svc.yaml
+   ubuntu@ip-10-0-100-4:~$ kubectl apply -f https://raw.githubusercontent.com/chilcano/kubeadm-aws/0.2.1-chilcano/examples/hello-cheapk8s-svc.yaml
    service/hello-svc-cip created
    service/hello-svc-lb created
    service/hello-svc-np created
    
    # Create 2 Ingress Resources for above ClusterIP and NodePort Services
-   ubuntu@ip-10-0-100-4:~/affordable-k8s$ kubectl apply -f https://raw.githubusercontent.com/chilcano/kubeadm-aws/0.2.1-chilcano/examples/hello-cheapk8s-ingress.yaml
+   ubuntu@ip-10-0-100-4:~$ kubectl apply -f https://raw.githubusercontent.com/chilcano/kubeadm-aws/0.2.1-chilcano/examples/hello-cheapk8s-ingress.yaml
    ingress.extensions/hello-ingress-cip created
    ingress.extensions/hello-ingress-np created
    
@@ -339,10 +339,10 @@ Note: Unnecessary use of -X or --request, GET is already inferred.
    Calling from Internet through Kubernetes Ingress Controller and its Fully Qualified Domain Name (`FQDN`).
    
    ```sh
-   chilcano@inti:~$ curl http://ingress-nginx.cloud.holisticsecurity.io/hello
+   $ curl http://ingress-nginx.cloud.holisticsecurity.io/hello
    Hello version: v2, instance: hello-v2-845749f774-q9bk5
    
-   chilcano@inti:~$ curl http://hello-svc-np.cloud.holisticsecurity.io/hello
+   $ curl http://hello-svc-np.cloud.holisticsecurity.io/hello
    Hello version: v1, instance: hello-v1-66fc9c7d98-7b4b5
    ```
 
