@@ -440,6 +440,8 @@ If you want to know if your Kubernetes Cluster was created successfully, then yo
 - [Kubernetes on the cheap](https://software.danielwatrous.com/kubernetes-on-the-cheap/) By Daniel Watrous - Feb 9, 2019
 - [Kubernetes for poor - How to run your cluster and not go bankrupt](https://itsilesia.com/kubernetes-for-poor-how-to-run-your-cluster-and-not-go-bankrupt/) By Aleksander Grzybowski - Nov 13, 2018
 - [Diary of a GKE Journeyman - Running your personal Kubernetes Cluster for (almost) free on GKE](https://mehdi.me/running-a-personal-kubernetes-cluster-for-almost-from-on-gke/) By Mehdi El Gueddari - Mar 22, 2019 
+- [Collection of tools and code examples to demonstrate best practices in using Amazon EC2 Spot Instances.](https://github.com/awslabs/ec2-spot-labs)
+- [AWS Spot Instance Advisor](https://aws.amazon.com/ec2/spot/instance-advisor)
 
 ### Kubernetes' distributions
 
