@@ -1,0 +1,97 @@
+---
+layout: post
+title: Apache NiFi and TLS Toolkit Ansible Roles to create a multi-node secure NiFi
+  cluster
+date: 2017-05-17 01:24:52.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Big Data
+- DevOps
+- Security
+tags:
+- Ansible
+- Apache NiFi
+- TLS
+- Vagrant
+meta:
+  _wpcom_is_markdown: '1'
+  _edit_last: '578869'
+  geo_public: '0'
+  _publicize_job_id: '5126239252'
+  _publicize_done_external: a:1:{s:7:"twitter";a:1:{i:13849;s:54:"https://twitter.com/Chilcano/status/864637815342215168";}}
+  _publicize_done_17477: '1'
+  _wpas_done_13849: '1'
+  publicize_twitter_user: Chilcano
+  publicize_linkedin_url: https://www.linkedin.com/updates?discuss=&scope=6985267&stype=M&topic=6270403509028560896&type=U&a=FAUz
+  _publicize_done_5110110: '1'
+  _wpas_done_5053092: '1'
+author:
+  login: rcarhuatocto
+  email: roger@intix.info
+  display_name: Roger Carhuatocto
+  first_name: ''
+  last_name: ''
+permalink: "/2017/05/17/apache-nifi-and-tls-toolkit-ansible-roles-to-create-a-multi-node-secure-nifi-cluster/"
+---
+<p>I've created 2 Ansible Roles (<a href="https://galaxy.ansible.com/chilcano/apache-nifi">chilcano.apache-nifi</a> and <a href="https://galaxy.ansible.com/chilcano/apache-nifi-toolkit">chilcano.apache-nifi-toolkit</a>) to automate the creation of a multi-node and secure NiFi cluster. At the moment, the <a href="https://galaxy.ansible.com/chilcano/apache-nifi">chilcano.apache-nifi</a> Ansible Role doesn't implement <a href="https://nifi.apache.org/docs/nifi-docs/html/administration-guide.html#state_management">Cluster State coordination</a> through Apache ZooKeeper. It will be implemented in the next version of this Ansible Role. Also I've implemented only <a href="https://nifi.apache.org/docs/nifi-docs/html/administration-guide.html#tls-generation-toolkit">TLS Toolkit Standalone mode</a> in the <a href="https://galaxy.ansible.com/chilcano/apache-nifi-toolkit">chilcano.apache-nifi-toolkit</a> Ansible Role.</p>
+<p>Further details and samples about both Ansible Roles can be found at Ansible Galaxy:</p>
+<ul>
+<li><a href="https://galaxy.ansible.com/chilcano/apache-nifi-toolkit">chilcano.apache-nifi-toolkit</a></li>
+<li><a href="https://galaxy.ansible.com/chilcano/apache-nifi">chilcano.apache-nifi</a>  </li>
+</ul>
+<p>Once presented both Ansible Roles, I'm going to explain how to automate the creation of several instances of Apache NiFi, secure and not secure.</p>
+<p><!-- more --></p>
+<p>See image below:<br />
+<a href="https://holisticsecurity.files.wordpress.com/2017/05/nifi-multi-node-ansible-automation.png"><img src="{{ site.baseurl }}/assets/nifi-multi-node-ansible-automation.png" alt="Automated provisioning Apache NiFi multi-node cluster with Ansible and Vagrant" /></a></p>
+<p>We are going to create 5 NiFi instances, the first NiFi instance <code>nf1</code> will be a standalone instance running over HTTP. The second instance will will be a customized instance running over HTTPS with Client Certificate authentication. The third, fourth and fifth instances will run over HTTPS with Client Certificate authentication with configuration provided for NiFi TLS Toolkit. This configuration, key-pair, Java key stores and certificates will be generated in other VM instance provided for <code>chilcano.apache-nifi-toolkit Ansible Role</code>. See the image below:</p>
+<p><a href="https://holisticsecurity.files.wordpress.com/2017/05/nifi-toolkit-files-generated.png"><img src="{{ site.baseurl }}/assets/nifi-toolkit-files-generated.png" alt="Apache NiFi Toolkit - folder structure and files generated" /></a></p>
+<p>I've created an Ansible Playbook for you, you can download from this Git repository: <a href="https://github.com/chilcano/ansible-apache-nifi-multi-nodes">https://github.com/chilcano/ansible-apache-nifi-multi-nodes</a></p>
+<h2>How to use it - steps</h2>
+<p><strong>1&#046; Clone the Ansible playbooks</strong></p>
+<p>[code lang=bash]<br />
+$ git clone https://github.com/chilcano/ansible-apache-nifi-multi-nodes<br />
+[/code]</p>
+<p><strong>2&#046; Install <code>chilcano.apache-nifi</code>and <code>chilcano.apache-nifi-toolkit</code> Ansible Roles</strong></p>
+<p>[code lang=bash]<br />
+$ cd ansible-apache-nifi-multi-nodes<br />
+$ ansible-galaxy install -r playbooks/requirements.yml<br />
+[/code]</p>
+<p><strong>3. Create all VMs with Vagrant</strong></p>
+<p>Create all 6 VMs by using Vagrant.</p>
+<p>[code lang=bash]<br />
+$ cd infra/Vagrant<br />
+$ vagrant up<br />
+[/code]</p>
+<p><strong>4. Ansible provisioning with Vagrant</strong></p>
+<p>Now, I'm going to provision (run Ansible Playbooks) through Vagrant. This step will install Apache NiFi TLS Toolkit in the <code>nftk1</code> VM, once provisioned, Vagrant will provision 5 VMs following the Ansible Playbook <code>playbooks/main.yml</code>. It is very important to start the provision of all NiFi instances after provisioning <code>nftk1</code>. In the <code>playbooks/main.yml</code> you will see the <code>nftk1</code> is declared on top and after <code>nf1, nf2, nf3, nf4</code> and <code>nf5</code>.</p>
+<p>[code lang=bash]<br />
+$ vagrant provision</p>
+<p>$ vagrant status<br />
+Current machine states:</p>
+<p>nftk1                     running (virtualbox)<br />
+nf5                       running (virtualbox)<br />
+nf4                       running (virtualbox)<br />
+nf3                       running (virtualbox)<br />
+nf2                       running (virtualbox)<br />
+nf1                       running (virtualbox)</p>
+<p>This environment represents multiple VMs. The VMs are all listed<br />
+above with their current state. For more information about a specific<br />
+VM, run `vagrant status NAME`.<br />
+[/code]</p>
+<p>Now we can verify if all instances are running as expected, before we have to install the <code>Client Certificate</code> (<em>CN=chilcano_OU=INTIX.p12</em>) generated in our browser.<br />
+<a href="https://holisticsecurity.files.wordpress.com/2017/05/nifi-multi-node-client-cert-1install.png"><img src="{{ site.baseurl }}/assets/nifi-multi-node-client-cert-1install.png" alt="Install the Client Certificate" /></a></p>
+<p>The <code>Client Certificate</code> only is required when connecting to <code>nf2, nf3, nf4</code> and <code>nf5</code> because these instances are running over HTTPS with Mutual SSL/TLS Authentication (based on Client Certificate).<br />
+<a href="https://holisticsecurity.files.wordpress.com/2017/05/nifi-multi-node-client-cert-1select.png"><img src="{{ site.baseurl }}/assets/nifi-multi-node-client-cert-1select.png" alt="Select the Client Certificate" /></a></p>
+<p>Open the URL (<code>http://nf1:8080/nifi</code>, <code>http://nf2:9443/nifi</code>, <code>http://nf3:9443/nifi</code>, <code>http://nf4:9443/nifi</code> and <code>http://nf5:9443/nifi</code>) from Firefox. Instead of hostname you can use the IP address (see <code>inventory</code> file).<br />
+<a href="https://holisticsecurity.files.wordpress.com/2017/05/nifi-multi-node-browser-all.png"><img src="{{ site.baseurl }}/assets/nifi-multi-node-browser-all.png" alt="Open NiFi from Firefox" /></a></p>
+<h2>ToDo</h2>
+<ol>
+<li>Improve the Ansible Role <code>chilcano.apache-nifi</code> to implement Cluster Status coordination through <code>Apache ZooKeeper</code>.</li>
+<li>Improve the Ansible Role <code>chilcano.apache-nifi-toolkit</code> to implement Client/Server mode.</li>
+<li>Deploy a sample DataFlow in NiFi.  </li>
+</ol>
+<p>End.</p>

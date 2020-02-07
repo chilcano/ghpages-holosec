@@ -21,3 +21,7 @@ https://medium.com/avmconsulting-blog/deduplicating-amazon-sqs-messages-dc114d1e
 
 Kelsey Hightower on Extending Kubernetes, Event-Driven Architecture, and Learning
 https://www.infoq.com/podcasts/kubernetes-event-driven-architecture/
+
+
+https://openwhisk.apache.org/
+

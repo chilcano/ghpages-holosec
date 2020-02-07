@@ -1,0 +1,444 @@
+---
+layout: post
+title: Simple functional tests of Liferay 6.0.5 CE with Apache JMeter
+date: 2011-03-01 01:49:05.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Portal
+tags:
+- JMeter
+- Liferay
+meta:
+  _edit_last: '578869'
+  _wpas_done_twitter: '1'
+  _oembed_86cb0b2af82863e0aab12d0c2405ea28: "{{unknown}}"
+  _oembed_13406119b77fbc009810130eb38ecd93: "{{unknown}}"
+author:
+  login: rcarhuatocto
+  email: roger@intix.info
+  display_name: Roger Carhuatocto
+  first_name: ''
+  last_name: ''
+permalink: "/2011/03/01/simple-functional-tests-of-liferay-6-0-5-ce-with-apache-jmeter/"
+---
+<p>If do you want to know the health of an easy and quickly way, the current status of your Liferay Portal installation or if you want to test quickly any basic functionality from UI (quickly functional test), then you could use Apache JMeter to do it.<br />
+<br />
+To do that, you should do the following:<br />
+<br />
+1. Download and install Apache JMeter from here <a href="http://jakarta.apache.org/site/downloads/downloads_jmeter.cgi">http://jakarta.apache.org/site/downloads/downloads_jmeter.cgi</a><br />
+<br />
+2. Identify the target to test it.<br />
+In this case we will test if Liferay Sign in portlet works.<br />
+<br />
+3. Create a Test Plan.<br />
+<br />
+4. Add a "Thread Group".<br />
+<br />
+5. In the before "Thread Group" to add a "HTTP Cookie Manager". This allows to keep the liferay session open between diferents HTTP requests.<br />
+<br />
+[caption id="" align="alignnone"<br />
+	caption="Create a HTTP Cookie Manager in JMeter for Liferay"]<img class=" " title="Create a HTTP Cookie Manager in JMeter for Liferay" src="{{ site.baseurl }}/assets/20110228_1_liferayjmeter_httpcookiemanager.png" alt="Create a HTTP Cookie Manager in JMeter for Liferay" width="492" height="311" /><br />
+[/caption]<br />
+<br />
+6. Also, to add an "User Defined Variables" as shows in next figure:<br />
+<br />
+[caption id="" align="alignnone"<br />
+	caption="Create a User Defined Variables in JMeter for Liferay"]<br />
+<img class=" " title="Create a User Defined Variables in JMeter for Liferay" src="{{ site.baseurl }}/assets/20110228_2_liferayjmeter_userdefinedvariables.png" alt="Create a User Defined Variables in JMeter for Liferay" width="485" height="318" /><br />
+[/caption]<br />
+<br />
+7. In the before "Thread Group" to add a "Loop Controller" named "Sign in to Liferay".<br />
+<br />
+[caption id="" align="alignnone"<br />
+	caption="Add a Loop Controller"]<br />
+<img class=" " title="Add a Loop Controller" src="{{ site.baseurl }}/assets/20110228_3_liferayjmeter_loopcontroller.png" alt="Add a Loop Controller" width="458" height="262" /><br />
+[/caption]<br />
+<br />
+8. Add a first "HTTP Resquest" named "[Sign in - 1] Go to Welcome page".<br />
+You have to fill out the request with the appropriate parameters, for exmaple:<br />
+- Server Name or IP<br />
+- Port Number<br />
+- Method<br />
+- Path (URL of our target to be tested)<br />
+<br />
+9. Then, to add the first "Response Assertion" named "Check resp. 1 ". This will check if the result is correct. In this case only verify the existence of a message/text in the HTTP response.<br />
+<br />
+10. Later, to add the second "HTTP Request" named "[Sign in - 2] Do login". This allows to do log into liferay, in this case we will need to compose a HTML form with the following parameters:<br />
+<br />
+[caption id="" align="alignnone"<br />
+	caption="Create a HTTP Request to do Login from Liferay Sing in Portlet"]<br />
+<img class=" " title="Create a HTTP Request to do Login from Liferay Sing in Portlet" src="{{ site.baseurl }}/assets/20110228_4_liferayjmeter_httprequestsignin.png" alt="Create a HTTP Request to do Login from Liferay Sing in Portlet" width="542" height="442" /><br />
+[/caption]<br />
+<br />
+These parameters have been extracted from the Liferay welcome web page that contains the "Sign in" portlet, as shown in the figure below:<br />
+<br />
+[caption id="" align="alignnone"<br />
+	caption="Existing parameters in Liferay Sign in Portlet form"]<br />
+<img class=" " title="Existing parameters in Liferay Sign in Portlet form" src="{{ site.baseurl }}/assets/20110228_5_liferayjmeter_signinformparams.png" alt="Existing parameters in Liferay Sign in Portlet form" width="509" height="390" /><br />
+[/caption]<br />
+<br />
+11. Create a "Response Assertion" of similarly way to step 9 if we want to verify if login process has been successful.<br />
+In my case, I will verify the existence of a message/text "Sign Out" in the HTTP response.<br />
+<br />
+[caption id="" align="alignnone"<br />
+	caption="Create a Response Assertion for Liferay Login process"]<br />
+<img class=" " title="Create a Response Assertion for Liferay Login process" src="{{ site.baseurl }}/assets/20110228_6_liferayjmeter_respassertion.png" alt="Create a Response Assertion for Liferay Login process" width="513" height="257" /><br />
+[/caption]<br />
+<br />
+12. Add a third "HTTP Request" named "[Sign in - 3] Do logout" and other "Response Assertion".<br />
+This step is optional, it does not help us verify if the login process has been OK.<br />
+<br />
+13. At level of the "Thread Group" create a "Vire Results Tree" and "Assertion Results". Both will allow us to monitor the test results.<br />
+<br />
+14. Run test plan and observe the results in the "View Result Tree".<br />
+If everything goes “green” is that everything has been correctly. If any test is “red”, is that the test is wrong or something is wrong. Then, you should see or check you network connection, Liferay is running or if you Database is running, etc.<br />
+<br />
+[caption id="" align="alignnone"<br />
+	caption="View Result Tree for Liferay Sign in portlet"]<br />
+<img class=" " title="View Result Tree for Liferay Sign in portlet" src="{{ site.baseurl }}/assets/20110228_7_liferayjmeter_viewresultstree.png" alt="View Result Tree for Liferay Sign in portlet" width="446" height="252" /><br />
+[/caption]<br />
+<br />
+You can copy this test plan in Apache JMeter:<br />
+<br />
+[sourcecode language="xml" gutter="true" wraplines="false"]<br />
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;<br />
+&lt;jmeterTestPlan version=&quot;1.2&quot; properties=&quot;2.1&quot;&gt;<br />
+  &lt;hashTree&gt;<br />
+    &lt;TestPlan guiclass=&quot;TestPlanGui&quot; testclass=&quot;TestPlan&quot; testname=&quot;Test Plan - Liferay Sign in portlet&quot; enabled=&quot;true&quot;&gt;<br />
+      &lt;stringProp name=&quot;TestPlan.comments&quot;&gt;Monitoring Liferay Portal 6.0.5 CE&lt;/stringProp&gt;<br />
+      &lt;boolProp name=&quot;TestPlan.functional_mode&quot;&gt;false&lt;/boolProp&gt;<br />
+      &lt;boolProp name=&quot;TestPlan.serialize_threadgroups&quot;&gt;false&lt;/boolProp&gt;<br />
+      &lt;elementProp name=&quot;TestPlan.user_defined_variables&quot; elementType=&quot;Arguments&quot; guiclass=&quot;ArgumentsPanel&quot; testclass=&quot;Arguments&quot; testname=&quot;User Defined Variables&quot; enabled=&quot;true&quot;&gt;<br />
+        &lt;collectionProp name=&quot;Arguments.arguments&quot;/&gt;<br />
+      &lt;/elementProp&gt;<br />
+      &lt;stringProp name=&quot;TestPlan.user_define_classpath&quot;&gt;&lt;/stringProp&gt;<br />
+    &lt;/TestPlan&gt;<br />
+    &lt;hashTree&gt;<br />
+      &lt;ThreadGroup guiclass=&quot;ThreadGroupGui&quot; testclass=&quot;ThreadGroup&quot; testname=&quot;Thread Group&quot; enabled=&quot;true&quot;&gt;<br />
+        &lt;elementProp name=&quot;ThreadGroup.main_controller&quot; elementType=&quot;LoopController&quot; guiclass=&quot;LoopControlPanel&quot; testclass=&quot;LoopController&quot; testname=&quot;Loop Controller&quot; enabled=&quot;true&quot;&gt;<br />
+          &lt;boolProp name=&quot;LoopController.continue_forever&quot;&gt;false&lt;/boolProp&gt;<br />
+          &lt;stringProp name=&quot;LoopController.loops&quot;&gt;1&lt;/stringProp&gt;<br />
+        &lt;/elementProp&gt;<br />
+        &lt;stringProp name=&quot;ThreadGroup.num_threads&quot;&gt;1&lt;/stringProp&gt;<br />
+        &lt;stringProp name=&quot;ThreadGroup.ramp_time&quot;&gt;1&lt;/stringProp&gt;<br />
+        &lt;longProp name=&quot;ThreadGroup.start_time&quot;&gt;1281132211000&lt;/longProp&gt;<br />
+        &lt;longProp name=&quot;ThreadGroup.end_time&quot;&gt;1281132211000&lt;/longProp&gt;<br />
+        &lt;boolProp name=&quot;ThreadGroup.scheduler&quot;&gt;false&lt;/boolProp&gt;<br />
+        &lt;stringProp name=&quot;ThreadGroup.on_sample_error&quot;&gt;continue&lt;/stringProp&gt;<br />
+        &lt;stringProp name=&quot;ThreadGroup.duration&quot;&gt;&lt;/stringProp&gt;<br />
+        &lt;stringProp name=&quot;ThreadGroup.delay&quot;&gt;&lt;/stringProp&gt;<br />
+      &lt;/ThreadGroup&gt;<br />
+      &lt;hashTree&gt;<br />
+        &lt;CookieManager guiclass=&quot;CookiePanel&quot; testclass=&quot;CookieManager&quot; testname=&quot;HTTP Cookie Manager&quot; enabled=&quot;true&quot;&gt;<br />
+          &lt;collectionProp name=&quot;CookieManager.cookies&quot;/&gt;<br />
+          &lt;stringProp name=&quot;TestPlan.comments&quot;&gt;Enable to keep session in Liferay&lt;/stringProp&gt;<br />
+          &lt;boolProp name=&quot;CookieManager.clearEachIteration&quot;&gt;false&lt;/boolProp&gt;<br />
+          &lt;stringProp name=&quot;CookieManager.policy&quot;&gt;rfc2109&lt;/stringProp&gt;<br />
+        &lt;/CookieManager&gt;<br />
+        &lt;hashTree/&gt;<br />
+        &lt;Arguments guiclass=&quot;ArgumentsPanel&quot; testclass=&quot;Arguments&quot; testname=&quot;User Defined Variables&quot; enabled=&quot;true&quot;&gt;<br />
+          &lt;collectionProp name=&quot;Arguments.arguments&quot;&gt;<br />
+            &lt;elementProp name=&quot;LFRY_HOSTNAME&quot; elementType=&quot;Argument&quot;&gt;<br />
+              &lt;stringProp name=&quot;Argument.name&quot;&gt;LFRY_HOSTNAME&lt;/stringProp&gt;<br />
+              &lt;stringProp name=&quot;Argument.value&quot;&gt;lfry01&lt;/stringProp&gt;<br />
+              &lt;stringProp name=&quot;Argument.metadata&quot;&gt;=&lt;/stringProp&gt;<br />
+            &lt;/elementProp&gt;<br />
+            &lt;elementProp name=&quot;LFRY_PORT&quot; elementType=&quot;Argument&quot;&gt;<br />
+              &lt;stringProp name=&quot;Argument.name&quot;&gt;LFRY_PORT&lt;/stringProp&gt;<br />
+              &lt;stringProp name=&quot;Argument.value&quot;&gt;8080&lt;/stringProp&gt;<br />
+              &lt;stringProp name=&quot;Argument.metadata&quot;&gt;=&lt;/stringProp&gt;<br />
+            &lt;/elementProp&gt;<br />
+            &lt;elementProp name=&quot;LFRY_NON_ROOT_CTX&quot; elementType=&quot;Argument&quot;&gt;<br />
+              &lt;stringProp name=&quot;Argument.name&quot;&gt;LFRY_NON_ROOT_CTX&lt;/stringProp&gt;<br />
+              &lt;stringProp name=&quot;Argument.value&quot;&gt;intixportal&lt;/stringProp&gt;<br />
+              &lt;stringProp name=&quot;Argument.metadata&quot;&gt;=&lt;/stringProp&gt;<br />
+            &lt;/elementProp&gt;<br />
+            &lt;elementProp name=&quot;LFRY_TEST_USER&quot; elementType=&quot;Argument&quot;&gt;<br />
+              &lt;stringProp name=&quot;Argument.name&quot;&gt;LFRY_TEST_USER&lt;/stringProp&gt;<br />
+              &lt;stringProp name=&quot;Argument.value&quot;&gt;test&lt;/stringProp&gt;<br />
+              &lt;stringProp name=&quot;Argument.metadata&quot;&gt;=&lt;/stringProp&gt;<br />
+            &lt;/elementProp&gt;<br />
+            &lt;elementProp name=&quot;LFRY_TEST_PWD&quot; elementType=&quot;Argument&quot;&gt;<br />
+              &lt;stringProp name=&quot;Argument.name&quot;&gt;LFRY_TEST_PWD&lt;/stringProp&gt;<br />
+              &lt;stringProp name=&quot;Argument.value&quot;&gt;test&lt;/stringProp&gt;<br />
+              &lt;stringProp name=&quot;Argument.metadata&quot;&gt;=&lt;/stringProp&gt;<br />
+            &lt;/elementProp&gt;<br />
+            &lt;elementProp name=&quot;LFRY_ASSERTION_MSG_1&quot; elementType=&quot;Argument&quot;&gt;<br />
+              &lt;stringProp name=&quot;Argument.name&quot;&gt;LFRY_ASSERTION_MSG_1&lt;/stringProp&gt;<br />
+              &lt;stringProp name=&quot;Argument.value&quot;&gt;Password&lt;/stringProp&gt;<br />
+              &lt;stringProp name=&quot;Argument.metadata&quot;&gt;=&lt;/stringProp&gt;<br />
+            &lt;/elementProp&gt;<br />
+            &lt;elementProp name=&quot;LFRY_ASSERTION_MSG_2&quot; elementType=&quot;Argument&quot;&gt;<br />
+              &lt;stringProp name=&quot;Argument.name&quot;&gt;LFRY_ASSERTION_MSG_2&lt;/stringProp&gt;<br />
+              &lt;stringProp name=&quot;Argument.value&quot;&gt;Sign Out&lt;/stringProp&gt;<br />
+              &lt;stringProp name=&quot;Argument.metadata&quot;&gt;=&lt;/stringProp&gt;<br />
+            &lt;/elementProp&gt;<br />
+            &lt;elementProp name=&quot;LFRY_ASSERTION_MSG_3a&quot; elementType=&quot;Argument&quot;&gt;<br />
+              &lt;stringProp name=&quot;Argument.name&quot;&gt;LFRY_ASSERTION_MSG_3a&lt;/stringProp&gt;<br />
+              &lt;stringProp name=&quot;Argument.value&quot;&gt;HTTP/1.1 200 OK&lt;/stringProp&gt;<br />
+              &lt;stringProp name=&quot;Argument.metadata&quot;&gt;=&lt;/stringProp&gt;<br />
+            &lt;/elementProp&gt;<br />
+            &lt;elementProp name=&quot;LFRY_ASSERTION_MSG_3b&quot; elementType=&quot;Argument&quot;&gt;<br />
+              &lt;stringProp name=&quot;Argument.name&quot;&gt;LFRY_ASSERTION_MSG_3b&lt;/stringProp&gt;<br />
+              &lt;stringProp name=&quot;Argument.value&quot;&gt;Liferay-Portal: Liferay Portal&lt;/stringProp&gt;<br />
+              &lt;stringProp name=&quot;Argument.metadata&quot;&gt;=&lt;/stringProp&gt;<br />
+            &lt;/elementProp&gt;<br />
+            &lt;elementProp name=&quot;LFRY_ASSERTION_MSG_3c&quot; elementType=&quot;Argument&quot;&gt;<br />
+              &lt;stringProp name=&quot;Argument.name&quot;&gt;LFRY_ASSERTION_MSG_3c&lt;/stringProp&gt;<br />
+              &lt;stringProp name=&quot;Argument.value&quot;&gt;Set-Cookie: JSESSIONID=&lt;/stringProp&gt;<br />
+              &lt;stringProp name=&quot;Argument.metadata&quot;&gt;=&lt;/stringProp&gt;<br />
+            &lt;/elementProp&gt;<br />
+          &lt;/collectionProp&gt;<br />
+          &lt;stringProp name=&quot;TestPlan.comments&quot;&gt;Define my liferay parameters&lt;/stringProp&gt;<br />
+        &lt;/Arguments&gt;<br />
+        &lt;hashTree/&gt;<br />
+        &lt;LoopController guiclass=&quot;LoopControlPanel&quot; testclass=&quot;LoopController&quot; testname=&quot;Sign in to Liferay&quot; enabled=&quot;true&quot;&gt;<br />
+          &lt;boolProp name=&quot;LoopController.continue_forever&quot;&gt;false&lt;/boolProp&gt;<br />
+          &lt;stringProp name=&quot;LoopController.loops&quot;&gt;1&lt;/stringProp&gt;<br />
+          &lt;stringProp name=&quot;TestPlan.comments&quot;&gt;Log into Liferay Portal&lt;/stringProp&gt;<br />
+        &lt;/LoopController&gt;<br />
+        &lt;hashTree&gt;<br />
+          &lt;HTTPSampler guiclass=&quot;HttpTestSampleGui&quot; testclass=&quot;HTTPSampler&quot; testname=&quot;[Sign in - 1] Go to Welcome page&quot; enabled=&quot;true&quot;&gt;<br />
+            &lt;elementProp name=&quot;HTTPsampler.Arguments&quot; elementType=&quot;Arguments&quot; guiclass=&quot;HTTPArgumentsPanel&quot; testclass=&quot;Arguments&quot; testname=&quot;User Defined Variables&quot; enabled=&quot;true&quot;&gt;<br />
+              &lt;collectionProp name=&quot;Arguments.arguments&quot;/&gt;<br />
+            &lt;/elementProp&gt;<br />
+            &lt;stringProp name=&quot;HTTPSampler.domain&quot;&gt;${LFRY_HOSTNAME}&lt;/stringProp&gt;<br />
+            &lt;stringProp name=&quot;HTTPSampler.port&quot;&gt;${LFRY_PORT}&lt;/stringProp&gt;<br />
+            &lt;stringProp name=&quot;HTTPSampler.connect_timeout&quot;&gt;&lt;/stringProp&gt;<br />
+            &lt;stringProp name=&quot;HTTPSampler.response_timeout&quot;&gt;&lt;/stringProp&gt;<br />
+            &lt;stringProp name=&quot;HTTPSampler.protocol&quot;&gt;http&lt;/stringProp&gt;<br />
+            &lt;stringProp name=&quot;HTTPSampler.contentEncoding&quot;&gt;&lt;/stringProp&gt;<br />
+            &lt;stringProp name=&quot;HTTPSampler.path&quot;&gt;/${LFRY_NON_ROOT_CTX}&lt;/stringProp&gt;<br />
+            &lt;stringProp name=&quot;HTTPSampler.method&quot;&gt;GET&lt;/stringProp&gt;<br />
+            &lt;boolProp name=&quot;HTTPSampler.follow_redirects&quot;&gt;false&lt;/boolProp&gt;<br />
+            &lt;boolProp name=&quot;HTTPSampler.auto_redirects&quot;&gt;true&lt;/boolProp&gt;<br />
+            &lt;boolProp name=&quot;HTTPSampler.use_keepalive&quot;&gt;true&lt;/boolProp&gt;<br />
+            &lt;boolProp name=&quot;HTTPSampler.DO_MULTIPART_POST&quot;&gt;false&lt;/boolProp&gt;<br />
+            &lt;boolProp name=&quot;HTTPSampler.monitor&quot;&gt;false&lt;/boolProp&gt;<br />
+            &lt;stringProp name=&quot;HTTPSampler.embedded_url_re&quot;&gt;&lt;/stringProp&gt;<br />
+            &lt;stringProp name=&quot;TestPlan.comments&quot;&gt;[Sign in - 1] Go to Welcome page&lt;/stringProp&gt;<br />
+          &lt;/HTTPSampler&gt;<br />
+          &lt;hashTree&gt;<br />
+            &lt;ResponseAssertion guiclass=&quot;AssertionGui&quot; testclass=&quot;ResponseAssertion&quot; testname=&quot;Check resp. 1 &quot; enabled=&quot;true&quot;&gt;<br />
+              &lt;collectionProp name=&quot;Asserion.test_strings&quot;&gt;<br />
+                &lt;stringProp name=&quot;-1010617650&quot;&gt;${LFRY_ASSERTION_MSG_1}&lt;/stringProp&gt;<br />
+              &lt;/collectionProp&gt;<br />
+              &lt;stringProp name=&quot;Assertion.test_field&quot;&gt;Assertion.response_data&lt;/stringProp&gt;<br />
+              &lt;boolProp name=&quot;Assertion.assume_success&quot;&gt;false&lt;/boolProp&gt;<br />
+              &lt;intProp name=&quot;Assertion.test_type&quot;&gt;16&lt;/intProp&gt;<br />
+              &lt;stringProp name=&quot;TestPlan.comments&quot;&gt;Check response 1&lt;/stringProp&gt;<br />
+            &lt;/ResponseAssertion&gt;<br />
+            &lt;hashTree/&gt;<br />
+          &lt;/hashTree&gt;<br />
+          &lt;HTTPSampler guiclass=&quot;HttpTestSampleGui&quot; testclass=&quot;HTTPSampler&quot; testname=&quot;[Sign in - 2] Do login&quot; enabled=&quot;true&quot;&gt;<br />
+            &lt;elementProp name=&quot;HTTPsampler.Arguments&quot; elementType=&quot;Arguments&quot; guiclass=&quot;HTTPArgumentsPanel&quot; testclass=&quot;Arguments&quot; testname=&quot;User Defined Variables&quot; enabled=&quot;true&quot;&gt;<br />
+              &lt;collectionProp name=&quot;Arguments.arguments&quot;&gt;<br />
+                &lt;elementProp name=&quot;p_p_id&quot; elementType=&quot;HTTPArgument&quot;&gt;<br />
+                  &lt;boolProp name=&quot;HTTPArgument.always_encode&quot;&gt;true&lt;/boolProp&gt;<br />
+                  &lt;stringProp name=&quot;Argument.value&quot;&gt;58&lt;/stringProp&gt;<br />
+                  &lt;stringProp name=&quot;Argument.metadata&quot;&gt;=&lt;/stringProp&gt;<br />
+                  &lt;boolProp name=&quot;HTTPArgument.use_equals&quot;&gt;true&lt;/boolProp&gt;<br />
+                  &lt;stringProp name=&quot;Argument.name&quot;&gt;p_p_id&lt;/stringProp&gt;<br />
+                &lt;/elementProp&gt;<br />
+                &lt;elementProp name=&quot;p_p_lifecycle&quot; elementType=&quot;HTTPArgument&quot;&gt;<br />
+                  &lt;boolProp name=&quot;HTTPArgument.always_encode&quot;&gt;true&lt;/boolProp&gt;<br />
+                  &lt;stringProp name=&quot;Argument.value&quot;&gt;1&lt;/stringProp&gt;<br />
+                  &lt;stringProp name=&quot;Argument.metadata&quot;&gt;=&lt;/stringProp&gt;<br />
+                  &lt;boolProp name=&quot;HTTPArgument.use_equals&quot;&gt;true&lt;/boolProp&gt;<br />
+                  &lt;stringProp name=&quot;Argument.name&quot;&gt;p_p_lifecycle&lt;/stringProp&gt;<br />
+                &lt;/elementProp&gt;<br />
+                &lt;elementProp name=&quot;p_p_state&quot; elementType=&quot;HTTPArgument&quot;&gt;<br />
+                  &lt;boolProp name=&quot;HTTPArgument.always_encode&quot;&gt;true&lt;/boolProp&gt;<br />
+                  &lt;stringProp name=&quot;Argument.value&quot;&gt;normal&lt;/stringProp&gt;<br />
+                  &lt;stringProp name=&quot;Argument.metadata&quot;&gt;=&lt;/stringProp&gt;<br />
+                  &lt;boolProp name=&quot;HTTPArgument.use_equals&quot;&gt;true&lt;/boolProp&gt;<br />
+                  &lt;stringProp name=&quot;Argument.name&quot;&gt;p_p_state&lt;/stringProp&gt;<br />
+                &lt;/elementProp&gt;<br />
+                &lt;elementProp name=&quot;p_p_mode&quot; elementType=&quot;HTTPArgument&quot;&gt;<br />
+                  &lt;boolProp name=&quot;HTTPArgument.always_encode&quot;&gt;true&lt;/boolProp&gt;<br />
+                  &lt;stringProp name=&quot;Argument.value&quot;&gt;view&lt;/stringProp&gt;<br />
+                  &lt;stringProp name=&quot;Argument.metadata&quot;&gt;=&lt;/stringProp&gt;<br />
+                  &lt;boolProp name=&quot;HTTPArgument.use_equals&quot;&gt;true&lt;/boolProp&gt;<br />
+                  &lt;stringProp name=&quot;Argument.name&quot;&gt;p_p_mode&lt;/stringProp&gt;<br />
+                &lt;/elementProp&gt;<br />
+                &lt;elementProp name=&quot;saveLastPath&quot; elementType=&quot;HTTPArgument&quot;&gt;<br />
+                  &lt;boolProp name=&quot;HTTPArgument.always_encode&quot;&gt;true&lt;/boolProp&gt;<br />
+                  &lt;stringProp name=&quot;Argument.value&quot;&gt;0&lt;/stringProp&gt;<br />
+                  &lt;stringProp name=&quot;Argument.metadata&quot;&gt;=&lt;/stringProp&gt;<br />
+                  &lt;boolProp name=&quot;HTTPArgument.use_equals&quot;&gt;true&lt;/boolProp&gt;<br />
+                  &lt;stringProp name=&quot;Argument.name&quot;&gt;saveLastPath&lt;/stringProp&gt;<br />
+                &lt;/elementProp&gt;<br />
+                &lt;elementProp name=&quot;_58_struts_action&quot; elementType=&quot;HTTPArgument&quot;&gt;<br />
+                  &lt;boolProp name=&quot;HTTPArgument.always_encode&quot;&gt;true&lt;/boolProp&gt;<br />
+                  &lt;stringProp name=&quot;Argument.value&quot;&gt;/login/login&lt;/stringProp&gt;<br />
+                  &lt;stringProp name=&quot;Argument.metadata&quot;&gt;=&lt;/stringProp&gt;<br />
+                  &lt;boolProp name=&quot;HTTPArgument.use_equals&quot;&gt;true&lt;/boolProp&gt;<br />
+                  &lt;stringProp name=&quot;Argument.name&quot;&gt;_58_struts_action&lt;/stringProp&gt;<br />
+                &lt;/elementProp&gt;<br />
+                &lt;elementProp name=&quot;_58_redirect&quot; elementType=&quot;HTTPArgument&quot;&gt;<br />
+                  &lt;boolProp name=&quot;HTTPArgument.always_encode&quot;&gt;true&lt;/boolProp&gt;<br />
+                  &lt;stringProp name=&quot;Argument.value&quot;&gt;&lt;/stringProp&gt;<br />
+                  &lt;stringProp name=&quot;Argument.metadata&quot;&gt;=&lt;/stringProp&gt;<br />
+                  &lt;boolProp name=&quot;HTTPArgument.use_equals&quot;&gt;true&lt;/boolProp&gt;<br />
+                  &lt;stringProp name=&quot;Argument.name&quot;&gt;_58_redirect&lt;/stringProp&gt;<br />
+                &lt;/elementProp&gt;<br />
+                &lt;elementProp name=&quot;_58_login&quot; elementType=&quot;HTTPArgument&quot;&gt;<br />
+                  &lt;boolProp name=&quot;HTTPArgument.always_encode&quot;&gt;true&lt;/boolProp&gt;<br />
+                  &lt;stringProp name=&quot;Argument.value&quot;&gt;${LFRY_TEST_USER}&lt;/stringProp&gt;<br />
+                  &lt;stringProp name=&quot;Argument.metadata&quot;&gt;=&lt;/stringProp&gt;<br />
+                  &lt;boolProp name=&quot;HTTPArgument.use_equals&quot;&gt;true&lt;/boolProp&gt;<br />
+                  &lt;stringProp name=&quot;Argument.name&quot;&gt;_58_login&lt;/stringProp&gt;<br />
+                &lt;/elementProp&gt;<br />
+                &lt;elementProp name=&quot;_58_password&quot; elementType=&quot;HTTPArgument&quot;&gt;<br />
+                  &lt;boolProp name=&quot;HTTPArgument.always_encode&quot;&gt;true&lt;/boolProp&gt;<br />
+                  &lt;stringProp name=&quot;Argument.value&quot;&gt;${LFRY_TEST_PWD}&lt;/stringProp&gt;<br />
+                  &lt;stringProp name=&quot;Argument.metadata&quot;&gt;=&lt;/stringProp&gt;<br />
+                  &lt;boolProp name=&quot;HTTPArgument.use_equals&quot;&gt;true&lt;/boolProp&gt;<br />
+                  &lt;stringProp name=&quot;Argument.name&quot;&gt;_58_password&lt;/stringProp&gt;<br />
+                &lt;/elementProp&gt;<br />
+                &lt;elementProp name=&quot;_58_rememberMe&quot; elementType=&quot;HTTPArgument&quot;&gt;<br />
+                  &lt;boolProp name=&quot;HTTPArgument.always_encode&quot;&gt;true&lt;/boolProp&gt;<br />
+                  &lt;stringProp name=&quot;Argument.value&quot;&gt;false&lt;/stringProp&gt;<br />
+                  &lt;stringProp name=&quot;Argument.metadata&quot;&gt;=&lt;/stringProp&gt;<br />
+                  &lt;boolProp name=&quot;HTTPArgument.use_equals&quot;&gt;true&lt;/boolProp&gt;<br />
+                  &lt;stringProp name=&quot;Argument.name&quot;&gt;_58_rememberMe&lt;/stringProp&gt;<br />
+                &lt;/elementProp&gt;<br />
+              &lt;/collectionProp&gt;<br />
+            &lt;/elementProp&gt;<br />
+            &lt;stringProp name=&quot;HTTPSampler.domain&quot;&gt;${LFRY_HOSTNAME}&lt;/stringProp&gt;<br />
+            &lt;stringProp name=&quot;HTTPSampler.port&quot;&gt;${LFRY_PORT}&lt;/stringProp&gt;<br />
+            &lt;stringProp name=&quot;HTTPSampler.connect_timeout&quot;&gt;&lt;/stringProp&gt;<br />
+            &lt;stringProp name=&quot;HTTPSampler.response_timeout&quot;&gt;&lt;/stringProp&gt;<br />
+            &lt;stringProp name=&quot;HTTPSampler.protocol&quot;&gt;http&lt;/stringProp&gt;<br />
+            &lt;stringProp name=&quot;HTTPSampler.contentEncoding&quot;&gt;&lt;/stringProp&gt;<br />
+            &lt;stringProp name=&quot;HTTPSampler.path&quot;&gt;/${LFRY_NON_ROOT_CTX}/web/guest/home&lt;/stringProp&gt;<br />
+            &lt;stringProp name=&quot;HTTPSampler.method&quot;&gt;POST&lt;/stringProp&gt;<br />
+            &lt;boolProp name=&quot;HTTPSampler.follow_redirects&quot;&gt;false&lt;/boolProp&gt;<br />
+            &lt;boolProp name=&quot;HTTPSampler.auto_redirects&quot;&gt;true&lt;/boolProp&gt;<br />
+            &lt;boolProp name=&quot;HTTPSampler.use_keepalive&quot;&gt;true&lt;/boolProp&gt;<br />
+            &lt;boolProp name=&quot;HTTPSampler.DO_MULTIPART_POST&quot;&gt;false&lt;/boolProp&gt;<br />
+            &lt;boolProp name=&quot;HTTPSampler.monitor&quot;&gt;false&lt;/boolProp&gt;<br />
+            &lt;stringProp name=&quot;HTTPSampler.embedded_url_re&quot;&gt;&lt;/stringProp&gt;<br />
+            &lt;stringProp name=&quot;TestPlan.comments&quot;&gt;[Sign in - 2] Do login&lt;/stringProp&gt;<br />
+          &lt;/HTTPSampler&gt;<br />
+          &lt;hashTree&gt;<br />
+            &lt;ResponseAssertion guiclass=&quot;AssertionGui&quot; testclass=&quot;ResponseAssertion&quot; testname=&quot;Check resp. 2&quot; enabled=&quot;true&quot;&gt;<br />
+              &lt;collectionProp name=&quot;Asserion.test_strings&quot;&gt;<br />
+                &lt;stringProp name=&quot;-1010617619&quot;&gt;${LFRY_ASSERTION_MSG_2}&lt;/stringProp&gt;<br />
+              &lt;/collectionProp&gt;<br />
+              &lt;stringProp name=&quot;Assertion.test_field&quot;&gt;Assertion.response_data&lt;/stringProp&gt;<br />
+              &lt;boolProp name=&quot;Assertion.assume_success&quot;&gt;false&lt;/boolProp&gt;<br />
+              &lt;intProp name=&quot;Assertion.test_type&quot;&gt;16&lt;/intProp&gt;<br />
+              &lt;stringProp name=&quot;TestPlan.comments&quot;&gt;Check response 2&lt;/stringProp&gt;<br />
+            &lt;/ResponseAssertion&gt;<br />
+            &lt;hashTree/&gt;<br />
+          &lt;/hashTree&gt;<br />
+          &lt;HTTPSampler guiclass=&quot;HttpTestSampleGui&quot; testclass=&quot;HTTPSampler&quot; testname=&quot;[Sign in - 3] Do logout&quot; enabled=&quot;true&quot;&gt;<br />
+            &lt;elementProp name=&quot;HTTPsampler.Arguments&quot; elementType=&quot;Arguments&quot; guiclass=&quot;HTTPArgumentsPanel&quot; testclass=&quot;Arguments&quot; testname=&quot;User Defined Variables&quot; enabled=&quot;true&quot;&gt;<br />
+              &lt;collectionProp name=&quot;Arguments.arguments&quot;/&gt;<br />
+            &lt;/elementProp&gt;<br />
+            &lt;stringProp name=&quot;HTTPSampler.domain&quot;&gt;${LFRY_HOSTNAME}&lt;/stringProp&gt;<br />
+            &lt;stringProp name=&quot;HTTPSampler.port&quot;&gt;${LFRY_PORT}&lt;/stringProp&gt;<br />
+            &lt;stringProp name=&quot;HTTPSampler.connect_timeout&quot;&gt;&lt;/stringProp&gt;<br />
+            &lt;stringProp name=&quot;HTTPSampler.response_timeout&quot;&gt;&lt;/stringProp&gt;<br />
+            &lt;stringProp name=&quot;HTTPSampler.protocol&quot;&gt;http&lt;/stringProp&gt;<br />
+            &lt;stringProp name=&quot;HTTPSampler.contentEncoding&quot;&gt;&lt;/stringProp&gt;<br />
+            &lt;stringProp name=&quot;HTTPSampler.path&quot;&gt;/${LFRY_NON_ROOT_CTX}/c/portal/logout&lt;/stringProp&gt;<br />
+            &lt;stringProp name=&quot;HTTPSampler.method&quot;&gt;GET&lt;/stringProp&gt;<br />
+            &lt;boolProp name=&quot;HTTPSampler.follow_redirects&quot;&gt;false&lt;/boolProp&gt;<br />
+            &lt;boolProp name=&quot;HTTPSampler.auto_redirects&quot;&gt;true&lt;/boolProp&gt;<br />
+            &lt;boolProp name=&quot;HTTPSampler.use_keepalive&quot;&gt;true&lt;/boolProp&gt;<br />
+            &lt;boolProp name=&quot;HTTPSampler.DO_MULTIPART_POST&quot;&gt;false&lt;/boolProp&gt;<br />
+            &lt;boolProp name=&quot;HTTPSampler.monitor&quot;&gt;false&lt;/boolProp&gt;<br />
+            &lt;stringProp name=&quot;HTTPSampler.embedded_url_re&quot;&gt;&lt;/stringProp&gt;<br />
+            &lt;stringProp name=&quot;TestPlan.comments&quot;&gt;[Sign in - 3] Do logout&lt;/stringProp&gt;<br />
+          &lt;/HTTPSampler&gt;<br />
+          &lt;hashTree&gt;<br />
+            &lt;ResponseAssertion guiclass=&quot;AssertionGui&quot; testclass=&quot;ResponseAssertion&quot; testname=&quot;Check resp. 3 &quot; enabled=&quot;true&quot;&gt;<br />
+              &lt;collectionProp name=&quot;Asserion.test_strings&quot;&gt;<br />
+                &lt;stringProp name=&quot;-1264374899&quot;&gt;${LFRY_ASSERTION_MSG_3a}&lt;/stringProp&gt;<br />
+                &lt;stringProp name=&quot;-1264374868&quot;&gt;${LFRY_ASSERTION_MSG_3b}&lt;/stringProp&gt;<br />
+              &lt;/collectionProp&gt;<br />
+              &lt;stringProp name=&quot;Assertion.test_field&quot;&gt;Assertion.response_headers&lt;/stringProp&gt;<br />
+              &lt;boolProp name=&quot;Assertion.assume_success&quot;&gt;false&lt;/boolProp&gt;<br />
+              &lt;intProp name=&quot;Assertion.test_type&quot;&gt;2&lt;/intProp&gt;<br />
+              &lt;stringProp name=&quot;TestPlan.comments&quot;&gt;Check response 3 &lt;/stringProp&gt;<br />
+            &lt;/ResponseAssertion&gt;<br />
+            &lt;hashTree/&gt;<br />
+          &lt;/hashTree&gt;<br />
+        &lt;/hashTree&gt;<br />
+        &lt;ResultCollector guiclass=&quot;ViewResultsFullVisualizer&quot; testclass=&quot;ResultCollector&quot; testname=&quot;View Results Tree&quot; enabled=&quot;true&quot;&gt;<br />
+          &lt;boolProp name=&quot;ResultCollector.error_logging&quot;&gt;false&lt;/boolProp&gt;<br />
+          &lt;objProp&gt;<br />
+            &lt;name&gt;saveConfig&lt;/name&gt;<br />
+            &lt;value class=&quot;SampleSaveConfiguration&quot;&gt;<br />
+              &lt;time&gt;true&lt;/time&gt;<br />
+              &lt;latency&gt;true&lt;/latency&gt;<br />
+              &lt;timestamp&gt;true&lt;/timestamp&gt;<br />
+              &lt;success&gt;true&lt;/success&gt;<br />
+              &lt;label&gt;true&lt;/label&gt;<br />
+              &lt;code&gt;true&lt;/code&gt;<br />
+              &lt;message&gt;true&lt;/message&gt;<br />
+              &lt;threadName&gt;true&lt;/threadName&gt;<br />
+              &lt;dataType&gt;true&lt;/dataType&gt;<br />
+              &lt;encoding&gt;false&lt;/encoding&gt;<br />
+              &lt;assertions&gt;true&lt;/assertions&gt;<br />
+              &lt;subresults&gt;true&lt;/subresults&gt;<br />
+              &lt;responseData&gt;false&lt;/responseData&gt;<br />
+              &lt;samplerData&gt;false&lt;/samplerData&gt;<br />
+              &lt;xml&gt;true&lt;/xml&gt;<br />
+              &lt;fieldNames&gt;false&lt;/fieldNames&gt;<br />
+              &lt;responseHeaders&gt;false&lt;/responseHeaders&gt;<br />
+              &lt;requestHeaders&gt;false&lt;/requestHeaders&gt;<br />
+              &lt;responseDataOnError&gt;false&lt;/responseDataOnError&gt;<br />
+              &lt;saveAssertionResultsFailureMessage&gt;false&lt;/saveAssertionResultsFailureMessage&gt;<br />
+              &lt;assertionsResultsToSave&gt;0&lt;/assertionsResultsToSave&gt;<br />
+              &lt;bytes&gt;true&lt;/bytes&gt;<br />
+            &lt;/value&gt;<br />
+          &lt;/objProp&gt;<br />
+          &lt;stringProp name=&quot;filename&quot;&gt;&lt;/stringProp&gt;<br />
+        &lt;/ResultCollector&gt;<br />
+        &lt;hashTree/&gt;<br />
+        &lt;ResultCollector guiclass=&quot;AssertionVisualizer&quot; testclass=&quot;ResultCollector&quot; testname=&quot;Assertion Results&quot; enabled=&quot;true&quot;&gt;<br />
+          &lt;boolProp name=&quot;ResultCollector.error_logging&quot;&gt;false&lt;/boolProp&gt;<br />
+          &lt;objProp&gt;<br />
+            &lt;name&gt;saveConfig&lt;/name&gt;<br />
+            &lt;value class=&quot;SampleSaveConfiguration&quot;&gt;<br />
+              &lt;time&gt;true&lt;/time&gt;<br />
+              &lt;latency&gt;true&lt;/latency&gt;<br />
+              &lt;timestamp&gt;true&lt;/timestamp&gt;<br />
+              &lt;success&gt;true&lt;/success&gt;<br />
+              &lt;label&gt;true&lt;/label&gt;<br />
+              &lt;code&gt;true&lt;/code&gt;<br />
+              &lt;message&gt;true&lt;/message&gt;<br />
+              &lt;threadName&gt;true&lt;/threadName&gt;<br />
+              &lt;dataType&gt;true&lt;/dataType&gt;<br />
+              &lt;encoding&gt;false&lt;/encoding&gt;<br />
+              &lt;assertions&gt;true&lt;/assertions&gt;<br />
+              &lt;subresults&gt;true&lt;/subresults&gt;<br />
+              &lt;responseData&gt;false&lt;/responseData&gt;<br />
+              &lt;samplerData&gt;false&lt;/samplerData&gt;<br />
+              &lt;xml&gt;true&lt;/xml&gt;<br />
+              &lt;fieldNames&gt;false&lt;/fieldNames&gt;<br />
+              &lt;responseHeaders&gt;false&lt;/responseHeaders&gt;<br />
+              &lt;requestHeaders&gt;false&lt;/requestHeaders&gt;<br />
+              &lt;responseDataOnError&gt;false&lt;/responseDataOnError&gt;<br />
+              &lt;saveAssertionResultsFailureMessage&gt;false&lt;/saveAssertionResultsFailureMessage&gt;<br />
+              &lt;assertionsResultsToSave&gt;0&lt;/assertionsResultsToSave&gt;<br />
+              &lt;bytes&gt;true&lt;/bytes&gt;<br />
+            &lt;/value&gt;<br />
+          &lt;/objProp&gt;<br />
+          &lt;stringProp name=&quot;filename&quot;&gt;&lt;/stringProp&gt;<br />
+        &lt;/ResultCollector&gt;<br />
+        &lt;hashTree/&gt;<br />
+      &lt;/hashTree&gt;<br />
+    &lt;/hashTree&gt;<br />
+  &lt;/hashTree&gt;<br />
+&lt;/jmeterTestPlan&gt;<br />
+[/sourcecode]</p>
+<p>
+Have a Liferay happy testing!.<br /></p>

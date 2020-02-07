@@ -1,0 +1,57 @@
+---
+layout: post
+title: Autenticación NTLM en máquina virtuales Linux
+date: 2009-11-13 14:01:39.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Open Source
+tags:
+- CNTLM
+- Linux
+- Proxy
+- Virtual Box
+meta:
+  _edit_last: '578869'
+  _wpas_skip_13849: '1'
+  geo_public: '0'
+  _wpas_skip_5053092: '1'
+  _wpcom_is_markdown: '1'
+author:
+  login: rcarhuatocto
+  email: roger@intix.info
+  display_name: Roger Carhuatocto
+  first_name: ''
+  last_name: ''
+permalink: "/2009/11/13/autenticacion-ntlm-en-maquina-virtuales-linux/"
+---
+<p>Estoy creando muchas máquinas virtuales Linux con VirtualBox para mis demos y cursos, pero resulta que en nuestra organización tenemos como Proxy al MS ISA Proxy Server que requiere autenticación NTLM, pero parece que apt-get de mi Linux no sabe como hacer dicha autenticación.</p>
+<p>Un colega <a href="http://blog.bgta.ne">[^BgTA^]</a> usa <a href="http://cntlm.sourceforge.net">cntlm</a> como primer proxy en lugar de usar el MS ISA Proxy logrando así actualizar su Linux sin problemas, además por otro factor muy importante, evitamos dejar en claro la contraseña del proxy ya que ahora con cntlm se configura con el hash.<br />
+<!-- more --><br />
+Pues listo, instalé cntlm en el S.O. Host (Windows XP) y en el Guest (<a href="http://crunchbanglinux.org/">CrunchBang Linux</a>) configuré apt-get y Synaptic con el nuevo proxy basado en cntlm. Synaptic no tuvo problemas en la autenticación NTLM, o sea que no era necesario cntlm.</p>
+<p>Para configurar el proxy para el apt-get hacer lo siguiente:</p>
+<p><strong>1. Editar el siguiente fichero:</strong></p>
+<p>[sourcecode language="text" gutter="true" wraplines="false"]<br />
+$ sudo vi /et/bash.bashrc<br />
+[/sourcecode]</p>
+<p><strong>2. Añadir al final del fichero lo siguiente:</strong></p>
+<p>[sourcecode language="text" gutter="true" wraplines="false"]<br />
+export http_proxy=http://hostnamewinxp:port/<br />
+export https_proxy=http://hostnamewinxp:port/<br />
+export ftp_proxy=http://hostnamewinxp:port/<br />
+export no_proxy=localhost,127.0.0.1<br />
+[/sourcecode]</p>
+<p><strong>3. Asegurarse de que los cambios se apliquen (por ejemplo, logout y login al Linux) y verificar con:</strong></p>
+<p>[sourcecode language="text" gutter="true" wraplines="false"]<br />
+$ echo $http_proxy<br />
+[/sourcecode]</p>
+<p><strong>4. probar el apt-get:</strong></p>
+<p>[sourcecode language="text" gutter="true" wraplines="false"]<br />
+$ sudo apt-get update<br />
+[/sourcecode]</p>
+<p>En fin, cntlm solucionó mi problema. Esto, en el mundillo de la seguridad es lo que se llama proxy-chaining, evidentemente, sólo hay 2 proxys y no son aleatorios y no garantizan anonimato.</p>
+<p>Con cntlm también podemos permitir que otros PCs usen mi proxy, para evitar conexiones no deseas podemos filtrar la conexión en base a IPs, evidentemente no es muy seguro.</p>
+<p>Bye.</p>

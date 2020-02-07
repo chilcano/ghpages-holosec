@@ -1,0 +1,52 @@
+---
+layout: post
+title: Open files in Ubuntu as ROOT from WinSCP remotely
+date: 2012-09-03 14:29:55.000000000 +02:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Open Source
+tags:
+- Linux
+meta:
+  _edit_last: '578869'
+  _wpas_done_twitter: '1'
+  _wpcom_is_markdown: '1'
+author:
+  login: rcarhuatocto
+  email: roger@intix.info
+  display_name: Roger Carhuatocto
+  first_name: ''
+  last_name: ''
+permalink: "/2012/09/03/open-files-ubuntu-root-from-winscp-remotely/"
+---
+<p>I would like to share a tip, frequently we need modify protected files (i.e. in an Ubuntu box) from <b>WinSCP</b> remotely, but sometimes that is impossible.</p>
+<p>If you have a non-privileged user and want to edit a root protected file of an Ubuntu box but with WinSCP, you can do it with a few changes.</p>
+<p><strong>Requirements</strong>:</p>
+<p>1. Server:</p>
+<p>- Ubuntu 11.04<br />
+- Non-privileged user: chilcano</p>
+<p>2. Client: </p>
+<p>- Any S.O. but with WinSCP 4.3.6 (http://winscp.net)</p>
+<p><strong>Steps</strong>:</p>
+<p>1. In the server side add this line to /etc/sudoers</p>
+<p>[sourcecode language="text" gutter="true" wraplines="false"]<br />
+chilcano@sso1:/$ sudo nano /etc/sudoers<br />
+[/sourcecode]</p>
+<p>and</p>
+<p>[sourcecode language="text" gutter="true" wraplines="false" highlight="3"]<br />
+[...]<br />
+#### added<br />
+chilcano ALL=NOPASSWD: /usr/lib/openssh/sftp-server<br />
+[/sourcecode]</p>
+<p>2. In the client side open WinSCP and do the following</p>
+<p>[caption id="" align="alignnone" width="420" caption="Check SFTP protocol in WinSCP"]<a href="http://dl.dropbox.com/u/2961879/blog20120104_tip_winscp/blog_20120104_tip_winscp1.png"><img class=" " title="Check SFTP protocol in WinSCP" src="{{ site.baseurl }}/assets/blog_20120104_tip_winscp1.png" alt="Check SFTP protocol in WinSCP" width="420" height="294" /></a>[/caption]</p>
+<p>and</p>
+<p>[caption id="" align="alignnone" width="422" caption="Add customized command to sftp-server in Ubuntu"]<a href="http://dl.dropbox.com/u/2961879/blog20120104_tip_winscp/blog_20120104_tip_winscp2.png"><img class=" " title="Add customized command to sftp-server in Ubuntu" src="{{ site.baseurl }}/assets/blog_20120104_tip_winscp2.png" alt="Add customized command to sftp-server in Ubuntu" width="422" height="295" /></a>[/caption]</p>
+<p>3. Test it, open a protected file and modify. You could do changes on it.</p>
+<p>[caption id="" align="alignnone" width="465" caption="Open as ROOT from WinSCP"]<a href="http://dl.dropbox.com/u/2961879/blog20120104_tip_winscp/blog_20120104_tip_winscp3.png"><img class=" " title="Open as ROOT from WinSCP" src="{{ site.baseurl }}/assets/blog_20120104_tip_winscp3.png" alt="Open as ROOT from WinSCP" width="465" height="319" /></a>[/caption]</p>
+<p>End.</p>
+<p>I hope this help you.</p>

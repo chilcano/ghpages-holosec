@@ -108,6 +108,12 @@ $ bundle exec ruby -r rubygems -e 'require "jekyll-import";
 $ bundle exec jekyll serve
 ```
 
+If you are using Google Analytics plugin configured, you can try this:
+```sh
+$ JEKYLL_ENV=production bundle exec jekyll serve --incremental --watch
+```
+
+
 You will see that all posts were imported.
 ![Holistic Security About page](/assets/img/2019-10-14-wp-to-github-holosec-1st.png)
 

@@ -1,0 +1,407 @@
+---
+layout: post
+title: 'Everything generates data: Capturing WIFI anonymous traffic using Raspberry
+  Pi and WSO2 BAM (Part I)'
+date: 2016-02-02 12:39:29.000000000 +01:00
+type: post
+parent_id: '0'
+published: true
+password: ''
+status: publish
+categories:
+- Big Data
+- IoT
+- Security
+tags:
+- Apache Cassandra
+- Kismet
+- Privacy
+- Raspberry Pi
+meta:
+  _wpcom_is_markdown: '1'
+  _edit_last: '578869'
+  geo_public: '0'
+  _oembed_b991c97475938ef7ac785d7d1751c5e1: "{{unknown}}"
+  _oembed_b8852ebfcd56fc0ead6941a50b5d1bc8: "{{unknown}}"
+  _oembed_dcf2f689f7e144e88d3ca6b62d277276: "{{unknown}}"
+  _publicize_done_external: a:1:{s:7:"twitter";a:1:{i:13849;s:54:"https://twitter.com/Chilcano/status/694485382411321344";}}
+  _publicize_job_id: '19382330264'
+  publicize_google_plus_url: https://plus.google.com/+RogerCarhuatocto/posts/1WAjHanqcdw
+  _publicize_done_5110107: '1'
+  _wpas_done_5053089: '1'
+  publicize_linkedin_url: https://www.linkedin.com/updates?discuss=&scope=6985267&stype=M&topic=6100250996431212545&type=U&a=Edfc
+  _publicize_done_5110110: '1'
+  _wpas_done_5053092: '1'
+  _publicize_done_17477: '1'
+  _wpas_done_13849: '1'
+  publicize_twitter_user: Chilcano
+  _wpas_skip_5053089: '1'
+  _oembed_dea898e3b1604d9af0b00f6fc8004164: "{{unknown}}"
+  _oembed_4c98a08683e2a17ca41c2f0e95cdfbad: "{{unknown}}"
+  _oembed_c040cec590f0e58f1a5cb3987c01f6a8: "{{unknown}}"
+  _oembed_dde92fcb7398f93a6d0f789fdf397b14: "{{unknown}}"
+  _oembed_05767bc7efafda5fd92cdd3795eecb7d: "{{unknown}}"
+author:
+  login: rcarhuatocto
+  email: roger@intix.info
+  display_name: Roger Carhuatocto
+  first_name: ''
+  last_name: ''
+permalink: "/2016/02/02/everything-generates-data-capturing-wifi-anonymous-traffic-raspberrypi-wso2-part-i/"
+---
+<p>Yes, in this digital world, everything generates data, but before to do <code>BigData</code>, you have to follow these steps:</p>
+<p><strong>1. Capture</strong>: Acquires, Integrates data.<br />
+<strong>2. Store</strong>: Classification, Consolidate, Transformation, Storage Design, etc.<br />
+<strong>3. Analysis</strong>: Exploration, visualization, modeling, prediction, etc.</p>
+<p><img src="{{ site.baseurl }}/assets/chilcano-raspberrypi-bigdata-wifi-1-bigdata.jpg" alt="Everything generates data - IoT, BigData, Privacy, Security" title="Everything generates data - IoT, BigData, Privacy, Security" /><br />
+<em>Everything generates data - IoT, BigData, Privacy, Security</em></p>
+<p><!-- more --></p>
+<p>In this first blog post I will explain how to capture anonymous <a href="https://en.wikipedia.org/wiki/IEEE_802.11">WIFI/802.11 traffic</a> using a <a href="https://www.raspberrypi.org/products/raspberry-pi-2-model-b">Raspberry Pi 2 Model B</a>, Kismet (<a href="https://www.kismetwireless.net">An 802.11 layer2 wireless network detector, sniffer, and intrusion detection system</a>) and in the second blog post I will use <a href="http://wso2.com/more-downloads/business-activity-monitor">WSO2 BAM 2.5.0</a> to collect the anonymous WIFI traffic to generate a simple Dashboard showing data in live or real time.</p>
+<p>The final idea is create a simple Dashboard showing the Mobile Devices as mobile phones identified around of the Raspberry Pi.<br />
+Anyway, you can use this traffic for different purposes such as:<br />
+* Monitor Shopping Activity<br />
+* Vehicule Traffic Monitoring<br />
+* Street Activity Monitoring, ...</p>
+<p><img src="{{ site.baseurl }}/assets/chilcano-raspberrypi-bigdata-wifi-2-arch.png" alt="Architecture - Capturing WIFI anonymous traffic using Raspberry Pi and WSO2 BAM and WSO2 CEP" title="Architecture - Capturing WIFI anonymous traffic using Raspberry Pi and WSO2 BAM and WSO2 CEP" /><br />
+<em>Architecture - Capturing WIFI anonymous traffic using Raspberry Pi and WSO2 BAM and WSO2 CEP</em></p>
+<p>Well, now let's get down to work.</p>
+<h2>I.- Enable <code>monitor</code> mode in Raspberry Pi</h2>
+<h3>1. Prepare the Raspberry Pi</h3>
+<p>Obviously, I have a clean image of Raspbian installed in my Raspberry Pi 2 Model B.<br />
+The below steps explain how to prepare Raspberry Pi and install and configure Kismet to capture 802.11 anonymous traffic.</p>
+<p>Before to do it, I have to prepare the Raspberry Pi, for example, configure a static IP address to Ethernet interface (<code>eth0</code>) to get SSH access remotely. After that, I can configure the Wireless interface (<code>wlan0</code>) and install Kismet.</p>
+<p><strong>1.1) Get SSH access to Raspberry Pi</strong></p>
+<p>[code lang=bash]<br />
+$ ssh pi@192.168.1.102<br />
+pi@192.168.1.102&#039;s password:<br />
+Linux rpi-chicha 3.18.11-v7+ #781 SMP PREEMPT Tue Apr 21 18:07:59 BST 2015 armv7l</p>
+<p>The programs included with the Debian GNU/Linux system are free software;<br />
+the exact distribution terms for each program are described in the<br />
+individual files in /usr/share/doc/*/copyright.</p>
+<p>Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent<br />
+permitted by applicable law.<br />
+Last login: Fri Jan 29 11:32:20 2016 from 192.168.1.43<br />
+[/code]</p>
+<p><strong>1.2) Connect the USB WIFI dongle</strong></p>
+<p>[code lang=bash]<br />
+$ lsusb<br />
+Bus 001 Device 002: ID 0424:9514 Standard Microsystems Corp.<br />
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub<br />
+Bus 001 Device 003: ID 0424:ec00 Standard Microsystems Corp.<br />
+Bus 001 Device 004: ID 148f:5370 Ralink Technology, Corp. RT5370 Wireless Adapter<br />
+[/code]</p>
+<p>Check if your WIFI dongle allows monitor mode.</p>
+<p><em>Note:</em><br />
+RTL8188CUS does not allow monitor mode.<br />
+http://raspberrypi.stackexchange.com/questions/8578/enable-monitor-mode-in-rtl8188cus-realtek-wifi-usb-dongle</p>
+<p>[code lang=bash]<br />
+$ ifconfig<br />
+$ sudo ifconfig<br />
+eth0      Link encap:Ethernet  HWaddr b8:27:eb:1e:12:63<br />
+          inet addr:192.168.1.102  Bcast:192.168.1.255  Mask:255.255.255.0<br />
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1<br />
+          RX packets:32177 errors:0 dropped:568 overruns:0 frame:0<br />
+          TX packets:1940 errors:0 dropped:0 overruns:0 carrier:0<br />
+          collisions:0 txqueuelen:1000<br />
+          RX bytes:2495710 (2.3 MiB)  TX bytes:187339 (182.9 KiB)</p>
+<p>lo        Link encap:Local Loopback<br />
+          inet addr:127.0.0.1  Mask:255.0.0.0<br />
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1<br />
+          RX packets:46 errors:0 dropped:0 overruns:0 frame:0<br />
+          TX packets:46 errors:0 dropped:0 overruns:0 carrier:0<br />
+          collisions:0 txqueuelen:0<br />
+          RX bytes:4568 (4.4 KiB)  TX bytes:4568 (4.4 KiB)</p>
+<p>wlan0     Link encap:Ethernet  HWaddr 00:13:ef:c0:21:2b<br />
+          UP BROADCAST MULTICAST  MTU:1500  Metric:1<br />
+          RX packets:2394 errors:0 dropped:0 overruns:0 frame:0<br />
+          TX packets:29 errors:0 dropped:0 overruns:0 carrier:0<br />
+          collisions:0 txqueuelen:1000<br />
+          RX bytes:207760 (202.8 KiB)  TX bytes:3764 (3.6 KiB)<br />
+[/code]</p>
+<p>[code lang=bash]<br />
+$ sudo iwconfig wlan0<br />
+wlan0     IEEE 802.11bgn  ESSID:off/any<br />
+          Mode:Managed  Access Point: Not-Associated   Tx-Power=20 dBm<br />
+          Retry short limit:7   RTS thr:off   Fragment thr:off<br />
+          Encryption key:off<br />
+          Power Management:off<br />
+[/code]</p>
+<p><strong>1.3) Set static IP address to <code>eth0</code> and configure <code>wlan0</code> (optional)</strong></p>
+<p>[code lang=bash]<br />
+$ sudo nano /etc/network/interfaces<br />
+[/code]</p>
+<p>Initial config.</p>
+<p>[code lang=bash]<br />
+auto lo</p>
+<p>iface lo inet loopback<br />
+iface eth0 inet dhcp</p>
+<p>allow-hotplug wlan0<br />
+iface wlan0 inet manual<br />
+wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf<br />
+iface default inet dhcp<br />
+[/code]</p>
+<p>Add and configure config for <code>eth0</code> and <code>wlan0</code>.</p>
+<p>[code lang=bash]<br />
+auto lo</p>
+<p>iface lo inet loopback</p>
+<p>iface eth0 inet static<br />
+address 192.168.1.102<br />
+netmask 255.255.255.0<br />
+network 192.168.1.0<br />
+broadcast 192.168.1.255<br />
+gateway 192.168.1.1</p>
+<p>allow-hotplug wlan0<br />
+auto wlan0<br />
+iface wlan0 inet dhcp<br />
+   wpa-ssid &quot;your-ssid&quot;<br />
+   wpa-psk &quot;your-password&quot;<br />
+[/code]</p>
+<p>Reload the changes.</p>
+<p>[code lang=bash]<br />
+$ sudo service networking reload<br />
+[/code]</p>
+<p><strong>1.4) Enable <code>wlan0</code> in monitor mode (option 1)</strong></p>
+<p>Run these 2 commands together (*):</p>
+<p>[code lang=bash]<br />
+$ sudo ifconfig wlan0 down;sudo iwconfig wlan0 mode monitor<br />
+[/code]</p>
+<p>Now, check if <code>wlan0</code> is working in mode monitor:</p>
+<p>[code lang=bash]<br />
+$ sudo iwconfig wlan0<br />
+wlan0     IEEE 802.11bgn  Mode:Monitor  Frequency:2.412 GHz  Tx-Power=20 dBm<br />
+          Retry  long limit:7   RTS thr:off   Fragment thr:off<br />
+          Power Management:off</p>
+<p>$ sudo ifconfig wlan0<br />
+wlan0     Link encap:UNSPEC  HWaddr 00-13-EF-C0-21-2B-70-78-00-00-00-00-00-00-00-00<br />
+          UP BROADCAST MULTICAST  MTU:1500  Metric:1<br />
+          RX packets:764 errors:0 dropped:0 overruns:0 frame:0<br />
+          TX packets:8 errors:0 dropped:0 overruns:0 carrier:0<br />
+          collisions:0 txqueuelen:1000<br />
+          RX bytes:81873 (79.9 KiB)  TX bytes:1475 (1.4 KiB)<br />
+[/code]</p>
+<p>(*) The raspbian has a service called <code>ifplugd</code>. This <code>ifplugd</code> is a daemon which will automatically configure your ethernet device when it is plugged in and automatically unconfigure it if it's pulled.<br />
+So, it does the device stay busy. Disabling it allow you to use ifconfig and iwconfig normally. Just use the comand:</p>
+<p>[code lang=bash]<br />
+$ sudo service ifplugd stop<br />
+[ ok ] Network Interface Plugging Daemon...stop eth0...stop wlan0...done.</p>
+<p>$ sudo service ifplugd status<br />
+[....] eth0: ifplugd not running.<br />
+[....] wlan0: ifplugd not running.<br />
+[info] all: device all is either not present or not functional.<br />
+[/code]</p>
+<p><strong>1.5) Enable <code>wlan0</code> in monitor mode (option 2)</strong></p>
+<p>If above (option 1) configuration not worked, the you could try this alternative by using the <code>iw</code> scripts. Then, gonna try it.</p>
+<p>[code lang=bash]<br />
+$ sudo apt-get install iw</p>
+<p>$ sudo iw wlan0 info<br />
+Interface wlan0<br />
+  ifindex 3<br />
+  type monitor<br />
+  wiphy 0<br />
+[/code]</p>
+<p>Add the <code>mon0</code> in <code>monitor</code> mode, a new network interface, instead of <code>wlan0</code>.</p>
+<p>[code lang=bash]<br />
+$ sudo iw phy phy0 interface add mon0 type monitor<br />
+[/code]</p>
+<p>Check the interfaces associated to <code>phy0</code>.</p>
+<p>[code lang=bash]<br />
+$ sudo iw dev<br />
+phy#0<br />
+  Interface mon0<br />
+    ifindex 6<br />
+    wdev 0x4<br />
+    addr 74:f0:6d:4d:40:2f<br />
+    type monitor<br />
+  Interface wlan0<br />
+    ifindex 5<br />
+    wdev 0x3<br />
+    addr 74:f0:6d:4d:40:2f<br />
+    type managed<br />
+    channel 6 (2437 MHz), width: 20 MHz, center1: 2437 MHz<br />
+[/code]</p>
+<p>Now, we need to remove the <code>wlan0</code>. If you do that, proably the <code>mon0</code> interface will be restored to <code>managed</code> mode.</p>
+<p>[code lang=bash]<br />
+$ sudo iw dev wlan0 del</p>
+<p>$ sudo iw dev<br />
+phy#0<br />
+  Interface mon0<br />
+    ifindex 8<br />
+    wdev 0x6<br />
+    addr 74:f0:6d:4d:40:2f<br />
+    type managed<br />
+[/code]</p>
+<p>But, to avoid above, you have to configure/set <code>monitor</code> mode properly with the <code>ifconfig</code> and <code>iwconfig</code> commands as follow.</p>
+<p>[code lang=bash]<br />
+$ sudo ifconfig mon0 down<br />
+$ sudo iwconfig mon0 mode monitor<br />
+$ sudo ifconfig mon0 up<br />
+[/code]</p>
+<p>Now, if you check the interface in <code>monitor</code> mode, you should see this:</p>
+<p>[code lang=bash]<br />
+$ sudo iw dev<br />
+phy#0<br />
+  Interface mon0<br />
+    ifindex 8<br />
+    wdev 0x6<br />
+    addr 74:f0:6d:4d:40:2f<br />
+    type monitor<br />
+    channel 6 (2437 MHz), width: 20 MHz (no HT), center1: 2437 MHz<br />
+[/code]</p>
+<p>After that, check if <code>wlan0</code> or <code>mon0</code> are running in <code>monitor</code> mode, if so, then you are ready to start Kismet.</p>
+<h2>II.- Install, configure and start Kismet</h2>
+<p><strong>2.1) Installation of Kismet</strong></p>
+<p>[code lang=bash]<br />
+$ sudo apt-get update</p>
+<p>$ sudo apt-get upgrade</p>
+<p>$ sudo apt-get install libncurses5-dev libpcap-dev libpcre3-dev libnl-dev</p>
+<p># latest version - 2015.05.01<br />
+$ wget http://www.kismetwireless.net/code/kismet-2013-03-R1b.tar.xz </p>
+<p>$ xz -d kismet-2013-03-R1b.tar.xz</p>
+<p>$ tar -xf kismet-2013-03-R1b.tar</p>
+<p>$ cd kismet-2013-03-R1b</p>
+<p>$ ./configure</p>
+<p>$ make</p>
+<p>$ sudo make suidinstall</p>
+<p>$ sudo usermod -a -G kismet pi</p>
+<p>$ sudo reboot<br />
+[/code]</p>
+<p><strong>2.2) Configure Kismet</strong></p>
+<p>Edit <code>/usr/local/etc/kismet.conf</code> to point at the WIFI adaptor configured in <code>monitor</code> mode, in this case to add <code>ncsource=mon0</code> or <code>ncsource=wlan0</code> and <code>hidedata=true</code>.</p>
+<p>[code lang=bash]<br />
+$ sudo nano /usr/local/etc/kismet.conf<br />
+[/code]</p>
+<p>Download the manufacturer list. This is useful to identify the Wireless Interface Manufacturer.</p>
+<p>[code lang=bash]<br />
+$ sudo mkdir -p /usr/share/wireshark/</p>
+<p>$ cd /usr/share/wireshark/</p>
+<p>$ sudo wget -O manuf http://anonsvn.wireshark.org/wireshark/trunk/manuf</p>
+<p>$ sudo cp manuf /etc/manuf<br />
+[/code]</p>
+<p><strong>2.3) Start Kismet Server and Client</strong></p>
+<p>If you have configured and updated <code>/usr/local/etc/kismet.conf</code>, then you can start Kismet running this command (without parameters):</p>
+<p>[code lang=bash]<br />
+$ kismet_server<br />
+[/code]</p>
+<p>But, if you haven't configured <code>/usr/local/etc/kismet.conf</code> or you want to overwrite It, you can pass these parameters with below command, this will create a TCP listener on port <code>2501</code>:</p>
+<p>[code lang=bash]<br />
+$ kismet_server -c wlan0</p>
+<p>INFO: Not running as root - will try to launch root control binary (/usr/lo<br />
+      cal/bin/kismet_capture) to control cards.<br />
+INFO: Started kismet_capture control binary successfully, pid 2517<br />
+INFO: Reading from config file /usr/local/etc/kismet.conf<br />
+debug - 2516 - child creating ipc fdfd<br />
+INFO: No &#039;dronelisten&#039; config line and no command line drone-listen<br />
+      argument given, Kismet drone server will not be enabled.<br />
+INFO: Created alert tracker...<br />
+INFO: Creating device tracker...<br />
+INFO: Registered 80211 PHY as id 0<br />
+INFO: Kismet will spend extra time on channels 1,6,11<br />
+INFO: Kismet will attempt to hop channels at 3 channels per second unless<br />
+      overridden by source-specific options<br />
+INFO: Matched source type &#039;rt2800usb&#039; for auto-type source &#039;wlan0&#039;<br />
+INFO: Using hardware channel list 1:3,2,3,4,5,6:3,7,8,9,10,11:3,12,13,14,<br />
+      14 channels on source wlan0<br />
+INFO: Source &#039;wlan0&#039; will attempt to create and use a monitor-only VAP<br />
+      instead of reconfiguring the main interface<br />
+ERROR: Detected the following processes that appear to be using the<br />
+       interface wlan0, which can cause problems with Kismet by changing<br />
+       the configuration of the network device: wpa_supplicant dhclient<br />
+       ifplugd.  If  Kismet stops running or stops capturing packets, try<br />
+       killing one (or all) of these processes or stopping the network for<br />
+       this interface.<br />
+INFO: Created source wlan0 with UUID 52bee95c-c8df-11e5-9fa4-dc04bb23e201<br />
+INFO: Will attempt to reopen on source &#039;wlan0&#039; if there are errors<br />
+INFO: Created TCP listener on port 2501<br />
+INFO: Kismet drone framework disabled, drone will not be activated.<br />
+INFO: Inserting basic packet dissectors...<br />
+INFO: hidedata= set in Kismet config.  Kismet will ignore the contents of<br />
+      data packets entirely<br />
+INFO: Allowing Kismet frontends to view WEP keys<br />
+INFO: Starting GPS components...<br />
+INFO: Enabling reconnection to the GPS device if the link is lost<br />
+INFO: Using GPSD server on localhost:2947<br />
+INFO: Opened OUI file &#039;/etc/manuf<br />
+INFO: Indexing manufacturer db<br />
+INFO: Completed indexing manufacturer db, 28150 lines 563 indexes<br />
+INFO: Creating network tracker...<br />
+INFO: Creating channel tracker...<br />
+INFO: Registering dumpfiles...<br />
+INFO: Pcap log in PPI format<br />
+...<br />
+[/code]</p>
+<p>You can run Kismet Server as a Linux deamon.</p>
+<p>[code lang=bash]<br />
+$ kismet_server -c wlan0 --daemonize</p>
+<p>INFO: Not running as root - will try to launch root control binary (/usr/lo<br />
+      cal/bin/kismet_capture) to control cards.<br />
+INFO: Started kismet_capture control binary successfully, pid 4027<br />
+INFO: Reading from config file /usr/local/etc/kismet.conf<br />
+Silencing output and entering daemon mode...<br />
+debug - 4028 - child creating ipc fdfd<br />
+[/code]</p>
+<p>And now, start the Kismet Client. The Kismet Client will connect to Kismet Server automatically, because both are running in the same Raspberry Pi.</p>
+<p>[code lang=bash]<br />
+$ kismet_client<br />
+[/code]</p>
+<p><em>Kismet - Capturing 802.11 anonymous traffic using Raspberry Pi</em><br />
+<img src="{{ site.baseurl }}/assets/chilcano-raspberrypi-bigdata-wifi-3-kismet.png" alt="Kismet - Capturing 802.11 anonymous traffic using Raspberry Pi" title="Kismet - Capturing 802.11 anonymous traffic using Raspberry Pi" /><br />
+<em>Kismet - Capturing 802.11 anonymous traffic using Raspberry Pi</em></p>
+<h2>III.- Common Kismet errors</h2>
+<p><em>1) Error when start Kismet. <code>plugins</code> folder not found.</em></p>
+<p>[code lang=bash]<br />
+ERROR: Failed to open primary plugin directory (/usr/local/lib/kismet/):<br />
+       No such file or directory<br />
+ERROR: Failed to open user plugin directory (/home/pi/.kismet//plugins/):<br />
+       No such file or directory<br />
+[/code]</p>
+<p>[code lang=bash]<br />
+ERROR: Failed to open primary plugin directory (/usr/lib/kismet/): No such file or directory<br />
+ERROR: Failed to open user plugin directory (/root/.kismet//plugins/): No such file or directory<br />
+[/code]</p>
+<p><strong>Solution:</strong></p>
+<p>[code lang=bash]<br />
+$ sudo mkdir -p /usr/local/lib/kismet/</p>
+<p>$ mkdir -p /home/pi/.kismet/plugins/<br />
+[/code]</p>
+<p>[code lang=bash]<br />
+$ sudo mkdir -p /usr/lib/kismet/</p>
+<p>$ mkdir -p /root/.kismet/plugins/<br />
+[/code]</p>
+<p><em>2) A process is using the wireless interface.</em></p>
+<p>[code lang=bash]<br />
+ERROR: Didn&#039;t understand driver &#039;ath9k_htc&#039; for interface &#039;mon0&#039;, but it<br />
+       looks like a mac80211 device so Kismet will use the generic options<br />
+       for it.  Please post on the Kismet forum or stop by the IRC channel<br />
+       and report what driver it was.</p>
+<p>ERROR: Detected the following processes that appear to be using the<br />
+       interface mon0, which can cause problems with Kismet by changing<br />
+       the configuration of the network device: ifplugd.  If  Kismet stops<br />
+       running or stops capturing packets, try killing one (or all) of<br />
+       these processes or stopping the network for this interface.<br />
+[/code]</p>
+<p><strong>Solution:</strong></p>
+<p>[code lang=bash]<br />
+$ sudo pkill wpa_cli; sudo pkill ifplugd; sudo pkill wpa_supplicant<br />
+[/code]</p>
+<p><em>3) The manufactur file doesn't exist.</em></p>
+<p>[code lang=bash]<br />
+ERROR: Could not open OUI file &#039;/etc/manuf&#039;: No such file or directory<br />
+ERROR: Could not open OUI file &#039;/usr/share/wireshark/wireshark/manuf&#039;: No<br />
+       such file or directory<br />
+[/code]</p>
+<p><strong>Solution:</strong></p>
+<p>[code lang=bash]<br />
+$ sudo mkdir -p /usr/share/wireshark/</p>
+<p>$ cd /usr/share/wireshark/</p>
+<p>$ sudo wget -O manuf http://anonsvn.wireshark.org/wireshark/trunk/manuf</p>
+<p>$ sudo cp manuf /etc/manuf<br />
+[/code]</p>
+<p><em>4) VAP for mon0 wasn't created.</em></p>
+<p>[code lang=bash]<br />
+ERROR: Not creating a VAP for mon0 even though one was requested, since<br />
+       the interface is already in monitor mode.  Perhaps an existing<br />
+       monitor mode VAP was specified. To override this and create a new<br />
+       monitor mode vap no matter what, use the forcevap=true source option<br />
+[/code]</p>
+<p><strong>Solution:</strong><br />
+Check if mon0 is being used for other process or restart and reconfigure your wireless interface.</p>
