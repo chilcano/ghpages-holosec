@@ -38,26 +38,26 @@ In the above picture you can see some security-related techniques and practices 
 **SAST (Static Application Security Testing)**, also known as “white box testing” has been around for more than a decade. It allows developers to find security vulnerabilities in the application source code earlier in the software development life cycle. It also ensures conformance to coding guidelines and standards without actually executing the underlying code.
 
 **DAST (Dynamic Application Security Testing)**, also known as “black box” testing, can find security vulnerabilities and weaknesses in a running application, typically web apps. It does that by employing fault injection techniques on an app, such as feeding malicious data to the software, to identify common security vulnerabilities, such as SQL injection and cross-­site scripting. DAST can also cast a spotlight in runtime problems that can’t be identified by static analysis­­ for example, authentication and server configuration issues, as well as flaws visible only when a known user logs in.
-> https://en.wikipedia.org/wiki/Dynamic_application_security_testing
+> [https://en.wikipedia.org/wiki/Dynamic_application_security_testing](https://en.wikipedia.org/wiki/Dynamic_application_security_testing){:target="_blank"}
 
 **IAST (Interactive Application Security Testing)**. Because both SAST and DAST are older technologies, there are those who argue they lack what it takes to secure modern web and mobile apps. For example, SAST has a difficult time dealing with libraries and frameworks found in modern apps. That’s because static tools only see the application source code they can follow. What’s more, libraries and third­party components often cause static tools to choke, producing “lost sources” and “lost sinks” messages. The same is true for frameworks. Run a static tool on an API, web service or REST endpoint, and it won’t find anything wrong in them because it can’t understand the framework.
-> https://en.wikipedia.org/wiki/Application_security
+> [https://en.wikipedia.org/wiki/Application_security](https://en.wikipedia.org/wiki/Application_security){:target="_blank"}
 
 **RASP (Run-time Application Security Protection)**. Run­time Application Security Protection, works inside the application, but it is less a testing tool and more a security tool. It's plugged into an application or its run­time environment and can control application execution. That allows RASP to protect the app even if a network's perimeter defenses are breached and the apps contain security vulnerabilities missed by the development team. RASP lets an app run continuous security checks on itself and respond to live attacks by terminating an attacker’s session and alerting defenders to the attack.
-> https://en.wikipedia.org/wiki/Runtime_application_self-protection
+> [https://en.wikipedia.org/wiki/Runtime_application_self-protection](https://en.wikipedia.org/wiki/Runtime_application_self-protection]){:target="_blank"}
 
 **Misuse cases**. 
-> https://en.wikipedia.org/wiki/Misuse_case
+> [https://en.wikipedia.org/wiki/Misuse_case](https://en.wikipedia.org/wiki/Misuse_case){:target="_blank"}
 
 **Abuse cases**. 
-> https://en.wikipedia.org/wiki/Abuse_case
+> [https://en.wikipedia.org/wiki/Abuse_case](https://en.wikipedia.org/wiki/Abuse_case){:target="_blank"}
 
 **Intrusion Detection System (IDS)**
-> https://en.wikipedia.org/wiki/Intrusion_detection_system
+> [https://en.wikipedia.org/wiki/Intrusion_detection_system](https://en.wikipedia.org/wiki/Intrusion_detection_system){:target="_blank"}
 
 **Software Composition Analysis (SCA) / Software Supply Chain**
-> https://owasp.org/www-community/Component_Analysis
-> https://cloud.google.com/solutions/secure-software-supply-chains-on-google-kubernetes-engine
+> [https://owasp.org/www-community/Component_Analysis](https://owasp.org/www-community/Component_Analysis){:target="_blank"}
+> [https://cloud.google.com/solutions/secure-software-supply-chains-on-google-kubernetes-engine](https://cloud.google.com/solutions/secure-software-supply-chains-on-google-kubernetes-engine){:target="_blank"}
 
 
 ## From Old-school SDLC to Container-based Secure-SDLC
