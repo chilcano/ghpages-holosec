@@ -94,7 +94,7 @@ The criteria I'm going to use to select the tools are:
 3. Recommended to be used with The Best Security Practices (OWASP, NIST, CIS, etc.)
 4. Open Source.
 
-<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRTLn8bLX-Sp6JEbKcJIludCb6wJbTM-5xV5te94srdYnmLYutCu9vcgmiWcc2taioH5cJcj2xXH_Ba/pubhtml" width="800" height="800"></iframe>
+<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRTLn8bLX-Sp6JEbKcJIludCb6wJbTM-5xV5te94srdYnmLYutCu9vcgmiWcc2taioH5cJcj2xXH_Ba/pub?output=pdf" width="800" height="800"></iframe>
 
 > [See whole document](/assets/pages/2020-02-10-security-along-the-container-based-sdlc-oss-tool-list){:target="_blank"}  
 >  
