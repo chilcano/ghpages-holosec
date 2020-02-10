@@ -13,7 +13,7 @@ Nowadays, containers are becoming the standard deployment unit of software, and 
 * The Software Applications are **distributed** into containers.
 * The minimum unit of **deployment** and **shipment** is the container.
 
-In other words, using containers we are adding a new element to be considered along the **[Software Development Life Cycle (SDLC)](https://en.wikipedia.org/wiki/Systems_development_life_cycle){:target="_blank"}** as a new additional piece of software (containers), and from Architectural point of view, those new pieces of software will be distributed.
+In other words, using containers we are adding a new element to be considered along the [Software Development Life Cycle (SDLC)](https://en.wikipedia.org/wiki/Systems_development_life_cycle){:target="_blank"} as a new additional piece of software (containers), and from Architectural point of view, those new pieces of software will be distributed.
 
 Said that, the purpose of this post is explain you how to embed **Security along the Container-based SDLC (Secure-SDLC)** and how to **DevOps** practices will help its adoption.
 
