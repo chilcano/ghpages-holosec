@@ -25,9 +25,9 @@ The above Secure-SDLC diagram was created using the classic [Systems development
 - [SP 800-190 - Application Container Security Guide - By NIST, September 2017](https://csrc.nist.gov/publications/detail/sp/800-190/final){:target="_blank"}.
 - [Exploring container security: An overview - By Maya Kaczorowski, Security & Privacy Product Manager at Google, March 2018](https://cloud.google.com/blog/products/gcp/exploring-container-security-an-overview){:target="_blank"}.
 - Container Security — From Image Analysis to Network Segmentation, Options Are Maturing - By Gartner, August 2018
-   * [Gartner Research](https://www.gartner.com/en/documents/3888664/container-security-from-image-analysis-to-network-segmen){:target="_blank"}
-   * [](https://twitter.com/with_joerg/status/1034528900972507138?s=20){:target="_blank"}.
-- Some thoughts picked from [QA and Security in Development Process - By Roger Carhuatocto, July 2005](https://www.slideshare.net/rcarhuatocto/qa-and-security-in-development-process){:target="_blank"}.
+   * [Gartner Research](https://www.gartner.com/en/documents/3888664/container-security-from-image-analysis-to-network-segmen){:target="_blank"}.
+   * [Joerg Fritsch's tweet](https://twitter.com/with_joerg/status/1034528900972507138){:target="_blank"}.
+- Some thoughts picked from my [QA and Security in Development Process](https://www.slideshare.net/rcarhuatocto/qa-and-security-in-development-process){:target="_blank"} presented on July 2005 (Spanish).
 
 <!-- more -->
 
@@ -43,7 +43,7 @@ In the above picture you can see some security-related techniques and practices 
 **IAST (Interactive Application Security Testing)**. Because both SAST and DAST are older technologies, there are those who argue they lack what it takes to secure modern web and mobile apps. For example, SAST has a difficult time dealing with libraries and frameworks found in modern apps. That’s because static tools only see the application source code they can follow. What’s more, libraries and third­party components often cause static tools to choke, producing “lost sources” and “lost sinks” messages. The same is true for frameworks. Run a static tool on an API, web service or REST endpoint, and it won’t find anything wrong in them because it can’t understand the framework.
 > https://en.wikipedia.org/wiki/Application_security
 
-**RASP (Run-time Application Security Protection)**. As with IAST, RASP, or Run­time Application Security Protection, works inside the application, but it is less a testing tool and more a security tool. It’s plugged into an application or its run­time environment and can control application execution. That allows RASP to protect the app even if a network’s perimeter defenses are breached and the apps contain security vulnerabilities missed by the development team. RASP lets an app run continuous security checks on itself and respond to live attacks by terminating an attacker’s session and alerting defenders to the attack.
+**RASP (Run-time Application Security Protection)**. Run­time Application Security Protection, works inside the application, but it is less a testing tool and more a security tool. It's plugged into an application or its run­time environment and can control application execution. That allows RASP to protect the app even if a network's perimeter defenses are breached and the apps contain security vulnerabilities missed by the development team. RASP lets an app run continuous security checks on itself and respond to live attacks by terminating an attacker’s session and alerting defenders to the attack.
 > https://en.wikipedia.org/wiki/Runtime_application_self-protection
 
 **Misuse cases**. 
@@ -71,8 +71,7 @@ One of OWASP Security Principles I allways use is [Minimise the Attack Surface (
 1. We do Static Code Analysis, now we have to consider container's definition and its dependencies.
 2. We do Application Testing and Pentesting and we have to extend Pentesting to Application into containers.
 3. We do Network Segmentation and Isolation, now we have to consider a new level of segmentation and isolation that container brings.
-4. We do Monitor the performance and activity of Applications, now we have to do the same but at container level and at distributed way.
-5. Etc.
+4. We do Monitor the performance and activity of Applications, now we have to do the same but at container level and at distributed way, etc.
 
 ### Security is a process, not a product
 
