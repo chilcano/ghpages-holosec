@@ -15,7 +15,6 @@ If you are working with ESB, Message Brokers, BPMS, SOA or Microservices, you wi
 
 <!-- more -->
 
-
 ### What is a Service Mesh?
 
 It's other type of Distributed Application where the Services, or Microservices or APIs, are being interconnected. ![api-mesh-security-2-weave-scope]({{ site.baseurl }}/assets/api-mesh-security-2-weave-scope.png)
