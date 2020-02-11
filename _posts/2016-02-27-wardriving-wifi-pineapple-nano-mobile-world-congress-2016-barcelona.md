@@ -5,13 +5,11 @@ date:       2016-02-27 12:27:02
 categories: ['Big Data', 'IoT', 'Open Source', 'Security']
 tags:       ['OpenWRT', 'Pineapple', 'Wardriving']
 status:     publish 
-permalink:  "/2016/02/27/wardriving-wifi-pineapple-nano-mobile-world-congress-2016-barcelona/"
+permalink:  "/2016/02/27/wardriving-wifi-pineapple-nano-mobile-world-congress-2016-barcelona"
 ---
-WIFI Pineapple Nano is a nice tiny device to do Wireless Security Auditing. It has [OpenWRT](https://openwrt.org) embedded as S.O. with 2 Wireless NIC pre-configured and a lot of Security tools pre-installed ready to perform a Security Wireless Auditing. For further details, you can check the Hak5 page and I encourage you to buy one (https://www.wifipineapple.com)!.
+[WIFI Pineapple Nano](https://www.wifipineapple.com) is a nice tiny device to do Wireless Security Auditing. It has [OpenWRT](https://openwrt.org) embedded as SO with 2 Wireless NIC pre-configured and a lot of Security tools pre-installed ready to perform a Security Wireless Auditing. 
 
-## Objetives
-
-The idea is to do a quick wardriving around of the [Mobile World Congress at Barcelona](https://www.mobileworldcongress.com) to check if the attendants are aware about their Mobile Devices with the leak of information.  
+The idea of this post is to do a quick wardriving around of the [Mobile World Congress at Barcelona](https://www.mobileworldcongress.com) to check if the attendants are aware about their Mobile Devices with the leak of information.  
 
 [![The arsenal at Mobile World Congress 2016 Barcelona - Wardriving with WIFI Pineapple Nano, Android & Kismet]({{ site.baseurl }}/assets/chilcano-00-android-gps-kismet-pineapple-adb.png)](http://holisticsecurity.io/2016/02/27/wardriving-wifi-pineapple-nano-mobile-world-congress-2016-barcelona/)
 
@@ -27,12 +25,12 @@ With above files you will can identify the Manufacturer of the device (or model)
 ## The arsenal
 
 The software and devices I've used are the following:
-* WIFI Pineapple Nano (https://www.wifipineapple.com/pages/nano)
-* Android Mobile Phone's GPS (http://www.bq.com/es/aquaris-e6)
-* Share GPS App for Android (https://play.google.com/store/apps/details?id=com.jillybunch.shareGPS)
-* JuiceSSH App for Android (https://play.google.com/store/apps/details?id=com.sonelli.juicessh)
-* Kismet (Client and Server) installed in WIFI Pineapple Nano (https://www.kismetwireless.net)
-* Aukey 20000mAh Portable External Battery (http://www.amazon.es/dp/B00RJK8SH6)
+* [WIFI Pineapple Nano](https://www.wifipineapple.com/pages/nano)
+* [Android Mobile Phone's GPS](http://www.bq.com/es/aquaris-e6)
+* [Share GPS App for Android](https://play.google.com/store/apps/details?id=com.jillybunch.shareGPS)
+* [JuiceSSH App for Android](https://play.google.com/store/apps/details?id=com.sonelli.juicessh)
+* [Kismet (Client and Server) installed in WIFI Pineapple Nano](https://www.kismetwireless.net)
+* [Aukey 20000mAh Portable External Battery](http://www.amazon.es/dp/B00RJK8SH6)
 
 ![https://holisticsecurity.files.wordpress.com/2016/02/blog-chilcano-01-android-mobile-pineapple-kismet.png]({{ site.baseurl }}/assets/blog-chilcano-01-android-mobile-pineapple-kismet.png)
 
@@ -45,14 +43,13 @@ The next steps are if you have initialised Pineapple Nano.
 
 By using USB cable, connect the Pineapple Nano to your PC, in my case I'm using a Virtualbox VM with Kali Linux.  
 Then, from a Kali Linux ([the best Linux distro for Security Audit](https://www.kali.org)) terminal will get the `wp6.sh` script and will connect to Pineapple Nano.  
-The `wp6.sh` can be downloaded from here: https://github.com/hak5darren/wp6
+The `wp6.sh` can be downloaded from here: [https://github.com/hak5darren/wp6](https://github.com/hak5darren/wp6)
 
 ![https://holisticsecurity.files.wordpress.com/2016/02/blog-chilcano-02-config-1-connect-pineapple-wp6.png]({{ site.baseurl }}/assets/blog-chilcano-02-config-1-connect-pineapple-wp6.png)
 After that, open your browser in your Kali Linux and connect to `http://172.16.42.1:1471`
-From the Pineapple Web Admin console, insert the SD and format It.  
-After that, verify if SD was formatted successfully.
+From the Pineapple Web Admin console, insert the SD and format It. After that, verify if SD was formatted successfully.
 
-```text  
+```sh
 root@Pineapple:~# df -h  
 Filesystem Size Used Available Use% Mounted on  
 rootfs 2.3M 900.0K 1.4M 39% /  
@@ -68,7 +65,7 @@ Now, open other Kali Linux terminal and get SSH access to Pineapple Nano and upd
 
 ![https://holisticsecurity.files.wordpress.com/2016/02/blog-chilcano-02-config-2-connect-pineapple-ssh.png](https://holisticsecurity.files.wordpress.com/2016/02/blog-chilcano-02-config-2-connect-pineapple-ssh.png "Kali Linux terminal and get SSH access to Pineapple Nano")
 
-```text  
+```sh
 root@Pineapple:~# opkg update
 ```  
 
@@ -76,7 +73,7 @@ root@Pineapple:~# opkg update
 
 Pineapple Nano has not enough space internally to install things. I recommend you to install your new applications or packages in the SD.
 
-```text  
+```sh
 root@Pineapple:~# opkg list | grep kismet  
 kismet-client - 2013-03-R1b-1 - An 802.11 layer2 wireless network detector, sniffer, and intrusion detection system. This package contains the kismet text interface client.  
 kismet-drone - 2013-03-R1b-1 - An 802.11 layer2 wireless network detector, sniffer, and intrusion detection system. This package contains the kismet remote sniffing.and monitoring drone.  
@@ -89,7 +86,7 @@ root@Pineapple:~# # opkg --dest sd install kismet-client
 
 To do this, we need to connect our Android Mobile to the Pineapple USB 2.0 Host port and from Android share the GPS signal by using ShareGPS app. Before, let's go to install ADB ([Android Debug Bridge](http://developer.android.com/tools/help/adb.html)) in the Pineapple.
 
-```text  
+```sh
 root@Pineapple:~# opkg --dest sd install adb
 Installing adb (android.5.0.2_r1-1) to sd...  
 Downloading https://www.wifipineapple.com/nano/packages/adb_android.5.0.2_r1-1_ar71xx.ipk.  
@@ -99,7 +96,7 @@ Configuring adb.
 Now, from your Pineapple SSH terminal start the ADB service and check if your Android Mobile is recognized for the Pineapple Nano. Before, to enable USB Debugging and enable USB Tethering in your Mobile.
 My Android Mobile is recognized with `ID 2a47:0004`.
 
-```text  
+```sh
 root@Pineapple:~# lsusb  
 Bus 001 Device 009: ID 2a47:0004  
 Bus 001 Device 004: ID 05e3:0745 Genesys Logic, Inc.  
@@ -110,7 +107,7 @@ Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 
 Start ADB service in Pineapple Nano.
 
-```text  
+```sh
 root@Pineapple:~# adb devices  
 * daemon not running. starting it now on port 5037 *  
 * daemon started successfully *  
@@ -120,7 +117,7 @@ AB010682 unauthorized
 
 In your Android Mobile is prompted to accept connection from Pineapple. Accept It and run again `ADB`. You have to see the next as shown below.
 
-```text  
+```sh
 root@Pineapple:~# adb devices  
 List of devices attached  
 AB010682 device  
@@ -128,16 +125,13 @@ AB010682 device
 
 Now, in your Android install the ShareGPS app from Google Play Store. After that, start the app and share the GPS signal.
 
-![Step 1]({{ site.baseurl }}/assets/blog-chilcano-03-1-small-android-share-gps.png)  
+![Step 1]({{ site.baseurl }}/assets/blog-chilcano-03-1-small-android-share-gps.png) ![Step 1]({{ site.baseurl }}/assets/blog-chilcano-03-2-small-android-share-gps.png)  
 
-![Step 1]({{ site.baseurl }}/assets/blog-chilcano-03-2-small-android-share-gps.png)  
+![Step 1]({{ site.baseurl }}/assets/blog-chilcano-03-3-small-android-share-gps.png) ![Step 1]({{ site.baseurl }}/assets/blog-chilcano-03-4-small-android-share-gps.png)
 
-![Step 1]({{ site.baseurl }}/assets/blog-chilcano-03-3-small-android-share-gps.png)  
-
-![Step 1]({{ site.baseurl }}/assets/blog-chilcano-03-4-small-android-share-gps.png)
 Finally, You are ready to use the shared Android's GPS signal. Let's to check it.
 
-```text  
+```sh
 root@Pineapple:~# adb forward tcp:50000 tcp:50000
 root@Pineapple:~# telnet localhost 50000
 $GPGGA,181216.000,4138.5572,N,00221.8326,E,1,5,1.47,202.2,M,51.1,M,,*54  
@@ -172,7 +166,7 @@ After running `telnet localhost 50000` you will see in `green` on the ShareGPS a
 
 The WIFI Pineapple Nano has 2 Wireless NICs: `wlan0` and `wlan1`.
 
-```text  
+```sh 
 root@Pineapple:~# iwconfig  
 lo no wireless extensions.
 usb0 no wireless extensions.
@@ -193,7 +187,7 @@ br-lan no wireless extensions.
 
 I'm going to use `wlan1` to capture the 802.11 traffic, in fact, the `wlan1` will be configured in `monitor mode` as shown below:
 
-```text  
+```sh
 root@Pineapple:~# ifconfig wlan1 down  
 root@Pineapple:~# iwconfig wlan1 mode monitor  
 root@Pineapple:~# ifconfig wlan1 up  
@@ -201,7 +195,7 @@ root@Pineapple:~# ifconfig wlan1 up
 
 Check again the wireless interfaces. The `wlan1` NIC should be in `monitor mode`.
 
-```text  
+```sh
 root@Pineapple:~# iwconfig wlan1  
 wlan1 IEEE 802.11bgn Mode:Monitor Frequency:2.412 GHz Tx-Power=20 dBm  
 RTS thr:off Fragment thr:off  
@@ -212,7 +206,7 @@ Power Management:off
 
 Kismet by default hasn't the MAC Address Manufacturer database, I have to download it from the Wireshark web portal and copy it to `/sd`.
 
-```text  
+```sh 
 root@Pineapple:~# wget -O /sd/manuf http://anonsvn.wireshark.org/wireshark/trunk/manuf
 root@Pineapple:~# ln -s /sd/manuf /etc/manuf  
 root@Pineapple:~# ln -s /sd/manuf /sd/etc/manuf  
@@ -220,16 +214,20 @@ root@Pineapple:~# ln -s /sd/manuf /sd/etc/manuf
 
 **6) Configuration of Kismet: Installing and configuring GPSd**
 
-_`GPSd` is a service daemon that monitors one or more GPSes or AIS receivers attached to a host computer through serial or USB ports, making all data on the location/course/velocity of the sensors available to be queried on TCP port 2947 of the host computer._ (http://www.catb.org/gpsd)
+> `GPSd` is a service daemon that monitors one or more GPSes or AIS receivers attached to a host computer through serial or USB ports, making all data on the location/course/velocity of the sensors available to be queried on TCP port 2947 of the host computer.
+> (http://www.catb.org/gpsd)
+
 `GPSd` is not available in the current repository of OpenWRT ([Chaos Calmer 15.05](https://downloads.openwrt.org/chaos_calmer/15.05)) used for WIFI Pineapple Nano. Not problem, we can install the all GPSd packages for an older version of OpenWRT.  
 The packages to be installed are:
+
 * libgps_3.7-1_ar71xx.ipk
 * libgpsd_3.7-1_ar71xx.ipk
 * gpsd_3.7-1_ar71xx.ipk
 * gpsd-clients_3.7-1_ar71xx.ipk
+
 Download and install them.
 
-```text  
+```sh  
 root@Pineapple:~# cd /sd  
 root@Pineapple:/sd# wget https://downloads.openwrt.org/attitude_adjustment/12.09/ar71xx/generic/packages/libgps_3.7-1_ar71xx.ipk  
 root@Pineapple:/sd# wget https://downloads.openwrt.org/attitude_adjustment/12.09/ar71xx/generic/packages/libgpsd_3.7-1_ar71xx.ipk  
@@ -244,12 +242,11 @@ root@Pineapple:/sd# opkg --dest sd install gpsd-clients_3.7-1_ar71xx.ipk
 Just make sure what `gpsd` service not starting on boot.  
 You can edit `/etc/default/gpsd` and set everything to `false` and/or run `service gpsd stop`.
 
-```text  
+```sh  
 root@Pineapple:~# nano /etc/default/gpsd  
 ```  
 
-```text  
-
+```sh
 # Default settings for the gpsd init script and the hotplug wrapper.
 
 # Start the gpsd daemon automatically at boot time  
@@ -269,33 +266,36 @@ DEVICES=""
 GPSD_OPTIONS=""  
 
 ```
+
 Now, start the `GPSd` service. In debug mode:
-```text  
+
+```sh  
 root@Pineapple:~# gpsd -F /var/run/gpsd.sock -N tcp://localhost:50000  
 ```  
 
 Or run it as daemon.
 
-```text  
+```sh
 root@Pineapple:~# gpsd -F /var/run/gpsd.sock tcp://localhost:50000  
 ```  
 
 Where:
+
 * `-F /var/run/gpsd.sock` is the control socket file being used for GPSd.
 * `tcp://localhost:50000` is the shared Andoid's GPS signal being listening on TCP port.
 * `-N` don't daemonize, useful for debugging.
+
 And to check if GPSd is working, just run this:
 
-```text  
+```sh 
 root@Pineapple:~# cgps  
 ```  
 
 **7) Starting Kismet for the first time**
 
-Now, we are ready to start Kismet.  
-Kismet is a Client/Server application, firstly, I will start the Kismet Server and secondly the Kismet Client.
+Now, we are ready to start Kismet. Kismet is a Client/Server application, firstly, I will start the Kismet Server and secondly the Kismet Client.
 
-```text  
+```sh  
 root@Pineapple:~# kismet_server -p /sd/.kismet -c wlan1 --daemonize  
 ```  
 
@@ -304,9 +304,10 @@ Where:
 * `-c wlan1` is the NIC in `monitor mode` to be used.
 * Kismet has by default the GPSd configured properly. Nothing to fo here.
 * Kismet will look for the MAC Address Manufacturer file in this path `/etc/manuf`.
+
 In other terminal run the next:
 
-```text  
+```sh  
 root@Pineapple:~# kismet_client  
 ```  
 
@@ -317,7 +318,7 @@ You should see the Kismet UI showning the Wireless Networks and connected client
 Now, if you want to avoid run all above commands one-by-one, you could create a shell script with all required commands.  
 Then, let's to create a simple and dirty shell script.
 
-```text  
+```sh
 root@Pineapple:~# nano /root/run_wardriving.sh
 
 #!/bin/bash
@@ -344,7 +345,7 @@ kismet_server -p /sd/.kismet -c wlan1 --daemonize
 
 And executions privileges.
 
-```text  
+```sh  
 root@Pineapple:~# chmod +x /root/run_wardriving.sh  
 ```  
 
@@ -358,17 +359,25 @@ Below some screenshots taken from my Android mobile and Google Earth with the WI
 
 **1) Kismet in action**
 
-
 [![Kismet in action]({{ site.baseurl }}/assets/blog-chilcano-04-1-small-screenshot-kismet-in-action.png)](https://holisticsecurity.files.wordpress.com/2016/02/blog-chilcano-04-1-screenshot-kismet-in-action.png)[![693 Wireless Networks indentified]({{ site.baseurl }}/assets/blog-chilcano-04-2-small-screenshot-kismet-693-networks.png)](https://holisticsecurity.files.wordpress.com/2016/02/blog-chilcano-04-2-screenshot-kismet-693-networks.png)[![Ops!, A rogue AP?]({{ site.baseurl }}/assets/blog-chilcano-04-3-small-screenshot-kismet-rogue-ap.png)](https://holisticsecurity.files.wordpress.com/2016/02/blog-chilcano-04-3-screenshot-kismet-rogue-ap.png)
 
 **2) Creating Wireless Recon Maps with Google Earth and GISKismet**
 
-_GISKismet is a wireless recon visualization tool to represent data gathered using Kismet in a flexible manner. GISKismet stores the information in a database so that the user can generate graphs using SQL. GISKismet currently uses SQLite for the database and GoogleEarth / KML files for graphing._ (http://git.kali.org/gitweb/?p=packages/giskismet.git)
+> **GISKismet** is a wireless recon visualization tool to represent data gathered using Kismet in a flexible manner. GISKismet stores the information in a database so that the user can generate graphs using SQL. GISKismet currently uses SQLite for the database and GoogleEarth / KML files for graphing.
+> [http://git.kali.org/gitweb/?p=packages/giskismet.git](http://git.kali.org/gitweb/?p=packages/giskismet.git)
 
-[vimeo https://vimeo.com/156948434]  
-https://vimeo.com/156948434
+
+<iframe 
+    src="https://player.vimeo.com/video/156948434" 
+    width="640" 
+    height="500" 
+    frameborder="0" 
+    allow="autoplay; fullscreen" 
+    allowfullscreen>
+</iframe>
 
 ## Conclusions
+
 * WIFI Pineapple has a tons of Security tools installed, but not tools to perform a Wardriving. For that Kismet and GPS were installed and configured. [Probably in the following blog post I will explain how to create a `Module`](https://www.wifipineapple.com/modules) for Wardriving.
 * **Turn off your phone mobile**. The new mobiles or smartphones (Android, iOS, Windows, ...) have a Wireless Network Interface, they are constantly trying to connect to Wireless networks, to do that, all Mobiles send packets asking for Access Points. Kismet or other Tools taken advantage of that by capturing these packets. If you want to avoid that, just turn off your Wireless Network Interface and avoid to connect to Wireless Access Point unknown.
 * **The tip of the iceberg**. The packets that your phone Mobile emits and captures Kismet is only basic information and does not represent any risk to you. This phase is called Security "Data gathering" or "Recognition". The problem comes later, there are other tools that allow a targeted attack to steal important information.

@@ -10,6 +10,9 @@ permalink:  "/2014/04/29/revision-libro-activiti-5x-business-process-management/
 Packt Publishing me ha solicitado revisar el libro "[Activiti 5.x Business Process Management: Beginner's Guide](http://www.packtpub.com/activiti-bpm-beginners-guide/book "Activiti 5.x Business Process Management - Beginner's Guide")", escrito por Dr. Zakir Laliwala y Irshad Mansuri.
 
 [caption id="attachment_1187" align="aligncenter" width="150"][![Activiti BPM]({{ site.baseurl }}/assets/activiti_logo.png?w=150)](http://activiti.org) Activiti BPM[/caption]
+
+<!-- more -->
+
 Particularmente destaco la importancia de los libros para productos Open Source como Activiti, por lo general se trata de contenido muy actual y práctico para los que quieran iniciarse rápidamente en este mundo y evitar leer y revisar información y documentación muy dispersa e inexacta.
 
 [caption id="attachment_1186" align="aligncenter" width="245"][![Activiti 5.x Business Process Management Beginner's Guide]({{ site.baseurl }}/assets/7065os_activiti-5-x-business-process-management-beginners-guide-capture.jpg?w=245)](http://www.packtpub.com/activiti-bpm-beginners-guide/book) Activiti 5.x Business Process Management Beginner's Guide[/caption]

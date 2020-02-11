@@ -20,7 +20,9 @@ Integration mean:
 Well, everything is possible to do, but to create applications from scratch following point 5 was very difficult, but now I think is the quickest way to do it, also the best from an architectural point of view.
 This post explain how to do a portlet calling to Alfresco's Webscripts (REST URIs) via ajax using jQuery. I also give some recommendations.
 
-[caption id="" align="alignnone" width="374" caption="Ajax Portlet calls Alfresco Webscripts"][![Ajax Portlet calls Alfresco Webscripts]({{ site.baseurl }}/assets/ajaxalflfry_1arch.png)](http://dl.dropbox.com/u/2961879/blog20110920_ajaxalfrescoliferayportlet/ajaxalflfry_1arch.png)[/caption]
+[![Ajax Portlet calls Alfresco Webscripts]({{ site.baseurl }}/assets/ajaxalflfry_1arch.png)](http://dl.dropbox.com/u/2961879/blog20110920_ajaxalfrescoliferayportlet/ajaxalflfry_1arch.png) _Ajax Portlet calls Alfresco Webscripts_
+
+<!-- more -->
 
 ## Requeriments
 1. Liferay IDE version 1.3.1 as IDE

@@ -5,32 +5,32 @@ date:       2016-02-02 11:39:29
 categories: ['Big Data', 'IoT', 'Security']
 tags:       ['Apache Cassandra', 'Kismet', 'Privacy', 'Raspberry Pi']
 status:     publish 
-permalink:  "/2016/02/02/everything-generates-data-capturing-wifi-anonymous-traffic-raspberrypi-wso2-part-i/"
+permalink:  "/2016/02/02/everything-generates-data-capturing-wifi-anonymous-traffic-raspberrypi-wso2-part-i"
 ---
 Yes, in this digital world, everything generates data, but before to do `BigData`, you have to follow these steps:
- **1\. Capture** : Acquires, Integrates data.  
- **2\. Store** : Classification, Consolidate, Transformation, Storage Design, etc.  
- **3\. Analysis** : Exploration, visualization, modeling, prediction, etc.
 
-![Everything generates data - IoT, BigData, Privacy, Security]({{ site.baseurl }}/assets/chilcano-raspberrypi-bigdata-wifi-1-bigdata.jpg)  
- _Everything generates data - IoT, BigData, Privacy, Security_
+ **1. Capture** : Acquires, Integrates data.  
+ **2. Store** : Classification, Consolidate, Transformation, Storage Design, etc.  
+ **3. Analysis** : Exploration, visualization, modeling, prediction, etc.
+
+![Architecture - Capturing WIFI anonymous traffic using Raspberry Pi and WSO2 BAM and WSO2 CEP]({{ site.baseurl }}/assets/chilcano-raspberrypi-bigdata-wifi-2-arch.png)  
+ _Everything generates data - Capturing WIFI anonymous traffic using Raspberry Pi and WSO2 BAM and WSO2 CEP_
 
 <!-- more -->
 
 In this first blog post I will explain how to capture anonymous [WIFI/802.11 traffic](https://en.wikipedia.org/wiki/IEEE_802.11) using a [Raspberry Pi 2 Model B](https://www.raspberrypi.org/products/raspberry-pi-2-model-b), Kismet ([An 802.11 layer2 wireless network detector, sniffer, and intrusion detection system](https://www.kismetwireless.net)) and in the second blog post I will use [WSO2 BAM 2.5.0](http://wso2.com/more-downloads/business-activity-monitor) to collect the anonymous WIFI traffic to generate a simple Dashboard showing data in live or real time.
+
 The final idea is create a simple Dashboard showing the Mobile Devices as mobile phones identified around of the Raspberry Pi.  
 Anyway, you can use this traffic for different purposes such as:  
 * Monitor Shopping Activity  
 * Vehicule Traffic Monitoring  
 * Street Activity Monitoring, ...
 
-![Architecture - Capturing WIFI anonymous traffic using Raspberry Pi and WSO2 BAM and WSO2 CEP]({{ site.baseurl }}/assets/chilcano-raspberrypi-bigdata-wifi-2-arch.png)  
- _Architecture - Capturing WIFI anonymous traffic using Raspberry Pi and WSO2 BAM and WSO2 CEP_
 Well, now let's get down to work.
 
-## I.- Enable `monitor` mode in Raspberry Pi
+## I. Enable _monitor mode_ in Raspberry Pi
 
-### 1\. Prepare the Raspberry Pi
+### 1. Prepare the Raspberry Pi
 Obviously, I have a clean image of Raspbian installed in my Raspberry Pi 2 Model B.  
 The below steps explain how to prepare Raspberry Pi and install and configure Kismet to capture 802.11 anonymous traffic.
 Before to do it, I have to prepare the Raspberry Pi, for example, configure a static IP address to Ethernet interface (`eth0`) to get SSH access remotely. After that, I can configure the Wireless interface (`wlan0`) and install Kismet.
@@ -62,9 +62,10 @@ Bus 001 Device 004: ID 148f:5370 Ralink Technology, Corp. RT5370 Wireless Adapte
 ```  
 
 Check if your WIFI dongle allows monitor mode.
-_Note:_  
-RTL8188CUS does not allow monitor mode.  
-http://raspberrypi.stackexchange.com/questions/8578/enable-monitor-mode-in-rtl8188cus-realtek-wifi-usb-dongle
+
+> **Note:**
+> `RTL8188CUS` does not allow monitor mode.  
+> [http://raspberrypi.stackexchange.com/questions/8578/enable-monitor-mode-in-rtl8188cus-realtek-wifi-usb-dongle](http://raspberrypi.stackexchange.com/questions/8578/enable-monitor-mode-in-rtl8188cus-realtek-wifi-usb-dongle)
 
 ```sh  
 $ ifconfig  
@@ -158,6 +159,7 @@ $ sudo iwconfig wlan0
 wlan0 IEEE 802.11bgn Mode:Monitor Frequency:2.412 GHz Tx-Power=20 dBm  
 Retry long limit:7 RTS thr:off Fragment thr:off  
 Power Management:off
+
 $ sudo ifconfig wlan0  
 wlan0 Link encap:UNSPEC HWaddr 00-13-EF-C0-21-2B-70-78-00-00-00-00-00-00-00-00  
 UP BROADCAST MULTICAST MTU:1500 Metric:1  
@@ -172,14 +174,12 @@ So, it does the device stay busy. Disabling it allow you to use ifconfig and iwc
 
 ```sh  
 $ sudo service ifplugd stop  
-
 [ ok ] Network Interface Plugging Daemon...stop eth0...stop wlan0...done.
+
 $ sudo service ifplugd status  
 
 [....] eth0: ifplugd not running.  
-
 [....] wlan0: ifplugd not running.  
-
 [info] all: device all is either not present or not functional.  
 ```  
 
@@ -256,7 +256,7 @@ channel 6 (2437 MHz), width: 20 MHz (no HT), center1: 2437 MHz
 
 After that, check if `wlan0` or `mon0` are running in `monitor` mode, if so, then you are ready to start Kismet.
 
-## II.- Install, configure and start Kismet
+## II. Install, configure and start Kismet
 
 **2.1) Installation of Kismet**
 
@@ -376,9 +376,9 @@ _Kismet - Capturing 802.11 anonymous traffic using Raspberry Pi_
 ![Kismet - Capturing 802.11 anonymous traffic using Raspberry Pi]({{ site.baseurl }}/assets/chilcano-raspberrypi-bigdata-wifi-3-kismet.png)  
 _Kismet - Capturing 802.11 anonymous traffic using Raspberry Pi_
 
-## III.- Common Kismet errors
+## III. Common Kismet errors
 
-_1) Error when start Kismet.`plugins` folder not found._
+**1) Error when start Kismet.`plugins` folder not found.**
 
 ```sh  
 ERROR: Failed to open primary plugin directory (/usr/local/lib/kismet/):  
@@ -393,7 +393,7 @@ ERROR: Failed to open user plugin directory (/root/.kismet//plugins/): No such f
 
 ```
 
-**Solution:**
+_Solution:_
 
 ```sh  
 $ sudo mkdir -p /usr/local/lib/kismet/
@@ -405,7 +405,9 @@ $ sudo mkdir -p /usr/lib/kismet/
 $ mkdir -p /root/.kismet/plugins/  
 
 ```
-_2) A process is using the wireless interface._
+
+**2) A process is using the wireless interface.**
+
 ```sh  
 ERROR: Didn't understand driver 'ath9k_htc' for interface 'mon0', but it  
 looks like a mac80211 device so Kismet will use the generic options  
@@ -418,14 +420,13 @@ running or stops capturing packets, try killing one (or all) of
 these processes or stopping the network for this interface.  
 ```  
 
-**Solution:**
-
+_Solution:_
 
 ```sh  
 $ sudo pkill wpa_cli; sudo pkill ifplugd; sudo pkill wpa_supplicant  
 ```  
 
-_3) The manufactur file doesn't exist._
+**3) The manufactur file doesn't exist.**
 
 ```sh  
 ERROR: Could not open OUI file '/etc/manuf': No such file or directory  
@@ -433,8 +434,7 @@ ERROR: Could not open OUI file '/usr/share/wireshark/wireshark/manuf': No
 such file or directory  
 ```  
 
-**Solution:**
-
+_Solution:_
 
 ```sh  
 $ sudo mkdir -p /usr/share/wireshark/
@@ -443,7 +443,7 @@ $ sudo wget -O manuf http://anonsvn.wireshark.org/wireshark/trunk/manuf
 $ sudo cp manuf /etc/manuf  
 ```  
 
-_4) VAP for mon0 wasn't created._
+**4) VAP for mon0 wasn't created.**
 
 ```sh  
 ERROR: Not creating a VAP for mon0 even though one was requested, since  
@@ -452,5 +452,6 @@ monitor mode VAP was specified. To override this and create a new
 monitor mode vap no matter what, use the forcevap=true source option  
 ```  
 
-**Solution:**  
+_Solution:_
+
 Check if mon0 is being used for other process or restart and reconfigure your wireless interface.

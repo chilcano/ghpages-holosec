@@ -11,6 +11,9 @@ Mi colega [Luis Peñarrubia](http://www.linkedin.com/in/luispenarrubia "Luis Pe�
 Aquí os dejo el documento que explica cómo hacerlo paso a paso:
 
 [slideshare id=32323468&doc=chakray-monitorizacion-kpi-service-wso2esb-wso2bam-201403141-140314124059-phpapp02&type=d]
+
+<!-- more -->
+
 Por otro lado, al desplegarlo en mi entorno, WSO2 BAM mostraba errores de autenticación de Apache Thrift con Apache Cassandra, como este:
 
 [sourcecode language="text" gutter="true" wraplines="false"] 

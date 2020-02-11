@@ -11,6 +11,8 @@ Message Brokering es el conjunto de mecanismos por el cual se gestiona la recepc
 * **Desacoplar** : En tiempo, en espacio y a nivel de sincronización.
 * **Confiabilidad** : A nivel de transacción y de persistencia.
 
+<!-- more -->
+
 ## 1\. Casos de uso y beneficios
 
 Los beneficios son palpables, como por ejemplo:

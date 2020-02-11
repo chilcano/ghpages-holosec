@@ -12,6 +12,8 @@ Actualmente existe una oferta muy rica de proveedores de infraestructura o hosti
 [![proxmox-logo]({{ site.baseurl }}/assets/proxmox-logo.png)](http://holisticsecurity.files.wordpress.com/2013/10/proxmox-logo.png)
 En mi caso, esta infraestructura la usaré para construir una plataforma donde provea servicios alrededor de productos como WSO2 ESB, Liferay Portal, Alfresco ECM, Drupal, etc., para ello he contratado un hosting medianamente decente en Hetzner (repito experiencia) y he empleado Proxmox VE.
 
+<!-- more -->
+
 # I. Por qué Proxmox VE ?
 
 Principalmente, porque ya tenía experiencia previa con Proxmox con las versión 2.0 de años anteriores, aunque actualmente hay productos opensource y más sofisticados como Apache CloudStack, OpenStack y Eucalyptus, pero el conocimiento previo y su sencillez me hizo decidir su uso. Una cosa importante a destacar es el corto tiempo necesario para crear un nuevo servidor, por lo general me toma 10 minutos.

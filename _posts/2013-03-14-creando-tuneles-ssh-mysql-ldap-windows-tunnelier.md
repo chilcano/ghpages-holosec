@@ -13,8 +13,10 @@ Quizás lo más difícil es entender cómo se crean los túneles, aquí lo expli
 
 **1\. Escenario donde crearemos túneles SSH**
 
-
 [caption id="" align="alignnone" width="491"][![Escenario - Creando 3 túneles SSH hacia SSH server, MySQL server y LDAP server]({{ site.baseurl }}/assets/env-tunnel-ssh-1.png)](https://dl.dropbox.com/u/2961879/blog20130314_ssh_tunnel_win/env-tunnel-ssh-1.png) Escenario - Creando 3 túneles SSH hacia SSH server, MySQL server y LDAP server[/caption]
+
+<!-- more -->
+
 * **kns** : representa al servidor SSH público que expone el servicio en el puerto **2121**. También podéis usar el FQDN o la IP.  
 * **kns-lfry0, kns-db1, kns-ldap0** : representan los Hostnames o IPs privados o internos. Sólo pueden ser resueltos desde **kns**.
 

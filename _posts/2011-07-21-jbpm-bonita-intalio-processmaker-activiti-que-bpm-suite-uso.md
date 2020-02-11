@@ -11,9 +11,12 @@ Ultimamente, en los cursos que suelo impartir o durante la etapa de consultoría
 Y mi respuesta siempre es, sabes qué es un BPM?, sabes lo que implicaría construir aplicaciones siguiendo BPM en tu organización?. Pues la respuesta es muchas veces "no". En esta situación, siempre lo mejor es aclarar los conceptos e  
 iniciar algún proceso de evaluación de tecnologías, casos de éxitos, costes económicos y las consecuencias.
 
-[caption id="" align="alignnone" width="389" caption="jBPM, Bonita, Intalio, ProcessMaker and Activiti"][![jBPM, Bonita, Intalio, ProcessMaker and Activiti]({{ site.baseurl }}/assets/bpmsfoss_0logos.png)](http://dl.dropbox.com/u/2961879/blog20110708_bpmfoss/bpmsfoss_0logos.png)[/caption]
-Este post es el primero de una serie de posts relacionados con BPM Free/Open Source. En este primero haremos una presentación rápida de las alternativas tecnológicas de los BPMs free/open source de mayor actividad y hacernos una idea  
-de cuál o cuáles son los más adecuado para cada escenario que nos encontremos en nuestras Organizaciones.  
+[![jBPM, Bonita, Intalio, ProcessMaker and Activiti]({{ site.baseurl }}/assets/bpmsfoss_0logos.png)](http://dl.dropbox.com/u/2961879/blog20110708_bpmfoss/bpmsfoss_0logos.png) _jBPM, Bonita, Intalio, ProcessMaker and Activiti_
+
+Este post es el primero de una serie de posts relacionados con BPM Free/Open Source. En este primero haremos una presentación rápida de las alternativas tecnológicas de los BPMs free/open source de mayor actividad y hacernos una idea de cuál o cuáles son los más adecuado para cada escenario que nos encontremos en nuestras Organizaciones.  
+
+<!-- more -->
+
 En los siguientes posts entraremos en detalle en cada uno de las herramientas BPM, inclusive haciendo alguna prueba de concepto con cada uno de ellos.
 Antes de iniciar con la revisión, describiré qué elementos o componentes importantes existen en una Suite BPM y unas definiciones.
 

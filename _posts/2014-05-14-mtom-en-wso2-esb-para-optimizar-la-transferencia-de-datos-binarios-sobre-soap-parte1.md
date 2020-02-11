@@ -11,6 +11,8 @@ Hace poco estaba explorando las características de WSO2 ESB para el envío ópt
 
 [![wso2esb-soapui-mtom]({{ site.baseurl }}/assets/wso2esb-soapui-mtom.png?w=300)](http://holisticsecurity.files.wordpress.com/2014/05/wso2esb-soapui-mtom.png)
 
+<!-- more -->
+
 ## I. Casos de Uso MTOM en WSO2 ESB.
 * * *
 WSO2 ESB viene con más de 102 ejemplos de Proxy de Apache Synapse, cada uno de ellos implementa diferentes casos de usos necesarios para integrar aplicaciones con diferencias estrategias.

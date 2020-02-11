@@ -5,7 +5,7 @@ date:       2010-08-13 13:04:51
 categories: ['Open Source', 'Security']
 tags:       ['Linux', 'Virtual Box']
 status:     publish 
-permalink:  "/2010/08/13/share-files-between-macosx-and-centos-as-a-virtualbox-guest/"
+permalink:  "/2010/08/13/share-files-between-macosx-and-centos-as-a-virtualbox-guest"
 ---
 Share files between two SO is easy because there are different protocols for sharing resources (NFS, CIFS/SMB/Samba, FTP, ...), but sharing files between two PCs with OS Linux based, and one of them as virtualmachine guest of another one is a bit more complicated. Here's how to do it when we Mac OSX as HOST and CentOS as GUEST:
 

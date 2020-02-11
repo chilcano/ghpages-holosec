@@ -13,6 +13,8 @@ For this reason, debugging is an important task when working in distributed proj
 Then, remote debugging means you could debug an application or portlet on server from a different computer.
 This post discusses how to use the Eclipse IDE for remote debugging on Liferay.
 
+<!-- more -->
+
 ## Versions used
 * Liferay Portal bundled with Tomcat: liferay-portal-tomcat-6.0.6-20110225.zip
 * Liferay IDE 1.2

@@ -5,13 +5,16 @@ date:       2012-09-03 16:57:49
 categories: ['ECM', 'SOA']
 tags:       ['Alfresco', 'soapUI', 'WSDL', 'WSO2']
 status:     publish 
-permalink:  "/2012/09/03/gobernando-servicios-de-alfresco-ecm-con-wso2/"
+permalink:  "/2012/09/03/gobernando-servicios-de-alfresco-ecm-con-wso2"
 ---
 El beneficio principal de hacer SOA sobre hacer Integración es la capacidad de gobierno que tenemos sobre los servicios, es decir, la capacidad de control que alcanzamos al aplicar los principios SOA.
 En la integración o construcción de aplicaciones muchas veces tenemos que integrar o consumir servicios externos “no gobernados”, hacerlo sin control es siempre un riesgo, por ejemplo, si el contrato (WSDL) cambia, nuestra aplicación integrada se quedaría al margen de los cambios y sin soporte.
 
-[caption id="" align="alignnone" width="497"][![Gobierno de los servicio de Alfresco con WSO2]({{ site.baseurl }}/assets/alfresco-wso2-logos.png)](https://dl.dropbox.com/u/2961879/blog20120903_gov_alfresco_services_with_wso2/alfresco-wso2-logos.png) Gobierno de los servicio de Alfresco con WSO2[/caption]
+[![Gobierno de los servicio de Alfresco con WSO2]({{ site.baseurl }}/assets/alfresco-wso2-logos.png)](https://dl.dropbox.com/u/2961879/blog20120903_gov_alfresco_services_with_wso2/alfresco-wso2-logos.png) _Gobierno de los servicio de Alfresco con WSO2_
+
 En esta post aprenderemos cómo registrar servicios externos en WSO2 Registry, concretamente aquellos servicios SOAP de Alfresco ECM, y luego consumirlos usando el mismo WSDL (contrato) desde nuestras aplicaciones de negocio usando WSO2 ESB.
+
+<!-- more -->
 
 **I. Estrategia:**
 

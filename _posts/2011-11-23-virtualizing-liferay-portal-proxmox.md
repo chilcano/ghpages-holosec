@@ -5,7 +5,7 @@ date:       2011-11-23 17:50:25
 categories: ['Security']
 tags:       ['Virtual Box']
 status:     publish 
-permalink:  "/2011/11/23/virtualizing-liferay-portal-proxmox/"
+permalink:  "/2011/11/23/virtualizing-liferay-portal-proxmox"
 ---
 Some days ago I had to deploy a Liferay Portal in a hosting provider where Proxmox Virtual Environment (PVE) was necessary to use.
 
@@ -14,7 +14,9 @@ But, What is difference between tradicional hosting and hosting based on Proxmox
 Then, I did create a virtualized network with 2 servers based on Proxmox, the first server runs a Linux Debian with Apache HTTP server as web-proxy, the second server will be a private server with Liferay Portal.
 The architecture final is as follow:
 
-[caption id="" align="alignnone" width="462" caption="Architecture - Liferay in an environment virtualized with Proxmox"][![Architecture - Liferay in an environment virtualized with Proxmox]({{ site.baseurl }}/assets/www.intix.info_proxmox_liferay_arquitectura.png)](http://dl.dropbox.com/u/2961879/blog20111108_proxmoxliferay/www.intix.info_proxmox_liferay_arquitectura.png)[/caption]
+![Architecture - Liferay in an environment virtualized with Proxmox]({{ site.baseurl }}/assets/www.intix.info_proxmox_liferay_arquitectura.png)](http://dl.dropbox.com/u/2961879/blog20111108_proxmoxliferay/www.intix.info_proxmox_liferay_arquitectura.png) _Architecture - Liferay in an environment virtualized with Proxmox_
+
+<!-- more -->
 
 ## 1\. Installation first server with Proxmox / Apache2 HTTP Server (In Host)
 

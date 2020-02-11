@@ -12,6 +12,8 @@ and several times you need to solve many bugs and manage your source code, then 
 A text editor is not enough for this, Eclipse IDE and PHP Development Tools are a good option.
 In this post, you learn how to set your debug environment with XDebug, that seems to be one of the more popular ones and Eclipse PDT already has support for it.
 
+<!-- more -->
+
 ## Requisites:
 1. Download and install/unzip [XAMPP](http://www.apachefriends.org/en/xampp-windows.html) for win32 version 1.7.4-VC6.
 This bundle comes with severals tools:

@@ -5,14 +5,13 @@ date:       2014-05-26 20:02:00
 categories: ['Middleware', 'SOA']
 tags:       ['Apache Axiom', 'Axis2', 'MTOM', 'SOAP', 'soapUI', 'SwA', 'WSO2 ESB']
 status:     publish 
-permalink:  "/2014/05/26/mtom-en-wso2-esb-para-optimizar-la-transferencia-de-datos-binarios-sobre-soap-parte-22/"
+permalink:  "/2014/05/26/mtom-en-wso2-esb-para-optimizar-la-transferencia-de-datos-binarios-sobre-soap-parte-22"
 ---
 [En la anterior entrada](http://holisticsecurity.wordpress.com/2014/05/14/mtom-en-wso2-esb-para-optimizar-la-transferencia-de-datos-binarios-sobre-soap-parte1/ "MTOM en WSO2 ESB para optimizar la transferencia de datos binarios sobre SOAP \(Parte 1/2\)") explorábamos los beneficios del uso de MTOM en WSO2 ESB, ahora explicaremos cómo integrar esta funcionalidad en nuestras aplicaciones web, es decir, cómo invocar el mismo servicio desde una página web tradicional.
 
-[  
+[![wso2-esb]({{ site.baseurl }}/assets/wso2-esb.jpg?w=300)](http://holisticsecurity.files.wordpress.com/2014/05/wso2-esb.jpg)
 
-![wso2-esb]({{ site.baseurl }}/assets/wso2-esb.jpg?w=300)  
-](http://holisticsecurity.files.wordpress.com/2014/05/wso2-esb.jpg)
+<!-- more -->
 
 ## I. Escenario.
 * * *
