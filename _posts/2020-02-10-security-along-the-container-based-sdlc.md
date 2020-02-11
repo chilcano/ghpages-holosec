@@ -19,6 +19,8 @@ Said that, the purpose of this post is explain you how to embed **Security along
 
 [![Security along the Container-based SDLC - Overview](/assets/img/20200210-security-along-container-based-sdlc-v1.png "Security along the Container-based SDLC - Overview")](/assets/img/20200210-security-along-container-based-sdlc-v1.png){:target="_blank"}
 
+<!-- more -->
+
 The above Secure-SDLC diagram was created using the classic [Systems development life cycle published at Wikipedia](https://en.wikipedia.org/wiki/Systems_development_life_cycle){:target="_blank"} and software engineering and security-related techniques such as:
 
 - [The Twelve-Factor App](https://12factor.net){:target="_blank"} is a methodology for building software-as-a-service apps.
@@ -29,7 +31,7 @@ The above Secure-SDLC diagram was created using the classic [Systems development
    * [Joerg Fritsch's tweet](https://twitter.com/with_joerg/status/1034528900972507138){:target="_blank"}.
 - Some thoughts picked from my [QA and Security in Development Process](https://www.slideshare.net/rcarhuatocto/qa-and-security-in-development-process){:target="_blank"} presented on July 2005 (Spanish).
 
-<!-- more -->
+
 
 ## Security-related Techniques and Practices
 
