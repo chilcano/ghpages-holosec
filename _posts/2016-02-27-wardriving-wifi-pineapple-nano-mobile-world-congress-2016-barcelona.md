@@ -5,7 +5,7 @@ date:       2016-02-27 12:27:02
 categories: ['Big Data', 'IoT', 'Open Source', 'Security']
 tags:       ['OpenWRT', 'Pineapple', 'Wardriving']
 status:     publish 
-permalink:  "/2016/02/27/wardriving-wifi-pineapple-nano-mobile-world-congress-2016-barcelona"
+permalink:  "/2016/02/27/wardriving-wifi-pineapple-nano-mobile-world-congress-2016-barcelona/"
 ---
 [WIFI Pineapple Nano](https://www.wifipineapple.com) is a nice tiny device to do Wireless Security Auditing. It has [OpenWRT](https://openwrt.org) embedded as SO with 2 Wireless NIC pre-configured and a lot of Security tools pre-installed ready to perform a Security Wireless Auditing. 
 

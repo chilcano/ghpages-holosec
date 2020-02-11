@@ -5,7 +5,7 @@ date:       2016-02-02 11:39:29
 categories: ['Big Data', 'IoT', 'Security']
 tags:       ['Apache Cassandra', 'Kismet', 'Privacy', 'Raspberry Pi']
 status:     publish 
-permalink:  "/2016/02/02/everything-generates-data-capturing-wifi-anonymous-traffic-raspberrypi-wso2-part-i"
+permalink:  "/2016/02/02/everything-generates-data-capturing-wifi-anonymous-traffic-raspberrypi-wso2-part-i/"
 ---
 Yes, in this digital world, everything generates data, but before to do `BigData`, you have to follow these steps:
 
