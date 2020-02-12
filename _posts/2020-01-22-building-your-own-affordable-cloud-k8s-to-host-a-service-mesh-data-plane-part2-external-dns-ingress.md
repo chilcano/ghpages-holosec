@@ -18,7 +18,7 @@ Yes, [Kubernetes brings by default a DNS](https://github.com/kubernetes/dns){:ta
 
 The Kubernetes ExternalDNS will run a program in our affordable K8s which it will synchronize exposed Kubernetes Services and Ingresses with the Cloud Provider's DNS Service, in this case with AWS Route 53. Below you can view a high level diagram and current status of my [Affordable Kubernetes Data Plane, I recommend look at first post about it](http://holisticsecurity.io/2020/01/16/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-data-plane){:target="_blank"}.
 
-[![Service Mesh hosted using AWS Spot Instances](/assets/img/20200122-service-mesh-01-affordablek8s-aws-arch.png "Service Mesh using AWS Spot Instances")](/assets/img/20200122-service-mesh-01-affordableK8s-aws-arch.png){:target="_blank"}
+[![Service Mesh hosted using AWS Spot Instances](/assets/img/20200122-service-mesh-01-affordablek8s-aws-arch.png "Service Mesh using AWS Spot Instances")](/assets/img/20200122-service-mesh-01-affordablek8s-aws-arch.png){:target="_blank"}
 
 <!-- more -->
 
