@@ -7,6 +7,7 @@ tags:       ['WSO2']
 status:     publish 
 permalink:  "/2014/03/20/business-activity-monitoring-aplicado-a-openbravo-erp-usando-wso2-esb-y-wso2-bam/"
 ---
+
 Mi colega [Luis Peñarrubia](http://www.linkedin.com/in/luispenarrubia "Luis Peñarrubia @ LinkedIn") ha publicado un detallado [post de cómo usar WSO2 BAM, WSO2 ESB para monitorizar la capa de servicio de Openbravo ERP](http://luispenarrubia.wordpress.com/2014/03/15/monitorizar-business-services-usando-wso2-esb-y-wso2-bam/ "Monitorizar Business Services usando WSO2 ESB y WSO2 BAM") (Data Access Layer).
 Aquí os dejo el documento que explica cómo hacerlo paso a paso:
 
@@ -16,10 +17,8 @@ Aquí os dejo el documento que explica cómo hacerlo paso a paso:
 
 Por otro lado, al desplegarlo en mi entorno, WSO2 BAM mostraba errores de autenticación de Apache Thrift con Apache Cassandra, como este:
 
-[sourcecode language="text" gutter="true" wraplines="false"] 
-
+```sh
 [2014-03-20 17:31:16,112] INFO {org.wso2.carbon.ntask.core.service.impl.TaskServiceImpl} - Task service starting in STANDALONE mode...  
-
 [2014-03-20 17:31:16,285] ERROR {org.wso2.carbon.bam.notification.task.internal.NotificationDispatchComponent} - InvalidRequestException(why:You have not logged in)  
 me.prettyprint.hector.api.exceptions.HInvalidRequestException: InvalidRequestException(why:You have not logged in)  
 at me.prettyprint.cassandra.service.ExceptionsTranslatorImpl.translate(ExceptionsTranslatorImpl.java:45)  
@@ -28,13 +27,9 @@ at me.prettyprint.cassandra.service.ThriftCluster$6.execute(ThriftCluster.java:1
 at me.prettyprint.cassandra.service.Operation.executeAndSetResult(Operation.java:103)  
 at me.prettyprint.cassandra.connection.HConnectionManager.operateWithFailover(HConnectionManager.java:258)  
 at me.prettyprint.cassandra.service.ThriftCluster.addKeyspace(ThriftCluster.java:168)
-
 [...]
-
 [2014-03-20 17:31:16,471] INFO {org.wso2.carbon.databridge.core.DataBridge} - admin connected  
-
 [2014-03-20 17:31:16,473] ERROR {org.wso2.carbon.databridge.core.internal.authentication.Authenticator} - wrong userName or password  
-
 [2014-03-20 17:31:16,475] ERROR {org.wso2.carbon.bam.notification.task.NotificationDispatchTask} - Error executing notification dispatch task: Cannot borrow client for TCP,10.10.10.24:7613,TCP,10.10.10.24:7713  
 org.wso2.carbon.databridge.agent.thrift.exception.AgentException: Cannot borrow client for TCP,10.10.10.24:7613,TCP,10.10.10.24:7713  
 at org.wso2.carbon.databridge.agent.thrift.internal.publisher.authenticator.AgentAuthenticator.connect(AgentAuthenticator.java:58)  
@@ -52,15 +47,14 @@ at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:61
 at java.lang.Thread.run(Thread.java:679)  
 Caused by: org.wso2.carbon.databridge.commons.exception.AuthenticationException: Thrift Authentication Exception  
 at org.wso2.carbon.databridge.agent.thrift.internal.publisher.authenticator.ThriftAgentAuthenticator.connect(ThriftAgentAuthenticator.java:49)  
-
 [...]  
+```
 
-[/sourcecode]
 Esto se debe a que no he actualizado los ficheros de conexión con Apache Cassandra con las nuevas credenciales de WSO2 BAM, en mi caso no es admin/admin. Entonces, hay actualizar los siguientes ficheros:
 
-[sourcecode language="text" gutter="true" wraplines="false"]  
+```sh
 $ nano /opt/wso2bam-2.4.0/repository/conf/etc/cassandra-auth.xml  
 $ nano /opt/wso2bam-2.4.0/repository/conf/datasources/master-datasources.xml  
+```
 
-[/sourcecode]
 Saludos.

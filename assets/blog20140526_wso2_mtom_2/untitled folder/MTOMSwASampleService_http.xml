@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<proxy xmlns="http://ws.apache.org/ns/synapse"
+       name="MTOMSwASampleService_http"
+       transports="https http"
+       startOnLoad="true"
+       trace="disable">
+   <description>sss</description>
+   <target>
+      <inSequence>
+         <log level="custom">
+            <property name="****** MTOMSwASampleService - HTTP" value="***** inSeq - ini"/>
+         </log>
+         <property name="DISABLE_CHUNKING" value="true"/>
+         <property name="Action" value="urn:oneWayUploadUsingHTTP" scope="default"/>
+         <header name="Action" scope="default" value="urn:oneWayUploadUsingHTTP"/>
+         <send>
+            <endpoint>
+               <address uri="http://localhost:8281/services/MTOMSwASampleService_proxy"
+                        format="soap11"/>
+            </endpoint>
+         </send>
+         <log level="custom">
+            <property name="****** MTOMSwASampleService - HTTP" value="***** inSeq - fin"/>
+         </log>
+      </inSequence>
+      <outSequence>
+         <log level="custom">
+            <property name="******* MTOMSwASampleService - HTTP" value="***** outSeq - ini"/>
+         </log>
+         <property name="OUT_ONLY" value="true"/>
+         <property name="FORCE_SC_ACCEPTED" value="true"/>
+         <send/>
+         <log level="custom">
+            <property name="******* MTOMSwASampleService - HTTP" value="***** outSeq - fin"/>
+         </log>
+      </outSequence>
+   </target>
+</proxy>
