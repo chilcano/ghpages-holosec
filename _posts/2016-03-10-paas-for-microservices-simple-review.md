@@ -10,13 +10,14 @@ permalink:  "/2016/03/10/paas-for-microservices-simple-review/"
 _"How do you eat an elephant? One bite at a time"_ \- This phrase makes sense, everybody understands It but sometimes is forgotten.  
 Happily some technology companies have managed to internalize this phrase in its processes and products.
 
-![https://holisticsecurity.files.wordpress.com/2019/11/blog-pass-microservices-how-do-you-eat-an-elephant-one-bite-at-a-time.png]({{ site.baseurl }}/assets/blog-pass-microservices-how-do-you-eat-an-elephant-one-bite-at-a-time.png)  
+[![](/assets/blog-pass-microservices-how-do-you-eat-an-elephant-one-bite-at-a-time.png){:width="70%"}]{:target="_blank"}(/assets/blog-pass-microservices-how-do-you-eat-an-elephant-one-bite-at-a-time.png)
+
 Below some examples:  
-\- Netflix: Micro Services (http://techblog.netflix.com/2015/02/a-microscope-on-microservices.html)  
-\- Docker: Containers (https://www.docker.com/what-docker)  
-\- Snackson: Micro Learning (http://en.snackson.com/microlearning)  
-\- Twitter: Micro Blogging (https://en.wikipedia.org/wiki/Microblogging)  
-\- Raspberry Pi: Micro Personal Computer (https://en.wikipedia.org/wiki/Raspberry_Pi)
+- [Netflix: Micro Services](http://techblog.netflix.com/2015/02/a-microscope-on-microservices.html)  
+- [Docker: Containers](https://www.docker.com/what-docker)  
+- [Snackson: Micro Learning](http://en.snackson.com/microlearning)  
+- [Twitter: Micro Blogging](https://en.wikipedia.org/wiki/Microblogging)  
+- [Raspberry Pi: Micro Personal Computer](https://en.wikipedia.org/wiki/Raspberry_Pi)
 
 <!-- more -->
 
@@ -54,75 +55,57 @@ There are good news about that because the main Software Companies are working o
 Well, after searching the internet, the result is a first version of the PaaS list.
 
 ### PaaS
-1. Zato 
-* https://zato.io
-* Open-source ESB, SOA, REST, APIs and cloud integrations in Python.
-2. Flynn 
-* https://flynn.io
+1. [Zato](https://zato.io)
+   * Open-source ESB, SOA, REST, APIs and cloud integrations in Python.
+2. [Flynn](https://flynn.io) 
 * Runs anything that can run on Linux, not just stateless web apps. Includes built-in database appliances (just PostgreSQL right now) and handles TCP traffic as well as HTTP and HTTPS.
-* Supports Java, Go, Node.js, PHP, Python and Ruby as languages.
-3. Deis 
-* http://deis.io
-* Open source PaaS that makes it easy to deploy and manage applications on your own servers. Deis builds upon Docker and CoreOS to provide a lightweight PaaS with a Heroku-inspired workflow.
-* Deis can deploy any language or framework using Docker. If you don't use Docker, Deis also includes Heroku buildpacks for Ruby, Python, Node.js, Java, Clojure, Scala, Play, PHP, Perl, Dart and Go.
-4. Tsuru 
-* https://tsuru.io
-* https://github.com/tsuru/tsuru
-* Tsuru goes beyond 12 factor apps. Run any application written in any language or framework (Python, Ruby, Go, Java, PHP and it's extensible).
-5. Nanobox 
-* https://desktop.nanobox.io
-* https://github.com/nanobox-io/nanobox
-* Nanobox allows you to stop configuring environments and just code. It guarantees that any project you start will work the same for anyone else collaborating on the project. When it's time to launch the project, you'll know that your production app will work, because it already works on nanobox.
-* Nanobox detects your app type and automatically configures the environment and installs everything your app needs to run (more of 15 programming languages and frameworks)
-6. Otto 
-* https://ottoproject.io
-* Development and Deployment Made Easy (successor to Vagrant).
-* Otto knows how to develop and deploy any application on any cloud platform, all controlled with a single consistent workflow to maximize the productivity of you and your team.
-7. Rack 
-* https://convox.com
-* https://github.com/convox/rack
-* A Convox Rack is a private Platform-as-a-Service (PaaS). It gives you a place to deploy your web applications and mobile backends without having to worry about managing servers, writing complex deployment recipes, or monitoring process uptime. We call this platform a "Rack".
-8. Empire 
-* http://engineering.remind.com
-* https://github.com/remind101/empire
-* Empire is a control layer on top of Amazon EC2 Container Service (ECS) that provides a Heroku like workflow. It conforms to a subset of the Heroku Platform API, which means you can use the same tools and processes that you use with Heroku, but with all the power of EC2 and Docker.
-9. Dokku 
-* http://dokku.viewdocs.io/dokku
-* The smallest PaaS implementation you've ever seen.
-* Powered by Docker, you can install Dokku on any hardware. Use it on inexpensive cloud providers.
-* Dokku by default does not provide any datastores such as MySQL or PostgreSQL. You will need to install plugins to handle that.
-  10. Gondor 
-* https://gondor.io
-* Managed Python hosting with command-line deployment and support for PostgreSQL, Redis, Celery, Elasticsearch and more.
-  11. AppFog 
-* https://www.ctl.io/appfog
-* AppFog, CenturyLink's Platform-as-a-Service (PaaS) based on Cloud Foundry, enables developers to focus on writing great cloud-based applications without having to worry about managing the underlying infrastructure.
+   * Supports Java, Go, Node.js, PHP, Python and Ruby as languages.
+3. [Deis](http://deis.io)
+   * Open source PaaS that makes it easy to deploy and manage applications on your own servers. Deis builds upon Docker and CoreOS to provide a lightweight PaaS with a Heroku-inspired workflow.
+   * Deis can deploy any language or framework using Docker. If you don't use Docker, Deis also includes Heroku buildpacks for Ruby, Python, Node.js, Java, Clojure, Scala, Play, PHP, Perl, Dart and Go.
+4. [Tsuru](https://tsuru.io)
+   * https://github.com/tsuru/tsuru
+   * Tsuru goes beyond 12 factor apps. Run any application written in any language or framework (Python, Ruby, Go, Java, PHP and it's extensible).
+5. [Nanobox](https://desktop.nanobox.io)
+   * https://github.com/nanobox-io/nanobox
+   * Nanobox allows you to stop configuring environments and just code. It guarantees that any project you start will work the same for anyone else collaborating on the project. When it's time to launch the project, you'll know that your production app will work, because it already works on nanobox.
+   * Nanobox detects your app type and automatically configures the environment and installs everything your app needs to run (more of 15 programming languages and frameworks)
+6. [Otto](https://ottoproject.io) 
+   * Development and Deployment Made Easy (successor to Vagrant).
+   * Otto knows how to develop and deploy any application on any cloud platform, all controlled with a single consistent workflow to maximize the productivity of you and your team.
+7. [Rack](https://convox.com) 
+   * https://github.com/convox/rack
+   * A Convox Rack is a private Platform-as-a-Service (PaaS). It gives you a place to deploy your web applications and mobile backends without having to worry about managing servers, writing complex deployment recipes, or monitoring process uptime. We call this platform a "Rack".
+8. [Empire](http://engineering.remind.com)
+   * https://github.com/remind101/empire
+   * Empire is a control layer on top of Amazon EC2 Container Service (ECS) that provides a Heroku like workflow. It conforms to a subset of the Heroku Platform API, which means you can use the same tools and processes that you use with Heroku, but with all the power of EC2 and Docker.
+9. [Dokku](http://dokku.viewdocs.io/dokku)
+   * The smallest PaaS implementation you've ever seen.
+   * Powered by Docker, you can install Dokku on any hardware. Use it on inexpensive cloud providers.
+   * Dokku by default does not provide any datastores such as MySQL or PostgreSQL. You will need to install plugins to handle that.
+10. [Gondor](https://gondor.io)
+   * Managed Python hosting with command-line deployment and support for PostgreSQL, Redis, Celery, Elasticsearch and more.
+11. [AppFog](https://www.ctl.io/appfog)
+   * AppFog, CenturyLink's Platform-as-a-Service (PaaS) based on Cloud Foundry, enables developers to focus on writing great cloud-based applications without having to worry about managing the underlying infrastructure.
 
 ### Microservices frameworks
-1. Dropwizard 
-* http://www.dropwizard.io
-* Dropwizard pulls together stable, mature libraries from the Java ecosystem into a simple, light-weight package that lets you focus on getting things done.
-* Dropwizard has out-of-the-box support for sophisticated configuration, application metrics, logging, operational tools, and much more, allowing you and your team to ship a production-quality web service in the shortest time possible.
-2. Ratpack 
-* https://ratpack.io
-* Ratpack is a set of Java libraries for building modern HTTP applications. It provides just enough for writing practical, high performance, apps. It is built on Java 8, Netty and reactive principles.
-3. Spark 
-* http://sparkjava.com
-* Spark - A micro framework for creating web applications in Java 8 with minimal effort
-4. Vertx 
-* http://vertx.io
-* Vert.x is event driven and non blocking. This means your app can handle a lot of concurrency using a small number of kernel threads. Vert.x lets your app scale with minimal hardware.
-* You can use Vert.x with multiple languages including Java, JavaScript, Groovy, Ruby, and Ceylon.
-5. Seneca 
-* http://senecajs.org
-* Seneca is a microservices toolkit for Node.js. It helps you write clean, organized code that you can scale and deploy at any time.
-6. Kong 
-* https://getkong.org
-* Kong is a scalable, open source API Layer (also known as an API Gateway, or API Middleware). Kong runs in front of any RESTful API and is extended through Plugins, which provide extra functionalities and services beyond the core platform.
-* Kong is built on top of reliable technologies like NGINX and Apache Cassandra, and provides you with an easy to use RESTful API to operate and configure the system.
-7. Unirest 
-* http://unirest.io
-* Unirest is a set of lightweight HTTP libraries available in multiple languages (Node.js, Ruby, PHP, Java, Python, Objective-C, .Net).
+1. [Dropwizard](http://www.dropwizard.io)
+  * Dropwizard pulls together stable, mature libraries from the Java ecosystem into a simple, light-weight package that lets you focus on getting things done.
+  * Dropwizard has out-of-the-box support for sophisticated configuration, application metrics, logging, operational tools, and much more, allowing you and your team to ship a production-quality web service in the shortest time possible.
+2. [Ratpack](https://ratpack.io)
+  * Ratpack is a set of Java libraries for building modern HTTP applications. It provides just enough for writing practical, high performance, apps. It is built on Java 8, Netty and reactive principles.
+3. [Spark](http://sparkjava.com)
+  * Spark - A micro framework for creating web applications in Java 8 with minimal effort
+4. [Vertx](http://vertx.io)
+  * Vert.x is event driven and non blocking. This means your app can handle a lot of concurrency using a small number of kernel threads. Vert.x lets your app scale with minimal hardware.
+  * You can use Vert.x with multiple languages including Java, JavaScript, Groovy, Ruby, and Ceylon.
+5. [Seneca](http://senecajs.org)
+  * Seneca is a microservices toolkit for Node.js. It helps you write clean, organized code that you can scale and deploy at any time.
+6. [Kong](https://getkong.org)
+  * Kong is a scalable, open source API Layer (also known as an API Gateway, or API Middleware). Kong runs in front of any RESTful API and is extended through Plugins, which provide extra functionalities and services beyond the core platform.
+  * Kong is built on top of reliable technologies like NGINX and Apache Cassandra, and provides you with an easy to use RESTful API to operate and configure the system.
+7. [Unirest](http://unirest.io)
+  * Unirest is a set of lightweight HTTP libraries available in multiple languages (Node.js, Ruby, PHP, Java, Python, Objective-C, .Net).
 
 ## 4\. Conclusions
 * As you can see, the trend is to provide a set of tools to do more easy the application development on-premise or/and on-cloud. The idea behind is to remove all the repetitive tasks encountered when creating web applications and web services (aspects related to infrastructure and operations from setting up servers, scaling, configuration, security and backups), the `Pre-Shaved Yaks` concept was introduced. 

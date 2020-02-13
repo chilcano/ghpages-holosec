@@ -7,40 +7,37 @@ tags:       ['Apache Cassandra', 'Kismet', 'Privacy', 'Raspberry Pi']
 status:     publish 
 permalink:  "/2016/02/04/everything-generates-data-capturing-wifi-anonymous-traffic-using-raspberry-pi-and-wso2-bam-part-ii/"
 ---
-After configuring the Raspberry Pi to capture WIFI/802.11 traffic ([first blog post](https://holisticsecurity.wordpress.com/2016/02/02/everything-generates-data-capturing-wifi-anonymous-traffic-raspberrypi-wso2-part-i)), we have to store this traffic in a Database (NoSQL and RDBMS).  
-Because, the idea is to process in real-time and/or batch the stored data.
-To capture this type of traffic (WIFI/802.11 traffic) is so difficult for next reasons:
+After configuring the Raspberry Pi to capture WIFI/802.11 traffic ([first blog post](/2016/02/02/everything-generates-data-capturing-wifi-anonymous-traffic-raspberrypi-wso2-part-i)), we have to store this traffic in a Database (NoSQL and RDBMS). The idea is to process in real-time and/or batch the stored data.
+
+[![Architecture IoT/BigData – Storing WIFI traffic in Apache Cassandra (WSO2 BAM and Apache Thrift)](/assets/chilcano-02-raspberrypi-bigdata-wifi-thrift-1-architecture.png){:width="70%"}](/assets/chilcano-02-raspberrypi-bigdata-wifi-thrift-1-architecture.png){:target="_blank"}
+
+To capture the `WIFI/802.11` traffic is so difficult and in this second blog post I will explain how to address next difficults:  
 * Kismet captures 802.11 layer-2 wireless network traffic (Network IP blocks such as TCP, UDP, ARP, and DHCP packets) what should be decoded.
 * The traffic should be captured and stored in real-time, we have to use a protocol optimized to capture quickly and low latency.
 * The library that implements that protocol should have low memory footprint, because Kismet will run in a Raspberry Pi.
 * The protocol to be used should be developer-friendly in both sides (Raspberry Pi side and WSO2 BAM - Apache Cassandra side).
-Well, in this second blog post I will explain how to solve above difficults.  
-
-![Architecture IoT/BigData – Storing WIFI traffic in Apache Cassandra \(WSO2 BAM and Apache Thrift\)]({{ site.baseurl }}/assets/chilcano-02-raspberrypi-bigdata-wifi-thrift-1-architecture.png)  
- _Architecture IoT/BigData – Storing WIFI traffic in Apache Cassandra (WSO2 BAM and Apache Thrift)_
 
 <!-- more -->
-
 
 ## I.- Looking for the Streaming and/or Communication Protocol
 
 There are some stream and communication protocols and implementations
 Really, there are many libraries and streaming protocols out there to solve the above issues, but if you are looking for a protocol/library open source, lightweight, low memory footprint and developer friendly there are a few. They are:
 
-**1) Elastic Logstash (https://www.elastic.co/products/logstash)**
+**1) [Elastic Logstash](https://www.elastic.co/products/logstash)**
 
 Logstash is a set of tools to collect heterogeneous type of data and It's to used with Elasticsearch, It requires Java and for this reason It is too heavy to run in a Raspberry Pi. The best choice is to use only `Logstash Forwarder`.  
 
 [`Logstash Forwarder` (a.k.a. `lumberjack`)](https://github.com/elastic/logstash-forwarder) is the protocol used to ship, parse and collect streams or log-events when using ELK.  
 `Logstash Forwarder` can be downloaded and compiled using the Go compiler on your Raspberry Pi, [for further information you can use this link](http://michaelblouin.ca/blog/2015/06/08/build-run-logstash-forwarder-rasperry-pi).
 
-**2) Elastic Filebeat (https://github.com/elastic/beats/tree/master/filebeat)**
+**2) [Elastic Filebeat](https://github.com/elastic/beats/tree/master/filebeat)**
 
 >  Filebeat is a lightweight, open source shipper for log file data. As the next-generation [`Logstash Forwarder`](https://github.com/elastic/logstash-forwarder), Filebeat tails logs and  
 >  quickly sends this information to Logstash for further parsing and enrichment or to Elasticsearch for centralized storage and analysis.  
 Installing and configuring `Filebeat` is easy and you can use It with Logstash to perform additional processing on the data collected and the `Filebeat` replaces `Logstash Forwarder`.
 
-**3) Apache Flume (https://flume.apache.org)**
+**3) [Apache Flume](https://flume.apache.org)**
 
 >  Flume is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of  
 >  log data. It has a simple and flexible architecture based on streaming data flows. It is robust and fault tolerant with tunable  
@@ -48,7 +45,7 @@ Installing and configuring `Filebeat` is easy and you can use It with Logstash t
 >  analytic application.  
 `Apache Flume` used Java and requires high (memory and CPU) resources.
 
-**4) Mozilla Heka (https://github.com/mozilla-services/heka)**
+**4) [Mozilla Heka](https://github.com/mozilla-services/heka)**
 
 > Heka is an open source stream processing software system developed by Mozilla. Heka is a “Swiss Army Knife” type tool for data  
 >  processing, useful for a wide variety of different tasks, such as:
@@ -60,13 +57,13 @@ Installing and configuring `Filebeat` is easy and you can use It with Logstash t
 >   * Delivering processed data to one or more persistent data stores.
 `Mozilla Heka` is very similar to `Logstash Forwarder`, both are written in Go, but `Mozilla Heka` can process the log-events in real-time also Heka is also able to provide graphs of this data directly, those are great advantages. These graphs will be updated in real time, as the data is flowing through Heka, without the latency of the data store driven graphs.
 
-**5) Fluentd (https://github.com/fluent/fluentd)**
+**5) [Fluentd](https://github.com/fluent/fluentd)**
 
 > Fluentd is similar to Logstash in that there are inputs and outputs for a large variety of sources and destination. Some of it’s design tenets  
 >  are easy installation and small footprint. It doesn’t provide any storage tier itself but allows you to easily configure where your logs should  
 >  be collected. 
 
-**6) Apache Thrift (https://thrift.apache.org)**
+**6) [Apache Thrift](https://thrift.apache.org)**
 
 > Thrift is an interface definition language and binary communication protocol[1] that is used to define and create services for numerous languages.  
 >  It is used as a remote procedure call (RPC) framework and was developed at Facebook for "scalable cross-language services development". It  

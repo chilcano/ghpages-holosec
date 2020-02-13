@@ -9,12 +9,11 @@ permalink:  "/2016/02/02/everything-generates-data-capturing-wifi-anonymous-traf
 ---
 Yes, in this digital world, everything generates data, but before to do `BigData`, you have to follow these steps:
 
- **1. Capture** : Acquires, Integrates data.  
- **2. Store** : Classification, Consolidate, Transformation, Storage Design, etc.  
- **3. Analysis** : Exploration, visualization, modeling, prediction, etc.
+ 1. **Capture**: Acquires, Integrates data.  
+ 2. **Store**: Classification, Consolidate, Transformation, Storage Design, etc.  
+ 3. **Analysis**: Exploration, visualization, modeling, prediction, etc.
 
-![Architecture - Capturing WIFI anonymous traffic using Raspberry Pi and WSO2 BAM and WSO2 CEP]({{ site.baseurl }}/assets/chilcano-raspberrypi-bigdata-wifi-2-arch.png)  
- _Everything generates data - Capturing WIFI anonymous traffic using Raspberry Pi and WSO2 BAM and WSO2 CEP_
+[![Architecture - Capturing WIFI anonymous traffic using Raspberry Pi and WSO2 BAM and WSO2 CEP](/assets/chilcano-raspberrypi-bigdata-wifi-2-arch.png){:width="70%"}](/assets/chilcano-raspberrypi-bigdata-wifi-2-arch.png){:target="_blank"}
 
 <!-- more -->
 

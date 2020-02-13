@@ -8,18 +8,21 @@ status:     publish
 permalink:  "/2016/03/04/mac-address-manufacturer-restful-python-microservice-docker/"
 ---
 A MAC address, also called physical address, is a unique identifier assigned to every network interfaces for communications on the physical network segment. In other words, you can identify the manufacturer of your device through your pyshical address.  
-There are different tools on the Internet that allow you to identify the manufacturer from the MAC Address. How in my 3 previous post I wrote about how to capture the wireless traffic and all MAC Address, now in this post I will explain how to implement a Docker container exposing a Rest API to get the Manufacturer from the captured MAC Address.  
-As everything should be lightweight, minimalist, easy to use and auto-contained, I'm going to use the next:  
-\- `Python` as lightweight and powerful programming language.  
-\- `Flask` (http://flask.pocoo.org) is a microframework for Python based on Werkzeug and Jinja 2. I will use `Flask` to implement a mini-web application.  
-\- `SQLAlchemy` (http://www.sqlalchemy.org/) is a Python SQL toolkit and ORM.  
-\- `SQLite3` (https://www.sqlite.org) is a software library that implements a self-contained, serverless, zero-configuration, transactional SQL database engine.  
-\- `pyOpenSSL` library to work with X.509 certificates. Required to start the embedded Webserver on HTTPS (TLS).  
-\- `CORS extension for Flask` (https://flask-cors.readthedocs.org) useful to solve cross-domain Ajax request issues.
+There are different tools on the Internet that allow you to identify the manufacturer from the MAC Address. I previous post I wrote about how to capture the wireless traffic and all MAC Address, now in this post I will explain how to implement a Docker container exposing a Rest API to get the Manufacturer from the captured MAC Address.  
 
-![The MAC Address Manufacturer Lookup Docker Container]({{ site.baseurl }}/assets/chilcano_docker_microservice_mac_address_manuf_lookup_2.png)
+[![The MAC Address Manufacturer Lookup Docker Container](/assets/chilcano_docker_microservice_mac_address_manuf_lookup_2.png){:width="70%"}](/assets/chilcano_docker_microservice_mac_address_manuf_lookup_2.png){:target="_blank"}
 
 <!-- more -->
+
+As everything should be lightweight, minimalist, easy to use and auto-contained, I'm going to use the next:  
+
+- `Python` as lightweight and powerful programming language.  
+- `Flask` (http://flask.pocoo.org) is a microframework for Python based on Werkzeug and Jinja 2. I will use `Flask` to implement a mini-web application.  
+- `SQLAlchemy` (http://www.sqlalchemy.org/) is a Python SQL toolkit and ORM.  
+- `SQLite3` (https://www.sqlite.org) is a software library that implements a self-contained, serverless, zero-configuration, transactional SQL database engine.  
+- `pyOpenSSL` library to work with X.509 certificates. Required to start the embedded Webserver on HTTPS (TLS).  
+- `CORS extension for Flask` (https://flask-cors.readthedocs.org) useful to solve cross-domain Ajax request issues.
+
 
 This Docker container provides a Microservice (API Rest) to MAC Address Manufacturer resolution. This Docker container is part of the "Everything generates Data: Capturing WIFI Anonymous Traffic using Raspberry Pi and WSO2 BAM" blog serie ([Part I](http://ow.ly/YcEf1), [Part II](http://ow.ly/YcEgz) & [Part III](http://ow.ly/YcEij)), but you can use it independently as part of other set of Docker containers.
 This Docker Container will work in this scenario, as shown above image. Then, let's do it.
@@ -72,15 +75,10 @@ I have created 2 Python scripts to implement the API Rest.
 The first one ([`mac_manuf_table_def.py`](https://github.com/chilcano/docker-mac-address-manuf-lookup/blob/master/python/latest/mac_manuf_table_def.py)) is just a `Model` of the `MacAddressManuf` table.
 
 ```python  
-
 #!/usr/bin/python  
-
 # -*- coding: utf-8 -*-  
-
 #  
-
 # file name: mac_manuf_table_def.py  
-
 #
 
 from sqlalchemy import create_engine, ForeignKey  
@@ -90,11 +88,8 @@ engine = create_engine('sqlite:///mymusic.db', echo=True)
 Base = declarative_base()
 
 #  
-
 # Model for 'MacAddressManuf':  
-
 # used for API Rest to get access to data from DB  
-
 #  
 class MacAddressManuf(Base):  
 """"""  
@@ -111,15 +106,10 @@ self.manuf_desc = manuf_desc
 And second Python script ([`mac_manuf_api_rest.py`](https://github.com/chilcano/docker-mac-address-manuf-lookup/blob/master/python/latest/mac_manuf_api_rest.py)) implements the API Rest. You can review the
 
 ```python  
-
 #!/usr/bin/python  
-
 # -*- coding: utf-8 -*-  
-
 #  
-
 # file name: mac_manuf_api_rest.py  
-
 #
 
 import os, re  
@@ -137,13 +127,9 @@ app = Flask(__name__)
 cors = CORS(app, resources={r"/chilcano/api/*": {"origins": "*"}})
 
 #  
-
 # API Rest:  
-
 # i.e. curl -i http://localhost:5000/chilcano/api/manuf/00:50:5a:e5:6e:cf  
-
 # i.e. curl -ik https://localhost:5443/chilcano/api/manuf/00:50:5a:e5:6e:cf  
-
 #  
 
 @app.route("/chilcano/api/manuf/<string:macAddress>", methods=["GET"])  
@@ -171,7 +157,6 @@ if __name__ == "__main__":
 if HTTPS_ENABLED == "true":  
 
 # 'adhoc' means auto-generate the certificate and keypair  
-
 app.run(host="0.0.0.0", port=5443, ssl_context="adhoc", threaded=True, debug=True)  
 else:  
 app.run(host="0.0.0.0", port=5000, threaded=True, debug=True)  
@@ -255,9 +240,7 @@ But if you want to run in Production. In the `Flask` webpage (http://flask.pocoo
 The latest version of the MAC Address Manufacturer lookup Docker container is the `python-latest` (aka `Docker MAC Manuf`) and has the next Dockerfile:
 
 ```sh  
-
 # Dockerfile to MAC Address Manufacturer Lookup container.
-
 FROM python:2.7
 MAINTAINER Roger CARHUATOCTO <chilcano at intix dot info>
 RUN pip install --upgrade pip  
@@ -268,7 +251,6 @@ RUN pip install pyOpenSSL
 RUN pip install -U flask-cors
 
 # Allocate the 5000/5443 to run a HTTP/HTTPS server  
-
 EXPOSE 5000 5443
 COPY mac_manuf_wireshark_file.py /  
 COPY mac_manuf_table_def.py /  

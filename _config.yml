@@ -40,7 +40,7 @@ header_pages:
   - about.md
 
 ## Pagination for blog posts: https://jekyllrb.com/docs/pagination/
-paginate: 5
+paginate: 10
 paginate_path: "/blog/pg:num"
 
 ## Excerpts

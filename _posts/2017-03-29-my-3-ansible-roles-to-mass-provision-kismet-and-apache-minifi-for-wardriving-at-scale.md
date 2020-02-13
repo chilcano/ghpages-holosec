@@ -7,9 +7,9 @@ tags:       ['Ansible', 'Apache MiNiFi', 'Apache NiFi', 'Raspberry Pi']
 status:     publish 
 permalink:  "/2017/03/29/my-3-ansible-roles-to-mass-provision-kismet-and-apache-minifi-for-wardriving-at-scale/"
 ---
-This blog post is implementing the same scenario used in the previous post [Mass provisioning of Kismet and Apache MiNiFi in Raspberry Pi using Ansible](https://holisticsecurity.io/2017/03/20/mass-provisioning-of-kismet-and-apache-minifi-in-raspberry-pi-using-ansible). The unique difference is this new blog post I'm using [Ansible Roles](http://docs.ansible.com/ansible/playbooks_roles.html) instead of Ansible Playbooks where all automated operations as install, configure, run, etc. were implemented in Ansible Tasks.
+This blog post is implementing the same scenario used in the previous post [Mass provisioning of Kismet and Apache MiNiFi in Raspberry Pi using Ansible](/2017/03/20/mass-provisioning-of-kismet-and-apache-minifi-in-raspberry-pi-using-ansible). The unique difference is this new blog post I'm using [Ansible Roles](http://docs.ansible.com/ansible/playbooks_roles.html) instead of Ansible Playbooks where all automated operations as install, configure, run, etc. were implemented in Ansible Tasks.
 
-![https://holisticsecurity.files.wordpress.com/2017/03/mass-provisioning-kismet-minifi-raspberrypi-ansible-2-pkg.png]({{ site.baseurl }}/assets/mass-provisioning-kismet-minifi-raspberrypi-ansible-2-pkg.png)
+[![](/assets/mass-provisioning-kismet-minifi-raspberrypi-ansible-2-pkg.png){:width="70%"}](/assets/mass-provisioning-kismet-minifi-raspberrypi-ansible-2-pkg.png){:target="_blank"}
 
 <!-- more -->
 

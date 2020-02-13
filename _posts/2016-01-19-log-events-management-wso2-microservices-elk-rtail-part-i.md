@@ -12,7 +12,7 @@ The log event management is a task very important when working with (Micro)servi
 * You have to collect and query your logs in real time if you think your Application is critical.  
 * You have to `manage` in agile way the life cycle of your data (your logs), they are an asset very important for your Organization.
 
-![Kibana - Viewing WSO2 and Wiremock raw log events]({{ site.baseurl }}/assets/blog-chilcano-logs-wso2-docker-elk-rtail-0-architecture.png)Collecting WSO2 and Wiremock log events with ELK and rTail
+![Kibana - Viewing WSO2 and Wiremock raw log events](/assets/blog-chilcano-logs-wso2-docker-elk-rtail-0-architecture.png)
 
 <!-- more -->
 
@@ -20,16 +20,17 @@ You should be agile, for this reason, [Elasticsearch-Logstash-Kibana](https://ww
 Really, there are many tools out there, opensource, commercial, on-cloud, such as log.io, Clarity, rTail, Tailon, frontail, etc. In my opinion, for a development environment, the most simple, fresh and lightweight tool is rTail (http://rtail.org), with rTail I can collect different log files, track and visualize them from a Browser in real time. rTail is very easy to use, just install NodeJS and deploy rTail application and you will be ready to send any type of traces to Browser directly avoiding store/persist logs, index and parse/filter them.  
 Well, this first blog post I will explain how to use ELK to collect, store and view the different log event of WSO2 ESB, API Manager, DSS, GREG and Wiremock.
 
-## Part I: ELK (Elasticsearch, Logstash, Kibana)
+## ELK (Elasticsearch, Logstash, Kibana)
 
 ### 1\. Starting with ELK Docker Container
 
 **1) Prepare the ELK container**
 
 We gonna use an existing Docker Image with ELK created by [Sébastien Pujadas](https://github.com/spujadas) `(http://elk-docker.readthedocs.org)` previously configured ready to be used. This Docker Image contains:  
-\- Elasticsearch (version 2.1.1)  
-\- Logstash (version 2.1.1)  
-\- Kibana (version 4.3.1)
+- Elasticsearch (version 2.1.1)  
+- Logstash (version 2.1.1)  
+- Kibana (version 4.3.1)
+
 Then, let's do it. Start the Docker daemon and login Docker Hub:
 
 ```sh  
@@ -64,25 +65,15 @@ waiting for Elasticsearch to be up (7/30)
 * Starting Kibana4 [ OK ]  
 
 [2016-01-14 08:48:01,215][INFO ][node ] [Zero] initialized  
-
 [2016-01-14 08:48:01,216][INFO ][node ] [Zero] starting ...  
-
 [2016-01-14 08:48:01,259][WARN ][common.network ] [Zero] publish address: {0.0.0.0} is a wildcard address, falling back to first non-loopback: {172.17.0.2}  
-
 [2016-01-14 08:48:01,259][INFO ][transport ] [Zero] publish_address {172.17.0.2:9300}, bound_addresses {[::]:9300}  
-
 [2016-01-14 08:48:01,297][INFO ][discovery ] [Zero] elasticsearch/vyxjAXavQbOnh7uA7HO_7g  
-
 [2016-01-14 08:48:04,341][INFO ][cluster.service ] [Zero] new_master {Zero}{vyxjAXavQbOnh7uA7HO_7g}{172.17.0.2}{172.17.0.2:9300}, reason: zen-disco-join(elected_as_master, [0] joins received)  
-
 [2016-01-14 08:48:04,365][WARN ][common.network ] [Zero] publish address: {0.0.0.0} is a wildcard address, falling back to first non-loopback: {172.17.0.2}  
-
 [2016-01-14 08:48:04,365][INFO ][http ] [Zero] publish_address {172.17.0.2:9200}, bound_addresses {[::]:9200}  
-
 [2016-01-14 08:48:04,365][INFO ][node ] [Zero] started  
-
 [2016-01-14 08:48:04,384][INFO ][gateway ] [Zero] recovered [0] indices into cluster_state  
-
 [2016-01-14 08:48:13,180][INFO ][cluster.metadata ] [Zero] [.kibana] creating index, cause [api], templates [], shards [1]/[1], mappings [config]  
 ```  
 
@@ -199,13 +190,13 @@ $ curl http://192.168.99.100:9200/_search?pretty
 ... and from the Kibana web console (`http://192.168.99.100:5601`) to view the incoming dummy log event. Before configure Kibana by creating a `Index Pattern` with `logstash-*` and `Time-field name: @timestamp`, as shown below:
 _Kibana - Creating a Index Pattern_  
 
-![Kibana - Creating a Index Pattern]({{ site.baseurl }}/assets/blog-chilcano-logs-wso2-docker-elk-rtail-1-kibana.png)  
+![Kibana - Creating a Index Pattern](/assets/blog-chilcano-logs-wso2-docker-elk-rtail-1-kibana.png)  
 _Kibana - Selecting the field of the new Index Pattern_  
 
-![Kibana - Selecting the field of the new Index Pattern]({{ site.baseurl }}/assets/blog-chilcano-logs-wso2-docker-elk-rtail-2-kibana-dummy-logs.png)  
+![Kibana - Selecting the field of the new Index Pattern](/assets/blog-chilcano-logs-wso2-docker-elk-rtail-2-kibana-dummy-logs.png)  
 _Kibana - Viewing a dummy log event_  
 
-![Kibana - Viewing a dummy log event]({{ site.baseurl }}/assets/blog-chilcano-logs-wso2-docker-elk-rtail-3-kibana-dummy-logs-discovery.png)
+![Kibana - Viewing a dummy log event](/assets/blog-chilcano-logs-wso2-docker-elk-rtail-3-kibana-dummy-logs-discovery.png)
 
 ### 2\. Sending WSO2 logs to the ELK Docker container
 
@@ -449,7 +440,7 @@ Go to `Kibana &gt; Settings`, add and create a new `Index Pattern` using the nex
 After that, go to `Kibana &gt; Discover` and select the recently created `filebeat-*` Index Pattern and You will see your logs/events.
 _Kibana - Viewing WSO2 and Wiremock raw log events_  
 
-![Kibana - Viewing WSO2 and Wiremock raw log events]({{ site.baseurl }}/assets/blog-chilcano-logs-wso2-docker-elk-rtail-4-kibana-esb-am-dss-wiremock-logs-discovery.png)
+![Kibana - Viewing WSO2 and Wiremock raw log events](/assets/blog-chilcano-logs-wso2-docker-elk-rtail-4-kibana-esb-am-dss-wiremock-logs-discovery.png)
 In the above figure, a raw log event for WSO2 API Manager in JSON format is like as below:
 
 ```sh  
@@ -488,6 +479,7 @@ In the above figure, a raw log event for WSO2 API Manager in JSON format is like
 As I said above, in a next blog post I will explain how to visualize the log events using filters to parse simple event and multiple events.
 That's all.  
 I hope you enjoyed it.
+
 **References:**  
-* Vagrant box with WSO2 stack and Wiremock (https://github.com/Chilcano/box-vagrant-wso2-dev-srv)  
-* Elasticsearch, Logstash, Kibana (ELK) Docker image by Sébastien Pujadas (https://github.com/spujadas/elk-docker)
+- Vagrant box with WSO2 stack and Wiremock (https://github.com/Chilcano/box-vagrant-wso2-dev-srv)  
+- Elasticsearch, Logstash, Kibana (ELK) Docker image by Sébastien Pujadas (https://github.com/spujadas/elk-docker)

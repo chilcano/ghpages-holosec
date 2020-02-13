@@ -10,7 +10,7 @@ permalink:  "/2016/04/12/provisioning-massively-crosscompiled-bin-rpi-armv7-usin
 If you are involved in an IoT or Mobile Application provisioning Project you probably need build a mechanism to spread your application binaries to all Devices on stock and to all the rolled out Devices.
 With this Proof-of-concept I will shown you how to build the app binary provisioning system for your custom platform, in this case I'm going to use Raspberry Pi (ARM processor) quickly avoiding perform unnecessary tasks and providing also an ARM cross-compiling platform.
 
-![blog-cross-compiling-kismet-raspberrypi-arm.png]({{ site.baseurl }}/assets/blog-cross-compiling-kismet-raspberrypi-arm.png)
+[![](/assets/blog-cross-compiling-kismet-raspberrypi-arm.png){:width="70%"}](/assets/blog-cross-compiling-kismet-raspberrypi-arm.png){:target="_blank"}
 
 <!-- more -->
 
