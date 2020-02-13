@@ -11,16 +11,11 @@ permalink:  "/2016/02/27/wardriving-wifi-pineapple-nano-mobile-world-congress-20
 
 The idea of this post is to do a quick wardriving around of the [Mobile World Congress at Barcelona](https://www.mobileworldcongress.com) to check if the attendants are aware about their Mobile Devices with the leak of information.  
 
-[![The arsenal at Mobile World Congress 2016 Barcelona - Wardriving with WIFI Pineapple Nano, Android & Kismet]({{ site.baseurl }}/assets/chilcano-00-android-gps-kismet-pineapple-adb.png)](http://holisticsecurity.io/2016/02/27/wardriving-wifi-pineapple-nano-mobile-world-congress-2016-barcelona/)
+[![The arsenal at Mobile World Congress 2016 Barcelona - Wardriving with WIFI Pineapple Nano, Android & Kismet](/assets/chilcano-00-android-gps-kismet-pineapple-adb.png)](/assets/chilcano-00-android-gps-kismet-pineapple-adb.png)
 
 <!-- more -->
 
-At the end, after wardriving, you will get the following files:
-* xyz.alert
-* xyz.gpsxml
-* xyz.netxml
-* xyz.pcapdump
-With above files you will can identify the Manufacturer of the device (or model), the geo-position and route followed aproximadely and other information related signal quality.
+At the end, after wardriving, you will get these files (`xyz.alert`, `xyz.gpsxml`, `xyz.netxml` and `xyz.pcapdump`), with these files you will can identify the Manufacturer of the device (or model), the geo-position and route followed aproximadely and other information related signal quality.
 
 ## The arsenal
 
