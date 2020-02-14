@@ -97,8 +97,8 @@ The criteria I'm going to use to select the tools are:
 
 <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRTLn8bLX-Sp6JEbKcJIludCb6wJbTM-5xV5te94srdYnmLYutCu9vcgmiWcc2taioH5cJcj2xXH_Ba/pubhtml?widget=true&amp;headers=false" width="800" height="800"></iframe>
 
-> [See whole Doc (ro)&nbsp;&gt;&gt;](/assets/pages/2020-02-10-security-along-the-container-based-sdlc-oss-tool-list-ro)  
-> [See whole Doc (rpo)&nbsp;&gt;&gt;](/assets/pages/2020-02-10-security-along-the-container-based-sdlc-oss-tool-list-rpo)  
+> [See whole Sheet (read only)&nbsp;&gt;&gt;](/assets/pages/2020-02-10-security-along-the-container-based-sdlc-oss-tool-list-ro)  
+> [See whole Sheet (read, download and print)&nbsp;&gt;&gt;](/assets/pages/2020-02-10-security-along-the-container-based-sdlc-oss-tool-list-rpo)  
 > If don't see a open source security product in the document that is worth being reviewed, please, drop me an email and I'll add to document and review it.
 
 ## Conclusions
