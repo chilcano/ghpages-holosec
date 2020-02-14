@@ -3,7 +3,7 @@ layout: post
 title:  "Building your own affordable K8s to host a Service Mesh - Part 2: External DNS and Ingress"
 date:   2020-01-22 10:00:00 +0100
 categories: ['cloud', 'apaas', 'service mesh'] 
-tags: ['aws', 'docker', 'kubernetes', 'data plane', 'external dns', 'ingress', 'nginx', 'microservice']
+tags: ['aws', 'docker', 'kubernetes', 'data plane', 'microservice', 'external dns', 'ingress', 'nginx']
 permalink: "/2020/01/22/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-part2-external-dns-ingress"
 comments: true
 ---

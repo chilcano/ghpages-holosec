@@ -3,7 +3,7 @@ layout: post
 title:  "Building your own affordable K8s to host a Service Mesh - Part 3: Certificate Manager"
 date:   2020-01-29 10:00:00 +0100
 categories: ['cloud', 'apaas', 'service mesh'] 
-tags: ['aws', 'docker', 'kubernetes', 'data plane', 'microservice', 'x509', 'certificate', 'pki', 'tls']
+tags: ['aws', 'docker', 'kubernetes', 'data plane', 'microservice', 'x509', 'pki']
 permalink: "/2020/01/29/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-part3-certificate-manager"
 comments: true
 ---

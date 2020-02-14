@@ -13,7 +13,6 @@ understand the topology of your applications
 https://skywalking.apache.org
 
 
-
 Service mesh observability and configuration
 https://kiali.io/
 
@@ -30,9 +29,9 @@ Using Service Map solution in Azure
 https://docs.microsoft.com/en-us/azure/azure-monitor/insights/service-map
 
 
-
 Grafana-based
 https://grafana.com/grafana/plugins/devopsprodigy-kubegraf-app?utm_sq=gasn67je8f
+
 
 K9s (CUI - text based console)
 https://blog.alexellis.io/k9s-the-kubernetes-cui-comes-to-openfaas/
