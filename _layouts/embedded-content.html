@@ -10,7 +10,7 @@
     {%- include header.html -%}
 
     <main class="page-content" aria-label="Content">
-     
+    <div class="wrapper">
 
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
             <header class="post-header">
@@ -28,23 +28,18 @@
               </p>
             </header>
           
-            <div class="post-content e-content" itemprop="articleBody">
+            <!-- moved out lines after main -->
 
-
-        {{ content }}
-
-
-            </div>
-
-            {%- if site.disqus.shortname -%}
-            {%- include disqus_comments.html -%}
-            {%- endif -%}
-        
-            <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
         </article>
 
-
+    </div>
     </main>
+
+      <!-- here -->
+      <div class="post-content e-content" itemprop="articleBody">
+      {{ content }}
+      </div>
+      <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
 
     {%- include footer.html -%}
 

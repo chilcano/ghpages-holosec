@@ -32,17 +32,15 @@ The above Secure-SDLC diagram was created using the classic [Systems development
 - Some thoughts picked from my [QA and Security in Development Process](https://www.slideshare.net/rcarhuatocto/qa-and-security-in-development-process){:target="_blank"} presented on July 2005 (Spanish).
 
 
-
 ## Security-related Techniques and Practices
 
 In the above picture you can see some security-related techniques and practices used in traditional security approaches that still can and must use. Yes, there are not nothing new. The only thing that changes are the tools. Below, at the end of post, you will see a list of *open source security tools* that can be used in each security technique proposed in the *Secure-SDLC*.
 
-**SAST (Static Application Security Testing)**, also known as “white box testing” has been around for more than a decade. It allows developers to find security vulnerabilities in the application source code earlier in the software development life cycle. It also ensures conformance to coding guidelines and standards without actually executing the underlying code.
-
-**DAST (Dynamic Application Security Testing)**, also known as “black box” testing, can find security vulnerabilities and weaknesses in a running application, typically web apps. It does that by employing fault injection techniques on an app, such as feeding malicious data to the software, to identify common security vulnerabilities, such as SQL injection and cross-­site scripting. DAST can also cast a spotlight in runtime problems that can’t be identified by static analysis­­ for example, authentication and server configuration issues, as well as flaws visible only when a known user logs in.
+**SAST (Static Application Security Testing)**, also known as “white box testing” has been around for more than a decade.  
+**DAST (Dynamic Application Security Testing)**, also known as “black box” testing, can find security vulnerabilities and weaknesses in a running application, typically web apps. 
 > [https://en.wikipedia.org/wiki/Dynamic_application_security_testing](https://en.wikipedia.org/wiki/Dynamic_application_security_testing){:target="_blank"}
 
-**IAST (Interactive Application Security Testing)**. Because both SAST and DAST are older technologies, there are those who argue they lack what it takes to secure modern web and mobile apps. For example, SAST has a difficult time dealing with libraries and frameworks found in modern apps. That’s because static tools only see the application source code they can follow. What’s more, libraries and third­party components often cause static tools to choke, producing “lost sources” and “lost sinks” messages. The same is true for frameworks. Run a static tool on an API, web service or REST endpoint, and it won’t find anything wrong in them because it can’t understand the framework.
+**IAST (Interactive Application Security Testing)**.
 > [https://en.wikipedia.org/wiki/Application_security](https://en.wikipedia.org/wiki/Application_security){:target="_blank"}
 
 **RASP (Run-time Application Security Protection)**. Run­time Application Security Protection, works inside the application, but it is less a testing tool and more a security tool. It's plugged into an application or its run­time environment and can control application execution. That allows RASP to protect the app even if a network's perimeter defenses are breached and the apps contain security vulnerabilities missed by the development team. RASP lets an app run continuous security checks on itself and respond to live attacks by terminating an attacker’s session and alerting defenders to the attack.
@@ -95,10 +93,12 @@ The criteria I'm going to use to select the tools are:
 3. Recommended to be used with The Best Security Practices (OWASP, NIST, CIS, etc.)
 4. Open Source.
 
+[](){:name="oss-doc-link"}
+
 <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRTLn8bLX-Sp6JEbKcJIludCb6wJbTM-5xV5te94srdYnmLYutCu9vcgmiWcc2taioH5cJcj2xXH_Ba/pubhtml?widget=true&amp;headers=false" width="800" height="800"></iframe>
 
-> [See whole document](/assets/pages/2020-02-10-security-along-the-container-based-sdlc-oss-tools-list){:target="_blank"}  
->  
+> [See whole Doc (ro)&nbsp;&gt;&gt;](/assets/pages/2020-02-10-security-along-the-container-based-sdlc-oss-tool-list-ro)  
+> [See whole Doc (rpo)&nbsp;&gt;&gt;](/assets/pages/2020-02-10-security-along-the-container-based-sdlc-oss-tool-list-rpo)  
 > If don't see a open source security product in the document that is worth being reviewed, please, drop me an email and I'll add to document and review it.
 
 ## Conclusions
