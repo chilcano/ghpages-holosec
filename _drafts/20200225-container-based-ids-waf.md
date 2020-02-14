@@ -1,10 +1,10 @@
 ---
-layout: post
-title:  "Container-based Intrusion Detection System"
-date:   2020-02-12 10:00:00 +0100
+layout:     post
+title:      "Container-based Intrusion Detection System and WAF"
+#date:       2020-02-25 11:00:00 +0100
 categories: ['cloud', 'apaas', 'service mesh','sdlc', 'observability'] 
-tags: ['kubernetes', 'docker', 'microservice', 'log', 'monitoring']
-permalink: "/2020/02/12/container-based-intrusion-detection-system"
+tags:       ['kubernetes', 'docker', 'microservice', 'log', 'monitoring']
+permalink:  "/2020/02/25/container-based-ids-waf"
 ---
 
 Sysdig + logs: Advanced log analysis made easy. / Loris Degioanni / August 7, 2014
@@ -14,6 +14,7 @@ https://sysdig.com/blog/sysdig-plus-logs/
 Host Based Intrusion Prevention And Detection For Docker / 08 December 2018
 https://nullsweep.com/host-based-intrusion-prevention-and-detection-for-docker/
 
+<!-- more -->
 
 Project Falco: Sysdig Reengineered for Security Monitoring / 27 Dec 2016 7:12am, by Joab Jackson
 https://thenewstack.io/project-falco-sysdig-reengineered-security-monitoring/

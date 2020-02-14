@@ -1,10 +1,10 @@
 ---
-layout: post
-title:  "Visualizing Container-based Applications"
-date:   2020-02-20 10:00:00 +0100
+layout:     post
+title:      "Visualizing Container-based Applications"
+#date:       2020-02-20 10:00:00 +0100
 categories: ['cloud', 'apaas', 'service mesh','sdlc', 'observability'] 
-tags: ['kubernetes', 'docker', 'microservice', 'visualizing']
-permalink: "/2020/02/20/visualizing-container-based-applications"
+tags:       ['kubernetes', 'docker', 'microservice', 'visualizing']
+permalink:  "/2020/02/20/visualizing-container-based-applications"
 ---
 
 Application performance monitor tool for distributed systems, especially designed for microservices, cloud native and container-based (Docker, K8s, Mesos) architectures.
@@ -12,6 +12,7 @@ Application performance monitor tool for distributed systems, especially designe
 understand the topology of your applications
 https://skywalking.apache.org
 
+<!-- more -->
 
 Service mesh observability and configuration
 https://kiali.io/

@@ -1,10 +1,10 @@
 ---
-layout: post
-title:  "Container-based Applications, Messaging and Eventing"
-date:   2020-02-27 10:00:00 +0100
+layout:     post
+title:      "Container-based Applications, Messaging and Eventing"
+#date:       2020-03-12 10:00:00 +0100
 categories: ['cloud', 'apaas', 'service mesh','sdlc'] 
-tags: ['kubernetes', 'docker', 'microservice', 'api', 'messaging','eventing']
-permalink: "/2020/03/05/container-based-applications-messaging-eventing"
+tags:       ['kubernetes', 'docker', 'microservice', 'api', 'messaging','eventing']
+permalink:  "/2020/03/12/messaging-eventing"
 ---
 
 https://www.asyncapi.com/blog/asyncapi-cloud-events/
@@ -26,3 +26,4 @@ https://www.infoq.com/podcasts/kubernetes-event-driven-architecture/
 Open Source Serverless Cloud Platform
 https://openwhisk.apache.org/
 
+<!-- more -->
