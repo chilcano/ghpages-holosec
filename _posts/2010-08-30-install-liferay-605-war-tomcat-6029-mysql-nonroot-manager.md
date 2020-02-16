@@ -17,16 +17,16 @@ We will explain how to install Liferay 6.0.5 CE WAR bundle in an existing `Apach
 
 ![](/assets/blog20100830_liferay605war/liferay605war_1login.png)
 
-1. Download and install [Apache Tomcat 6.0.29](http://apache.rediris.es//tomcat/tomcat-6/v6.0.29/bin/apache-tomcat-6.0.29-windows-x86.zip) standard bundle (with Tomcat Manager included).
- ~~2. Copy `%TOMCAT_HOME%/webapps/ROOT` folder to `%TOMCAT_HOME%/webapps/liferay605` folder.~~
-3. Download `liferay-portal-6.0.5.war` and `liferay-portal-dependencies-6.0.5.zip`
-4. Unzip `liferay-portal-6.0.5.war` file and copy all content into the new Tomcat Context, in this example will be `%TOMCAT_HOME%/webapps/liferay605` folder.
-5. Unzip and copy all dependencies to ~~`%TOMCAT_HOME%/lib`~~ `%TOMCAT_HOME%/lib/ext`
-6. Download and copy `2` extra libraries ( `jta.jar` and `mail.jar` ) to ~~`%TOMCAT_HOME%/lib`~~ `%TOMCAT_HOME%/lib/ext`
-7. Create `liferay605.xml` file into `%TOMCAT_HOME%/conf/Catalina/localhost` folder. It looks like this:
+1. Download and install [Apache Tomcat 6.0.29](http://apache.rediris.es//tomcat/tomcat-6/v6.0.29/bin/apache-tomcat-6.0.29-windows-x86.zip) standard bundle (with Tomcat Manager included).  
+~~2. Copy `%TOMCAT_HOME%/webapps/ROOT` folder to `%TOMCAT_HOME%/webapps/liferay605` folder.~~  
+3. Download `liferay-portal-6.0.5.war` and `liferay-portal-dependencies-6.0.5.zip`.  
+4. Unzip `liferay-portal-6.0.5.war` file and copy all content into the new Tomcat Context, in this example will be `%TOMCAT_HOME%/webapps/liferay605` folder.  
+5. Unzip and copy all dependencies to ~~`%TOMCAT_HOME%/lib`~~ `%TOMCAT_HOME%/lib/ext`.  
+6. Download and copy `2` extra libraries ( `jta.jar` and `mail.jar` ) to ~~`%TOMCAT_HOME%/lib`~~ `%TOMCAT_HOME%/lib/ext`.  
+7. Create `liferay605.xml` file into `%TOMCAT_HOME%/conf/Catalina/localhost` folder. It looks like this:  
   ```xml  
   <Context path="" crossContext="true">  
-    <Resource  
+  <Resource  
       name="jdbc/LiferayPool"  
       auth="Container"  
       type="javax.sql.DataSource"  
@@ -35,11 +35,11 @@ We will explain how to install Liferay 6.0.5 CE WAR bundle in an existing `Apach
       username="root"  
       password=""  
       maxActive="20"  
-    />  
+  />  
   </Context>  
   ```  
   In my case, DB user is "root" with empty password. You must create an empty DB in MySQL before, for example "lportal605_db".
-8. Create `portal-ext.properties` into `%TOMCAT_HOME%/webapps/liferay605/WEB-INF/classes` folder. It looks like this:
+8. Create `portal-ext.properties` into `%TOMCAT_HOME%/webapps/liferay605/WEB-INF/classes` folder. It looks like this:  
   ```txt
   jdbc.default.jndi.name=jdbc/LiferayPool  
   portal.ctx=/liferay605  
@@ -56,7 +56,7 @@ We will explain how to install Liferay 6.0.5 CE WAR bundle in an existing `Apach
 Sometimes you need to deploy liferay in your favorite hosting provider but It is impossible because you can not change files of root context, in this case you can use only control panel of you ISP o Tomcat Manager.
 Tomcat Manager is included in standard Tomcat bundle but by default It is disabled. If you want to enable it, follow the next steps:
 
-![](/assets/liferay605war_2tomcatmanager.png)
+![](/assets/blog20100830_liferay605war/liferay605war_2tomcatmanager.png)
 
 1. Edit `%TOMCAT_HOME%/conf/tomcat-users.xml`
 2. Add user, for example:
