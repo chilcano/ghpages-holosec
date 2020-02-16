@@ -11,7 +11,6 @@ We will explain how to install Liferay 6.0.5 CE WAR bundle in an existing Apache
 
 ![](/assets/blog20100830_liferay605war/liferay_601.png)
 
-
 <!-- more -->
 
 ![](/assets/blog20100830_liferay605war/liferay605war_1login.png)
