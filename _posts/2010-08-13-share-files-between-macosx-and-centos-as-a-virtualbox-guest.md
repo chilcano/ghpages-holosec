@@ -11,7 +11,9 @@ Share files between two SO is easy because there are different protocols for sha
 
 <!-- more -->
 
-## Mount DVD ISO image in CentOS VirtualBox guest
+## Steps
+
+### Mount DVD ISO image in CentOS VirtualBox guest
 
 1. Previously, I have download DVD ISO image, then I have copied to my Mac OSX Host.
 2. From Virtual Box menu, goes to Devices > CD/DVD Devices and mount selecting CentOS's DVD ISO image (ISO previuosly added to VBox's "Virtual Media Manager").
@@ -34,7 +36,7 @@ Share files between two SO is easy because there are different protocols for sha
   > * -y: assume yes to any question which would be asked  
   > * --enablerepo=c5-media: enable c5-media repo  
 
-## Install Virtual Box Additions in CentOS guest
+### Install Virtual Box Additions in CentOS guest
 
 Before anything, It is necessary install some packages as compiler gcc, kernel libs and sources.
 
@@ -55,7 +57,7 @@ Before anything, It is necessary install some packages as compiler gcc, kernel l
 5. Restart CentOS guest again.
 6. Now you could use special functionalities as resize the guest windows, share files, etc...
 
-## Share files beetwen Mac OS X as Host and CentOS as Guest
+### Share files beetwen Mac OS X as Host and CentOS as Guest
 
 1. In your Host Linux box:
   ```sh
@@ -79,7 +81,7 @@ Before anything, It is necessary install some packages as compiler gcc, kernel l
   ```sh
   [root@localhost /]# mount -t vboxsf -o uid=0,gid=0 files2share /vbox_shared
   ```
-## Make the Mounted Share permanent
+### Make the Mounted Share permanent
 
 You can make the shared folder mount automatically each time you start the CentOS guest by making an entry in `/etc/fstab`.
 
