@@ -60,7 +60,6 @@ Tomcat Manager is included in standard Tomcat bundle but by default It is disabl
 
 1. Edit `%TOMCAT_HOME%/conf/tomcat-users.xml`
 2. Add user, for example:
-  
   ```xml  
   <?xml version='1.0' encoding='utf-8'?>  
     <tomcat-users>  
@@ -71,11 +70,11 @@ Tomcat Manager is included in standard Tomcat bundle but by default It is disabl
   ```  
 3. Run Tomcat and go to http://localhost:8080/manager
 4. Enter user and password configured in step 2.
-5. Log in to Liferay for example; in Tomcat Manager now you can see an opened session in liferay605 webapp context and to explore values stored in current session.
-  
+5. Log in to Liferay for example; in Tomcat Manager now you can see an opened session in liferay605 webapp context and to explore values stored in current session.  
   ![](/assets/blog20100830_liferay605war/liferay605war_3tomcatmanagerliferay.png)
-  
-6. End.
+
+
+End.
 
 **References** :
 * [Installing 5.2 SP3 WAR on Tomcat 6](http://www.liferay.com/es/community/wiki/-/wiki/Main/Installing+5.2+SP3+WAR+on+Tomcat+6)
