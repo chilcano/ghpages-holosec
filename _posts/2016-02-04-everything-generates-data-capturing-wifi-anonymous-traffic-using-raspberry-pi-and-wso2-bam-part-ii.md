@@ -9,7 +9,7 @@ permalink:  "/2016/02/04/everything-generates-data-capturing-wifi-anonymous-traf
 ---
 After configuring the Raspberry Pi to capture WIFI/802.11 traffic ([first blog post](/2016/02/02/everything-generates-data-capturing-wifi-anonymous-traffic-raspberrypi-wso2-part-i)), we have to store this traffic in a Database (NoSQL and RDBMS). The idea is to process in real-time and/or batch the stored data.
 
-[![Architecture IoT/BigData – Storing WIFI traffic in Apache Cassandra (WSO2 BAM and Apache Thrift)](/assets/chilcano-02-raspberrypi-bigdata-wifi-thrift-1-architecture.png){:width="70%"}](/assets/chilcano-02-raspberrypi-bigdata-wifi-thrift-1-architecture.png){:target="_blank"}
+[![)](/assets/blog20160203_iot_bigdata_wifi_kismet_wso2bam_2/chilcano-02-raspberrypi-bigdata-wifi-thrift-1-architecture.png){:width="70%"}](/assets/blog20160203_iot_bigdata_wifi_kismet_wso2bam_2/chilcano-02-raspberrypi-bigdata-wifi-thrift-1-architecture.png){:target="_blank"}  _Architecture IoT/BigData – Storing WIFI traffic in Apache Cassandra (WSO2 BAM and Apache Thrift_
 
 To capture the `WIFI/802.11` traffic is so difficult and in this second blog post I will explain how to address next difficults:  
 * Kismet captures 802.11 layer-2 wireless network traffic (Network IP blocks such as TCP, UDP, ARP, and DHCP packets) what should be decoded.
@@ -431,24 +431,24 @@ Then, let's go to explore the 802.11 traffic stored in Apache Cassandra.
 Below a set of images took when browsing the Apache Cassandra embedded in WSO2 BAM.
 _01 / WSO2 BAM / Apache Cassandra - Key Spaces_  
 
-![WSO2 BAM / Apache Cassandra 01]({{ site.baseurl }}/assets/chilcano-02-raspberrypi-bigdata-wifi-thrift-2-wso2bam-cassandra-keyspaces.png)
+![WSO2 BAM / Apache Cassandra 01]({{ site.baseurl }}/assets/blog20160203_iot_bigdata_wifi_kismet_wso2bam_2/chilcano-02-raspberrypi-bigdata-wifi-thrift-2-wso2bam-cassandra-keyspaces.png)
 _02 / WSO2 BAM / Apache Cassandra - Event KS information_  
 
-![WSO2 BAM / Apache Cassandra 01]({{ site.baseurl }}/assets/chilcano-02-raspberrypi-bigdata-wifi-thrift-3-wso2bam-event-ks-info.png)
+![WSO2 BAM / Apache Cassandra 01]({{ site.baseurl }}/assets/blog20160203_iot_bigdata_wifi_kismet_wso2bam_2/chilcano-02-raspberrypi-bigdata-wifi-thrift-3-wso2bam-event-ks-info.png)
 _03 / WSO2 BAM / Apache Cassandra - Event KS information_  
 
-![WSO2 BAM / Apache Cassandra 01]({{ site.baseurl }}/assets/chilcano-02-raspberrypi-bigdata-wifi-thrift-4-event-ks-info.png)
+![WSO2 BAM / Apache Cassandra 01]({{ site.baseurl }}/assets/blog20160203_iot_bigdata_wifi_kismet_wso2bam_2/chilcano-02-raspberrypi-bigdata-wifi-thrift-4-event-ks-info.png)
 _04 / WSO2 BAM / Apache Cassandra - Connecting to explore KS_  
 
-![WSO2 BAM / Apache Cassandra 01]({{ site.baseurl }}/assets/chilcano-02-raspberrypi-bigdata-wifi-thrift-5-connect-cassandra.png)
+![WSO2 BAM / Apache Cassandra 01]({{ site.baseurl }}/assets/blog20160203_iot_bigdata_wifi_kismet_wso2bam_2/chilcano-02-raspberrypi-bigdata-wifi-thrift-5-connect-cassandra.png)
 _05 / WSO2 BAM / Apache Cassandra - List of Key Spaces_  
 
-![WSO2 BAM / Apache Cassandra 01]({{ site.baseurl }}/assets/chilcano-02-raspberrypi-bigdata-wifi-thrift-6-list-keyspaces.png)
+![WSO2 BAM / Apache Cassandra 01]({{ site.baseurl }}/assets/blog20160203_iot_bigdata_wifi_kismet_wso2bam_2/chilcano-02-raspberrypi-bigdata-wifi-thrift-6-list-keyspaces.png)
 _06 / WSO2 BAM / Apache Cassandra - Exploring the Kismet data_  
 
-![WSO2 BAM / Apache Cassandra 01]({{ site.baseurl }}/assets/chilcano-02-raspberrypi-bigdata-wifi-thrift-7-kismet-data.png)
+![WSO2 BAM / Apache Cassandra 01]({{ site.baseurl }}/assets/blog20160203_iot_bigdata_wifi_kismet_wso2bam_2/chilcano-02-raspberrypi-bigdata-wifi-thrift-7-kismet-data.png)
 _07 / WSO2 BAM / Apache Cassandra - Exploring the Kismet data_  
 
-![WSO2 BAM / Apache Cassandra 01]({{ site.baseurl }}/assets/chilcano-02-raspberrypi-bigdata-wifi-thrift-8-kismet-data.png)
+![WSO2 BAM / Apache Cassandra 01]({{ site.baseurl }}/assets/blog20160203_iot_bigdata_wifi_kismet_wso2bam_2/chilcano-02-raspberrypi-bigdata-wifi-thrift-8-kismet-data.png)
 In the blog post (Part III), I will explain how to create a simple Dashboard showing the WIFI traffic captured in real-time.  
 See you soon.
