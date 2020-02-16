@@ -45,8 +45,7 @@ Before anything, It is necessary install some packages as compiler gcc, kernel l
     [root@localhost ~]# yum --disablerepo=\* --enablerepo=c5-media -y install kernel-devel
     ```
 2. Unmount CentOS DVD ISO image and mount Virtual Box Guest Additions in your CentOS guest:
-    ![](/assets/sharefilescentosmacosx-2-mount-vboxadds.png)
-
+    ![](/assets/blog20100813_tomcat5centos55/sharefilescentosmacosx-2-mount-vboxadds.png)
 3. Restart CentOS guest
 4. Now, install VBoxGuestAdditions in CentOS guest:
     ```sh
