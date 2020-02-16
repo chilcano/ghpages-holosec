@@ -14,11 +14,13 @@ In this [post](/2015/01/25/evaluacion-nivel-madurez-integracion-message-brokers-
 
 <!-- more -->
 
-I ask myself, why is not RabbitMQ integrated to WSO2 ESB?. The answer is simple, RabbitMQ is a Message Broker with strong focus in [AMQP (Advanced Message Queuing Protocol)](https://www.amqp.org) and not in the JMS (Java Messaging Service). JMS as a reference protocol in the Message Brokers is not "complete"; AMQP tries to cover that gap what JMS does not cover. Also, RabbitMQ, by default uses AMQP 0-9-1 and not the latest version AMQP 1.0. Yes, there is an experimental [AMQP 1.0 pluging](http://www.rabbitmq.com/plugins.html) for RabbitMQ and is not suitable for production, also I do not see that it will change soon.
-There is an Axis2 Transport Module available what implements the AMQP 0-9-1 protocol for RabbitMQ. This is a "beta" version because is not included as an official Axis2 Transport Module for WSO2 ESB 4.8.1.
-But, if you want to install and use it, I highly recommend the serie of post about of Axis2 AMQP Transport published in the Luis Peñarrubia's blog. In that blog is explained how to patch, deploy and use the Axis2 AMQP transport module in your WSO2 ESB 4.8.1:
-* https://luispenarrubia.wordpress.com/2014/12/10/integrate-wso2-esb-and-rabbitmq-using-amqp-transport/ 
-* https://luispenarrubia.wordpress.com/2015/05/04/how-to-integrate-wso2-esb-and-rabbitmq-using-amqp-transport-part-2/ 
+I ask myself, why is not RabbitMQ integrated to WSO2 ESB?. 
+The answer is simple, RabbitMQ is a Message Broker with strong focus in [AMQP (Advanced Message Queuing Protocol)](https://www.amqp.org) and not in the JMS (Java Messaging Service). 
+JMS as a reference protocol in the Message Brokers is not "complete"; AMQP tries to cover that gap what JMS does not cover. Also, RabbitMQ, by default uses `AMQP 0-9-1` and not the latest version `AMQP 1.0`. Yes, there is an experimental [AMQP 1.0 pluging](http://www.rabbitmq.com/plugins.html) for RabbitMQ and is not suitable for production, also I do not see that it will change soon.  
+
+There is an `Axis2` Transport Module available what implements the `AMQP 0-9-1` protocol for RabbitMQ. This is a "beta" version because is not included as an official Axis2 Transport Module for `WSO2 ESB 4.8.1`. 
+But, if you want to install and use it, I highly recommend the serie ([post 1](https://luispenarrubia.wordpress.com/2014/12/10/integrate-wso2-esb-and-rabbitmq-using-amqp-transport/) and [post 2](https://luispenarrubia.wordpress.com/2015/05/04/how-to-integrate-wso2-esb-and-rabbitmq-using-amqp-transport-part-2/  )) about of Axis2 AMQP Transport published in the Luis Peñarrubia's blog. 
+In that blog is explained how to patch, deploy and use the Axis2 AMQP transport module in your WSO2 ESB `4.8.1`:
 
 ## I. Scope and objetives
 
@@ -32,6 +34,7 @@ For more information about Messaging Advanced EIPs, check this link: https://doc
 ## II. Implementation
 
 ### II.1. The strategia: WSO2 ESB Message Store & Message Processor
+
 The Message Store & Message Processor is the way as the integration between WSO2 ESB and RabbitMQ should be realized. If you want to know what is WSO2 ESB Message Store & Message Processor, I invite you to read my [blog post about this subject](/2014/12/03/wso2-message-broker-vs-apache-qpid-messaging-eip).
 
 ### II.2. The strategia: Apache Qpid client library as bridge between JMS 1.1 and AMQP 0-9-1
@@ -53,13 +56,11 @@ At the end, I used the `Apache Qpid` client library for its compatibility with `
 The idea is to create a simple sender(JMS publisher) and receiver(JMS consumer) client using Apache Qpid library for a RabbitMQ's queue (AMQP). After the great support in the [Apache Qpid's forum](http://mail-archives.apache.org/mod_mbox/qpid-users/), the conclusions were:
 
 1. This sample works if sender(JMS publisher) and receiver(JMS consumer) share the same connection with RabbitMQ but using different URI string definitions. Check below my JNDI configuration file.  
-2. JMS Publisher and Consumer should declare the server, virtual host, queue, exchange and routing key following this definition. Why?. After of several definitions, this combination worked !!. Remember, RabbitMQ adds "/" if your Virtual Host is "empty", for this reason I define my Virtual Host as "/" or "/my_virtual_host".
+2. JMS Publisher and Consumer should declare the server, virtual host, queue, exchange and routing key following this definition. Why?. After of several definitions, this combination worked !!. Remember, RabbitMQ adds `/` if your Virtual Host is "empty", for this reason I define my Virtual Host as `/` or `/my_virtual_host`.
 
 ```text  
 java.naming.factory.initial = org.apache.qpid.jndi.PropertiesFileInitialContextFactory  
-
 # RabbitMQ v3.4.4  
-
 connectionfactory.myRabbitMQConnectionFactory1 = amqp://usr_chk:CHANGE_ME@clientid/CHAKRAY_POC?brokerlist='tcp://your.rabbitmq.host.name:5672' destination.myJndiDestQueuePublisher1 = BURL:direct://chk.direct//?routingkey='rk.hello_1'  
 destination.myJndiDestQueueConsumer1 = BURL:direct://chk.direct/rk.hello_1/q.hello_1  
 ```  
