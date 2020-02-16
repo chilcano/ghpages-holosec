@@ -13,7 +13,7 @@ We will explain how to install Liferay 6.0.5 CE WAR bundle in an existing `Apach
 
 <!-- more -->
 
-## Steps
+## Install Liferay on Tomcat
 
 ![](/assets/blog20100830_liferay605war/liferay605war_1login.png)
 
@@ -69,7 +69,6 @@ Tomcat Manager is included in standard Tomcat bundle but by default It is disabl
     <user username="roger" password="roger" roles="tomcat,manager"/>  
   </tomcat-users>  
   ```  
-  
 3. Run Tomcat and go to http://localhost:8080/manager
 4. Enter user and password configured in step 2.
 5. Log in to Liferay for example; in Tomcat Manager now you can see an opened session in liferay605 webapp context and to explore values stored in current session.
