@@ -7,9 +7,10 @@ tags:       ['Docker', 'ELK', 'Logging', 'rTail', 'Vagrant', 'Wiremock', 'WSO2']
 status:     publish 
 permalink:  "/2016/01/25/log-events-management-wso2-microservices-elk-rtail-part-ii/"
 ---
-Trailing and checking the performance and the health of (micro)services are important tasks to be accomplished. The logging is a time consuming process and we have to prepare before in order to be more productive. There are many tools out there, opensource, commercial, on-cloud, such as log.io, ELK, Clarity, rTail, Tailon, frontail, etc. In my opinion, for a VM used to development the most simple, fresh and lightweight tool is rTail (http://rtail.org).
+Trailing and checking the performance and the health of (micro)services are important tasks to be accomplished. The logging is a time consuming process and we have to prepare before in order to be more productive. There are many tools out there, opensource, commercial, on-cloud, such as log.io, ELK, Clarity, rTail, Tailon, frontail, etc. In my opinion, for a VM used to development the most simple, fresh and lightweight tool is [rTail](http://rtail.org).
 
-![rTail - Viewing WSO2 and Wiremock raw log events](/assets/chilcano-logs-rtail-microservices-1-arch-rtail.png)
+![](/assets/blog20160122_logs_rtail_microservices_wso2/chilcano-logs-rtail-microservices-1-arch-rtail.png)
+_rTail - Viewing WSO2 and Wiremock raw log events_
 
 <!-- more -->
 
@@ -151,7 +152,8 @@ Connection to 192.168.99.100 9191 port [udp/*] succeeded!
 $ ping 8.8.4.4 | rtail --id logs-ping --host 192.168.99.100 --port 9191 --mute  
 ```  
 
-![rTail - Browsing log events](/assets/chilcano-logs-rtail-microservices-2-ping-tail.png)
+![](/assets/blog20160122_logs_rtail_microservices_wso2/chilcano-logs-rtail-microservices-2-ping-tail.png)
+_rTail - Browsing log events_
 
 **3) Send log events to rTail Server Docker Container from the Vagrant box**
 
@@ -202,8 +204,11 @@ Observations:
 * `multitail` consolidate multiple log lines in on2 line associated a to timestamp (`date+hh:mm:ss`), but doesn't accept milliseconds.
 * Using `tail` you require create a shell script to remove header or apply filters to standarize Date formats, etc.
 
-![rTail - Multiple log tailing using 'multitail'](/assets/chilcano-logs-rtail-microservices-3-multitail.png)
-![rTail - Multiple log tailing using 'tail'](/assets/chilcano-logs-rtail-microservices-4-multiple-tail.png)
+![](/assets/blog20160122_logs_rtail_microservices_wso2/chilcano-logs-rtail-microservices-3-multitail.png)
+_rTail - Multiple log tailing using 'multitail'_
+
+![](/assets/blog20160122_logs_rtail_microservices_wso2/chilcano-logs-rtail-microservices-4-multiple-tail.png)
+_rTail - Multiple log tailing using 'tail'_
 
 **4) Shell scripts to send multiple WSO2 log files**
 
