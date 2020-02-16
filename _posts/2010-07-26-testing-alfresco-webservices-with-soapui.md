@@ -10,7 +10,7 @@ permalink:  "/2010/07/26/testing-alfresco-webservices-with-soapui/"
 Alfresco ECM has a WS layer that implement all content management services as upload, search, transform, checkin/checkout, etc of any content stored in the repository.
 This WS layer enables to Business Application easier integration of content management functionalities. It is only necessary to invoke the Alfresco's WS for the desired functionality. Alfresco has two types of WS set, one set implements WS of specific way and the other WS layer follows the CMIS standard, in the end, both layers offer the same services in an equivalent manner.  
 
-![](/assets/blog20100726_soapui_alfresco/smartbear-soapui-logo-300x140.png)
+![](/assets/blog20100726_soapui_alfresco/smartbear-soapui-logo-300x140.png)  
 _SoapUI Testing Alfresco Webservices_
 
 <!-- more -->
@@ -32,7 +32,7 @@ Then, you create a Test Suite with several test cases as many as you want to exe
 
 Define the initial conditions to execute the test, for example, time of execution, ignore errors, etc.
 
-![soapui_alf33ce_1_testrunner](/assets/blog20100726_soapui_alfresco/soapui_alf33ce_1_testrunner.png)
+![](/assets/blog20100726_soapui_alfresco/soapui_alf33ce_1_testrunner.png)  
  _soapUI Launch TestRunner settings_
 
 Alter a quick introduction, now will test Alfresco ECM, firstly, we will do queries to Alfresco’s Dictionary, after, and we will automate the creation of content in Alfresco.
