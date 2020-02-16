@@ -15,7 +15,7 @@ Share files between two SO is easy because there are different protocols for sha
 
 1. Previously, I have download DVD ISO image, then I have copied to my Mac OSX Host.
 2. From Virtual Box menu, goes to Devices > CD/DVD Devices and mount selecting CentOS's DVD ISO image (ISO previuosly added to VBox's "Virtual Media Manager").
-  ![](/assets/sharefilescentosmacosx-1-mount-dvdiso.png)
+  ![](/assets/blog20100813_sharefilesmacosxcentos/sharefilescentosmacosx-1-mount-dvdiso.png)
 3. In CentOS guest now you can see DVD iso mounted as `/media/CentOS_5.5_Final`.
 4. You can install packages directly off the mounted DVD ISO. Now, modify `/etc/yum.repos.d/CentOS-Media.repo` file, enter:
   ```sh
@@ -45,7 +45,7 @@ Before anything, It is necessary install some packages as compiler gcc, kernel l
     [root@localhost ~]# yum --disablerepo=\* --enablerepo=c5-media -y install kernel-devel
     ```
 2. Unmount CentOS DVD ISO image and mount Virtual Box Guest Additions in your CentOS guest:
-    ![](/assets/blog20100813_tomcat5centos55/sharefilescentosmacosx-2-mount-vboxadds.png)
+    ![](/assets/blog20100813_sharefilesmacosxcentos/sharefilescentosmacosx-2-mount-vboxadds.png)
 3. Restart CentOS guest
 4. Now, install VBoxGuestAdditions in CentOS guest:
     ```sh
@@ -64,7 +64,7 @@ Before anything, It is necessary install some packages as compiler gcc, kernel l
 2. In main menu of your Linux Guest's Virtual Box:
   * Go to `Devices > Shared Folders` ...
   * In popup, add shared folder and select Host's folder ( `/Users/chilcano/files2share` ), set up a name as `files2share` and make permanent.
-  ![](/assets/sharefilescentosmacosx-3-share-host-folder.png)
+  ![](/assets/blog20100813_sharefilesmacosxcentos/sharefilescentosmacosx-3-share-host-folder.png)
 
 3. In your Guest Linux box opens a terminal window and create a new directory where you'll mount shared folder
   ```sh
@@ -93,11 +93,11 @@ You can make the shared folder mount automatically each time you start the CentO
   ```
 3. Verify mounted folder:
   In Mac OS X (host):
-  ![]({{ site.baseurl }}/assets/sharefilescentosmacosx-4-verify-mounted-host.png)  
-    
+  ![](/assets/blog20100813_sharefilesmacosxcentos/sharefilescentosmacosx-4-verify-mounted-host.png)  
   In CentOS (guest):  
-  ![]({{ site.baseurl }}/assets/sharefilescentosmacosx-5-verify-mounted-guest.png)  
-4. End.
+  ![](/assets/blog20100813_sharefilesmacosxcentos/sharefilescentosmacosx-5-verify-mounted-guest.png)  
+
+Hope it helps.
 
 **References** :
 
