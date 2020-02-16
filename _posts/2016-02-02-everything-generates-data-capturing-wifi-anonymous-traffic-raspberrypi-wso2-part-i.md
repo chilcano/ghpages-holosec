@@ -13,7 +13,8 @@ Yes, in this digital world, everything generates data, but before to do `BigData
  2. **Store**: Classification, Consolidate, Transformation, Storage Design, etc.  
  3. **Analysis**: Exploration, visualization, modeling, prediction, etc.
 
-[![Architecture - Capturing WIFI anonymous traffic using Raspberry Pi and WSO2 BAM and WSO2 CEP](/assets/chilcano-raspberrypi-bigdata-wifi-2-arch.png){:width="70%"}](/assets/chilcano-raspberrypi-bigdata-wifi-2-arch.png){:target="_blank"}
+[![](/assets/blog20160203_iot_bigdata_wifi_kismet_wso2bam_1/chilcano-raspberrypi-bigdata-wifi-2-arch.png){:width="70%"}](/assets/blog20160203_iot_bigdata_wifi_kismet_wso2bam_1/chilcano-raspberrypi-bigdata-wifi-2-arch.png){:target="_blank"}  
+_Architecture - Capturing WIFI anonymous traffic using Raspberry Pi and WSO2 BAM and WSO2 CEP_
 
 <!-- more -->
 
@@ -372,7 +373,7 @@ $ kismet_client
 
 _Kismet - Capturing 802.11 anonymous traffic using Raspberry Pi_  
 
-![Kismet - Capturing 802.11 anonymous traffic using Raspberry Pi]({{ site.baseurl }}/assets/chilcano-raspberrypi-bigdata-wifi-3-kismet.png)  
+![](/assets/blog20160203_iot_bigdata_wifi_kismet_wso2bam_1/chilcano-raspberrypi-bigdata-wifi-3-kismet.png)  
 _Kismet - Capturing 802.11 anonymous traffic using Raspberry Pi_
 
 ## III. Common Kismet errors
