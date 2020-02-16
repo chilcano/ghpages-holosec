@@ -33,25 +33,26 @@ For more information about Messaging Advanced EIPs, check this link: https://doc
 
 ## II. Implementation
 
-### II.1. The strategia: WSO2 ESB Message Store & Message Processor
+**II.1. The strategia: WSO2 ESB Message Store & Message Processor**
 
 The Message Store & Message Processor is the way as the integration between WSO2 ESB and RabbitMQ should be realized. If you want to know what is WSO2 ESB Message Store & Message Processor, I invite you to read my [blog post about this subject](/2014/12/03/wso2-message-broker-vs-apache-qpid-messaging-eip).
 
-### II.2. The strategia: Apache Qpid client library as bridge between JMS 1.1 and AMQP 0-9-1
+**II.2. The strategia: Apache Qpid client library as bridge between JMS 1.1 and AMQP 0-9-1**
 
 The strategia is to improve the existing implementation of WSO2 ESB Message Store & Message Processor (MS&MP) to make it compatible with RabbitMQ (AMQP 0-9-1). Create the WSO2 ESB MS&MP for RabbitMQ from scratch is not viable, because the current WSO2 ESB MS&MP implementation uses JMS and is not ready to be extended to AMQP 0-9-1. Then, We need some magical library that can resolve the problem of translating the JMS (WSO2 ESB) protocol to AMQP 0-9-1 (RabbitMQ), I tried different libraries to solve this issue such as:
-1. Spring JMS library (https://spring.io/guides/gs/messaging-jms). 
+
+1. [Spring JMS library](https://spring.io/guides/gs/messaging-jms). 
    - This requires to refactor big part of the WSO2 MS&MP's source code.
-2. Spring JMS and RabbitMQ's JMS connector (http://blog.pivotal.io/pivotal/products/messaging-with-jms-and-rabbitmq). 
-   - This avoids to refactor part of the source code, but the RabbitMQ's JMS connector (vFabric RabbitMQ's JMS - https://www.vmware.com/support/vfabric-rabbitmq/doc/vfabric-rabbitmq-jms-client-compatibility.html) is not available for my purposes because It is commercial.
-3. OpenAMQ JMS client library (http://www.openamq.org). 
-   - This library implements AMQP and JMS, but sadly is not available any more in GitHub (https://github.com/pieterh/openamq-jms/tree/master) and OpenAMQ web (http://www.openamq.org/forum/t-7591/openamq-jms-released). After digging in internet I think found the new GitHub repository (https://github.com/imatix/openamq-jms). The source code has more than 6 years without being updated.
-4. Apache Qpid client library (http://qpid.apache.org/download.html). 
-   - Was a great surprise found Qpid library, great documentation and great support in their forums. Apache Qpid has 2 client libraries, the firt one (apache-qpid-jms-0.1.0-bin.tar.gz) gives JMS 1.1 and AMQP 1.0 support and the second one (qpid-client-0.32-bin.tar.gz) gives support to JMS 1.1 and AMQP 0-10, 0-9-1, 0-9, and 0-8.
+2. [Spring JMS and RabbitMQ's JMS connector](http://blog.pivotal.io/pivotal/products/messaging-with-jms-and-rabbitmq). 
+   - This avoids to refactor part of the source code, but the RabbitMQ's JMS connector ([vFabric RabbitMQ's JMS](https://www.vmware.com/support/vfabric-rabbitmq/doc/vfabric-rabbitmq-jms-client-compatibility.html)) is not available for my purposes because It is commercial.
+3. [OpenAMQ JMS client library](http://www.openamq.org). 
+   - This library implements AMQP and JMS, but [sadly is not available any more in GitHub](https://github.com/pieterh/openamq-jms/tree/master) and [OpenAMQ web](http://www.openamq.org/forum/t-7591/openamq-jms-released). After digging in internet I think [found the new GitHub repository](https://github.com/imatix/openamq-jms). The source code has more than 6 years without being updated.
+4. [Apache Qpid client library](http://qpid.apache.org/download.html). 
+   - Was a great surprise found Qpid library, great documentation and great support in their forums. Apache Qpid has 2 client libraries, the firt one (`apache-qpid-jms-0.1.0-bin.tar.gz`) gives `JMS 1.1` and `AMQP 1.0` support and the second one (`qpid-client-0.32-bin.tar.gz`) gives support to `JMS 1.1` and AMQP `0-10`, `0-9-1`, `0-9`, and `0-8`.
 
 At the end, I used the `Apache Qpid` client library for its compatibility with `JMS 1.1` and `AMQP 0-9-1`, this is very important because `WSO2 ESB MS&MP` follow the JMS and this solves the compatibility with `RabbitMQ`.
 
-### II.3. Understanding how to work Apache Qpid library with RabbitMQ
+**II.3. Understanding how to work Apache Qpid library with RabbitMQ**
 
 The idea is to create a simple sender(JMS publisher) and receiver(JMS consumer) client using Apache Qpid library for a RabbitMQ's queue (AMQP). After the great support in the [Apache Qpid's forum](http://mail-archives.apache.org/mod_mbox/qpid-users/), the conclusions were:
 
@@ -94,7 +95,7 @@ Hello RabbitMQ 3.4.4 !!
 
 [![](/assets/blog20150430_wso2esb_rabbitmq_msmp_impl/wso2esb-rabbitmq-publish-consume-sample-message.png)](/assets/blog20150430_wso2esb_rabbitmq_msmp_impl/wso2esb-rabbitmq-publish-consume-sample-message.png)_Publishing and consuming message to/from RabbitMQ from a JMS client_
 
-### II.4. First contact with the current WSO2 ESB MS&MP implementation source code
+**II.4. First contact with the current WSO2 ESB MS&MP implementation source code**
 
 We will use the current source code of the MS&MP for WSO2 ESB 4.8.1. This MS&MP uses JMS and works with JMS MEssage Brokers (ActiveMQ, Qpid, etc.) You can review/download from here [https://svn.wso2.org/repos/wso2/carbon/platform/branches/turing/dependencies/synapse/2.1.2-wso2v6](https://svn.wso2.org/repos/wso2/carbon/platform/branches/turing/dependencies/synapse/2.1.2-wso2v6). I have cloned the current sourcecode of the `JMS MessageStore&MessageProcessor` implementation, the java classes cloned are:
 
@@ -104,8 +105,7 @@ synapse/2.1.2-wso2v6/modules/core/src/main/java/org/apache/synapse/message/store
 synapse/2.1.2-wso2v6/modules/core/src/main/java/org/apache/synapse/message/store/impl/jms/JmsConsumer.java  
 ```  
 
-
-### II.5. The new WSO2 ESB MS&MP implementation for RabbitMQ
+**II.5. The new WSO2 ESB MS&MP implementation for RabbitMQ**
 
 After of download the Apache Qpid library, I used the above sample source code to publish and consume a messages to/from RabbitMQ. This exercise Was necessary to do for a simple reason, because similar changes on the sample will be applied again in the new implementation of WSO2 ESB MS&MP for RabbitMQ. Was necessary to modify just one class (org.apache.synapse.message.store.impl.jms.JmsStore) and at the end, to do easily, I added a Publisher and Consumer instead of using only a Publisher in the new Message Store. I have uploaded my implementation in GitHub, you can use from here [https://github.com/Chilcano/wso2esb-rabbitmq-message-store](https://github.com/Chilcano/wso2esb-rabbitmq-message-store). Remember, this implementation is valid for:
 
@@ -129,6 +129,7 @@ Yes, there are somethings to be improved.
 * User/password used to connect to RabbitMQ should be kept in safe place. Here, WSO2 SecureVault is the perfect tool.
 
 ## IV. Conclusions
+
 * The Apache Qpid project provides, IMHO, of a good, robust and open source Message Broker, where is possible implements the different integration patterns based messaging, also, Apache Qpid compatible with JMS and AMQP standard, everything in a lightweight bundle and easy to install it.
 * Also, The Apache Qpid project provide of mature client libraries for JMS and different versions of AMQP.
 * The MessageStore & MessageProcessor approach is the best way to integrate WSO2 ESB and any Message Broker because with this is possible to implement different integration patterns, suitable for reliable and resilient Critical Messaging Systems.
