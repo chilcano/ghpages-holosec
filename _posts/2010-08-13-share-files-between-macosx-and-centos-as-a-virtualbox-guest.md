@@ -16,7 +16,7 @@ Share files between two SO is easy because there are different protocols for sha
 1. Previously, I have download DVD ISO image, then I have copied to my Mac OSX Host.
 2. From Virtual Box menu, goes to Devices > CD/DVD Devices and mount selecting CentOS's DVD ISO image (ISO previuosly added to VBox's "Virtual Media Manager").
 
-  ![]({{ site.baseurl }}/assets/sharefilescentosmacosx-1-mount-dvdiso.png)
+  ![](/assets/sharefilescentosmacosx-1-mount-dvdiso.png)
 
 3. In CentOS guest now you can see DVD iso mounted as `/media/CentOS_5.5_Final`
 4. You can install packages directly off the mounted DVD ISO. Now, modify `/etc/yum.repos.d/CentOS-Media.repo` file, enter:

@@ -12,9 +12,12 @@ permalink:  "/2011/05/09/install-mirth-connect-ubuntu-mysql/"
 Mirth Connect is a Service Oriented Integration Platform based on Mule ESB. Mirth Connect is specifically designed for HL7 (Health Level Seven - set of standards for the health messages exchanging) message exchange.
 Mirth Connect as a SOA Platform provides tools for developing, testing, deploying, and monitoring interfaces (channel for the exchange of HL7 messages).
 
-[caption id="" align="alignnone" width="491" caption="Mirth Connect Architecture"]![Mirth Connect Architecture]({{ site.baseurl }}/assets/mirthconnect_architecture.png)[/caption]
-Mirth Connect is a project Open Source with Mozilla Public License 1.1 (MPL 1.1) and can be downloaded from here h[ttp://www.mirthcorp.com/community/downloads](http://www.mirthcorp.com/community/downloads)
+![Mirth Connect Architecture](/assets/blog20110509_mirth_connect/mirthconnect_architecture.png)
+
+Mirth Connect is a project Open Source with Mozilla Public License 1.1 (MPL 1.1) and can be downloaded from here [http://www.mirthcorp.com/community/downloads](http://www.mirthcorp.com/community/downloads)
 Well, we will explain how to install on Ubuntu and how to switch Derby database server to MySQL server.
+
+<!-- more -->
 
 ## Steps
 
