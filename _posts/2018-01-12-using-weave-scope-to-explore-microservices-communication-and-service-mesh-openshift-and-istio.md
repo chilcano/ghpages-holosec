@@ -13,13 +13,17 @@ If you are working with ESB, Message Brokers, BPMS, SOA or Microservices, you wi
 * Logging, Debugging, Monitoring and Alerting
 * Clustering, High Availability, Load Balancing, etc...
 
+![](/assets/blog20180112_weave_scope_service_mesh/api-mesh-security-2-weave-scope.png){:width="400"}  
+_Weave Scope - Exploring a Service Mesh_
+
 <!-- more -->
 
 ### What is a Service Mesh?
 
-It's other type of Distributed Application where the Services, or Microservices or APIs, are being interconnected. 
+It's other type of Distributed Application where the Services, Microservices or APIs are being interconnected and running in a shared Data Plane.
 
-![api-mesh-security-2-weave-scope](/assets/api-mesh-security-2-weave-scope.png)
+![](/assets/blog20180112_weave_scope_service_mesh/api-mesh-security-2-weave-scope.png)  
+_Weave Scope - Exploring a Service Mesh_
 
 ### Service Mesh on Containerised and Orchestrated Platform
 
@@ -45,7 +49,8 @@ Extracted from [Istio.io](https://istio.io/about/intro.html):
 >   * Automatic metrics, logs, and traces for all traffic within a cluster, including cluster ingress and egress.
 >   * Secure service-to-service authentication with strong identity assertions between services in a cluster.
 
-![istio-architecture](/assets/istio-architecture.png)
+![](/assets/istio-architecture.png)  
+_ISTIO Architecture_
 
 ### Why use Istio?
 
@@ -67,19 +72,19 @@ I've created 3 Ansible Roles to get easily a minimalist OpenShift Cluster (by us
 
 [Weave Scope Application](https://github.com/weaveworks/scope) will play a important role here, because It will allow us to monitor, visualise, troubleshot and manage **easily** whole the container-based Service Mesh. Once completed [the step-by-step guide](https://github.com/chilcano/ansible-minishift-istio-security), you will get next: 
 
-[![](/assets/api-mesh-security-7-weave-scope-istio-system.png)](/assets/api-mesh-security-7-weave-scope-istio-system.png) 
+![](/assets/blog20180112_weave_scope_service_mesh/api-mesh-security-7-weave-scope-istio-system.png)
 
-[![](/assets/api-mesh-security-8-weave-scope-bookinfo.png)](/assets/api-mesh-security-8-weave-scope-bookinfo.png) 
+![](/assets/blog20180112_weave_scope_service_mesh/api-mesh-security-8-weave-scope-bookinfo.png)
 
-[![](/assets/api-mesh-security-9-weave-scope-bookinfo-mesh.png)](/assets/api-mesh-security-9-weave-scope-bookinfo-mesh.png) 
+![](/assets/blog20180112_weave_scope_service_mesh/api-mesh-security-9-weave-scope-bookinfo-mesh.png)
 
 ..and 
 
-[![](/assets/api-mesh-security-4-istio-zipkin.png)](/assets/api-mesh-security-4-istio-zipkin.png) 
+![](/assets/blog20180112_weave_scope_service_mesh/api-mesh-security-4-istio-zipkin.png)
 
-[![](/assets/api-mesh-security-5-istio-grafana.png)](/assets/api-mesh-security-5-istio-grafana.png) 
+![](/assets/blog20180112_weave_scope_service_mesh/api-mesh-security-5-istio-grafana.png)
 
-[![](/assets/api-mesh-security-6-istio-servicegraph.png)](/assets/api-mesh-security-6-istio-servicegraph.png)
+![](/assets/blog20180112_weave_scope_service_mesh/api-mesh-security-6-istio-servicegraph.png)
 
 Hope this helps!.  
 Regards.
