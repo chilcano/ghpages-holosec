@@ -18,14 +18,13 @@ We will explain how to install Liferay 6.0.5 CE WAR bundle in an existing `Apach
 ![](/assets/blog20100830_liferay605war/liferay605war_1login.png)
 
 1. Download and install [Apache Tomcat 6.0.29](http://apache.rediris.es//tomcat/tomcat-6/v6.0.29/bin/apache-tomcat-6.0.29-windows-x86.zip) standard bundle (with Tomcat Manager included).  
-~~2. Copy `%TOMCAT_HOME%/webapps/ROOT` folder to `%TOMCAT_HOME%/webapps/liferay605` folder.~~  
-3. Download `liferay-portal-6.0.5.war` and `liferay-portal-dependencies-6.0.5.zip`.  
-4. Unzip `liferay-portal-6.0.5.war` file and copy all content into the new Tomcat Context, in this example will be `%TOMCAT_HOME%/webapps/liferay605` folder.  
-5. Unzip and copy all dependencies to ~~`%TOMCAT_HOME%/lib`~~ `%TOMCAT_HOME%/lib/ext`.  
-6. Download and copy `2` extra libraries ( `jta.jar` and `mail.jar` ) to ~~`%TOMCAT_HOME%/lib`~~ `%TOMCAT_HOME%/lib/ext`.  
-7. Create `liferay605.xml` file into `%TOMCAT_HOME%/conf/Catalina/localhost` folder. 
+2. Download `liferay-portal-6.0.5.war` and `liferay-portal-dependencies-6.0.5.zip`.  
+3. Unzip `liferay-portal-6.0.5.war` file and copy all content into the new Tomcat Context, in this example will be `%TOMCAT_HOME%/webapps/liferay605` folder.  
+4. Unzip and copy all dependencies to ~~`%TOMCAT_HOME%/lib`~~ `%TOMCAT_HOME%/lib/ext`.  
+5. Download and copy `2` extra libraries ( `jta.jar` and `mail.jar` ) to ~~`%TOMCAT_HOME%/lib`~~ `%TOMCAT_HOME%/lib/ext`.  
+6. Create `liferay605.xml` file into `%TOMCAT_HOME%/conf/Catalina/localhost` folder.  
   It looks like this:  
-  ```xml   
+  ```xml 
   <Context path="" crossContext="true">  
   <Resource  
       name="jdbc/LiferayPool"  
@@ -37,19 +36,19 @@ We will explain how to install Liferay 6.0.5 CE WAR bundle in an existing `Apach
       password=""  
       maxActive="20"/>  
   </Context>  
-  ```  
+  ```
   In my case, DB user is `root` with empty password. You must create an empty DB in MySQL before, for example `lportal605_db`.
-8. Create `portal-ext.properties` into `%TOMCAT_HOME%/webapps/liferay605/WEB-INF/classes` folder. It looks like this:  
+7. Create `portal-ext.properties` into `%TOMCAT_HOME%/webapps/liferay605/WEB-INF/classes` folder. It looks like this:  
   ```txt
   jdbc.default.jndi.name=jdbc/LiferayPool  
   portal.ctx=/liferay605  
   ```
-9. If you are using MySQL as database server instead of HSQL, you must copy _mysql jdbc lib_ into ~~`%TOMCAT_HOME%/lib`~~ `%TOMCAT_HOME%/lib/ext` folder.
-10. Add the code below to `%TOMCAT_HOME%/lib/bin/startup.bat` or `startup.sh` :
+8. If you are using MySQL as database server instead of HSQL, you must copy _mysql jdbc lib_ into ~~`%TOMCAT_HOME%/lib`~~ `%TOMCAT_HOME%/lib/ext` folder.
+9. Add the code below to `%TOMCAT_HOME%/lib/bin/startup.bat` or `startup.sh` :
   ```txt
   set JAVA_OPTS=%JAVA_OPTS% -Xmx1024m -XX:MaxPermSize=256m
   ```
-11. Run `startup.bat/sh`, you will see in console when liferay creates and populates the portal database automatically. Now, you can open browser window and enter the folow URL `http://localhost:8080/liferay605`. Use `test@liferay.com` and `test` as user and password respectively.
+10. Run `startup.bat/sh`, you will see in console when liferay creates and populates the portal database automatically. Now, you can open browser window and enter the folow URL `http://localhost:8080/liferay605`. Use `test@liferay.com` and `test` as user and password respectively.
 
 ## Configure Tomcat Manager
 
