@@ -1,0 +1,3 @@
+# The Jmeter host information
+wso2.jmeter.execution.host=localhost
+wso2.jmeter.execution.port=8285

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messageStore xmlns="http://ws.apache.org/ns/synapse" name="ERSSubmissionToADRSRetryMsgStore" class="uk.gov.hmrc.wso2.rabbitmq.message.store.impl.RabbitMQStore">
+    <parameter name="java.naming.factory.initial">org.apache.qpid.jndi.PropertiesFileInitialContextFactory</parameter>
+    <parameter name="store.jms.destinationPublisher">myJNDIRabbitMQDestRetryQueuePublisher</parameter>
+    <parameter name="store.jms.password">usr91bb</parameter>
+    <parameter name="java.naming.provider.url">custom_resources/properties/ers.properties</parameter>
+    <parameter name="store.jms.connection.factory">myRabbitMQ91BBConnFactory</parameter>
+    <parameter name="store.jms.username">usr91bb</parameter>
+    <parameter name="store.jms.destinationConsumer">myJNDIRabbitMQDestRetryQueueConsumer</parameter>
+    <parameter name="store.jms.JMSSpecVersion">1.1</parameter>
+</messageStore>

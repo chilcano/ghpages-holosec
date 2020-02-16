@@ -1,0 +1,46 @@
+{
+  "tierAvailability" : [ {
+    "tier" : "Unlimited"
+  } ],
+  "authType" : [ {
+    "put" : "Application",
+    "post" : "Application",
+    "get" : "Application",
+    "delete" : "Application",
+    "options" : "Application"
+  } ],
+  "throttlingTier" : [ {
+    "put" : "Unlimited",
+    "post" : "Unlimited",
+    "get" : "Unlimited",
+    "delete" : "Unlimited",
+    "options" : "Unlimited"
+  } ],
+  "publishToStore" : true,
+  "isDefaultVersion" : true,
+  "supportsCors" : false,
+  "transports" : "http,https",
+  "inSequence" : "",
+  "outSequence" : "",
+  "faultSequence" : "",
+  "endpointType" : "secured",
+  "name" : "ERS",
+  "endpoints" : [ {
+    "productionUrl" : "http://desesb01-vip:8286/ers",
+    "env" : "ist"
+  } ],
+  "context" : "/employment-related-securities",
+  "tags" : "",
+  "description" : "Employment Related Securities (ERS) API",
+  "visibility" : "public",
+  "wsdl" : "",
+  "wadl" : "",
+  "responseCache" : "Disabled",
+  "cacheTimeout" : "300",
+  "subscriptions" : "current_tenant",
+  "endpointCredentials" : [ {
+    "env" : "ist",
+    "epPassword" : "07870210E429D5BA9B02B5C588F27FAD",
+    "epUsername" : "63003F6B5A9A93932B708678C6931E11"
+  } ]
+}

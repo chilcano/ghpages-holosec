@@ -1,0 +1,24 @@
+#Overall props for xxxxxxx
+#CIT Http endpoint in place of DSS in Corporate Layer
+uk.gov.hmrc.wso2.endpoint.DATA_SERVICES=localhost:8092
+
+# Endpoint for View Single Claim
+DWA_EP=localhost:8090/efac/cases
+
+#Endpoint of ESB in Corporate Layer
+uk.gov.hmrc.wso2.endpoint.ESB_CORPORATE_LAYER=localhost:8280
+
+uk.gov.hmrc.wso2.etmp.ESB_CORP_HOSTNAME=localhost:8080
+uk.gov.hmrc.wso2.etmp.ERS_GETSAPNO_EP=XISOAPAdapter/MessageServlet?senderParty=&senderService=MDTP_DEV&receiverParty=&receiverService=&interface=GetBPKeyInformation&interfaceNamespace=http://hmrc.gov.uk/etmp/digitalgateway/employment-securities
+uk.gov.hmrc.wso2.etmp.ERS_SUBMISSIONS_EP=XISOAPAdapter/MessageServlet?senderParty=&senderService=MDTP_DEV&receiverParty=&receiverService=&interface=SubmissionSync&interfaceNamespace=http://hmrc.gov.uk/digitalgateway/employment-securities
+uk.gov.hmrc.wso2.etmp.esb.heartbeat.SENDER_SYSTEM=DAPI
+uk.gov.hmrc.wso2.etmp.esb.heartbeat.TARGET_SYSTEM=ARD110
+uk.gov.hmrc.wso2.etmp.ETMP_HEART_BEAT_EP=http://localhost:51000/XISOAPAdapter/MessageServlet?senderParty=&senderService=MDTP_DEV&receiverParty=&receiverService=&interface=IFOS_01_DIGITALGATEWAY_HeartBeat&interfaceNamespace=http://hmrc.gov.uk/etmp/digitalgateway/heartbeat
+
+#E92183411035115E116ABB2C677053C8
+
+# Loaded by LoadProperties with encryption features to perform HTTP BasicAuthn (update)
+uk.gov.hmrc.wso2.uct.esb.username=leo
+uk.gov.hmrc.wso2.uct.esb.password=messi
+uk.gov.hmrc.wso2.etmp.esb.username=PI_DAPI_RFC
+uk.gov.hmrc.wso2.etmp.esb.password=piuser1

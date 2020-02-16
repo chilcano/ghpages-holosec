@@ -1,0 +1,164 @@
+<api xmlns="http://ws.apache.org/ns/synapse" name="ERSSubmissionSummary" context="/ers/submission-summary">
+   <resource methods="POST" uri-template="/{sapNo}">
+      <inSequence>
+         <property name="logmessage" expression="fn:concat('{&quot;label&quot;:&quot;DATA_ERSSubmissionSummary&quot;, ', '&quot;message&quot;:&quot;ERSSubmissionSummary starting inSeq. sapNo ', get-property('uri.var.sapNo'), '&quot;}')" scope="default" type="STRING" description="log"/>
+         <DesLog level="custom">
+            <SLTrace service="91BBERS-ERSSubmissionSummary" expression="get-property('logmessage')"></SLTrace>
+         </DesLog>	
+         <property name="ERS_TO" value="Submission" scope="default" type="STRING"></property>
+         <property name="ERS_NAME_SPACE" value="http://hmrc.gov.uk/etmp/digitalgateway/employment-securities" scope="default" type="STRING"></property>
+         <switch source="$ctx:ERS_TO">
+            <case regex="^\s*$">
+               <send></send>
+            </case>
+            <default>
+               <switch source="$ctx:ERS_NAME_SPACE">
+                  <case regex="^\s*$">
+                     <send></send>
+                  </case>
+                  <default>
+                     <property name="ERS_TRANSMITTING_SYSTEM" value="WSO2" scope="default" type="STRING"></property>
+                     <property name="ERS_ORIGINATING_SYSTEM" value="MDTP" scope="default" type="STRING"></property>
+                     <property name="ERS_CORRELATION_ID" expression="get-property('transport','CorrelationId')" scope="default" type="STRING"></property>
+                     <property name="ERS_RECEIPT_DATE" expression='get-property("SYSTEM_DATE", "yyyy-MM-dd&apos;T&apos;HH:mm:ss&apos;Z&apos;")' scope="default" type="STRING"></property>
+                     <property name="ERS_ACKNOWLEDGEMENT_REFERENCE" value="" scope="default" type="STRING"></property>
+                     <property name="ERS_MESSAGE_TYPE" expression="$ctx:ERS_TO" scope="default" type="STRING"></property>
+                     <property name="ERS_REQ_REGIME" value="ERS" scope="default" type="STRING"></property>
+                     <property name="ERS_REQ_PARAM_SAP_NUMBER" expression="get-property('uri.var.sapNo')" scope="default" type="STRING"></property>
+                     <property name="ERS_REQ_PARAM_UNIQUE_SCHEME_REF" expression="//ERSSubmission/UniqueSchemeReference/text()" scope="default" type="STRING"></property>
+                     <property name="ERS_REQ_PARAM_TAX_YEAR" expression="//ERSSubmission/TaxYear/text()" scope="default" type="STRING"></property>
+                     <property name="ERS_REQ_PARAM_SCHEME_TYPE" expression="//ERSSubmission/SchemeType/text()" scope="default" type="STRING"></property>
+                     <property name="ERS_REQ_PARAM_SUBMISSION_TYPE" expression="//ERSSubmission/SubmissionType/text()" scope="default" type="STRING"></property>
+                     <payloadFactory media-type="xml">
+                        <format>
+                           <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:emp="http://hmrc.gov.uk/etmp/digitalgateway/employment-securities">
+                              <soapenv:Header></soapenv:Header>
+                              <soapenv:Body>
+                                 <emp:ETMP_Transaction>
+                                    <emp:ETMP_Transaction_Header>
+                                       <emp:TransmittingSystem>$1</emp:TransmittingSystem>
+                                       <emp:OriginatingSystem>$2</emp:OriginatingSystem>
+                                       <emp:CorrelationID>$3</emp:CorrelationID>
+                                       <emp:ReceiptDate>$4</emp:ReceiptDate>
+                                       <emp:AcknowledgementReference>$5</emp:AcknowledgementReference>
+                                       <emp:MessageTypes>
+                                          <emp:MessageType>$6</emp:MessageType>
+                                       </emp:MessageTypes>
+                                       <emp:RequestParameters>
+                                          <emp:ParamName>REGIME</emp:ParamName>
+                                          <emp:ParamValue>$7</emp:ParamValue>
+                                       </emp:RequestParameters>
+                                       <emp:RequestParameters>
+                                          <emp:ParamName>SAP_NUMBER</emp:ParamName>
+                                          <emp:ParamValue>$8</emp:ParamValue>
+                                       </emp:RequestParameters>
+                                    </emp:ETMP_Transaction_Header>
+                                    <emp:ERSSubmission>
+                                       <emp:UniqueSchemeReference>$9</emp:UniqueSchemeReference>
+                                       <emp:TaxYear>$10</emp:TaxYear>
+                                       <emp:SchemeType>$11</emp:SchemeType>
+                                       <emp:SubmissionType>$12</emp:SubmissionType>
+                                    </emp:ERSSubmission>
+                                 </emp:ETMP_Transaction>
+                              </soapenv:Body>
+                           </soapenv:Envelope>
+                        </format>
+                        <args>
+                           <arg evaluator="xml" expression="$ctx:ERS_TRANSMITTING_SYSTEM"></arg>
+                           <arg evaluator="xml" expression="$ctx:ERS_ORIGINATING_SYSTEM"></arg>
+                           <arg evaluator="xml" expression="$ctx:ERS_CORRELATION_ID"></arg>
+                           <arg evaluator="xml" expression="$ctx:ERS_RECEIPT_DATE"></arg>
+                           <arg evaluator="xml" expression="$ctx:ERS_ACKNOWLEDGEMENT_REFERENCE"></arg>
+                           <arg evaluator="xml" expression="$ctx:ERS_MESSAGE_TYPE"></arg>
+                           <arg evaluator="xml" expression="$ctx:ERS_REQ_REGIME"></arg>
+                           <arg evaluator="xml" expression="$ctx:ERS_REQ_PARAM_SAP_NUMBER"></arg>
+                           <arg evaluator="xml" expression="$ctx:ERS_REQ_PARAM_UNIQUE_SCHEME_REF"></arg>
+                           <arg evaluator="xml" expression="$ctx:ERS_REQ_PARAM_TAX_YEAR"></arg>
+                           <arg evaluator="xml" expression="$ctx:ERS_REQ_PARAM_SCHEME_TYPE"></arg>
+                           <arg evaluator="xml" expression="$ctx:ERS_REQ_PARAM_SUBMISSION_TYPE"></arg>
+                        </args>
+                     </payloadFactory>	 
+                     <send>
+                        <endpoint name="ETMP_ERS_SOAP_SUBMISSION_SUMMARY" template="gov:/templates/ETMP_ERS_SOAP_EP_TPL.xml" uri="http://{system.prop.uk.gov.hmrc.wso2.etmp.ERS_SUBMISSIONS_HOST_NAME}:{system.prop.uk.gov.hmrc.wso2.etmp.ERS_SUBMISSIONS_HOST_PORT}/{system.prop.uk.gov.hmrc.wso2.etmp.ERS_SUBMISSIONS_EP}"></endpoint>
+                     </send>
+					 <header name="Authorization" scope="transport" action="remove" description="remove Authorization header"/>
+					 <property name="ERS_BACKEND_AUTHN_USR" expression="get-property('system', 'uk.gov.hmrc.wso2.etmp.ers.submissions.username')" scope="default" type="STRING"></property>
+					 <property name="ERS_BACKEND_AUTHN_PWD" expression="get-property('system', 'uk.gov.hmrc.wso2.etmp.ers.submissions.password')" scope="default" type="STRING"></property>		 
+					 <property name="_CREDENTIALS" expression="fn:concat($ctx:ERS_BACKEND_AUTHN_USR,':',$ctx:ERS_BACKEND_AUTHN_PWD)" scope="default" type="STRING" description="format username and password"/>
+					 <header name="Authorization" scope="transport" expression="fn:concat('Basic ', base64Encode($ctx:_CREDENTIALS))" description="Add Authorization header for Backend"/> 					 
+                  </default>
+               </switch>
+            </default>
+         </switch>
+      </inSequence>
+      <outSequence>
+         <property name="logmessage" expression="fn:concat('{&quot;label&quot;:&quot;DATA_ERSSubmissionSummary&quot;, ', '&quot;message&quot;:&quot;ERSSubmissionSummary starting outSeq. HTTP_SC ', $axis2:HTTP_SC, '&quot;}')" scope="default" type="STRING" description="log"/>
+         <DesLog level="custom">
+            <SLTrace service="91BBERS-ERSSubmissionSummary" expression="get-property('logmessage')"></SLTrace>
+         </DesLog>	
+         <property xmlns:etmpresp="http://hmrc.gov.uk/etmp/digitalgateway/employment-securities" name="ERS_RESP_STATUS" expression="//etmpresp:ETMP_Transaction_Response/etmpresp:Status/text()" scope="default" type="STRING"></property>
+         <property xmlns:etmpresp="http://hmrc.gov.uk/etmp/digitalgateway/employment-securities" name="ERS_RESP_STATUS_TEXT" expression="//etmpresp:ETMP_Transaction_Response/etmpresp:StatusText/text()" scope="default" type="STRING"></property>
+         <property xmlns:etmpresp="http://hmrc.gov.uk/etmp/digitalgateway/employment-securities" name="ERS_RESP_PROCESSING_DATE" expression="//etmpresp:ETMP_Transaction_Response/etmpresp:ProcessingDate/text()" scope="default" type="STRING"></property>
+         <property xmlns:etmpresp="http://hmrc.gov.uk/etmp/digitalgateway/employment-securities" name="ERS_RESP_RETURN_PARAMS" expression="//etmpresp:ETMP_Transaction_Response/etmpresp:ReturnParameters" scope="default" type="STRING"></property>
+         <property xmlns:etmpresp="http://hmrc.gov.uk/etmp/digitalgateway/employment-securities" name="ERS_RESP_RETURN_PARAMS_FORMBUNDLENUMBER" expression="//etmpresp:ParamName[.='ETMPFORMBUNDLENUMBER']/following-sibling::*/text()" scope="default" type="STRING"></property>
+         <switch source="$axis2:HTTP_SC">
+            <case regex="^(200|202)$">		   
+			   <switch source="$ctx:ERS_RESP_STATUS">
+                  <case regex="^OK$">
+				     <property name="HTTP_SC" value="200" scope="axis2" type="STRING"></property>
+                     <payloadFactory media-type="json">
+                        <format>{ "Form Bundle Number" : "$1" }</format>
+                        <args>
+                           <arg evaluator="xml" expression="$ctx:ERS_RESP_RETURN_PARAMS_FORMBUNDLENUMBER"></arg>
+                        </args>
+                     </payloadFactory>
+                  </case>
+                  <default>
+				     <property name="HTTP_SC" value="400" scope="axis2" type="STRING"></property>
+                     <payloadFactory media-type="xml">
+                        <format>
+                           <Reason>$1</Reason>						   
+                        </format>
+                        <args>
+						   <arg evaluator="xml" expression="$ctx:ERS_RESP_STATUS_TEXT"></arg>
+						</args>
+                     </payloadFactory>
+                  </default>
+               </switch>
+            </case>
+            <default>
+			   <property name="HTTP_SC" value="400" scope="axis2" type="STRING"></property>
+               <payloadFactory media-type="xml">
+                  <format>
+                     <Reason>$1</Reason>						   
+                  </format>
+                  <args>
+					 <arg evaluator="xml" expression="$ctx:ERS_RESP_STATUS_TEXT"></arg>
+                  </args>
+               </payloadFactory>
+            </default>
+         </switch>
+         <property name="messageType" value="application/json" scope="axis2"></property>
+         <send></send>
+      </outSequence>
+      <faultSequence>
+         <property name="logmessage" expression="fn:concat('{&quot;label&quot;:&quot;DATA_ERSSubmissionSummary&quot;, ', '&quot;message&quot;:&quot;ERSSubmissionSummary starting faultSeq. HTTP_SC ', $axis2:HTTP_SC, '&quot;}')" scope="default" type="STRING" description="log"/>
+         <DesLog level="custom">
+            <SLTrace service="91BBERS-ERSSubmissionSummary" expression="get-property('logmessage')"></SLTrace>
+         </DesLog>			 
+         <property name="HTTP_SC" value="503" scope="axis2" type="STRING"></property>		 
+         <payloadFactory media-type="xml">
+            <format>
+                <Reason>$1</Reason>						   
+            </format>
+            <args>
+			    <arg evaluator="xml" expression="$ctx:ERS_RESP_STATUS_TEXT"></arg>
+            </args>
+         </payloadFactory>
+         <sequence key="ESBAPIFaultHandler"></sequence>
+      </faultSequence>
+   </resource>
+   <handlers>
+      <handler class="uk.gov.hmrc.wso2.runtime.handlers.DESBasicAuthenticationForAPIHandler"/>
+   </handlers>     
+</api> 

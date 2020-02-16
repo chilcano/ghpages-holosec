@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<artifacts>
+    <artifact name="ETMPReadPropertiesSequence" groupId="uk.gov.hmrc.wso2.etmp.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/ETMPReadPropertiesSequence.xml</file>
+    </artifact>
+    <artifact name="ETMPPrepareRequestSequence" groupId="uk.gov.hmrc.wso2.etmp.sequence" version="1.0.0" type="synapse/sequence" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/sequences/ETMPPrepareRequestSequence.xml</file>
+    </artifact>
+	<artifact name="ETMPHeartBeatAPI" groupId="uk.gov.hmrc.wso2.etmp.api" version="1.0.0" type="synapse/api" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/api/ETMPHeartBeatAPI.xml</file>
+    </artifact>
+	<artifact name="ERSGetSAPNo" groupId="uk.gov.hmrc.wso2.etmp.api" version="1.0.0" type="synapse/api" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/api/ERSGetSAPNo.xml</file>
+    </artifact>
+	<artifact name="ERSSubmissionQueuePublisher" groupId="uk.gov.hmrc.wso2.etmp.api" version="1.0.0" type="synapse/api" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/api/ERSSubmissionQueuePublisher.xml</file>
+    </artifact>
+	<artifact name="ERSSubmissionQueueReceiver" groupId="uk.gov.hmrc.wso2.etmp.api" version="1.0.0" type="synapse/api" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/api/ERSSubmissionQueueReceiver.xml</file>
+    </artifact>     
+	<artifact name="ERSSubmissionSummary" groupId="uk.gov.hmrc.wso2.etmp.api" version="1.0.0" type="synapse/api" serverRole="EnterpriseServiceBus">
+        <file>src/main/synapse-config/api/ERSSubmissionSummary.xml</file>
+    </artifact>        
+</artifacts>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>uk.gov.hmrc.wso2.etmp</groupId>
+  <artifactId>MDTP_ERSSubmissionSynapse_module</artifactId>
+  <version>1.0.0</version>
+  <packaging>pom</packaging>
+  <name>MDTP_ERSSubmissionSynapse_module</name>
+  <description>MDTP_ERSSubmissionSynapse_module</description>
+  <modules>
+    <module>artifacts\api\ETMPHeartBeatAPI</module>
+    <module>artifacts\api\ERSGetSAPNo</module>
+    <module>artifacts\api\ERSSubmissionQueuePublisher</module>
+    <module>artifacts\api\ERSSubmissionQueueReceiver</module>
+    <module>artifacts\api\ERSSubmissionSummary</module>
+    <module>artifacts\sequence\ETMPReadPropertiesSequence</module>
+    <module>artifacts\sequence\ETMPPrepareRequestSequence</module>
+  </modules>
+</project>

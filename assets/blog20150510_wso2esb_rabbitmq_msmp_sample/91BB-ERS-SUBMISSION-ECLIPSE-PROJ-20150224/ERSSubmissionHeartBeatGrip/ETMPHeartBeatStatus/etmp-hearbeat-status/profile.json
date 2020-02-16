@@ -1,0 +1,51 @@
+{
+  "tierAvailability" : [ {
+    "tier" : "Unlimited"
+  } ],
+  "authType" : [ {
+    "put" : "Application",
+    "post" : "Application",
+    "get" : "Application",
+    "delete" : "Application",
+    "options" : "Application"
+  } ],
+  "throttlingTier" : [ {
+    "put" : "Unlimited",
+    "post" : "Unlimited",
+    "get" : "Unlimited",
+    "delete" : "Unlimited",
+    "options" : "Unlimited"
+  } ],
+  "publishToStore" : true,
+  "isDefaultVersion" : true,
+  "supportsCors" : false,
+  "transports" : "http,https",
+  "inSequence" : "",
+  "outSequence" : "",
+  "faultSequence" : "",
+  "endpointType" : "nonsecured",
+  "name" : "ETMPHeartBeatStatus",
+  "endpoints" : [ {
+    "productionUrl" : "http://desesb01-vip:8286/etmp/status/check",
+    "env" : "dev"
+  },{
+    "productionUrl" : "http://desesb01-vip:8286/etmp/status/check",
+    "env" : "ist"
+  },{
+    "productionUrl" : "http://desesb01-vip:8286/etmp/status/check",
+    "env" : "clone"
+  },{
+    "productionUrl" : "http://desesb01-vip:8286/etmp/status/check",
+    "env" : "live"
+  } ],
+  "context" : "/etmp/status",
+  "tags" : "",
+  "description" : "",
+  "visibility" : "public",
+  "wsdl" : "",
+  "wadl" : "",
+  "responseCache" : "Disabled",
+  "cacheTimeout" : "300",
+  "subscriptions" : "current_tenant",
+  "endpointCredentials" : [ ]
+}

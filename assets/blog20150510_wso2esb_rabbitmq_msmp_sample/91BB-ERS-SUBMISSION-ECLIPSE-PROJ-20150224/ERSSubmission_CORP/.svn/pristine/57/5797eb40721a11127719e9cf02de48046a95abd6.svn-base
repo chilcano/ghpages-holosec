@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<proxy xmlns="http://ws.apache.org/ns/synapse"
+       name="ERSSubmissionQueueListener"
+       transports="http,rabbitmq"
+       statistics="disable"
+       trace="disable"
+       startOnLoad="true">
+    <target>
+      <inSequence>
+         <property name="ERS_FORM_BUNDLE_ID" expression="//ERS_ADRS_REQUEST_FORM_BUNDLE_ID/text()" scope="default" type="STRING"></property>
+		 <property name="ERS_CORRELATION_ID" expression="//ERS_ADRS_REQUEST_CORRELATION_ID/text()" scope="default" type="STRING"></property>
+		 <property name="ERS_SUBMITRETURN_BACKEND_HTTP_SC" expression="//ERS_ADRS_RESPONSE_BACKEND_HTTP_SC/text()" scope="default" type="STRING"></property>
+         <property name="ERS_SUBMITRETURN_RESULT" expression="//ERS_ADRS_RESPONSE/Response/result/text()" scope="default" type="STRING"></property>
+         <property name="ERS_SUBMITRETURN_ERROR_NUMBER" expression="//ERS_ADRS_RESPONSE/Response/error_number/text()" scope="default" type="STRING"></property>
+         <property name="ERS_SUBMITRETURN_ERROR_MESSAGE" expression="//ERS_ADRS_RESPONSE/Response/error_message/text()" scope="default" type="STRING"></property>	 	 
+         <property name="logmessage" expression="fn:concat('{&quot;label&quot;:&quot;CORP_ERSSubmission_queue_consumed&quot;, ', '&quot;message&quot;:&quot;ERSSubmissionQueueListener start. ERS_SUBMITRETURN_BACKEND_HTTP_SC ', $ctx:ERS_SUBMITRETURN_BACKEND_HTTP_SC, '&quot;}')" scope="default" type="STRING" description="log"/>
+         <DesLog level="custom">
+            <SLTrace service="ERS-ERSSubmissionQueueListener" expression="get-property('logmessage')"></SLTrace>
+         </DesLog>
+         <switch source="$ctx:ERS_SUBMITRETURN_BACKEND_HTTP_SC">
+            <case regex="^(404|503)$">
+               <property name="FORCE_SC_ACCEPTED" value="true" scope="axis2" type="STRING"></property>
+               <property name="OUT_ONLY" value="true" scope="default" type="STRING"></property>
+               <header name="Action" scope="default" value="urn:ERSSubmissionQueuePublisherRetry"></header>
+               <property name="rabbitmqMessageContentType" value="application/json" scope="default" type="STRING"></property>
+               <property name="ERS_TYPE_OF_FLOW" value="FULL_SUBMISSION_TO_ADRS" scope="transport" type="STRING"></property>
+               <property name="CorrelationId" expression="$ctx:ERS_CORRELATION_ID" scope="default" type="STRING"></property>
+               <class name="uk.gov.hmrc.uct.wso2.amqp.properties.AMQPPropertiesMediator"></class>
+               <property name="Accept-Encoding" scope="transport" action="remove"></property>
+               <property name="Cookie" scope="transport" action="remove"></property>
+
+               <property name="messageType" value="application/json" scope="axis2" type="STRING"></property>			   
+               <payloadFactory media-type="json">
+				<format>$1</format>
+				<args>
+				   <arg evaluator="json" expression="$.ERS_ADRS_REQUEST"></arg>
+				</args>
+               </payloadFactory>			   
+			   
+               <send description="send message to RetryQ">
+                  <endpoint name="ERS_RABBITMQ_RETRY_QUEUE" template="gov:/templates/ETMP_ERS_RABBITMQ_EP_TPL.xml" uri="rabbitmq:/ERSSubmissionQueueListenerRetry?{system.prop.uk.gov.hmrc.wso2.etmp.RABBIT_CONF}{system.prop.uk.gov.hmrc.wso2.etmp.RABBIT_SUBMITRETURN_RETRY1}{system.prop.uk.gov.hmrc.wso2.etmp.RABBIT_password}{system.prop.uk.gov.hmrc.wso2.etmp.RABBIT_SUBMITRETURN_RETRY2}"></endpoint>
+               </send>
+               <property name="logmessage" expression="fn:concat('{&quot;label&quot;:&quot;CORP_ERSSubmission_queue_consumed&quot;, ', '&quot;message&quot;:&quot;Sending message to Retry Queue&quot;}')" scope="default" type="STRING" description="log"/>
+               <DesLog level="custom" category="WARN">
+                  <SLTrace service="ERS-ERSSubmissionQueueListener" expression="get-property('logmessage')"></SLTrace>
+               </DesLog>
+            </case>
+            <case regex="^(400)$">
+               <property name="logmessage" expression="fn:concat('{&quot;label&quot;:&quot;CORP_ERSSubmission_queue_consumed&quot;, ', '&quot;message&quot;:&quot;Sending message to DeadLetter Queue.&quot;}')" scope="default" type="STRING" description="log"/>
+               <DesLog level="custom" category="ERROR">
+                  <SLTrace service="ERS-ERSSubmissionQueueListener" expression="get-property('logmessage')"></SLTrace>
+               </DesLog>
+            </case>
+            <case regex="^(200)$">
+               <property name="FORCE_SC_ACCEPTED" value="true" scope="axis2" type="STRING"></property>
+               <property name="OUT_ONLY" value="true" scope="default" type="STRING"></property>
+               <header name="Action" scope="default" value="urn:ERSSubmissionQueueConsumed"></header>
+               <property name="rabbitmqMessageContentType" value="application/json" scope="default" type="STRING"></property>
+               <property name="ERS_TYPE_OF_FLOW" value="FULL_SUBMISSION_TO_ADRS" scope="transport" type="STRING"></property>
+               <property name="CorrelationId" expression="$ctx:ERS_CORRELATION_ID" scope="default" type="STRING"></property>
+               <class name="uk.gov.hmrc.uct.wso2.amqp.properties.AMQPPropertiesMediator"></class>
+               <property name="Accept-Encoding" scope="transport" action="remove"></property>
+               <property name="Cookie" scope="transport" action="remove"></property>
+               <send description="send processed message to DLQ just for archiving">
+                  <endpoint name="ERS_RABBITMQ_ARCHIVE_DL_QUEUE" template="gov:/templates/ETMP_ERS_RABBITMQ_EP_TPL.xml" uri="rabbitmq:/ERSSubmissionQueueListenerDeadLetter?{system.prop.uk.gov.hmrc.wso2.etmp.RABBIT_CONF}{system.prop.uk.gov.hmrc.wso2.etmp.RABBIT_SUBMITRETURN_DL1}{system.prop.uk.gov.hmrc.wso2.etmp.RABBIT_password}{system.prop.uk.gov.hmrc.wso2.etmp.RABBIT_SUBMITRETURN_DL2}"></endpoint>
+               </send>
+               <property name="logmessage" expression="fn:concat('{&quot;label&quot;:&quot;CORP_ERSSubmission_queue_consumed&quot;, ', '&quot;message&quot;:&quot;Sending processed message to DeadLetter Queue for archiving&quot;}')" scope="default" type="STRING" description="log"/>
+               <DesLog level="custom" category="WARN">
+                  <SLTrace service="ERS-ERSSubmissionQueueListener" expression="get-property('logmessage')"></SLTrace>
+               </DesLog>
+            </case>			
+            <default></default>
+         </switch>
+      </inSequence>
+      <outSequence></outSequence>
+      <faultSequence>
+         <header name="CorrelationId" scope="transport" expression="get-property('CorrelationId')" description="For DesLog Mediator"></header>
+         <property name="FORCE_SC_ACCEPTED" value="false" scope="axis2" type="STRING"></property>
+         <property name="OUT_ONLY" value="false" scope="default" type="STRING"></property>
+         <property name="logmessage" expression="fn:concat('{&quot;label&quot;:&quot;CORP_ERSSubmission_queue_consumed&quot;, ', '&quot;message&quot;:&quot;', get-property('ERROR_MESSAGE'), '&quot;, &quot;errorCode&quot;:&quot;', get-property('ERROR_CODE'), '&quot;, &quot;errorDetail&quot;:&quot;', get-property('ERROR_DETAIL'), '&quot;, &quot;errorMessage&quot;:&quot;', get-property('ERROR_EXCEPTION'), '&quot;, &quot;httpStatus&quot;:&quot;500&quot;}')" scope="default" type="STRING" description="log"/>
+         <DesLog level="custom" category="ERROR">
+            <SLTrace service="ERS-ERSSubmissionQueueListener" expression="get-property('logmessage')"></SLTrace>
+         </DesLog>
+         <sequence key="ESBAPIFaultHandler"></sequence>
+      </faultSequence>
+   </target>
+   <parameter name="rabbitmq.queue.name">mirr.q.ers_submitreturn</parameter>
+   <parameter name="rabbitmq.connection.factory">AMQPConnectionFactory91BB</parameter>
+   <parameter name="rabbitmq.exchange.name">ers.direct</parameter>
+   <parameter name="rabbitmq.queue.routing.key">submitreturn</parameter>
+   <parameter name="serviceType">proxy</parameter>  
+</proxy>
+                        

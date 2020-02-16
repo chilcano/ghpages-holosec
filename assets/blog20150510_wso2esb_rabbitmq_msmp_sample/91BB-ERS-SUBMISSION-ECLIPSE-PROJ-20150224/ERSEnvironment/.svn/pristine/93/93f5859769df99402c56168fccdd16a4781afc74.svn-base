@@ -1,0 +1,18 @@
+##### ESB CORP - EMTP ######
+uk.gov.hmrc.wso2.etmp.ESB_CORP_HOSTNAME=localhost:8080
+uk.gov.hmrc.wso2.etmp.ERS_GETSAPNO_EP=XISOAPAdapter/MessageServlet?senderParty=&senderService=MDTP_DEV&receiverParty=&receiverService=&interface=GetBPKeyInformation&interfaceNamespace=http://hmrc.gov.uk/etmp/digitalgateway/employment-securities
+uk.gov.hmrc.wso2.etmp.ERS_SUBMISSIONS_EP=XISOAPAdapter/MessageServlet?senderParty=&senderService=MDTP_DEV&receiverParty=&receiverService=&interface=SubmissionSync&interfaceNamespace=http://hmrc.gov.uk/digitalgateway/employment-securities
+uk.gov.hmrc.wso2.etmp.esb.heartbeat.SENDER_SYSTEM=DAPI
+uk.gov.hmrc.wso2.etmp.esb.heartbeat.TARGET_SYSTEM=ARD110
+uk.gov.hmrc.wso2.etmp.ETMP_HEART_BEAT_EP=http://irv92915:52000/XISOAPAdapter/MessageServlet?senderParty=&senderService=MDTP_TST&receiverParty=&receiverService=&interface=IFOS_01_DIGITALGATEWAY_HeartBeat&interfaceNamespace=http://hmrc.gov.uk/etmp/digitalgateway/heartbeat
+
+# WSO2 DSS EP for ERS Submit Return
+uk.gov.hmrc.wso2.etmp.ERS_SUBMITRETURN_HOST_NAME=10.123.0.57
+uk.gov.hmrc.wso2.etmp.ERS_SUBMITRETURN_HOST_PORT=9766
+uk.gov.hmrc.wso2.etmp.ERS_SUBMITRETURN_EP=services/MDTP_ERSSubmission
+
+# Loaded by LoadProperties with encryption features to perform HTTP BasicAuthn (update)
+uk.gov.hmrc.wso2.uct.esb.username=leo
+uk.gov.hmrc.wso2.uct.esb.password=messi
+uk.gov.hmrc.wso2.etmp.esb.username=PI_WS02_RFC
+uk.gov.hmrc.wso2.etmp.esb.password=piuser1

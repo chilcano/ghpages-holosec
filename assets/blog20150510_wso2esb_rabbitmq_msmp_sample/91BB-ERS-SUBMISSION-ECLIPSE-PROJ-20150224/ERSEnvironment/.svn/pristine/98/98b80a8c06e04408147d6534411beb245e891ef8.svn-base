@@ -1,0 +1,38 @@
+##### ESB DATA - ERS ######
+uk.gov.hmrc.wso2.etmp.ERS_GETSAPNO_HOST_NAME=mock-srv
+uk.gov.hmrc.wso2.etmp.ERS_GETSAPNO_HOST_PORT=7788
+uk.gov.hmrc.wso2.etmp.ERS_GETSAPNO_EP=XISOAPAdapter/MessageServlet?senderParty=&senderService=MDTP_DEV&receiverParty=&receiverService=&interface=GetBPKeyInformation&interfaceNamespace=http://hmrc.gov.uk/etmp/digitalgateway/employment-securities
+
+uk.gov.hmrc.wso2.etmp.ERS_SUBMISSIONS_HOST_NAME=mock-srv
+uk.gov.hmrc.wso2.etmp.ERS_SUBMISSIONS_HOST_PORT=7788
+uk.gov.hmrc.wso2.etmp.ERS_SUBMISSIONS_EP=XISOAPAdapter/MessageServlet?senderParty=&senderService=MDTP_DEV&receiverParty=&receiverService=&interface=SubmissionSync&interfaceNamespace=http://hmrc.gov.uk/digitalgateway/employment-securities
+
+uk.gov.hmrc.wso2.etmp.esb.heartbeat.SENDER_SYSTEM=DES
+uk.gov.hmrc.wso2.etmp.esb.heartbeat.TARGET_SYSTEM=ARD110
+uk.gov.hmrc.wso2.etmp.ETMP_HEART_BEAT_EP=http://10.102.128.36:51000/XISOAPAdapter/MessageServlet?senderParty=&senderService=MDTP_DEV&receiverParty=&receiverService=&interface=IFOS_01_DIGITALGATEWAY_HeartBeat&interfaceNamespace=http://hmrc.gov.uk/etmp/digitalgateway/heartbeat
+
+# WSO2 DSS EP for ERS Submit Return
+uk.gov.hmrc.wso2.etmp.ERS_SUBMITRETURN_HOST_NAME=desdss01-vip
+uk.gov.hmrc.wso2.etmp.ERS_SUBMITRETURN_HOST_PORT=80
+uk.gov.hmrc.wso2.etmp.ERS_SUBMITRETURN_EP=services/MDTP_ERSSubmission
+
+# Loaded by LoadProperties with encryption features to perform HTTP BasicAuthn
+uk.gov.hmrc.wso2.uct.esb.username=deswso2
+uk.gov.hmrc.wso2.uct.esb.password={07870210E429D5BA9B02B5C588F27FAD}
+uk.gov.hmrc.wso2.etmp.esb.username=PI_DAPI_RFC
+uk.gov.hmrc.wso2.etmp.esb.password=piuser1
+
+# Loaded by LoadProperties to perform HTTP BasicAuthn againts to Backend services (ERS_GETSAPNO_EP)
+uk.gov.hmrc.wso2.etmp.ers.getsapno.username=leo1
+uk.gov.hmrc.wso2.etmp.ers.getsapno.password=messi1
+
+# Loaded by LoadProperties to perform HTTP BasicAuthn againts to Backend services (ERS_SUBMISSIONSUMMARY_EP)
+uk.gov.hmrc.wso2.etmp.ers.submissions.username=leo2
+uk.gov.hmrc.wso2.etmp.ers.submissions.password=messi2
+
+## JNDI RabbitMQ configuration
+# HA Proxy - LoadBalancer in desbkr01-vip:6672
+#connectionfactory.myRabbitMQ91BBConnFactory = amqp://usr91bb:usr91bb@carbon/DES_91BB?brokerlist='tcp://desbkr01-vip:6672'
+connectionfactory.myRabbitMQ91BBConnFactory = amqp://usr91bb:usr91bb@carbon/DES_91BB?brokerlist='tcp://10.105.135.64:5672'
+destination.myJNDIRabbitMQDestRetryQueuePublisher = BURL:direct://amq.direct//?routingkey='rk.ers_submitreturn'
+destination.myJNDIRabbitMQDestRetryQueueConsumer = BURL:direct://amq.direct/rk.ers_submitreturn/mirr.q.ers_submitreturn_retry

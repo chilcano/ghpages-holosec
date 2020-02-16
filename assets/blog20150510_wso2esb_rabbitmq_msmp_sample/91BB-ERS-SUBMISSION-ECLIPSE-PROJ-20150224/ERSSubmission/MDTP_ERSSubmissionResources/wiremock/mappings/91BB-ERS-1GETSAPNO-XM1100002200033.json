@@ -1,0 +1,18 @@
+{
+	"request": { 
+		"method": "POST",
+		"url": "/XISOAPAdapter/MessageServlet?senderParty=&senderService=MDTP_DEV&receiverParty=&receiverService=&interface=GetBPKeyInformation&interfaceNamespace=http://hmrc.gov.uk/etmp/digitalgateway/employment-securities",
+		"bodyPatterns": [
+			{ "contains": "<emp:MessageType>GetBPKeyInformation</emp:MessageType>" },
+			{ "contains": "<emp:ParamValue>ERS</emp:ParamValue>" },
+			{ "contains": "<emp:ParamValue>XM1100002200033</emp:ParamValue>" }
+		]
+	},
+	"response": {
+		"status": 200,
+        "bodyFileName": "91BB-ERS-1GETSAPNO-200-OK-XM1100002200033.xml",
+		"headers": { 
+			"Content-Type": "application/xml"
+		}
+	}
+}

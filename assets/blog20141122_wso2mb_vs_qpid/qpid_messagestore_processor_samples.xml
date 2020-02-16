@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<proxy xmlns="http://ws.apache.org/ns/synapse"
+       name="QPID_MSG_STORE_01"
+       transports="http"
+       statistics="disable"
+       trace="disable"
+       startOnLoad="true">
+   <target>
+      <inSequence>
+         <property name="OUT_ONLY" value="true" scope="default" type="STRING"/>
+         <property name="FORCE_SC_ACCEPTED"
+                   value="true"
+                   scope="axis2"
+                   type="STRING"/>
+         <header name="Action" scope="default" value="QPID_MSG_STORE_01"/>
+                                <property name="SNP_URL" scope="transport" value="http://foobar.com/snp_service"/>
+         <property name="MSG_SOAP12_IN" xmlns:soap="http://www.w3.org/2003/05/soap-envelope" expression="//soap:Body" scope="default"/>
+         <log level="custom">
+            <property name="[QPID_MSG_STORE_01] ~~~ MSG SOAP12 IN" expression="$ctx:MSG_SOAP12_IN"/>
+         </log>
+         <store messageStore="JMS_QPID_MESSAGESTORE_01"/>
+      </inSequence>
+   </target>
+   <description/>  
+</proxy>
+ 
+ 
+ 
+ 
+<!-- Message Store -->
+<messageStore name="JMS_QPID_MESSAGESTORE_01" class="org.apache.synapse.message.store.impl.jms.JmsStore" xmlns="http://ws.apache.org/ns/synapse">
+   <parameter name="java.naming.factory.initial">org.apache.qpid.jndi.PropertiesFileInitialContextFactory</parameter>
+   <parameter name="java.naming.provider.url">repository/conf/jndi.properties</parameter>
+   <parameter name="store.jms.destination">MyJNDIQueue</parameter>
+   <parameter name="store.jms.connection.factory">QueueConnectionFactory</parameter>
+   <parameter name="store.jms.username">admin</parameter>
+   <parameter name="store.jms.password">admin</parameter>
+   <parameter name="store.jms.JMSSpecVersion">1.1</parameter>
+</messageStore>
+ 
+ 
+<messageStore name="JMS_QPID_MESSAGESTORE_01" class="uk.gov.hmrc.wso2.synapse.rabbitmq.poc.message.store.impl.jms.JmsStore" xmlns="http://ws.apache.org/ns/synapse">
+   <parameter name="java.naming.factory.initial">org.apache.qpid.jndi.PropertiesFileInitialContextFactory</parameter>
+   <parameter name="java.naming.provider.url">repository/conf/jndi.properties</parameter>
+   <parameter name="store.jms.destination">MyJNDIQueue</parameter>
+   <parameter name="store.jms.connection.factory">QueueConnectionFactory</parameter>
+   <parameter name="store.jms.username">admin</parameter>
+   <parameter name="store.jms.password">admin</parameter>
+   <parameter name="store.jms.JMSSpecVersion">1.1</parameter>
+</messageStore>
+ 
+ 
+<!-- older -->
+<messageStore  name="testMsgStore" class="org.wso2.carbon.message.store.persistence.jms.JMSMessageStore" xmlns="http://ws.apache.org/ns/synapse" >
+                <parameter name="java.naming.factory.initial">org.apache.qpid.jndi.PropertiesFileInitialContextFactory</parameter>
+                <parameter name="java.naming.provider.url">repository/conf/jndi.properties</parameter>
+                <parameter name="store.jms.destination">MyQueue</parameter>
+</messageStore>
+ 
+<!-- doc esb 4.8.1 for MQ -->
+ 
+<!-- ActiveMQ -->
+<messageStore name="JMSMS" class="org.apache.synapse.message.store.impl.jms.JMSMessageStore" xmlns="http://ws.apache.org/ns/synapse">
+                <parameter name="java.naming.factory.initial">org.apache.activemq.jndi.ActiveMQInitialContextFactory</parameter>
+                <parameter name="java.naming.provider.url">tcp://localhost:61616</parameter>
+</messageStore>
+ 
+<!-- WSO2 MB -->
+<messageStore name="JMSMS" class="org.apache.synapse.message.store.impl.jms.JMSMessageStore" xmlns="http://ws.apache.org/ns/synapse"> 
+                <parameter name="java.naming.factory.initial">org.wso2.andes.jndi.PropertiesFileInitialContextFactory</parameter> 
+                <parameter name="java.naming.provider.url">repository/conf/jndi.properties</parameter>
+                <parameter name="store.jms.destination">JMSMS</parameter>
+</messageStore>
+ 
+ 
+ 
+<!-- Message Processor -->
+ 
+<!-- created from SamplingMessageProcessor -->
+<messageProcessor name="JMS_QPID_MESSAGEPROCESSOR_01"
+                                                                  class="uk.gov.hmrc.wso2.synapse.rabbitmq.poc.message.processor.impl.sampler.SamplingProcessor"
+                                                                  messageStore="JMS_QPID_MESSAGESTORE_01"
+                                                                  xmlns="http://ws.apache.org/ns/synapse">
+   <parameter name="interval">1000</parameter>
+   <parameter name="concurrency">1</parameter>
+   <parameter name="sequence">QPID_SEQUENCE_01</parameter>
+   <parameter name="cronExpression">0 0/1 * 1/1 * ? *</parameter>
+   <parameter name="is.active">true</parameter>
+</messageProcessor>
+ 
+<!-- Sequence -->
+<sequence xmlns="http://ws.apache.org/ns/synapse" name="QPID_SEQUENCE_01">
+                <property xmlns:soap="http://www.w3.org/2003/05/soap-envelope" name="MSG_FROM_QUEUE_BY_MS" expression="//soap:Body" scope="default"/>
+                <property name="SNP_URL" expression="get-property('transport','SNP_URL')" scope="default"/>
+                <log level="custom">
+                                <property name="[QPID_SEQUENCE_01] MSG BY MS" expression="$ctx:MSG_FROM_QUEUE_BY_MS"/>
+                </log>
+                <log level="custom">
+                                <property name="[QPID_SEQUENCE_01] SNP_URL" expression="$ctx:SNP_URL"/>
+                </log>
+</sequence>

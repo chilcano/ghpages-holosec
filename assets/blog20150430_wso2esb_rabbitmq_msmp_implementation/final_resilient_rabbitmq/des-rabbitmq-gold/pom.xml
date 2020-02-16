@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>uk.gov.hmrc.wso2</groupId>
+		<artifactId>DES_superpom</artifactId>
+		<version>1.1.1</version>
+	</parent>
+	<groupId>uk.gov.hmrc.wso2</groupId>
+	<artifactId>des-rabbitmq-amqp</artifactId>
+	<version>1.1.3</version>
+	<name>Apache Axis2 - Transport - DES RabbitMQ AMQP</name>
+	<description>Apache Axis2 - DES RabbitMQ AMQP Transport</description>
+	<packaging>bundle</packaging>
+	
+	<scm>
+		<developerConnection>scm:svn:http://10.102.128.225:8080/svn/digital_integration_services/DES_DELIVERY/DES/Core/RabbitMQ/tags/des-rabbitmq-amqp-1.1.3</developerConnection>
+	</scm>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<version>1.4.0</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-Name>${project.artifactId}</Bundle-Name>
+						<Bundle-Vendor>Apache Software Foundation</Bundle-Vendor>
+						<Bundle-Description>${project.description}</Bundle-Description>
+						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+						<Export-Package>uk.gov.hmrc.wso2.rabbitmq.*;-split-package:=merge-last,
+						</Export-Package>
+						<Import-Package>*; resolution:=optional</Import-Package>
+					</instructions>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<includeArtifactIds>axis2-transport-rabbitmq-amqp, amqp-client</includeArtifactIds>
+							<excludeScope>provided</excludeScope>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	<dependencies>
+<!--  RabbitMQ Message Store using qpid-client-0.30 ** BEGIN -->
+	    <dependency>
+			<groupId>org.apache.synapse</groupId>
+			<artifactId>synapse-core</artifactId>
+			<version>2.1.2-wso2v2</version>
+		</dependency>
+	    <dependency>
+	      <groupId>org.apache.qpid</groupId>
+	      <artifactId>qpid-client</artifactId>
+	      <version>0.30</version>
+	    </dependency>
+	    <dependency>
+	      <groupId>org.apache.geronimo.specs</groupId>
+	      <artifactId>geronimo-jms_1.1_spec</artifactId>
+	      <version>1.1</version>
+	    </dependency>
+	    <dependency>
+	      <groupId>org.slf4j</groupId>
+	      <artifactId>slf4j-api</artifactId>
+	      <version>1.6.4</version>
+	    </dependency>
+<!--  RabbitMQ Message Store using qpid-client-0.30 ** END -->
+
+		<dependency>
+			<groupId>org.apache.axis2</groupId>
+			<artifactId>axis2-transport-rabbitmq-amqp</artifactId>
+			<version>1.1.0-wso2v9</version>
+			<!-- Exclude older RabbitMQ client lib dependency -->
+			<exclusions>
+			    <exclusion>
+					<groupId>com.rabbitmq.wso2</groupId>
+					<artifactId>amqp-client</artifactId>
+			    </exclusion>
+			    <exclusion>
+					<groupId>com.rabbitmq</groupId>
+					<artifactId>amqp-client</artifactId>
+			    </exclusion>
+			</exclusions>			
+		</dependency>
+		<!-- Remove older RabbitMQ client lib and add latest one -->
+		<dependency>
+		  <groupId>com.rabbitmq</groupId>
+		  <artifactId>amqp-client</artifactId>
+		  <version>3.4.1</version>
+		</dependency>		
+		<!--  
+		<dependency>
+			<groupId>com.rabbitmq.wso2</groupId>
+			<artifactId>amqp-client</artifactId>
+			<version>${version.wso2.rabbitmq}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.rabbitmq</groupId>
+			<artifactId>amqp-client</artifactId>
+			<version>${version.orbit.rabbitmq}</version>
+			<scope>provided</scope>
+		</dependency>
+		-->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.1-alpha1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20140107</version>
+		</dependency>
+	</dependencies>
+	<properties>
+		<version.wso2.rabbitmq>3.0.3.wso2v1</version.wso2.rabbitmq>
+		<version.orbit.rabbitmq>3.0.3</version.orbit.rabbitmq>
+	</properties>
+</project>

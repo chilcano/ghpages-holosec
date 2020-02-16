@@ -1,0 +1,229 @@
+<api xmlns="http://ws.apache.org/ns/synapse" name="ERSSubmissionQueueToADRS" context="/ers/SubmissionQueueToADRS">
+   <resource methods="POST">
+      <inSequence>
+         <property name="logmessage" expression="fn:concat('{&quot;label&quot;:&quot;CORP_ERSSubmission_call_to_ADRS&quot;, ', '&quot;message&quot;:&quot;ERSSubmissionQueueToADRS starting.', '&quot;}')" scope="default" type="STRING" description="log"/>
+         <DesLog level="custom">
+            <SLTrace service="ERS-ERSSubmissionQueueToADRS" expression="get-property('logmessage')"></SLTrace>
+         </DesLog>		 
+         <property name="PayLoadToBeBase64Encoded" expression="//submissionReturn" scope="default" type="STRING"></property>
+         <property name="ERS_SUBMISSION_FORM_TYPE" expression="//submissionType" scope="default" type="STRING"></property>
+         <property name="ERS_SUBMISSION_FORM_VERSION" value="1.0" scope="default" type="STRING"></property>
+         <property name="ERS_CAPTURE_TIMESTAMP" expression="//submissionTimestamp" scope="default" type="STRING"/>
+         <property name="ERS_CAPTURE_ROUTE" value="INTERNET" scope="default" type="STRING"></property>
+         <property name="ERS_CAPTURE_GROUP_ID" expression="//acknowledgementReference" scope="default" type="STRING"></property>
+         <property name="ERS_MESSAGE_CLASS" value="ACK_HMRC-IFORMS-DIRECT" scope="default" type="STRING"></property>
+         <property name="ERS_CHANNEL_VENDOR_ID" expression="//vendorId" scope="default" type="STRING"></property>
+         <property name="ERS_CHANNEL_PRODUCT" value="ers-channel-product" scope="default" type="STRING"></property>
+         <property name="ERS_CHANNEL_VERSION" value="1.0" scope="default" type="STRING"></property>
+         <property name="ERS_SENDER" expression="//userType" scope="default" type="STRING"></property>
+         <property name="ERS_SENDER_ID" expression="//credentialId" scope="default" type="STRING"></property>
+         <property name="ERS_CORRELATION_ID" value="correlation-id-provided-by-wso2" scope="default" type="STRING"></property>
+         <property name="ERS_UNIQUE_SCHEME_REF" expression="//schemeReference" scope="default" type="STRING"></property>
+         <property name="ERS_TAX_YEAR" expression="//taxYear" scope="default" type="STRING"></property>
+         <property name="ERS_SCHEME_TYPE" expression="//schemeType" scope="default" type="STRING"></property>
+         <property name="ERS_SUBMISSION_TYPE" expression="//submissionType" scope="default" type="STRING"></property>		 
+         <property name="ERS_SUBMITTER_FIRSTNAME" expression="//submitter/firstName" scope="default" type="STRING"></property>
+         <property name="ERS_SUBMITTER_SECONDNAME" expression="//submitter/secondName" scope="default" type="STRING"></property>
+         <property name="ERS_SUBMITTER_SURNAME" expression="//submitter/surname" scope="default" type="STRING"></property>
+         <property name="ERS_SUBMITTER_ADDRESS_LINE1" expression="//submitter/address/addressLine1" scope="default" type="STRING"></property>
+         <property name="ERS_SUBMITTER_ADDRESS_LINE2" expression="//submitter/address/addressLine2" scope="default" type="STRING"></property>
+         <property name="ERS_SUBMITTER_ADDRESS_LINE3" expression="//submitter/address/addressLine3" scope="default" type="STRING"></property>
+         <property name="ERS_SUBMITTER_ADDRESS_LINE4" expression="//submitter/address/addressLine4" scope="default" type="STRING"></property>
+         <property name="ERS_SUBMITTER_COUNTRY" expression="//submitter/address/country" scope="default" type="STRING"></property>
+         <property name="ERS_SUBMITTER_POSTCODE" expression="//submitter/address/postcode" scope="default" type="STRING"></property>
+         <property name="ERS_SUBMITTER_EMAIL_ADDRESS" expression="//submitter/address/emailAddress" scope="default" type="STRING"></property>
+         <property name="ERS_SUBMITTER_TELEPHONE" expression="//submitter/address/telephoneNumber" scope="default" type="STRING"></property>		 
+         <property name="ERS_PAYLOAD_BASE64" expression="fn:base64Encode($ctx:PayLoadToBeBase64Encoded)" scope="default" type="STRING"></property>
+         <property name="ERS_FILE_NAME" value="" scope="default" type="STRING"></property>
+         <property name="ERS_FILE_FORMAT" value="" scope="default" type="STRING"></property>
+         <payloadFactory media-type="xml">
+            <format>
+               <p:ERSSubmission_op xmlns:p="http://ws.wso2.org/dataservice">
+                  <p:pin_submission_form_type>$1</p:pin_submission_form_type>
+                  <p:pin_submission_form_version>$2</p:pin_submission_form_version>
+                  <p:pin_capture_timestamp>$3</p:pin_capture_timestamp>
+                  <p:pin_capture_route>$4</p:pin_capture_route>
+                  <p:pin_capture_group_id>$5</p:pin_capture_group_id>
+                  <p:pin_message_class>$6</p:pin_message_class>
+                  <p:pin_channel_vendor_id>$7</p:pin_channel_vendor_id>
+                  <p:pin_channel_product>$8</p:pin_channel_product>
+                  <p:pin_channel_version>$9</p:pin_channel_version>
+                  <p:pin_sender>$10</p:pin_sender>
+                  <p:pin_sender_id>$11</p:pin_sender_id>
+                  <p:pin_correlation_id>$12</p:pin_correlation_id>
+                  <p:pin_unique_scheme_reference>$13</p:pin_unique_scheme_reference>
+                  <p:pin_tax_year>$14</p:pin_tax_year>
+                  <p:pin_scheme_type>$15</p:pin_scheme_type>
+                  <p:pin_submission_type>$16</p:pin_submission_type>
+				  
+                  <p:pin_submitter_firstname>$17</p:pin_submitter_firstname>
+                  <p:pin_submitter_secondname>$18</p:pin_submitter_secondname>
+                  <p:pin_submitter_surname>$19</p:pin_submitter_surname>
+                  <p:pin_submitter_address_line1>$20</p:pin_submitter_address_line1>
+                  <p:pin_submitter_address_line2>$21</p:pin_submitter_address_line2>
+                  <p:pin_submitter_address_line3>$22</p:pin_submitter_address_line3>
+                  <p:pin_submitter_address_line4>$23</p:pin_submitter_address_line4>
+                  <p:pin_submitter_country>$24</p:pin_submitter_country>
+                  <p:pin_submitter_postcode>$25</p:pin_submitter_postcode>
+                  <p:pin_submitter_email_address>$26</p:pin_submitter_email_address>
+                  <p:pin_submitter_telephone>$27</p:pin_submitter_telephone>
+				  
+                  <p:pin_payload>$28</p:pin_payload>
+                  <p:pin_file_name>$29</p:pin_file_name>
+                  <p:pin_file_format>$30</p:pin_file_format>
+               </p:ERSSubmission_op>
+            </format>
+            <args>
+               <arg evaluator="xml" expression="$ctx:ERS_SUBMISSION_FORM_TYPE"></arg>
+               <arg evaluator="xml" expression="$ctx:ERS_SUBMISSION_FORM_VERSION"></arg>
+               <arg evaluator="xml" expression="$ctx:ERS_CAPTURE_TIMESTAMP"></arg>
+               <arg evaluator="xml" expression="$ctx:ERS_CAPTURE_ROUTE"></arg>
+               <arg evaluator="xml" expression="$ctx:ERS_CAPTURE_GROUP_ID"></arg>
+               <arg evaluator="xml" expression="$ctx:ERS_MESSAGE_CLASS"></arg>
+               <arg evaluator="xml" expression="$ctx:ERS_CHANNEL_VENDOR_ID"></arg>
+               <arg evaluator="xml" expression="$ctx:ERS_CHANNEL_PRODUCT"></arg>
+               <arg evaluator="xml" expression="$ctx:ERS_CHANNEL_VERSION"></arg>
+               <arg evaluator="xml" expression="$ctx:ERS_SENDER"></arg>
+               <arg evaluator="xml" expression="$ctx:ERS_SENDER_ID"></arg>
+               <arg evaluator="xml" expression="$ctx:ERS_CORRELATION_ID"></arg>
+               <arg evaluator="xml" expression="$ctx:ERS_UNIQUE_SCHEME_REF"></arg>
+               <arg evaluator="xml" expression="$ctx:ERS_TAX_YEAR"></arg>
+               <arg evaluator="xml" expression="$ctx:ERS_SCHEME_TYPE"></arg>
+               <arg evaluator="xml" expression="$ctx:ERS_SUBMISSION_TYPE"></arg>
+			   
+               <arg evaluator="xml" expression="$ctx:ERS_SUBMITTER_FIRSTNAME"></arg>
+               <arg evaluator="xml" expression="$ctx:ERS_SUBMITTER_SECONDNAME"></arg>
+               <arg evaluator="xml" expression="$ctx:ERS_SUBMITTER_SURNAME"></arg>
+               <arg evaluator="xml" expression="$ctx:ERS_SUBMITTER_ADDRESS_LINE1"></arg>
+               <arg evaluator="xml" expression="$ctx:ERS_SUBMITTER_ADDRESS_LINE2"></arg>
+               <arg evaluator="xml" expression="$ctx:ERS_SUBMITTER_ADDRESS_LINE3"></arg>
+               <arg evaluator="xml" expression="$ctx:ERS_SUBMITTER_ADDRESS_LINE4"></arg>
+               <arg evaluator="xml" expression="$ctx:ERS_SUBMITTER_COUNTRY"></arg>
+               <arg evaluator="xml" expression="$ctx:ERS_SUBMITTER_POSTCODE"></arg>
+               <arg evaluator="xml" expression="$ctx:ERS_SUBMITTER_EMAIL_ADDRESS"></arg>
+               <arg evaluator="xml" expression="$ctx:ERS_SUBMITTER_TELEPHONE"></arg>
+			   
+               <arg evaluator="xml" expression="$ctx:ERS_PAYLOAD_BASE64"></arg>
+               <arg evaluator="xml" expression="$ctx:ERS_FILE_NAME"></arg>
+               <arg evaluator="xml" expression="$ctx:ERS_FILE_FORMAT"></arg>
+            </args>
+         </payloadFactory>
+         <property name="SOAPAction" value="urn:ERSSubmission_op" scope="transport"></property>
+         <property name="BODY_IN_FIN" expression="$body" scope="default" type="OM"></property>
+         <property name="FORCE_ERROR_ON_SOAP_FAULT" value="true" scope="default" type="STRING"/>
+         <property name="messageType" value="text/xml" scope="axis2" type="STRING"></property>
+         <property name="Accept" value="application/xml" scope="transport" type="STRING"></property>
+         <send>
+            <endpoint template="gov:/templates/ETMP_ERS_SUBMISSIONRETURN_EP_TPL.xml" uri="http://{system.prop.uk.gov.hmrc.wso2.etmp.ERS_SUBMITRETURN_HOST_NAME}:{system.prop.uk.gov.hmrc.wso2.etmp.ERS_SUBMITRETURN_HOST_PORT}/{system.prop.uk.gov.hmrc.wso2.etmp.ERS_SUBMITRETURN_EP}"></endpoint>
+         </send>
+      </inSequence>  
+      <outSequence>
+         <property name="logmessage" expression="fn:concat('{&quot;label&quot;:&quot;CORP_ERSSubmission_call_to_ADRS&quot;, ', '&quot;message&quot;:&quot;ERSSubmissionQueueToADRS starting outSeq. HTTP_SC ', $axis2:HTTP_SC, '&quot;}')" scope="default" type="STRING" description="log"/>
+         <DesLog level="custom">
+            <SLTrace service="ERS-ERSSubmissionQueueToADRS" expression="get-property('logmessage')"></SLTrace>
+         </DesLog>	  
+         <property name="HTTP_SC_OUT_INITIAL" expression="$axis2:HTTP_SC"></property>
+         <property xmlns:dss="http://ws.wso2.org/dataservice/mdtp/ers_submission" name="ERS_SUBMITRETURN_RESULT" expression="$body/dss:Response/dss:result/text()" scope="default" type="STRING"></property>
+         <property xmlns:dss="http://ws.wso2.org/dataservice/mdtp/ers_submission" name="ERS_SUBMITRETURN_ERROR_NUMBER" expression="$body/dss:Response/dss:error_number/text()" scope="default" type="STRING"></property>
+         <property xmlns:dss="http://ws.wso2.org/dataservice/mdtp/ers_submission" name="ERS_SUBMITRETURN_ERROR_MESSAGE" expression="$body/dss:Response/dss:error_message/text()" scope="default" type="STRING"></property>
+         <property name="FAULT_STRING" expression="$body/faultstring/text()"></property>
+         <property name="correlationId" expression="get-property('transport','CorrelationId')"></property>
+         <switch source="$ctx:HTTP_SC_OUT_INITIAL">
+            <case regex="^(200|202)$">
+               <switch source="$ctx:ERS_SUBMITRETURN_ERROR_NUMBER">
+                  <case regex="^\s*$">
+                     <property name="logmessage" expression="fn:concat('{&quot;label&quot;:&quot;CORP_ERSSubmission_call_to_ADRS&quot;, ', '&quot;message&quot;:&quot;Send message to DeadLetterQueue with routing key submitreturn_ok. HTTP_SC 200 OK', '&quot;}')" scope="default" type="STRING" description="log"/>
+                     <DesLog level="custom">
+                        <SLTrace service="ERS-ERSSubmissionQueueToADRS" expression="get-property('logmessage')"></SLTrace>
+                     </DesLog>					 
+                     <property name="HTTP_SC" value="200" scope="axis2" type="STRING" description="Send 200 response back."></property>
+                     <payloadFactory media-type="xml">
+                        <format>
+                           <Response xmlns="http://ws.wso2.org/dataservice/mdtp/ers_submission">
+                              <result>$1</result>
+                              <error_message></error_message>
+                              <error_number></error_number>
+                           </Response>
+                        </format>
+                        <args>
+                           <arg evaluator="xml" expression="$ctx:ERS_SUBMITRETURN_RESULT"></arg>
+                        </args>
+                     </payloadFactory>
+                  </case>
+                  <default>
+                     <property name="logmessage" expression="fn:concat('{&quot;label&quot;:&quot;CORP_ERSSubmission_call_to_ADRS&quot;, ', '&quot;message&quot;:&quot;Send malformed message to DeadLetterQueue with routing key submitreturn. HTTP_SC 400 Bad Request', '&quot;}')" scope="default" type="STRING" description="log"/>
+                     <DesLog level="custom">
+                        <SLTrace service="ERS-ERSSubmissionQueueToADRS" expression="get-property('logmessage')"></SLTrace>
+                     </DesLog>					 
+                     <property name="HTTP_SC" value="400" scope="axis2" type="STRING" description="Send 400 response back. Bad Request"></property>
+                     <payloadFactory media-type="xml">
+                        <format>
+                           <Response xmlns="http://ws.wso2.org/dataservice/mdtp/ers_submission">
+                              <result>$1</result>
+                              <error_message>$2</error_message>
+                              <error_number>$3</error_number>
+                           </Response>
+                        </format>
+                        <args>
+                           <arg evaluator="xml" expression="$ctx:ERS_SUBMITRETURN_RESULT"></arg>
+                           <arg evaluator="xml" expression="fn:concat($ctx:ERS_SUBMITRETURN_ERROR_MESSAGE,' ~ ', $ctx:FAULT_STRING,' ~ ', 'Was HTTP_SC ', $ctx:HTTP_SC_OUT_INITIAL)"></arg>
+                           <arg evaluator="xml" expression="$ctx:ERS_SUBMITRETURN_ERROR_NUMBER"></arg>
+                        </args>
+                     </payloadFactory>
+                  </default>
+               </switch>
+            </case>
+            <default>
+               <property name="logmessage" expression="fn:concat('{&quot;label&quot;:&quot;CORP_ERSSubmission_call_to_ADRS&quot;, ', '&quot;message&quot;:&quot;Send message to RetryQueue. HTTP_SC 404 Not Found', '&quot;}')" scope="default" type="STRING" description="log"/>
+               <DesLog level="custom">
+                  <SLTrace service="ERS-ERSSubmissionQueueToADRS" expression="get-property('logmessage')"></SLTrace>
+               </DesLog>				   
+               <property name="RESPONSE" value="true" scope="default" type="STRING"></property>
+               <property name="NO_ENTITY_BODY" value="true" scope="axis2" type="BOOLEAN"></property>
+               <property name="TRANSPORT_HEADERS" scope="axis2" action="remove"></property>
+               <header name="To" scope="default" action="remove"></header>
+               <property name="HTTP_SC" value="404" scope="axis2" type="STRING" description="Send 404 response back. Not Found."></property>
+               <payloadFactory media-type="xml">
+                  <format>
+                     <Response xmlns="http://ws.wso2.org/dataservice/mdtp/ers_submission">
+                        <result></result>
+                        <error_message>$1</error_message>
+                        <error_number>$2</error_number>
+                     </Response>
+                  </format>
+                  <args>
+                     <arg evaluator="xml" expression="fn:concat($ctx:FAULT_STRING,' ~ ', 'Was HTTP_SC ', $ctx:HTTP_SC_OUT_INITIAL)"></arg>
+                     <arg evaluator="xml" expression="fn:concat('-',$axis2:HTTP_SC)"></arg>
+                  </args>
+               </payloadFactory>
+            </default>
+         </switch>
+         <property name="messageType" value="application/json" scope="axis2" type="STRING"></property>
+         <send></send>
+      </outSequence>
+      <faultSequence>
+         <property name="logmessage" expression="fn:concat('{&quot;label&quot;:&quot;CORP_ERSSubmission_call_to_ADRS&quot;, ', '&quot;message&quot;:&quot;ERSSubmissionQueueToADRS starting faultSeq. HTTP_SC 503 Service Unavailable', $axis2:HTTP_SC, '. Sending message to RetryQueue.', '&quot;}')" scope="default" type="STRING" description="log"/>
+         <DesLog level="custom">
+                  <SLTrace service="ERS-ERSSubmissionQueueToADRS" expression="get-property('logmessage')"></SLTrace>
+         </DesLog>		 
+         <property name="HTTP_SC" value="503" scope="axis2" type="STRING"></property>
+		 <property name="FAULT_STRING_FAULTSEQ" value="Your request cannot be processed, please contact the helpline. Sending HTTP_SC 503."></property>
+         <payloadFactory media-type="xml">
+            <format>
+               <Response xmlns="http://ws.wso2.org/dataservice/mdtp/ers_submission">
+                  <result>$1</result>
+                  <error_message>$2</error_message>
+                  <error_number>$3</error_number>
+               </Response>
+            </format>
+            <args>
+               <arg evaluator="xml" expression="$ctx:ERS_SUBMITRETURN_RESULT"></arg>
+               <arg evaluator="xml" expression="fn:concat($ctx:FAULT_STRING_FAULTSEQ,' ~ ', $ctx:FAULT_STRING)"></arg>
+               <arg evaluator="xml" expression="fn:concat('-', $axis2:HTTP_SC)"></arg>
+            </args>
+         </payloadFactory>
+         <property name="messageType" value="application/json" scope="axis2" type="STRING"></property>
+         <send></send>
+      </faultSequence>
+   </resource>
+</api>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>uk.gov.hmrc.wso2.ers_submission</groupId>
+  <artifactId>MDTP_ERSSubmission_DSS</artifactId>
+  <version>1.0.0</version>
+  <packaging>service/dataservice</packaging>
+  <name>MDTP_ERSSubmission_DSS</name>
+  <description>MDTP_ERSSubmission_DSS</description>
+  <parent>
+		<groupId>uk.gov.hmrc.wso2</groupId>
+		<artifactId>DES_superpom</artifactId>
+		<version>1.1.1</version>
+   </parent>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.wso2.maven</groupId>
+        <artifactId>maven-dataservice-plugin</artifactId>
+        <version>2.0.6</version>
+        <extensions>true</extensions>
+        <configuration>
+          <artifact>src/main/dataservice/MDTP_ERSSubmission.dbs</artifact>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-eclipse-plugin</artifactId>
+        <version>2.9</version>
+        <configuration>
+          <buildcommands />
+          <projectnatures>
+            <projectnature>org.wso2.developerstudio.eclipse.ds.project.nature</projectnature>
+          </projectnatures>
+        </configuration>
+      </plugin>
+      <plugin>
+		<artifactId>maven-deploy-plugin</artifactId>
+			<version>2.7</version>
+			<configuration>
+				<skip>true</skip>
+		</configuration>
+	</plugin>
+    </plugins>
+  </build>
+  
+</project>

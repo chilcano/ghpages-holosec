@@ -1,0 +1,6 @@
+com/chakray/chilcano/wso2/rabbitmq/sample/HelloRabbitMQ.class
+com/chakray/chilcano/wso2/rabbitmq/message/store/impl/RabbitMQConsumer.class
+com/chakray/chilcano/wso2/rabbitmq/message/store/impl/RabbitMQStore.class
+com/chakray/chilcano/wso2/rabbitmq/message/store/impl/RabbitMQProducer.class
+com/chakray/chilcano/wso2/rabbitmq/message/store/impl/RabbitMQConsumer$1.class
+com/chakray/chilcano/wso2/rabbitmq/message/store/impl/RabbitMQConsumer$CachedMessage.class

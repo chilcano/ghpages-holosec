@@ -1,0 +1,4 @@
+header=Content-Type:application/xml
+format=content-xml
+body
+<?xml version="1.0" encoding="UTF-8"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"><soapenv:Body><hear:HeartBeat_request xmlns:hear="http://hmrc.gov.uk/etmp/digitalgateway/heartbeat"><SenderSystem>DAPI</SenderSystem><TargetSystem>ARD110</TargetSystem></hear:HeartBeat_request></soapenv:Body></soapenv:Envelope>

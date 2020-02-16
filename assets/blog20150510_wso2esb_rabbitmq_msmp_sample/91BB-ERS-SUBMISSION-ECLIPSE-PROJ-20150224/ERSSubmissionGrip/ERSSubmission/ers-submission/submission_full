@@ -1,0 +1,26 @@
+{
+  "file" : {
+    "apiVersion" : "01.00.00",
+    "swaggerVersion" : "1.2",
+    "resourcePath" : "/submission_full",
+    "apis" : [ {
+      "path" : "/submission/{sapNo}",
+      "operations" : [ {
+        "summary" : "",
+        "auth_type" : "Application & Application User",
+        "throttling_tier" : "Unlimited",
+        "method" : "POST",
+        "parameters" : [ {
+          "name" : "sapNo",
+          "allowMultiple" : false,
+          "required" : true,
+          "type" : "",
+          "paramType" : "path"
+        } ],
+        "notes" : null
+      } ]
+    } ]
+  },
+  "description" : "",
+  "path" : "/submission_full"
+}

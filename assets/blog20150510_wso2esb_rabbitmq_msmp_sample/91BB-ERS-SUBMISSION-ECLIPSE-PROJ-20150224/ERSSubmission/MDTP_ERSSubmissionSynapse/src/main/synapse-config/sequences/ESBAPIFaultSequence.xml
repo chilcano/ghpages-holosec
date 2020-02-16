@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence xmlns="http://ws.apache.org/ns/synapse" name="ESBAPIFaultSequence">
+    <log level="custom" category="ERROR">
+        <property xmlns:ns="http://org.apache.synapse/xsd" name="ERROR_MESSAGE" expression="get-property('ERROR_MESSAGE')"/>
+        <property xmlns:ns="http://org.apache.synapse/xsd" name="ERROR_CODE" expression="get-property('ERROR_CODE')"/>
+        <property xmlns:ns="http://org.apache.synapse/xsd" name="ERROR_DETAIL" expression="get-property('ERROR_DETAIL')"/>
+        <property xmlns:ns="http://org.apache.synapse/xsd" name="ERROR_EXCEPTION" expression="get-property('ERROR_EXCEPTION')"/>
+        <property xmlns:ns="http://org.apache.synapse/xsd" name="ERROR_HTTP_SC" expression="get-property('ERROR_HTTP_SC')"/>
+        <property xmlns:ns="http://org.apache.synapse/xsd" name="correlationId" expression="get-property('transport','CorrelationId')"/>
+    </log>
+    <property name="RESPONSE" value="true" scope="default" type="STRING"/>
+    <property name="NO_ENTITY_BODY" value="true" scope="axis2" type="BOOLEAN"/>
+    <filter source="boolean(get-property('ERROR_HTTP_SC'))" regex="false">
+    	<then>
+    		<property name="HTTP_SC" value="500" scope="axis2" type="STRING"/>
+		</then>
+		<else>
+			<property name="HTTP_SC" expression="get-property('ERROR_HTTP_SC')" scope="axis2" type="STRING"/>
+		</else>
+	</filter>
+    <filter source="boolean(get-property('CustomContentType'))" regex="false">
+    	<then>
+			<property name="messageType" value="application/xml" scope="axis2" type="STRING"/>
+			<property name="ContentType" value="application/xml" scope="axis2" type="STRING"/>
+		</then>
+		<else>
+			<property name="messageType" value="get-property('CustomContentType')" scope="axis2" type="STRING"/>
+			<property name="ContentType" value="get-property('CustomContentType')" scope="axis2" type="STRING"/>
+		</else>
+	</filter>	
+    <header name="To" scope="default" action="remove"/>
+</sequence>

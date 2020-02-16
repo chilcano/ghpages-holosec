@@ -1,0 +1,87 @@
+<api xmlns="http://ws.apache.org/ns/synapse" name="ERSSubmissionQueueReceiver" context="/ers/SubmissionQueueReceiver">
+   <resource methods="POST" uri-template="/{formBundleNo}">
+      <inSequence>
+         <property name="CorrelationId" expression="get-property('transport', 'CorrelationId')" scope="default" type="STRING"></property>
+         <property name="FormBundleNumber" expression="get-property('uri.var.formBundleNo')"></property>
+         <property name="JsonBodyInput" expression="json-eval($.)" scope="default" type="STRING"></property>
+         <property name="SystemDateTimeReceiver" expression="get-property('SYSTEM_DATE', 'yyyy-MM-dd-HH:mm:ss')" scope="default" type="STRING"></property>
+         <property name="logmessage" expression="fn:concat('{&quot;label&quot;:&quot;DATA_ERSSubmission_rcvr&quot;, ', '&quot;message&quot;:&quot;Start SubmissionQueueReceiver&quot;, ', '&quot;FormBundleNumber&quot;:&quot;', $ctx:FormBundleNumber, '&quot;}')" scope="default" type="STRING" description="For DesLog Mediator"/>
+         <DesLog level="custom">
+            <SLTrace service="91BBERS-ERSSubmissionQueueReceiver" expression="get-property('logmessage')"></SLTrace>
+         </DesLog>
+
+         <log level="custom">
+            <property name=" * * * * * * ERSSubmissionQueueReceiver * * * * * * " value="---------------- IN"></property>
+         </log>
+         <header name="Authorization" scope="transport" action="remove"/>
+         <property name="DATA_ESB_AUTHN_USR" expression="get-property('system', 'uk.gov.hmrc.wso2.uct.esb.username')" scope="default" type="STRING"></property>
+         <property name="DATA_ESB_AUTHN_PWD" expression="get-property('system', 'uk.gov.hmrc.wso2.uct.esb.password')" scope="default" type="STRING"></property>		 
+         <property name="DATA_ESB_HEADER_AUTH" expression="fn:concat($ctx:DATA_ESB_AUTHN_USR,':',$ctx:DATA_ESB_AUTHN_PWD)" scope="default" type="STRING"/>
+         <header name="Authorization" scope="transport" expression="fn:concat('Basic ', base64Encode($ctx:DATA_ESB_HEADER_AUTH))"/> 		 
+         <send description="send message to SubmissionQueuePublisher API">
+            <endpoint template="gov:/templates/ETMP_ERS_API_EP_TPL.xml" uri="http://{system.prop.uk.gov.hmrc.wso2.etmp.ers.ESB_HOST}/ers/SubmissionQueuePublisher/{uri.var.formBundleNo}"></endpoint>
+         </send>
+      </inSequence>
+      <outSequence>
+         <log level="custom">
+            <property name=" * * * * * * * ERSSubmissionQueueReceiver * * * * * " value="---------------- OUT"></property>
+         </log>		  
+         <header name="CorrelationId" scope="transport" expression="get-property('CorrelationId')" description="For DesLog Mediator"></header>
+         <switch xmlns:ns="http://org.apache.synapse/xsd" source="get-property('axis2','HTTP_SC')">
+            <case regex="^(200|202)$">
+               <property name="SC_ACCEPTED" value="false" scope="axis2" type="STRING"></property>
+               <property name="HTTP_SC" value="200" scope="axis2" type="STRING" description="Send 200 response back"></property>
+               <payloadFactory media-type="json">
+                  <format>{ "Form Bundle Number" : "$1", "Reception Date and Time" : "$2" }</format>
+                  <args>
+                     <arg evaluator="xml" expression="$ctx:FormBundleNumber"></arg>
+                     <arg evaluator="xml" expression="$ctx:SystemDateTimeReceiver"></arg>
+                  </args>
+               </payloadFactory>
+               <property name="logmessage" expression="fn:concat('{&quot;label&quot;:&quot;DATA_ERSSubmission_rcvr&quot;, ', '&quot;message&quot;:&quot;Sucessfully persisted message on the queue. Sending 200 response back to MDTP&quot;, ', '&quot;httpStatus&quot;:&quot;200&quot;}')" scope="default" type="STRING" description="For DesLog Mediator"/>
+               <DesLog level="custom">
+                  <SLTrace service="91BBERS-ERSSubmissionQueueReceiver" expression="get-property('logmessage')"></SLTrace>
+               </DesLog>
+            </case>
+            <default>
+               <property name="logmessage" expression="fn:concat('{&quot;label&quot;:&quot;DATA_ERSSubmission_rcvr&quot;, ', '&quot;message&quot;:&quot;Error while calling the API. Sending 503 response back to MDTP&quot;, ', '&quot;httpStatus&quot;:&quot;503&quot;}')" scope="default" type="STRING" description="For DesLog Mediator"/>
+               <DesLog level="custom" category="ERROR">
+                  <SLTrace service="91BBERS-ERSSubmissionQueueReceiver" expression="get-property('logmessage')"></SLTrace>
+               </DesLog>
+               <property name="HTTP_SC" value="503" scope="axis2" type="STRING" description="Send 503 response back"></property>
+               <payloadFactory media-type="json">
+                  <format>{ "Reason" : "Error while MDTP is calling the API to publish message." }</format>
+                  <args></args>
+               </payloadFactory>
+            </default>
+         </switch>
+         <property name="RESPONSE" value="true" scope="default" type="STRING"></property>
+         <property name="NO_ENTITY_BODY" value="true" scope="axis2" type="BOOLEAN"></property>
+         <property name="TRANSPORT_HEADERS" scope="axis2" action="remove"></property>
+         <header name="To" scope="default" action="remove"></header>
+         <property name="messageType" value="application/json" scope="axis2" type="STRING"></property>
+		 <property name="Accept" value="application/json" scope="transport" type="STRING"></property>
+         <send description="Send response back to MDTP"></send>
+      </outSequence>
+      <faultSequence>
+         <log level="custom">
+            <property name=" * * * * * * ERSSubmissionQueueReceiver * * * * * * " value="---------------- FAULT"></property>
+         </log>		  
+         <header name="CorrelationId" scope="transport" expression="get-property('CorrelationId')" description="For DesLog Mediator"></header>
+         <property name="logmessage" expression="fn:concat('{&quot;label&quot;:&quot;DATA_ERSSubmission_rcvr&quot;, ', '&quot;message&quot;:&quot;', get-property('ERROR_MESSAGE'), '&quot;, &quot;errorCode&quot;:&quot;', get-property('ERROR_CODE'), '&quot;, &quot;errorDetail&quot;:&quot;', get-property('ERROR_DETAIL'), '&quot;, &quot;errorMessage&quot;:&quot;', get-property('ERROR_EXCEPTION'), '&quot;, &quot;httpStatus&quot;:&quot;500&quot;}')" scope="default" type="STRING" description="For DesLog Mediator"/>
+         <DesLog level="custom" category="ERROR">
+            <SLTrace service="91BBERS-ERSSubmissionQueueReceiver" expression="get-property('logmessage')"></SLTrace>
+         </DesLog>
+         <payloadFactory media-type="json">
+            <format>{ "Reason" : "Your request cannot be processed, please contact the helpline." }</format>
+            <args></args>
+         </payloadFactory>
+         <sequence key="ESBAPIFaultHandler"/>
+         <property name="messageType" value="application/json" scope="axis2" type="STRING"></property>	 
+         <send description="Send fault response back to MDTP"></send>
+      </faultSequence>
+   </resource>
+   <handlers>
+	 <handler class="uk.gov.hmrc.wso2.runtime.handlers.DESBasicAuthenticationForAPIHandler"/>
+   </handlers> 
+</api>

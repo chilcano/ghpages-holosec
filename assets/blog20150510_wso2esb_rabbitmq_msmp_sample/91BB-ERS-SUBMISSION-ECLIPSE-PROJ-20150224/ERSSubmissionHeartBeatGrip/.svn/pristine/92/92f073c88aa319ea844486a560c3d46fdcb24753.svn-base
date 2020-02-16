@@ -1,0 +1,20 @@
+{
+  "file" : {
+    "apiVersion" : "01.00.00",
+    "swaggerVersion" : "1.2",
+    "resourcePath" : "/check",
+    "apis" : [ {
+      "path" : "/*",
+      "operations" : [ {
+        "summary" : "",
+        "auth_type" : "Application & Application User",
+        "throttling_tier" : "Unlimited",
+        "method" : "GET",
+        "parameters" : [ ],
+        "notes" : null
+      } ]
+    } ]
+  },
+  "description" : "",
+  "path" : "/check"
+}
