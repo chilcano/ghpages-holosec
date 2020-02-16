@@ -1,0 +1,92 @@
+<VirtualHost *:80>
+        ServerName www.konosys.es
+        ServerAlias konosys.es
+        ServerAdmin portal-admin@konosys.es
+        DirectoryIndex index.html index.jsp
+        DocumentRoot /root/knsapache2/kns-lfry1-lfry606/www/
+
+        JkMount /kns worker1lfry1
+        JkMount /kns/* worker1lfry1
+
+        JkMount /chat-portlet worker1lfry1
+        JkMount /chat-portlet/* worker1lfry1
+
+        JkMount /default-site-templates-hook worker1lfry1
+        JkMount /default-site-templates-hook/* worker1lfry1
+
+        JkMount /google-maps-portlet worker1lfry1
+        JkMount /google-maps-portlet/* worker1lfry1
+
+        JkMount /Konosys-theme worker1lfry1
+        JkMount /Konosys-theme/* worker1lfry1
+
+        JkMount /web-form-portlet worker1lfry1
+        JkMount /web-form-portlet/* worker1lfry1
+
+        RewriteEngine On
+		RewriteCond %{REQUEST_URI} !^/kns [NC]
+		RewriteRule (.*) /kns [L]
+		
+		RewriteLog /root/knsapache2/kns-lfry1-lfry606/logs/kns_mod_rewrite.log
+        RewriteLogLevel 3
+
+        # Logfiles
+        ErrorLog  /root/knsapache2/kns-lfry1-lfry606/logs/error.log
+        CustomLog /root/knsapache2/kns-lfry1-lfry606/logs/access.log combined
+</VirtualHost>
+----
+
+#Listen 80
+#NameVirtualHost *:80
+
+<VirtualHost *:80>
+        ServerName www.konosys.es
+        ServerAlias konosys.es
+        ServerAdmin portal-admin@konosys.es
+        DirectoryIndex index.html index.jsp
+        DocumentRoot /root/knsapache2/kns-lfry1-lfry606/www/
+
+        JkMount /kns worker1lfry1
+        JkMount /kns/* worker1lfry1
+
+        JkMount /chat-portlet worker1lfry1
+        JkMount /chat-portlet/* worker1lfry1
+
+        JkMount /default-site-templates-hook worker1lfry1
+        JkMount /default-site-templates-hook/* worker1lfry1
+
+        JkMount /google-maps-portlet worker1lfry1
+        JkMount /google-maps-portlet/* worker1lfry1
+
+        JkMount /Konosys-theme worker1lfry1
+        JkMount /Konosys-theme/* worker1lfry1
+
+        JkMount /web-form-portlet worker1lfry1
+        JkMount /web-form-portlet/* worker1lfry1
+
+        RewriteEngine On
+        #RewriteRule ^/$ /kns [PT,L]
+
+
+        RewriteCond %{REQUEST_URI} !^/kns [NC]
+       RewriteCond %{REQUEST_URI} !^/chat-portlet [NC,OR]
+       RewriteCond %{REQUEST_URI} !^/default-site-templates-hook [NC,OR]
+       RewriteCond %{REQUEST_URI} !^/google-maps-portlet [NC,OR]
+       RewriteCond %{REQUEST_URI} !^/Konosys-theme [NC,OR]
+        RewriteCond %{REQUEST_URI} !^/Konosys-theme/* [NC,OR]
+       RewriteCond %{REQUEST_URI} !^/web-form-portlet [NC]
+       RewriteRule (.*) /kns [L]
+
+
+
+        #RewriteRule ^/*$ /kns [PT,L]
+        RewriteLog /root/knsapache2/kns-lfry1-lfry606/logs/kns_mod_rewrite.log
+        RewriteLogLevel 3
+
+        # Logfiles
+        ErrorLog  /root/knsapache2/kns-lfry1-lfry606/logs/error.log
+        CustomLog /root/knsapache2/kns-lfry1-lfry606/logs/access.log combined
+</VirtualHost>
+
+#<Location /portalstatus/>
+#       JkMount worker2status

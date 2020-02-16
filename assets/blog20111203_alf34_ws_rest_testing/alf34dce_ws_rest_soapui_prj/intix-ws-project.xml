@@ -1,0 +1,1543 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project name="Standard WS Alfresco v3.4.d CE Testing project" resourceRoot="" soapui-version="3.6.1" abortOnError="false" runType="SEQUENTIAL" defaultScriptLanguage="Groovy" xmlns:con="http://eviware.com/soapui/config">
+<con:description>Standard WS Alfresco v3.4.d CE Testing project</con:description>
+<con:settings><con:setting id="WsdlSettings@cache-wsdls">false</con:setting>
+<con:setting id="ProjectSettings@shadowPassword"/>
+<con:setting id="com.eviware.soapui.impl.wsdl.actions.iface.tools.soapui.TestRunnerAction@values-local"><![CDATA[
+<xml-fragment xmlns:con="http://eviware.com/soapui/config">
+  <con:entry key="Global Properties" value=""/>
+  <con:entry key="TestSuite" value="TestSuite1-DictionaryService"/>
+  <con:entry key="Report to Generate" value=""/>
+  <con:entry key="Password" value=""/>
+  <con:entry key="soapui-setings.xml Password" value=""/>
+  <con:entry key="TestRunner Path" value=""/>
+  <con:entry key="Tool Args" value=""/>
+  <con:entry key="Ignore Errors" value="false"/>
+  <con:entry key="Host:Port" value=""/>
+  <con:entry key="WSS Password Type" value=""/>
+  <con:entry key="Save Project" value="false"/>
+  <con:entry key="Enable UI" value="false"/>
+  <con:entry key="System Properties" value=""/>
+  <con:entry key="Domain" value=""/>
+  <con:entry key="Coverage Report" value="false"/>
+  <con:entry key="Export JUnit Results" value="false"/>
+  <con:entry key="Open Report" value="false"/>
+  <con:entry key="Project Properties" value=""/>
+  <con:entry key="Project Password" value=""/>
+  <con:entry key="Export All" value="false"/>
+  <con:entry key="Report Format(s)" value=""/>
+  <con:entry key="TestCase" value="TestCase1-DictionaryService"/>
+  <con:entry key="Print Report" value="false"/>
+  <con:entry key="Username" value=""/>
+  <con:entry key="Root Folder" value=""/>
+  <con:entry key="Save After" value="false"/>
+  <con:entry key="Add Settings" value="false"/>
+  <con:entry key="Endpoint" value=""/>
+</xml-fragment>]]></con:setting><con:setting id="Count Empty Values">true</con:setting><con:setting id="Excluded elements">&lt;xml-fragment/></con:setting><con:setting id="Multi values">&lt;xml-fragment/></con:setting></con:settings><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AuthenticationServiceSoapBinding" type="wsdl" bindingName="{http://www.alfresco.org/ws/service/authentication/1.0}AuthenticationServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://alfresco34dserver:8080/alfresco/wsdl/authentication-service.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:description>WS AthenticationService</con:description><con:settings/><con:endpoints><con:endpoint>http://alfresco34dserver:8080/alfresco/api/AuthenticationService</con:endpoint></con:endpoints><con:operation isOneWay="false" action="http://www.alfresco.org/ws/service/authentication/1.0/endSession" name="endSession" bindingOperationName="endSession" type="Request-Response" outputName="endSessionResponse" inputName="endSessionRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:description>WS que permite finalizar un sesión.</con:description><con:settings/><con:call name="Request 1-ok"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/AuthenticationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/authentication/1.0">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ns:endSession>
+	 <!-- El Response no muestra ningún mensaje de operación correcta o errónea -->
+         <ns:ticket>TICKET_1a8b7ae60e62e9cea129014392188ac0c04a5a3e</ns:ticket>	 
+      </ns:endSession>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.alfresco.org/ws/service/authentication/1.0/endSession"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://www.alfresco.org/ws/service/authentication/1.0/startSession" name="startSession" bindingOperationName="startSession" type="Request-Response" outputName="startSessionResponse" inputName="startSessionRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:description>WS que permite iniciar un sesión.</con:description><con:settings/><con:call name="Request 1-ok"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/AuthenticationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/authentication/1.0">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ns:startSession>
+         <ns:username>admin</ns:username>
+         <ns:password>admin</ns:password>
+      </ns:startSession>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.alfresco.org/ws/service/authentication/1.0/startSession"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="DictionaryServiceSoapBinding" type="wsdl" bindingName="{http://www.alfresco.org/ws/service/dictionary/1.0}DictionaryServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://alfresco34dserver:8080/alfresco/wsdl/dictionary-service.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:description>WS DictionaryService</con:description><con:settings/><con:endpoints><con:endpoint>http://alfresco34dserver:8080/alfresco/api/DictionaryService</con:endpoint><con:endpoint>http://alfresco34dserver:8080/alfresco/api/DictionaryService</con:endpoint><con:endpoint>http://alfresco34dserver:8080/alfresco/api/DictionaryService</con:endpoint></con:endpoints><con:operation isOneWay="false" action="http://www.alfresco.org/ws/service/dictionary/1.0/getAssociations" name="getAssociations" bindingOperationName="getAssociations" type="Request-Response" outputName="getAssociationsResponse" inputName="getAssociationsRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:description>Permite obtener las Asociaciones del Diccionario.</con:description><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/DictionaryService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/dictionary/1.0">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <wsu:Timestamp wsu:Id="Timestamp-14" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsu:Created>2009-12-07T09:52:00+00:00</wsu:Created>
+            <wsu:Expires>2009-12-07T23:00:00+00:00</wsu:Expires>
+         </wsu:Timestamp>
+         <wsse:UsernameToken wsu:Id="UsernameToken-666" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsse:Username>admin</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_8992479d700b92d4bb644ae63aa6973ac55c7e5f</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <ns:getAssociations>
+      <!--Zero or more repetitions:-->
+         <ns:associationNames>ib:relatedDocuments</ns:associationNames>
+         <ns:associationNames>ib:relatedFolder2Docs</ns:associationNames>
+      </ns:getAssociations>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.alfresco.org/ws/service/dictionary/1.0/getAssociations"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://www.alfresco.org/ws/service/dictionary/1.0/getClasses" name="getClasses" bindingOperationName="getClasses" type="Request-Response" outputName="getClassesResponse" inputName="getClassesRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:description>Permite obtener las Clases del Diccionario.</con:description><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting><con:setting id="com.eviware.soapui.support.editor.views.xml.form2.FormEditorView@ViewType">All</con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/DictionaryService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/dictionary/1.0">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <wsu:Timestamp wsu:Id="Timestamp-14" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsu:Created>2009-12-07T09:35:00+00:00</wsu:Created>
+            <wsu:Expires>2009-12-07T23:00:00+00:00</wsu:Expires>
+         </wsu:Timestamp>
+         <wsse:UsernameToken wsu:Id="UsernameToken-666" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsse:Username>admin</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_8992479d700b92d4bb644ae63aa6973ac55c7e5f</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <ns:getClasses>
+      </ns:getClasses>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.alfresco.org/ws/service/dictionary/1.0/getClasses"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://www.alfresco.org/ws/service/dictionary/1.0/getProperties" name="getProperties" bindingOperationName="getProperties" type="Request-Response" outputName="getPropertiesResponse" inputName="getPropertiesRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:description>Permite obtener las Propiedades del Diccionario.</con:description><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/DictionaryService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/dictionary/1.0">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <wsu:Timestamp wsu:Id="Timestamp-14" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsu:Created>2009-12-07T10:10:00+00:00</wsu:Created>
+            <wsu:Expires>2009-12-07T23:00:00+00:00</wsu:Expires>
+         </wsu:Timestamp>
+         <wsse:UsernameToken wsu:Id="UsernameToken-666" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsse:Username>admin</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_8992479d700b92d4bb644ae63aa6973ac55c7e5f</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <ns:getProperties>
+         <!--Zero or more repetitions:-->
+         <ns:propertyNames>cm:name</ns:propertyNames>
+         <ns:propertyNames>ib:project</ns:propertyNames>
+      </ns:getProperties>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.alfresco.org/ws/service/dictionary/1.0/getProperties"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://www.alfresco.org/ws/service/dictionary/1.0/isSubClass" name="isSubClass" bindingOperationName="isSubClass" type="Request-Response" outputName="isSubClassResponse" inputName="isSubClassRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:description>Permite conocer si un objeto es una SubClase.</con:description><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/DictionaryService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/dictionary/1.0">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <wsu:Timestamp wsu:Id="Timestamp-14" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsu:Created>2009-12-07T10:10:00+00:00</wsu:Created>
+            <wsu:Expires>2009-12-07T23:00:00+00:00</wsu:Expires>
+         </wsu:Timestamp>
+         <wsse:UsernameToken wsu:Id="UsernameToken-666" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsse:Username>admin</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_8992479d700b92d4bb644ae63aa6973ac55c7e5f</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <ns:isSubClass>
+         <ns:className>ib:marketingDoc</ns:className>
+         <ns:isSubClassOfName>ib:doc</ns:isSubClassOfName>
+      </ns:isSubClass>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.alfresco.org/ws/service/dictionary/1.0/isSubClass"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="ContentServiceSoapBinding" type="wsdl" bindingName="{http://www.alfresco.org/ws/service/content/1.0}ContentServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://alfresco34dserver:8080/alfresco/wsdl/content-service.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:description>WS ContentService</con:description><con:settings/><con:endpoints><con:endpoint>http://alfresco34dserver:8080/alfresco/api/ContentService</con:endpoint></con:endpoints><con:operation isOneWay="false" action="http://www.alfresco.org/ws/service/content/1.0/clear" name="clear" bindingOperationName="clear" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:description>Permite borrar el contenido de un objeto.</con:description><con:settings/><con:call name="Request 1-ok"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/ContentService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/content/1.0" xmlns:ns1="http://www.alfresco.org/ws/model/content/1.0">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <wsu:Timestamp wsu:Id="Timestamp-14" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsu:Created>2009-12-09T10:17:00+00:00</wsu:Created>
+            <wsu:Expires>2009-12-09T23:00:00+00:00</wsu:Expires>
+         </wsu:Timestamp>
+         <wsse:UsernameToken wsu:Id="UsernameToken-666" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsse:Username>admin</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_39d5e6945ad19f7e3a210c2d4eab4c73f5e399b0</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      
+      <!-- Clear borra el contenido o una propiedad de un nodo --> 
+      <ns:clear>
+	<ns:items>
+	   <ns1:nodes>
+	    	<store>
+	       	   <scheme>workspace</scheme>
+               	   <address>SpacesStore</address>
+	    	</store>
+	    	<uuid/>
+	    	<path>/app:company_home/app:guest_home/*[@cm:name="newTxtFile-1260351974625.txt"]</path>
+	   </ns1:nodes>
+         </ns:items>
+         <ns:property>{http://www.alfresco.org/model/content/1.0}content</ns:property>
+      </ns:clear>
+
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.alfresco.org/ws/service/content/1.0/clear"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://www.alfresco.org/ws/service/content/1.0/read" name="read" bindingOperationName="read" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:description>Permite leer un objeto, sus propiedades o el contenido mismo.</con:description><con:settings/><con:call name="Request 1-ok"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/ContentService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/content/1.0" xmlns:ns1="http://www.alfresco.org/ws/model/content/1.0">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <wsu:Timestamp wsu:Id="Timestamp-14" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsu:Created>2009-12-10T16:05:00+00:00</wsu:Created>
+            <wsu:Expires>2009-12-10T23:00:00+00:00</wsu:Expires>
+         </wsu:Timestamp>
+         <wsse:UsernameToken wsu:Id="UsernameToken-666" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsse:Username>admin</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_fa772250ec4d1332de7a44cd0d5e35753a024185</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+
+      <!-- Read permite leer el contenido o una propiedad de un nodo -->
+      <ns:read>
+	<ns:items>
+	   <ns1:nodes>
+	    	<store>
+	       	   <scheme>workspace</scheme>
+               	   <address>SpacesStore</address>
+	    	</store>
+	    	<uuid/>
+	    	<path>/app:company_home/app:guest_home/*[@cm:name="pruebaA1.txt"]</path>
+	   </ns1:nodes>
+         </ns:items>
+         <ns:property>{http://www.alfresco.org/model/content/1.0}content</ns:property>
+      </ns:read>
+
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.alfresco.org/ws/service/content/1.0/read"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://www.alfresco.org/ws/service/content/1.0/transform" name="transform" bindingOperationName="transform" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:description>Permite transformar el contenido o el valor de sus propiedades de un nodo.</con:description><con:settings/><con:call name="Request 1-ok"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/ContentService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/content/1.0" xmlns:ns1="http://www.alfresco.org/ws/model/content/1.0">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <wsu:Timestamp wsu:Id="Timestamp-14" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsu:Created>2009-12-09T10:42:00+00:00</wsu:Created>
+            <wsu:Expires>2009-12-09T23:00:00+00:00</wsu:Expires>
+         </wsu:Timestamp>
+         <wsse:UsernameToken wsu:Id="UsernameToken-666" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsse:Username>admin</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_39d5e6945ad19f7e3a210c2d4eab4c73f5e399b0</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+
+      <!-- Transforma permite convertir de formato el contenido o una propiedad de un nodo -->
+      <ns:transform>
+         <ns:source>
+	    	<store>
+	       	   <scheme>workspace</scheme>
+               	   <address>SpacesStore</address>
+	    	</store>
+	    	<uuid/>
+	    	<path>/app:company_home/app:guest_home/*[@cm:name="prueba01.txt"]</path>
+         </ns:source>
+         <ns:property>{http://www.alfresco.org/model/content/1.0}content</ns:property>
+         <ns:destinationReference>
+	    	<store>
+	       	   <scheme>workspace</scheme>
+               	   <address>SpacesStore</address>
+	    	</store>
+	    	<uuid/>
+	    	<path>/app:company_home/app:guest_home/*[@cm:name="prueba01.txt"]</path>
+         </ns:destinationReference>
+         <ns:destinationProperty>{http://www.alfresco.org/model/content/1.0}content</ns:destinationProperty>
+         <ns:destinationFormat>
+            <ns1:mimetype>application/pdf</ns1:mimetype>
+            <ns1:encoding>UTF-8</ns1:encoding>
+         </ns:destinationFormat>
+      </ns:transform>
+
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.alfresco.org/ws/service/content/1.0/transform"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://www.alfresco.org/ws/service/content/1.0/write" name="write" bindingOperationName="write" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:description>Permite escribir el contenido o el valor de las propiedades de un nodo, antes debemos crearlo.</con:description><con:settings/><con:call name="Request 1-ok"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/ContentService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+      <wsu:Timestamp wsu:Id="Timestamp-6251267" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+      <wsu:Created>2009-12-09T16:10:00+00:00</wsu:Created>
+      <wsu:Expires>2009-12-09T23:00:00+00:00</wsu:Expires>
+      </wsu:Timestamp>
+      <wsse:UsernameToken wsu:Id="UsernameToken-22700073" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+      <wsse:Username>ticket</wsse:Username>
+      <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_368a9e8eba7eec4825a45d73c4cfd18bdde4b6e6</wsse:Password>
+      </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+
+      <!-- write nos permite escribir contenido a un nodo determinado por su UUID y name -->
+      <write xmlns="http://www.alfresco.org/ws/service/content/1.0">
+            <node>
+            <store>
+            <scheme>workspace</scheme>
+            <address>SpacesStore</address>
+            </store>
+            <uuid>1d925d4d-5857-490d-b30f-e3cbe38abc07</uuid>
+            <path>/app:company_home/app:guest_home/cm:prueba01.txt</path>
+            </node>
+      <property>{http://www.alfresco.org/model/content/1.0}content</property>
+      <content>CkVzdGUgZmljaGVybyAocHJ1ZWJhMDEudHh0KSBmdWUgY3JlYWRvIGRlc2RlIGxvcyBXUyBkZSBBbGZyZXNjbyAoY29udGVudC1zZXJ2aWNlLndzZGwpCg==</content>
+      <format>
+      <mimetype>text/plain</mimetype>
+      <encoding>UTF-8</encoding>
+      </format>
+      </write>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.alfresco.org/ws/service/content/1.0/write"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://www.alfresco.org/ws/service/content/1.0/writeWithAttachment" name="writeWithAttachment" bindingOperationName="writeWithAttachment" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:description>Permite escribir el contenido de un nodo en una misma acción.</con:description><con:settings/><con:call name="Request 1-no"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/ContentService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/content/1.0" xmlns:ns1="http://www.alfresco.org/ws/model/content/1.0">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <wsu:Timestamp wsu:Id="Timestamp-14" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsu:Created>2009-12-07T09:52:00+00:00</wsu:Created>
+            <wsu:Expires>2009-12-07T23:00:00+00:00</wsu:Expires>
+         </wsu:Timestamp>
+         <wsse:UsernameToken wsu:Id="UsernameToken-666" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsse:Username>admin</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_8992479d700b92d4bb644ae63aa6973ac55c7e5f</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <ns:writeWithAttachment>
+         <ns:node>
+	    <store>
+	       <scheme>workspace</scheme>
+               <address>SpacesStore</address>
+	    </store>
+	    <uuid/>
+	    <path>/app:company_home/app:guest_home/*[@cm:name="newFile-123.pdf"]</path>
+         </ns:node>
+         <ns:property>{http://www.alfresco.org/model/content/1.0}content</ns:property>
+	 
+         <!-- No hay tag para pasar el contenido ??? -->
+         <!-- writeWithAttachment aún no está implementado -->
+         <!-- Tampoco lo está desde los WS Client API. -->
+
+         <ns:format>
+            <ns1:mimetype>application/pdf</ns1:mimetype>
+            <ns1:encoding>UTF-8</ns1:encoding>            
+         </ns:format>
+      </ns:writeWithAttachment>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.alfresco.org/ws/service/content/1.0/writeWithAttachment"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="RepositoryServiceSoapBinding" type="wsdl" bindingName="{http://www.alfresco.org/ws/service/repository/1.0}RepositoryServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://alfresco34dserver:8080/alfresco/wsdl/repository-service.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:description>WS RepositoryService</con:description><con:settings/><con:endpoints><con:endpoint>http://alfresco34dserver:8080/alfresco/api/RepositoryService</con:endpoint><con:endpoint>http://alfresco34dserver:8080/alfresco/api/RepositoryService</con:endpoint></con:endpoints><con:operation isOneWay="false" action="http://www.alfresco.org/ws/service/repository/1.0/createStore" name="createStore" bindingOperationName="createStore" type="Request-Response" outputName="createStoreResponse" inputName="createStoreRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:description>Permite crear un Store.</con:description><con:settings/><con:call name="Request 1-ok"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/RepositoryService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/repository/1.0">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <wsu:Timestamp wsu:Id="Timestamp-14" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsu:Created>2009-12-09T16:43:00+00:00</wsu:Created>
+            <wsu:Expires>2009-12-09T23:00:00+00:00</wsu:Expires>
+         </wsu:Timestamp>
+         <wsse:UsernameToken wsu:Id="UsernameToken-666" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsse:Username>admin</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_8992479d700b92d4bb644ae63aa6973ac55c7e5f</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <ns:createStore>
+         <ns:scheme>workspace</ns:scheme>
+         <ns:address>TestStore01</ns:address>
+      </ns:createStore>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.alfresco.org/ws/service/repository/1.0/createStore"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://www.alfresco.org/ws/service/repository/1.0/describe" name="describe" bindingOperationName="describe" type="Request-Response" outputName="describeResponse" inputName="describeRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:description>PErmite obtener la descripción de un nodo.</con:description><con:settings/><con:call name="Request 1-ok"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/RepositoryService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/repository/1.0" xmlns:ns1="http://www.alfresco.org/ws/model/content/1.0">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <wsu:Timestamp wsu:Id="Timestamp-14" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsu:Created>2009-12-07T16:58:00+00:00</wsu:Created>
+            <wsu:Expires>2009-12-07T23:00:00+00:00</wsu:Expires>
+         </wsu:Timestamp>
+         <wsse:UsernameToken wsu:Id="UsernameToken-666" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsse:Username>admin</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_8992479d700b92d4bb644ae63aa6973ac55c7e5f</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <ns:describe>
+         <ns:items>
+            <!--You have a CHOICE of the next 2 items at this level-->
+            <!--Zero or more repetitions:-->
+            <ns1:nodes>
+               <!--Optional:-->
+               <ns1:store>
+                  <!--Optional:-->
+                  <ns1:scheme>workspace</ns1:scheme>
+                  <!--Optional:-->
+                  <ns1:address>SpacesStore</ns1:address>
+               </ns1:store>
+               <!--Optional:-->
+               <ns1:uuid></ns1:uuid>
+               <!--Optional:-->
+               <ns1:path>/app:company_home/cm:IbermaticaFolder</ns1:path>
+            </ns1:nodes>
+
+         </ns:items>
+      </ns:describe>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.alfresco.org/ws/service/repository/1.0/describe"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://www.alfresco.org/ws/service/repository/1.0/fetchMore" name="fetchMore" bindingOperationName="fetchMore" type="Request-Response" outputName="fetchMoreResponse" inputName="fetchMoreRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:description>Permite obtener un conjunto de registros resultado de una query. Actualmente no está implementado en el WS.</con:description><con:settings/><con:call name="Request 1-no"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/RepositoryService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/repository/1.0">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <wsu:Timestamp wsu:Id="Timestamp-14" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsu:Created>2009-12-09T08:50:00+00:00</wsu:Created>
+            <wsu:Expires>2009-12-09T23:00:00+00:00</wsu:Expires>
+         </wsu:Timestamp>
+         <wsse:UsernameToken wsu:Id="UsernameToken-666" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsse:Username>admin</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_70d00bcf4ff3a98aa5538ca2acdb7809db7d97a1</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <ns:fetchMore>
+         <ns:querySession></ns:querySession>
+      </ns:fetchMore>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.alfresco.org/ws/service/repository/1.0/fetchMore"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://www.alfresco.org/ws/service/repository/1.0/get" name="get" bindingOperationName="get" type="Request-Response" outputName="getResponse" inputName="getRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:description>Permite obtener un nodo, su contenido y sus propiedades para un posterior tratamiento.</con:description><con:settings/><con:call name="Request 1-ok"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/RepositoryService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/repository/1.0" xmlns:ns1="http://www.alfresco.org/ws/model/content/1.0">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <wsu:Timestamp wsu:Id="Timestamp-14" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsu:Created>2009-12-09T08:45:00+00:00</wsu:Created>
+            <wsu:Expires>2009-12-09T23:00:00+00:00</wsu:Expires>
+         </wsu:Timestamp>
+         <wsse:UsernameToken wsu:Id="UsernameToken-666" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsse:Username>admin</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_a1de9bfd47be5e13a7ab9c6846275f8ef9fdfb61</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <ns:get>
+         <ns:where>
+
+	   <ns1:nodes>
+         	<store>
+            	   <scheme>workspace</scheme>
+	           <address>SpacesStore</address>
+        	</store>
+
+                <uuid/>
+                <path>/app:company_home/cm:ibermatica.gif</path>
+	   </ns1:nodes>
+
+            <!--You have a CHOICE of the next 2 items at this level-->
+            <!--Zero or more repetitions:-->
+            
+            <!--Optional:-->
+            
+            <!--Optional:-->
+            
+         </ns:where>
+      </ns:get>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.alfresco.org/ws/service/repository/1.0/get"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://www.alfresco.org/ws/service/repository/1.0/getStores" name="getStores" bindingOperationName="getStores" type="Request-Response" outputName="getStoreResponse" inputName="getStoresRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:description>Permite obtener un Store y todas sus propiedades.</con:description><con:settings/><con:call name="Request 1-ok"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/RepositoryService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/repository/1.0">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <wsu:Timestamp wsu:Id="Timestamp-14" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsu:Created>2009-12-09T08:33:00+00:00</wsu:Created>
+            <wsu:Expires>2009-12-09T23:00:00+00:00</wsu:Expires>
+         </wsu:Timestamp>
+         <wsse:UsernameToken wsu:Id="UsernameToken-666" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsse:Username>admin</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_a1de9bfd47be5e13a7ab9c6846275f8ef9fdfb61</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      
+	<ns:getStores/>
+
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.alfresco.org/ws/service/repository/1.0/getStores"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://www.alfresco.org/ws/service/repository/1.0/query" name="query" bindingOperationName="query" type="Request-Response" outputName="queryResponse" inputName="queryRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:description>Permite hacer una Query usando el lenguaje o sintaxis cualquiera, como el Lucene.</con:description><con:settings/><con:call name="Request 1-ok"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/RepositoryService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/repository/1.0" xmlns:ns1="http://www.alfresco.org/ws/headers/1.0" xmlns:ns2="http://www.alfresco.org/ws/model/content/1.0">
+  
+
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <wsu:Timestamp wsu:Id="Timestamp-14" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsu:Created>2009-12-09T07:58:00+00:00</wsu:Created>
+            <wsu:Expires>2009-12-09T23:00:00+00:00</wsu:Expires>
+         </wsu:Timestamp>
+         <wsse:UsernameToken wsu:Id="UsernameToken-666" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsse:Username>admin</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_a1de9bfd47be5e13a7ab9c6846275f8ef9fdfb61</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+
+      <ns:QueryConfiguration>
+         <ns1:fetchSize>500</ns1:fetchSize>
+      </ns:QueryConfiguration>
+   </soapenv:Header>
+
+   <soapenv:Body>
+      <query>
+         <store>
+            <scheme>workspace</scheme>
+            <address>SpacesStore</address>
+         </store>
+         <query>
+            <language>lucene</language>
+            <statement>TYPE:"{http://www.alfresco.org/model/content/1.0}content" +TEXT:"alf"</statement>
+         </query>
+         <includeMetaData>true</includeMetaData>
+      </query>
+   <ns:query/></soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.alfresco.org/ws/service/repository/1.0/query"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://www.alfresco.org/ws/service/repository/1.0/queryAssociated" name="queryAssociated" bindingOperationName="queryAssociated" type="Request-Response" outputName="queryAssociatedResponse" inputName="queryAssociatedRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:description>Permite hacer una Query para conocer si sus Asociaciones.</con:description><con:settings/><con:call name="Request 1-ok"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/RepositoryService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/repository/1.0" xmlns:ns1="http://www.alfresco.org/ws/headers/1.0" xmlns:ns2="http://www.alfresco.org/ws/model/content/1.0">
+
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <wsu:Timestamp wsu:Id="Timestamp-14" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsu:Created>2009-12-09T08:40:00+00:00</wsu:Created>
+            <wsu:Expires>2009-12-09T23:00:00+00:00</wsu:Expires>
+         </wsu:Timestamp>
+         <wsse:UsernameToken wsu:Id="UsernameToken-666" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsse:Username>admin</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_a1de9bfd47be5e13a7ab9c6846275f8ef9fdfb61</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+
+      <ns:QueryConfiguration>
+         <ns1:fetchSize>500</ns1:fetchSize>
+      </ns:QueryConfiguration>
+   </soapenv:Header>
+   <soapenv:Body>
+      <ns:queryAssociated>
+         <ns:node>
+	    <store>
+	       <scheme>workspace</scheme>
+               <address>SpacesStore</address>
+	    </store>
+             <uuid></uuid>
+             <path>/app:company_home/cm:ibermatica.gif</path>
+         </ns:node>
+
+         <ns:association>
+            <ns:associationType>{http://www.ibrmtk.com/model/content/1.0}relatedDocuments</ns:associationType>
+            <ns:direction>target</ns:direction>
+         </ns:association>
+      </ns:queryAssociated>
+
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.alfresco.org/ws/service/repository/1.0/queryAssociated"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://www.alfresco.org/ws/service/repository/1.0/queryChildren" name="queryChildren" bindingOperationName="queryChildren" type="Request-Response" outputName="queryChildrenResponse" inputName="queryChildrenRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:description>Permite hacer una Query para conocer los hijos del nodo dado.</con:description><con:settings/><con:call name="Request 1-ok"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/RepositoryService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/repository/1.0" xmlns:ns1="http://www.alfresco.org/ws/headers/1.0" xmlns:ns2="http://www.alfresco.org/ws/model/content/1.0">
+
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <wsu:Timestamp wsu:Id="Timestamp-14" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsu:Created>2009-12-09T08:55:00+00:00</wsu:Created>
+            <wsu:Expires>2009-12-09T23:00:00+00:00</wsu:Expires>
+         </wsu:Timestamp>
+         <wsse:UsernameToken wsu:Id="UsernameToken-666" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsse:Username>admin</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_a1de9bfd47be5e13a7ab9c6846275f8ef9fdfb61</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+
+      <ns:QueryConfiguration>
+         <ns1:fetchSize>500</ns1:fetchSize>
+      </ns:QueryConfiguration>
+   </soapenv:Header>
+   <soapenv:Body>
+      <ns:queryChildren>
+         <ns:node>
+
+	    <store>
+	       <scheme>workspace</scheme>
+                  <address>SpacesStore</address>
+	       </store>
+
+               <uuid></uuid>
+               <path>/app:company_home/cm:IbermaticaFolder</path>
+
+         </ns:node>
+      </ns:queryChildren>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.alfresco.org/ws/service/repository/1.0/queryChildren"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://www.alfresco.org/ws/service/repository/1.0/queryParents" name="queryParents" bindingOperationName="queryParents" type="Request-Response" outputName="queryParentsResponse" inputName="queryParentsRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:description>Permite hacer una Query para conocer los Padres del nodo dado.</con:description><con:settings/><con:call name="Request 1-ok"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/RepositoryService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/repository/1.0" xmlns:ns1="http://www.alfresco.org/ws/headers/1.0" xmlns:ns2="http://www.alfresco.org/ws/model/content/1.0">
+
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <wsu:Timestamp wsu:Id="Timestamp-14" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsu:Created>2009-12-09T08:55:00+00:00</wsu:Created>
+            <wsu:Expires>2009-12-09T23:00:00+00:00</wsu:Expires>
+         </wsu:Timestamp>
+         <wsse:UsernameToken wsu:Id="UsernameToken-666" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsse:Username>admin</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_a1de9bfd47be5e13a7ab9c6846275f8ef9fdfb61</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+
+      <ns:QueryConfiguration>
+         <ns1:fetchSize>500</ns1:fetchSize>
+      </ns:QueryConfiguration>
+   </soapenv:Header>
+   <soapenv:Body>
+      <ns:queryParents>
+         <ns:node>
+
+	    <store>
+	       <scheme>workspace</scheme>
+                  <address>SpacesStore</address>
+	       </store>
+
+               <uuid/>
+               <path>/app:company_home/app:guest_home</path>
+
+         </ns:node>
+      </ns:queryParents>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.alfresco.org/ws/service/repository/1.0/queryParents"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://www.alfresco.org/ws/service/repository/1.0/update" name="update" bindingOperationName="update" type="Request-Response" outputName="updateResponse" inputName="updateRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:description>Permite hacer diferentes operaciones CML, entre ellas el create.</con:description><con:settings/><con:call name="Request 1-ok"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/RepositoryService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/repository/1.0" xmlns:ns1="http://www.alfresco.org/ws/cml/1.0" xmlns:ns2="http://www.alfresco.org/ws/model/content/1.0">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <wsu:Timestamp wsu:Id="Timestamp-14" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsu:Created>2009-12-10T12:42:00+00:00</wsu:Created>
+            <wsu:Expires>2009-12-10T23:00:00+00:00</wsu:Expires>
+         </wsu:Timestamp>
+         <wsse:UsernameToken wsu:Id="UsernameToken-666" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsse:Username>admin</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_73738f517e458c2af3f582db7728b9d26704fcb3</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+
+   <soapenv:Body>
+      <update>
+         <statements>
+            <!-- create es una (de 12) operación CML, permite crear el nodo no su contenido -->
+            <!-- para crear contenido se debe hacer con otra operacion CML llamada writeContent -->
+            <!-- también es posible crear contenido con el request de ContentService_write -->
+            <create>
+                <ns1:id>1</ns1:id>
+                <parent>
+                   <store>
+                   <scheme>workspace</scheme>
+                   <address>SpacesStore</address>
+                   </store>
+                   <path>/app:company_home/app:guest_home</path>
+                   <associationType>{http://www.alfresco.org/model/content/1.0}contains</associationType>
+                   <childName>{http://www.alfresco.org/model/content/1.0}pruebaB.txt</childName>
+                </parent>
+                <type>{http://www.alfresco.org/model/content/1.0}content</type>
+                <property>
+                   <name>{http://www.alfresco.org/model/content/1.0}name</name>
+                   <isMultiValue>false</isMultiValue>
+                   <value>pruebaB.txt</value>
+                </property>
+                <property>
+                   <name>{http://www.alfresco.org/model/content/1.0}description</name>
+                   <isMultiValue>false</isMultiValue>
+                   <value>Descripcion de prueba</value>
+                </property>
+            </create>
+
+            <!-- Otras operaciones CML disponibles -->
+
+            <!--Zero or more repetitions: removeAspect -->
+
+            <!--Zero or more repetitions: update-->
+
+            <!--Zero or more repetitions: writeContent-->
+
+            <!--Zero or more repetitions: delete-->
+
+            <!--Zero or more repetitions: move-->
+
+            <!--Zero or more repetitions: copy-->
+
+            <!--Zero or more repetitions: addChild-->
+
+            <!--Zero or more repetitions: removeChild-->
+
+            <!--Zero or more repetitions: createAssociation-->
+
+            <!--Zero or more repetitions: removeAssociation-->
+
+         </statements>
+      </update>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.alfresco.org/ws/service/repository/1.0/update"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AuthoringServiceSoapBinding" type="wsdl" bindingName="{http://www.alfresco.org/ws/service/authoring/1.0}AuthoringServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://alfresco34dserver:8080/alfresco/wsdl/authoring-service.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:description>WS AuthoringService</con:description><con:settings/><con:endpoints><con:endpoint>http://alfresco34dserver:8080/alfresco/api/AuthoringService</con:endpoint></con:endpoints><con:operation isOneWay="false" action="http://www.alfresco.org/ws/service/authoring/1.0/cancelCheckout" name="cancelCheckout" bindingOperationName="cancelCheckout" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:description>Permite cancelar el estado de Checked de un nodo.</con:description><con:settings/><con:call name="Request 1-ok"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/AuthoringService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/authoring/1.0" xmlns:ns1="http://www.alfresco.org/ws/model/content/1.0">
+<soapenv:Header>
+   <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+      <wsu:Timestamp wsu:Id="Timestamp-29086271" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+        <wsu:Created>2009-12-10T09:06:00+00:00</wsu:Created>
+        <wsu:Expires>2009-12-10T23:00:00+00:00</wsu:Expires>
+      </wsu:Timestamp>
+      <wsse:UsernameToken wsu:Id="UsernameToken-7990655" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+        <wsse:Username>ticket</wsse:Username>
+        <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_1fea0e74243f69a7ab9606ec70cf3ce0bb859cab</wsse:Password>
+      </wsse:UsernameToken>
+   </wsse:Security>
+</soapenv:Header>
+
+   <soapenv:Body>
+      <ns:cancelCheckout>
+         <ns:items>
+
+	  <ns1:nodes>
+             <ns1:store>
+             <ns1:scheme>workspace</ns1:scheme>
+             <ns1:address>SpacesStore</ns1:address>
+             </ns1:store>
+	     <!-- UUID de la working-copy obtenida de checkout -->
+             <!-- El path no es necesario -->
+	     <ns1:uuid>a0c35cce-e76e-434f-a4ae-14e3e31c9ed8</ns1:uuid>
+	     <ns1:path xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+	  </ns1:nodes>
+
+            <!--You have a CHOICE of the next 2 items at this level-->
+            <!--Zero or more repetitions:-->
+            
+         </ns:items>
+      </ns:cancelCheckout>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.alfresco.org/ws/service/authoring/1.0/cancelCheckout"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://www.alfresco.org/ws/service/authoring/1.0/checkin" name="checkin" bindingOperationName="checkin" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:description>Permite hacer un Checkin de un nodo, antes debe estar en modo Checkout.</con:description><con:settings/><con:call name="Request 1-ok"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/AuthoringService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/authoring/1.0" xmlns:ns1="http://www.alfresco.org/ws/model/content/1.0">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <wsu:Timestamp wsu:Id="Timestamp-14" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsu:Created>2009-12-09T17:27:00+00:00</wsu:Created>
+            <wsu:Expires>2009-12-09T23:00:00+00:00</wsu:Expires>
+         </wsu:Timestamp>
+         <wsse:UsernameToken wsu:Id="UsernameToken-666" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsse:Username>admin</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_7bd80491daa52fa721cf14e9c4087c4657ececa6</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <ns:checkin>
+
+	<ns:items>
+          <ns1:store>
+          <ns1:scheme>workspace</ns1:scheme>
+          <ns1:address>SpacesStore</ns1:address>
+          </ns1:store>
+	  <ns1:nodes>
+             <ns1:store>
+             <ns1:scheme>workspace</ns1:scheme>
+             <ns1:address>SpacesStore</ns1:address>
+             </ns1:store>
+	     <!-- UUID de la working-copy obtenida de checkout -->
+             <!-- El path no es necesario -->
+	     <ns1:uuid>4c44377d-7ba0-4d7f-ac93-af246276b9d2</ns1:uuid>
+	     <ns1:path></ns1:path>
+	  </ns1:nodes>
+        </ns:items>
+
+        <!--Zero or more repetitions:-->
+        <ns:comments>
+            <!-- Habilitar o aplicar el Aspecto Versionable antes de añadir Comments -->
+            <ns1:name>description</ns1:name>
+            <ns1:isMultiValue>false</ns1:isMultiValue>
+            <ns1:value>1era descripcion por checkin</ns1:value>
+        </ns:comments>
+
+        <ns:keepCheckedOut>false</ns:keepCheckedOut>
+
+      </ns:checkin>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.alfresco.org/ws/service/authoring/1.0/checkin"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://www.alfresco.org/ws/service/authoring/1.0/checkinExternal" name="checkinExternal" bindingOperationName="checkinExternal" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:description>Permite hacer un Checkin a la vez que modificamos su contenido o propiedades dejando un rastro de los cambios (versión).</con:description><con:settings/><con:call name="Request 1-ok"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/AuthoringService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/authoring/1.0" xmlns:ns1="http://www.alfresco.org/ws/model/content/1.0">
+
+<soapenv:Header>
+   <wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" soapenv:mustUnderstand="1">
+      <wsu:Timestamp xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="Timestamp-29086271">
+        <wsu:Created>2009-12-10T12:01:00+00:00</wsu:Created>
+        <wsu:Expires>2009-12-10T23:00:00+00:00</wsu:Expires>
+      </wsu:Timestamp>
+      <wsse:UsernameToken xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="UsernameToken-7990655">
+        <wsse:Username>ticket</wsse:Username>
+        <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_55966d3e70ddc069c685cba78f8cc5b74c133e10</wsse:Password>
+      </wsse:UsernameToken>
+   </wsse:Security>
+</soapenv:Header>
+
+   <soapenv:Body>
+      <ns:checkinExternal>
+
+	 <ns:items>
+           <ns1:store>
+           <ns1:scheme>workspace</ns1:scheme>
+           <ns1:address>SpacesStore</ns1:address>
+           </ns1:store>
+	   <!-- UUID de la working-copy obtenida de checkout -->
+           <!-- El path no es necesario -->
+	   <ns1:uuid>67a71376-8d59-4e08-bfdf-fcccc6c7e4d0</ns1:uuid>
+	   <ns1:path></ns1:path>
+         </ns:items>
+
+        <!--Zero or more repetitions:-->
+        <ns:comments>
+            <!-- Habilitar o aplicar el Aspecto Versionable antes de añadir Comments -->
+            <ns1:name>description</ns1:name>
+            <ns1:isMultiValue>false</ns1:isMultiValue>
+            <ns1:value>Descripcion por checkinExternal</ns1:value>
+        </ns:comments>
+
+        <ns:keepCheckedOut>false</ns:keepCheckedOut>
+
+	 <!-- Aquí va el nuevo contenido en base64 del nodo en cuestión -->
+         <ns:format>
+            <ns1:mimetype>text/plain</ns1:mimetype>
+            <ns1:encoding>UTF-8</ns1:encoding>
+         </ns:format>
+         <ns:content>Wz09PT09PT09PT09PT09XQ0KWyBJYmVybeF0aWNhICAgXQ0KWz09PT09PT09PT09PT09XQ==</ns:content>
+
+      </ns:checkinExternal>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.alfresco.org/ws/service/authoring/1.0/checkinExternal"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://www.alfresco.org/ws/service/authoring/1.0/checkout" name="checkout" bindingOperationName="checkout" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:description>Permite hacer un Checkout de un nodo para su posterior Cancel o Checkin.</con:description><con:settings/><con:call name="Request 2-ok"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/AuthoringService</con:endpoint><con:request><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<soapenv:Header>
+   <wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" soapenv:mustUnderstand="1">
+      <wsu:Timestamp xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="Timestamp-29086271">
+        <wsu:Created>2009-12-10T12:00:00+00:00</wsu:Created>
+        <wsu:Expires>2009-12-10T23:00:00+00:00</wsu:Expires>
+      </wsu:Timestamp>
+      <wsse:UsernameToken xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="UsernameToken-7990655">
+        <wsse:Username>ticket</wsse:Username>
+        <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_55966d3e70ddc069c685cba78f8cc5b74c133e10</wsse:Password>
+      </wsse:UsernameToken>
+   </wsse:Security>
+</soapenv:Header>
+<soapenv:Body>
+   <checkout xmlns="http://www.alfresco.org/ws/service/authoring/1.0">
+      <items>
+        <ns1:nodes xmlns:ns1="http://www.alfresco.org/ws/model/content/1.0">
+          <ns1:store>
+          <ns1:scheme>workspace</ns1:scheme>
+          <ns1:address>SpacesStore</ns1:address>
+          </ns1:store>
+          <ns1:path>/app:company_home/st:sites/cm:testsite1/cm:documentLibrary/*[@cm:name="pruebaWebSite1.txt"]</ns1:path>
+        </ns1:nodes>
+        <ns2:store xmlns:ns2="http://www.alfresco.org/ws/model/content/1.0">
+          <ns2:scheme>workspace</ns2:scheme>
+          <ns2:address>SpacesStore</ns2:address>
+        </ns2:store>
+      </items>
+      <destination xsi:nil="true"></destination>
+   </checkout>
+</soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.alfresco.org/ws/service/authoring/1.0/checkout"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://www.alfresco.org/ws/service/authoring/1.0/createVersion" name="createVersion" bindingOperationName="createVersion" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:description>Permite crear una entrada al historial de versión de un nodo. Este nodo debe tener el Aspecto de Versionable.</con:description><con:settings/><con:call name="Request 1-ok"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/AuthoringService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/authoring/1.0" xmlns:ns1="http://www.alfresco.org/ws/model/content/1.0">
+
+<soapenv:Header>
+   <wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" soapenv:mustUnderstand="1">
+      <wsu:Timestamp xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="Timestamp-29086271">
+        <wsu:Created>2009-12-10T09:46:00+00:00</wsu:Created>
+        <wsu:Expires>2009-12-10T23:00:00+00:00</wsu:Expires>
+      </wsu:Timestamp>
+      <wsse:UsernameToken xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="UsernameToken-7990655">
+        <wsse:Username>ticket</wsse:Username>
+        <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_1fea0e74243f69a7ab9606ec70cf3ce0bb859cab</wsse:Password>
+      </wsse:UsernameToken>
+   </wsse:Security>
+</soapenv:Header>
+
+   <soapenv:Body>
+      <ns:createVersion>
+
+         <ns:items>
+           <ns1:nodes>
+             <ns1:store>
+             <ns1:scheme>workspace</ns1:scheme>
+             <ns1:address>SpacesStore</ns1:address>
+             </ns1:store>
+             <ns1:uuid/>
+             <ns1:path>/app:company_home/app:guest_home/*[@cm:name="prueba01.txt"]</ns1:path>
+           </ns1:nodes>
+         </ns:items>
+
+         <!--Zero or more repetitions:-->
+         <ns:comments>
+            <ns1:name>description</ns1:name>
+            <ns1:isMultiValue>false</ns1:isMultiValue>
+            <ns1:value>Nueva versión creada desde soapUI.</ns1:value>
+         </ns:comments>
+         <ns:comments>
+            <ns1:name>metadataIbermatica</ns1:name>
+            <ns1:isMultiValue>false</ns1:isMultiValue>
+            <ns1:value>Este es un ejemplo de metadata creada desde soapUI.</ns1:value>
+         </ns:comments>
+         <ns:versionChildren>false</ns:versionChildren>
+
+      </ns:createVersion>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.alfresco.org/ws/service/authoring/1.0/createVersion"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://www.alfresco.org/ws/service/authoring/1.0/deleteAllVersions" name="deleteAllVersions" bindingOperationName="deleteAllVersions" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:description>Permite eliminar todo el historial de versiones.</con:description><con:settings/><con:call name="Request 1-ok"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/AuthoringService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/authoring/1.0" xmlns:ns1="http://www.alfresco.org/ws/model/content/1.0">
+
+<soapenv:Header>
+   <wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" soapenv:mustUnderstand="1">
+      <wsu:Timestamp xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="Timestamp-29086271">
+        <wsu:Created>2009-12-10T10:32:00+00:00</wsu:Created>
+        <wsu:Expires>2009-12-10T23:00:00+00:00</wsu:Expires>
+      </wsu:Timestamp>
+      <wsse:UsernameToken xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="UsernameToken-7990655">
+        <wsse:Username>ticket</wsse:Username>
+        <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_1fea0e74243f69a7ab9606ec70cf3ce0bb859cab</wsse:Password>
+      </wsse:UsernameToken>
+   </wsse:Security>
+</soapenv:Header>
+
+   <soapenv:Body>
+      <ns:deleteAllVersions>
+
+         <ns:node>
+             <ns1:store>
+             <ns1:scheme>workspace</ns1:scheme>
+             <ns1:address>SpacesStore</ns1:address>
+             </ns1:store>
+             <ns1:uuid/>
+             <ns1:path>/app:company_home/app:guest_home/*[@cm:name="prueba01.txt"]</ns1:path>
+         </ns:node>
+
+      </ns:deleteAllVersions>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.alfresco.org/ws/service/authoring/1.0/deleteAllVersions"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://www.alfresco.org/ws/service/authoring/1.0/getLockStatus" name="getLockStatus" bindingOperationName="getLockStatus" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:description>Permite obtener información del estado del Lock de un nodo.</con:description><con:settings/><con:call name="Request 1-ok"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/AuthoringService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/authoring/1.0" xmlns:ns1="http://www.alfresco.org/ws/model/content/1.0">
+
+<soapenv:Header>
+   <wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" soapenv:mustUnderstand="1">
+      <wsu:Timestamp xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="Timestamp-29086271">
+        <wsu:Created>2009-12-10T09:36:00+00:00</wsu:Created>
+        <wsu:Expires>2009-12-10T23:00:00+00:00</wsu:Expires>
+      </wsu:Timestamp>
+      <wsse:UsernameToken xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="UsernameToken-7990655">
+        <wsse:Username>ticket</wsse:Username>
+        <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_1fea0e74243f69a7ab9606ec70cf3ce0bb859cab</wsse:Password>
+      </wsse:UsernameToken>
+   </wsse:Security>
+</soapenv:Header>
+
+   <soapenv:Body>
+      <!-- Ejecutarlo después de un lock -->
+      <ns:getLockStatus>
+         <ns:items>
+           <ns1:nodes>
+             <ns1:store>
+             <ns1:scheme>workspace</ns1:scheme>
+             <ns1:address>SpacesStore</ns1:address>
+             </ns1:store>
+             <ns1:uuid/>
+             <ns1:path>/app:company_home/app:guest_home/*[@cm:name="prueba01.txt"]</ns1:path>
+           </ns1:nodes>
+         </ns:items>
+      </ns:getLockStatus>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.alfresco.org/ws/service/authoring/1.0/getLockStatus"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://www.alfresco.org/ws/service/authoring/1.0/getVersionHistory" name="getVersionHistory" bindingOperationName="getVersionHistory" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:description>Permite obtener todo el historial de versiones de un nodo.</con:description><con:settings/><con:call name="Request 1-ok"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/AuthoringService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/authoring/1.0" xmlns:ns1="http://www.alfresco.org/ws/model/content/1.0">
+
+<soapenv:Header>
+   <wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" soapenv:mustUnderstand="1">
+      <wsu:Timestamp xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="Timestamp-29086271">
+        <wsu:Created>2009-12-10T09:43:00+00:00</wsu:Created>
+        <wsu:Expires>2009-12-10T23:00:00+00:00</wsu:Expires>
+      </wsu:Timestamp>
+      <wsse:UsernameToken xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="UsernameToken-7990655">
+        <wsse:Username>ticket</wsse:Username>
+        <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_1fea0e74243f69a7ab9606ec70cf3ce0bb859cab</wsse:Password>
+      </wsse:UsernameToken>
+   </wsse:Security>
+</soapenv:Header>
+
+   <soapenv:Body>
+
+      <!-- Para ejecutar getVersionHistory, el nodo debe estar unlocked -->
+      <ns:getVersionHistory>
+
+         <ns:node>
+             <ns1:store>
+             <ns1:scheme>workspace</ns1:scheme>
+             <ns1:address>SpacesStore</ns1:address>
+             </ns1:store>
+             <ns1:uuid/>
+             <ns1:path>/app:company_home/app:guest_home/*[@cm:name="prueba01.txt"]</ns1:path>
+         </ns:node>
+
+      </ns:getVersionHistory>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.alfresco.org/ws/service/authoring/1.0/getVersionHistory"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://www.alfresco.org/ws/service/authoring/1.0/lock" name="lock" bindingOperationName="lock" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:description>Permite hacer Lock sobre un nodo. Es posible definir la profundidad del Lock y el tipo (Read, Write).</con:description><con:settings/><con:call name="Request 1-ok"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/AuthoringService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/authoring/1.0" xmlns:ns1="http://www.alfresco.org/ws/model/content/1.0">
+
+<soapenv:Header>
+   <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+      <wsu:Timestamp wsu:Id="Timestamp-29086271" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+        <wsu:Created>2009-12-10T09:36:00+00:00</wsu:Created>
+        <wsu:Expires>2009-12-10T23:00:00+00:00</wsu:Expires>
+      </wsu:Timestamp>
+      <wsse:UsernameToken wsu:Id="UsernameToken-7990655" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+        <wsse:Username>ticket</wsse:Username>
+        <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_1fea0e74243f69a7ab9606ec70cf3ce0bb859cab</wsse:Password>
+      </wsse:UsernameToken>
+   </wsse:Security>
+</soapenv:Header>
+
+   <soapenv:Body>
+      <!-- Opciones de Lock: Read, Write -->
+      <!-- Se extiende a children o no -->
+      <ns:lock>
+         <ns:items>
+           <ns1:nodes>
+             <ns1:store>
+             <ns1:scheme>workspace</ns1:scheme>
+             <ns1:address>SpacesStore</ns1:address>
+             </ns1:store>
+             <ns1:uuid xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+             <ns1:path>/app:company_home/app:guest_home/*[@cm:name="prueba01.txt"]</ns1:path>
+           </ns1:nodes>
+         </ns:items>
+         <ns:lockChildren>false</ns:lockChildren>
+         <ns:lockType>read</ns:lockType>
+      </ns:lock>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.alfresco.org/ws/service/authoring/1.0/lock"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://www.alfresco.org/ws/service/authoring/1.0/revertVersion" name="revertVersion" bindingOperationName="revertVersion" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:description>Permite revertir una Versión de un nodo, es necesario identificar el Label de la versión (1.1, 1.3, ...) y que el nodo forme parte de un proyecto de Alfresco WCM.</con:description><con:settings/><con:call name="Request 1-ok"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/AuthoringService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/authoring/1.0" xmlns:ns1="http://www.alfresco.org/ws/model/content/1.0">
+
+<soapenv:Header>
+   <wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" soapenv:mustUnderstand="1">
+      <wsu:Timestamp xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="Timestamp-29086271">
+        <wsu:Created>2009-12-10T12:05:00+00:00</wsu:Created>
+        <wsu:Expires>2009-12-10T23:00:00+00:00</wsu:Expires>
+      </wsu:Timestamp>
+      <wsse:UsernameToken xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="UsernameToken-7990655">
+        <wsse:Username>ticket</wsse:Username>
+        <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_55966d3e70ddc069c685cba78f8cc5b74c133e10</wsse:Password>
+      </wsse:UsernameToken>
+   </wsse:Security>
+</soapenv:Header>
+
+   <soapenv:Body>
+      <!-- Sólo funciona para asset alojado dentro de un proyecto de Alfresco WCM -->
+      <!-- Para crear un proyecto WCM (Site) es necesario usar Alfresco Share -->
+      <!-- Una vez creado el proyecto, desde Alfresco ECM crear el contenido -->
+      <!-- El contenido creado se alojará en: /app:company_home/st:sites/cm:testsite1/cm:documentLibrary -->
+      <ns:revertVersion>
+
+         <ns:node>
+             <ns1:store>
+             <ns1:scheme>workspace</ns1:scheme>
+             <ns1:address>SpacesStore</ns1:address>
+             </ns1:store>
+             <ns1:uuid/>
+             <ns1:path>/app:company_home/st:sites/cm:testsite1/cm:documentLibrary/*[@cm:name="pruebaWebSite1.txt"]</ns1:path>
+         </ns:node>
+
+         <ns:versionLabel>1.0</ns:versionLabel>
+      </ns:revertVersion>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.alfresco.org/ws/service/authoring/1.0/revertVersion"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://www.alfresco.org/ws/service/authoring/1.0/unlock" name="unlock" bindingOperationName="unlock" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:description>Permite hacer un desbloqueo de un nodo.</con:description><con:settings/><con:call name="Request 1-ok"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/AuthoringService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/authoring/1.0" xmlns:ns1="http://www.alfresco.org/ws/model/content/1.0">
+
+<soapenv:Header>
+   <wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" soapenv:mustUnderstand="1">
+      <wsu:Timestamp xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="Timestamp-29086271">
+        <wsu:Created>2009-12-10T09:43:00+00:00</wsu:Created>
+        <wsu:Expires>2009-12-10T23:00:00+00:00</wsu:Expires>
+      </wsu:Timestamp>
+      <wsse:UsernameToken xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="UsernameToken-7990655">
+        <wsse:Username>ticket</wsse:Username>
+        <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_1fea0e74243f69a7ab9606ec70cf3ce0bb859cab</wsse:Password>
+      </wsse:UsernameToken>
+   </wsse:Security>
+</soapenv:Header>
+
+   <soapenv:Body>
+      <ns:unlock>
+         <ns:items>
+
+           <ns1:nodes>
+             <ns1:store>
+             <ns1:scheme>workspace</ns1:scheme>
+             <ns1:address>SpacesStore</ns1:address>
+             </ns1:store>
+             <ns1:uuid/>
+             <ns1:path>/app:company_home/app:guest_home/*[@cm:name="prueba01.txt"]</ns1:path>
+           </ns1:nodes>
+            
+         </ns:items>
+         <ns:unlockChildren>false</ns:unlockChildren>
+      </ns:unlock>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.alfresco.org/ws/service/authoring/1.0/unlock"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite name="TestSuite1-DictionaryService"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="TestCase1-DictionaryService" searchProperties="true" id="999012f0-b6a0-404b-9c9c-6a7f048a4a09" timeout="0" wsrmEnabled="false" wsrmVersion="1.0" wsrmAckTo=""><con:settings><con:setting id="IncludeOverview">true</con:setting><con:setting id="IncludeResults">true</con:setting><con:setting id="FlowLayout">false</con:setting><con:setting id="ErrorDetails">true</con:setting><con:setting id="IncludeCoverage">true</con:setting></con:settings><con:testStep type="properties" name="PropsHTTPHeaderStartSession"><con:description>Vector de Propiedades que permitirán ser usados en todos los TestSteps del TestCase.</con:description><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>httpStatusCode</con:name><con:value>2</con:value></con:property><con:property><con:name>httpDate</con:name><con:value>Tue, 22 Nov 2011 19:45:59 GMT</con:value></con:property><con:property><con:name>CreatedToBeTransferred</con:name><con:value>2011-11-22T19:45:59+00:00</con:value></con:property><con:property><con:name>FechaYYMMDD</con:name><con:value>2011-11-22</con:value></con:property><con:property><con:name>ExpiresToBeTransferred</con:name><con:value>2011-11-22T23:00:00+00:00</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="request" name="startSession"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AuthenticationServiceSoapBinding</con:interface><con:operation>startSession</con:operation><con:request name="startSession"><con:description>TestStep que inicia sesión.</con:description><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/AuthenticationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/authentication/1.0">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ns:startSession>
+         <ns:username>admin</ns:username>
+         <ns:password>admin</ns:password>
+      </ns:startSession>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="GroovyScriptObtengoPropsHTTPHeaderStartSession"><con:description>Script en Groovy que recupera fechas y el TokenID para luego pasarlo al resto de TestSteps.</con:description><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+def httpResponseHeaders = context.testCase.testSteps["startSession"].testRequest.response.responseHeaders
+def httpStatus = httpResponseHeaders["#status#"]
+def httpStatusCode = (httpStatus =~ "[1-5]\\d\\d")[0]
+def strHttpDate = httpResponseHeaders["Date"]
+
+// formatoAParsear [Sat, 05 Dec 2009 17:47:38 GMT], es un array de 1 elemento
+// debemos obtener Created=2009-12-05T17:47:38+00:00
+// debemos obtener Expires=2009-12-05T23:00:00+00:00
+// La fecha es identica en ambos.
+// convierto a Array y los separo por espacio vacio
+
+httpDateArray = strHttpDate[0].split(" ")
+
+diaNombre = httpDateArray[0]
+dia = httpDateArray[1]
+mesNombre = httpDateArray[2]
+anyo = httpDateArray[3]
+hora = httpDateArray[4]
+tiempoZona = httpDateArray[5]
+
+mes = '00'
+if (mesNombre == 'Jan'){mes = '01'}
+if (mesNombre == 'Feb'){mes = '02'}
+if (mesNombre == 'Mar'){mes = '03'}
+if (mesNombre == 'Apr'){mes = '04'}
+if (mesNombre == 'May'){mes = '05'}
+if (mesNombre == 'Jun'){mes = '06'}
+if (mesNombre == 'Jul'){mes = '07'}
+if (mesNombre == 'Aug'){mes = '08'}
+if (mesNombre == 'Sep'){mes = '09'}
+if (mesNombre == 'Oct'){mes = '10'}
+if (mesNombre == 'Nov'){mes = '11'}
+if (mesNombre == 'Dec'){mes = '12'}
+
+def FechaYYYYMMDD = anyo + "-" + mes + "-" + dia
+def CreatedToBeTransferred = FechaYYYYMMDD + "T" + hora + "+00:00"
+def ExpiresToBeTransferred = FechaYYYYMMDD + "T23:00:00+00:00"
+
+log.info("-> HTTP Status: " + httpStatusCode)
+log.info("-> HTTP Date: " + strHttpDate)
+log.info("-> Created: " + CreatedToBeTransferred)
+log.info("-> YYYY-MM-DD: " + FechaYYYYMMDD)
+
+// 2011-Nov, ahora hay que usar httpStatusCode[0] y strHttpDate[0]
+groovyUtils.setPropertyValue("PropsHTTPHeaderStartSession", "httpStatusCode", httpStatusCode[0])
+groovyUtils.setPropertyValue("PropsHTTPHeaderStartSession", "httpDate", strHttpDate[0])
+groovyUtils.setPropertyValue("PropsHTTPHeaderStartSession", "CreatedToBeTransferred", CreatedToBeTransferred)
+groovyUtils.setPropertyValue("PropsHTTPHeaderStartSession", "FechaYYMMDD", FechaYYYYMMDD)
+groovyUtils.setPropertyValue("PropsHTTPHeaderStartSession", "ExpiresToBeTransferred", ExpiresToBeTransferred)
+
+
+</script></con:config></con:testStep><con:testStep type="transfer" name="PropsTransfer_HTTPDate2Created"><con:description>Mecanismo que permite transferir valores entreTestSepts.</con:description><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" entitize="false" transferToAll="false" transferChildNodes="false" useXQuery="false" ignoreEmpty="false"><con:name>username2Classes</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>startSession</con:sourceStep><con:sourcePath>declare namespace ns1='http://www.alfresco.org/ws/service/authentication/1.0';
+//ns1:startSessionResponse[1]/ns1:startSessionReturn[1]/ns1:username[1]</con:sourcePath><con:targetType>Request</con:targetType><con:targetStep>getClasses</con:targetStep><con:targetPath>declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsse:UsernameToken[1]/wsse:Username[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" entitize="false"><con:name>username2Properties</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>startSession</con:sourceStep><con:sourcePath>declare namespace ns1='http://www.alfresco.org/ws/service/authentication/1.0';
+//ns1:startSessionResponse[1]/ns1:startSessionReturn[1]/ns1:username[1]</con:sourcePath><con:targetType>Request</con:targetType><con:targetStep>getProperties</con:targetStep><con:targetPath>declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsse:UsernameToken[1]/wsse:Username[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="false" entitize="false"><con:name>username2IsSubClass</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>startSession</con:sourceStep><con:sourcePath>declare namespace ns1='http://www.alfresco.org/ws/service/authentication/1.0';
+//ns1:startSessionResponse[1]/ns1:startSessionReturn[1]/ns1:username[1]</con:sourcePath><con:targetType>Request</con:targetType><con:targetStep>isSubClass</con:targetStep><con:targetPath>declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsse:UsernameToken[1]/wsse:Username[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" entitize="false"><con:name>username2Associations</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>startSession</con:sourceStep><con:sourcePath>declare namespace ns1='http://www.alfresco.org/ws/service/authentication/1.0';
+//ns1:startSessionResponse[1]/ns1:startSessionReturn[1]/ns1:username[1]</con:sourcePath><con:targetType>Request</con:targetType><con:targetStep>getAssociations</con:targetStep><con:targetPath>declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsse:UsernameToken[1]/wsse:Username[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>ticket2Associations</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>startSession</con:sourceStep><con:sourcePath>declare namespace ns1='http://www.alfresco.org/ws/service/authentication/1.0';
+//ns1:startSessionResponse[1]/ns1:startSessionReturn[1]/ns1:ticket[1]</con:sourcePath><con:targetType>Request</con:targetType><con:targetStep>getAssociations</con:targetStep><con:targetPath>declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsse:UsernameToken[1]/wsse:Password[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>ticket2Classes</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>startSession</con:sourceStep><con:sourcePath>declare namespace ns1='http://www.alfresco.org/ws/service/authentication/1.0';
+//ns1:startSessionResponse[1]/ns1:startSessionReturn[1]/ns1:ticket[1]</con:sourcePath><con:targetType>Request</con:targetType><con:targetStep>getClasses</con:targetStep><con:targetPath>declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsse:UsernameToken[1]/wsse:Password[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>ticket2Properties</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>startSession</con:sourceStep><con:sourcePath>declare namespace ns1='http://www.alfresco.org/ws/service/authentication/1.0';
+//ns1:startSessionResponse[1]/ns1:startSessionReturn[1]/ns1:ticket[1]</con:sourcePath><con:targetType>Request</con:targetType><con:targetStep>getProperties</con:targetStep><con:targetPath>declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsse:UsernameToken[1]/wsse:Password[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>ticket2IsSubClass</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>startSession</con:sourceStep><con:sourcePath>declare namespace ns1='http://www.alfresco.org/ws/service/authentication/1.0';
+//ns1:startSessionResponse[1]/ns1:startSessionReturn[1]/ns1:ticket[1]</con:sourcePath><con:targetType>Request</con:targetType><con:targetStep>isSubClass</con:targetStep><con:targetPath>declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsse:UsernameToken[1]/wsse:Password[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>Created2Associations</con:name><con:sourceType>CreatedToBeTransferred</con:sourceType><con:sourceStep>PropsHTTPHeaderStartSession</con:sourceStep><con:sourcePath/><con:targetType>Request</con:targetType><con:targetStep>getAssociations</con:targetStep><con:targetPath>declare namespace wsu='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd';
+declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsu:Timestamp[1]/wsu:Created[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>Created2Classes</con:name><con:sourceType>CreatedToBeTransferred</con:sourceType><con:sourceStep>PropsHTTPHeaderStartSession</con:sourceStep><con:sourcePath/><con:targetType>Request</con:targetType><con:targetStep>getClasses</con:targetStep><con:targetPath>declare namespace wsu='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd';
+declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsu:Timestamp[1]/wsu:Created[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" entitize="false" transferToAll="false"><con:name>Created2Properties</con:name><con:sourceType>CreatedToBeTransferred</con:sourceType><con:sourceStep>PropsHTTPHeaderStartSession</con:sourceStep><con:sourcePath/><con:targetType>Request</con:targetType><con:targetStep>getProperties</con:targetStep><con:targetPath>declare namespace wsu='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd';
+declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsu:Timestamp[1]/wsu:Created[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>Created2IsSubClass</con:name><con:sourceType>CreatedToBeTransferred</con:sourceType><con:sourceStep>PropsHTTPHeaderStartSession</con:sourceStep><con:sourcePath/><con:targetType>Request</con:targetType><con:targetStep>isSubClass</con:targetStep><con:targetPath>declare namespace wsu='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd';
+declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsu:Timestamp[1]/wsu:Created[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>Expires2Associations</con:name><con:sourceType>ExpiresToBeTransferred</con:sourceType><con:sourceStep>PropsHTTPHeaderStartSession</con:sourceStep><con:sourcePath/><con:targetType>Request</con:targetType><con:targetStep>getAssociations</con:targetStep><con:targetPath>declare namespace wsu='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd';
+declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsu:Timestamp[1]/wsu:Expires[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" useXQuery="false" entitize="false" transferToAll="false"><con:name>Expires2Classes</con:name><con:sourceType>ExpiresToBeTransferred</con:sourceType><con:sourceStep>PropsHTTPHeaderStartSession</con:sourceStep><con:sourcePath/><con:targetType>Request</con:targetType><con:targetStep>getClasses</con:targetStep><con:targetPath>declare namespace wsu='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd';
+declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsu:Timestamp[1]/wsu:Expires[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferChildNodes="false" ignoreEmpty="false" entitize="false" transferToAll="false"><con:name>Expires2Properties</con:name><con:sourceType>ExpiresToBeTransferred</con:sourceType><con:sourceStep>PropsHTTPHeaderStartSession</con:sourceStep><con:sourcePath/><con:targetType>Request</con:targetType><con:targetStep>getProperties</con:targetStep><con:targetPath>declare namespace wsu='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd';
+declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsu:Timestamp[1]/wsu:Expires[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>Expires2IsSubClass</con:name><con:sourceType>ExpiresToBeTransferred</con:sourceType><con:sourceStep>PropsHTTPHeaderStartSession</con:sourceStep><con:sourcePath/><con:targetType>Request</con:targetType><con:targetStep>isSubClass</con:targetStep><con:targetPath>declare namespace wsu='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd';
+declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsu:Timestamp[1]/wsu:Expires[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" entitize="false" ignoreEmpty="false" transferToAll="false" useXQuery="false" transferChildNodes="false"><con:name>ticket2EndSession</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>startSession</con:sourceStep><con:sourcePath>declare namespace ns1='http://www.alfresco.org/ws/service/authentication/1.0';
+//ns1:startSessionResponse[1]/ns1:startSessionReturn[1]/ns1:ticket[1]</con:sourcePath><con:targetType>Request</con:targetType><con:targetStep>endSession</con:targetStep><con:targetPath>declare namespace ns='http://www.alfresco.org/ws/service/authentication/1.0';
+//ns:endSession[1]/ns:ticket[1]</con:targetPath></con:transfers></con:config></con:testStep><con:testStep type="request" name="getAssociations"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>DictionaryServiceSoapBinding</con:interface><con:operation>getAssociations</con:operation><con:request name="getAssociations" outgoingWss="" incomingWss="" wssPasswordType=""><con:description>TestStep que obtiene todas las Asociaciones.</con:description><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/DictionaryService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/dictionary/1.0">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <wsu:Timestamp wsu:Id="Timestamp-14" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsu:Created>2011-11-22T19:45:59+00:00</wsu:Created>
+            <wsu:Expires>2011-11-22T23:00:00+00:00</wsu:Expires>
+         </wsu:Timestamp>
+         <wsse:UsernameToken wsu:Id="UsernameToken-666" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsse:Username>admin</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_a9694fa7f20f2ef4bc27164eac1f9a51f4736953</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <ns:getAssociations>
+      <!--Zero or more repetitions:-->
+         <ns:associationNames>ix:relatedDocuments</ns:associationNames>
+         <ns:associationNames>ix:relatedFolder2Docs</ns:associationNames>
+      </ns:getAssociations>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.alfresco.org/ws/service/dictionary/1.0/getAssociations"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="getClasses"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>DictionaryServiceSoapBinding</con:interface><con:operation>getClasses</con:operation><con:request name="getClasses"><con:description>TestStep que permite obtener todas las clases.</con:description><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/DictionaryService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/dictionary/1.0">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <wsu:Timestamp wsu:Id="Timestamp-14" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsu:Created>2011-11-22T19:45:59+00:00</wsu:Created>
+            <wsu:Expires>2011-11-22T23:00:00+00:00</wsu:Expires>
+         </wsu:Timestamp>
+         <wsse:UsernameToken wsu:Id="UsernameToken-666" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsse:Username>admin</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_a9694fa7f20f2ef4bc27164eac1f9a51f4736953</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <ns:getClasses>
+      </ns:getClasses>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="getProperties"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>DictionaryServiceSoapBinding</con:interface><con:operation>getProperties</con:operation><con:request name="getProperties" outgoingWss="" incomingWss="" wssPasswordType=""><con:description>TestStep que permite obtener todas las propiedades.</con:description><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/DictionaryService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/dictionary/1.0">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <wsu:Timestamp wsu:Id="Timestamp-14" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsu:Created>2011-11-22T19:45:59+00:00</wsu:Created>
+            <wsu:Expires>2011-11-22T23:00:00+00:00</wsu:Expires>
+         </wsu:Timestamp>
+         <wsse:UsernameToken wsu:Id="UsernameToken-666" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsse:Username>admin</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_a9694fa7f20f2ef4bc27164eac1f9a51f4736953</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <ns:getProperties>
+         <!--Zero or more repetitions:-->
+         <ns:propertyNames>cm:name</ns:propertyNames>
+         <ns:propertyNames>ix:project</ns:propertyNames>
+      </ns:getProperties>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.alfresco.org/ws/service/dictionary/1.0/getProperties"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="isSubClass"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>DictionaryServiceSoapBinding</con:interface><con:operation>isSubClass</con:operation><con:request name="isSubClass" outgoingWss="" incomingWss="" wssPasswordType=""><con:description>TestStep que permite conocer si un nodo determinado es subclase de otro.</con:description><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/DictionaryService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/dictionary/1.0">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <wsu:Timestamp wsu:Id="Timestamp-14" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsu:Created>2011-11-22T19:45:59+00:00</wsu:Created>
+            <wsu:Expires>2011-11-22T23:00:00+00:00</wsu:Expires>
+         </wsu:Timestamp>
+         <wsse:UsernameToken wsu:Id="UsernameToken-666" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsse:Username>admin</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_a9694fa7f20f2ef4bc27164eac1f9a51f4736953</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <ns:isSubClass>
+         <ns:className>ix:marketingDoc</ns:className>
+         <ns:isSubClassOfName>ix:doc</ns:isSubClassOfName>
+      </ns:isSubClass>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.alfresco.org/ws/service/dictionary/1.0/isSubClass"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="endSession"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AuthenticationServiceSoapBinding</con:interface><con:operation>endSession</con:operation><con:request name="endSession" outgoingWss="" incomingWss="" wssPasswordType=""><con:description>TestStep que permite finalizar sesión.</con:description><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/AuthenticationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/authentication/1.0">
+   <soapenv:Header>
+   </soapenv:Header>
+   <soapenv:Body>
+      <ns:endSession>
+         <ns:ticket>TICKET_a9694fa7f20f2ef4bc27164eac1f9a51f4736953</ns:ticket>
+      </ns:endSession>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.alfresco.org/ws/service/authentication/1.0/endSession"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:testSuite name="TestSuite2-ContentService"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="TestCase2-ContentService" searchProperties="true" id="452c9d87-ca7d-4b84-9018-0f0f9e8dc0bb"><con:settings/><con:testStep type="request" name="startSession"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AuthenticationServiceSoapBinding</con:interface><con:operation>startSession</con:operation><con:request name="startSession" outgoingWss="" incomingWss="" wssPasswordType=""><con:description>TestStep que permite iniciar sesión.</con:description><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/AuthenticationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/authentication/1.0">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ns:startSession>
+         <ns:username>admin</ns:username>
+         <ns:password>admin</ns:password>
+      </ns:startSession>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.alfresco.org/ws/service/authentication/1.0/startSession"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Groovy Script"><con:description>Script en Groovy que permite hacer cálculos y recuperar valores como Tiempos, Horas y el TicketId.</con:description><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+def httpResponseHeaders = context.testCase.testSteps["startSession"].testRequest.response.responseHeaders
+def httpStatus = httpResponseHeaders["#status#"]
+def httpStatusCode = (httpStatus =~ "[1-5]\\d\\d")[0]
+def strHttpDate = httpResponseHeaders["Date"]
+
+def holder = groovyUtils.getXmlHolder( "startSession#Response" )
+holder.namespaces["abc"] = "http://www.alfresco.org/ws/service/authentication/1.0"
+def userToBeTransferred = holder.getNodeValue("//abc:username")
+def ticketToBeTransferred = holder.getNodeValue("//abc:ticket")
+
+
+// Ahora es array de 1 elemento
+// formatoAParsear Sat, 05 Dec 2009 17:47:38 GMT
+
+// debemos obtener Created=2009-12-05T17:47:38+00:00
+// debemos obtener Expires=2009-12-05T23:00:00+00:00
+// La fecha es identica en ambos.
+// convierto a Array y los separo por espacio vacio
+
+//httpDateArray = strHttpDate.split(" ")
+httpDateArray = strHttpDate[0].split(" ")
+
+diaNombre = httpDateArray[0]
+dia = httpDateArray[1]
+mesNombre = httpDateArray[2]
+anyo = httpDateArray[3]
+hora = httpDateArray[4]
+tiempoZona = httpDateArray[5]
+
+mes = '00'
+if (mesNombre == 'Jan'){mes = '01'}
+if (mesNombre == 'Feb'){mes = '02'}
+if (mesNombre == 'Mar'){mes = '03'}
+if (mesNombre == 'Apr'){mes = '04'}
+if (mesNombre == 'May'){mes = '05'}
+if (mesNombre == 'Jun'){mes = '06'}
+if (mesNombre == 'Jul'){mes = '07'}
+if (mesNombre == 'Aug'){mes = '08'}
+if (mesNombre == 'Sep'){mes = '09'}
+if (mesNombre == 'Oct'){mes = '10'}
+if (mesNombre == 'Nov'){mes = '11'}
+if (mesNombre == 'Dec'){mes = '12'}
+
+def FechaYYYYMMDD = anyo + "-" + mes + "-" + dia
+def CreatedToBeTransferred = FechaYYYYMMDD + "T" + hora + "+00:00"
+def ExpiresToBeTransferred = FechaYYYYMMDD + "T23:00:00+00:00"
+
+log.info("-> HTTP Status: " + httpStatusCode)
+log.info("-> HTTP Date: " + strHttpDate)
+log.info("-> Created: " + CreatedToBeTransferred)
+log.info("-> YYYY-MM-DD: " + FechaYYYYMMDD)
+
+def txtFileName = "test-" + System.currentTimeMillis()+".txt"
+def txtFileChildName = "{http://www.alfresco.org/model/content/1.0}" + txtFileName
+def txtFilePropDescription = "Descrip. " + hora + " para " + txtFileName
+
+groovyUtils.setPropertyValue("PropsStartSession", "txtFileNamePropDescription", txtFilePropDescription)
+groovyUtils.setPropertyValue("PropsStartSession", "txtFileChildName", txtFileChildName)
+groovyUtils.setPropertyValue("PropsStartSession", "txtFileName", txtFileName)
+
+groovyUtils.setPropertyValue("PropsStartSession", "userToBeTransferred", userToBeTransferred)
+groovyUtils.setPropertyValue("PropsStartSession", "ticketToBeTransferred", ticketToBeTransferred)
+groovyUtils.setPropertyValue("PropsStartSession", "CreatedToBeTransferred", CreatedToBeTransferred)
+groovyUtils.setPropertyValue("PropsStartSession", "ExpiresToBeTransferred", ExpiresToBeTransferred)</script></con:config></con:testStep><con:testStep type="properties" name="PropsStartSession"><con:description>Array de Propiedades que serán usados en todo el TestCase.</con:description><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>txtFileNamePropDescription</con:name><con:value>Descrip. 12:08:45 para test-1322136525517.txt</con:value></con:property><con:property><con:name>txtFileChildName</con:name><con:value>{http://www.alfresco.org/model/content/1.0}test-1322136525517.txt</con:value></con:property><con:property><con:name>txtFileName</con:name><con:value>test-1322136525517.txt</con:value></con:property><con:property><con:name>userToBeTransferred</con:name><con:value>admin</con:value></con:property><con:property><con:name>ticketToBeTransferred</con:name><con:value>TICKET_36312493f13e0c67cc2269c42ff4ffca6f52d4e2</con:value></con:property><con:property><con:name>CreatedToBeTransferred</con:name><con:value>2011-11-24T12:08:45+00:00</con:value></con:property><con:property><con:name>ExpiresToBeTransferred</con:name><con:value>2011-11-24T23:00:00+00:00</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="PropertyTransfer 1"><con:description>Mecanismo que permite transferir los valores de las Propiedades entre el TestStep anterior y posterior adyacentes a el.</con:description><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>childName2repo</con:name><con:sourceType>txtFileChildName</con:sourceType><con:sourceStep>PropsStartSession</con:sourceStep><con:sourcePath/><con:targetType>Request</con:targetType><con:targetStep>RepositoryService_update - create</con:targetStep><con:targetPath>//update[1]/statements[1]/create[1]/parent[1]/childName[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="false" ignoreEmpty="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>ticket2repo</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>startSession</con:sourceStep><con:sourcePath>declare namespace ns1='http://www.alfresco.org/ws/service/authentication/1.0';
+//ns1:startSessionResponse[1]/ns1:startSessionReturn[1]/ns1:ticket[1]</con:sourcePath><con:targetType>Request</con:targetType><con:targetStep>RepositoryService_update - create</con:targetStep><con:targetPath>declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsse:UsernameToken[1]/wsse:Password[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>Created2repo</con:name><con:sourceType>CreatedToBeTransferred</con:sourceType><con:sourceStep>PropsStartSession</con:sourceStep><con:sourcePath/><con:targetType>Request</con:targetType><con:targetStep>RepositoryService_update - create</con:targetStep><con:targetPath>declare namespace wsu='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd';
+declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsu:Timestamp[1]/wsu:Created[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>Expires2repo</con:name><con:sourceType>ExpiresToBeTransferred</con:sourceType><con:sourceStep>PropsStartSession</con:sourceStep><con:sourcePath/><con:targetType>Request</con:targetType><con:targetStep>RepositoryService_update - create</con:targetStep><con:targetPath>declare namespace wsu='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd';
+declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsu:Timestamp[1]/wsu:Expires[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>valueFileName</con:name><con:sourceType>txtFileName</con:sourceType><con:sourceStep>PropsStartSession</con:sourceStep><con:sourcePath/><con:targetType>Request</con:targetType><con:targetStep>RepositoryService_update - create</con:targetStep><con:targetPath>//update[1]/statements[1]/create[1]/property[1]/value[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>valuePropDesc</con:name><con:sourceType>txtFileNamePropDescription</con:sourceType><con:sourceStep>PropsStartSession</con:sourceStep><con:sourcePath/><con:targetType>Request</con:targetType><con:targetStep>RepositoryService_update - create</con:targetStep><con:targetPath>//update[1]/statements[1]/create[1]/property[2]/value[1]</con:targetPath></con:transfers></con:config></con:testStep><con:testStep type="request" name="RepositoryService_update - create"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>RepositoryServiceSoapBinding</con:interface><con:operation>update</con:operation><con:request name="RepositoryService_update - create" outgoingWss="" incomingWss="" wssPasswordType=""><con:description>TestStep que permite crear una referencia para que en el sgte. TestStep se pueda añadir contenido y propiedades.</con:description><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/RepositoryService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/repository/1.0" xmlns:ns1="http://www.alfresco.org/ws/cml/1.0" xmlns:ns2="http://www.alfresco.org/ws/model/content/1.0">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <wsu:Timestamp wsu:Id="Timestamp-14" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsu:Created>2011-11-24T12:08:45+00:00</wsu:Created>
+            <wsu:Expires>2011-11-24T23:00:00+00:00</wsu:Expires>
+         </wsu:Timestamp>
+         <wsse:UsernameToken wsu:Id="UsernameToken-666" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsse:Username>admin</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_36312493f13e0c67cc2269c42ff4ffca6f52d4e2</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+
+   <soapenv:Body>
+      <update>
+         <statements>
+            <!-- create es una (de 12) operación CML, permite crear el nodo no su contenido -->
+            <!-- para crear contenido se debe hacer con otra operacion CML llamada writeContent -->
+            <!-- también es posible crear contenido con el request de ContentService_write -->
+            <create>
+                <ns1:id>1</ns1:id>
+                <parent>
+                   <store>
+                   <scheme>workspace</scheme>
+                   <address>SpacesStore</address>
+                   </store>
+                   <path>/app:company_home/app:guest_home</path>
+                   <associationType>{http://www.alfresco.org/model/content/1.0}contains</associationType>
+                   <childName>{http://www.alfresco.org/model/content/1.0}test-1322136525517.txt</childName>
+                </parent>
+                <type>{http://www.alfresco.org/model/content/1.0}content</type>
+                <property>
+                   <name>{http://www.alfresco.org/model/content/1.0}name</name>
+                   <isMultiValue>false</isMultiValue>
+                   <value>test-1322136525517.txt</value>
+                </property>
+                <property>
+                   <name>{http://www.alfresco.org/model/content/1.0}description</name>
+                   <isMultiValue>false</isMultiValue>
+                   <value>Descrip. 12:08:45 para test-1322136525517.txt</value>
+                </property>
+            </create>
+
+            <!-- Otras operaciones CML disponibles -->
+
+            <!--Zero or more repetitions: removeAspect -->
+
+            <!--Zero or more repetitions: update-->
+
+            <!--Zero or more repetitions: writeContent-->
+
+            <!--Zero or more repetitions: delete-->
+
+            <!--Zero or more repetitions: move-->
+
+            <!--Zero or more repetitions: copy-->
+
+            <!--Zero or more repetitions: addChild-->
+
+            <!--Zero or more repetitions: removeChild-->
+
+            <!--Zero or more repetitions: createAssociation-->
+
+            <!--Zero or more repetitions: removeAssociation-->
+
+         </statements>
+      </update>
+   <ns:update/></soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.alfresco.org/ws/service/repository/1.0/update"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="transfer" name="PropertyTransfer 2"><con:description>Mecanismo que permite transferir los valores de las Propiedades entre el TestStep anterior y posterior adyacentes a el.</con:description><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>Created</con:name><con:sourceType>Request</con:sourceType><con:sourceStep>RepositoryService_update - create</con:sourceStep><con:sourcePath>declare namespace wsu='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd';
+declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsu:Timestamp[1]/wsu:Created[1]</con:sourcePath><con:targetType>Request</con:targetType><con:targetStep>write</con:targetStep><con:targetPath>declare namespace wsu='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd';
+declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsu:Timestamp[1]/wsu:Created[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>Expires</con:name><con:sourceType>Request</con:sourceType><con:sourceStep>RepositoryService_update - create</con:sourceStep><con:sourcePath>declare namespace wsu='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd';
+declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsu:Timestamp[1]/wsu:Expires[1]</con:sourcePath><con:targetType>Request</con:targetType><con:targetStep>write</con:targetStep><con:targetPath>declare namespace wsu='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd';
+declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsu:Timestamp[1]/wsu:Expires[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>Password</con:name><con:sourceType>Request</con:sourceType><con:sourceStep>RepositoryService_update - create</con:sourceStep><con:sourcePath>declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsse:UsernameToken[1]/wsse:Password[1]</con:sourcePath><con:targetType>Request</con:targetType><con:targetStep>write</con:targetStep><con:targetPath>declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsse:UsernameToken[1]/wsse:Password[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>uuid</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>RepositoryService_update - create</con:sourceStep><con:sourcePath>declare namespace ns3='http://www.alfresco.org/ws/model/content/1.0';
+declare namespace ns1='http://www.alfresco.org/ws/service/repository/1.0';
+//updateResponse[1]/ns1:updateReturn[1]/ns1:destination[1]/ns3:uuid[1]</con:sourcePath><con:targetType>Request</con:targetType><con:targetStep>write</con:targetStep><con:targetPath>//write[1]/node[1]/uuid[1]</con:targetPath></con:transfers></con:config></con:testStep><con:testStep type="request" name="write"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ContentServiceSoapBinding</con:interface><con:operation>write</con:operation><con:request name="write"><con:description>TestStep que permite escribrir contenido sobre un nodo.</con:description><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/ContentService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+      <wsu:Timestamp wsu:Id="Timestamp-6251267" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+      <wsu:Created>2011-11-24T12:08:45+00:00</wsu:Created>
+      <wsu:Expires>2011-11-24T23:00:00+00:00</wsu:Expires>
+      </wsu:Timestamp>
+      <wsse:UsernameToken wsu:Id="UsernameToken-22700073" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+      <wsse:Username>ticket</wsse:Username>
+      <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_36312493f13e0c67cc2269c42ff4ffca6f52d4e2</wsse:Password>
+      </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+
+      <!-- write nos permite escribir contenido a un nodo determinado por su UUID y name -->
+      <write>
+            <node>
+            <store>
+            <scheme>workspace</scheme>
+            <address>SpacesStore</address>
+            </store>
+            <uuid>78b4225a-ded4-43a3-afd2-c5b0bba17db6</uuid>
+            <path/>
+            </node>
+         <property>{http://www.alfresco.org/model/content/1.0}content</property>
+         <content>CkVzdGUgZmljaGVybyAocHJ1ZWJhMDEudHh0KSBmdWUgY3JlYWRvIGRlc2RlIGxvcyBXUyBkZSBBbGZyZXNjbyAoY29udGVudC1zZXJ2aWNlLndzZGwpCg==</content>
+         <format>
+            <mimetype>text/plain</mimetype>
+            <encoding>UTF-8</encoding>
+         </format>
+      </write>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.alfresco.org/ws/service/content/1.0/write" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="transfer" name="PropertyTransfer 3"><con:description>Mecanismo que permite transferir los valores de las Propiedades entre el TestStep anterior y posterior adyacentes a el.</con:description><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>Created</con:name><con:sourceType>Request</con:sourceType><con:sourceStep>write</con:sourceStep><con:sourcePath>declare namespace wsu='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd';
+declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsu:Timestamp[1]/wsu:Created[1]</con:sourcePath><con:targetType>Request</con:targetType><con:targetStep>read</con:targetStep><con:targetPath>declare namespace wsu='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd';
+declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsu:Timestamp[1]/wsu:Created[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>Expires</con:name><con:sourceType>Request</con:sourceType><con:sourceStep>write</con:sourceStep><con:sourcePath>declare namespace wsu='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd';
+declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsu:Timestamp[1]/wsu:Expires[1]</con:sourcePath><con:targetType>Request</con:targetType><con:targetStep>read</con:targetStep><con:targetPath>declare namespace wsu='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd';
+declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsu:Timestamp[1]/wsu:Expires[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>Password</con:name><con:sourceType>Request</con:sourceType><con:sourceStep>write</con:sourceStep><con:sourcePath>declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsse:UsernameToken[1]/wsse:Password[1]</con:sourcePath><con:targetType>Request</con:targetType><con:targetStep>read</con:targetStep><con:targetPath>declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsse:UsernameToken[1]/wsse:Password[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>path</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>write</con:sourceStep><con:sourcePath>declare namespace ns4='http://www.alfresco.org/ws/model/content/1.0';
+declare namespace ns1='http://www.alfresco.org/ws/service/content/1.0';
+//writeResponse[1]/ns1:content[1]/ns1:node[1]/ns4:path[1]</con:sourcePath><con:targetType>Request</con:targetType><con:targetStep>read</con:targetStep><con:targetPath>declare namespace ns1='http://www.alfresco.org/ws/model/content/1.0';
+declare namespace ns='http://www.alfresco.org/ws/service/content/1.0';
+//ns:read[1]/ns:items[1]/ns1:nodes[1]/path[1]</con:targetPath></con:transfers></con:config></con:testStep><con:testStep type="request" name="read"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ContentServiceSoapBinding</con:interface><con:operation>read</con:operation><con:request name="read"><con:description>TestStep que permite leer el contenido y las propiedades de un nodo.</con:description><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/ContentService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/content/1.0" xmlns:ns1="http://www.alfresco.org/ws/model/content/1.0">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <wsu:Timestamp wsu:Id="Timestamp-14" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsu:Created>2011-11-24T12:08:45+00:00</wsu:Created>
+            <wsu:Expires>2011-11-24T23:00:00+00:00</wsu:Expires>
+         </wsu:Timestamp>
+         <wsse:UsernameToken wsu:Id="UsernameToken-666" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsse:Username>admin</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_36312493f13e0c67cc2269c42ff4ffca6f52d4e2</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+
+      <!-- Read permite leer el contenido o una propiedad de un nodo -->
+      <ns:read>
+	<ns:items>
+	   <ns1:nodes>
+	    	<store>
+	       	   <scheme>workspace</scheme>
+               	   <address>SpacesStore</address>
+	    	</store>
+	    	<uuid/>
+	    	<path>/app:company_home/app:guest_home/cm:test-1322136525517.txt</path>
+	   </ns1:nodes>
+         </ns:items>
+         <ns:property>{http://www.alfresco.org/model/content/1.0}content</ns:property>
+      </ns:read>
+
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig action="http://www.alfresco.org/ws/service/content/1.0/read" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="transfer" name="PropertyTransfer 4"><con:description>Mecanismo que permite transferir los valores de las Propiedades entre el TestStep anterior y posterior adyacentes a el.</con:description><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" entitize="false" transferToAll="false" ignoreEmpty="false" useXQuery="false"><con:name>Created</con:name><con:sourceType>Request</con:sourceType><con:sourceStep>read</con:sourceStep><con:sourcePath>declare namespace wsu='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd';
+declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsu:Timestamp[1]/wsu:Created[1]</con:sourcePath><con:targetType>Request</con:targetType><con:targetStep>transform</con:targetStep><con:targetPath>declare namespace wsu='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd';
+declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsu:Timestamp[1]/wsu:Created[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>Expires</con:name><con:sourceType>Request</con:sourceType><con:sourceStep>read</con:sourceStep><con:sourcePath>declare namespace wsu='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd';
+declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsu:Timestamp[1]/wsu:Expires[1]</con:sourcePath><con:targetType>Request</con:targetType><con:targetStep>transform</con:targetStep><con:targetPath>declare namespace wsu='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd';
+declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsu:Timestamp[1]/wsu:Expires[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>Password</con:name><con:sourceType>Request</con:sourceType><con:sourceStep>read</con:sourceStep><con:sourcePath>declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsse:UsernameToken[1]/wsse:Password[1]</con:sourcePath><con:targetType>Request</con:targetType><con:targetStep>transform</con:targetStep><con:targetPath>declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsse:UsernameToken[1]/wsse:Password[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>pathSource</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>read</con:sourceStep><con:sourcePath>declare namespace ns3='http://www.alfresco.org/ws/model/content/1.0';
+declare namespace ns1='http://www.alfresco.org/ws/service/content/1.0';
+//ns1:readResponse[1]/ns1:content[1]/ns1:node[1]/ns3:path[1]</con:sourcePath><con:targetType>Request</con:targetType><con:targetStep>transform</con:targetStep><con:targetPath>declare namespace ns='http://www.alfresco.org/ws/service/content/1.0';
+//ns:transform[1]/ns:source[1]/path[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>pathDestination</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>read</con:sourceStep><con:sourcePath>declare namespace ns3='http://www.alfresco.org/ws/model/content/1.0';
+declare namespace ns1='http://www.alfresco.org/ws/service/content/1.0';
+//ns1:readResponse[1]/ns1:content[1]/ns1:node[1]/ns3:path[1]</con:sourcePath><con:targetType>Request</con:targetType><con:targetStep>transform</con:targetStep><con:targetPath>declare namespace ns='http://www.alfresco.org/ws/service/content/1.0';
+//ns:transform[1]/ns:destinationReference[1]/path[1]</con:targetPath></con:transfers></con:config></con:testStep><con:testStep type="request" name="transform"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ContentServiceSoapBinding</con:interface><con:operation>transform</con:operation><con:request name="transform"><con:description>TestStep que tranforma el contenido de un nodo.</con:description><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/ContentService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/content/1.0" xmlns:ns1="http://www.alfresco.org/ws/model/content/1.0">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <wsu:Timestamp wsu:Id="Timestamp-14" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsu:Created>2011-11-24T12:08:45+00:00</wsu:Created>
+            <wsu:Expires>2011-11-24T23:00:00+00:00</wsu:Expires>
+         </wsu:Timestamp>
+         <wsse:UsernameToken wsu:Id="UsernameToken-666" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsse:Username>admin</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_36312493f13e0c67cc2269c42ff4ffca6f52d4e2</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+
+      <!-- Transforma permite convertir de formato el contenido o una propiedad de un nodo -->
+      <ns:transform>
+         <ns:source>
+	    	<store>
+	       	   <scheme>workspace</scheme>
+               	   <address>SpacesStore</address>
+	    	</store>
+	    	<uuid/>
+	    	<path>/app:company_home/app:guest_home/cm:test-1322136525517.txt</path>
+         </ns:source>
+         <ns:property>{http://www.alfresco.org/model/content/1.0}content</ns:property>
+         <ns:destinationReference>
+	    	<store>
+	       	   <scheme>workspace</scheme>
+               	   <address>SpacesStore</address>
+	    	</store>
+	    	<uuid/>
+	    	<path>/app:company_home/app:guest_home/cm:test-1322136525517.txt</path>
+         </ns:destinationReference>
+         <ns:destinationProperty>{http://www.alfresco.org/model/content/1.0}content</ns:destinationProperty>
+         <ns:destinationFormat>
+            <ns1:mimetype>application/pdf</ns1:mimetype>
+            <ns1:encoding>UTF-8</ns1:encoding>
+         </ns:destinationFormat>
+      </ns:transform>
+
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig action="http://www.alfresco.org/ws/service/content/1.0/transform" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="transfer" name="PropertyTransfer 5"><con:description>Mecanismo que permite transferir los valores de las Propiedades entre el TestStep anterior y posterior adyacentes a el.</con:description><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>Created</con:name><con:sourceType>Request</con:sourceType><con:sourceStep>transform</con:sourceStep><con:sourcePath>declare namespace wsu='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd';
+declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsu:Timestamp[1]/wsu:Created[1]</con:sourcePath><con:targetType>Request</con:targetType><con:targetStep>clear</con:targetStep><con:targetPath>declare namespace wsu='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd';
+declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsu:Timestamp[1]/wsu:Created[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>Expires</con:name><con:sourceType>Request</con:sourceType><con:sourceStep>transform</con:sourceStep><con:sourcePath>declare namespace wsu='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd';
+declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsu:Timestamp[1]/wsu:Expires[1]</con:sourcePath><con:targetType>Request</con:targetType><con:targetStep>clear</con:targetStep><con:targetPath>declare namespace wsu='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd';
+declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsu:Timestamp[1]/wsu:Expires[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>Password</con:name><con:sourceType>Request</con:sourceType><con:sourceStep>transform</con:sourceStep><con:sourcePath>declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsse:UsernameToken[1]/wsse:Password[1]</con:sourcePath><con:targetType>Request</con:targetType><con:targetStep>clear</con:targetStep><con:targetPath>declare namespace wsse='http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd';
+//wsse:Security[1]/wsse:UsernameToken[1]/wsse:Password[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>path</con:name><con:sourceType>Response</con:sourceType><con:sourceStep>transform</con:sourceStep><con:sourcePath>declare namespace ns3='http://www.alfresco.org/ws/model/content/1.0';
+declare namespace ns1='http://www.alfresco.org/ws/service/content/1.0';
+//ns1:transformResponse[1]/ns1:content[1]/ns1:node[1]/ns3:path[1]</con:sourcePath><con:targetType>Request</con:targetType><con:targetStep>clear</con:targetStep><con:targetPath>declare namespace ns1='http://www.alfresco.org/ws/model/content/1.0';
+declare namespace ns='http://www.alfresco.org/ws/service/content/1.0';
+//ns:clear[1]/ns:items[1]/ns1:nodes[1]/path[1]</con:targetPath></con:transfers></con:config></con:testStep><con:testStep type="request" name="clear" disabled="true"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>ContentServiceSoapBinding</con:interface><con:operation>clear</con:operation><con:request name="clear"><con:description>TestStep que permite borrar el contenido de un nodo.</con:description><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://alfresco34dserver:8080/alfresco/api/ContentService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.alfresco.org/ws/service/content/1.0" xmlns:ns1="http://www.alfresco.org/ws/model/content/1.0">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+         <wsu:Timestamp wsu:Id="Timestamp-14" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsu:Created>2011-11-24T12:08:45+00:00</wsu:Created>
+            <wsu:Expires>2011-11-24T23:00:00+00:00</wsu:Expires>
+         </wsu:Timestamp>
+         <wsse:UsernameToken wsu:Id="UsernameToken-666" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+            <wsse:Username>admin</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">TICKET_36312493f13e0c67cc2269c42ff4ffca6f52d4e2</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      
+      <!-- Clear borra el contenido o una propiedad de un nodo --> 
+      <!-- En este caso hago clean de la prop. description -->
+      <ns:clear>
+	<ns:items>
+	   <ns1:nodes>
+	    	<store>
+	       	   <scheme>workspace</scheme>
+               	   <address>SpacesStore</address>
+	    	</store>
+	    	<uuid/>
+	    	<path>/app:company_home/app:guest_home/cm:test-1322136525517.txt</path>
+	   </ns1:nodes>
+         </ns:items>
+         <ns:property>{http://www.alfresco.org/model/content/1.0}content</ns:property>
+	</ns:clear>
+
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig action="http://www.alfresco.org/ws/service/content/1.0/clear" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties/><con:encryptedContent xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>

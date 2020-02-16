@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-workspace name="Alfresco 3.4.d CE Testing Workspace" soapui-version="3.6.1" projectRoot="${workspaceDir}" xmlns:con="http://eviware.com/soapui/config">
+  <con:description>Alfresco v3.4.d CE - Testing Workspace</con:description>
+  <con:settings/>
+  <con:project name="Standard WS Alfresco v3.4.d CE Testing project">intix-ws-project.xml</con:project>
+  <con:project name="Custom REST Alfresco v3.4.d CE Testing project">intix-rest-project.xml</con:project>
+</con:soapui-workspace>

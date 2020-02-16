@@ -1,0 +1,51 @@
+[root@svdapp95 ~]# yum install cyrus-sasl-gssapi db4-utils mozldap-tools perl-Mozilla-LDAP mozldap-devel 
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+Setting up Install Process
+Resolving Dependencies
+--> Running transaction check
+---> Package cyrus-sasl-gssapi.i386 0:2.1.22-5.el5_4.3 set to be updated
+---> Package db4-utils.i386 0:4.3.29-10.el5 set to be updated
+---> Package mozldap-devel.i386 0:6.0.5-1.el5 set to be updated
+--> Processing Dependency: mozldap = 6.0.5-1.el5 for package: mozldap-devel
+--> Processing Dependency: nspr-devel >= 4.6 for package: mozldap-devel
+--> Processing Dependency: nss-devel >= 3.11 for package: mozldap-devel
+--> Processing Dependency: svrcore-devel >= 4.0.3 for package: mozldap-devel
+---> Package mozldap-tools.i386 0:6.0.5-1.el5 set to be updated
+--> Processing Dependency: libsvrcore.so.0 for package: mozldap-tools
+---> Package perl-Mozilla-LDAP.i386 0:1.5.2-4.el5 set to be updated
+--> Running transaction check
+---> Package mozldap.i386 0:6.0.5-1.el5 set to be updated
+---> Package nspr-devel.i386 0:4.7.6-1.el5_4 set to be updated
+---> Package nss-devel.i386 0:3.12.3.99.3-1.el5.centos.2 set to be updated
+---> Package svrcore.i386 0:4.0.4-3.el5 set to be updated
+---> Package svrcore-devel.i386 0:4.0.4-3.el5 set to be updated
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+====================================================================================================================================================================================
+ Package                                  Arch                        Version                                              Repository                                          Size
+====================================================================================================================================================================================
+Installing:
+ cyrus-sasl-gssapi                        i386                        2.1.22-5.el5_4.3                                     My-CentOS-5.5-i386-ISO-repo                         29 k
+ db4-utils                                i386                        4.3.29-10.el5                                        My-CentOS-5.5-i386-ISO-repo                        119 k
+ mozldap-devel                            i386                        6.0.5-1.el5                                          My-CentOS-5.5-i386-ISO-repo                         92 k
+ mozldap-tools                            i386                        6.0.5-1.el5                                          My-CentOS-5.5-i386-ISO-repo                        139 k
+ perl-Mozilla-LDAP                        i386                        1.5.2-4.el5                                          My-CentOS-5.5-i386-ISO-repo                        181 k
+Installing for dependencies:
+ mozldap                                  i386                        6.0.5-1.el5                                          My-CentOS-5.5-i386-ISO-repo                        132 k
+ nspr-devel                               i386                        4.7.6-1.el5_4                                        My-CentOS-5.5-i386-ISO-repo                        112 k
+ nss-devel                                i386                        3.12.3.99.3-1.el5.centos.2                           My-CentOS-5.5-i386-ISO-repo                        228 k
+ svrcore                                  i386                        4.0.4-3.el5                                          My-CentOS-5.5-i386-ISO-repo                         14 k
+ svrcore-devel                            i386                        4.0.4-3.el5                                          My-CentOS-5.5-i386-ISO-repo                        8.3 k
+
+Transaction Summary
+====================================================================================================================================================================================
+Install      10 Package(s)
+Upgrade       0 Package(s)
+
+Total download size: 1.0 M
+Is this ok [y/N]:
+Exiting on user Command
+Complete!
