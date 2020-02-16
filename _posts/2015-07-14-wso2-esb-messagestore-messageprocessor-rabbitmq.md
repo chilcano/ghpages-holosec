@@ -29,7 +29,8 @@ The idea of this post is to explain how to integrate WSO2 ESB with RabbitMQ to w
 * Wire Tap
 * Retry Queue
 * Throttling
-For more information about Messaging Advanced EIPs, check this link: https://docs.wso2.com/display/IntegrationPatterns/Messaging+Channels
+
+For more information about Messaging Advanced EIPs, check this link: [https://docs.wso2.com/display/IntegrationPatterns/Messaging+Channels](https://docs.wso2.com/display/IntegrationPatterns/Messaging+Channels)
 
 ## II. Implementation
 
