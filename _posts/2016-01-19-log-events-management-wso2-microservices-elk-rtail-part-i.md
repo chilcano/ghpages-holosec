@@ -12,7 +12,8 @@ The log event management is a task very important when working with (Micro)servi
 * You have to collect and query your logs in real time if you think your Application is critical.  
 * You have to `manage` in agile way the life cycle of your data (your logs), they are an asset very important for your Organization.
 
-![Kibana - Viewing WSO2 and Wiremock raw log events](/assets/blog-chilcano-logs-wso2-docker-elk-rtail-0-architecture.png)
+![](/assets/blog20160114_logs_elk_microservices_wso2/blog-chilcano-logs-wso2-docker-elk-rtail-0-architecture.png)  
+_Kibana - Viewing WSO2 and Wiremock raw log events_
 
 <!-- more -->
 
@@ -188,19 +189,22 @@ $ curl http://192.168.99.100:9200/_search?pretty
 ```  
 
 ... and from the Kibana web console (`http://192.168.99.100:5601`) to view the incoming dummy log event. Before configure Kibana by creating a `Index Pattern` with `logstash-*` and `Time-field name: @timestamp`, as shown below:
+
+![](/assets/blog20160114_logs_elk_microservices_wso2/blog-chilcano-logs-wso2-docker-elk-rtail-1-kibana.png)  
 _Kibana - Creating a Index Pattern_  
 
-![Kibana - Creating a Index Pattern](/assets/blog-chilcano-logs-wso2-docker-elk-rtail-1-kibana.png)  
+
+
+![](/assets/blog20160114_logs_elk_microservices_wso2/blog-chilcano-logs-wso2-docker-elk-rtail-2-kibana-dummy-logs.png)  
 _Kibana - Selecting the field of the new Index Pattern_  
 
-![Kibana - Selecting the field of the new Index Pattern](/assets/blog-chilcano-logs-wso2-docker-elk-rtail-2-kibana-dummy-logs.png)  
-_Kibana - Viewing a dummy log event_  
-
-![Kibana - Viewing a dummy log event](/assets/blog-chilcano-logs-wso2-docker-elk-rtail-3-kibana-dummy-logs-discovery.png)
+![Kibana - Viewing a dummy log event](/assets/blog20160114_logs_elk_microservices_wso2/blog-chilcano-logs-wso2-docker-elk-rtail-3-kibana-dummy-logs-discovery.png)
+_Kibana - Viewing a dummy log event_ 
 
 ### 2\. Sending WSO2 logs to the ELK Docker container
 
-For this part I will use a Vagrant box with several WSO2 products pre-installed and pre-configured. I explained how to use It in this blog, for further details check that post <https://holisticsecurity.wordpress.com/2015/11/11/creating-a-vm-with-wso2-servers-for-development>.
+For this part I will use a Vagrant box with several WSO2 products pre-installed and pre-configured. I explained how to use It in this blog, for further details check [that post](https://holisticsecurity.io/2015/11/11/creating-a-vm-with-wso2-servers-for-development/).
+
 > Filebeat is a lightweight, open source shipper for log file data. As the next-generation  
 >  Logstash Forwarder, Filebeat tails logs and quickly sends this information to Logstash  
 >  for further parsing and enrichment or to Elasticsearch for centralized storage and analysis.  
@@ -438,9 +442,10 @@ Go to `Kibana &gt; Settings`, add and create a new `Index Pattern` using the nex
 * Index name or pattern : `filebeat-*` (instead of `logstash-*`)  
 * Time-field name: `@timestamp`
 After that, go to `Kibana &gt; Discover` and select the recently created `filebeat-*` Index Pattern and You will see your logs/events.
-_Kibana - Viewing WSO2 and Wiremock raw log events_  
 
-![Kibana - Viewing WSO2 and Wiremock raw log events](/assets/blog-chilcano-logs-wso2-docker-elk-rtail-4-kibana-esb-am-dss-wiremock-logs-discovery.png)
+_Kibana - Viewing WSO2 and Wiremock raw log events_  
+![Kibana - Viewing WSO2 and Wiremock raw log events](/assets/blog20160114_logs_elk_microservices_wso2/blog-chilcano-logs-wso2-docker-elk-rtail-4-kibana-esb-am-dss-wiremock-logs-discovery.png)
+
 In the above figure, a raw log event for WSO2 API Manager in JSON format is like as below:
 
 ```sh  
