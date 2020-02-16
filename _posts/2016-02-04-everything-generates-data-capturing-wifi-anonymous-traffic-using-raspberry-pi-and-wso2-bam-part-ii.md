@@ -9,7 +9,8 @@ permalink:  "/2016/02/04/everything-generates-data-capturing-wifi-anonymous-traf
 ---
 After configuring the Raspberry Pi to capture WIFI/802.11 traffic ([first blog post](/2016/02/02/everything-generates-data-capturing-wifi-anonymous-traffic-raspberrypi-wso2-part-i)), we have to store this traffic in a Database (NoSQL and RDBMS). The idea is to process in real-time and/or batch the stored data.
 
-[![)](/assets/blog20160203_iot_bigdata_wifi_kismet_wso2bam_2/chilcano-02-raspberrypi-bigdata-wifi-thrift-1-architecture.png){:width="70%"}](/assets/blog20160203_iot_bigdata_wifi_kismet_wso2bam_2/chilcano-02-raspberrypi-bigdata-wifi-thrift-1-architecture.png){:target="_blank"}  _Architecture IoT/BigData – Storing WIFI traffic in Apache Cassandra (WSO2 BAM and Apache Thrift_
+[![)](/assets/blog20160203_iot_bigdata_wifi_kismet_wso2bam_2/chilcano-02-raspberrypi-bigdata-wifi-thrift-1-architecture.png){:width="70%"}](/assets/blog20160203_iot_bigdata_wifi_kismet_wso2bam_2/chilcano-02-raspberrypi-bigdata-wifi-thrift-1-architecture.png){:target="_blank"}  
+_Architecture IoT/BigData – Storing WIFI traffic in Apache Cassandra (WSO2 BAM and Apache Thrift_
 
 To capture the `WIFI/802.11` traffic is so difficult and in this second blog post I will explain how to address next difficults:  
 * Kismet captures 802.11 layer-2 wireless network traffic (Network IP blocks such as TCP, UDP, ARP, and DHCP packets) what should be decoded.
