@@ -11,7 +11,7 @@ permalink:  "/2016/02/27/wardriving-wifi-pineapple-nano-mobile-world-congress-20
 
 The idea of this post is to do a quick wardriving around of the [Mobile World Congress at Barcelona](https://www.mobileworldcongress.com) to check if the attendants are aware about their Mobile Devices with the leak of information.  
 
-[![](/assets/chilcano-00-android-gps-kismet-pineapple-adb.png){:width="70%" height="70%"}](/assets/chilcano-00-android-gps-kismet-pineapple-adb.png){:target="_blank"}
+[![](/assets/blog20160227_wardriving_at_scale/chilcano-00-android-gps-kismet-pineapple-adb.png){:width="70%" height="70%"}](/assets/blog20160227_wardriving_at_scale/chilcano-00-android-gps-kismet-pineapple-adb.png){:target="_blank"}
 _Wardriving at Scale with WIFI Pineapple Nano, Android & Kismet_
 
 <!-- more -->
@@ -28,7 +28,7 @@ The software and devices I've used are the following:
 * [Kismet (Client and Server) installed in WIFI Pineapple Nano](https://www.kismetwireless.net)
 * [Aukey 20000mAh Portable External Battery](http://www.amazon.es/dp/B00RJK8SH6)
 
-[![](/assets/blog-chilcano-01-android-mobile-pineapple-kismet.png){:width="70%"}](/assets/blog-chilcano-01-android-mobile-pineapple-kismet.png){:target="_blank"}
+![](/assets/blog20160227_wardriving_at_scale/blog-chilcano-01-android-mobile-pineapple-kismet.png){:width="70%"}
 _The arsenal used at Mobile World Congress 2016 Barcelona_
 
 ## Configuration
@@ -42,7 +42,7 @@ By using USB cable, connect the Pineapple Nano to your PC, in my case I'm using 
 Then, from a Kali Linux ([the best Linux distro for Security Audit](https://www.kali.org)) terminal will get the `wp6.sh` script and will connect to Pineapple Nano.  
 The `wp6.sh` can be downloaded from here: [https://github.com/hak5darren/wp6](https://github.com/hak5darren/wp6)
 
-[![](/assets/blog-chilcano-02-config-1-connect-pineapple-wp6.png){:width="70%"}](/assets/blog-chilcano-02-config-1-connect-pineapple-wp6.png){:target="_blank"}
+![](/assets/blog20160227_wardriving_at_scale/blog-chilcano-02-config-1-connect-pineapple-wp6.png){:width="70%"}
 
 After that, open your browser in your Kali Linux and connect to `http://172.16.42.1:1471`
 From the Pineapple Web Admin console, insert the SD and format It. After that, verify if SD was formatted successfully.
@@ -61,7 +61,7 @@ tmpfs 512.0K 0 512.0K 0% /dev
 
 Now, open other Kali Linux terminal and get SSH access to Pineapple Nano and update the packages.
 
-[![](/assets/blog-chilcano-02-config-2-connect-pineapple-ssh.png){:width="70%"}](/assets/blog-chilcano-02-config-2-connect-pineapple-ssh.png){:target="_blank"}
+![](/assets/blog20160227_wardriving_at_scale/blog-chilcano-02-config-2-connect-pineapple-ssh.png){:width="70%"}
 _Kali Linux terminal and get SSH access to Pineapple Nano_
 
 ```sh
@@ -124,7 +124,7 @@ AB010682 device
 
 Now, in your Android install the ShareGPS app from Google Play Store. After that, start the app and share the GPS signal.
 
-[![](/assets/blog-chilcano-03-1-small-android-share-gps.png){:width="180"}](/assets/blog-chilcano-03-1-small-android-share-gps.png){:target="_blank"} [![](/assets/blog-chilcano-03-2-small-android-share-gps.png){:width="180"}](/assets/blog-chilcano-03-2-small-android-share-gps.png){:target="_blank"} [![](/assets/blog-chilcano-03-3-small-android-share-gps.png){:width="180"}](/assets/blog-chilcano-03-3-small-android-share-gps.png){:target="_blank"} [![](/assets/blog-chilcano-03-4-small-android-share-gps.png){:width="180"}](/assets/blog-chilcano-03-4-small-android-share-gps.png){:target="_blank"}
+![](/assets/blog20160227_wardriving_at_scale/blog-chilcano-03-1-small-android-share-gps.png){:width="180"} ![](/assets/blog20160227_wardriving_at_scale/blog-chilcano-03-2-small-android-share-gps.png){:width="180"} ![](/assets/blog20160227_wardriving_at_scale/blog-chilcano-03-3-small-android-share-gps.png){:width="180"} ![](/assets/blog20160227_wardriving_at_scale/blog-chilcano-03-4-small-android-share-gps.png){:width="180"}
 
 Finally, You are ready to use the shared Android's GPS signal. Let's to check it.
 
@@ -356,7 +356,7 @@ Below some screenshots taken from my Android mobile and Google Earth with the WI
 
 **1) Kismet in action**
 
-[![](/assets/blog-chilcano-04-1-small-screenshot-kismet-in-action.png){:width="220"}](/assets/blog-chilcano-04-1-screenshot-kismet-in-action.png){:target="_blank"} [![](/assets/blog-chilcano-04-2-small-screenshot-kismet-693-networks.png){:width="220"}](/assets/blog-chilcano-04-2-screenshot-kismet-693-networks.png){:target="_blank"} [![](/assets/blog-chilcano-04-3-small-screenshot-kismet-rogue-ap.png){:width="220"}](/assets/blog-chilcano-04-3-screenshot-kismet-rogue-ap.png){:target="_blank"} 
+![](/assets/blog20160227_wardriving_at_scale/blog-chilcano-04-1-small-screenshot-kismet-in-action.png){:width="220"} ![](/assets/blog20160227_wardriving_at_scale/blog-chilcano-04-2-small-screenshot-kismet-693-networks.png){:width="220"} ![](/assets/blog20160227_wardriving_at_scale/blog-chilcano-04-3-small-screenshot-kismet-rogue-ap.png){:width="220"}
 
 **2) Creating Wireless Recon Maps with Google Earth and GISKismet**
 
