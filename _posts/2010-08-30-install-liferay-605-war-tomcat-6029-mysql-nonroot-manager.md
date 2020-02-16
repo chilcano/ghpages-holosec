@@ -24,18 +24,18 @@ We will explain how to install Liferay 6.0.5 CE WAR bundle in an existing `Apach
 5. Download and copy `2` extra libraries ( `jta.jar` and `mail.jar` ) to ~~`%TOMCAT_HOME%/lib`~~ `%TOMCAT_HOME%/lib/ext`.  
 6. Create `liferay605.xml` file into `%TOMCAT_HOME%/conf/Catalina/localhost` folder.  
   It looks like this:  
-  ```txt
-  <Context path="" crossContext="true">  
-  <Resource  
-      name="jdbc/LiferayPool"  
-      auth="Container"  
-      type="javax.sql.DataSource"  
-      driverClassName="com.mysql.jdbc.Driver"  
-      url="jdbc:mysql://localhost:3306/lportal605_db?useUnicode=true&characterEncoding=UTF-8"  
-      username="root"  
-      password=""  
-      maxActive="20"/>  
-  </Context>  
+  ```
+    <Context path="" crossContext="true">  
+    <Resource  
+        name="jdbc/LiferayPool"  
+        auth="Container"  
+        type="javax.sql.DataSource"  
+        driverClassName="com.mysql.jdbc.Driver"  
+        url="jdbc:mysql://localhost:3306/lportal605_db?useUnicode=true&characterEncoding=UTF-8"  
+        username="root"  
+        password=""  
+        maxActive="20"/>  
+    </Context>  
   ```
   In my case, DB user is `root` with empty password. You must create an empty DB in MySQL before, for example `lportal605_db`.
 7. Create `portal-ext.properties` into `%TOMCAT_HOME%/webapps/liferay605/WEB-INF/classes` folder. It looks like this:  
