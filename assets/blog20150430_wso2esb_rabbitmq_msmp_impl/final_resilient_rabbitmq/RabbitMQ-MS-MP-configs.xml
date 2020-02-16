@@ -1,0 +1,126 @@
+<!-- JNDI -->
+# RabbitMQ node02
+#connectionfactory.myRabbitMQConnFactory0 = amqp://admin:JRq7b1Ct@carbon/DES_DEV?brokerlist='tcp://10.105.135.53:5672'
+# RabbitMQ LB
+connectionfactory.myRabbitMQConnFactory0 = amqp://admin:JRq7b1Ct@carbon/DES_DEV?brokerlist='tcp://10.105.135.71/:5672'
+
+## for RabbitMQ MessageStore
+destination.myJNDIRabbitMQDestQueuePublisher0 = BURL:direct://amq.direct//?routingkey='des_rk_queue1'
+destination.myJNDIRabbitMQDestQueueConsumer0 = BURL:direct://amq.direct/des_rk_queue1/des_queue1
+<!-- -- -->
+
+
+<!-- RabbitMQ MESSAGE STORE -->
+<!-- 
+* La cola debe ser pre-creada
+* He creado RabbitMQStore basado en el JMSStore, he aniadido un Destination para gestionar la Publicacion.
+* Los mensajes se guardan en RabbitMQ en BINARIO
+-->
+<messageStore name="MyRabbitMQStore" class="uk.gov.hmrc.wso2.rabbitmq.message.store.impl.RabbitMQStore" xmlns="http://ws.apache.org/ns/synapse">
+   <parameter name="java.naming.factory.initial">org.apache.qpid.jndi.PropertiesFileInitialContextFactory</parameter>
+   <parameter name="java.naming.provider.url">repository/conf/jndi_rabbitmq.properties</parameter>
+   <parameter name="store.jms.destination">myJNDIRabbitMQDestQueuePublisher0</parameter>
+   <parameter name="store.jms.destinationConsumer">myJNDIRabbitMQDestQueueConsumer0</parameter>
+   <parameter name="store.jms.connection.factory">myRabbitMQConnFactory0</parameter>
+   <parameter name="store.jms.username">admin</parameter>
+   <parameter name="store.jms.password">JRq7b1Ct</parameter>
+   <parameter name="store.jms.JMSSpecVersion">1.1</parameter>
+</messageStore>
+
+
+<!-- PROXY TO MESSAGE STORE RABBITMQ-->
+<?xml version="1.0" encoding="UTF-8"?>
+<proxy xmlns="http://ws.apache.org/ns/synapse"
+       name="RabitMQProxySenderToMS2"
+       transports="http"
+       statistics="disable"
+       trace="disable"
+       startOnLoad="true">
+   <target>
+      <inSequence>
+	     <log level="custom">
+            <property name="[RabitMQProxySenderToMS2]" value="====== inSeq ======[RabitMQProxySenderToMS2]"></property>
+         </log>
+         <property name="OUT_ONLY" value="true" scope="default" type="STRING"/>
+         <property name="FORCE_SC_ACCEPTED"
+                   value="true"
+                   scope="axis2"
+                   type="STRING"/>
+         <header name="Action" scope="default" value="urn:echoString"/>
+         <property name="MY_SNP_URL"
+                   value="http://foobar.com/snp_service"
+                   scope="transport"/>
+         <property xmlns:soap="http://www.w3.org/2003/05/soap-envelope"
+                   name="MSG_SOAP12_IN"
+                   expression="//soap:Body/*"
+                   scope="default"
+                   type="OM"/>
+         <log level="custom">
+            <property name="[RabitMQProxySenderToMS2] BODY IN"
+                      expression="$ctx:MSG_SOAP12_IN"/>
+         </log>
+         <store messageStore="MyRabbitMQStore"/>
+      </inSequence>
+   </target>
+   <description/>
+</proxy>                        
+
+<!-- SAMPLE SOAP12 MESSAGE -->
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:echo="http://echo.services.core.carbon.wso2.org">
+   <soap:Header/>
+   <soap:Body>
+      <echo:echoString><in>Hola RabbiMQ MessageStore!</in></echo:echoString>
+   </soap:Body>
+</soap:Envelope>
+
+
+<!-- MESSAGE PROCESSOR FORWARDING -->
+<!-- class="uk.gov.hmrc.wso2.synapse.rabbitmq.poc.message.processor.impl.forwarder.ScheduledMessageForwardingProcessor" -->
+
+<messageProcessor class="org.apache.synapse.message.processor.impl.forwarder.ScheduledMessageForwardingProcessor"
+				 name="RabbitMQMsgProcessorFwd"
+				 targetEndpoint="RabbitMQMsgProcessorFwdEP"
+				 messageStore="MyRabbitMQStore">
+  <parameter name="message.processor.reply.sequence">RabbitMQReplySequenceFwd</parameter>
+  <parameter name="client.retry.interval">20000</parameter>
+  <parameter name="max.delivery.attempts">2</parameter>
+  <parameter name="interval">15000</parameter>
+  <parameter name="message.processor.fault.sequence">RabbitMQFaultSequenceFwd</parameter>
+  <parameter name="is.active">true</parameter>
+  <parameter name="cronExpression">0 0/1 * 1/1 * ? *</parameter>
+</messageProcessor>
+
+
+<!-- Backend Service EP (echo) -->
+<endpoint xmlns="http://ws.apache.org/ns/synapse" name="RabbitMQMsgProcessorFwdEP">
+   <address uri="http://localhost:8290/services/echoPassThroughProxy">
+      <suspendOnFailure>
+         <progressionFactor>1.0</progressionFactor>
+      </suspendOnFailure>
+      <markForSuspension>
+         <retriesBeforeSuspension>0</retriesBeforeSuspension>
+         <retryDelay>0</retryDelay>
+      </markForSuspension>
+   </address>
+</endpoint>
+
+
+<!-- Sequence to reply to Forwarding Processor -->
+<sequence xmlns="http://ws.apache.org/ns/synapse" name="RabbitMQReplySequenceFwd">
+   <property xmlns:ns="http://org.apache.synapse/xsd" xmlns:soap="http://www.w3.org/2003/05/soap-envelope" name="MSG_REPLY" expression="//soap:Body" scope="default"></property>
+   <log level="custom">
+      <property xmlns:ns="http://org.apache.synapse/xsd" name="[RabbitMQReplySequenceFwd] MSG_REPLY" expression="$ctx:MSG_REPLY"></property>
+   </log>
+   <drop></drop>
+</sequence>
+
+
+<sequence xmlns="http://ws.apache.org/ns/synapse" name="RabbitMQFaultSequenceFwd">
+   <log level="custom">
+      <property xmlns:ns="http://org.apache.synapse/xsd" name="[RabbitMQFaultSequenceFwd] ERROR_CODE" expression="get-property('ERROR_CODE')"></property>
+   </log>
+   <log level="custom">
+      <property xmlns:ns="http://org.apache.synapse/xsd" name="[RabbitMQFaultSequenceFwd] ERROR_MESSAGE" expression="get-property('ERROR_MESSAGE')"></property>
+   </log>
+   <drop></drop>
+</sequence>
