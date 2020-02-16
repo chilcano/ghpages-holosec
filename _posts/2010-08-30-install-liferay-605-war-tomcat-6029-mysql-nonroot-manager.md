@@ -7,11 +7,13 @@ tags:       ['Liferay']
 status:     publish 
 permalink:  "/2010/08/30/install-liferay-605-war-tomcat-6029-mysql-nonroot-manager/"
 ---
-We will explain how to install Liferay 6.0.5 CE WAR bundle in an existing Apache Tomcat 6.0.29 and MySQL Server as non ROOT webapp and without Tomcat Manager.
+We will explain how to install Liferay 6.0.5 CE WAR bundle in an existing `Apache Tomcat 6.0.29` and `MySQL Server` as non `ROOT` webapp and without Tomcat Manager.
 
 ![](/assets/blog20100830_liferay605war/liferay_601.png)
 
 <!-- more -->
+
+## Steps
 
 ![](/assets/blog20100830_liferay605war/liferay605war_1login.png)
 
