@@ -11,7 +11,8 @@ permalink:  "/2016/02/27/wardriving-wifi-pineapple-nano-mobile-world-congress-20
 
 The idea of this post is to do a quick wardriving around of the [Mobile World Congress at Barcelona](https://www.mobileworldcongress.com) to check if the attendants are aware about their Mobile Devices with the leak of information.  
 
-[![Wardriving with WIFI Pineapple Nano, Android & Kismet](/assets/chilcano-00-android-gps-kismet-pineapple-adb.png){:width="70%" height="70%"}](/assets/chilcano-00-android-gps-kismet-pineapple-adb.png){:target="_blank"}
+[![](/assets/chilcano-00-android-gps-kismet-pineapple-adb.png){:width="70%" height="70%"}](/assets/chilcano-00-android-gps-kismet-pineapple-adb.png){:target="_blank"}
+_Wardriving at Scale with WIFI Pineapple Nano, Android & Kismet_
 
 <!-- more -->
 
@@ -27,7 +28,8 @@ The software and devices I've used are the following:
 * [Kismet (Client and Server) installed in WIFI Pineapple Nano](https://www.kismetwireless.net)
 * [Aukey 20000mAh Portable External Battery](http://www.amazon.es/dp/B00RJK8SH6)
 
-[![The arsenal used at Mobile World Congress 2016 Barcelona](/assets/blog-chilcano-01-android-mobile-pineapple-kismet.png){:width="70%"}](/assets/blog-chilcano-01-android-mobile-pineapple-kismet.png){:target="_blank"}
+[![](/assets/blog-chilcano-01-android-mobile-pineapple-kismet.png){:width="70%"}](/assets/blog-chilcano-01-android-mobile-pineapple-kismet.png){:target="_blank"}
+_The arsenal used at Mobile World Congress 2016 Barcelona_
 
 ## Configuration
 
@@ -59,7 +61,8 @@ tmpfs 512.0K 0 512.0K 0% /dev
 
 Now, open other Kali Linux terminal and get SSH access to Pineapple Nano and update the packages.
 
-[![](/assets/blog-chilcano-02-config-2-connect-pineapple-ssh.png "Kali Linux terminal and get SSH access to Pineapple Nano"){:width="70%"}](/assets/blog-chilcano-02-config-2-connect-pineapple-ssh.png){:target="_blank"}
+[![](/assets/blog-chilcano-02-config-2-connect-pineapple-ssh.png){:width="70%"}](/assets/blog-chilcano-02-config-2-connect-pineapple-ssh.png){:target="_blank"}
+_Kali Linux terminal and get SSH access to Pineapple Nano_
 
 ```sh
 root@Pineapple:~# opkg update
@@ -338,7 +341,7 @@ kismet_server -p /sd/.kismet -c wlan1 --daemonize
 ```  
 
 And executions privileges.
-
+ 
 ```sh  
 root@Pineapple:~# chmod +x /root/run_wardriving.sh  
 ```  
