@@ -24,7 +24,7 @@ We will explain how to install Liferay 6.0.5 CE WAR bundle in an existing `Apach
 5. Download and copy `2` extra libraries ( `jta.jar` and `mail.jar` ) to ~~`%TOMCAT_HOME%/lib`~~ `%TOMCAT_HOME%/lib/ext`.  
 6. Create `liferay605.xml` file into `%TOMCAT_HOME%/conf/Catalina/localhost` folder.  
   It looks like this:  
-  ```
+  ```xml
     <Context path="" crossContext="true">  
     <Resource  
         name="jdbc/LiferayPool"  
@@ -59,13 +59,13 @@ Tomcat Manager is included in standard Tomcat bundle but by default It is disabl
 
 1. Edit `%TOMCAT_HOME%/conf/tomcat-users.xml`
 2. Add user, for example:
-  ```
-  <?xml version='1.0' encoding='utf-8'?>  
-    <tomcat-users>  
-    <role rolename="tomcat"/>  
-    <role rolename="manager"/>  
-    <user username="roger" password="roger" roles="tomcat,manager"/>  
-  </tomcat-users>  
+  ```xml
+    <?xml version='1.0' encoding='utf-8'?>  
+        <tomcat-users>  
+        <role rolename="tomcat"/>  
+        <role rolename="manager"/>  
+        <user username="roger" password="roger" roles="tomcat,manager"/>  
+    </tomcat-users>  
   ```  
 3. Run Tomcat and go to http://localhost:8080/manager
 4. Enter user and password configured in step 2.
