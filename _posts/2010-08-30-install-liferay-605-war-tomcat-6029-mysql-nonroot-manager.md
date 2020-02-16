@@ -59,7 +59,7 @@ Tomcat Manager is included in standard Tomcat bundle but by default It is disabl
 
 1. Edit `%TOMCAT_HOME%/conf/tomcat-users.xml`
 2. Add user, for example:
-  ```xml  
+  ```
   <?xml version='1.0' encoding='utf-8'?>  
     <tomcat-users>  
     <role rolename="tomcat"/>  
