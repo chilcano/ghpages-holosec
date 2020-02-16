@@ -13,7 +13,7 @@ If you are working with ESB, Message Brokers, BPMS, SOA or Microservices, you wi
 * Logging, Debugging, Monitoring and Alerting
 * Clustering, High Availability, Load Balancing, etc...
 
-![](/assets/blog20180112_weave_scope_service_mesh/weave-scope-service-mesh.png )
+![](/assets/blog20180112_weave_scope_service_mesh/weave-scope-service-mesh.png){:width="400"}  
 
 <!-- more -->
 
