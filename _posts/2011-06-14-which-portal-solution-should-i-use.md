@@ -146,13 +146,13 @@ The Portal standards are:
 
 Among those who are aligned to these standards are (in alphabetical order):
 
-**1. Alfresco ECM (http://www.alfresco.com)**  
+**1. [Alfresco ECM](http://www.alfresco.com)**  
 
 ![](/assets/blog20110603_whichportal/logo_01_alfresco.png)  
 
 Is an Enterprise Content Management, Document Management, has features of collaborative work, Record Management, Knowledge Management, Web Content Management and has social elements.
 
-**2. Apache Pluto (http://portals.apache.org/pluto)**  
+**2. [Apache Pluto](http://portals.apache.org/pluto)**  
 
 ![](/assets/blog20110603_whichportal/logo_02_pluto.png)  
 
@@ -160,48 +160,48 @@ From its website:
 "Pluto is the Reference Implementation of the Java Portlet Specification. The current version (2.0) of this specification is known as JSR-286. The previous specification version, JSR-168, covers version 1.0 of the specification. Pluto implements and is fully compliant with both the 1.0 and 2.0 specifications."
 Yes it is true, is a reference implementation of JSR-168 and JSR-286. The libraries of Apache Pluto is embedded in specialized implementations such as Apache JetSpeed​​, Sakai (for e-learning, etc.).
 
-**3. Apache Jetspeed-2 (http://portals.apache.org/jetspeed-2)**  
+**3. [Apache Jetspeed-2](http://portals.apache.org/jetspeed-2)**  
 
 ![](/assets/blog20110603_whichportal/logo_03_jetspeed.gif)  
 
 Is based on Apache Pluto.  
 From its website: "Jetspeed is an Open Portal Platform and Enterprise Information Portal, written entirely in open source under the Apache license in Java and XML and based on open standards".
 
-**4. eXo Platform (http://www.exoplatform.com)**  
+**4. [eXo Platform](http://www.exoplatform.com)**  
 
 ![](/assets/blog20110603_whichportal/logo_04_exo.png)  
 
 From its website: "eXo Platform 3.5 will enable social intranets and websites to be accessible in new ways, by adding cloud-readiness and mobile apps to the only User Experience Platform (UXP) for Java. Enterprise Java organizations will be able to more easily develop, extend and deploy modern enterprise portals, gadgets and mashups within a private cloud or in Platform-as-a-Service (PaaS) environments."
 
-**5. Hippo Portal 2 (http://www.onehippo.com/en/products/portal)**  
+**5. [Hippo Portal 2](http://www.onehippo.com/en/products/portal)**  
 
 ![](/assets/blog20110603_whichportal/logo_05_hippo.png)  
 
 From its website: "With Hippo Portal you can give secure and personalized access to content and business applications."
 Is based on Apache Jetspeed-2, has an easy integration with Hippo CMS, providing it with content management functionality.
 
-**6. IBM WebSphere Portal (http://www-01.ibm.com/software/websphere/portal)**  
+**6. [IBM WebSphere Portal](http://www-01.ibm.com/software/websphere/portal)**  
 
 ![](/assets/blog20110603_whichportal/logo_06_ibm.png)  
 
 From its website: "IBM® WebSphere® Portal Server is the foundation offering of the WebSphere Portal product family, with enterprise portal capabilities that enable you to quickly consolidate applications and content into role-based applications, complete with search, personalization, and security capabilities."
 
-**7. InfoGlue (http://www.infoglue.org)**  
+**7. [InfoGlue](http://www.infoglue.org)**  
 
 ![](/assets/blog20110603_whichportal/logo_07_infoglue.png)  
 
 Is a platform that integrates CMS and Portal. Is based on Apache Pluto.  
 From its website: "InfoGlue have step by step matured into one of the most advanced, scalable and robust Open Source content management / portal platforms available. Our increased focus on usability together with flexibibility in every area makes it suitable for a wide range of applications and organisations."
 
-**8. Jahia (http://www.jahia.com)**  
+**8. [Jahia](http://www.jahia.com)**  
 
 ![](/assets/blog20110603_whichportal/logo_08_jahia.png)  
 
-Basado en Apache Pluto, es un software muy similar a Alfresco ECM.  
-Y de su web sacamos: "Jahia 6.5 is the comprehensive platform to meet these expectations: It is much more than a simple WCM, it helps your organization build cutting edge user experiences and virtually any type of web applications." y  
+Based on Apache Pluto, It's a software similar to Alfresco ECM.  
+From its website: "Jahia 6.5 is the comprehensive platform to meet these expectations: It is much more than a simple WCM, it helps your organization build cutting edge user experiences and virtually any type of web applications." y  
 "Jahia includes an embedded portal server, which is based on the Apache Pluto reference implementation of the JCR Portlet API specification. The goal of this implementation is to offer support for integrators who need to embed portlets on content pages."
 
-**9. JBoss GateIn (http://www.jboss.org/gatein)**  
+**9. [JBoss GateIn](http://www.jboss.org/gatein)**  
 
 ![](/assets/blog20110603_whichportal/logo_09_gatein.png)  
 
@@ -210,26 +210,26 @@ GateIn portal is a merge of two mature projects that have been around for a whil
 It takes the best of both into a single new project.  
 The aim is to provide both an intuitive portal to use as-is and a portal framework to build upon depending on your needs."
 
-**10. Liferay Portal (http://www.liferay.com)**  
+**10. [Liferay Portal](http://www.liferay.com)**  
 
 ![](/assets/blog20110603_whichportal/logo_10_liferay.png)  
 
 From its website: "Liferay Portal is an enterprise web platform for building business solutions that deliver immediate results and long-term value."
 
-**11. OpenPortal (http://en.wikipedia.org/wiki/OpenPortal)**  
+**11. [OpenPortal](http://en.wikipedia.org/wiki/OpenPortal)**  
 
 ![](/assets/blog20110603_whichportal/logo_11_openportal.png)  
 
 From Wikipedia: "OpenPortal is an open-source web portal project. The code was donated by Sun Microsystems and was initially based on the Sun Java System Portal Server 7.1 update 1 release."  
 Is a discontinued project.
 
-**12. Oracle Portal (http://www.oracle.com/technetwork/middleware/portal/overview)**  
+**12. [Oracle Portal](http://www.oracle.com/technetwork/middleware/portal/overview)**  
 
 ![](/assets/blog20110603_whichportal/logo_12_oracle.gif)  
 
 From its web: "Oracle Portal 11g Release 1 offers a complete and integrated framework for building, deploying, and managing enterprise portals running on Oracle WebLogic Server. Oracle Portal's unified and secure point of access to vital enterprise information and services improves business visibility and collaboration, reduces integration costs, and ensures investment protection."
 
-**13. Sakai (http://sakaiproject.org)**  
+**13. [Sakai](http://sakaiproject.org)**  
 
 ![](/assets/blog20110603_whichportal/logo_13_sakai.png)  
 
@@ -238,7 +238,7 @@ Sakai CLE is based on Apache Pluto.
 From its web, Sakai CLE: "A full-featured system supporting technology-enabled teaching, learning, research and collaboration for education." and  
 Sakai OAE: "The Sakai Open Academic Environment is a new system that embraces a new vision for academic collaboration."
 
-**14. uPortal (http://www.jasig.org/uportal)**  
+**14. [uPortal](http://www.jasig.org/uportal)**  
 
 ![](/assets/blog20110603_whichportal/logo_14_uportal.jpg)  
 
@@ -246,7 +246,7 @@ Based on Apache Pluto, from its web:"uPortal is the leading open source enterpri
 
 ## What about software or products based on PHP, Python, Ruby, ... ?
 
-Yes, yes there are, and they are very good, in the following article we will discuss them and its level of maturity.
+Yes, there are, and they are very good, in the following article we will discuss them and its level of maturity.
 
 ## So, Is Portal Software ready for use?
 
@@ -319,12 +319,12 @@ The aspects to consider are:
 
 
 **Rating:**
-    * Not have:   0
-    * Low:        1
-    * Media:      2
-    * Enough:     3
-    * Good:       4
-    * Excellent:  5
+* Not have:   0
+* Low:        1
+* Media:      2
+* Enough:     3
+* Good:       4
+* Excellent:  5
 
 Finally, the result is this:
 

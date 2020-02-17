@@ -11,7 +11,7 @@ Dime qué quieres hacer y yo te recomendaré una solución de portal que se ajus
 Por ello es importante que identifiques tus necesidades y con ello podrás seleccionar el producto de portal con la que construirás tu solución.  
 Pero antes definamos qué es Portal, es otra palabra de moda?, Portal o Web Portal?.
 
-![](/assets/blog20110603_whichportal/portal-tipos.png)  
+![](/assets/blog20110603_whichportal/portal-tipos.png){:width="400"}   
 _Enterprise Portal_
 
 ## ¿Qué es Portal?
@@ -148,7 +148,7 @@ Entre los que están alineados a estos estándres son (orden alfabético):
 
 **1. [Alfresco ECM](http://www.alfresco.com)**  
 
-![]({/assets/blog20110603_whichportal/logo_01_alfresco.png)  
+![](/assets/blog20110603_whichportal/logo_01_alfresco.png)  
 
 Es un Enterprise Content Management, Document Management, tiene funcionalidades de trabajo colaborativo, Record Management, Knowledge Management, Web Content Management y posee elementos sociales.
 
