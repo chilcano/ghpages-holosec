@@ -11,8 +11,9 @@ Tell me what you want to do and I will recommend a portal solution that meets yo
 Therefore, is important to identify the needs and thus select the portal product with which you will build your solution.  
 But before we should define what is Portal?, is another buzz word?, Portal or Web Portal?.
 
-[![](/assets/blog20110603_whichportal/portal-architecture.png){:width="400"}](/assets/blog20110603_whichportal/portal-architecture.png){:target="_blank"} 
-_Enterprise Portal_
+[![](/assets/blog20110603_whichportal/portal-architecture.png){:width="400"}](/assets/blog20110603_whichportal/portal-architecture.png){:target="_blank"}   
+_Enterprise Portal_  
+
 
 ## What is Portal?
 
