@@ -11,7 +11,7 @@ Dime qué quieres hacer y yo te recomendaré una solución de portal que se ajus
 Por ello es importante que identifiques tus necesidades y con ello podrás seleccionar el producto de portal con la que construirás tu solución.  
 Pero antes definamos qué es Portal, es otra palabra de moda?, Portal o Web Portal?.
 
-![](/assets/blog20110603_whichportal/portal-tipos.png){:width="400"}   
+[![](/assets/blog20110603_whichportal/portal-tipos.png){:width="400"}](/assets/blog20110603_whichportal/portal-architecture.png){:target="_blank"}    
 _Enterprise Portal_
 
 ## ¿Qué es Portal?
