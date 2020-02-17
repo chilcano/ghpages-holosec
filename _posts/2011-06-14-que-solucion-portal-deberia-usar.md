@@ -11,7 +11,7 @@ Dime qué quieres hacer y yo te recomendaré una solución de portal que se ajus
 Por ello es importante que identifiques tus necesidades y con ello podrás seleccionar el producto de portal con la que construirás tu solución.  
 Pero antes definamos qué es Portal, es otra palabra de moda?, Portal o Web Portal?.
 
-![]({{ site.baseurl }}/assets/portal-tipos.png)  
+![](/assets/blog20110603_whichportal/portal-tipos.png)  
 _Enterprise Portal_
 
 ## ¿Qué es Portal?
@@ -148,13 +148,13 @@ Entre los que están alineados a estos estándres son (orden alfabético):
 
 **1. [Alfresco ECM](http://www.alfresco.com)**  
 
-![]({/assets/logo_01_alfresco.png)  
+![]({/assets/blog20110603_whichportal/logo_01_alfresco.png)  
 
 Es un Enterprise Content Management, Document Management, tiene funcionalidades de trabajo colaborativo, Record Management, Knowledge Management, Web Content Management y posee elementos sociales.
 
 **2. [Apache Pluto](http://portals.apache.org/pluto)**  
 
-![](/assets/logo_02_pluto.png)  
+![](/assets/blog20110603_whichportal/logo_02_pluto.png)  
 
 De su página web:  
 "Pluto is the Reference Implementation of the Java Portlet Specification. The current version (2.0) of this specification is known as JSR-286. The previous specification version, JSR-168, covers version 1.0 of the specification. Pluto implements and is fully compliant with both the 1.0 and 2.0 specifications."
@@ -162,40 +162,40 @@ Sí, es cierto, es una implementación de referencia de JSR-168 y JSR-286. Las l
 
 **3. [Apache Jetspeed-2](http://portals.apache.org/jetspeed-2)**  
 
-![](/assets/logo_03_jetspeed.gif)  
+![](/assets/blog20110603_whichportal/logo_03_jetspeed.gif)  
 
 Está basado en Apache Pluto.  
 De su web: "Jetspeed is an Open Portal Platform and Enterprise Information Portal, written entirely in open source under the Apache license in Java and XML and based on open standards".
 
 **4. [eXo Platform](http://www.exoplatform.com)**  
 
-![](/assets/logo_04_exo.png)  
+![](/assets/blog20110603_whichportal/logo_04_exo.png)  
 
 De su web: "eXo Platform 3.5 will enable social intranets and websites to be accessible in new ways, by adding cloud-readiness and mobile apps to the only User Experience Platform (UXP) for Java. Enterprise Java organizations will be able to more easily develop, extend and deploy modern enterprise portals, gadgets and mashups within a private cloud or in Platform-as-a-Service (PaaS) environments."
 
 **5. [Hippo Portal 2](http://www.onehippo.com/en/products/portal)**  
 
-![]({{ site.baseurl }}/assets/logo_05_hippo.png)  
+![](/assets/blog20110603_whichportal/logo_05_hippo.png)  
 
 De su web: "With Hippo Portal you can give secure and personalized access to content and business applications."
 Está basado en Apache Jetspeed-2, tiene una fácil integración con Hippo CMS, dotándole de funcionalidades de gestión de contenidos.
 
 **6. [IBM WebSphere Portal](http://www-01.ibm.com/software/websphere/portal)**  
 
-![](/assets/logo_06_ibm.png)  
+![](/assets/blog20110603_whichportal/logo_06_ibm.png)  
 
 De su web: "IBM® WebSphere® Portal Server is the foundation offering of the WebSphere Portal product family, with enterprise portal capabilities that enable you to quickly consolidate applications and content into role-based applications, complete with search, personalization, and security capabilities."
 
 **7. [InfoGlue](http://www.infoglue.org)**  
 
-![](/assets/logo_07_infoglue.png)  
+![](/assets/blog20110603_whichportal/logo_07_infoglue.png)  
 
 Es una Plataforma que integra CMS y Portal. Está basado en apache Pluto.  
 De su web sacamos: "InfoGlue have step by step matured into one of the most advanced, scalable and robust Open Source content management / portal platforms available. Our increased focus on usability together with flexibibility in every area makes it suitable for a wide range of applications and organisations."
 
 **8. [Jahia](http://www.jahia.com)**  
 
-![](/assets/logo_08_jahia.png)  
+![](/assets/blog20110603_whichportal/logo_08_jahia.png)  
 
 Basado en Apache Pluto, es un software muy similar a Alfresco ECM.  
 Y de su web sacamos: "Jahia 6.5 is the comprehensive platform to meet these expectations: It is much more than a simple WCM, it helps your organization build cutting edge user experiences and virtually any type of web applications." y  
@@ -203,7 +203,7 @@ Y de su web sacamos: "Jahia 6.5 is the comprehensive platform to meet these expe
 
 **9. [JBoss GateIn](http://www.jboss.org/gatein)**  
 
-![](/assets/logo_09_gatein.png)  
+![](/assets/blog20110603_whichportal/logo_09_gatein.png)  
 
 De su web sacamos: "GateIn is a set of projects revolving aroung the main project called 'GateIn Portal'.  
 GateIn portal is a merge of two mature projects that have been around for a while, JBoss Portal and eXo Portal.  
@@ -212,25 +212,25 @@ The aim is to provide both an intuitive portal to use as-is and a portal framewo
 
 **10. [Liferay Portal](http://www.liferay.com)**  
 
-![](/assets/logo_10_liferay.png)  
+![](/assets/blog20110603_whichportal/logo_10_liferay.png)  
 De su web: "Liferay Portal is an enterprise web platform for building business solutions that deliver immediate results and long-term value."
 
 **11. [OpenPortal](http://en.wikipedia.org/wiki/OpenPortal)**  
 
-![](/assets/logo_11_openportal.png)  
+![](/assets/blog20110603_whichportal/logo_11_openportal.png)  
 
 De la Wikipedia: "OpenPortal is an open-source web portal project. The code was donated by Sun Microsystems and was initially based on the Sun Java System Portal Server 7.1 update 1 release."  
 Es un proyecto abandonado.
 
 **12. [Oracle Portal](http://www.oracle.com/technetwork/middleware/portal/overview)**  
 
-![](/assets/logo_12_oracle.gif)  
+![](/assets/blog20110603_whichportal/logo_12_oracle.gif)  
 
 De su web: "Oracle Portal 11g Release 1 offers a complete and integrated framework for building, deploying, and managing enterprise portals running on Oracle WebLogic Server. Oracle Portal's unified and secure point of access to vital enterprise information and services improves business visibility and collaboration, reduces integration costs, and ensures investment protection."
 
 **13. [Sakai](http://sakaiproject.org)**  
 
-![](/assets/logo_13_sakai.png)  
+![](/assets/blog20110603_whichportal/logo_13_sakai.png)  
 
 Tiene 2 productos, Sakai CLE (Collaboration and Learning Environment) y Sakai OAE (Open Academic Environment) lanzado como un pre-release y en versión 0.1.  
 Sakai CLE está bsado en Apache Pluto.  
@@ -239,7 +239,7 @@ Sakai OAE: "The Sakai Open Academic Environment is a new system that embraces a 
 
 **14. [uPortal](http://www.jasig.org/uportal)**  
 
-![](/assets/logo_14_uportal.jpg)  
+![](/assets/blog20110603_whichportal/logo_14_uportal.jpg)  
 
 Basado en Apache Pluto, de su web:"uPortal is the leading open source enterprise portal framework built by and for the higher education community."
 
@@ -319,17 +319,17 @@ Los aspectos a considerar serán:
 8. Community (user forums, documentation, wiki, etc.)  
 9. License type (Free Open Source, Commercial Open Source, Proprietary)
 
-Valoración:
-    No tiene:   0
-    Baja:       1
-    Media:      2
-    Suficiente: 3
-    Buena: 	    4
-    Excelente:  5
+**Valoración:**
+    * No tiene:   0
+    * Baja:       1
+    * Media:      2
+    * Suficiente: 3
+    * Buena: 	  4
+    * Excelente:  5
 
 Finalmente el resultado es este:
 
-![](/assets/portal-madurez.png)  
+![](/assets/blog20110603_whichportal/portal-madurez.png)  
 _Enterprise Portals - Valoración_
 
 Haciendo una rápida revisión del software para Portales el producto ganador es Liferay Portal.  
@@ -348,7 +348,7 @@ Tampoco debemos olvidarnos de Jahia, Hippo y eXo, todas son buenas opciones.
 Como producto, pues a nivel tecnológico tiene de todo, sobretodo tiene una perfecta integración con **CAS** (solución de autenticación, autorización y SSO) que también es producto resultado del esfuerzo de su comunidad.  
 Particularmente a mi me ha agradado mucho porque es una alternativa muy ligera de Portal, en comparación con Liferay por ejemplo. Lo es también **Hippo Portal** (_Optimized for low memory footprints and modest hardware requirements: Light-weight Installer 38MB including Tomcat 6, Light-weight Spring Portal Framework_) y **Apache JetSpeed-2**.  
 
-Finalmente, si queremos crear una solución de Portal más potente y no queremos crearlo desde cero, pues una buena alternativa es usar como base **Apache Pluto**, **Apache JetSpee-2** o **JBoss GateIn**. Estos tres son buenas implementaciones de los estándares de portales y muchos fabricantes suelen embeber dichos productos en sus productos avanzados.  
+Finalmente, si queremos crear una solución de Portal más potente y no queremos crearlo desde cero, pues una buena alternativa es usar como base **Apache Pluto**, **Apache JetSpeed-2** o **JBoss GateIn**. Estos tres son buenas implementaciones de los estándares de portales y muchos fabricantes suelen embeber dichos productos en sus productos avanzados.  
 
 Como es el caso de **Pentaho** (solución de Business Intelligence), el producto embebe **JBoss Portal** y sobre esto crean un Dashboard.  
 
