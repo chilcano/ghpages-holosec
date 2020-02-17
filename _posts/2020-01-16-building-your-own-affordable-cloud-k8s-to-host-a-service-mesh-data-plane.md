@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Building your own affordable K8s to host a Service Mesh Data Plane"
+title:  "Building your own affordable K8s to host a Service Mesh - Part 1"
 date:   2020-01-16 10:00:00 +0100
 categories: ['cloud', 'apaas', 'service mesh'] 
 tags: ['aws', 'docker', 'kubernetes', 'data plane', 'microservice']
@@ -15,7 +15,7 @@ I want to build a Container-based Cloud to deploy any kind of workload (RESTful 
 - Ready to use: able to be automated (DevOps and IaC) with a mature management API.
 
 Below a high level architecture of Container-based Cloud I want to get. I will focus on the Service Mesh Data Plane.  
-[![Service Mesh hosted in a Container-based Cloud](/assets/img/20200116-service-mesh-01-reference-arch-2.png "Service Mesh hosted in a Container-based Cloud")](/assets/img/20200116-service-mesh-01-reference-arch-2.png){:target="_blank"}
+[![](/assets/img/20200116-service-mesh-01-reference-arch-2.png "Service Mesh hosted in a Container-based Cloud")](/assets/img/20200116-service-mesh-01-reference-arch-2.png){:target="_blank"}
 
 These requeriments restric some options, all of them using any Public Cloud Provider, but considering the [AWS Spot Instances](https://aws.amazon.com/ec2/spot) and [Google Cloud Preemptible VM Instances](https://cloud.google.com/preemptible-vms). Unfortunately Microsoft Azure only provides Low-Priority VMs to be used from Azure Batch Service. But if you are new user, you could apply for using the Free Tier in all of 3 Cloud Providers. 
 
@@ -32,8 +32,7 @@ The automation can be achieved using Terraform, Python, Bash, etc. and the 2 Clo
 
 Well, It is too difficult to know the cost exactly right now, however, I can estimate what it will cost me for a month. Below you can see two images, the first one is the High level AWS design and the next one is the approximate cost of the all AWS resources used during a month.
 
-[![Service Mesh hosted using AWS Spot Instances](/assets/img/20200122-service-mesh-01-affordableK8s-aws-arch.png "Service Mesh using AWS Spot Instances")](/assets/img/20200122-service-mesh-01-affordableK8s-aws-arch.png){:target="_blank"}
-
+[![](/assets/img/20200122-service-mesh-01-affordablek8s-aws-arch.png "Kubernetes Cluster using AWS Spot Instances")](/assets/img/20200122-service-mesh-01-affordablek8s-aws-arch.png){:target="_blank"}
 
 You can see below that my K8s Cluster using AWS Spot instances will cost approx. `6.79 Euros`, that includes:
 * Instances EC2 Spot: 2
@@ -44,7 +43,7 @@ You can see below that my K8s Cluster using AWS Spot instances will cost approx.
 * S3 Get and other / mo(K): 2880
 * Backup into S3 cron expression: "*/15 * * * *" 
 
-[![K8s Cluster hosted using AWS Spot Instances - Cost](/assets/img/20200116-service-mesh-04-affordable-k8s-aws-budget.png "K8s Cluster hosted using AWS Spot Instances - Cost")](/assets/img/20200116-service-mesh-04-affordable-k8s-aws-budget.png){:target="_blank"}
+[![](/assets/img/20200116-service-mesh-04-affordable-k8s-aws-budget.png "K8s Cluster hosted using AWS Spot Instances - Cost")](/assets/img/20200116-service-mesh-04-affordable-k8s-aws-budget.png){:target="_blank"}
 
 
 ## What about Digital Ocean, Hetzner Cloud, Scaleway and other Providers?
