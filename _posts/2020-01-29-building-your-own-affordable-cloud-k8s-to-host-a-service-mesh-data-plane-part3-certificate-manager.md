@@ -26,13 +26,12 @@ At this point you must have created a Kubernetes Cluster with ExternalDNS and NG
 
 If you are using the Terraform scripts to create an affordable K8s Cluster I've forked and updated for you, then first of all you should clean up to start creating a new fresh K8s Cluster for following this scenario.
 
-
 > If you want a cheap K8s Infrastructure on AWS, I recommend to use this GitHub repo I've updated for you:
->  
 > [https://github.com/chilcano/kubeadm-aws/tree/0.2.1-chilcano](https://github.com/chilcano/kubeadm-aws/tree/0.2.1-chilcano)
 
+
+Removing existing K8s Cluster.
 ```sh
-# Removing existing CheapK8s Cluster
 $ terraform destroy \
   -var cluster-name="cheapk8s" \
   -var k8s-ssh-key="ssh-key-for-us-east-1" \
@@ -42,8 +41,10 @@ $ terraform destroy \
   -var external-dns-enabled="1" \
   -var nginx-ingress-enabled="1" \
   -var nginx-ingress-domain="ingress-nginx.cloud.holisticsecurity.io" 
+```
 
-# Removing unwanted records in our AWS Hosted Zone
+If you have destroyed the K8s Cluster with `terraform destroy`, likely you have to remove unwanted records (created for your services) in the AWS Hosted Zone.
+```sh
 $ export MY_SUBDOMAIN="cloud.holisticsecurity.io"
 $ export HZ_ID=$(aws route53 list-hosted-zones-by-name --dns-name "${MY_SUBDOMAIN}." | jq -r '.HostedZones[0].Id')
 $ aws route53 list-resource-record-sets --hosted-zone-id $HZ_ID --query "ResourceRecordSets[?Name != '${MY_SUBDOMAIN}.']" | jq -c '.[]' |
@@ -93,6 +94,9 @@ $ terraform apply \
 **1. Exploring the JetStack Cert-Manager resources created in the K8s Cluster**
 
 ```sh
+# Get SSH access to K8s master node
+$ ssh ubuntu@$(terraform output master_dns) -i ~/Downloads/ssh-key-for-us-east-1.pem
+
 # List all namespaces
 ubuntu@ip-10-0-100-4:~$ kubectl get ns
 NAME              STATUS   AGE
