@@ -1,0 +1,17 @@
+<SOAP:Envelope xmlns:SOAP="http://schemas.xmlsoap.org/soap/envelope/">
+   <SOAP:Header/>
+   <SOAP:Body>
+      <ns1:ETMP_Transaction_Response xmlns:ns1="http://hmrc.gov.uk/etmp/digitalgateway/employment-securities">
+         <ns1:Status>OK</ns1:Status>
+         <ns1:ProcessingDate>2015-02-08T16:08:40Z</ns1:ProcessingDate>
+        <ns1:ReturnParameters>
+            <ns1:ParamName>SAP_NUMBER</ns1:ParamName>
+            <ns1:ParamValue>010005044000040000250200000001100000100018</ns1:ParamValue>
+         </ns1:ReturnParameters>
+         <ns1:ReturnParameters>
+            <ns1:ParamName>NAME</ns1:ParamName>
+            <ns1:ParamValue>NEW STREET AUTO SPARES LTD AND OLD STREET AUTO SPARES LTD1</ns1:ParamValue>
+         </ns1:ReturnParameters>
+      </ns1:ETMP_Transaction_Response>
+   </SOAP:Body>
+</SOAP:Envelope>
