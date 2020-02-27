@@ -1,2 +1,0 @@
-body
-<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope"><soapenv:Body><Result xmlns="http://ws.wso2.org/dataservice"><Valid>1</Valid><pout_error_number>0</pout_error_number><pout_error_message xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"></pout_error_message></Result></soapenv:Body></soapenv:Envelope>

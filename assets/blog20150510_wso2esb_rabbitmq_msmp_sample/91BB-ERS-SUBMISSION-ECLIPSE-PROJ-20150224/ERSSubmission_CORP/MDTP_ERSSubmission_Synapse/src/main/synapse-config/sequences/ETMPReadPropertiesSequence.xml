@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<sequence xmlns="http://ws.apache.org/ns/synapse" name="ETMPReadPropertiesSequence">
-    <property name="senderSystem" expression="get-property('system','uk.gov.hmrc.wso2.etmp.esb.heartbeat.SENDER_SYSTEM')" scope="default" type="STRING" description="retrieve Sender System"/>
-    <property name="targetSystem" expression="get-property('system','uk.gov.hmrc.wso2.etmp.esb.heartbeat.TARGET_SYSTEM')" scope="default" type="STRING" description="retrieve Target System"/>
-    <property name="username" expression="get-property('system','uk.gov.hmrc.wso2.etmp.esb.username')" scope="default" type="STRING" description="retrieve username"/>
-    <property name="password" expression="get-property('system','uk.gov.hmrc.wso2.etmp.esb.password')" scope="default" type="STRING" description="retrieve password"/>	
-</sequence>

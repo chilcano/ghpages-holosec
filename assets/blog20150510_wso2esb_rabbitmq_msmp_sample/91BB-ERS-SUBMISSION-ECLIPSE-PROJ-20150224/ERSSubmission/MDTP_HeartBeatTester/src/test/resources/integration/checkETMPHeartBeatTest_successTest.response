@@ -1,3 +1,0 @@
-format=application-json
-body
-{"HeartBeat_response":{"Status":"OK"}}

@@ -36,7 +36,7 @@
 	<dependencies>  
 
 	<!--  RabbitMQ Message Store using qpid-client-0.30 ** BEGIN -->
-	    <dependency>
+	    <!-- dependency>
 			<groupId>org.apache.synapse</groupId>
 			<artifactId>synapse-core</artifactId>
 			<version>2.1.2-wso2v6</version>
@@ -55,7 +55,7 @@
 			<groupId>org.apache.synapse</groupId>
 			<artifactId>synapse-nhttp-transport</artifactId>
 			<version>2.1.2-wso2v6</version>
-		</dependency>
+		</dependency -->
 
 		<!-- *** sample Qpid - begin *** -->
 	    <!-- dependency>

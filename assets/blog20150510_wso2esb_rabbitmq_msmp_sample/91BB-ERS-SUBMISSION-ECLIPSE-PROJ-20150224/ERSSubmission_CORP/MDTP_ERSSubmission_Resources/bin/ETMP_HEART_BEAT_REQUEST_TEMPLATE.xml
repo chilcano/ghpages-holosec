@@ -1,4 +1,0 @@
-<hear:HeartBeat_request xmlns:hear="http://hmrc.gov.uk/etmp/digitalgateway/heartbeat">
-    <SenderSystem>$1</SenderSystem>
-    <TargetSystem>$2</TargetSystem>
-</hear:HeartBeat_request>

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><resources>
-    <item>
-        <file>ETMP_ERS_SOAP_EP_TPL.xml</file>
-        <path>/_system/governance/templates</path>
-        <mediaType>application/vnd.wso2.template.endpoint</mediaType>
-    </item>
-</resources>

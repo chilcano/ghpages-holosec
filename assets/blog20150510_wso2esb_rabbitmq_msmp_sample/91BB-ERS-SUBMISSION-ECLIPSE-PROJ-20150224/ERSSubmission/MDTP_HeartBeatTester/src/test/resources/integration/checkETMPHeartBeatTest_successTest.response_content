@@ -1,4 +1,0 @@
-header=Content-Type:application/xml
-format=content-xml
-body
-<SOAP:Envelope xmlns:SOAP='http://schemas.xmlsoap.org/soap/envelope/'><SOAP:Header/><SOAP:Body><nm:HeartBeat_response xmlns:nm='http://hmrc.gov.uk/etmp/digitalgateway/heartbeat' xmlns:prx='urn:sap.com:proxy:ARD:/1SAI/TAS433B53A43263B9E30E6E:702'><Status>OK</Status></nm:HeartBeat_response></SOAP:Body></SOAP:Envelope>

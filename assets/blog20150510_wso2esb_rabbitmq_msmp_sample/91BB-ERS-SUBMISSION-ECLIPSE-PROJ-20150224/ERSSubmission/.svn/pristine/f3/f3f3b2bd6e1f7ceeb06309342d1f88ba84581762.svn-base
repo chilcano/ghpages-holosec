@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<template xmlns="http://ws.apache.org/ns/synapse" name="ETMP_HEART_BEAT_EP">
-	<endpoint name="$name">
-		<address uri="$uri" format="soap11"/>
-	</endpoint>
-</template>

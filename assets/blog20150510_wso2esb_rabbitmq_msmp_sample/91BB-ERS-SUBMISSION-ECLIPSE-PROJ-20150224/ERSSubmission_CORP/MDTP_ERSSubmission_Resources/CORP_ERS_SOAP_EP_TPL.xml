@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<template xmlns="http://ws.apache.org/ns/synapse" name="CORP_ERS_SOAP_EP_TPL">
-   <endpoint name="$name">
-      <address uri="$uri" format="soap11">
-      </address>
-      <description>CORP_ERS_SOAP_EP_TPL</description>
-   </endpoint>
-</template>

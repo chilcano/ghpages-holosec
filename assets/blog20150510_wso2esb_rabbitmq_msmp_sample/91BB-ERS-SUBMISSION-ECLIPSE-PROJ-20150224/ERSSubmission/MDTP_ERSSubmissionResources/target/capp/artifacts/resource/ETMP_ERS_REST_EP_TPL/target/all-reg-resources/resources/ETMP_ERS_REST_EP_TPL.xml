@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<template xmlns="http://ws.apache.org/ns/synapse" name="ETMP_ERS_REST_EP_TPL">
-   <endpoint name="$name">
-      <http uri-template="$uri" method="post">
-      </http>
-      <description>ETMP_ERS_REST_EP_TPL</description>
-   </endpoint>
-</template>

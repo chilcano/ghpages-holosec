@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><resources>
-    <item>
-        <file>ETMP_HEART_BEAT_REQUEST_TEMPLATE.xml</file>
-        <path>/_system/governance/templates</path>
-        <mediaType>application/vnd.wso2.template</mediaType>
-    </item>
-</resources>
