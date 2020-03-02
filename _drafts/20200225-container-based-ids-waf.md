@@ -50,34 +50,6 @@ https://medium.com/solo-io/5-minutes-with-gloo-web-application-firewalls-waf-in-
 
 
 
-Secure Kubernetes Services With Ingress, TLS And Let's Encrypt
-https://docs.bitnami.com/kubernetes/how-to/secure-kubernetes-services-with-ingress-tls-letsencrypt/
-
-
-Adding security layers to your App on OpenShift - Serie
-
-Part 1 — Deployment and TLS Ingress
-Part 2 — Authentication and Authorization with Keycloak (this post)
-https://itnext.io/adding-security-layers-to-your-app-on-openshift-part-2-8320018bcdd1
-
-Part 3 — Secret Management with Vault
-https://itnext.io/adding-security-layers-to-your-app-on-openshift-part-3-secret-management-with-vault-8efd4ec29ec4
-
-Part 4 — Dynamic secrets with Vault
-https://itnext.io/adding-security-layers-to-your-app-on-openshift-part-4-dynamic-secrets-with-vault-b5fe1fc7709b
-
-Part 5 — Mutual TLS with Istio
-
-
-How to launch nginx-ingress and cert-manager in Kubernetes
-https://medium.com/containerum/how-to-launch-nginx-ingress-and-cert-manager-in-kubernetes-55b182a80c8f
-
-
-https://servicemesh.es/
-
-
-Stepan Ilyin, COO, Wallarm / February 19, 2019 / Building security into cloud native apps with NGINX
-https://www.helpnetsecurity.com/2019/02/19/building-security-into-cloud-native-apps-with-nginx/
 
 
 The OWASP NodeGoat project provides an environment to learn how OWASP Top 10 security risks apply to web applications developed using Node.js and how to effectively address them. 

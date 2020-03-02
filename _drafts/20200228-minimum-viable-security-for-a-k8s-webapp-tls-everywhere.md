@@ -36,9 +36,9 @@ Part of the answer gives us Vilfredo Pareto with the Pareto Principle, but to ha
 >   * There are 31 and 15 principles in total.
 > - [Cliff Berg’s Principles for High-Assurance Design (Architecting Secure and Reliable Enterprise Applications), 23/October/2005](https://www.amazon.com/High-Assurance-Design-Architecting-Enterprise-Applications/dp/0321793277), etc.
   
-There are many similarities between them at fundamental level, let's explore the OWASP for example:
+There are many similarities between them at fundamental level, let's explore the OWASP for example and do a quick analysis to see how TLS can help us to meet these Security Principles.
 
-OWASP Security Design Principles| Explanation                   | Is it about TLS?
+OWASP Security Design Principles| Explanation                   | How to TLS help us?
 ---                             | ---                           | ---
 1) Defense in Depth.            | Also known as layered defense.| TLS over HTTP provides a new secure layer.
 2) Fail Safe.                   | Unless a subject is given explicit access to an object, it should be denied access to that object. | TLS Certificates can encrypt at rest and in transit these objects.
@@ -55,11 +55,13 @@ OWASP Security Design Principles| Explanation                   | Is it about TL
 If this quick analysis does not convince you, then refer to the Pillars of Security, they are axioms and don't require be demostration.
 Organization like OWASP recommends that all security controls should be designed with the __Core pillars of Information Security__ in mind:
 
-* Confidentiality – only allow access to data for which the user is permitted.
-* Integrity – ensure data is not tampered or altered by unauthorised users.
-* Availability – ensure systems and data are available to authorised users when they need it.
+Pillar of Security | Description                                                                   | TLS ?
+---                | ---                                                                           | ---
+1. Confidentiality | Only allow access to data for which the user is permitted.                    | Access Control(*) using TLS and Mutual TLS Authn.
+2. Integrity       | Ensure data is not tampered or altered by unauthorised users.                 | Data no altered using TLS(*) encryption at rest.
+3. Availability    | Ensure systems and data are available to authorised users when they need it.  | Mutual TLS Authn(*) helps to availability only to authorised users.
 
-These Axioms refer to _access control_, _data no altered_, _unauthorised users_, etc. and that is implemented following the [Identity-based Security](https://en.wikipedia.org/wiki/Identity-based_security) Strategy.
+> (*) These Axioms refer to _access control_, _data no altered_, _unauthorised users_, etc. and that is implemented following the [Identity-based Security](https://en.wikipedia.org/wiki/Identity-based_security) Strategy.
 
 ## Let's implement TLS in our Kubernetes cluster.
 
@@ -73,3 +75,27 @@ These Axioms refer to _access control_, _data no altered_, _unauthorised users_,
 - https://www.cs.umd.edu/class/spring2019/cmsc414/
 - [Identity-based Security](https://en.wikipedia.org/wiki/Identity-based_security) 
 - https://blog.threatpress.com/security-design-principles-owasp/
+
+
+
+Secure Kubernetes Services With Ingress, TLS And Let's Encrypt
+https://docs.bitnami.com/kubernetes/how-to/secure-kubernetes-services-with-ingress-tls-letsencrypt/
+
+
+Adding security layers to your App on OpenShift - Serie
+
+Part 1 — Deployment and TLS Ingress
+Part 2 — Authentication and Authorization with Keycloak (this post)
+https://itnext.io/adding-security-layers-to-your-app-on-openshift-part-2-8320018bcdd1
+Part 3 — Secret Management with Vault
+https://itnext.io/adding-security-layers-to-your-app-on-openshift-part-3-secret-management-with-vault-8efd4ec29ec4
+Part 4 — Dynamic secrets with Vault
+https://itnext.io/adding-security-layers-to-your-app-on-openshift-part-4-dynamic-secrets-with-vault-b5fe1fc7709b
+Part 5 — Mutual TLS with Istio
+
+
+How to launch nginx-ingress and cert-manager in Kubernetes
+https://medium.com/containerum/how-to-launch-nginx-ingress-and-cert-manager-in-kubernetes-55b182a80c8f
+
+Stepan Ilyin, COO, Wallarm / February 19, 2019 / Building security into cloud native apps with NGINX
+https://www.helpnetsecurity.com/2019/02/19/building-security-into-cloud-native-apps-with-nginx/
