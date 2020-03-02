@@ -63,39 +63,119 @@ Pillar of Security | Description                                                
 
 > (*) These Axioms refer to _access control_, _data no altered_, _unauthorised users_, etc. and that is implemented following the [Identity-based Security](https://en.wikipedia.org/wiki/Identity-based_security) Strategy.
 
-## Let's implement TLS in our Kubernetes cluster.
+## Let's implement TLS everywhere in Kubernetes.
 
-**1) Cleaning everything**
+### Create an Kubernetes Cluster
 
-**xxx**
+
+**1) Clone the Affordable K8s Cluster Git Repo and run the Terraform scripts**
+
+I'll create a Kubernetes Cluster with this configuration:
+
+- NGINX Ingress Controller will be deployed as `DaemonSet` (in the namespace `ingress-nginx`) with `hostNetwork: true` to ensure the NGINX server is reachable from all K8s Cluster nodes.
+  * When a pod is configured with `hostNetwork: true`, the applications running in such a pod can directly see the network interfaces of the host machine where the pod was started.
+  * Further information in the [`nginx-ingress-mandatory.yaml` deployment file](https://github.com/chilcano/affordable-k8s/blob/master/manifests/nginx-ingress-mandatory.yaml).
+- Custom Domain Name System (DNS) is `cloud.holisticsecurity.io` and the Ingress Subdomain DNS is `ingress-nginx.cloud.holisticsecurity.io`.
+- TLS Cert enabled using Jetstack Cert-Manager and Let's Encrypt.
+- `NodePort` Service for the NGINX Ingress Controller. See its [configuration](https://github.com/chilcano/affordable-k8s/blob/master/manifests/nginx-ingress-nodeport.yaml.tmpl) here.
+
+```sh
+$ git clone https://github.com/chilcano/affordable-k8s
+$ cd affordable-k8s
+
+$ terraform init
+
+$ terraform plan \
+  -var cluster_name="cheapk8s" \
+  -var k8s_ssh_key="ssh-key-for-us-east-1" \
+  -var admin_cidr_blocks="83.45.101.2/32" \
+  -var region="us-east-1" \
+  -var kubernetes_version="1.14.3" \
+  -var external_dns_enabled="1" \
+  -var nginx_ingress_enabled="1" \
+  -var nginx_ingress_domain="ingress-nginx.cloud.holisticsecurity.io" \
+  -var cert_manager_enabled="1" \
+  -var cert_manager_email="cheapk8s@holisticsecurity.io"
+
+$ terraform apply \
+  -var cluster_name="cheapk8s" \
+  -var k8s_ssh_key="ssh-key-for-us-east-1" \
+  -var admin_cidr_blocks="83.45.101.2/32" \
+  -var region="us-east-1" \
+  -var kubernetes_version="1.14.3" \
+  -var external_dns_enabled="1" \
+  -var nginx_ingress_enabled="1" \
+  -var nginx_ingress_domain="ingress-nginx.cloud.holisticsecurity.io" \
+  -var cert_manager_enabled="1" \
+  -var cert_manager_email="cheapk8s@holisticsecurity.io"
+```
+
+**2) Once the K8s Cluster is created, check if NGINX Ingress Controller is running correctly**
+
+Let's make a query to The NGINX Ingress Controller's NodePort Service. Likely you have to wait a 2-3 minutes till the Cluster is running completely.
+
+```sh
+$ ssh ubuntu@$(terraform output master_dns) -i ~/Downloads/ssh-key-for-us-east-1.pem
+
+$ kubectl get pod,svc -n ingress-nginx -o wide
+NAME                                        READY   STATUS    RESTARTS   AGE
+pod/default-http-backend-5c9bb94849-9lpn9   1/1     Running   0          7m35s
+pod/nginx-ingress-controller-r2j8t          1/1     Running   0          7m34s
+pod/nginx-ingress-controller-v22mp          1/1     Running   0          7m34s
+
+NAME                           TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                      AGE
+service/default-http-backend   ClusterIP   10.110.233.145   <none>        80/TCP                       7m36s
+service/ingress-nginx          NodePort    10.111.197.179   <none>        80:30002/TCP,443:30414/TCP   7m33s
+```
+
+If everything is configured correctly, you should get a `default backend - 404` response when accessing the NGINX Ingress Controller using its `NodePort` and its `external IP address`. This tells us that the controller doesn’t know where to route the request to, so responds with the default backend.
+
+Calling it from inside the K8s Cluster, here you have to use the `NodePorts` (`30002` for HTTP and `30414` for HTTPS):
+```sh
+$ curl http://localhost:30002/abc
+default backend - 404
+
+$ curl https://localhost:30414/pqr -k
+default backend - 404
+```
+
+And calling from Internet, here you have to use Standard Ports (`80` for HTTP and `443` for HTTPS) and the `external IP address`:
+```sh
+$ curl http://ingress-nginx.cloud.holisticsecurity.io/abc
+default backend - 404
+
+$ curl https://ingress-nginx.cloud.holisticsecurity.io/pqr -k
+default backend - 404
+```
+
+
+### Deploying a Sample Application
+
+### Enabling and configuring TLS everywhere
+
+
+
+
+## Conclusions
+
+1. At operationaly speaking, TLS management is expensive, that means:
+   - Manage the TLS Certificates Lifecycle: revocation, renewals, validation, etc.
+2. 
 
 
 ## References
 
-- https://www.cs.umd.edu/class/spring2019/cmsc414/
+- [Univeristy of Maryland - Computer & Network Security - Spring 2019](https://www.cs.umd.edu/class/spring2019/cmsc414/schedule.html)
 - [Identity-based Security](https://en.wikipedia.org/wiki/Identity-based_security) 
-- https://blog.threatpress.com/security-design-principles-owasp/
-
-
-
-Secure Kubernetes Services With Ingress, TLS And Let's Encrypt
-https://docs.bitnami.com/kubernetes/how-to/secure-kubernetes-services-with-ingress-tls-letsencrypt/
-
-
-Adding security layers to your App on OpenShift - Serie
-
-Part 1 — Deployment and TLS Ingress
-Part 2 — Authentication and Authorization with Keycloak (this post)
-https://itnext.io/adding-security-layers-to-your-app-on-openshift-part-2-8320018bcdd1
-Part 3 — Secret Management with Vault
-https://itnext.io/adding-security-layers-to-your-app-on-openshift-part-3-secret-management-with-vault-8efd4ec29ec4
-Part 4 — Dynamic secrets with Vault
-https://itnext.io/adding-security-layers-to-your-app-on-openshift-part-4-dynamic-secrets-with-vault-b5fe1fc7709b
-Part 5 — Mutual TLS with Istio
-
-
-How to launch nginx-ingress and cert-manager in Kubernetes
-https://medium.com/containerum/how-to-launch-nginx-ingress-and-cert-manager-in-kubernetes-55b182a80c8f
-
-Stepan Ilyin, COO, Wallarm / February 19, 2019 / Building security into cloud native apps with NGINX
-https://www.helpnetsecurity.com/2019/02/19/building-security-into-cloud-native-apps-with-nginx/
+- [Secure Kubernetes Services With Ingress, TLS And Let's Encrypt](https://docs.bitnami.com/kubernetes/how-to/secure-kubernetes-services-with-ingress-tls-letsencrypt)
+- Adding security layers to your App on OpenShift - Serie:
+    * [Part 1 — Deployment and TLS Ingress](https://itnext.io/adding-security-layers-to-your-app-on-openshift-part-1-deployment-and-tls-ingress-9ef752835599)
+    * [Part 2 — Authentication and Authorization with Keycloak](https://itnext.io/adding-security-layers-to-your-app-on-openshift-part-2-8320018bcdd1)
+    * [Part 3 — Secret Management with Vault](https://itnext.io/adding-security-layers-to-your-app-on-openshift-part-3-secret-management-with-vault-8efd4ec29ec4)
+    * [Part 4 — Dynamic secrets with Vault](https://itnext.io/adding-security-layers-to-your-app-on-openshift-part-4-dynamic-secrets-with-vault-b5fe1fc7709b)
+    * [Part 5 — Mutual TLS with Istio](https://itnext.io/adding-security-layers-to-your-app-on-openshift-part-5-mutual-tls-with-istio-a8800c2e4df4)
+- [How to launch nginx-ingress and cert-manager in Kubernetes](https://medium.com/containerum/how-to-launch-nginx-ingress-and-cert-manager-in-kubernetes-55b182a80c8f)
+- [Stepan Ilyin, COO, Wallarm / February 19, 2019 / Building security into cloud native apps with NGINX](https://www.helpnetsecurity.com/2019/02/19/building-security-into-cloud-native-apps-with-nginx)
+- [Kubernetes with Keycloak](https://medium.com/@sagarpatkeatl/kubernetes-with-keycloak-eca47f86abec)
+- [Accessing Kubernetes Pods from Outside of the Cluster by Aleš Nosek, Feb 14th, 2017](http://alesnosek.com/blog/2017/02/14/accessing-kubernetes-pods-from-outside-of-the-cluster)
+- [NGINX Ingress Controller - Bare-metal considerations](https://kubernetes.github.io/ingress-nginx/deploy/baremetal)

@@ -26,5 +26,7 @@ https://www.dogtagpki.org/wiki/PKI_Main_Page
 https://directory.apache.org/kerby/
 
 
+https://www.freeipa.org/page/Main_Page
+https://zeroshell.org/kerberos/Kerberos-operation/
 
 <!-- more -->

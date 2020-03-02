@@ -67,3 +67,12 @@ https://medium.com/solo-io/decentralized-self-service-envoy-edge-gateway-with-gl
 
 Introducing the WebAssembly Hub, a service for building, deploying, sharing, and discovering Wasm extensions for Envoy Proxy / Idit Levine
 https://medium.com/solo-io/introducing-the-webassembly-hub-a-service-for-building-deploying-sharing-and-discovering-wasm-d461719383ca
+
+
+
+Kubernetes Security monitoring at scale with Sysdig Falco
+https://medium.com/@SkyscannerEng/kubernetes-security-monitoring-at-scale-with-sysdig-falco-a60cfdb0f67a
+
+
+A sample cloud IDS solution (part 3 in a series)
+https://www.ixiacom.com/company/blog/sample-cloud-ids-solution-part-3-series
