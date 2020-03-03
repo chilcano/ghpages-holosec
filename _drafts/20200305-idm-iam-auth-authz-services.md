@@ -14,9 +14,12 @@ https://directory.fedoraproject.org/index.html
 http://directory.apache.org/apacheds/
 
 https://backstage.forgerock.com/docs/dj
-https://www.forgerock.com/
+https://www.forgerock.com
+https://medium.com/forgerock/forgerock-am-6-5-deployment-on-k8s-78da7330dd98
+https://forgerock.org
 
-https://www.keycloak.org/
+
+https://www.keycloak.org
 
 https://wso2.com/identity-and-access-management/
 
@@ -28,5 +31,7 @@ https://directory.apache.org/kerby/
 
 https://www.freeipa.org/page/Main_Page
 https://zeroshell.org/kerberos/Kerberos-operation/
+
+https://github.com/dexidp/dex
 
 <!-- more -->

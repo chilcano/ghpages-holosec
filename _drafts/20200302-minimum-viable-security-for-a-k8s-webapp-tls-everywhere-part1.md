@@ -1,9 +1,9 @@
 ---
 layout:     post
-title:      "Minimum Viable Security for a Kubernetised Webapp: TLS everywhere"
+title:      "Minimum Viable Security for a Kubernetised Webapp: TLS everywhere - Part1"
 categories: ['cloud', 'apaas', 'service mesh'] 
 tags:       ['aws', 'kubernetes', 'microservice', 'x509', 'tls', 'mvsec']
-permalink:  "/2020/02/28/minimum-viable-security-for-a-k8s-webapp-tls-everywhere"
+permalink:  "/2020/03/02/minimum-viable-security-for-a-k8s-webapp-tls-everywhere-part1"
 comments:   true
 ---
 
@@ -13,20 +13,14 @@ The purpose of this post is to explain how to implement __TLS everywhere__ to be
 
 [![K8s Cluster created using AWS Spot Instances - Cert-Manager and Let's Encrypt](/assets/img/20200129-affordablek8s-aws-01-arch-ingress-dns-tls-cert-manager.png "K8s Cluster created using AWS Spot Instances - Cert-Manager and Let's Encrypt")](/assets/img/20200129-affordablek8s-aws-01-arch-ingress-dns-tls-cert-manager.png){:target="_blank"}
 
-This blog post will use the "Building your own affordable K8s - Serie":
-- [Part 1 - Building your own affordable K8s to host a Service Mesh](/2020/01/16/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-data-plane){:target="_blank"}.
-- [Part 2 - Building your own affordable K8s - ExternalDNS and NGINX as Ingress](/2020/01/22/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-part2-external-dns-ingress){:target="_blank"}.
-- [Part 3 - Building your own affordable K8s - Certificate Manager](/2020/01/29/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-part3-certificate-manager){:target="_blank"}.
-
 <!-- more --> 
 
 ## Why _TLS everywhere_ meets 80/20 rule?
 
 Part of the answer gives us Vilfredo Pareto with the Pareto Principle, but to have a complete answer we have to turn to The Security Design Principles that NIST, OWASP, NCSC and other Security References give us.  
 
-> The Security Design Principles to consider:
+> The Security Design Principles to consider are:
 > - [Building Secure Software: How to Avoid Security Problems the Right Way by Gary McGraw, John Viega, released September 2001](https://www.oreilly.com/library/view/building-secure-software/9780672334092) and the ["Exploiting Software: How to Break Code"](/assets/20200228-exploiting-software-how-to-break-code-2004-gary-mcgraw-cigital.pdf) Presentation by Gary McGrow, 2004.
->   * Contains xxx Principles
 > - OWASP Security by Design Principles:
 >   * [10 Security Principles, archived by 2016 ](https://wiki.owasp.org/index.php/Security_by_Design_Principles)
 >   * [11 Security Principles, updated by October 2015](https://github.com/OWASP/DevGuide/blob/master/02-Design/01-Principles%20of%20Security%20Engineering.md)
@@ -52,10 +46,10 @@ OWASP Security Design Principles| Explanation                   | How to TLS hel
 10) Weakest Link.               | The resiliency of your software against hacker attempts will depend heavily on the protection of its weakest components. | TLS helps to harden the access to resources and secure the traffic.
 11) Leveraging Existing Components. | It focuses on ensuring that the attack surface is not increased. | TLS is a feature by default in HTTP/2 for securing data in transit and data at rest, don't try to bring or implement your own _TLS_.
 
-If this quick analysis does not convince you, then refer to the Pillars of Security, they are axioms and don't require be demostration.
+If this quick analysis does not convince you, then refer to the [Pillars of Security](https://en.wikipedia.org/wiki/Information_security), they are axioms and don't require be demostration.
 Organization like OWASP recommends that all security controls should be designed with the __Core pillars of Information Security__ in mind:
 
-Pillar of Security | Description                                                                   | TLS ?
+Pillar of Security | Description                                                                   | How TLS apply?
 ---                | ---                                                                           | ---
 1. Confidentiality | Only allow access to data for which the user is permitted.                    | Access Control(*) using TLS and Mutual TLS Authn.
 2. Integrity       | Ensure data is not tampered or altered by unauthorised users.                 | Data no altered using TLS(*) encryption at rest.
@@ -66,6 +60,11 @@ Pillar of Security | Description                                                
 ## Let's implement TLS everywhere in Kubernetes.
 
 ### Create an Kubernetes Cluster
+
+This blog post will use the "Building your own affordable K8s - Serie":
+- [Part 1 - Building your own affordable K8s to host a Service Mesh](/2020/01/16/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-data-plane){:target="_blank"}.
+- [Part 2 - Building your own affordable K8s - ExternalDNS and NGINX as Ingress](/2020/01/22/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-part2-external-dns-ingress){:target="_blank"}.
+- [Part 3 - Building your own affordable K8s - Certificate Manager](/2020/01/29/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-part3-certificate-manager){:target="_blank"}.
 
 
 **1) Clone the Affordable K8s Cluster Git Repo and run the Terraform scripts**
@@ -139,7 +138,7 @@ $ curl https://localhost:30414/pqr -k
 default backend - 404
 ```
 
-And calling from Internet, here you have to use Standard Ports (`80` for HTTP and `443` for HTTPS) and the `external IP address`:
+And calling from Internet, here you have to use Standard Ports (`80` for HTTP and `443` for HTTPS) and the `external IP address`. The FQDN `ingress-nginx.cloud.holisticsecurity.io` is the Subdomain DNS I'm using for the NGINX Ingress Controller:
 ```sh
 $ curl http://ingress-nginx.cloud.holisticsecurity.io/abc
 default backend - 404
@@ -151,31 +150,26 @@ default backend - 404
 
 ### Deploying a Sample Application
 
+Finding nice demo-app to deploy into K8s ------
+
+
 ### Enabling and configuring TLS everywhere
 
-
+Enable HTTP Basic Auth over TLS for that demo-app --------------
 
 
 ## Conclusions
 
-1. At operationaly speaking, TLS management is expensive, that means:
-   - Manage the TLS Certificates Lifecycle: revocation, renewals, validation, etc.
-2. 
+### You need a PKI
 
+Let's Encrypt technically can issue TLS Client Certificates, but it isn't recommended because using Let’s Encrypt’s DV certificates directly as client certificates doesn’t offer a lot of flexibility, and probably doesn’t enhance overall security in most configurations. The best option would be to use your own CA for this process, as that allows for much more direct control, and client certificates don’t have to be publicly trusted by all clients, just trusted by your server.  
+For other side, at operationaly speaking, TLS Certificate Management (revocation, renewals, validation, etc.) is expensive, that means we will require a PKI with a powerful RESTful API to manage the Cert Lifecycle during the deployment of Containers-based Applications.  
+A PKI will be helpful allowing to create a private CA or Intermediate CA and manage their Lifecycle easily.
 
-## References
+> I use Jetstack Cert-Manager to manage certs issued for Let's Encrypt, Hashicorp Vault and Venafi, in the 2nd post I'll explain how to use Hashicorp Vault as CA for enablling TLS and MTLS in the services running in Kubernetes Cluster.
 
-- [Univeristy of Maryland - Computer & Network Security - Spring 2019](https://www.cs.umd.edu/class/spring2019/cmsc414/schedule.html)
-- [Identity-based Security](https://en.wikipedia.org/wiki/Identity-based_security) 
-- [Secure Kubernetes Services With Ingress, TLS And Let's Encrypt](https://docs.bitnami.com/kubernetes/how-to/secure-kubernetes-services-with-ingress-tls-letsencrypt)
-- Adding security layers to your App on OpenShift - Serie:
-    * [Part 1 — Deployment and TLS Ingress](https://itnext.io/adding-security-layers-to-your-app-on-openshift-part-1-deployment-and-tls-ingress-9ef752835599)
-    * [Part 2 — Authentication and Authorization with Keycloak](https://itnext.io/adding-security-layers-to-your-app-on-openshift-part-2-8320018bcdd1)
-    * [Part 3 — Secret Management with Vault](https://itnext.io/adding-security-layers-to-your-app-on-openshift-part-3-secret-management-with-vault-8efd4ec29ec4)
-    * [Part 4 — Dynamic secrets with Vault](https://itnext.io/adding-security-layers-to-your-app-on-openshift-part-4-dynamic-secrets-with-vault-b5fe1fc7709b)
-    * [Part 5 — Mutual TLS with Istio](https://itnext.io/adding-security-layers-to-your-app-on-openshift-part-5-mutual-tls-with-istio-a8800c2e4df4)
-- [How to launch nginx-ingress and cert-manager in Kubernetes](https://medium.com/containerum/how-to-launch-nginx-ingress-and-cert-manager-in-kubernetes-55b182a80c8f)
-- [Stepan Ilyin, COO, Wallarm / February 19, 2019 / Building security into cloud native apps with NGINX](https://www.helpnetsecurity.com/2019/02/19/building-security-into-cloud-native-apps-with-nginx)
-- [Kubernetes with Keycloak](https://medium.com/@sagarpatkeatl/kubernetes-with-keycloak-eca47f86abec)
-- [Accessing Kubernetes Pods from Outside of the Cluster by Aleš Nosek, Feb 14th, 2017](http://alesnosek.com/blog/2017/02/14/accessing-kubernetes-pods-from-outside-of-the-cluster)
-- [NGINX Ingress Controller - Bare-metal considerations](https://kubernetes.github.io/ingress-nginx/deploy/baremetal)
+### You need an IAM System
+
+Mutual TLS Authentication (MTLS) is better than HTTP Basic Authentication over TLS, instead of using a pre-shared key with HTTP Basic Authentication, with TLS you are able to use a TLS Client Certificate, in fact to enable MTLS will require to issue 2 certificates (TLS Server and TLS Client Certificates) and deploy TLS configuration to enable authentication for that specified Service or Web Application. That will work perfectly if you have to enable MTLS for few services or applications, but in a scenario where you have several APIs or a Container-based Distributed Application, the task of dealing MTLS will turn very complicated. For that, many Organizations consider adoption of an IAM System like WSO2 Identity Server, KeyCloak, DEX, etc. I recommend have a look for IAM at OSS Product List that I prepared in the post [Security along Container-based SDLC - OSS Tools List](https://holisticsecurity.io/2020/02/10/security-along-the-container-based-sdlc#oss-doc-link).
+
+> In the 3rd post I'll explain how to integrate an IAM opensource as OIDC Provider for Kubernetes.
