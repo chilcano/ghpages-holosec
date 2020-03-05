@@ -125,7 +125,6 @@ replicaset.apps/cert-manager-54d94bb6fc   1         1         1       5h22m
 ```sh
 $ curl https://ingress-nginx.cloud.holisticsecurity.io/healthz -v -k
 [...]
-* Connection state changed (MAX_CONCURRENT_STREAMS == 128)!
 < HTTP/2 200 
 < server: nginx/1.15.5
 < date: Tue, 28 Jan 2020 15:23:26 GMT
