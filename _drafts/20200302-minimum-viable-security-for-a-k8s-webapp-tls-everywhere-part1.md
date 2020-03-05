@@ -207,23 +207,26 @@ The NGINX Ingress Controller exposes different options for configuring the NGINX
   $ htpasswd -bc http-basic-auth-file WEAVE_SCOPE_USR WEAVE_SCOPE_PWD
   $ kubectl create secret generic weave-scope-secret-basic-auth --from-file=http-basic-auth-file -n weave
   ```
-> The `weave-scope-secret-basic-auth` secret resource will be used for NGINX Ingress resource below.
+> The `weave-scope-secret-basic-auth` secret resource will be used for NGINX Ingress resource (see below).
 > Change WEAVE_SCOPE_USR/WEAVE_SCOPE_PWD for yours.
-2. Create the TLS Ingress resource for Weave Scope ([weave-scope-app-ingress-tls.yaml](https://github.com/chilcano/affordable-k8s/blob/master/examples/weave-scope-app-ingress-tls.yaml)):
+2. Create the `letsencrypt-prod-issuer-tmp` as Jetstack Cert-Manager Issuer CA in the namespace `weave`:
+   ```sh
+   $ kubectl apply -f https://raw.githubusercontent.com/chilcano/affordable-k8s/master/examples/cert-manager-issuer-tmp.yaml -n weave
+   ```
+3. Create the TLS Ingress resource for Weave Scope ([weave-scope-app-ingress-tls.yaml](https://github.com/chilcano/affordable-k8s/blob/master/examples/weave-scope-app-ingress-tls.yaml)):
    - Enable TLS: Point (1)
    - Enable Cert-Manager and select the issuer CA: Point (2)
    - Cert-Manager will request a TLS Cert: Point (3)
    - Enable HTTP-Basic Auth and define its secret: Point (4) and (5) 
-
+  
    ```yaml
    apiVersion: extensions/v1beta1
    kind: Ingress
    metadata:
-     name: weave-scope-ingress
+     name: weave-scope-app-ingress-tls
      annotations:
        kubernetes.io/ingress.class: "nginx"
-       kubernetes.io/tls-acme: "true"
-       certmanager.k8s.io/issuer: "letsencrypt-prod" # (2) Selecting the issuer CA
+       certmanager.k8s.io/issuer: "letsencrypt-prod-issuer-tmp" # (2) Selecting the issuer CA
        certmanager.k8s.io/acme-challenge-type: http01
        ingress.kubernetes.io/auth-type: basic  # (4) Enabling http-basic auth
        ingress.kubernetes.io/auth-secret: weave-scope-secret-basic-auth  # (5) NGINX will read this secret for http-basic auth
@@ -231,22 +234,36 @@ The NGINX Ingress Controller exposes different options for configuring the NGINX
    spec:
      rules:
      - host: weave-scope.cloud.holisticsecurity.io
-         http:
-           paths:
+       http:
+         paths:
            - path: /
              backend:
-               serviceName: weave-scope-app  # Weave Scope ClusterIP service created by default during the installation
-               servicePort: 80
+               serviceName: weave-scope-app-svc  # Weave Scope NodePort service created 
+               servicePort: 30002
      tls:
      - hosts:
        - weave-scope.cloud.holisticsecurity.io  # (1) This host (fqdn) is going to get a tls cert
-       secretName: weave-scope-secret-tls-cert # (3) Cert-Manager will store the created tls cert in this k8s secret
+       secretName: weave-scope-app-secret-tls # (3) Cert-Manager will store the created tls cert in this k8s secret
    ```
-2. Deploy the TLS Ingress resource for Weave Scope:
-```sh
-$ kubectl apply -f https://raw.githubusercontent.com/chilcano/affordable-k8s/master/examples/weave-scope-ingress-tls.yaml
-```
-4. Finally, from your browser open this url [https://weave-scope.cloud.holisticsecurity.io](https://weave-scope.cloud.holisticsecurity.io) and when a user and password are prompted, enter the secret created in the Step 1.
+4. Deploy the TLS Ingress resource for Weave Scope:
+   ```sh
+   $ kubectl apply -f https://raw.githubusercontent.com/chilcano/affordable-k8s/master/examples/weave-scope-ingress-tls.yaml
+   ```
+5. Finally, from your browser open this url [https://weave-scope.cloud.holisticsecurity.io](https://weave-scope.cloud.holisticsecurity.io) and when a user and password are prompted, enter the secret created in the Step 1.
+6. Troubleshooting:
+   1. Get NGINX Ingress Controller logs:
+      ```sh
+      $ kubectl get pods -n ingress-nginx 
+      $ kubectl exec -it -n ingress-nginx nginx-ingress-controller-p5qz5 -- cat /etc/nginx/nginx.conf | grep ssl
+      $ kubectl logs -n ingress-nginx nginx-ingress-controller-p5qz5 | grep Error
+      ```
+   2. Get Jetstack Cert-Manager logs:
+      ```sh
+      $ kubectl get pods -n cert-manager
+      $ kubectl exec -it -n ingress-nginx cert-manager-54d94bb6fc-fmhcc -- cat /etc/nginx/nginx.conf | grep ssl
+      $ kubectl logs --follow -n cert-manager cert-manager-54d94bb6fc-fmhcc 
+      ```
+
 
 
 
