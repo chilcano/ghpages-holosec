@@ -169,7 +169,7 @@ $ kubectl get -n weave svc weave-scope-app -o jsonpath='{.spec.ports[0].targetPo
 Since `ClusterIP` is for internal use only, I'll need that Weave Scope be exposed and reachable from Internet that I can make a SSH tunnel. I can do it by creating a new `NodePort` service, also I'll create and register in AWS Route 53 a fqdn for Weave-Scope, in this case it will be `weave-scope.cloud.holisticsecurity.io`, although this fqdn isn't required to make the SSH tunnel.
 ```sh
 # Let's create a NodePort Resource for Weave Scope.
-$ kubectl apply -f https://raw.githubusercontent.com/chilcano/affordable-k8s/master/examples/weave-scope-app-svc.yaml
+$ kubectl apply -f https://raw.githubusercontent.com/chilcano/affordable-k8s/master/examples/weave-scope-app-svc.yaml -n weave
 service/weave-scope-app-svc created
 
 # Now, we have 2 services
@@ -209,7 +209,7 @@ The NGINX Ingress Controller exposes different options for configuring the NGINX
   ```
 > The `weave-scope-secret-basic-auth` secret resource will be used for NGINX Ingress resource (see below).
 > Change WEAVE_SCOPE_USR/WEAVE_SCOPE_PWD for yours.
-2. Create the `letsencrypt-prod-issuer-tmp` as Jetstack Cert-Manager Issuer CA in the namespace `weave`:
+2. Create the `letsencrypt-prod-issuer-tmp` as `Issuer` CA in the namespace `weave`:
    ```sh
    $ kubectl apply -f https://raw.githubusercontent.com/chilcano/affordable-k8s/master/examples/cert-manager-issuer-tmp.yaml -n weave
    ```
@@ -247,17 +247,17 @@ The NGINX Ingress Controller exposes different options for configuring the NGINX
    ```
 4. Deploy the TLS Ingress resource for Weave Scope:
    ```sh
-   $ kubectl apply -f https://raw.githubusercontent.com/chilcano/affordable-k8s/master/examples/weave-scope-ingress-tls.yaml
+   $ kubectl apply -f https://raw.githubusercontent.com/chilcano/affordable-k8s/master/examples/weave-scope-app-ingress-tls.yaml -n weave
    ```
 5. Finally, from your browser open this url [https://weave-scope.cloud.holisticsecurity.io](https://weave-scope.cloud.holisticsecurity.io) and when a user and password are prompted, enter the secret created in the Step 1.
 6. Troubleshooting:
-   1. Get NGINX Ingress Controller logs:
+   * Get NGINX Ingress Controller logs:
       ```sh
       $ kubectl get pods -n ingress-nginx 
       $ kubectl exec -it -n ingress-nginx nginx-ingress-controller-p5qz5 -- cat /etc/nginx/nginx.conf | grep ssl
       $ kubectl logs -n ingress-nginx nginx-ingress-controller-p5qz5 | grep Error
       ```
-   2. Get Jetstack Cert-Manager logs:
+   * Get Jetstack Cert-Manager logs:
       ```sh
       $ kubectl get pods -n cert-manager
       $ kubectl exec -it -n ingress-nginx cert-manager-54d94bb6fc-fmhcc -- cat /etc/nginx/nginx.conf | grep ssl
@@ -271,6 +271,7 @@ The NGINX Ingress Controller exposes different options for configuring the NGINX
 **2. Enabling [Mutual TLS Authentication](https://en.wikipedia.org/wiki/Mutual_authentication) in Weave Scope**
 
 
+xxxxxx
 
 
 ## Conclusions
