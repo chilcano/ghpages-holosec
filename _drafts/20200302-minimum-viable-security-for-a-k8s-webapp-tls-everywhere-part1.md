@@ -150,12 +150,95 @@ default backend - 404
 
 ### Deploying a Sample Application
 
-Finding nice demo-app to deploy into K8s ------
+I love [Weave Scope](https://www.weave.works/docs/scope/latest/introducing), it is a good Web Application that I can use to enable security.
+
+> __Weave Scope__ is a visualization and monitoring tool for Docker and Kubernetes. It provides a top down view into your app as well as your entire infrastructure, and allows you to diagnose any problems with your distributed containerized app, in real time, as it is being deployed to a cloud provider.
+
+```sh
+$ kubectl apply -f "https://cloud.weave.works/k8s/scope.yaml?v=${WS_VERSION}&k8s-service-type=${WS_SERVICE_TYPE}&k8s-version=$(kubectl version | base64 | tr -d '\n')"
+```
+
+Where:
+* `WS_VERSION`: `v1.12.0|...|v1.7.3|...` - If it isn't used then a `latest` version will be used by default
+* `WS_SERVICE_TYPE`: `LoadBalancer|NodePort` - If it isn't used then a ClusterIP will be created (internal use only)
+
+```sh
+# Get ssh access and in your K8s Cluster, run below command to install Weave Scope with everything by default.
+$ kubectl apply -f "https://cloud.weave.works/k8s/scope.yaml?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+
+# Check if Weave Scope has been installed successfully. You will see Pods, Service, ReplicaSet, DaemonSet and Deployment.
+$ kubectl get all -n weave
+
+# Get the Weave Scope's TargetPort. By default the TargetPort for Weave Scope's ClusterIP service is 4040.
+$ kubectl get -n weave svc weave-scope-app -o jsonpath='{.spec.ports[0].targetPort}'
+4040
+```
+
+Since ClusterIP is for internal use only, I'll need that Weave Scope be exposed and reachable from Internet through a SSH Tunnel. I can do it by creating a NodePort service.
+```sh
+# Let's create a NodePort Resource for Weave Scope.
+$ kubectl apply -f https://raw.githubusercontent.com/chilcano/ansible-role-weave-scope/master/sample-2-weave-scope-app-svc.yml -n weave
+service/weave-scope-app-svc created
+
+# Now, we have 2 services
+$ kubectl get svc -n weave
+NAME                  TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+weave-scope-app       ClusterIP   10.100.187.247   <none>        80/TCP         45m
+weave-scope-app-svc   NodePort    10.110.173.129   <none>        80:30002/TCP   18m
+
+# Get the Weave Scope's NodePort. Also you can see it in above command or in the 'sample-2-weave-scope-app-svc.yml' file.
+$ kubectl get -n weave svc weave-scope-app-svc -o jsonpath='{.spec.ports[0].nodePort}'
+30002
+```
+
+Now let's create a SSH tunnel from your Admin Computer over Internet to Weave Scope's NodePort service. 
+```sh
+$ ssh -nNT -L 4002:localhost:30002 ubuntu@$(terraform output master_dns) -i ~/Downloads/ssh-key-for-us-east-1.pem
+```
+
+Now open your favorite browser and enter this url [http://localhost:4002](http://localhost:4002){:target="_blank"} and you will be able to visualize all resources created in your Cluster in real-time.
+
+[![](/assets/blog20200302/tls-everywhere-part1-weave-scope-ssh-tunnel.png){:width="80%"}](/assets/blog20200302/tls-everywhere-part1-weave-scope-ssh-tunnel.png){:target="_blank"}
 
 
-### Enabling and configuring TLS everywhere
+### Enabling and configuring Security based on TLS
 
-Enable HTTP Basic Auth over TLS for that demo-app --------------
+Since I'm using the [Affordable K8s](https://github.com/chilcano/affordable-k8s)' Terraform scripts to build a K8s Cluster with the Jetstack Cert-Manager, to get, renew, revoke any kind of X.509 Certificates, and the NGINX Ingress Controller, to manage the traffic, now i would be able to improve security according the __Minimum Viable Security__ (MVSec) and __Pareto Principle or 80/20 rule__ both explained above.
+
+
+**1. Enabling [HTTP Basic Authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) over TLS in Weave Scope**
+
+The NGINX Ingress Controller exposes different options for configuring the NGINX server through annotations on the Ingress resource. Here I'll add the `auth-type: basic` and `auth-secret: my-weave-scope-basic-auth-secret` annotations and `tls` block to the Ingress resource in order to enable HTTP-Basic Authentication over TLS. 
+
+```yaml
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+name: weave-scope-ingress
+annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: 'true'
+    ingress.kubernetes.io/auth-type: basic
+    ingress.kubernetes.io/auth-secret: my-weave-scope-basic-auth-secret
+spec:
+rules:
+- host: weave-scope.cloud.holisticsecurity.io
+    http:
+    paths:
+    - path: /
+        backend:
+        serviceName: weave-scope-app
+        servicePort: 80
+tls:
+- secretName: weave-scope-tls-cert  ##### ?????
+    hosts:
+    - cloud.holisticsecurity.io
+```
+
+
+**2. Enableing [Mutual TLS Authentication](https://en.wikipedia.org/wiki/Mutual_authentication) in Weave Scope**
+
+
 
 
 ## Conclusions
