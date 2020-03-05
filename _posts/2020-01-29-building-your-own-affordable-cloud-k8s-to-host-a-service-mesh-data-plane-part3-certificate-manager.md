@@ -124,15 +124,7 @@ replicaset.apps/cert-manager-54d94bb6fc   1         1         1       5h22m
 
 ```sh
 $ curl https://ingress-nginx.cloud.holisticsecurity.io/healthz -v -k
-
-*   Trying 34.236.145.206:443...
-* TCP_NODELAY set
-* Connected to ingress-nginx.cloud.holisticsecurity.io (34.236.145.206) port 443 (#0)
-...
-> Host: ingress-nginx.cloud.holisticsecurity.io
-> User-Agent: curl/7.65.3
-> Accept: */*
-> 
+[...]
 * Connection state changed (MAX_CONCURRENT_STREAMS == 128)!
 < HTTP/2 200 
 < server: nginx/1.15.5
@@ -147,27 +139,6 @@ $ curl https://ingress-nginx.cloud.holisticsecurity.io/healthz -v -k
 
 ```sh
 $ echo | openssl s_client -showcerts -servername ingress-nginx.cloud.holisticsecurity.io -connect ingress-nginx.cloud.holisticsecurity.io:443 2>/dev/null | openssl x509 -inform pem -noout -text
-
-Certificate:
-    Data:
-        Version: 3 (0x2)
-        Serial Number:
-            4a:2e:7a:bc:14:6b:ef:2d:29:e8:06:56:38:6f:7b:08
-        Signature Algorithm: sha256WithRSAEncryption
-        Issuer: O = Acme Co, CN = Kubernetes Ingress Controller Fake Certificate
-        Validity
-            Not Before: Jan 28 12:31:05 2020 GMT
-            Not After : Jan 27 12:31:05 2021 GMT
-        Subject: O = Acme Co, CN = Kubernetes Ingress Controller Fake Certificate
-        Subject Public Key Info:
-            Public Key Algorithm: rsaEncryption
-                RSA Public-Key: (2048 bit)
-                Modulus:
-                    00:ad:d9:47:e9:4c:dd:1a:c5:b7:60:11:04:cb:fc:
-                    81:51:e3:3a:f6:3f:59:83:28:48:52:74:f2:65:55:
-                    58:59:11:39:84:20:65:82:97:e2:ed:79:1d:21:15:
-                    7a:10:d8:53:b2:01:a0:9d:b8:ef:f4:de:2b:a8:69:
-...
 ```
 
 ### 4. Calling a Microservice over HTTPS (port 443)
@@ -205,47 +176,13 @@ $ curl http://hello-svc-np.cloud.holisticsecurity.io/hello
 
 # Calling Hello Microservices over HTTPS/TLS through `hello-ingress-cip-tls`
 $ curl https://ingress-nginx.cloud.holisticsecurity.io/hello -v -k
-
-*   Trying 34.236.145.206:443...
-* TCP_NODELAY set
-* Connected to ingress-nginx.cloud.holisticsecurity.io (34.236.145.206) port 443 (#0)
-...
-> GET /hello HTTP/2
-> Host: ingress-nginx.cloud.holisticsecurity.io
-> User-Agent: curl/7.65.3
-> Accept: */*
-> 
-* Connection state changed (MAX_CONCURRENT_STREAMS == 128)!
-< HTTP/2 200 
-< server: nginx/1.15.5
-< date: Wed, 29 Jan 2020 17:45:08 GMT
-< content-type: text/html; charset=utf-8
-< content-length: 55
-< strict-transport-security: max-age=15724800; includeSubDomains
-< 
+[...]
 Hello version: v1, instance: hello-v1-66fc9c7d98-tljkw
 * Connection #0 to host ingress-nginx.cloud.holisticsecurity.io left intact
 
 # Calling Hello Microservices over HTTPS/TLS through `hello-ingress-np-tls`
 $ curl https://hello-svc-np.cloud.holisticsecurity.io/hello -v -k
-
-*   Trying 34.236.145.206:443...
-* TCP_NODELAY set
-* Connected to hello-svc-np.cloud.holisticsecurity.io (34.236.145.206) port 443 (#0)
-...
-> GET /hello HTTP/2
-> Host: hello-svc-np.cloud.holisticsecurity.io
-> User-Agent: curl/7.65.3
-> Accept: */*
-> 
-* Connection state changed (MAX_CONCURRENT_STREAMS == 128)!
-< HTTP/2 200 
-< server: nginx/1.15.5
-< date: Wed, 29 Jan 2020 17:45:32 GMT
-< content-type: text/html; charset=utf-8
-< content-length: 55
-< strict-transport-security: max-age=15724800; includeSubDomains
-< 
+[...]
 Hello version: v2, instance: hello-v2-845749f774-tft56
 * Connection #0 to host hello-svc-np.cloud.holisticsecurity.io left intact
 

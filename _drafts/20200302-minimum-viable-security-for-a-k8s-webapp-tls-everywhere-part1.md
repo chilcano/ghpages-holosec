@@ -208,35 +208,59 @@ Since I'm using the [Affordable K8s](https://github.com/chilcano/affordable-k8s)
 
 **1. Enabling [HTTP Basic Authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) over TLS in Weave Scope**
 
-The NGINX Ingress Controller exposes different options for configuring the NGINX server through annotations on the Ingress resource. Here I'll add the `auth-type: basic` and `auth-secret: my-weave-scope-basic-auth-secret` annotations and `tls` block to the Ingress resource in order to enable HTTP-Basic Authentication over TLS. 
-
-```yaml
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-name: weave-scope-ingress
-annotations:
-    kubernetes.io/ingress.class: nginx
-    kubernetes.io/tls-acme: 'true'
-    ingress.kubernetes.io/auth-type: basic
-    ingress.kubernetes.io/auth-secret: my-weave-scope-basic-auth-secret
-spec:
-rules:
-- host: weave-scope.cloud.holisticsecurity.io
-    http:
-    paths:
-    - path: /
-        backend:
-        serviceName: weave-scope-app
-        servicePort: 80
-tls:
-- secretName: weave-scope-tls-cert  ##### ?????
-    hosts:
-    - cloud.holisticsecurity.io
+The NGINX Ingress Controller exposes different options for configuring the NGINX server through `annotations` on the Ingress resource. The process will be:
+1. Create a secret for HTTP-Basic Auth:
+  ```sh
+  $ sudo apt install apache2-utils -y 
+  $ htpasswd -bc http-basic-auth-file WEAVE_SCOPE_USR WEAVE_SCOPE_PWD
+  $ kubectl create secret generic weave-scope-secret-basic-auth --from-file=http-basic-auth-file
+  ```
+> The `weave-scope-secret-basic-auth` secret resource will be used for NGINX Ingress resource below.
+> Change WEAVE_SCOPE_USR/WEAVE_SCOPE_PWD for yours.
+2. Create the [TLS Ingress resource for Weave Scope](https://github.com/chilcano/affordable-k8s/blob/master/examples/weave-scope-ingress-tls.yaml):
+   - Enable TLS: Point (1)
+   - Enable Cert-Manager and select the issuer CA: Point (2)
+   - Cert-Manager will request a TLS Cert: Point (3)
+   - Enable HTTP-Basic Auth and define its secret: Point (4) and (5) 
+     
+   Let's review the Ingress resource [weave-scope-ingress-tls.yaml](https://github.com/chilcano/affordable-k8s/blob/master/examples/weave-scope-ingress-tls.yaml)
+   ```yaml
+   apiVersion: extensions/v1beta1
+   kind: Ingress
+   metadata:
+     name: weave-scope-ingress
+     annotations:
+       kubernetes.io/ingress.class: "nginx"
+       kubernetes.io/tls-acme: "true"
+       certmanager.k8s.io/issuer: "letsencrypt-prod" # (2) Selecting the issuer CA
+       certmanager.k8s.io/acme-challenge-type: http01
+       ingress.kubernetes.io/auth-type: basic  # (4) Enabling http-basic auth
+       ingress.kubernetes.io/auth-secret: weave-scope-secret-basic-auth  # (5) NGINX will read this secret for http-basic auth
+     namespace: weave
+   spec:
+     rules:
+     - host: weave-scope.cloud.holisticsecurity.io
+         http:
+           paths:
+           - path: /
+             backend:
+               serviceName: weave-scope-app  # Weave Scope ClusterIP service created by default during the installation
+               servicePort: 80
+     tls:
+     - hosts:
+       - weave-scope.cloud.holisticsecurity.io  # (1) This host (fqdn) is going to get a tls cert
+       secretName: weave-scope-secret-tls-cert # (3) Cert-Manager will store the created tls cert in this k8s secret
+   ```
+3. Deploy the TLS Ingress resource for Weave Scope:
+```sh
+$ kubectl apply -f https://raw.githubusercontent.com/chilcano/affordable-k8s/master/examples/weave-scope-ingress-tls.yaml
 ```
+4. Finally, from your browser open this url [https://weave-scope.cloud.holisticsecurity.io](https://weave-scope.cloud.holisticsecurity.io) and when a user and password are prompted, enter the secret created in the Step 1.
 
 
-**2. Enableing [Mutual TLS Authentication](https://en.wikipedia.org/wiki/Mutual_authentication) in Weave Scope**
+
+
+**2. Enabling [Mutual TLS Authentication](https://en.wikipedia.org/wiki/Mutual_authentication) in Weave Scope**
 
 
 
