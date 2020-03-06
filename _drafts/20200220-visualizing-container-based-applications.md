@@ -37,3 +37,5 @@ https://grafana.com/grafana/plugins/devopsprodigy-kubegraf-app?utm_sq=gasn67je8f
 K9s (CUI - text based console)
 https://blog.alexellis.io/k9s-the-kubernetes-cui-comes-to-openfaas/
 
+SPEKT8 is a new visualization tool for your Kubernetes clusters.
+https://github.com/spekt8/spekt8
