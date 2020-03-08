@@ -2,8 +2,8 @@
 layout:     post
 title:      "Minimum Viable Security for a Kubernetised Webapp: TLS everywhere - Part1"
 categories: ['cloud', 'apaas', 'service mesh'] 
-tags:       ['aws', 'kubernetes', 'microservice', 'x509', 'tls', 'mvsec']
-permalink:  "/2020/03/02/minimum-viable-security-for-a-k8s-webapp-tls-everywhere-part1"
+tags:       ['aws', 'kubernetes', 'microservice', 'x509', 'tls', 'mvp']
+permalink:  "/2020/03/08/minimum-viable-security-for-a-k8s-webapp-tls-everywhere-part1"
 comments:   true
 ---
 
@@ -11,7 +11,7 @@ __Minimum Viable Security__ (MVSec) is a concept borrowed from the [Minimum Viab
 
 The purpose of this post is to explain how to implement __TLS everywhere__ to become __MVSec__ (roughly 80% of security with 20% of working) for a __Kubernetised Webapp hosted on AWS__.
 
-[![K8s Cluster created using AWS Spot Instances - Cert-Manager and Let's Encrypt](/assets/img/20200129-affordablek8s-aws-01-arch-ingress-dns-tls-cert-manager.png "K8s Cluster created using AWS Spot Instances - Cert-Manager and Let's Encrypt")](/assets/img/20200129-affordablek8s-aws-01-arch-ingress-dns-tls-cert-manager.png){:target="_blank"}
+[![](/assets/blog20200308/minimum-viable-security-pareto-tls-everywhere-kubernetised-webapp.png "Minimum Viable Security for a Kubernetised Webapp: TLS everywhere - NGINX Ingress Controller, Cert-Manager and Let's Encrypt")](/assets/blog20200308/minimum-viable-security-pareto-tls-everywhere-kubernetised-webapp.png){:target="_blank"}
 
 <!-- more --> 
 
@@ -20,7 +20,7 @@ The purpose of this post is to explain how to implement __TLS everywhere__ to be
 Part of the answer gives us Vilfredo Pareto with the Pareto Principle, but to have a complete answer we have to turn to The Security Design Principles that NIST, OWASP, NCSC and other Security References give us.  
 
 > The Security Design Principles to consider are:
-> - [Building Secure Software: How to Avoid Security Problems the Right Way by Gary McGraw, John Viega, released September 2001](https://www.oreilly.com/library/view/building-secure-software/9780672334092) and the ["Exploiting Software: How to Break Code"](/assets/20200228-exploiting-software-how-to-break-code-2004-gary-mcgraw-cigital.pdf) Presentation by Gary McGrow, 2004.
+> - [Building Secure Software: How to Avoid Security Problems the Right Way by Gary McGraw, John Viega, released September 2001](https://www.oreilly.com/library/view/building-secure-software/9780672334092) and the ["Exploiting Software: How to Break Code"](/assets/blog20200308/20200308-exploiting-software-how-to-break-code-2004-gary-mcgraw-cigital.pdf) Presentation by Gary McGrow, 2004.
 > - OWASP Security by Design Principles:
 >   * [10 Security Principles, archived by 2016 ](https://wiki.owasp.org/index.php/Security_by_Design_Principles)
 >   * [11 Security Principles, updated by October 2015](https://github.com/OWASP/DevGuide/blob/master/02-Design/01-Principles%20of%20Security%20Engineering.md)
@@ -154,6 +154,7 @@ I love [Weave Scope](https://www.weave.works/docs/scope/latest/introducing), it 
 
 > __Weave Scope__ is a visualization and monitoring tool for Docker and Kubernetes. It provides a top down view into your app as well as your entire infrastructure, and allows you to diagnose any problems with your distributed containerized app, in real time, as it is being deployed to a cloud provider.
 
+**Installing Weave Scope**  
 ```sh
 # Get ssh access and in your K8s Cluster, run below command to install Weave Scope with everything by default.
 $ kubectl apply -f "https://cloud.weave.works/k8s/scope.yaml?k8s-version=$(kubectl version | base64 | tr -d '\n')"
@@ -166,6 +167,7 @@ $ kubectl get -n weave svc weave-scope-app -o jsonpath='{.spec.ports[0].targetPo
 4040
 ```
 
+**Creating NodePort service for Weave Scope**  
 Since `ClusterIP` is for internal use only, I'll need that Weave Scope be exposed and reachable from Internet that I can make a SSH tunnel. I can do it by creating a new `NodePort` service, also I'll create and register in AWS Route 53 a fqdn for Weave-Scope, in this case it will be `weave-scope.cloud.holisticsecurity.io`, although this fqdn isn't required to make the SSH tunnel.
 ```sh
 # Let's create a NodePort Resource for Weave Scope.
@@ -183,6 +185,7 @@ $ kubectl get -n weave svc weave-scope-app-svc -o jsonpath='{.spec.ports[0].node
 30002
 ```
 
+**Creating a SSH tunnel to Weave Scope**  
 Now let's create a SSH tunnel from your Admin Computer over Internet to Weave Scope's NodePort service. 
 ```sh
 $ ssh -nNT -L 4002:localhost:30002 ubuntu@$(terraform output master_dns) -i ~/Downloads/ssh-key-for-us-east-1.pem
@@ -190,102 +193,35 @@ $ ssh -nNT -L 4002:localhost:30002 ubuntu@$(terraform output master_dns) -i ~/Do
 
 Now open your favorite browser and enter this url [http://localhost:4002](http://localhost:4002){:target="_blank"} and you will be able to visualize all resources created in your Cluster in real-time.
 
-[![](/assets/blog20200302/tls-everywhere-part1-weave-scope-ssh-tunnel.png){:width="80%"}](/assets/blog20200302/tls-everywhere-part1-weave-scope-ssh-tunnel.png){:target="_blank"}
+[![](/assets/blog20200308/20200308-tls-everywhere-part1-weave-scope-ssh-tunnel.png){:width="80%"}](/assets/blog20200308/20200308-tls-everywhere-part1-weave-scope-ssh-tunnel.png){:target="_blank"}
 
 
 ### Enabling and configuring Security based on TLS
 
-Since I'm using the [Affordable K8s](https://github.com/chilcano/affordable-k8s)' Terraform scripts to build a K8s Cluster with the Jetstack Cert-Manager, to get, renew, revoke any kind of X.509 Certificates, and the NGINX Ingress Controller, to manage the traffic, now i would be able to improve security according the __Minimum Viable Security__ (MVSec) and __Pareto Principle or 80/20 rule__ both explained above.
+Since I'm using the [Affordable K8s](https://github.com/chilcano/affordable-k8s)' Terraform scripts to build a K8s Cluster with the Jetstack Cert-Manager, to get, renew, revoke any kind of X.509 Certificates, and the NGINX Ingress Controller, to manage the traffic, now i would be able to improve security according the __Minimum Viable Security__ (MVSec) and __Pareto Principle or 80/20 rule__ both explained above.  
+In next posts I'll explain how to:
+
+* **Part 1 - Minimum Viable Security for a Kubernetised Webapp: TLS everywhere** (this post)
+* **Part 2 - Enable and configure [HTTP Basic Authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) over TLS in Weave Scope**
+* **Part 3 - Enable and configure [Mutual TLS Authentication](https://en.wikipedia.org/wiki/Mutual_authentication) in Weave Scope**
+* **Part 4 - Use Hashicorp Vault as PKI and Secrets Management in a Kubernetised Webapp**
+* **Part 4 - Integrating an IAM (Identity Access Management - see [Security along Container-based SDLC - OSS Tools List](https://holisticsecurity.io/2020/02/10/security-along-the-container-based-sdlc#oss-doc-link)) solution in a Kubernetised Webapp**
 
 
-**1. Enabling [HTTP Basic Authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) over TLS in Weave Scope**
+## Troubleshooting
 
-The NGINX Ingress Controller exposes different options for configuring the NGINX server through `annotations` on the Ingress resource. The process will be:
-1. Create a secret for HTTP-Basic Auth in the namespace `weave` that the Ingress resource will use it:
-  ```sh
-  $ sudo apt install apache2-utils -y 
-  $ htpasswd -bc http-basic-auth-file WEAVE_SCOPE_USR WEAVE_SCOPE_PWD
-  $ kubectl create secret generic weave-scope-secret-basic-auth --from-file=http-basic-auth-file -n weave
-  ```
-> The `weave-scope-secret-basic-auth` secret resource will be used for NGINX Ingress resource (see below).
-> Change WEAVE_SCOPE_USR/WEAVE_SCOPE_PWD for yours.
-2. Create the `letsencrypt-prod-issuer-tmp` as `Issuer` CA in the namespace `weave`:
-   ```sh
-   $ kubectl apply -f https://raw.githubusercontent.com/chilcano/affordable-k8s/master/examples/cert-manager-issuer-tmp.yaml -n weave
-   ```
-3. Create the TLS Ingress resource for Weave Scope ([weave-scope-app-ingress-tls.yaml](https://github.com/chilcano/affordable-k8s/blob/master/examples/weave-scope-app-ingress-tls.yaml)):
-   - Enable TLS: Point (1)
-   - Enable Cert-Manager and select the issuer CA: Point (2)
-   - Cert-Manager will request a TLS Cert: Point (3)
-   - Enable HTTP-Basic Auth and define its secret: Point (4) and (5) 
-  
-   ```yaml
-   apiVersion: extensions/v1beta1
-   kind: Ingress
-   metadata:
-     name: weave-scope-app-ingress-tls
-     annotations:
-       kubernetes.io/ingress.class: "nginx"
-       certmanager.k8s.io/issuer: "letsencrypt-prod-issuer-tmp" # (2) Selecting the issuer CA
-       certmanager.k8s.io/acme-challenge-type: http01
-       ingress.kubernetes.io/auth-type: basic  # (4) Enabling http-basic auth
-       ingress.kubernetes.io/auth-secret: weave-scope-secret-basic-auth  # (5) NGINX will read this secret for http-basic auth
-     namespace: weave
-   spec:
-     rules:
-     - host: weave-scope.cloud.holisticsecurity.io
-       http:
-         paths:
-           - path: /
-             backend:
-               serviceName: weave-scope-app-svc  # Weave Scope NodePort service created 
-               servicePort: 30002
-     tls:
-     - hosts:
-       - weave-scope.cloud.holisticsecurity.io  # (1) This host (fqdn) is going to get a tls cert
-       secretName: weave-scope-app-secret-tls # (3) Cert-Manager will store the created tls cert in this k8s secret
-   ```
-4. Deploy the TLS Ingress resource for Weave Scope:
-   ```sh
-   $ kubectl apply -f https://raw.githubusercontent.com/chilcano/affordable-k8s/master/examples/weave-scope-app-ingress-tls.yaml -n weave
-   ```
-5. Finally, from your browser open this url [https://weave-scope.cloud.holisticsecurity.io](https://weave-scope.cloud.holisticsecurity.io) and when a user and password are prompted, enter the secret created in the Step 1.
-6. Troubleshooting:
-   * Get NGINX Ingress Controller logs:
-      ```sh
-      $ kubectl get pods -n ingress-nginx 
-      $ kubectl exec -it -n ingress-nginx nginx-ingress-controller-p5qz5 -- cat /etc/nginx/nginx.conf | grep ssl
-      $ kubectl logs -n ingress-nginx nginx-ingress-controller-p5qz5 | grep Error
-      ```
-   * Get Jetstack Cert-Manager logs:
-      ```sh
-      $ kubectl get pods -n cert-manager
-      $ kubectl exec -it -n ingress-nginx cert-manager-54d94bb6fc-fmhcc -- cat /etc/nginx/nginx.conf | grep ssl
-      $ kubectl logs --follow -n cert-manager cert-manager-54d94bb6fc-fmhcc 
-      ```
-
-
-
-
-
-**2. Enabling [Mutual TLS Authentication](https://en.wikipedia.org/wiki/Mutual_authentication) in Weave Scope**
-
-
-xxxxxx
-
-
-## Conclusions
-
-### You need a PKI
-
-Let's Encrypt technically can issue TLS Client Certificates, but it isn't recommended because using Let’s Encrypt’s DV certificates directly as client certificates doesn’t offer a lot of flexibility, and probably doesn’t enhance overall security in most configurations. The best option would be to use your own CA for this process, as that allows for much more direct control, and client certificates don’t have to be publicly trusted by all clients, just trusted by your server.  
-For other side, at operationaly speaking, TLS Certificate Management (revocation, renewals, validation, etc.) is expensive, that means we will require a PKI with a powerful RESTful API to manage the Cert Lifecycle during the deployment of Containers-based Applications.  
-A PKI will be helpful allowing to create a private CA or Intermediate CA and manage their Lifecycle easily.
-
-> I use Jetstack Cert-Manager to manage certs issued for Let's Encrypt, Hashicorp Vault and Venafi, in the 2nd post I'll explain how to use Hashicorp Vault as CA for enablling TLS and MTLS in the services running in Kubernetes Cluster.
-
-### You need an IAM System
-
-Mutual TLS Authentication (MTLS) is better than HTTP Basic Authentication over TLS, instead of using a pre-shared key with HTTP Basic Authentication, with TLS you are able to use a TLS Client Certificate, in fact to enable MTLS will require to issue 2 certificates (TLS Server and TLS Client Certificates) and deploy TLS configuration to enable authentication for that specified Service or Web Application. That will work perfectly if you have to enable MTLS for few services or applications, but in a scenario where you have several APIs or a Container-based Distributed Application, the task of dealing MTLS will turn very complicated. For that, many Organizations consider adoption of an IAM System like WSO2 Identity Server, KeyCloak, DEX, etc. I recommend have a look for IAM at OSS Product List that I prepared in the post [Security along Container-based SDLC - OSS Tools List](https://holisticsecurity.io/2020/02/10/security-along-the-container-based-sdlc#oss-doc-link).
-
-> In the 3rd post I'll explain how to integrate an IAM opensource as OIDC Provider for Kubernetes.
+1. Getting NGINX Ingress Controller logs:
+```sh
+$ kubectl get pods -n ingress-nginx 
+$ kubectl exec -it -n ingress-nginx nginx-ingress-controller-p5qz5 -- cat /etc/nginx/nginx.conf | grep ssl
+$ kubectl logs -f -n ingress-nginx nginx-ingress-controller-p5qz5 | grep Error
+$ kubectl logs -f -n ingress-nginx -lapp.kubernetes.io/name=ingress-nginx
+$ kubectl logs -f -n ingress-nginx -lapp.kubernetes.io/part-of=ingress-nginx
+```
+2. Getting Jetstack Cert-Manager logs:
+```sh
+$ kubectl get pods -n cert-manager
+$ kubectl exec -it -n ingress-nginx cert-manager-54d94bb6fc-fmhcc -- cat /etc/nginx/nginx.conf | grep ssl
+$ kubectl logs -f -n cert-manager cert-manager-54d94bb6fc-fmhcc 
+$ kubectl logs -f -n cert-manager -lapp=cert-manager
+```
