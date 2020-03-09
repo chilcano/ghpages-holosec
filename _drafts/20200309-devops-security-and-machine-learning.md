@@ -8,7 +8,8 @@ permalink:  "/2020/03/09/devops-is-to-sdlc-as-mlops-is-to-machine-learning-apps"
 ---
 If you have read the previous post about [Security along the Container-based SDLC](https://holisticsecurity.io/2020/02/10/security-along-the-container-based-sdlc), then you have noted that DevOps and Security practices should be applied and embeded along [SDLC](https://en.wikipedia.org/wiki/Systems_development_life_cycle). Before we had to understand the entire software production process and sub-processes in order to apply these DevOps and Security practices. Well, in this post I'll explain how to apply DevOps practices along Machine Learning Software Applications Development Life Cycle (ML-SDLC) and I'll share a set of tools focusing to implement MLOps.
 
-[![Security along the Container-based SDLC - Overview](/assets/img/20200210-security-along-container-based-sdlc-v1.png "Security along the Container-based SDLC - Overview")](/assets/img/20200210-security-along-container-based-sdlc-v1.png){:target="_blank"}
+[![](/assets/blog20200309/mlops-sdlc-devsecops-comparison.png)](/assets/blog20200309/mlops-sdlc-devsecops-comparison.png){:target="_blank"}
+
 
 ## Concepts and definitions
 
@@ -24,21 +25,25 @@ If you have read the previous post about [Security along the Container-based SDL
 > Inferences are steps in reasoning, moving from premises to logical consequences; etymologically, the word infer means to "carry forward". Inference is theoretically traditionally divided into deduction and induction.
 > https://en.wikipedia.org/wiki/Inference
 
+**Data Science**
+> Data science is an inter-disciplinary field that uses scientific methods, processes, algorithms and systems to extract knowledge and insights from many structural and unstructured data. Data science is related to data mining and big data.  
+> Data science is a "concept to unify statistics, data analysis, machine learning and their related methods" in order to "understand and analyze actual phenomena" with data.  
+> https://en.wikipedia.org/wiki/Data_science
 
-## Data Science challenges 
 
-Undoubtedly this era belongs to Artificial Intelligence (AI), and this results in the use of Machine Learning in almost every field, trying to solve different kind of problems from healthcare, in business fields, and technical spaces, Machine Learning is everywhere. That, the Open Source and Cloud-based Distributed Computing have caused the appearance of many tools, techniques, and algorithms and the development of Machine Learning models to solve a problem is not a challenge, the real challenge lies in the management of these models at a massive scale. 
+## Data Science (& ML) challenges 
 
+Undoubtedly this era belongs to Artificial Intelligence (AI), and this results in the use of Machine Learning in almost every field, trying to solve different kind of problems from healthcare, in business fields, and technical spaces, Machine Learning is everywhere. That, the Open Source Software (OSS) and Cloud-based Distributed Computing have caused the appearance of many tools, techniques, and algorithms and the ___development of Machine Learning models to solve a problem is not a challenge, the real challenge lies in the management of these models and their data at a massive scale___. 
 
+The Data Science (& ML) Development Process needs to learn from SDLC (Software Engineering) in order to face these challenges, and What are these challenges?. The answer is: They are the same challenges that SDLC (Software Engineering) is facing by adopting the DevOps Practices, for example:
 
-The only thing in common between the Data Science Projects and Software Projects is that both follow more or less the SDLC, that means that challenges and problems that Data Science Projects have to face also are the same.   
-Cloud Native Applications following SDLC are trying to be more Agile adopting DevOps practices, and that is the same that Data Science Projects need to do and are doing it. 
-
-1. Data Lifecycle Management
-2. Model Lifecycle Management
-3. Inferencing
-4. Automation everything and anywhere
-5. Observability (Monitoring and Metrics)
+1. Data challenges
+   * Dataset dependencies: data in training and in evaluation stages can vary in real-world scenarios.
+2. Model challenges
+   * ML models are built in a Data scientist sandbox. It was not developed to take scalability in mind; rather, it was just developed to get good accuracies and right algorithm. 
+3. Automation everything and anywhere
+   * Training a simple model and putting it into inference and generating prediction is a simple and manual. In real-world cases (at scale) that must be automated. 
+4. Observability (Monitoring and Metrics)
 
 ![](/assets/blog20200309/PGS-Software-MLOps-2.png){:width="400"}  
 > More Effective Machine Learning Production with MLOps, December 11, 2019 Maciej Mazur   
@@ -80,4 +85,6 @@ By Shashanka M, Dec 10, 2019
 https://medium.com/analytics-vidhya/what-is-a-pipeline-in-machine-learning-how-to-create-one-bda91d0ceaca
 
 
-
+MLOps: CI/CD for Machine Learning Pipelines & Model Deployment with Kubeflow
+Published on: October 25, 2019 
+https://growingdata.com.au/mlops-ci-cd-for-machine-learning-pipelines-model-deployment-with-kubeflow/
