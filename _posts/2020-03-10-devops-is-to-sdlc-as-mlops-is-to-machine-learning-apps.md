@@ -85,18 +85,14 @@ I don’t want to waste efforts integrating heterogeneous tools, I want a stack 
 [](){:name="oss-doc-link"}
 
 <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTXcNBZjmHMfFHGmwizy_olJ0WP3aOA_lax4lRe9Y1DjG7XARstwm53ovFaovkirt7ybeyq8ybr9Tck/pubhtml?widget=true&amp;headers=false" width="800" height="800"></iframe>
-
+_<center>Open Source Tools (Platforms) to support the MLOps</center>_
 
 ## References
 
 
-* What would machine learning look like if you mixed in DevOps? Wonder no more, we lift the lid on MLOps - By Ryan Dawson, 7 Mar 2020
-  - https://www.theregister.co.uk/2020/03/07/devops_machine_learning_mlops
-* MLOps Platform: Productionizing Machine Learning Models - By Navdeep Singh Gill, 2 Sep 2019  
-  - https://www.xenonstack.com/blog/mlops
-* MLOps: CI/CD for Machine Learning Pipelines & Model Deployment with Kubeflow - 25 Oct 2019  
-  - https://growingdata.com.au/mlops-ci-cd-for-machine-learning-pipelines-model-deployment-with-kubeflow
-* The Linux Foundation’s AI project landscape (categorised lists of tools)
-  - https://landscape.lfai.foundation/images/landscape.png
-* The Institute for Ethical AI & Machine Learning - Awesome production machine learning 
-  - https://github.com/EthicalML/awesome-production-machine-learning
+* [What would machine learning look like if you mixed in DevOps? Wonder no more, we lift the lid on MLOps - By Ryan Dawson, 7 Mar 2020](https://www.theregister.co.uk/2020/03/07/devops_machine_learning_mlops)
+* [MLOps Platform: Productionizing Machine Learning Models - By Navdeep Singh Gill, 2 Sep 2019](https://www.xenonstack.com/blog/mlops)
+* [ML Ops: Machine Learning as an Engineering Discipline - By Cristiano Breuel, 3 Jan 2020](https://towardsdatascience.com/ml-ops-machine-learning-as-an-engineering-discipline-b86ca4874a3f)
+* [MLOps: CI/CD for Machine Learning Pipelines & Model Deployment with Kubeflow - 25 Oct 2019](https://growingdata.com.au/mlops-ci-cd-for-machine-learning-pipelines-model-deployment-with-kubeflow)
+* [The Linux Foundation’s AI project landscape (categorised lists of tools)](https://landscape.lfai.foundation/images/landscape.png)
+* [The Institute for Ethical AI & Machine Learning - Awesome production machine learning](https://github.com/EthicalML/awesome-production-machine-learning)
