@@ -2,7 +2,7 @@
 layout:     post
 title:      "Visualizing Container-based Applications"
 #date:       2020-02-20 10:00:00 +0100
-categories: ['cloud', 'apaas', 'service mesh','sdlc', 'observability'] 
+categories: ['cloud', 'apaas', 'service mesh', 'observability'] 
 tags:       ['kubernetes', 'docker', 'microservice', 'visualizing']
 permalink:  "/2020/02/20/visualizing-container-based-applications"
 ---

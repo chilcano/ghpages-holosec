@@ -2,7 +2,7 @@
 layout:     post
 title:      "IdM, IAM, Authn and Authz in Distributed App era"
 #date:       2020-03-05 10:00:00 +0100
-categories: ['cloud', 'apaas', 'service mesh','sdlc'] 
+categories: ['cloud', 'apaas', 'service mesh'] 
 tags:       ['kubernetes', 'docker', 'microservice', 'api', 'pentesting','fuzzing']
 permalink:  "/2020/03/05/container-based-applications-building-blocks"
 ---

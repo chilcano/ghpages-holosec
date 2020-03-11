@@ -2,7 +2,7 @@
 layout:     post
 title:      "Container-based Applications, Messaging and Eventing"
 #date:       2020-03-12 10:00:00 +0100
-categories: ['cloud', 'apaas', 'service mesh','sdlc'] 
+categories: ['cloud', 'apaas', 'service mesh'] 
 tags:       ['kubernetes', 'docker', 'microservice', 'api', 'messaging','eventing']
 permalink:  "/2020/03/12/messaging-eventing"
 ---
