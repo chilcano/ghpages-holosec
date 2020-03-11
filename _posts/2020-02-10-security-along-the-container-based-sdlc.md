@@ -18,7 +18,7 @@ In other words, using containers we are adding a new element to be considered al
 Said that, the purpose of this post is explain you how to embed **Security along the Container-based SDLC (Secure-SDLC)** and how to **DevOps** practices will help its adoption.
 
 [![](/assets/blog20200210/20200210-security-along-container-based-sdlc-v2.png)](/assets/blog20200210/20200210-security-along-container-based-sdlc-v2.png){:target="_blank"}   
-<center>_Security along the Container-based SDLC - Overview_</center>
+_<center>Security along the Container-based SDLC - Overview</center>_
 
 <!-- more --> 
 

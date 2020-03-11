@@ -12,7 +12,8 @@ __Minimum Viable Security__ (MVSec) is a concept borrowed from the [Minimum Viab
 
 The purpose of this post is to explain how to implement __TLS everywhere__ to become __MVSec__ (roughly 80% of security with 20% of working) for a __Kubernetised Webapp hosted on AWS__.
 
-[![](/assets/blog20200308/minimum-viable-security-pareto-tls-everywhere-kubernetised-webapp.png "Minimum Viable Security for a Kubernetised Webapp: TLS everywhere - NGINX Ingress Controller, Cert-Manager and Let's Encrypt")](/assets/blog20200308/minimum-viable-security-pareto-tls-everywhere-kubernetised-webapp.png){:target="_blank"}
+[![](/assets/blog20200308/minimum-viable-security-pareto-tls-everywhere-kubernetised-webapp.png)](/assets/blog20200308/minimum-viable-security-pareto-tls-everywhere-kubernetised-webapp.png){:target="_blank"}  
+_<center>Minimum Viable Security for a Kubernetised Webapp: TLS everywhere with NGINX Ingress Controller, Cert-Manager and Let's Encrypt</center>_
 
 <!-- more --> 
 
