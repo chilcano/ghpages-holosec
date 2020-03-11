@@ -11,6 +11,7 @@ If you have read the previous post about [Security along the Container-based SDL
 [![](/assets/blog20200309/mlops-sdlc-devsecops-comparison.png)](/assets/blog20200309/mlops-sdlc-devsecops-comparison.png){:target="_blank"}  
 _<center>Data Science (& ML) Life Cycle</center>_
 
+<!-- more -->
 
 ## Concepts and definitions
 

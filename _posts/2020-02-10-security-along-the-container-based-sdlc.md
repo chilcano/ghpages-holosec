@@ -17,9 +17,10 @@ In other words, using containers we are adding a new element to be considered al
 
 Said that, the purpose of this post is explain you how to embed **Security along the Container-based SDLC (Secure-SDLC)** and how to **DevOps** practices will help its adoption.
 
-[![Security along the Container-based SDLC - Overview](/assets/img/20200210-security-along-container-based-sdlc-v1.png "Security along the Container-based SDLC - Overview")](/assets/img/20200210-security-along-container-based-sdlc-v1.png){:target="_blank"}
+[![](/assets/blog20200210/20200210-security-along-container-based-sdlc-v1.png)](/assets/blog20200210/20200210-security-along-container-based-sdlc-v2.png){:target="_blank"}   
+<center>_Security along the Container-based SDLC - Overview_</center>
 
-<!-- more -->
+<!-- more --> 
 
 The above Secure-SDLC diagram was created using the classic [Systems development life cycle published at Wikipedia](https://en.wikipedia.org/wiki/Systems_development_life_cycle){:target="_blank"} and software engineering and security-related techniques such as:
 
@@ -98,7 +99,6 @@ The criteria I'm going to use to select the tools are:
 <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRTLn8bLX-Sp6JEbKcJIludCb6wJbTM-5xV5te94srdYnmLYutCu9vcgmiWcc2taioH5cJcj2xXH_Ba/pubhtml?widget=true&amp;headers=false" width="800" height="800"></iframe>
 
 > [See whole Sheet (read only)&nbsp;&gt;&gt;](/assets/pages/2020-02-10-security-along-the-container-based-sdlc-oss-tool-list-ro)  
-> [See whole Sheet (read, download and print)&nbsp;&gt;&gt;](/assets/pages/2020-02-10-security-along-the-container-based-sdlc-oss-tool-list-rpo)  
 > If don't see a open source security product in the document that is worth being reviewed, please, drop me an email and I'll add to document and review it.
 
 ## Conclusions
