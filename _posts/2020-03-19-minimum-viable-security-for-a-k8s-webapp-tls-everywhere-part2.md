@@ -9,10 +9,14 @@ comments:   true
 ---
 In the "[Minimum Viable Security for a Kubernetised Webapp: TLS everywhere - Part1](/2020/03/08/minimum-viable-security-for-a-k8s-webapp-tls-everywhere-part1)" I used the [Affordable K8s](https://github.com/chilcano/affordable-k8s)' Terraform scripts to create a K8s Cluster with the Jetstack Cert-Manager and the NGINX Ingress Controller pre-installed, now I want to improve the security of a Webapp hosted in that Cluster according the __Minimum Viable Security__ (MVSec) and __Pareto Principle or 80/20 rule__. 
 
-In this post I'll explain how to enable and configure _[HTTP Basic Authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) over TLS_ in the [Weave Scope](https://www.weave.works/oss/scope) webapp running in the recently created K8s Cluster. I recommend follow the [Part 1](/2020/03/08/minimum-viable-security-for-a-k8s-webapp-tls-everywhere-part1) to get this scenario.
+[![](/assets/blog20200319/mvp-sec-part2-http-basic-auth-over-tls-for-weave-scope-with-nginx-ingress-jetstack-cert-manager-lets-encrypt.png){:width="400"}{:style="display:block;margin:auto;"}](/assets/blog20200319/mvp-sec-part2-http-basic-auth-over-tls-for-weave-scope-with-nginx-ingress-jetstack-cert-manager-lets-encrypt.png)
+
+
+In this post I'll explain how to enable and configure _[HTTP Basic Authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) over TLS_ in the [Weave Scope](https://www.weave.works/oss/scope) webapp running in the recently created K8s Cluster. 
 
 <!-- more --> 
 
+I recommend follow the [Part 1](/2020/03/08/minimum-viable-security-for-a-k8s-webapp-tls-everywhere-part1) to get this scenario.
 Let's explore the K8s services created.
 ```sh
 $ kubectl get svc -n weave
