@@ -89,7 +89,7 @@ $ terraform init
 $ terraform plan \
   -var cluster_name="cheapk8s" \
   -var k8s_ssh_key="ssh-key-for-us-east-1" \
-  -var admin_cidr_blocks="83.45.101.2/32" \
+  -var admin_cidr_blocks="<YOUR-IP-ADDRESS>/32" \
   -var region="us-east-1" \
   -var kubernetes_version="1.14.3" \
   -var external_dns_enabled="1" \
@@ -101,7 +101,7 @@ $ terraform plan \
 $ terraform apply \
   -var cluster_name="cheapk8s" \
   -var k8s_ssh_key="ssh-key-for-us-east-1" \
-  -var admin_cidr_blocks="83.45.101.2/32" \
+  -var admin_cidr_blocks="<YOUR-IP-ADDRESS>/32" \
   -var region="us-east-1" \
   -var kubernetes_version="1.14.3" \
   -var external_dns_enabled="1" \
@@ -111,13 +111,17 @@ $ terraform apply \
   -var cert_manager_email="cheapk8s@holisticsecurity.io"
 ```
 
-**2) Once the K8s Cluster is created, check if NGINX Ingress Controller is running correctly**
+**2) Checking the K8s Cluster, NGINX Ingress Controller, Cert-Manager are running correctly**
 
-Let's make a query to The NGINX Ingress Controller's NodePort Service. Likely you have to wait a 2-3 minutes till the Cluster is running completely.
 
 ```sh
+// SSH to the cluster
 $ ssh ubuntu@$(terraform output master_dns) -i ~/Downloads/ssh-key-for-us-east-1.pem
+```
 
+Checking NGINX Ingress Controller:
+```sh
+// Likely you have to wait a 2-3 minutes till the Cluster is running completely.
 $ kubectl get pod,svc -n ingress-nginx -o wide
 NAME                                        READY   STATUS    RESTARTS   AGE
 pod/default-http-backend-5c9bb94849-9lpn9   1/1     Running   0          7m35s
@@ -129,19 +133,17 @@ service/default-http-backend   ClusterIP   10.110.233.145   <none>        80/TCP
 service/ingress-nginx          NodePort    10.111.197.179   <none>        80:30002/TCP,443:30414/TCP   7m33s
 ```
 
-If everything is configured correctly, you should get a `default backend - 404` response when accessing the NGINX Ingress Controller using its `NodePort` and its `external IP address`. This tells us that the controller doesn’t know where to route the request to, so responds with the default backend.
+If everything is fine, you should get a `default backend - 404` response when accessing the NGINX Ingress Controller using its `NodePort` and its `external IP address`. This tells us that the controller doesn’t know where to route the request to, so responds with the default backend.
 
-Calling it from inside the K8s Cluster, here you have to use the `NodePorts` (`30002` for HTTP and `30414` for HTTPS):
 ```sh
+// Calling it from inside the K8s Cluster, here you have to use the `NodePorts` (`30002` for HTTP and `30414` for HTTPS):
 $ curl http://localhost:30002/abc
 default backend - 404
 
 $ curl https://localhost:30414/pqr -k
 default backend - 404
-```
 
-And calling from Internet, here you have to use Standard Ports (`80` for HTTP and `443` for HTTPS) and the `external IP address`. The FQDN `ingress-nginx.cloud.holisticsecurity.io` is the Subdomain DNS I'm using for the NGINX Ingress Controller:
-```sh
+// Calling from Internet, here you have to use `80` and `443` port, and the FQDN `ingress-nginx.cloud.holisticsecurity.io`
 $ curl http://ingress-nginx.cloud.holisticsecurity.io/abc
 default backend - 404
 
@@ -149,10 +151,18 @@ $ curl https://ingress-nginx.cloud.holisticsecurity.io/pqr -k
 default backend - 404
 ```
 
+Checking Cert-Manager:
+```sh
+// Cert-Manager logs
+$ kubectl logs -f -n cert-manager -lapp=cert-manager
+
+// Lets Encrypt Cert Issuer
+$ kubectl get issuer,secret -n default
+```
 
 ### Deploying a Sample Application
 
-I love [Weave Scope](https://www.weave.works/docs/scope/latest/introducing), it is a good Web Application that I can use it to enable security.
+I love [Weave Scope](https://www.weave.works/docs/scope/latest/introducing), it is a good Web Application that I can use as example to enable/configure its security.
 
 > __Weave Scope__ is a visualization and monitoring tool for Docker and Kubernetes. It provides a top down view into your app as well as your entire infrastructure, and allows you to diagnose any problems with your distributed containerized app, in real time, as it is being deployed to a cloud provider.
 
@@ -173,17 +183,17 @@ $ kubectl get -n weave svc weave-scope-app -o jsonpath='{.spec.ports[0].targetPo
 Since `ClusterIP` is for internal use only, I'll need that Weave Scope be exposed and reachable from Internet that I can make a SSH tunnel. I can do it by creating a new `NodePort` service, also I'll create and register in AWS Route 53 a fqdn for Weave-Scope, in this case it will be `weave-scope.cloud.holisticsecurity.io`, although this fqdn isn't required to make the SSH tunnel.
 ```sh
 # Let's create a NodePort Resource for Weave Scope.
-$ kubectl apply -f https://raw.githubusercontent.com/chilcano/affordable-k8s/master/examples/weave-scope-app-svc.yaml -n weave
-service/weave-scope-app-svc created
+$ kubectl apply -f https://raw.githubusercontent.com/chilcano/affordable-k8s/master/examples/weave-scope-app-svc-np.yaml
+service/weave-scope-app-svc-np created
 
 # Now, we have 2 services
 $ kubectl get svc -n weave
-NAME                  TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
-weave-scope-app       ClusterIP   10.100.187.247   <none>        80/TCP         45m
-weave-scope-app-svc   NodePort    10.102.182.243   <none>        80:30002/TCP   18m
+NAME                   TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+weave-scope-app        ClusterIP   10.100.187.247   <none>        80/TCP         45m
+weave-scope-app-svc-np NodePort    10.102.182.243   <none>        80:30002/TCP   18m
 
-# Get the Weave Scope's NodePort. Also you can see it in above command or in the 'sample-2-weave-scope-app-svc.yml' file.
-$ kubectl get -n weave svc weave-scope-app-svc -o jsonpath='{.spec.ports[0].nodePort}'
+# Get the Weave Scope's NodePort. Also you can see it in above command or in the 'sample-2-weave-scope-app-svc-np.yml' file.
+$ kubectl get -n weave svc weave-scope-app-svc-np -o jsonpath='{.spec.ports[0].nodePort}'
 30002
 ```
 
@@ -212,18 +222,25 @@ In next posts I'll explain how to:
 
 ## Troubleshooting
 
-1. Getting NGINX Ingress Controller logs:
-```sh
-$ kubectl get pods -n ingress-nginx 
-$ kubectl exec -it -n ingress-nginx nginx-ingress-controller-p5qz5 -- cat /etc/nginx/nginx.conf | grep ssl
-$ kubectl logs -f -n ingress-nginx nginx-ingress-controller-p5qz5 | grep Error
-$ kubectl logs -f -n ingress-nginx -lapp.kubernetes.io/name=ingress-nginx
-$ kubectl logs -f -n ingress-nginx -lapp.kubernetes.io/part-of=ingress-nginx
-```
-2. Getting Jetstack Cert-Manager logs:
-```sh
-$ kubectl get pods -n cert-manager
-$ kubectl exec -it -n ingress-nginx cert-manager-54d94bb6fc-fmhcc -- cat /etc/nginx/nginx.conf | grep ssl
-$ kubectl logs -f -n cert-manager cert-manager-54d94bb6fc-fmhcc 
-$ kubectl logs -f -n cert-manager -lapp=cert-manager
-```
+1. Getting Kubernetes installation logs:
+   Access to Cluster via SSH and get the logs.
+   ```sh
+   $ cat /var/log/cloud-init-output.log
+   ```
+2. Getting NGINX Ingress Controller logs:
+   ```sh
+   $ kubectl get pods -n ingress-nginx 
+   $ kubectl exec -it -n ingress-nginx nginx-ingress-controller-p5qz5 -- cat /etc/nginx/nginx.conf | grep ssl
+   $ kubectl logs -f -n ingress-nginx nginx-ingress-controller-p5qz5 | grep Error
+   $ kubectl logs -f -n ingress-nginx -lapp.kubernetes.io/name=ingress-nginx
+   $ kubectl logs -f -n ingress-nginx -lapp.kubernetes.io/part-of=ingress-nginx
+   ```
+3. Getting Jetstack Cert-Manager logs:
+   ```sh
+   $ kubectl get pods -n cert-manager
+   $ kubectl exec -it -n ingress-nginx cert-manager-54d94bb6fc-fmhcc -- cat /etc/nginx/nginx.conf | grep ssl
+   $ kubectl logs -f -n cert-manager cert-manager-54d94bb6fc-fmhcc 
+   $ kubectl logs -f -n cert-manager -lapp=cert-manager
+   $ kubectl logs -f -n cert-manager -lapp=cainjector
+   $ kubectl logs -f -n cert-manager -lapp=webhook
+   ```
