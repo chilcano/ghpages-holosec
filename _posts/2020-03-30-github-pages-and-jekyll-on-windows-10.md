@@ -7,14 +7,17 @@ date:       2020-03-30 00:10:00 +0100
 permalink:  "/2020/03/30/github-pages-and-jekyll-on-windows-10"
 comments:   true
 ---
-I have an older Surface 3 Pro (4GB RAM, 64GB SSD, Windows 10) and want to publish new posts in my existing Jekyll static Blog hosted on Github Pages which I created it from other Laptop with Ubuntu.   
-To do that I have to [download, install and configure a Ruby+Devkit](https://rubyinstaller.org/downloads) version in the Surface 3 Pro. Basically, I'm going to follow the [Jekyll on Windows](https://jekyllrb.com/docs/installation/windows) guide.
+I have a Blog hosted on Github Page created with Jekyll from Linux. That works perfectly and can publish post frequently, but now I would like to do the same but from Windows 10 laptop (older Surface 3 Pro, 4GB RAM, 64GB SSD). The aim of this post is explain you how to prepare and configure Windows 10 to publish post in a new or existing static site created with Jekyll.
+
+To do that I'm going to follow the [Jekyll on Windows](https://jekyllrb.com/docs/installation/windows) guide, basically I'll [download, install and configure a Ruby+Devkit](https://rubyinstaller.org/downloads) version in Windows 10.
 
 [![](/assets/blog20200330/20200330-github-pages-and-jekyll-on-windows-10-1.png){:width="400"}{:style="display:block;margin:auto;"}](/assets/blog20200330/20200330-github-pages-and-jekyll-on-windows-10-1.png.png)
 
 <!-- more -->
- 
-Once finished, open a CMD as standard user and check the installed version:
+
+### Steps
+
+Once downloaded and installed Ruby+Devkit, open a CMD as standard user and check the installed version:
 
 ```sh
 C:\Users\rmce> ruby --version
