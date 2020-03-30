@@ -11,7 +11,7 @@ I have a[ Blog hosted on Github Pages created with Jekyll from Linux](https://ho
 
 To do that I'm going to follow the [Jekyll on Windows](https://jekyllrb.com/docs/installation/windows) guide, basically I'll [download, install and configure a Ruby+Devkit](https://rubyinstaller.org/downloads) version in Windows 10.
 
-[![](/assets/blog20200330/20200330-github-pages-and-jekyll-on-windows-10-1.png){:width="400"}{:style="display:block;margin:auto;"}](/assets/blog20200330/20200330-github-pages-and-jekyll-on-windows-10-1.png.png)
+[![](/assets/blog20200330/20200330-github-pages-and-jekyll-on-windows-10-1.png){:width="400"}{:style="display:block;margin:auto;"}](/assets/blog20200330/20200330-github-pages-and-jekyll-on-windows-10-1.png)
 
 <!-- more -->
 
@@ -80,16 +80,11 @@ Or instead of CMD using PowerShell Terminal.
 ```PowerShell
 Y:\__gitrepos\ghpages-holosec>
 $> Set-Variable -name JEKYLL_ENV -value production; bundle exec jekyll serve --incremental --watch
-Configuration file: Y:/__gitrepos/ghpages-holosec/_config.yml
-            Source: Y:/__gitrepos/ghpages-holosec
-       Destination: Y:/__gitrepos/ghpages-holosec/_site
- Incremental build: enabled
-      Generating...
-       Jekyll Feed: Generating feed for posts
-                    done in 22.537 seconds.
- Auto-regeneration: enabled for 'Y:/__gitrepos/ghpages-holosec'
-    Server address: http://127.0.0.1:4000/
-  Server running... press ctrl-c to stop.
 ```
 
-[![](/assets/blog20200330/20200330-github-pages-and-jekyll-on-windows-10-2.png){:width="400"}{:style="display:block;margin:auto;"}](/assets/blog20200330/20200330-github-pages-and-jekyll-on-windows-10-2.png.png)
+And if you have posts in draft, run this. Only be aware to place your posts in `<site>\_drafts\` folder without `date` and `permalink` in the front-matter.
+```PowerShell
+$> Set-Variable -name JEKYLL_ENV -value production; bundle exec jekyll serve --watch --drafts
+```
+
+[![](/assets/blog20200330/20200330-github-pages-and-jekyll-on-windows-10-2.png){:width="400"}{:style="display:block;margin:auto;"}](/assets/blog20200330/20200330-github-pages-and-jekyll-on-windows-10-2.png)
