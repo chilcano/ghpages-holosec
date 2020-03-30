@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Building a Social eCommerce solution | Holistic Security</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Building a Social eCommerce solution" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I’d like to explain our recent experience gained in a project of eCommerce. Now more than ever the need to sell and generate business is an important point, the strategy of building the eCommerce solution and their viability is closely linked to these business needs. For these reasons, I will explain how to approach this project from a technological point of view and its direct relation to requirements. Social eCommerce Architecture with opensource" />
+<meta property="og:description" content="I’d like to explain our recent experience gained in a project of eCommerce. Now more than ever the need to sell and generate business is an important point, the strategy of building the eCommerce solution and their viability is closely linked to these business needs. For these reasons, I will explain how to approach this project from a technological point of view and its direct relation to requirements. Social eCommerce Architecture with opensource" />
+<link rel="canonical" href="https://holisticsecurity.io/2013/06/25/building-social-ecommerce-solution" />
+<meta property="og:url" content="https://holisticsecurity.io/2013/06/25/building-social-ecommerce-solution" />
+<meta property="og:site_name" content="Holistic Security" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-06-25T13:22:03+02:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://holisticsecurity.io/2013/06/25/building-social-ecommerce-solution"},"url":"https://holisticsecurity.io/2013/06/25/building-social-ecommerce-solution","headline":"Building a Social eCommerce solution","dateModified":"2013-06-25T13:22:03+02:00","datePublished":"2013-06-25T13:22:03+02:00","description":"I’d like to explain our recent experience gained in a project of eCommerce. Now more than ever the need to sell and generate business is an important point, the strategy of building the eCommerce solution and their viability is closely linked to these business needs. For these reasons, I will explain how to approach this project from a technological point of view and its direct relation to requirements. Social eCommerce Architecture with opensource","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://holisticsecurity.io/feed.xml" title="Holistic Security" /><script>
+if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-156433649-1', 'auto');
+  ga('send', 'pageview');
+}
+</script>
+  
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/"><img src="/assets/img/logo-holosec.png" width="100" /> Holistic Security</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/">Home</a><a class="page-link" href="/blog/">Blog</a><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Building a Social eCommerce solution</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2013-06-25T13:22:03+02:00" itemprop="datePublished">Jun 25, 2013 
+      </time>&sim; PORTAL · SOA
+      &sim; KONAKART · LIFERAY · WSO2
+    </p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>I’d like to explain our recent experience gained in a project of eCommerce.
+Now more than ever the need to sell and generate business is an important point, the strategy of building the eCommerce solution and their viability is closely linked to these business needs.
+For these reasons, I will explain how to approach this project from a technological point of view and its direct relation to requirements.</p>
+
+<p><a href="https://dl.dropboxusercontent.com/u/2961879/blog20130625_social_ecommerce/social-ecomm-01-architecture.png"><img src="/assets/social-ecomm-01-architecture.png" alt="Social eCommerce Architecture with opensource" /></a><em>Social eCommerce Architecture with opensource</em></p>
+
+<!-- more -->
+
+<p>The requirements of this project were:</p>
+<ul>
+  <li>Time to market.</li>
+  <li>Should be possible to have a store quickly to sell, remembering that in the short term can be adding more and better features.</li>
+  <li>Robust platform.</li>
+  <li>That technically is aligned to market technology trends and be able to support large transaction volumes.</li>
+  <li>Customizable and Extendible.</li>
+  <li>This requirement made ​​our list of technology products to be reduced. It is true that there are very mature products on the internet, however many of them are closed and final products which is very difficult to customize and add new features, and many of them are not designed for it.</li>
+  <li>Web 2.0.</li>
+  <li>Again, there are very good e-commerce products but do not have web 2.0 features and vice versa. In this case, a combination of these was the alternative.
+Given these customer requirements, we add our own requirements:</li>
+  <li>Rapid Application Development.</li>
+  <li>The product or products that we use to build eCommerce solution are prepared to be modified or to extend its functionality from programming tools. This is always necessary in any project, we must ensure that we have the appropriate development tools to shorten construction cycles.</li>
+  <li>Decoupled.</li>
+  <li>One of the paradigms in design and application architecture is “loosely coupled design”, ie the components of the application have not “knowledge” of the other components, to achieve this is usually used “interfaces” of integration. In other words, no matter how technologically is implemented each of the components, and the integration between the components is made ​​via interfaces.</li>
+</ul>
+
+<p><strong>Proposed architecture</strong></p>
+
+<p>We believe that at the front-end the best product we can use is Liferay Portal, while in the back-end, ie the e-commerce engine, is KonaKart.
+Liferay allows us to quickly build Web Portals with social capabilities. In addition there is plenty of technical information on programming, development support tools, frameworks, bibliography and an active community.
+While KonaKart implements all the functionalities related to the store, from the sale and to the management (of products, orders, stock, etc..).
+Our proposal involves take full advantage of existing functionalities of KonaKart and do not change the KonaKart core.
+The communication/integration between front-end and back-end is done via SOAP API of KonaKart, both for the store (Store Front) and the store management (Admin).
+We use Liferay’s ability to mashup and its social features such as:</p>
+<ul>
+  <li>Social Login</li>
+  <li>Document management (product sheet)</li>
+  <li>Mashup</li>
+  <li>Activity Monitoring</li>
+</ul>
+
+<p>During the initial stage of project, definition and feasibility assessment, we had to justify our proposal, here are some of them:</p>
+
+<p><strong>Why KonaKart ?</strong></p>
+
+<p>Currently there are many eCommerce projects, some 100% Free / Open Source, others using PHP technology, etc..
+KonaKart was chosen for these reasons:</p>
+<ul>
+  <li>Java, although the view of KonaKart Admin webapp is implemented in GWT.</li>
+  <li>API. For KonaKart will use the SOAP-based API, since it 100% access the functionality of the store as the administration.</li>
+  <li>Easily extensible. You can import KonaKart to Eclipse and from there extend its functionality.
+Although KonaKart StoreFront can be deployed in Liferay, our project did not require it. Our strategy was to avoid refactor the StoreFront and instead make ad-hoc development based on multiple Portlets, all consuming KonaKart API.</li>
+</ul>
+
+<p><strong>What eCommerce products were considered?</strong></p>
+
+<p>Among the products considered were all those with an API (SOAP or REST)​​, and preferably it is implemented in Java. Also be prepared to be extended.
+Among them:</p>
+<ol>
+  <li>Apache OFBiz - <a href="https://ofbiz.apache.org">https://ofbiz.apache.org</a></li>
+  <li>JadaSite - <a href="http://www.jadasite.com">http://www.jadasite.com</a></li>
+  <li>Broadleaf Commerce - <a href="http://www.broadleafcommerce.org">http://www.broadleafcommerce.org</a></li>
+  <li>Shopizer - <a href="http://www.shopizer.com">http://www.shopizer.com</a></li>
+  <li>Magento - <a href="http://www.magentocommerce.com">http://www.magentocommerce.com</a></li>
+  <li>KonaKart - <a href="http://www.konakart.com">http://www.konakart.com</a>
+Of all these options, Broadleaf and KonaKart were the best alternatives considering the requirements listed above (Time-To-Market, Extensibility and API).
+If you have other requirements and have experience in technologies such as PHP, it may be a good alternative Magento.</li>
+</ol>
+
+<p><strong>What other Portal products were considered?</strong></p>
+
+<p>In this part we had no doubt, Liferay Portal as development and integration platform is definitely the best alternative. Liferay also incorporates a CMS, Web 2.0 features and robustness.</p>
+
+<p><strong>KonaKart is Web 2.0?</strong></p>
+
+<p>KonaKart need not be Web2.0 or incorporate social features, since Liferay and portlets that we will develop have Web2.0 and social features.
+KonaKart has some Web 2.0 features, however, through Liferay social features that we require will be covered. <em>**</em></p>
+
+<p>[caption id=”” align=”alignnone” width=”462”]<a href="https://dl.dropboxusercontent.com/u/2961879/blog20130625_social_ecommerce/social-ecomm-02-konakart-liferay-wso2.png"><img src="/assets/social-ecomm-02-konakart-liferay-wso2.png" alt="Opensource products for building eCommerce platform" /></a> Opensource products for building eCommerce platform[/caption]</p>
+
+<p><strong>From Social eCommerce to Social Business</strong></p>
+
+<p>Although it was not in the project requirements, it is possible to integrate existing applications of the organization to recently created eCommerce solution. We can integrate from CRM like SugarCRM, vTiger or any ERP like SAP, etc.. All this is possible because posed architecture is based on layers, ie, the presentation layer and the service layer are completely decoupled, this allows us to register in WSO2 ESB the entire API (SOAP) of KonaKart, similarly through WSO2 ESB can fully integrate heterogeneous applications to eCommerce solution, obviously, each of them can be integrated through its service layer exposure.
+If through Liferay could incorporate social features eCommerce solution, thanks to WSO2 ESB can also incorporate social features to any organization’s internal application.</p>
+
+<p><strong>From Social eCommerce to Mobile eCommerce</strong></p>
+
+<p>In the short term we can make the jump to Mobile eCommerce, ie access to the store and buy from a mobile device. This is possible through the use of Liferay Portal.
+The choice of Liferay Portal was not only for his ability to create Agile portlets and put into production, as well as web platform quickly adaptable to terminals of reduced size as the Smartphone or Tablets.
+Thanks to Liferay Portal can create a customizable web interface to mobile terminals in a very fast using the strategy of “responsive web design”.
+In conclusion, I believe that at this time any organization can build a Social eCommerce platform that meets your needs using only opensource products, in response to the lack of solutions in the market, for example, an eCommerce platform flexible, adaptable, scalable, time to market, social, mobile, integrated with CRM / ERP existing in the organization, etc..
+Regards.</p>
+
+  </div><div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://holisticsecurity.io/2013/06/25/building-social-ecommerce-solution';
+      this.page.identifier = 'https://holisticsecurity.io/2013/06/25/building-social-ecommerce-solution';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://holosec.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript><a class="u-url" href="/2013/06/25/building-social-ecommerce-solution" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading"><img src="/assets/img/logo-holosec.png" width="40" /> Holistic Security</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Holistic Security</li><li><a class="u-email" href="mailto:blog@holisticsecurity.io">blog@holisticsecurity.io</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.linkedin.com/in/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.twitter.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">Chilcano</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Systems Thinking, Holism, Trust, Security &amp; Usability.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Apache NiFi and TLS Toolkit Ansible Roles to create a multi-node secure NiFi cluster | Holistic Security</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Apache NiFi and TLS Toolkit Ansible Roles to create a multi-node secure NiFi cluster" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I’ve created 2 Ansible Roles (chilcano.apache-nifi and chilcano.apache-nifi-toolkit) to automate the creation of a multi-node and secure NiFi cluster. The chilcano.apache-nifi Ansible Role doesn’t implement Cluster State coordination through Apache ZooKeeper, and the TLS Toolkit Standalone mode has been implemented by the chilcano.apache-nifi-toolkit Ansible Role. The purpose of this blog post is explaining how to automate the creation of 5 instances of Apache NiFi, secure and not secure." />
+<meta property="og:description" content="I’ve created 2 Ansible Roles (chilcano.apache-nifi and chilcano.apache-nifi-toolkit) to automate the creation of a multi-node and secure NiFi cluster. The chilcano.apache-nifi Ansible Role doesn’t implement Cluster State coordination through Apache ZooKeeper, and the TLS Toolkit Standalone mode has been implemented by the chilcano.apache-nifi-toolkit Ansible Role. The purpose of this blog post is explaining how to automate the creation of 5 instances of Apache NiFi, secure and not secure." />
+<link rel="canonical" href="https://holisticsecurity.io/2017/05/17/apache-nifi-and-tls-toolkit-ansible-roles-to-create-a-multi-node-secure-nifi-cluster/" />
+<meta property="og:url" content="https://holisticsecurity.io/2017/05/17/apache-nifi-and-tls-toolkit-ansible-roles-to-create-a-multi-node-secure-nifi-cluster/" />
+<meta property="og:site_name" content="Holistic Security" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-05-17T01:24:52+02:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://holisticsecurity.io/2017/05/17/apache-nifi-and-tls-toolkit-ansible-roles-to-create-a-multi-node-secure-nifi-cluster/"},"url":"https://holisticsecurity.io/2017/05/17/apache-nifi-and-tls-toolkit-ansible-roles-to-create-a-multi-node-secure-nifi-cluster/","headline":"Apache NiFi and TLS Toolkit Ansible Roles to create a multi-node secure NiFi cluster","dateModified":"2017-05-17T01:24:52+02:00","datePublished":"2017-05-17T01:24:52+02:00","description":"I’ve created 2 Ansible Roles (chilcano.apache-nifi and chilcano.apache-nifi-toolkit) to automate the creation of a multi-node and secure NiFi cluster. The chilcano.apache-nifi Ansible Role doesn’t implement Cluster State coordination through Apache ZooKeeper, and the TLS Toolkit Standalone mode has been implemented by the chilcano.apache-nifi-toolkit Ansible Role. The purpose of this blog post is explaining how to automate the creation of 5 instances of Apache NiFi, secure and not secure.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://holisticsecurity.io/feed.xml" title="Holistic Security" /><script>
+if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-156433649-1', 'auto');
+  ga('send', 'pageview');
+}
+</script>
+  
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/"><img src="/assets/img/logo-holosec.png" width="100" /> Holistic Security</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/">Home</a><a class="page-link" href="/blog/">Blog</a><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Apache NiFi and TLS Toolkit Ansible Roles to create a multi-node secure NiFi cluster</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2017-05-17T01:24:52+02:00" itemprop="datePublished">May 17, 2017 
+      </time>&sim; BIG DATA · DEVOPS · SECURITY
+      &sim; ANSIBLE · APACHE NIFI · TLS · VAGRANT
+    </p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>I’ve created 2 Ansible Roles (<a href="https://galaxy.ansible.com/chilcano/apache-nifi">chilcano.apache-nifi</a> and <a href="https://galaxy.ansible.com/chilcano/apache-nifi-toolkit">chilcano.apache-nifi-toolkit</a>) to automate the creation of a multi-node and secure NiFi cluster. The <a href="https://galaxy.ansible.com/chilcano/apache-nifi">chilcano.apache-nifi</a> Ansible Role doesn’t implement <a href="https://nifi.apache.org/docs/nifi-docs/html/administration-guide.html#state_management">Cluster State coordination</a> through Apache ZooKeeper, and the <a href="https://nifi.apache.org/docs/nifi-docs/html/administration-guide.html#tls-generation-toolkit">TLS Toolkit Standalone mode</a> has been implemented by the <a href="https://galaxy.ansible.com/chilcano/apache-nifi-toolkit">chilcano.apache-nifi-toolkit</a> Ansible Role.</p>
+
+<p><a href="/assets/blog20170517_nifi_multi_node_ansible/nifi-multi-node-ansible-automation.png" target="_blank"><img src="/assets/blog20170517_nifi_multi_node_ansible/nifi-multi-node-ansible-automation.png" alt="Automated provisioning Apache NiFi multi-node cluster with Ansible and Vagrant" width="70%" /></a></p>
+
+<p>The purpose of this blog post is explaining how to automate the creation of 5 instances of Apache NiFi, secure and not secure.</p>
+
+<!-- more -->
+
+<p>The first NiFi instance <code class="highlighter-rouge">nf1</code> will be a standalone instance running over HTTP. The second instance will will be a customized instance running over HTTPS with Client Certificate authentication. The third, fourth and fifth instances will run over HTTPS with Client Certificate authentication with configuration provided for NiFi TLS Toolkit. The configuration (key-pair, Java key stores and certificates) will be generated in other VM instance provided for <code class="highlighter-rouge">chilcano.apache-nifi-toolkit Ansible Role</code>.</p>
+
+<p><img src="/assets/blog20170517_nifi_multi_node_ansible/nifi-multi-node-toolkit-files-generated.png" alt="Apache NiFi Toolkit - folder structure and files generated" width="70%" /></p>
+
+<p>I’ve created an Ansible Playbook for you, you can download from this <a href="https://github.com/chilcano/ansible-apache-nifi-multi-nodes">Git repository</a>.</p>
+
+<h2 id="how-to-use-it---steps">How to use it - steps</h2>
+
+<p><strong>1. Clone the Ansible playbooks</strong></p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git clone https://github.com/chilcano/ansible-apache-nifi-multi-nodes  
+</code></pre></div></div>
+
+<p><strong>2. Install <code class="highlighter-rouge">chilcano.apache-nifi</code>and <code class="highlighter-rouge">chilcano.apache-nifi-toolkit</code> Ansible Roles</strong></p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd </span>ansible-apache-nifi-multi-nodes  
+<span class="nv">$ </span>ansible-galaxy <span class="nb">install</span> <span class="nt">-r</span> playbooks/requirements.yml  
+</code></pre></div></div>
+
+<p><strong>3. Create all VMs with Vagrant</strong></p>
+
+<p>Create all 6 VMs by using Vagrant.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd </span>infra/Vagrant  
+<span class="nv">$ </span>vagrant up  
+</code></pre></div></div>
+
+<p><strong>4. Ansible provisioning with Vagrant</strong></p>
+
+<p>Now, I’m going to provision (run Ansible Playbooks) through Vagrant. This step will install Apache NiFi TLS Toolkit in the <code class="highlighter-rouge">nftk1</code> VM, once provisioned, Vagrant will provision 5 VMs following the Ansible Playbook <code class="highlighter-rouge">playbooks/main.yml</code>. It is very important to start the provision of all NiFi instances after provisioning <code class="highlighter-rouge">nftk1</code>. In the <code class="highlighter-rouge">playbooks/main.yml</code> you will see the <code class="highlighter-rouge">nftk1</code> is declared on top and after <code class="highlighter-rouge">nf1, nf2, nf3, nf4</code> and <code class="highlighter-rouge">nf5</code>.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>vagrant provision
+<span class="nv">$ </span>vagrant status  
+Current machine states:
+nftk1 running <span class="o">(</span>virtualbox<span class="o">)</span>  
+nf5 running <span class="o">(</span>virtualbox<span class="o">)</span>  
+nf4 running <span class="o">(</span>virtualbox<span class="o">)</span>  
+nf3 running <span class="o">(</span>virtualbox<span class="o">)</span>  
+nf2 running <span class="o">(</span>virtualbox<span class="o">)</span>  
+nf1 running <span class="o">(</span>virtualbox<span class="o">)</span>
+This environment represents multiple VMs. The VMs are all listed  
+above with their current state. For more information about a specific  
+VM, run <span class="sb">`</span>vagrant status NAME<span class="sb">`</span><span class="nb">.</span>  
+</code></pre></div></div>
+
+<p>Now we can verify if all instances are running as expected, before we have to install the <code class="highlighter-rouge">Client Certificate</code> ( <em>CN=chilcano_OU=INTIX.p12</em> ) generated in our browser.</p>
+
+<p><img src="/assets/blog20170517_nifi_multi_node_ansible/nifi-multi-node-client-cert-1install.png" alt="Install the Client Certificate" width="70%" /></p>
+
+<p>The <code class="highlighter-rouge">Client Certificate</code> only is required when connecting to <code class="highlighter-rouge">nf2, nf3, nf4</code> and <code class="highlighter-rouge">nf5</code> because these instances are running over HTTPS with Mutual SSL/TLS Authentication (based on Client Certificate).</p>
+
+<p><img src="/assets/blog20170517_nifi_multi_node_ansible/nifi-multi-node-client-cert-1select.png" alt="Select the Client Certificate" width="50%" /></p>
+
+<p>Open the URL (<code class="highlighter-rouge">http://nf1:8080/nifi</code>, <code class="highlighter-rouge">http://nf2:9443/nifi</code>, <code class="highlighter-rouge">http://nf3:9443/nifi</code>, <code class="highlighter-rouge">http://nf4:9443/nifi</code> and <code class="highlighter-rouge">http://nf5:9443/nifi</code>) from Firefox. Instead of hostname you can use the IP address (see <code class="highlighter-rouge">inventory</code> file).</p>
+
+<p><img src="/assets/blog20170517_nifi_multi_node_ansible/nifi-multi-node-browser-all.png" alt="Open NiFi from Firefox" width="100%" /></p>
+
+<h2 id="todo">ToDo</h2>
+<ol>
+  <li>Improve the Ansible Role <code class="highlighter-rouge">chilcano.apache-nifi</code> to implement Cluster Status coordination through <code class="highlighter-rouge">Apache ZooKeeper</code>.</li>
+  <li>Improve the Ansible Role <code class="highlighter-rouge">chilcano.apache-nifi-toolkit</code> to implement Client/Server mode.</li>
+  <li>Deploy a sample DataFlow in NiFi.</li>
+</ol>
+
+<p>End.</p>
+
+  </div><div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://holisticsecurity.io/2017/05/17/apache-nifi-and-tls-toolkit-ansible-roles-to-create-a-multi-node-secure-nifi-cluster/';
+      this.page.identifier = 'https://holisticsecurity.io/2017/05/17/apache-nifi-and-tls-toolkit-ansible-roles-to-create-a-multi-node-secure-nifi-cluster/';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://holosec.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript><a class="u-url" href="/2017/05/17/apache-nifi-and-tls-toolkit-ansible-roles-to-create-a-multi-node-secure-nifi-cluster/" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading"><img src="/assets/img/logo-holosec.png" width="40" /> Holistic Security</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Holistic Security</li><li><a class="u-email" href="mailto:blog@holisticsecurity.io">blog@holisticsecurity.io</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.linkedin.com/in/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.twitter.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">Chilcano</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Systems Thinking, Holism, Trust, Security &amp; Usability.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,164 @@
+Building Alfresco from scratch
+
+
+This article show us how to build Alfresco from scratch which is useful when extending or bug fixing.
+
+<h2>Requisites:</h2>
+
+1. Windows XP
+2. Java/JDK 1.6.0_21 (http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+3. Eclipse EE Helios SR2 (http://www.eclipse.org/downloads/packages/eclipse-ide-java-ee-developers/heliossr2)
+4. Subversion plugin for Eclipse (downloaded from Eclipse Marketplace)
+5. Apache Tomcat 6.0.32 (http://tomcat.apache.org/download-60.cgi)
+6. MySQL (XAMPP - http://www.apachefriends.org/en/xampp-windows.html)
+7. ImageMagick ﻿6.7.0-Q16 (http://www.imagemagick.org/script/binary-releases.php#windows)
+8. SWFTools 0.9.1 (http://www.swftools.org/download.html)
+9. OpenOffice 3.2 (http://download.openoffice.org/index.html)
+10. Alfresco source code downloaded from SVN
+
+
+<h2>Setup development environment:</h2>
+
+<h3>JDK </h3>
+
+1. Install JDK and set two system variables (JAVA_HOME and PATH):
+
+JAVA_HOME=C:\1bpms-demo\jdk160_21
+PATH=%PATH%;%JAVA_HOME%\bin
+
+<h3>Apache Tomcat </h3>
+
+
+1. Install/Unzip Apache Tomcat in the folder above, for example:
+﻿C:\1bpms-demo\alfresco_scratch\tomcat-6.0.32_app
+
+
+2. Create setenv.bat in ﻿C:\1bpms-demo\alfresco_scratch\tomcat-6.0.32_app\bin file with the following content:
+
+set JAVA_OPTS=-Xms256m -Xmx1024m -Xss96k -XX:MaxPermSize=256m -server
+set JAVA_OPTS=%JAVA_OPTS%    
+
+
+<h3>Eclipse </h3>
+
+1. Unzip Eclipse into C:\1bpms-demo\eclipse-jee-helios-SR2
+
+2. Open Eclipse and install Subclipse plugin from Eclipse Marketplace.
+
+
+3. Create a folder where will download and build the Alfresco source code, for example﻿C:\1bpms-demo\alfresco_scratch
+
+4. Switch to "SVN Repository Exploring" perspective. 
+Create a new SVN repository location, enter svn://svn.alfresco.com as the URL, then click on "alfresco" folder and do checkout as project in the workspace.
+
+5. Create a ANT project. 
+
+- Select New > Project in the Eclipse toolbar. Under "General" choose "Project".
+- Right-click the project and choose New > File
+- When the new file dialog box appears click the Advanced button and select "Link to file in the file system".
+- Browse to the build.xml file located in the HEAD\root directory.
+
+12. Configure ANT runtime in Eclipse. Go to Window > Preferences > Ant > Runtime > Properties and add 3 properties:
+
+﻿env.APP_TOMCAT_HOME=C:\1bpms-demo\alfresco_scratch\tomcat-6.0.32_app
+﻿env.TOMCAT_HOME=C:\1bpms-demo\alfresco_scratch\tomcat-6.0.32_app
+﻿env.VIRTUAL_TOMCAT_HOME=C:\1bpms-demo\alfresco_scratch\tomcat-6.0.32_virtual
+
+In my case, env.VIRTUAL_TOMCAT_HOME is an empty folder.
+
+
+<h3>MySQL, OpenOffice, SWFTools, ImageMagick </h3>
+
+
+7. Install/Unzip MySQL (XAMPP) and create an empty database, for example:
+
+create database alfresco;
+grant all on alfresco.* to alfresco@localhost identified by 'alfresco';
+grant all on alfresco.* to alfresco@localhost.localdomain identified by 'alfresco';
+
+8. Install ImageMagick and SWFTools. Make sure you both exist in PATH system variable and you can run them from any place.
+
+9. Install OpenOffice and make sure you can run it from any place.
+
+
+
+
+13. Setup the Windows NetBios DLLs for CIFS Server:
+Copy Win32Utils.dll and Win32NetBIOS.dll placed in (C:\2workspace\alfresco20110615\HEAD\root\projects\alfresco-jlan\jni) to the env.TOMCAT_HOME/bin folder.
+
+
+14. In Eclipse add a new server instance from "C:\1bpms-demo\alfresco_scratch\tomcat-6.0.32_app". 
+Edit launch configuration properties of this server adding new VM arguments as:
+
+-Dcatalina.base="C:\1bpms-demo\alfresco_scratch\tomcat-6.0.32_app" 
+-Dcatalina.home="C:\1bpms-demo\alfresco_scratch\tomcat-6.0.32_app" 
+-Dwtp.deploy="C:\1bpms-demo\alfresco_scratch\tomcat-6.0.32_app\webapps" 
+-Djava.endorsed.dirs="C:\1bpms-demo\alfresco_scratch\tomcat-6.0.32_app\endorsed" 
+-Xms256m -Xmx1024m -Xss96k -XX:MaxPermSize=256m -server 
+-Djava.library.path="C:\1bpms-demo\alfresco_scratch\tomcat-6.0.32_app\bin"
+
+15. Create the file alfresco-global.properties﻿in C:\1bpms-demo\alfresco_scratch\tomcat-6.0.32_app\shared\classes with the following content:
+
+
+dir.root=C:/1bpms-demo/alfresco_scratch/tomcat-6.0.32_app/alf_data
+
+web.application.context.url=http://127.0.0.1:8080/alfresco
+
+### database connection properties ###
+db.driver=org.gjt.mm.mysql.Driver
+db.username=root
+db.password=
+db.name=alfresco
+db.url=jdbc:mysql://localhost/alfresco
+
+### External executable locations ###
+ooo.exe=C:/1bpms-demo/openoffice-3.2/App/openoffice/program/soffice.exe
+ooo.enabled=false
+img.root=C:/1bpms-demo/ImageMagick-6.7.0-Q16
+img.dyn=${img.root}/lib
+img.exe=${img.root}/convert
+swf.exe=C:/1bpms-demo/swftools0.9.1/pdf2swf.exe
+jodconverter.enabled=true 
+jodconverter.officeHome=C:/1bpms-demo/openoffice-3.2/App/openoffice 
+jodconverter.portNumbers=8101 
+
+
+16. Copy mysql-connector-java-5.1.13-bin.jar to ﻿C:\1bpms-demo\alfresco_scratch\tomcat-6.0.32_app\lib
+
+17. Modify shared.leader property of the catalina.properties file with followinf value:
+
+﻿shared.loader=${catalina.base}/shared/classes,${catalina.base}/shared/lib/*.jar
+
+
+<h2>Building:</h2>
+
+All targets for building Alfresco are within build.xml. 
+You can use ant -projecthelp to see all the available options. Here are a few of the common commands:
+
+ant build-tomcat	builds and deploys Alfresco for Tomcat
+ant incremental-tomcat	incrementally builds and deploys Alfresco for Tomcat
+ant start-tomcat-application	executes the Tomcat start up script
+ant build-jboss	builds and deploys Alfresco for JBoss
+ant incremental-jboss	incrementally builds and deploys Alfresco for JBoss
+ant start-jboss	executes the JBoss start up script
+ant test	runs unit tests for the entire project
+
+
+1. Run target "build-tomcat" from Eclipse.
+
+2. Eclipse will create alfresco.war and share.war, they will be copied to webapps folder. 
+
+3. Now, Alfresco now ready to be deployed first.
+
+
+<h2>Launch Tomcat/Alfresco </h2>
+
+1. Run Tomcat instance from Eclipse or running from C:\1bpms-demo\alfresco_scratch\tomcat-6.0.32_app\bin\startup.bat. Make sure MySQL is running.
+
+Alfresco database schema will be created and you will see all log of activity in the console.
+
+<h2>Test Alfresco</h2>
+
+Open a browser and go to http://localhost:8080/alfresco or http://localhost:8080/share and enter admin/admin as user/password.
+
+END.

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Migrating WordPress.com’s blog to GitHub Pages with Jekyll - Part 1 | Holistic Security</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Migrating WordPress.com’s blog to GitHub Pages with Jekyll - Part 1" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I would like to share my experience migrating my blog site hosted in WordPress.com to GitHub Pages in 2 parts. In this blog post (Part 1) I will explain how to use Jekyll to export/import, how to configure GitHub Page site to host a fully blog as a headless Content Management System (CMS) based on Ruby. In the next blog post (Part 2) I will explain how to manage the look&amp;feel, layouts, etc." />
+<meta property="og:description" content="I would like to share my experience migrating my blog site hosted in WordPress.com to GitHub Pages in 2 parts. In this blog post (Part 1) I will explain how to use Jekyll to export/import, how to configure GitHub Page site to host a fully blog as a headless Content Management System (CMS) based on Ruby. In the next blog post (Part 2) I will explain how to manage the look&amp;feel, layouts, etc." />
+<link rel="canonical" href="https://holisticsecurity.io/2019/10/14/migrating-wordpress-com-blog-to-github-pages-with-jekyll-part1" />
+<meta property="og:url" content="https://holisticsecurity.io/2019/10/14/migrating-wordpress-com-blog-to-github-pages-with-jekyll-part1" />
+<meta property="og:site_name" content="Holistic Security" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-10-14T15:58:00+02:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://holisticsecurity.io/2019/10/14/migrating-wordpress-com-blog-to-github-pages-with-jekyll-part1"},"url":"https://holisticsecurity.io/2019/10/14/migrating-wordpress-com-blog-to-github-pages-with-jekyll-part1","headline":"Migrating WordPress.com’s blog to GitHub Pages with Jekyll - Part 1","dateModified":"2019-10-14T15:58:00+02:00","datePublished":"2019-10-14T15:58:00+02:00","description":"I would like to share my experience migrating my blog site hosted in WordPress.com to GitHub Pages in 2 parts. In this blog post (Part 1) I will explain how to use Jekyll to export/import, how to configure GitHub Page site to host a fully blog as a headless Content Management System (CMS) based on Ruby. In the next blog post (Part 2) I will explain how to manage the look&amp;feel, layouts, etc.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://holisticsecurity.io/feed.xml" title="Holistic Security" /><script>
+if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-156433649-1', 'auto');
+  ga('send', 'pageview');
+}
+</script>
+  
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/"><img src="/assets/img/logo-holosec.png" width="100" /> Holistic Security</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/">Home</a><a class="page-link" href="/blog/">Blog</a><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Migrating WordPress.com&#39;s blog to GitHub Pages with Jekyll - Part 1</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2019-10-14T15:58:00+02:00" itemprop="datePublished">Oct 14, 2019 
+      </time>&sim; MISC · CMS
+      &sim; GITHUB · WORDPRESS · JEKYLL · MIGRATION · PYTHON
+    </p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>I would like to share my experience migrating my blog site hosted in WordPress.com to GitHub Pages in 2 parts.
+In this blog post (Part 1) I will explain how to use Jekyll to export/import, how to configure GitHub Page site to host a fully blog as a headless Content Management System (CMS) based on Ruby. 
+In the next blog post (Part 2) I will explain how to manage the look&amp;feel, layouts, etc.
+<img src="/assets/img/2019-10-14-blog-migration-wp-github.png" alt="Migrating WordPress.com's blog to GitHub Pages by using Jekyll" width="400" /></p>
+
+<!-- more -->
+
+<h2 id="create-a-github-pages-repository">Create a GitHub Pages repository</h2>
+
+<p>I created an empty GitHub repository, in my case is <a href="https://github.com/chilcano/ghpages-holosec"><code class="highlighter-rouge">ghpages-holosec</code></a>, to host my migrated WordPress.com’s blog, then I followed the <a href="https://pages.github.com">https://pages.github.com</a> guide and configured it as <code class="highlighter-rouge">Project site</code>, no as <code class="highlighter-rouge">User or organization site</code> since my GitHub Account will host multiple Sites with different custom Domain Names.</p>
+
+<p>Once completed, you should configure your DNS records in your DNS Provider, in my case it is Gandi.Net and used the above <a href="https://gist.github.com/matt-bailey/bbbc181d5234c618e4dfe0642ad80297">Matt Bailey’s good guide</a>. You have to consider that making these changes and their propagation across DNS and GitHub will take around 24 hours.</p>
+
+<p>How to set up DNS records on gandi.net to use a custom domain on Github Pages
+<script src="https://gist.github.com/matt-bailey/bbbc181d5234c618e4dfe0642ad80297.js"></script></p>
+
+<h2 id="install-ruby-on-ubuntu">Install Ruby on Ubuntu</h2>
+
+<p>This step must be executed once in the computer.
+First of all, install Ruby.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>apt-get <span class="nb">install </span>ruby-full build-essential zlib1g-dev
+</code></pre></div></div>
+
+<p>Now, configure Ruby for my Linux’s user.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">echo</span> <span class="s1">'# Install Ruby Gems to ~/gems'</span> <span class="o">&gt;&gt;</span> ~/.bashrc
+<span class="nv">$ </span><span class="nb">echo</span> <span class="s1">'export GEM_HOME="$HOME/gems"'</span> <span class="o">&gt;&gt;</span> ~/.bashrc
+<span class="nv">$ </span><span class="nb">echo</span> <span class="s1">'export PATH="$HOME/gems/bin:$PATH"'</span> <span class="o">&gt;&gt;</span> ~/.bashrc
+<span class="nv">$ </span><span class="nb">source</span> ~/.bashrc
+
+<span class="nv">$ </span>gem <span class="nb">install </span>bundler
+</code></pre></div></div>
+
+<h2 id="install-jekyll-with-bundler">Install Jekyll with Bundler</h2>
+
+<p>This step and next ones must be executed per website or ruby project. In this point your configured custom DNS should be working.
+I will download my empty created GitHub Page repository into <code class="highlighter-rouge">~/git-repos/ghpages-holosec/</code> directory.</p>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git clone https://github.com/chilcano/ghpages-holosec ~/git-repos/ghpages-holosec/
+</code></pre></div></div>
+
+<p>But if you haven’t created any GitHub Page repository, you can create it in your computer and after push it to GitHub.</p>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">mkdir</span> ~/git-repos/ghpages-holosec/
+</code></pre></div></div>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd</span> ~/git-repos/ghpages-holosec/
+<span class="nv">$ </span>bundle init
+<span class="nv">$ </span>bundle <span class="nb">install</span> <span class="nt">--path</span> vendor/bundle
+<span class="nv">$ </span>bundle add jekyll	// this installs jekyll and update Gemfile
+</code></pre></div></div>
+
+<h2 id="create-a-jekyll-scaffold">Create a Jekyll scaffold</h2>
+
+<p>Once Jekyll is installed, we can use it to create the scaffolding for our site. We need the <code class="highlighter-rouge">--force</code> parameter because our folder isn’t empty, there are some Bundler files in it.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>bundle <span class="nb">exec </span>jekyll new <span class="nt">--force</span> <span class="nt">--skip-bundle</span> <span class="nb">.</span>
+<span class="nv">$ </span>bundle <span class="nb">install</span>
+</code></pre></div></div>
+
+<h2 id="serving-the-site-for-first-time">Serving the site for first time</h2>
+
+<p>I updated the generated <code class="highlighter-rouge">_config.yml</code> file with information about <code class="highlighter-rouge">baseurl</code>, <code class="highlighter-rouge">title</code>, <code class="highlighter-rouge">email</code>, etc.
+Yes, I’ll tweak the <code class="highlighter-rouge">_config.yml</code> file to apply new design later.
+Now, you will see only <code class="highlighter-rouge">Welcome to Jekyll!</code> sample post.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>bundle <span class="nb">exec </span>jekyll serve
+</code></pre></div></div>
+
+<h2 id="importing-a-wordpresscoms-blog-into-github-pages-site">Importing a WordPress.com’s blog into GitHub Pages site</h2>
+
+<p>Go to <code class="highlighter-rouge">https://your-user-name.wordpress.com/wp-admin/export.php</code> and export your blog’s content into a XML, place the xml file in <code class="highlighter-rouge">~/git-repos/ghpages-holosec/wp_export/</code>, once completed, execute <code class="highlighter-rouge">jekyll-import</code> to convert WordPress’ XML format into GitHub’s MarkDown format.</p>
+
+<p>Install jekyll-import and its dependencies.</p>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>bundle add jekyll-import hpricot open_uri_redirections
+</code></pre></div></div>
+
+<p>Convert wordpress’ blog to Jekyll format.</p>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>bundle <span class="nb">exec </span>ruby <span class="nt">-r</span> rubygems <span class="nt">-e</span> <span class="s1">'require "jekyll-import";
+    JekyllImport::Importers::WordpressDotCom.run({
+      "source" =&gt; "wp_export/holisticsecurity.WordPress.2019-11-07.xml",
+      "no_fetch_images" =&gt; false,
+      "assets_folder" =&gt; "assets"
+    })'</span>
+</code></pre></div></div>
+
+<h2 id="serving-the-site-again">Serving the site again</h2>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>bundle <span class="nb">exec </span>jekyll serve
+</code></pre></div></div>
+
+<p>If you are using Google Analytics plugin configured, you can try this:</p>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ JEKYLL_ENV</span><span class="o">=</span>production bundle <span class="nb">exec </span>jekyll serve <span class="nt">--incremental</span> <span class="nt">--watch</span>
+</code></pre></div></div>
+
+<p>You will see that all posts were imported.
+<img src="/assets/img/2019-10-14-wp-to-github-holosec-1st.png" alt="Holistic Security About page" /></p>
+
+<h2 id="references">References</h2>
+
+<ul>
+  <li><a href="https://jekyllrb.com/docs/installation/ubuntu/">Jekyll, Installation on Ubuntu</a></li>
+  <li><a href="https://jekyllrb.com/tutorials/using-jekyll-with-bundler/">Jekyll, Using with Bundler</a></li>
+  <li><a href="https://import.jekyllrb.com/docs/installation/">Jekyll, Using the Importers Gems</a></li>
+  <li><a href="https://import.jekyllrb.com/docs/wordpressdotcom/">WordPress.com Jekyll Importer</a></li>
+</ul>
+
+
+  </div><div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://holisticsecurity.io/2019/10/14/migrating-wordpress-com-blog-to-github-pages-with-jekyll-part1';
+      this.page.identifier = 'https://holisticsecurity.io/2019/10/14/migrating-wordpress-com-blog-to-github-pages-with-jekyll-part1';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://holosec.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript><a class="u-url" href="/2019/10/14/migrating-wordpress-com-blog-to-github-pages-with-jekyll-part1" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading"><img src="/assets/img/logo-holosec.png" width="40" /> Holistic Security</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Holistic Security</li><li><a class="u-email" href="mailto:blog@holisticsecurity.io">blog@holisticsecurity.io</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.linkedin.com/in/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.twitter.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">Chilcano</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Systems Thinking, Holism, Trust, Security &amp; Usability.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

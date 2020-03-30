@@ -1,0 +1,157 @@
+PROXY APACHE TO APACHE
+======================
+
+
+kns.konosys.es -> 176.9.30.36:80
+
+lfry2 -> 10.10.10.12:8080 ctx=/kns
+
+kns-lamp1.knsdomain.local -> 10.10.10.13:80
+
+
+
+
+0. Install Apache modules:
+
+
+root@kns /etc/apache2 # apt-get install apache2.2-common
+
+0. Enable Apache modules (mod_proxy):
+
+
+root@kns /etc/apache2 # /etc/init.d/apache2 reload
+Syntax error on line 3 of /etc/apache2/sites-enabled/kns-lamp1-miki.conf:
+Invalid command 'ProxyPass', perhaps misspelled or defined by a module not included in the server configuration
+Action 'configtest' failed.
+The Apache error log may have more information.
+ failed!
+
+If you get an error as above, then enable module mod_proxy:
+
+root@kns /etc/apache2 # a2enmod proxy
+
+
+0. Enable Apache modules (mod_proxy_http):
+
+----
+[warn] proxy: No protocol handler was valid for the URL /. If you are using a DSO version of mod_proxy, make sure the proxy submodules are included in the configuration using LoadModule.
+----
+If you get an error as above, then enable module mod_proxy_http
+
+root@kns /etc/apache2 # a2enmod proxy_http
+
+
+1. Create file in /etc/apache2/sites-available/kns-lamp1-miki.conf 
+
+
+root@kns ~ # nano /etc/apache2/sites-available/kns-lamp1-miki.conf
+
+<VirtualHost *:8013>
+  #ServerName lamp1.intix.info
+  ServerName www.konosys.es
+  ProxyRequests Off
+  #ProxyPreserveHost On
+  ProxyPass / http://10.10.10.13/
+  ProxyPassReverse / http://10.10.10.13/
+
+  # Logfiles
+  ErrorLog  /root/knsapache2/kns-lamp1-miki/logs/error.log
+  CustomLog /root/knsapache2/kns-lamp1-miki/logs/access.log combined 
+</VirtualHost>
+
+2. Add new ports for this virtual host
+
+nano /etc/apache2/ports.conf
+
+---
+NameVirtualHost *:80
+Listen 80
+
+#konosys: new port 8080 for pve web
+#NameVirtualHost *.8080
+#Listen 8080
+
+#kns-lamp1-miki
+NameVirtualHost *:8013
+Listen 8013
+
+<IfModule mod_ssl.c>
+    Listen 8443
+</IfModule>
+
+<IfModule mod_gnutls.c>
+    Listen 8443
+</IfModule>
+----
+
+
+3. Enable new site (virtual host)
+
+root@kns ~ # a2ensite kns-lamp1-miki.conf
+Enabling site kns-lamp1-miki.conf.
+Run '/etc/init.d/apache2 reload' to activate new configuration!
+
+4. /etc/init.d/apache2 reload
+
+5. Check logs here:
+
+root@kns /etc/apache2 # tail -f /root/knsapache2/kns-lamp1-miki/logs/error.log 
+
+
+----
+[Tue Feb 07 11:17:11 2012] [error] (113)No route to host: proxy: HTTP: attempt to connect to 10.10.10.13:80 (10.10.10.13) failed
+[Tue Feb 07 11:17:11 2012] [error] ap_proxy_connect_backend disabling worker for (10.10.10.13)
+[Tue Feb 07 11:17:11 2012] [error] proxy: HTTP: disabled connection for (10.10.10.13)
+----
+
+If you have the above error, that is because the firewall of remote host (kns-lamp1) is rejecting incoming connections, to solve this do following in remote host (kns-lamp1):
+
+**** Check iptables rules in destination host, in this case is 10.10.10.13 with port 80
+
+[root@kns-lamp1 ~]# iptables -L --line-numbers
+Chain INPUT (policy ACCEPT)
+num  target     prot opt source               destination         
+1    ACCEPT     all  --  anywhere             anywhere            state RELATED,ESTABLISHED 
+2    ACCEPT     icmp --  anywhere             anywhere            
+3    ACCEPT     all  --  anywhere             anywhere            
+4    ACCEPT     tcp  --  anywhere             anywhere            state NEW tcp dpt:ssh 
+5    ACCEPT     tcp  --  anywhere             anywhere            tcp dpt:8009 
+6    REJECT     all  --  anywhere             anywhere            reject-with icmp-host-prohibited 
+
+Chain FORWARD (policy ACCEPT)
+num  target     prot opt source               destination         
+1    REJECT     all  --  anywhere             anywhere            reject-with icmp-host-prohibited 
+
+Chain OUTPUT (policy ACCEPT)
+num  target     prot opt source               destination         
+
+**** Add iptables rule in INPUT table, row 6:
+
+[root@kns-lamp1 ~]# iptables -I INPUT 6 -p tcp -s 10.10.10.1 --dport 80 -j ACCEPT
+
+**** Again, to check iptables:
+
+[root@kns-lamp1 ~]# iptables -L --line-numbers
+Chain INPUT (policy ACCEPT)
+num  target     prot opt source               destination         
+1    ACCEPT     all  --  anywhere             anywhere            state RELATED,ESTABLISHED 
+2    ACCEPT     icmp --  anywhere             anywhere            
+3    ACCEPT     all  --  anywhere             anywhere            
+4    ACCEPT     tcp  --  anywhere             anywhere            state NEW tcp dpt:ssh 
+5    ACCEPT     tcp  --  anywhere             anywhere            tcp dpt:8009 
+6    ACCEPT     tcp  --  10.10.10.1           anywhere            tcp dpt:http 
+7    REJECT     all  --  anywhere             anywhere            reject-with icmp-host-prohibited 
+
+Chain FORWARD (policy ACCEPT)
+num  target     prot opt source               destination         
+1    REJECT     all  --  anywhere             anywhere            reject-with icmp-host-prohibited 
+
+Chain OUTPUT (policy ACCEPT)
+num  target     prot opt source               destination         
+
+
+*** TIP: Delete iptables rule:
+
+[root@kns-lamp1 ~]# iptables -D INPUT 7
+
+this deletes rule number 7 of table INPUT.

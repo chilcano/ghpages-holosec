@@ -1,0 +1,216 @@
+digraph {
+	compound = "true"
+	newrank = "true"
+	rankdir=LR;
+	graph [	fontname = "Helvetica-Oblique",
+		fontsize = 36,
+		label = "\n\n\n\nAffordable K8s Data Plane on AWS\nHolisticSecurity.io, 2020/01/16",
+		size = "12,12" ];
+		node [	shape = polygon,
+		sides = 4,
+		distortion = "0.0",
+		orientation = "0.0",
+		skew = "0.0",
+		color = "#c9c9c9",
+		style = filled,
+		fontname = "Helvetica-Outline" ];
+	subgraph "root" {
+		"[root] aws_autoscaling_group.worker" [label = "aws_autoscaling_group.worker", shape = "box"]
+		"[root] aws_iam_instance_profile.profile" [label = "aws_iam_instance_profile.profile", shape = "box"]
+		"[root] aws_iam_policy.autoscaling" [label = "aws_iam_policy.autoscaling", shape = "box"]
+		"[root] aws_iam_policy.cluster-policy" [label = "aws_iam_policy.cluster-policy", shape = "box"]
+		"[root] aws_iam_policy.route53-policy" [label = "aws_iam_policy.route53-policy", shape = "box"]
+		"[root] aws_iam_policy.s3-bucket-policy" [label = "aws_iam_policy.s3-bucket-policy", shape = "box"]
+		"[root] aws_iam_role.role" [label = "aws_iam_role.role", shape = "box"]
+		"[root] aws_iam_role_policy_attachment.autoscaling" [label = "aws_iam_role_policy_attachment.autoscaling", shape = "box"]
+		"[root] aws_iam_role_policy_attachment.cluster-policy" [label = "aws_iam_role_policy_attachment.cluster-policy", shape = "box"]
+		"[root] aws_iam_role_policy_attachment.policy" [label = "aws_iam_role_policy_attachment.policy", shape = "box"]
+		"[root] aws_iam_role_policy_attachment.route53-policy" [label = "aws_iam_role_policy_attachment.route53-policy", shape = "box"]
+		"[root] aws_iam_role_policy_attachment.s3-bucket-policy" [label = "aws_iam_role_policy_attachment.s3-bucket-policy", shape = "box"]
+		"[root] aws_internet_gateway.gw" [label = "aws_internet_gateway.gw", shape = "box"]
+		"[root] aws_launch_template.worker" [label = "aws_launch_template.worker", shape = "box"]
+		"[root] aws_route_table.r" [label = "aws_route_table.r", shape = "box"]
+		"[root] aws_route_table_association.public" [label = "aws_route_table_association.public", shape = "box"]
+		"[root] aws_s3_bucket.s3-bucket" [label = "aws_s3_bucket.s3-bucket", shape = "box"]
+		"[root] aws_s3_bucket_object.cert-manager-issuer-manifest" [label = "aws_s3_bucket_object.cert-manager-issuer-manifest", shape = "box"]
+		"[root] aws_s3_bucket_object.cluster-autoscaler-manifest" [label = "aws_s3_bucket_object.cluster-autoscaler-manifest", shape = "box"]
+		"[root] aws_s3_bucket_object.ebs-storage-class-manifest" [label = "aws_s3_bucket_object.ebs-storage-class-manifest", shape = "box"]
+		"[root] aws_s3_bucket_object.external-dns-manifest" [label = "aws_s3_bucket_object.external-dns-manifest", shape = "box"]
+		"[root] aws_s3_bucket_object.nginx-ingress-manifest" [label = "aws_s3_bucket_object.nginx-ingress-manifest", shape = "box"]
+		"[root] aws_s3_bucket_object.nginx-ingress-nodeport-manifest" [label = "aws_s3_bucket_object.nginx-ingress-nodeport-manifest", shape = "box"]
+		"[root] aws_security_group.kubernetes" [label = "aws_security_group.kubernetes", shape = "box"]
+		"[root] aws_security_group_rule.allow_all_from_self" [label = "aws_security_group_rule.allow_all_from_self", shape = "box"]
+		"[root] aws_security_group_rule.allow_all_out" [label = "aws_security_group_rule.allow_all_out", shape = "box"]
+		"[root] aws_security_group_rule.allow_http_from_web" [label = "aws_security_group_rule.allow_http_from_web", shape = "box"]
+		"[root] aws_security_group_rule.allow_https_from_web" [label = "aws_security_group_rule.allow_https_from_web", shape = "box"]
+		"[root] aws_security_group_rule.allow_k8s_from_admin" [label = "aws_security_group_rule.allow_k8s_from_admin", shape = "box"]
+		"[root] aws_security_group_rule.allow_ssh_from_admin" [label = "aws_security_group_rule.allow_ssh_from_admin", shape = "box"]
+		"[root] aws_spot_instance_request.master" [label = "aws_spot_instance_request.master", shape = "box"]
+		"[root] aws_subnet.public" [label = "aws_subnet.public", shape = "box"]
+		"[root] aws_vpc.main" [label = "aws_vpc.main", shape = "box"]
+		"[root] data.aws_ami.latest_ami" [label = "data.aws_ami.latest_ami", shape = "box"]
+		"[root] data.template_file.cert-manager-issuer-manifest" [label = "data.template_file.cert-manager-issuer-manifest", shape = "box"]
+		"[root] data.template_file.cluster-autoscaler-manifest" [label = "data.template_file.cluster-autoscaler-manifest", shape = "box"]
+		"[root] data.template_file.master-userdata" [label = "data.template_file.master-userdata", shape = "box"]
+		"[root] data.template_file.nginx-ingress-nodeport-manifest" [label = "data.template_file.nginx-ingress-nodeport-manifest", shape = "box"]
+		"[root] data.template_file.worker-userdata" [label = "data.template_file.worker-userdata", shape = "box"]
+		"[root] provider.aws" [label = "provider.aws", shape = "diamond"]
+		"[root] provider.random" [label = "provider.random", shape = "diamond"]
+		"[root] provider.template" [label = "provider.template", shape = "diamond"]
+		"[root] random_string.k8stoken-first-part" [label = "random_string.k8stoken-first-part", shape = "box"]
+		"[root] random_string.k8stoken-second-part" [label = "random_string.k8stoken-second-part", shape = "box"]
+		"[root] aws_autoscaling_group.worker" -> "[root] aws_launch_template.worker"
+		"[root] aws_autoscaling_group.worker" -> "[root] aws_subnet.public"
+		"[root] aws_autoscaling_group.worker" -> "[root] var.max-worker-count"
+		"[root] aws_autoscaling_group.worker" -> "[root] var.min-worker-count"
+		"[root] aws_iam_instance_profile.profile" -> "[root] aws_iam_role.role"
+		"[root] aws_iam_policy.autoscaling" -> "[root] provider.aws"
+		"[root] aws_iam_policy.autoscaling" -> "[root] var.cluster-autoscaler-enabled"
+		"[root] aws_iam_policy.autoscaling" -> "[root] var.cluster-name"
+		"[root] aws_iam_policy.cluster-policy" -> "[root] provider.aws"
+		"[root] aws_iam_policy.cluster-policy" -> "[root] var.cluster-name"
+		"[root] aws_iam_policy.route53-policy" -> "[root] provider.aws"
+		"[root] aws_iam_policy.route53-policy" -> "[root] var.cluster-name"
+		"[root] aws_iam_policy.route53-policy" -> "[root] var.external-dns-enabled"
+		"[root] aws_iam_policy.s3-bucket-policy" -> "[root] aws_s3_bucket.s3-bucket"
+		"[root] aws_iam_role.role" -> "[root] provider.aws"
+		"[root] aws_iam_role.role" -> "[root] var.cluster-name"
+		"[root] aws_iam_role_policy_attachment.autoscaling" -> "[root] aws_iam_policy.autoscaling"
+		"[root] aws_iam_role_policy_attachment.autoscaling" -> "[root] aws_iam_role.role"
+		"[root] aws_iam_role_policy_attachment.cluster-policy" -> "[root] aws_iam_policy.cluster-policy"
+		"[root] aws_iam_role_policy_attachment.cluster-policy" -> "[root] aws_iam_role.role"
+		"[root] aws_iam_role_policy_attachment.policy" -> "[root] aws_iam_role.role"
+		"[root] aws_iam_role_policy_attachment.route53-policy" -> "[root] aws_iam_policy.route53-policy"
+		"[root] aws_iam_role_policy_attachment.route53-policy" -> "[root] aws_iam_role.role"
+		"[root] aws_iam_role_policy_attachment.s3-bucket-policy" -> "[root] aws_iam_policy.s3-bucket-policy"
+		"[root] aws_iam_role_policy_attachment.s3-bucket-policy" -> "[root] aws_iam_role.role"
+		"[root] aws_internet_gateway.gw" -> "[root] aws_vpc.main"
+		"[root] aws_launch_template.worker" -> "[root] aws_iam_instance_profile.profile"
+		"[root] aws_launch_template.worker" -> "[root] aws_security_group.kubernetes"
+		"[root] aws_launch_template.worker" -> "[root] data.aws_ami.latest_ami"
+		"[root] aws_launch_template.worker" -> "[root] data.template_file.worker-userdata"
+		"[root] aws_launch_template.worker" -> "[root] var.k8s-ssh-key"
+		"[root] aws_launch_template.worker" -> "[root] var.worker-instance-type"
+		"[root] aws_launch_template.worker" -> "[root] var.worker-spot-price"
+		"[root] aws_route_table.r" -> "[root] aws_internet_gateway.gw"
+		"[root] aws_route_table_association.public" -> "[root] aws_route_table.r"
+		"[root] aws_route_table_association.public" -> "[root] aws_subnet.public"
+		"[root] aws_s3_bucket.s3-bucket" -> "[root] provider.aws"
+		"[root] aws_s3_bucket.s3-bucket" -> "[root] var.cluster-name"
+		"[root] aws_s3_bucket_object.cert-manager-issuer-manifest" -> "[root] aws_s3_bucket.s3-bucket"
+		"[root] aws_s3_bucket_object.cert-manager-issuer-manifest" -> "[root] data.template_file.cert-manager-issuer-manifest"
+		"[root] aws_s3_bucket_object.cert-manager-issuer-manifest" -> "[root] var.cert-manager-enabled"
+		"[root] aws_s3_bucket_object.cluster-autoscaler-manifest" -> "[root] aws_s3_bucket.s3-bucket"
+		"[root] aws_s3_bucket_object.cluster-autoscaler-manifest" -> "[root] data.template_file.cluster-autoscaler-manifest"
+		"[root] aws_s3_bucket_object.cluster-autoscaler-manifest" -> "[root] var.cluster-autoscaler-enabled"
+		"[root] aws_s3_bucket_object.ebs-storage-class-manifest" -> "[root] aws_s3_bucket.s3-bucket"
+		"[root] aws_s3_bucket_object.external-dns-manifest" -> "[root] aws_s3_bucket.s3-bucket"
+		"[root] aws_s3_bucket_object.external-dns-manifest" -> "[root] var.external-dns-enabled"
+		"[root] aws_s3_bucket_object.nginx-ingress-manifest" -> "[root] aws_s3_bucket.s3-bucket"
+		"[root] aws_s3_bucket_object.nginx-ingress-manifest" -> "[root] var.nginx-ingress-enabled"
+		"[root] aws_s3_bucket_object.nginx-ingress-nodeport-manifest" -> "[root] aws_s3_bucket.s3-bucket"
+		"[root] aws_s3_bucket_object.nginx-ingress-nodeport-manifest" -> "[root] data.template_file.nginx-ingress-nodeport-manifest"
+		"[root] aws_security_group.kubernetes" -> "[root] aws_vpc.main"
+		"[root] aws_security_group_rule.allow_all_from_self" -> "[root] aws_security_group.kubernetes"
+		"[root] aws_security_group_rule.allow_all_out" -> "[root] aws_security_group.kubernetes"
+		"[root] aws_security_group_rule.allow_http_from_web" -> "[root] aws_security_group.kubernetes"
+		"[root] aws_security_group_rule.allow_https_from_web" -> "[root] aws_security_group.kubernetes"
+		"[root] aws_security_group_rule.allow_k8s_from_admin" -> "[root] aws_security_group.kubernetes"
+		"[root] aws_security_group_rule.allow_k8s_from_admin" -> "[root] var.admin-cidr-blocks"
+		"[root] aws_security_group_rule.allow_ssh_from_admin" -> "[root] aws_security_group.kubernetes"
+		"[root] aws_security_group_rule.allow_ssh_from_admin" -> "[root] var.admin-cidr-blocks"
+		"[root] aws_spot_instance_request.master" -> "[root] aws_iam_instance_profile.profile"
+		"[root] aws_spot_instance_request.master" -> "[root] aws_internet_gateway.gw"
+		"[root] aws_spot_instance_request.master" -> "[root] aws_security_group.kubernetes"
+		"[root] aws_spot_instance_request.master" -> "[root] aws_subnet.public"
+		"[root] aws_spot_instance_request.master" -> "[root] data.aws_ami.latest_ami"
+		"[root] aws_spot_instance_request.master" -> "[root] data.template_file.master-userdata"
+		"[root] aws_spot_instance_request.master" -> "[root] var.k8s-ssh-key"
+		"[root] aws_spot_instance_request.master" -> "[root] var.master-instance-type"
+		"[root] aws_spot_instance_request.master" -> "[root] var.master-spot-price"
+		"[root] aws_subnet.public" -> "[root] aws_vpc.main"
+		"[root] aws_subnet.public" -> "[root] var.az"
+		"[root] aws_vpc.main" -> "[root] provider.aws"
+		"[root] aws_vpc.main" -> "[root] var.cluster-name"
+		"[root] data.aws_ami.latest_ami" -> "[root] provider.aws"
+		"[root] data.template_file.cert-manager-issuer-manifest" -> "[root] provider.template"
+		"[root] data.template_file.cert-manager-issuer-manifest" -> "[root] var.cert-manager-email"
+		"[root] data.template_file.cluster-autoscaler-manifest" -> "[root] provider.template"
+		"[root] data.template_file.cluster-autoscaler-manifest" -> "[root] var.cluster-name"
+		"[root] data.template_file.cluster-autoscaler-manifest" -> "[root] var.region"
+		"[root] data.template_file.master-userdata" -> "[root] aws_s3_bucket.s3-bucket"
+		"[root] data.template_file.master-userdata" -> "[root] local.k8stoken"
+		"[root] data.template_file.master-userdata" -> "[root] provider.template"
+		"[root] data.template_file.master-userdata" -> "[root] var.backup-cron-expression"
+		"[root] data.template_file.master-userdata" -> "[root] var.backup-enabled"
+		"[root] data.template_file.master-userdata" -> "[root] var.cert-manager-enabled"
+		"[root] data.template_file.master-userdata" -> "[root] var.kubernetes-version"
+		"[root] data.template_file.nginx-ingress-nodeport-manifest" -> "[root] provider.template"
+		"[root] data.template_file.nginx-ingress-nodeport-manifest" -> "[root] var.nginx-ingress-domain"
+		"[root] data.template_file.nginx-ingress-nodeport-manifest" -> "[root] var.nginx-ingress-enabled"
+		"[root] data.template_file.worker-userdata" -> "[root] local.k8stoken"
+		"[root] data.template_file.worker-userdata" -> "[root] provider.template"
+		"[root] data.template_file.worker-userdata" -> "[root] var.kubernetes-version"
+		"[root] local.k8stoken" -> "[root] random_string.k8stoken-first-part"
+		"[root] local.k8stoken" -> "[root] random_string.k8stoken-second-part"
+		"[root] local.k8stoken" -> "[root] var.k8stoken"
+		"[root] meta.count-boundary (count boundary fixup)" -> "[root] aws_autoscaling_group.worker"
+		"[root] meta.count-boundary (count boundary fixup)" -> "[root] aws_iam_role_policy_attachment.autoscaling"
+		"[root] meta.count-boundary (count boundary fixup)" -> "[root] aws_iam_role_policy_attachment.cluster-policy"
+		"[root] meta.count-boundary (count boundary fixup)" -> "[root] aws_iam_role_policy_attachment.policy"
+		"[root] meta.count-boundary (count boundary fixup)" -> "[root] aws_iam_role_policy_attachment.route53-policy"
+		"[root] meta.count-boundary (count boundary fixup)" -> "[root] aws_iam_role_policy_attachment.s3-bucket-policy"
+		"[root] meta.count-boundary (count boundary fixup)" -> "[root] aws_route_table_association.public"
+		"[root] meta.count-boundary (count boundary fixup)" -> "[root] aws_s3_bucket_object.cert-manager-issuer-manifest"
+		"[root] meta.count-boundary (count boundary fixup)" -> "[root] aws_s3_bucket_object.cluster-autoscaler-manifest"
+		"[root] meta.count-boundary (count boundary fixup)" -> "[root] aws_s3_bucket_object.ebs-storage-class-manifest"
+		"[root] meta.count-boundary (count boundary fixup)" -> "[root] aws_s3_bucket_object.external-dns-manifest"
+		"[root] meta.count-boundary (count boundary fixup)" -> "[root] aws_s3_bucket_object.nginx-ingress-manifest"
+		"[root] meta.count-boundary (count boundary fixup)" -> "[root] aws_s3_bucket_object.nginx-ingress-nodeport-manifest"
+		"[root] meta.count-boundary (count boundary fixup)" -> "[root] aws_security_group_rule.allow_all_from_self"
+		"[root] meta.count-boundary (count boundary fixup)" -> "[root] aws_security_group_rule.allow_all_out"
+		"[root] meta.count-boundary (count boundary fixup)" -> "[root] aws_security_group_rule.allow_http_from_web"
+		"[root] meta.count-boundary (count boundary fixup)" -> "[root] aws_security_group_rule.allow_https_from_web"
+		"[root] meta.count-boundary (count boundary fixup)" -> "[root] aws_security_group_rule.allow_k8s_from_admin"
+		"[root] meta.count-boundary (count boundary fixup)" -> "[root] aws_security_group_rule.allow_ssh_from_admin"
+		"[root] meta.count-boundary (count boundary fixup)" -> "[root] output.master_dns"
+		"[root] output.master_dns" -> "[root] aws_spot_instance_request.master"
+		"[root] provider.aws (close)" -> "[root] aws_autoscaling_group.worker"
+		"[root] provider.aws (close)" -> "[root] aws_iam_role_policy_attachment.autoscaling"
+		"[root] provider.aws (close)" -> "[root] aws_iam_role_policy_attachment.cluster-policy"
+		"[root] provider.aws (close)" -> "[root] aws_iam_role_policy_attachment.policy"
+		"[root] provider.aws (close)" -> "[root] aws_iam_role_policy_attachment.route53-policy"
+		"[root] provider.aws (close)" -> "[root] aws_iam_role_policy_attachment.s3-bucket-policy"
+		"[root] provider.aws (close)" -> "[root] aws_route_table_association.public"
+		"[root] provider.aws (close)" -> "[root] aws_s3_bucket_object.cert-manager-issuer-manifest"
+		"[root] provider.aws (close)" -> "[root] aws_s3_bucket_object.cluster-autoscaler-manifest"
+		"[root] provider.aws (close)" -> "[root] aws_s3_bucket_object.ebs-storage-class-manifest"
+		"[root] provider.aws (close)" -> "[root] aws_s3_bucket_object.external-dns-manifest"
+		"[root] provider.aws (close)" -> "[root] aws_s3_bucket_object.nginx-ingress-manifest"
+		"[root] provider.aws (close)" -> "[root] aws_s3_bucket_object.nginx-ingress-nodeport-manifest"
+		"[root] provider.aws (close)" -> "[root] aws_security_group_rule.allow_all_from_self"
+		"[root] provider.aws (close)" -> "[root] aws_security_group_rule.allow_all_out"
+		"[root] provider.aws (close)" -> "[root] aws_security_group_rule.allow_http_from_web"
+		"[root] provider.aws (close)" -> "[root] aws_security_group_rule.allow_https_from_web"
+		"[root] provider.aws (close)" -> "[root] aws_security_group_rule.allow_k8s_from_admin"
+		"[root] provider.aws (close)" -> "[root] aws_security_group_rule.allow_ssh_from_admin"
+		"[root] provider.aws (close)" -> "[root] aws_spot_instance_request.master"
+		"[root] provider.aws" -> "[root] var.access_key"
+		"[root] provider.aws" -> "[root] var.region"
+		"[root] provider.aws" -> "[root] var.secret_key"
+		"[root] provider.random (close)" -> "[root] random_string.k8stoken-first-part"
+		"[root] provider.random (close)" -> "[root] random_string.k8stoken-second-part"
+		"[root] provider.template (close)" -> "[root] data.template_file.cert-manager-issuer-manifest"
+		"[root] provider.template (close)" -> "[root] data.template_file.cluster-autoscaler-manifest"
+		"[root] provider.template (close)" -> "[root] data.template_file.master-userdata"
+		"[root] provider.template (close)" -> "[root] data.template_file.nginx-ingress-nodeport-manifest"
+		"[root] provider.template (close)" -> "[root] data.template_file.worker-userdata"
+		"[root] random_string.k8stoken-first-part" -> "[root] provider.random"
+		"[root] random_string.k8stoken-second-part" -> "[root] provider.random"
+		"[root] root" -> "[root] meta.count-boundary (count boundary fixup)"
+		"[root] root" -> "[root] provider.aws (close)"
+		"[root] root" -> "[root] provider.random (close)"
+		"[root] root" -> "[root] provider.template (close)"
+	}
+}
+

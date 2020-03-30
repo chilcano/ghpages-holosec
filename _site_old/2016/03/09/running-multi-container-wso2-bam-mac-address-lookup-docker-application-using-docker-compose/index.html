@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Running multi-container (WSO2 BAM &amp; MAC Address Lookup) Docker Application using Docker Compose | Holistic Security</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Running multi-container (WSO2 BAM &amp; MAC Address Lookup) Docker Application using Docker Compose" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="In my 4 previous blog post I explained each part of this Proof-of-concept, they are: Analysing Wireless traffic in real time with WSO2 BAM, Apache Cassandra, Complex Event Processor (CEP Siddhi), Apache Thrift and Python: Part I Part II Part III A Python Microservice in a Docker Container (MAC Address Manufacturer Lookup) Now, in this blog post I’m going to explain how to run two Docker Containers, the WSO2 BAM and the MAC Address Manufacturer Lookup containers, by using Docker Compose." />
+<meta property="og:description" content="In my 4 previous blog post I explained each part of this Proof-of-concept, they are: Analysing Wireless traffic in real time with WSO2 BAM, Apache Cassandra, Complex Event Processor (CEP Siddhi), Apache Thrift and Python: Part I Part II Part III A Python Microservice in a Docker Container (MAC Address Manufacturer Lookup) Now, in this blog post I’m going to explain how to run two Docker Containers, the WSO2 BAM and the MAC Address Manufacturer Lookup containers, by using Docker Compose." />
+<link rel="canonical" href="https://holisticsecurity.io/2016/03/09/running-multi-container-wso2-bam-mac-address-lookup-docker-application-using-docker-compose/" />
+<meta property="og:url" content="https://holisticsecurity.io/2016/03/09/running-multi-container-wso2-bam-mac-address-lookup-docker-application-using-docker-compose/" />
+<meta property="og:site_name" content="Holistic Security" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-03-09T12:20:44+01:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://holisticsecurity.io/2016/03/09/running-multi-container-wso2-bam-mac-address-lookup-docker-application-using-docker-compose/"},"url":"https://holisticsecurity.io/2016/03/09/running-multi-container-wso2-bam-mac-address-lookup-docker-application-using-docker-compose/","headline":"Running multi-container (WSO2 BAM &amp; MAC Address Lookup) Docker Application using Docker Compose","dateModified":"2016-03-09T12:20:44+01:00","datePublished":"2016-03-09T12:20:44+01:00","description":"In my 4 previous blog post I explained each part of this Proof-of-concept, they are: Analysing Wireless traffic in real time with WSO2 BAM, Apache Cassandra, Complex Event Processor (CEP Siddhi), Apache Thrift and Python: Part I Part II Part III A Python Microservice in a Docker Container (MAC Address Manufacturer Lookup) Now, in this blog post I’m going to explain how to run two Docker Containers, the WSO2 BAM and the MAC Address Manufacturer Lookup containers, by using Docker Compose.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://holisticsecurity.io/feed.xml" title="Holistic Security" /><script>
+if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-156433649-1', 'auto');
+  ga('send', 'pageview');
+}
+</script>
+  
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/"><img src="/assets/img/logo-holosec.png" width="100" /> Holistic Security</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/">Home</a><a class="page-link" href="/blog/">Blog</a><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Running multi-container (WSO2 BAM &amp; MAC Address Lookup) Docker Application using Docker Compose</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2016-03-09T12:20:44+01:00" itemprop="datePublished">Mar 9, 2016 
+      </time>&sim; BIG DATA · MICROSERVICES · SECURITY · SOA
+      &sim; APACHE CASSANDRA · DOCKER · KISMET · RASPBERRY PI · SIDDHI
+    </p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>In my 4 previous blog post I explained each part of this Proof-of-concept, they are:</p>
+
+<ol>
+  <li>Analysing Wireless traffic in real time with WSO2 BAM, Apache Cassandra, Complex Event Processor (CEP Siddhi), Apache Thrift and Python:
+    <ul>
+      <li><a href="/2016/02/02/everything-generates-data-capturing-wifi-anonymous-traffic-raspberrypi-wso2-part-i" target="_blank">Part I</a></li>
+      <li><a href="/2016/02/04/everything-generates-data-capturing-wifi-anonymous-traffic-using-raspberry-pi-and-wso2-bam-part-ii" target="_blank">Part II</a></li>
+      <li><a href="/2016/02/09/everything-generates-data-capturing-wifi-anonymous-traffic-raspberrypi-wso2-part-iii" target="_blank">Part III</a></li>
+    </ul>
+  </li>
+  <li>A <a href="/2016/03/04/mac-address-manufacturer-restful-python-microservice-docker" target="_blank">Python Microservice in a Docker Container (MAC Address Manufacturer Lookup)</a></li>
+</ol>
+
+<p>Now, in this blog post I’m going to explain how to run two Docker Containers, the WSO2 BAM and the MAC Address Manufacturer Lookup containers, by using Docker Compose.</p>
+
+<p><a href="/assets/chilcano-wso2bam-cep-siddhi-wifi-kismet-thrift-cassandra-docker-compose.png" target="_blank"><img src="/assets/chilcano-wso2bam-cep-siddhi-wifi-kismet-thrift-cassandra-docker-compose.png" alt="802.11 traffic capture PoC - Docker Compose" width="70%" /></a></p>
+
+<!-- more -->
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// clone 2 repositories  
+<span class="nv">$ </span>git clone https://github.com/chilcano/docker-wso2bam-kismet-poc.git  
+<span class="nv">$ </span><span class="nb">cd </span>docker-wso2bam-kismet-poc  
+<span class="nv">$ </span>git clone https://github.com/chilcano/wso2bam-wifi-thrift-cassandra-poc.git
+// run docker compose  
+<span class="nv">$ </span>docker-compose up <span class="nt">-d</span>
+Starting dockerwso2bamkismetpoc_mac-manuf_1  
+Starting dockerwso2bamkismetpoc_wso2bam-dashboard-kismet_1  
+</code></pre></div></div>
+
+<p>Above, the diagram explaining this.
+Now, if you want to run all together in a few minutes, just runs the Docker Compose Yaml file.<br />
+For a deeply explanation, follow the instructions on<a href="https://github.com/chilcano/docker-wso2bam-kismet-poc" target="_blank"> README.md</a>.
+If everything is OK, you will get a huge amount of data (WIFI traffic) stored in Apache Cassandra and a simple Dashboard showing captured MAC Addresses and Manufacturer of the Wireless Devices (PC, Mobiles, WIFI Access Points, Tablets, etc..) around of your Raspberry Pi.</p>
+
+<p><a href="/assets/chilcano-wso2bam-wifi-thrift-cassandra-5-kismet-toolbox-docker-manuf.png" target="_blank"><img src="/assets/chilcano-wso2bam-wifi-thrift-cassandra-5-kismet-toolbox-docker-manuf.png" alt="Visualising 802.11 captured traffic with the MAC Address Manufacturer" width="100%" /></a></p>
+
+<p>I hope you will find this blog posts useful.<br />
+Bye.</p>
+
+  </div><div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://holisticsecurity.io/2016/03/09/running-multi-container-wso2-bam-mac-address-lookup-docker-application-using-docker-compose/';
+      this.page.identifier = 'https://holisticsecurity.io/2016/03/09/running-multi-container-wso2-bam-mac-address-lookup-docker-application-using-docker-compose/';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://holosec.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript><a class="u-url" href="/2016/03/09/running-multi-container-wso2-bam-mac-address-lookup-docker-application-using-docker-compose/" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading"><img src="/assets/img/logo-holosec.png" width="40" /> Holistic Security</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Holistic Security</li><li><a class="u-email" href="mailto:blog@holisticsecurity.io">blog@holisticsecurity.io</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.linkedin.com/in/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.twitter.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">Chilcano</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Systems Thinking, Holism, Trust, Security &amp; Usability.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

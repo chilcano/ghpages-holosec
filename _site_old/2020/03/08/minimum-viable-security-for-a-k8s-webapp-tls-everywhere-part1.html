@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Minimum Viable Security for a Kubernetised Webapp: TLS everywhere - Part1 | Holistic Security</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Minimum Viable Security for a Kubernetised Webapp: TLS everywhere - Part1" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Minimum Viable Security (MVSec) is a concept borrowed from the Minimum Viable Product (MVP) concept about the Product Development Strategy and from the Pareto Principle or 80/20 rule. The MVP concept applied to IT Security means the product (application) will contain only the minimum amount (20%) of effort invested in order to prove the viability (80%) of an idea (acceptable security). The purpose of this post is to explain how to implement TLS everywhere to become MVSec (roughly 80% of security with 20% of working) for a Kubernetised Webapp hosted on AWS. Minimum Viable Security for a Kubernetised Webapp: TLS everywhere with NGINX Ingress Controller, Cert-Manager and Let&#39;s Encrypt" />
+<meta property="og:description" content="Minimum Viable Security (MVSec) is a concept borrowed from the Minimum Viable Product (MVP) concept about the Product Development Strategy and from the Pareto Principle or 80/20 rule. The MVP concept applied to IT Security means the product (application) will contain only the minimum amount (20%) of effort invested in order to prove the viability (80%) of an idea (acceptable security). The purpose of this post is to explain how to implement TLS everywhere to become MVSec (roughly 80% of security with 20% of working) for a Kubernetised Webapp hosted on AWS. Minimum Viable Security for a Kubernetised Webapp: TLS everywhere with NGINX Ingress Controller, Cert-Manager and Let&#39;s Encrypt" />
+<link rel="canonical" href="https://holisticsecurity.io/2020/03/08/minimum-viable-security-for-a-k8s-webapp-tls-everywhere-part1" />
+<meta property="og:url" content="https://holisticsecurity.io/2020/03/08/minimum-viable-security-for-a-k8s-webapp-tls-everywhere-part1" />
+<meta property="og:site_name" content="Holistic Security" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-03-08T10:00:00+01:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://holisticsecurity.io/2020/03/08/minimum-viable-security-for-a-k8s-webapp-tls-everywhere-part1"},"url":"https://holisticsecurity.io/2020/03/08/minimum-viable-security-for-a-k8s-webapp-tls-everywhere-part1","headline":"Minimum Viable Security for a Kubernetised Webapp: TLS everywhere - Part1","dateModified":"2020-03-08T10:00:00+01:00","datePublished":"2020-03-08T10:00:00+01:00","description":"Minimum Viable Security (MVSec) is a concept borrowed from the Minimum Viable Product (MVP) concept about the Product Development Strategy and from the Pareto Principle or 80/20 rule. The MVP concept applied to IT Security means the product (application) will contain only the minimum amount (20%) of effort invested in order to prove the viability (80%) of an idea (acceptable security). The purpose of this post is to explain how to implement TLS everywhere to become MVSec (roughly 80% of security with 20% of working) for a Kubernetised Webapp hosted on AWS. Minimum Viable Security for a Kubernetised Webapp: TLS everywhere with NGINX Ingress Controller, Cert-Manager and Let&#39;s Encrypt","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://holisticsecurity.io/feed.xml" title="Holistic Security" /><script>
+if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-156433649-1', 'auto');
+  ga('send', 'pageview');
+}
+</script>
+  
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/"><img src="/assets/img/logo-holosec.png" width="100" /> Holistic Security</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/">Home</a><a class="page-link" href="/blog/">Blog</a><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Minimum Viable Security for a Kubernetised Webapp: TLS everywhere - Part1</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2020-03-08T10:00:00+01:00" itemprop="datePublished">Mar 8, 2020 
+      </time>&sim; CLOUD · APAAS · SERVICE MESH
+      &sim; AWS · KUBERNETES · MICROSERVICE · X509 · TLS · MVP
+    </p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p><strong>Minimum Viable Security</strong> (MVSec) is a concept borrowed from the <a href="https://en.wikipedia.org/wiki/Minimum_viable_product" target="_blank">Minimum Viable Product</a> (MVP) concept about the Product Development Strategy and from the <a href="https://en.wikipedia.org/wiki/Pareto_principle" target="_blank">Pareto Principle or 80/20 rule</a>. The MVP concept applied to IT Security means the product (application) will contain only the minimum amount (20%) of effort invested in order to prove the viability (80%) of an idea (acceptable security).</p>
+
+<p>The purpose of this post is to explain how to implement <strong>TLS everywhere</strong> to become <strong>MVSec</strong> (roughly 80% of security with 20% of working) for a <strong>Kubernetised Webapp hosted on AWS</strong>.</p>
+
+<p><a href="/assets/blog20200308/minimum-viable-security-pareto-tls-everywhere-kubernetised-webapp.png" target="_blank"><img src="/assets/blog20200308/minimum-viable-security-pareto-tls-everywhere-kubernetised-webapp.png" alt="" /></a><br />
+<em><center>Minimum Viable Security for a Kubernetised Webapp: TLS everywhere with NGINX Ingress Controller, Cert-Manager and Let's Encrypt</center></em></p>
+
+<!-- more -->
+
+<h2 id="why-tls-everywhere-meets-8020-rule">Why <em>TLS everywhere</em> meets 80/20 rule?</h2>
+
+<p>Part of the answer gives us Vilfredo Pareto with the Pareto Principle, but to have a complete answer we have to turn to The Security Design Principles that NIST, OWASP, NCSC and other Security References give us.</p>
+
+<blockquote>
+  <p>The Security Design Principles to consider are:</p>
+  <ul>
+    <li><a href="https://www.oreilly.com/library/view/building-secure-software/9780672334092">Building Secure Software: How to Avoid Security Problems the Right Way by Gary McGraw, John Viega, released September 2001</a> and the <a href="/assets/blog20200308/20200308-exploiting-software-how-to-break-code-2004-gary-mcgraw-cigital.pdf">“Exploiting Software: How to Break Code”</a> Presentation by Gary McGrow, 2004.</li>
+    <li>OWASP Security by Design Principles:
+      <ul>
+        <li><a href="https://wiki.owasp.org/index.php/Security_by_Design_Principles">10 Security Principles, archived by 2016 </a></li>
+        <li><a href="https://github.com/OWASP/DevGuide/blob/master/02-Design/01-Principles%20of%20Security%20Engineering.md">11 Security Principles, updated by October 2015</a></li>
+      </ul>
+    </li>
+    <li><a href="https://csrc.nist.gov/publications/detail/sp/800-160/vol-1/final">Systems Security Engineering by NIST, SP 800-160 Vol. 1, updated 21/Mar/2018</a>:
+      <ul>
+        <li>There are 32 principles.</li>
+      </ul>
+    </li>
+    <li><a href="https://www.ncsc.gov.uk/collection/cyber-security-design-principles">Secure Design Principles by NCSC, version 1.0, updated 21/May/2019</a>:
+      <ul>
+        <li>There are 31 and 15 principles in total.</li>
+      </ul>
+    </li>
+    <li><a href="https://www.amazon.com/High-Assurance-Design-Architecting-Enterprise-Applications/dp/0321793277">Cliff Berg’s Principles for High-Assurance Design (Architecting Secure and Reliable Enterprise Applications), 23/October/2005</a>, etc.</li>
+  </ul>
+</blockquote>
+
+<p>There are many similarities between them at fundamental level, let’s explore the OWASP for example and do a quick analysis to see how TLS can help us to meet these Security Principles.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>OWASP Security Design Principles</th>
+      <th>Explanation</th>
+      <th>How to TLS help us?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1) Defense in Depth.</td>
+      <td>Also known as layered defense.</td>
+      <td>TLS over HTTP provides a new secure layer.</td>
+    </tr>
+    <tr>
+      <td>2) Fail Safe.</td>
+      <td>Unless a subject is given explicit access to an object, it should be denied access to that object.</td>
+      <td>TLS Certificates can encrypt at rest and in transit these objects.</td>
+    </tr>
+    <tr>
+      <td>3) Least Privilege.</td>
+      <td>A Process is given only the minimum level of access rights (privileges) that is necessary for that Process to complete an assigned operation.</td>
+      <td>Transit of sensitive objects must be over TLS.</td>
+    </tr>
+    <tr>
+      <td>4) Separation of Duties.</td>
+      <td>Also known as the <a href="https://en.wikipedia.org/wiki/Compartmentalization_(information_security)">compartmentalization principle</a>, or separation of privilege.</td>
+      <td>HTTPS is for sensitive transactions and HTTP for non-sensitive.</td>
+    </tr>
+    <tr>
+      <td>5) Economy of Mechanism.</td>
+      <td>Also known as <a href="https://en.wikipedia.org/wiki/KISS_principle">Keep It Simple, Stupid principle</a>.</td>
+      <td>The accepted and supported <a href="https://en.wikipedia.org/wiki/HTTP/2">HTTP/2</a> includes TLS by default. So, if HTTP is insecure, why is it still being used?.</td>
+    </tr>
+    <tr>
+      <td>6) Complete Mediation.</td>
+      <td>All accesses to objects must be checked to ensure that they are allowed.</td>
+      <td>TLS provides Simple and <a href="https://en.wikipedia.org/wiki/Mutual_authentication">Mutual (Two-Way) Authentication</a> and allways once crypto keys have been verified a secure communication is stablished.</td>
+    </tr>
+    <tr>
+      <td>7) Open Design.</td>
+      <td>The security of a mechanism should not depend on the secrecy of its design or implementation.</td>
+      <td>The disclosure of TLS’ using in software designs don’t put in risk the application.</td>
+    </tr>
+    <tr>
+      <td>8) Least Common Mechanism</td>
+      <td>It disallows the sharing of mechanisms that are common to more than one user or process if the users and processes are at different levels of privilege.</td>
+      <td>TLS is a common secure mechanism shared along the application.</td>
+    </tr>
+    <tr>
+      <td>9) Psychological acceptability.</td>
+      <td>Tries maximizing the usage and adoption of the security functionality in the application by making it more usable.</td>
+      <td>TLS is a feature by default in HTTP/2. HTTP requires implement TLS and deal the crypto keys.</td>
+    </tr>
+    <tr>
+      <td>10) Weakest Link.</td>
+      <td>The resiliency of your software against hacker attempts will depend heavily on the protection of its weakest components.</td>
+      <td>TLS helps to harden the access to resources and secure the traffic.</td>
+    </tr>
+    <tr>
+      <td>11) Leveraging Existing Components.</td>
+      <td>It focuses on ensuring that the attack surface is not increased.</td>
+      <td>TLS is a feature by default in HTTP/2 for securing data in transit and data at rest, don’t try to bring or implement your own <em>TLS</em>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>If this quick analysis does not convince you, then refer to the <a href="https://en.wikipedia.org/wiki/Information_security">Pillars of Security</a>, they are axioms and don’t require be demostration.
+Organization like OWASP recommends that all security controls should be designed with the <strong>Core pillars of Information Security</strong> in mind:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Pillar of Security</th>
+      <th>Description</th>
+      <th>How TLS apply?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1. Confidentiality</td>
+      <td>Only allow access to data for which the user is permitted.</td>
+      <td>Access Control(*) using TLS and Mutual TLS Authn.</td>
+    </tr>
+    <tr>
+      <td>2. Integrity</td>
+      <td>Ensure data is not tampered or altered by unauthorised users.</td>
+      <td>Data no altered using TLS(*) encryption at rest.</td>
+    </tr>
+    <tr>
+      <td>3. Availability</td>
+      <td>Ensure systems and data are available to authorised users when they need it.</td>
+      <td>Mutual TLS Authn(*) helps to availability only to authorised users.</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>(*) These Axioms refer to <em>access control</em>, <em>data no altered</em>, <em>unauthorised users</em>, etc. and that is implemented following the <a href="https://en.wikipedia.org/wiki/Identity-based_security">Identity-based Security</a> Strategy.</p>
+</blockquote>
+
+<h2 id="lets-implement-tls-everywhere-in-kubernetes">Let’s implement TLS everywhere in Kubernetes.</h2>
+
+<h3 id="create-an-kubernetes-cluster">Create an Kubernetes Cluster</h3>
+
+<p>This blog post will use the “Building your own affordable K8s - Serie”:</p>
+<ul>
+  <li><a href="/2020/01/16/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-data-plane" target="_blank">Part 1 - Building your own affordable K8s to host a Service Mesh</a>.</li>
+  <li><a href="/2020/01/22/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-part2-external-dns-ingress" target="_blank">Part 2 - Building your own affordable K8s - ExternalDNS and NGINX as Ingress</a>.</li>
+  <li><a href="/2020/01/29/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-part3-certificate-manager" target="_blank">Part 3 - Building your own affordable K8s - Certificate Manager</a>.</li>
+</ul>
+
+<p><strong>1) Clone the Affordable K8s Cluster Git Repo and run the Terraform scripts</strong></p>
+
+<p>I’ll create a Kubernetes Cluster with this configuration:</p>
+
+<ul>
+  <li>NGINX Ingress Controller will be deployed as <code class="highlighter-rouge">DaemonSet</code> (in the namespace <code class="highlighter-rouge">ingress-nginx</code>) with <code class="highlighter-rouge">hostNetwork: true</code> to ensure the NGINX server is reachable from all K8s Cluster nodes.
+    <ul>
+      <li>When a pod is configured with <code class="highlighter-rouge">hostNetwork: true</code>, the applications running in such a pod can directly see the network interfaces of the host machine where the pod was started.</li>
+      <li>Further information in the <a href="https://github.com/chilcano/affordable-k8s/blob/master/manifests/nginx-ingress-mandatory.yaml"><code class="highlighter-rouge">nginx-ingress-mandatory.yaml</code> deployment file</a>.</li>
+    </ul>
+  </li>
+  <li>Custom Domain Name System (DNS) is <code class="highlighter-rouge">cloud.holisticsecurity.io</code> and the Ingress Subdomain DNS is <code class="highlighter-rouge">ingress-nginx.cloud.holisticsecurity.io</code>.</li>
+  <li>TLS Cert enabled using Jetstack Cert-Manager and Let’s Encrypt.</li>
+  <li><code class="highlighter-rouge">NodePort</code> Service for the NGINX Ingress Controller. See its <a href="https://github.com/chilcano/affordable-k8s/blob/master/manifests/nginx-ingress-nodeport.yaml.tmpl">configuration</a> here.</li>
+</ul>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git clone https://github.com/chilcano/affordable-k8s
+<span class="nv">$ </span><span class="nb">cd </span>affordable-k8s
+
+<span class="nv">$ </span>terraform init
+
+<span class="nv">$ </span>terraform plan <span class="se">\</span>
+  <span class="nt">-var</span> <span class="nv">cluster_name</span><span class="o">=</span><span class="s2">"cheapk8s"</span> <span class="se">\</span>
+  <span class="nt">-var</span> <span class="nv">k8s_ssh_key</span><span class="o">=</span><span class="s2">"ssh-key-for-us-east-1"</span> <span class="se">\</span>
+  <span class="nt">-var</span> <span class="nv">admin_cidr_blocks</span><span class="o">=</span><span class="s2">"&lt;YOUR-IP-ADDRESS&gt;/32"</span> <span class="se">\</span>
+  <span class="nt">-var</span> <span class="nv">region</span><span class="o">=</span><span class="s2">"us-east-1"</span> <span class="se">\</span>
+  <span class="nt">-var</span> <span class="nv">kubernetes_version</span><span class="o">=</span><span class="s2">"1.14.3"</span> <span class="se">\</span>
+  <span class="nt">-var</span> <span class="nv">external_dns_enabled</span><span class="o">=</span><span class="s2">"1"</span> <span class="se">\</span>
+  <span class="nt">-var</span> <span class="nv">nginx_ingress_enabled</span><span class="o">=</span><span class="s2">"1"</span> <span class="se">\</span>
+  <span class="nt">-var</span> <span class="nv">nginx_ingress_domain</span><span class="o">=</span><span class="s2">"ingress-nginx.cloud.holisticsecurity.io"</span> <span class="se">\</span>
+  <span class="nt">-var</span> <span class="nv">cert_manager_enabled</span><span class="o">=</span><span class="s2">"1"</span> <span class="se">\</span>
+  <span class="nt">-var</span> <span class="nv">cert_manager_email</span><span class="o">=</span><span class="s2">"cheapk8s@holisticsecurity.io"</span>
+
+<span class="nv">$ </span>terraform apply <span class="se">\</span>
+  <span class="nt">-var</span> <span class="nv">cluster_name</span><span class="o">=</span><span class="s2">"cheapk8s"</span> <span class="se">\</span>
+  <span class="nt">-var</span> <span class="nv">k8s_ssh_key</span><span class="o">=</span><span class="s2">"ssh-key-for-us-east-1"</span> <span class="se">\</span>
+  <span class="nt">-var</span> <span class="nv">admin_cidr_blocks</span><span class="o">=</span><span class="s2">"&lt;YOUR-IP-ADDRESS&gt;/32"</span> <span class="se">\</span>
+  <span class="nt">-var</span> <span class="nv">region</span><span class="o">=</span><span class="s2">"us-east-1"</span> <span class="se">\</span>
+  <span class="nt">-var</span> <span class="nv">kubernetes_version</span><span class="o">=</span><span class="s2">"1.14.3"</span> <span class="se">\</span>
+  <span class="nt">-var</span> <span class="nv">external_dns_enabled</span><span class="o">=</span><span class="s2">"1"</span> <span class="se">\</span>
+  <span class="nt">-var</span> <span class="nv">nginx_ingress_enabled</span><span class="o">=</span><span class="s2">"1"</span> <span class="se">\</span>
+  <span class="nt">-var</span> <span class="nv">nginx_ingress_domain</span><span class="o">=</span><span class="s2">"ingress-nginx.cloud.holisticsecurity.io"</span> <span class="se">\</span>
+  <span class="nt">-var</span> <span class="nv">cert_manager_enabled</span><span class="o">=</span><span class="s2">"1"</span> <span class="se">\</span>
+  <span class="nt">-var</span> <span class="nv">cert_manager_email</span><span class="o">=</span><span class="s2">"cheapk8s@holisticsecurity.io"</span>
+</code></pre></div></div>
+
+<p><strong>2) Checking the K8s Cluster, NGINX Ingress Controller, Cert-Manager are running correctly</strong></p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// SSH to the cluster
+<span class="nv">$ </span>ssh ubuntu@<span class="si">$(</span>terraform output master_dns<span class="si">)</span> <span class="nt">-i</span> ~/Downloads/ssh-key-for-us-east-1.pem
+</code></pre></div></div>
+
+<p>Checking NGINX Ingress Controller:</p>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// Likely you have to <span class="nb">wait </span>a 2-3 minutes till the Cluster is running completely.
+<span class="nv">$ </span>kubectl get pod,svc <span class="nt">-n</span> ingress-nginx <span class="nt">-o</span> wide
+NAME                                        READY   STATUS    RESTARTS   AGE
+pod/default-http-backend-5c9bb94849-9lpn9   1/1     Running   0          7m35s
+pod/nginx-ingress-controller-r2j8t          1/1     Running   0          7m34s
+pod/nginx-ingress-controller-v22mp          1/1     Running   0          7m34s
+
+NAME                           TYPE        CLUSTER-IP       EXTERNAL-IP   PORT<span class="o">(</span>S<span class="o">)</span>                      AGE
+service/default-http-backend   ClusterIP   10.110.233.145   &lt;none&gt;        80/TCP                       7m36s
+service/ingress-nginx          NodePort    10.111.197.179   &lt;none&gt;        80:30002/TCP,443:30414/TCP   7m33s
+</code></pre></div></div>
+
+<p>If everything is fine, you should get a <code class="highlighter-rouge">default backend - 404</code> response when accessing the NGINX Ingress Controller using its <code class="highlighter-rouge">NodePort</code> and its <code class="highlighter-rouge">external IP address</code>. This tells us that the controller doesn’t know where to route the request to, so responds with the default backend.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// Calling it from inside the K8s Cluster, here you have to use the <span class="sb">`</span>NodePorts<span class="sb">`</span> <span class="o">(</span><span class="sb">`</span>30002<span class="sb">`</span> <span class="k">for </span>HTTP and <span class="sb">`</span>30414<span class="sb">`</span> <span class="k">for </span>HTTPS<span class="o">)</span>:
+<span class="nv">$ </span>curl http://localhost:30002/abc
+default backend - 404
+
+<span class="nv">$ </span>curl https://localhost:30414/pqr <span class="nt">-k</span>
+default backend - 404
+
+// Calling from Internet, here you have to use <span class="sb">`</span>80<span class="sb">`</span> and <span class="sb">`</span>443<span class="sb">`</span> port, and the FQDN <span class="sb">`</span>ingress-nginx.cloud.holisticsecurity.io<span class="sb">`</span>
+<span class="nv">$ </span>curl http://ingress-nginx.cloud.holisticsecurity.io/abc
+default backend - 404
+
+<span class="nv">$ </span>curl https://ingress-nginx.cloud.holisticsecurity.io/pqr <span class="nt">-k</span>
+default backend - 404
+</code></pre></div></div>
+
+<p>Checking Cert-Manager:</p>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// Cert-Manager logs
+<span class="nv">$ </span>kubectl logs <span class="nt">-f</span> <span class="nt">-n</span> cert-manager <span class="nt">-lapp</span><span class="o">=</span>cert-manager
+
+// Lets Encrypt Cert Issuer
+<span class="nv">$ </span>kubectl get issuer,secret <span class="nt">-n</span> default
+</code></pre></div></div>
+
+<h3 id="deploying-a-sample-application">Deploying a Sample Application</h3>
+
+<p>I love <a href="https://www.weave.works/docs/scope/latest/introducing">Weave Scope</a>, it is a good Web Application that I can use as example to enable/configure its security.</p>
+
+<blockquote>
+  <p><strong>Weave Scope</strong> is a visualization and monitoring tool for Docker and Kubernetes. It provides a top down view into your app as well as your entire infrastructure, and allows you to diagnose any problems with your distributed containerized app, in real time, as it is being deployed to a cloud provider.</p>
+</blockquote>
+
+<p><strong>Installing Weave Scope</strong></p>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Get ssh access and in your K8s Cluster, run below command to install Weave Scope with everything by default.</span>
+<span class="nv">$ </span>kubectl apply <span class="nt">-f</span> <span class="s2">"https://cloud.weave.works/k8s/scope.yaml?k8s-version=</span><span class="si">$(</span>kubectl version | <span class="nb">base64</span> | <span class="nb">tr</span> <span class="nt">-d</span> <span class="s1">'\n'</span><span class="si">)</span><span class="s2">"</span>
+
+<span class="c"># Check if Weave Scope has been installed successfully. You will see Pods, Service, ReplicaSet, DaemonSet and Deployment.</span>
+<span class="nv">$ </span>kubectl get all <span class="nt">-n</span> weave
+
+<span class="c"># Get the Weave Scope's TargetPort. By default the TargetPort for Weave Scope's ClusterIP service is 4040.</span>
+<span class="nv">$ </span>kubectl get <span class="nt">-n</span> weave svc weave-scope-app <span class="nt">-o</span> <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.spec.ports[0].targetPort}'</span>
+4040
+</code></pre></div></div>
+
+<p><strong>Creating NodePort service for Weave Scope</strong><br />
+Since <code class="highlighter-rouge">ClusterIP</code> is for internal use only, I’ll need that Weave Scope be exposed and reachable from Internet that I can make a SSH tunnel. I can do it by creating a new <code class="highlighter-rouge">NodePort</code> service, also I’ll create and register in AWS Route 53 a fqdn for Weave-Scope, in this case it will be <code class="highlighter-rouge">weave-scope.cloud.holisticsecurity.io</code>, although this fqdn isn’t required to make the SSH tunnel.</p>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Let's create a NodePort Resource for Weave Scope.</span>
+<span class="nv">$ </span>kubectl apply <span class="nt">-f</span> https://raw.githubusercontent.com/chilcano/affordable-k8s/master/examples/weave-scope-app-svc-np.yaml
+service/weave-scope-app-svc-np created
+
+<span class="c"># Now, we have 2 services</span>
+<span class="nv">$ </span>kubectl get svc <span class="nt">-n</span> weave
+NAME                   TYPE        CLUSTER-IP       EXTERNAL-IP   PORT<span class="o">(</span>S<span class="o">)</span>        AGE
+weave-scope-app        ClusterIP   10.100.187.247   &lt;none&gt;        80/TCP         45m
+weave-scope-app-svc-np NodePort    10.102.182.243   &lt;none&gt;        80:30002/TCP   18m
+
+<span class="c"># Get the Weave Scope's NodePort. Also you can see it in above command or in the 'sample-2-weave-scope-app-svc-np.yml' file.</span>
+<span class="nv">$ </span>kubectl get <span class="nt">-n</span> weave svc weave-scope-app-svc-np <span class="nt">-o</span> <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.spec.ports[0].nodePort}'</span>
+30002
+</code></pre></div></div>
+
+<p><strong>Creating a SSH tunnel to Weave Scope</strong><br />
+Now let’s create a SSH tunnel from your Admin Computer over Internet to Weave Scope’s NodePort service.</p>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>ssh <span class="nt">-nNT</span> <span class="nt">-L</span> 4002:localhost:30002 ubuntu@<span class="si">$(</span>terraform output master_dns<span class="si">)</span> <span class="nt">-i</span> ~/Downloads/ssh-key-for-us-east-1.pem
+</code></pre></div></div>
+
+<p>Now open your favorite browser and enter this url <a href="http://localhost:4002" target="_blank">http://localhost:4002</a> and you will be able to visualize all resources created in your Cluster in real-time.</p>
+
+<p><a href="/assets/blog20200308/20200308-tls-everywhere-part1-weave-scope-ssh-tunnel.png" target="_blank"><img src="/assets/blog20200308/20200308-tls-everywhere-part1-weave-scope-ssh-tunnel.png" alt="" width="80%" /></a></p>
+
+<h3 id="enabling-and-configuring-security-based-on-tls">Enabling and configuring Security based on TLS</h3>
+
+<p>Since I’m using the <a href="https://github.com/chilcano/affordable-k8s">Affordable K8s</a>’ Terraform scripts to build a K8s Cluster with the Jetstack Cert-Manager, to get, renew, revoke any kind of X.509 Certificates, and the NGINX Ingress Controller, to manage the traffic, now i would be able to improve security according the <strong>Minimum Viable Security</strong> (MVSec) and <strong>Pareto Principle or 80/20 rule</strong> both explained above.<br />
+In next posts I’ll explain how to:</p>
+
+<ul>
+  <li><strong>Part 1 - Minimum Viable Security for a Kubernetised Webapp: TLS everywhere</strong> (this post)</li>
+  <li><strong>Part 2 - Enable and configure <a href="https://en.wikipedia.org/wiki/Basic_access_authentication">HTTP Basic Authentication</a> over TLS in Weave Scope</strong></li>
+  <li><strong>Part 3 - Enable and configure <a href="https://en.wikipedia.org/wiki/Mutual_authentication">Mutual TLS Authentication</a> in Weave Scope</strong></li>
+  <li><strong>Part 4 - Use Hashicorp Vault as PKI and Secrets Management in a Kubernetised Webapp</strong></li>
+  <li><strong>Part 4 - Integrating an IAM (Identity Access Management - see <a href="https://holisticsecurity.io/2020/02/10/security-along-the-container-based-sdlc#oss-doc-link">Security along Container-based SDLC - OSS Tools List</a>) solution in a Kubernetised Webapp</strong></li>
+</ul>
+
+<h2 id="troubleshooting">Troubleshooting</h2>
+
+<ol>
+  <li>Getting Kubernetes installation logs:
+Access to Cluster via SSH and get the logs.
+    <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cat</span> /var/log/cloud-init-output.log
+</code></pre></div>    </div>
+  </li>
+  <li>Getting NGINX Ingress Controller logs:
+    <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>kubectl get pods <span class="nt">-n</span> ingress-nginx 
+<span class="nv">$ </span>kubectl <span class="nb">exec</span> <span class="nt">-it</span> <span class="nt">-n</span> ingress-nginx nginx-ingress-controller-p5qz5 <span class="nt">--</span> <span class="nb">cat</span> /etc/nginx/nginx.conf | <span class="nb">grep </span>ssl
+<span class="nv">$ </span>kubectl logs <span class="nt">-f</span> <span class="nt">-n</span> ingress-nginx nginx-ingress-controller-p5qz5 | <span class="nb">grep </span>Error
+<span class="nv">$ </span>kubectl logs <span class="nt">-f</span> <span class="nt">-n</span> ingress-nginx <span class="nt">-lapp</span>.kubernetes.io/name<span class="o">=</span>ingress-nginx
+<span class="nv">$ </span>kubectl logs <span class="nt">-f</span> <span class="nt">-n</span> ingress-nginx <span class="nt">-lapp</span>.kubernetes.io/part-of<span class="o">=</span>ingress-nginx
+</code></pre></div>    </div>
+  </li>
+  <li>Getting Jetstack Cert-Manager logs:
+    <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>kubectl get pods <span class="nt">-n</span> cert-manager
+<span class="nv">$ </span>kubectl <span class="nb">exec</span> <span class="nt">-it</span> <span class="nt">-n</span> ingress-nginx cert-manager-54d94bb6fc-fmhcc <span class="nt">--</span> <span class="nb">cat</span> /etc/nginx/nginx.conf | <span class="nb">grep </span>ssl
+<span class="nv">$ </span>kubectl logs <span class="nt">-f</span> <span class="nt">-n</span> cert-manager cert-manager-54d94bb6fc-fmhcc 
+<span class="nv">$ </span>kubectl logs <span class="nt">-f</span> <span class="nt">-n</span> cert-manager <span class="nt">-lapp</span><span class="o">=</span>cert-manager
+<span class="nv">$ </span>kubectl logs <span class="nt">-f</span> <span class="nt">-n</span> cert-manager <span class="nt">-lapp</span><span class="o">=</span>cainjector
+<span class="nv">$ </span>kubectl logs <span class="nt">-f</span> <span class="nt">-n</span> cert-manager <span class="nt">-lapp</span><span class="o">=</span>webhook
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+  </div><div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://holisticsecurity.io/2020/03/08/minimum-viable-security-for-a-k8s-webapp-tls-everywhere-part1';
+      this.page.identifier = 'https://holisticsecurity.io/2020/03/08/minimum-viable-security-for-a-k8s-webapp-tls-everywhere-part1';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://holosec.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript><a class="u-url" href="/2020/03/08/minimum-viable-security-for-a-k8s-webapp-tls-everywhere-part1" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading"><img src="/assets/img/logo-holosec.png" width="40" /> Holistic Security</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Holistic Security</li><li><a class="u-email" href="mailto:blog@holisticsecurity.io">blog@holisticsecurity.io</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.linkedin.com/in/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.twitter.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">Chilcano</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Systems Thinking, Holism, Trust, Security &amp; Usability.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

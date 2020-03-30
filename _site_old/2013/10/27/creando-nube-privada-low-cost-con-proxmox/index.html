@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Creando un nube privada “low cost” con Proxmox VE 3.0 | Holistic Security</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Creando un nube privada “low cost” con Proxmox VE 3.0" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Actualmente existe una oferta muy rica de proveedores de infraestructura o hosting y proveedores de tecnología para sacar el máximo provecho de dicha infraestructura, aún más importante, a un coste razonablemente bajo usando tecnología free y open source. En mi caso, esta infraestructura la usaré para construir una plataforma donde provea servicios alrededor de productos como WSO2 ESB, Liferay Portal, Alfresco ECM, Drupal, etc., para ello he contratado un hosting medianamente decente en Hetzner (repito experiencia) y he empleado Proxmox VE." />
+<meta property="og:description" content="Actualmente existe una oferta muy rica de proveedores de infraestructura o hosting y proveedores de tecnología para sacar el máximo provecho de dicha infraestructura, aún más importante, a un coste razonablemente bajo usando tecnología free y open source. En mi caso, esta infraestructura la usaré para construir una plataforma donde provea servicios alrededor de productos como WSO2 ESB, Liferay Portal, Alfresco ECM, Drupal, etc., para ello he contratado un hosting medianamente decente en Hetzner (repito experiencia) y he empleado Proxmox VE." />
+<link rel="canonical" href="https://holisticsecurity.io/2013/10/27/creando-nube-privada-low-cost-con-proxmox/" />
+<meta property="og:url" content="https://holisticsecurity.io/2013/10/27/creando-nube-privada-low-cost-con-proxmox/" />
+<meta property="og:site_name" content="Holistic Security" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-10-27T20:55:47+01:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://holisticsecurity.io/2013/10/27/creando-nube-privada-low-cost-con-proxmox/"},"url":"https://holisticsecurity.io/2013/10/27/creando-nube-privada-low-cost-con-proxmox/","headline":"Creando un nube privada “low cost” con Proxmox VE 3.0","dateModified":"2013-10-27T20:55:47+01:00","datePublished":"2013-10-27T20:55:47+01:00","description":"Actualmente existe una oferta muy rica de proveedores de infraestructura o hosting y proveedores de tecnología para sacar el máximo provecho de dicha infraestructura, aún más importante, a un coste razonablemente bajo usando tecnología free y open source. En mi caso, esta infraestructura la usaré para construir una plataforma donde provea servicios alrededor de productos como WSO2 ESB, Liferay Portal, Alfresco ECM, Drupal, etc., para ello he contratado un hosting medianamente decente en Hetzner (repito experiencia) y he empleado Proxmox VE.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://holisticsecurity.io/feed.xml" title="Holistic Security" /><script>
+if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-156433649-1', 'auto');
+  ga('send', 'pageview');
+}
+</script>
+  
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/"><img src="/assets/img/logo-holosec.png" width="100" /> Holistic Security</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/">Home</a><a class="page-link" href="/blog/">Blog</a><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Creando un nube privada &quot;low cost&quot; con Proxmox VE 3.0</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2013-10-27T20:55:47+01:00" itemprop="datePublished">Oct 27, 2013 
+      </time>&sim; CLOUD · OPEN SOURCE · PAAS · VIRTUALIZATION
+      &sim; LINUX · PROXMOX
+    </p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Actualmente existe una oferta muy rica de proveedores de infraestructura o hosting y proveedores de tecnología para sacar el máximo provecho de dicha infraestructura, aún más importante, a un coste razonablemente bajo usando tecnología free y open source.</p>
+
+<p><a href="http://holisticsecurity.files.wordpress.com/2013/10/proxmox-logo.png"><img src="/assets/proxmox-logo.png" alt="proxmox-logo" /></a>
+En mi caso, esta infraestructura la usaré para construir una plataforma donde provea servicios alrededor de productos como WSO2 ESB, Liferay Portal, Alfresco ECM, Drupal, etc., para ello he contratado un hosting medianamente decente en Hetzner (repito experiencia) y he empleado Proxmox VE.</p>
+
+<!-- more -->
+
+<h1 id="i-por-qué-proxmox-ve-">I. Por qué Proxmox VE ?</h1>
+
+<p>Principalmente, porque ya tenía experiencia previa con Proxmox con las versión 2.0 de años anteriores, aunque actualmente hay productos opensource y más sofisticados como Apache CloudStack, OpenStack y Eucalyptus, pero el conocimiento previo y su sencillez me hizo decidir su uso. Una cosa importante a destacar es el corto tiempo necesario para crear un nuevo servidor, por lo general me toma 10 minutos.</p>
+
+<h1 id="ii-qué-servicios-ofreceremos-desde-nuestra-nube-privada">II. Qué servicios ofreceremos desde nuestra nube privada?</h1>
+
+<p>Los servicios ofrecidos estarán alrededor del desarrollo de aplicaciones usando el Stack de WSO2, Liferay Portal, Alfresco ECM, Gestión de Identidades con WSO2 IS, etc. En otras palabras, nuestra nube privada será nuestra plataforma base para desarrollar y explotar nuestras aplicaciones construidas con las anteriores tecnologías mencionadas.</p>
+
+<h1 id="iii-por-qué-no-usar-wso2-stratos-redhat-openshift-u-otro-paas">III. Por qué no usar WSO2 Stratos, RedHat OpenShift u otro PaaS</h1>
+
+<p>Por la naturaleza del tipo de servicios a ofrecer, evidentemente lo mejor era usar algún PaaS stack y la más adecuada era WSO2 Stratos, aunque como indiqué en el punto anterior, el conocimiento previo de Proxmox me hizo decidir como primera opción.
+Bueno, una vez puesto mis argumentos, paso a explicar todo el proceso que seguí para tener mi nube privada.</p>
+
+<h1 id="iv-defina-una-arquitectura-de-virtualización-o-mapa-de-vms">IV. Defina una arquitectura de virtualización o mapa de VMs</h1>
+
+<p>Sí, es muy importante planear cómo quedará tu nube privada, IPs, Redes Virtuales, DMZ, Storage vs. Partitions, RAM / VM, Security y Firewalling, etc.
+Aquí os muestro mi mapa de VMs.</p>
+
+<p>[caption id=”” align=”alignnone” width=”665”]<a href="https://dl.dropboxusercontent.com/u/2961879/blog.sec/blog20131027_privatecloud_proxmox/blog20131027_privatecloud_proxmox_architecture.png"><img src="/assets/blog20131027_privatecloud_proxmox_architecture.png" alt="A example of Private Cloud Architecture with Proxmox" /></a> A example of Private Cloud Architecture with Proxmox[/caption]
+Después de planear la arquitectura de tu nube, los siguientes pasos están relacionados a la instalación y post-configuración de tu hosting.</p>
+
+<h1 id="v-preparando-la-infraestructura-base">V. Preparando la infraestructura base</h1>
+
+<p>Algunos requisitos previos:</p>
+<ul>
+  <li>Debian 7.0 (wheezy) o CentOS 6.4</li>
+  <li>Proxmox VE 3.0</li>
+  <li>IP pública de tu hosting: 144.76.70.175</li>
+  <li>Nuevo SSH port: 4141 y 8181</li>
+</ul>
+
+<h2 id="1-instalar-el-so">1. Instalar el S.O.</h2>
+<ul>
+  <li>Ir a Robot &gt; Linux y seleccionar Debian 7 - minimal, luego reboot desde ssh:</li>
+</ul>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]</p>
+
+<h1 id="shutdown--rf-now">shutdown -rf now</h1>
+
+<p>[/sourcecode]</p>
+<ul>
+  <li>Verificar la versión de S.O. por defecto instalada en el Hosting</li>
+</ul>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+root@chkry1 ~ # uname -a<br />
+Linux chkry1 3.2.0-4-amd64 #1 SMP Debian 3.2.46-1 x86_64 GNU/Linux</p>
+
+<p>[/sourcecode]</p>
+
+<h2 id="2-preparación-básica-del-so-debian-wheezy">2. Preparación básica del S.O. (Debian Wheezy)</h2>
+
+<p><strong>1) Cambiar password de root</strong></p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+root@chkry1 ~ # passwd root</p>
+
+<p>[/sourcecode]</p>
+
+<p><strong>2) Actualizar Debian</strong></p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+root@chkry1 ~ # apt-get update</p>
+
+<p>[/sourcecode]</p>
+
+<p><strong>3) Renombrar host</strong></p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]</p>
+
+<h1 id="nano-etchostname">nano /etc/hostname</h1>
+
+<h1 id="nano-etchosts">nano /etc/hosts</h1>
+
+<p>[/sourcecode]</p>
+<ul>
+  <li>Reinicie el servicio</li>
+</ul>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]</p>
+
+<h1 id="etcinitdhostnamesh">/etc/init.d/hostname.sh</h1>
+
+<p>[/sourcecode]</p>
+<ul>
+  <li>Verifique los cambios, salga y vuelva a entrar o:</li>
+</ul>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]</p>
+
+<h1 id="hostname-fqdn">hostname –fqdn</h1>
+
+<p>[/sourcecode]</p>
+
+<p><strong>4) Cambiar puerto SSH</strong></p>
+<ul>
+  <li>http://ubuntu-tutorials.com/2008/01/12/disabling-ssh-connections-on-ipv6/</li>
+</ul>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+root@chkry1 ~ # nano /etc/ssh/sshd_config</p>
+
+<p>[/sourcecode]</p>
+<ul>
+  <li>Reemplazar las líneas ‘Port 22’ y ‘Port 222’ por ‘Port 4141’ y añadir ‘AddressFamily inet’ (ipv4)</li>
+</ul>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+root@chkry1 ~ # service ssh restart</p>
+
+<p>[/sourcecode]</p>
+
+<p><strong>5) Desabilite IPV6</strong></p>
+<ul>
+  <li>http://forums.debian.net/viewtopic.php?f=16&amp;t=85551</li>
+  <li>Verificar que realmente este funcionando ipv6</li>
+</ul>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+root@chkry1 ~ # netstat -tunlp |grep p6 |wc -l<br />
+5</p>
+
+<p>[/sourcecode]</p>
+<ul>
+  <li>Actualizar el kernel y hosts para no cargar ipv6</li>
+</ul>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+root@chkry1 ~ # echo net.ipv6.conf.all.disable_ipv6=1 &gt; /etc/sysctl.d/disableipv6.conf<br />
+root@chkry1 ~ # sed ‘/::/s/^/#/’ /etc/hosts &gt;/etc/dipv6-tmp; cp -a /etc/hosts /etc/hosts-backup &amp;&amp; mv /etc/dipv6-tmp /etc/hosts</p>
+
+<p>[/sourcecode]</p>
+<ul>
+  <li>Al no tener avahi (multi-cast) instalado, no ejecutar esto:</li>
+</ul>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”true”]<br />
+root@chkry1 ~ # sed ‘/ipv6=yes/s/yes/no/’ /etc/avahi/avahi-daemon.conf &gt; /etc/avahi/dipv6-tmp; cp -a /etc/avahi/avahi-daemon.conf /etc/avahi/avahi-daemon.conf-backup &amp;&amp; mv /etc/avahi/dipv6-tmp /etc/avahi/avahi-daemon.conf</p>
+
+<p>[/sourcecode]</p>
+<ul>
+  <li>NTP</li>
+</ul>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+root@chkry1 ~ # nano /etc/default/ntp</p>
+
+<p>[/sourcecode]
+.. debería quedar así “NTPD_OPTS=’-4 -g’”, luego reiniciar:</p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]</p>
+
+<h1 id="service-ntp-restart">service ntp restart</h1>
+
+<p>[/sourcecode]</p>
+<ul>
+  <li>RPCBIND (rpc.statd, rpc.mountd, verificar tambien HTTP)</li>
+</ul>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+root@chkry1 ~ # nano /etc/netconfig</p>
+
+<p>[/sourcecode]
+dejarlo así:</p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+udp tpi_clts v inet udp - -<br />
+tcp tpi_cots_ord v inet tcp - -</p>
+
+<p>#udp6 tpi_clts v inet6 udp - -</p>
+
+<p>#tcp6 tpi_cots_ord v inet6 tcp - -<br />
+rawip tpi_raw - inet - - -<br />
+local tpi_cots_ord - loopback - - -<br />
+unix tpi_cots_ord - loopback - - -</p>
+
+<p>[/sourcecode]</p>
+<ul>
+  <li>Quitar la interface eth0 de ipv6</li>
+</ul>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+root@chkry1 ~ # nano /etc/network/interfaces</p>
+
+<p>[/sourcecode]</p>
+<ul>
+  <li>Rebootear y probar si ipv6 aún funciona</li>
+</ul>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+root@chkry1 ~ # shutdown -rf now
+root@chkry1 ~ # netstat -tunlp
+Active Internet connections (only servers)<br />
+Proto Recv-Q Send-Q Local Address Foreign Address State PID/Program name<br />
+tcp 0 0 0.0.0.0:4141 0.0.0.0:* LISTEN 2340/sshd<br />
+tcp6 0 0 :::4141 :::* LISTEN 2340/sshd<br />
+udp 0 0 144.76.70.175:123 0.0.0.0:* 2277/ntpd<br />
+udp 0 0 127.0.0.1:123 0.0.0.0:* 2277/ntpd<br />
+udp 0 0 0.0.0.0:123 0.0.0.0:* 2277/ntpd</p>
+
+<p>[/sourcecode]</p>
+<ul>
+  <li>Si observa que SSH está en ipv6 corriendo en el puerto 4141 (mi nuevo puerto SSH), si no hay nada de ipv6, pues eso quiere decir que ipv6 ha sido desabilitado.</li>
+</ul>
+
+<h2 id="3-preparación-del-so-para-la-instalación-de-proxmox-ve">3. Preparación del S.O. para la instalación de Proxmox VE</h2>
+<ul>
+  <li>http://www.wepoca.net/node/42</li>
+  <li>Crear una carpeta destinada a alojar los backups (iso, config files, etc.) de PVE (lo haremos desde la Consola Web de Proxmox)</li>
+</ul>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+root@chkry1 ~ # mkdir -p /datos_pve_backups (lo configuraremos desde PVE Web)</p>
+
+<p>[/sourcecode]</p>
+<ul>
+  <li>Verificar que esté usando GUID Partition Table (no MS-DOS) ya que permite usar más de 2T de disco usando gdisk (fdisk es para otro tipo de FS como MS-DOS) o df -h</li>
+  <li>http://wiki.hetzner.de/index.php/Partitionsgr%C3%B6%C3%9Fenlimit_bei_gro%C3%9Fen_Festplatten/en</li>
+</ul>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+root@chkry1 ~ # gdisk -l /dev/sda<br />
+GPT fdisk (gdisk) version 0.8.5
+Partition table scan:<br />
+MBR: protective<br />
+BSD: not present<br />
+APM: not present<br />
+GPT: present
+Found valid GPT with protective MBR; using GPT.<br />
+Disk /dev/sda: 5860533168 sectors, 2.7 TiB<br />
+Logical sector size: 512 bytes<br />
+Disk identifier (GUID): B2B420AE-59BE-44E7-ADCE-EA6EB3EB3C63<br />
+Partition table holds up to 128 entries<br />
+First usable sector is 34, last usable sector is 5860533134<br />
+Partitions will be aligned on 2048-sector boundaries<br />
+Total free space is 2014 sectors (1007.0 KiB)
+Number Start (sector) End (sector) Size Code Name<br />
+1 4096 33558527 16.0 GiB 8200<br />
+2 33558528 34607103 512.0 MiB 8300<br />
+3 34607104 2182090751 1024.0 GiB 8300<br />
+4 2182090752 5860533134 1.7 TiB 8300<br />
+5 2048 4095 1024.0 KiB EF02</p>
+
+<p>[/sourcecode]
+y el otro disco:</p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+root@chkry1 ~ # gdisk -l /dev/sdb<br />
+GPT fdisk (gdisk) version 0.8.5
+Partition table scan:<br />
+MBR: protective<br />
+BSD: not present<br />
+APM: not present<br />
+GPT: present
+Found valid GPT with protective MBR; using GPT.<br />
+Disk /dev/sdb: 5860533168 sectors, 2.7 TiB<br />
+Logical sector size: 512 bytes<br />
+Disk identifier (GUID): 4B205997-E657-433A-8DC7-28B356D3656C<br />
+Partition table holds up to 128 entries<br />
+First usable sector is 34, last usable sector is 5860533134<br />
+Partitions will be aligned on 2048-sector boundaries<br />
+Total free space is 2014 sectors (1007.0 KiB)
+Number Start (sector) End (sector) Size Code Name<br />
+1 4096 33558527 16.0 GiB FD00<br />
+2 33558528 34607103 512.0 MiB FD00<br />
+3 34607104 2182090751 1024.0 GiB FD00<br />
+4 2182090752 5860533134 1.7 TiB FD00<br />
+5 2048 4095 1024.0 KiB EF02</p>
+
+<p>[/sourcecode]
+y mostrando el disco principal:</p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+S.ficheros Tamaño Usados Disp Uso% Montado en<br />
+rootfs 1016G 260G 705G 27% /<br />
+udev 10M 0 10M 0% /dev<br />
+tmpfs 3,2G 316K 3,2G 1% /run<br />
+/dev/disk/by-uuid/d85c9428-b39f-434c-8140-3e46f0ffe770 1016G 260G 705G 27% /<br />
+tmpfs 5,0M 0 5,0M 0% /run/lock<br />
+tmpfs 9,5G 22M 9,5G 1% /run/shm<br />
+/dev/sda2 508M 87M 396M 18% /boot<br />
+/dev/sda4 1,7T 25G 1,6T 2% /home<br />
+/dev/fuse 30M 16K 30M 1% /etc/pve</p>
+
+<p>[/sourcecode]</p>
+<ul>
+  <li>Configurar el idioma:</li>
+</ul>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+root@chkry1 ~ # dpkg-reconfigure locales</p>
+
+<p>[/sourcecode]</p>
+<ul>
+  <li>Configurar la zona horaria:</li>
+</ul>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+root@chkry1 ~ # dpkg-reconfigure tzdata</p>
+
+<p>[/sourcecode]</p>
+<ul>
+  <li>Para evitar warnings como este:</li>
+</ul>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+perl: warning: Setting locale failed.<br />
+perl: warning: Please check that your locale settings:<br />
+LANGUAGE = (unset),<br />
+LC_ALL = (unset),<br />
+LC_CTYPE = “UTF-8”,<br />
+LANG = “C”<br />
+are supported and installed on your system.</p>
+
+<p>[/sourcecode]
+.. hay que regenerar los locales:</p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+root@chkry1 ~ # locale-gen es_ES.UTF-8</p>
+
+<p>[/sourcecode]
+… o comentar en ‘/etc/ssh/sshd_config’ la siguiente línea ‘AcceptEnv LANG LC_*’</p>
+
+<h1 id="vi-instalación-del-software-de-virtualización">VI. Instalación del software de virtualización</h1>
+
+<h2 id="4-instalación-de-promox-ve">4. Instalación de Promox VE</h2>
+<ul>
+  <li>Añadir a la sourcelist de apt lo sgte:</li>
+</ul>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+root@chkry1 ~ # echo “deb http://download.proxmox.com/debian wheezy pve” » /etc/apt/sources.list<br />
+root@chkry1 ~ # wget -O- “http://download.proxmox.com/debian/key.asc” | apt-key add -<br />
+root@chkry1 ~ # apt-get upgrade<br />
+root@chkry1 ~ # aptitude upgrade<br />
+root@chkry1 ~ # aptitude full-upgrade<br />
+root@chkry1 ~ # aptitude install proxmox-ve-2.6.32</p>
+
+<p>[…]<br />
+The following packages have unmet dependencies:<br />
+pve-firmware : Conflicts: firmware-linux-free but 3.2 is installed.<br />
+Conflicts: firmware-realtek but 0.36+wheezy.1 is installed.<br />
+The following actions will resolve these dependencies:
+Remove the following packages:<br />
+1) firmware-linux-free<br />
+2) firmware-realtek
+Leave the following dependencies unresolved:<br />
+3) linux-image-3.2.0-4-amd64 recommends firmware-linux-free (&gt;= 3~)
+Accept this solution? [Y/n/q/?] Y</p>
+
+<p>[/sourcecode]
+==» Postfix configuración =&gt; NO CONFIGURATION<br />
+==» Finalmente se instalará un Apache con PVE web: https://your-server.com:8006</p>
+<ul>
+  <li>Verificar que no esten abiertos puertos de IPV6
+Basta con comentar los protocolos en /etc/netconfig</li>
+</ul>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+root@chkry1 ~ # nano /etc/netconfig</p>
+
+<p>[/sourcecode]</p>
+
+<h1 id="vii-post-configuración">VII. Post configuración</h1>
+
+<h2 id="5-configuración-de-redes-virtuales-con-promox-ve">5. Configuración de Redes virtuales con Promox VE</h2>
+
+<p><strong>1) Crear 2 redes virtuales de tipo Bridge desde la consola de Proxmox.</strong></p>
+<ul>
+  <li>Name: vmbr0</li>
+  <li>IP address: 10.10.10.1</li>
+  <li>Subnet mask: 255.255.255.0</li>
+  <li>Autostart: checked</li>
+  <li>Name: vmbr1</li>
+  <li>IP address: 192.168.0.1</li>
+  <li>Subnet mask: 255.255.255.0</li>
+  <li>Autostart: checked
+Reiniciar para que los cambios sean aplicados.</li>
+  <li>vmbr0, representará mi DMZ y estará NATeada. Publicaremos servidores web, balanceadores, proxies, etc.</li>
+  <li>vmbr1, representaráuna red privada y aislada de internet, aquí ubicaremos DB servers, LDAP servers, etc.</li>
+  <li>También es posible hacerlo editando /etc/network/interfaces.</li>
+  <li>Verificar la existencia de 3 interfaces de red después de reiniciar.</li>
+</ul>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+root@chkry1 ~ # ifconfig<br />
+eth0 Link encap:Ethernet HWaddr 08:60:6e:68:14:cc<br />
+inet addr:144.76.70.175 Bcast:144.76.70.191 Mask:255.255.255.255<br />
+UP BROADCAST RUNNING MULTICAST MTU:1500 Metric:1<br />
+RX packets:67937 errors:0 dropped:2098 overruns:0 frame:0<br />
+TX packets:48468 errors:0 dropped:0 overruns:0 carrier:0<br />
+collisions:0 txqueuelen:1000<br />
+RX bytes:23352396 (22.2 MiB) TX bytes:37412958 (35.6 MiB)<br />
+Interrupt:43 Base address:0x2000
+lo Link encap:Local Loopback<br />
+inet addr:127.0.0.1 Mask:255.0.0.0<br />
+UP LOOPBACK RUNNING MTU:16436 Metric:1<br />
+RX packets:9141 errors:0 dropped:0 overruns:0 frame:0<br />
+TX packets:9141 errors:0 dropped:0 overruns:0 carrier:0<br />
+collisions:0 txqueuelen:0<br />
+RX bytes:6859893 (6.5 MiB) TX bytes:6859893 (6.5 MiB)
+vmbr0 Link encap:Ethernet HWaddr da:ec:a5:7f:fa:59<br />
+inet addr:10.10.10.1 Bcast:10.10.10.255 Mask:255.255.255.0<br />
+UP BROADCAST RUNNING MULTICAST MTU:1500 Metric:1<br />
+RX packets:6 errors:0 dropped:0 overruns:0 frame:0<br />
+TX packets:0 errors:0 dropped:0 overruns:0 carrier:0<br />
+collisions:0 txqueuelen:0<br />
+RX bytes:384 (384.0 B) TX bytes:0 (0.0 B)
+vmbr1 Link encap:Ethernet HWaddr 52:3d:18:b6:29:0a<br />
+inet addr:192.168.0.1 Bcast:192.168.0.255 Mask:255.255.255.0<br />
+UP BROADCAST RUNNING MULTICAST MTU:1500 Metric:1<br />
+RX packets:0 errors:0 dropped:0 overruns:0 frame:0<br />
+TX packets:0 errors:0 dropped:0 overruns:0 carrier:0<br />
+collisions:0 txqueuelen:0<br />
+RX bytes:0 (0.0 B) TX bytes:0 (0.0 B)</p>
+
+<p>[/sourcecode]</p>
+<ul>
+  <li>Por cada VM creada en cualquier subred virtual, aparecerá una nueva interfaz de red virtual:</li>
+</ul>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+root@chkry1 ~ # ifconfig
+tap100i0 Link encap:Ethernet HWaddr da:ec:a5:7f:fa:59<br />
+UP BROADCAST RUNNING PROMISC MULTICAST MTU:1500 Metric:1<br />
+RX packets:0 errors:0 dropped:0 overruns:0 frame:0<br />
+TX packets:0 errors:0 dropped:0 overruns:0 carrier:0<br />
+collisions:0 txqueuelen:500<br />
+RX bytes:0 (0.0 B) TX bytes:0 (0.0 B)</p>
+
+<p>[/sourcecode]</p>
+
+<p><strong>2) Verificar y configurar Kernel</strong></p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+root@chkry1 ~ # nano /etc/sysctl.conf</p>
+
+<h3 id="hetzner-online-ag-installimage">Hetzner Online AG installimage</h3>
+
+<h1 id="sysctl-config">sysctl config</h1>
+<p>net.ipv4.ip_forward=1<br />
+net.ipv4.conf.all.rp_filter=1<br />
+net.ipv4.icmp_echo_ignore_broadcasts=1<br />
+net.ipv4.conf.all.proxy_arp=1<br />
+net.ipv4.conf.default.proxy_arp=1</p>
+
+<p>[/sourcecode]</p>
+
+<p><strong>3) Configurar hostname, hosts y DNS</strong></p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+nano /etc/hostname<br />
+nano /etc/hosts<br />
+nano /etc/resolv.conf (también es posible modificarlos desde Proxmox)</p>
+
+<p>[/sourcecode]</p>
+
+<h2 id="6-seguridad-y-firewall">6. Seguridad y Firewall</h2>
+
+<p><strong>1) Instalar ShoreWall</strong></p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+root@chkry1 ~ # apt-get install shorewall</p>
+
+<p>[/sourcecode]</p>
+
+<p><strong>2) Configurar ShoreWall para auto-inicio</strong></p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+root@chkry1 ~ # nano /etc/default/shorewall
+Cambiar:<br />
+startup = 0<br />
+a:<br />
+startup = 1
+<strong>3) Continuar configurando ShoreWall</strong></p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+root@chkry1 ~ # nano /etc/shorewall/shorewall.conf</p>
+
+<p>[/sourcecode]
+Cambiar:<br />
+IP_FORWARDING=Keep<br />
+DISABLE_IPV6=No<br />
+a:<br />
+IP_FORWARDING=On<br />
+DISABLE_IPV6=Yes</p>
+
+<p><strong>4) Configurar las Zones en ShoreWall</strong></p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+root@chkry1 ~ # nano /etc/shorewall/zones</p>
+
+<h1 id="httplinuxdienetman5shorewall-zones">http://linux.die.net/man/5/shorewall-zones</h1>
+
+<p>#ZONE TYPE OPTIONS IN OUT</p>
+
+<h1 id="options-options">OPTIONS OPTIONS</h1>
+
+<p>fw firewall<br />
+net ipv4<br />
+loc ipv4<br />
+dmz ipv4</p>
+
+<p>[/sourcecode]</p>
+
+<p><strong>5) Configurar las Interfaces en ShoreWall</strong></p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+root@chkry1 ~ # nano /etc/shorewall/interfaces</p>
+
+<h1 id="httplinuxdienetman5shorewall-interfaces">http://linux.die.net/man/5/shorewall-interfaces</h1>
+
+<p>#ZONE INTERFACE BROADCAST OPTIONS<br />
+net eth0 detect logmartians,tcpflags,nosmurfs<br />
+dmz vmbr0 detect logmartians,bridge,routefilter<br />
+loc vmbr1 detect logmartians,bridge,routefilter</p>
+
+<p>[/sourcecode]</p>
+
+<p><strong>6) Configurar Policy en ShoreWall</strong></p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+root@chkry1 ~ # nano /etc/shorewall/policy</p>
+
+<h1 id="httplinuxdienetman5shorewall-policy">http://linux.die.net/man/5/shorewall-policy</h1>
+
+<p>#SOURCE DEST POLICY LOG LEVEL LIMIT:BURST</p>
+
+<h1 id="1-fw---loc">1. fw - loc</h1>
+
+<p>fw loc ACCEPT<br />
+loc fw ACCEPT</p>
+
+<h1 id="2-fw---dmz">2. fw - dmz</h1>
+
+<p>fw dmz ACCEPT<br />
+dmz fw DROP info</p>
+
+<h1 id="3-fw---net">3. fw - net</h1>
+
+<p>fw net ACCEPT<br />
+net fw DROP info</p>
+
+<h1 id="4-dmz---net">4. dmz - net</h1>
+
+<p>dmz net ACCEPT<br />
+net dmz DROP info</p>
+
+<h1 id="5-loc---dmz">5. loc - dmz</h1>
+
+<p>loc dmz ACCEPT<br />
+dmz loc DROP info</p>
+
+<h1 id="6-loc---net">6. loc - net</h1>
+
+<p>loc net ACCEPT<br />
+net loc DROP info</p>
+
+<h1 id="the-following-policy-must-be-last">THE FOLLOWING POLICY MUST BE LAST</h1>
+
+<p>all all REJECT info</p>
+
+<p>[/sourcecode]</p>
+
+<p><strong>7) Configurar las Rules en ShoreWall</strong></p>
+<ul>
+  <li>http://www.shorewall.net/three-interface.htm</li>
+</ul>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+root@chkry1 ~ # nano /etc/shorewall/rules</p>
+
+<h1 id="httplinuxdienetman5shorewall-rules">http://linux.die.net/man/5/shorewall-rules</h1>
+
+<p>#ACTION SOURCE DEST PROTO DEST SOURCE ORIGINAL RATE</p>
+
+<h1 id="port-ports-dest-limit">PORT PORT(S) DEST LIMIT</h1>
+
+<p>#</p>
+
+<h1 id="accept-particular-connections-from-internet">Accept particular connections from Internet</h1>
+
+<p>#</p>
+
+<h1 id="permit-access-to-ssh-port-4646">Permit access to SSH port 4646</h1>
+
+<p>##ACCEPT net fw tcp 22 - - 6/min:5<br />
+ACCEPT net fw tcp 8080 - - 6/min:5<br />
+ACCEPT net fw tcp 4646 - - 6/min:5</p>
+
+<p>#</p>
+
+<h1 id="permit-access-to-proxmox-manager-and-console">Permit access to Proxmox Manager and Console</h1>
+<p>ACCEPT net fw tcp 443,5900:5999,8006</p>
+
+<p>#</p>
+
+<h1 id="ping-rules">PING Rules</h1>
+<p>Ping/ACCEPT all all</p>
+
+<p>#</p>
+
+<h1 id="permit-traffic-to---certain---vms-in-dmz-via-dnat">Permit traffic to - certain - VMs in DMZ (via DNAT)</h1>
+<p>DNAT net dmz:$MY_PROXYWEB_IP tcp 80<br />
+DNAT net dmz:$MY_PROXYWEB_IP tcp 443</p>
+
+<p>#</p>
+
+<h1 id="last-line--do-not-remove">LAST LINE – DO NOT REMOVE</h1>
+
+<p>[/sourcecode]</p>
+
+<p><strong>8) Configurar NAT en ShoreWall</strong></p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+root@chkry1 ~ # nano /etc/shorewall/masq</p>
+
+<h1 id="implements-snat-on-vmbr0">implements SNAT on vmbr0</h1>
+
+<p>#INTERFACE SOURCE ADDRESS PROTO PORT(S) IPSEC MARK<br />
+eth0 10.10.10.0/24</p>
+
+<p>[/sourcecode]</p>
+
+<p><strong>9) Definir la variable o parámetro MY_PROXYWEB_IP</strong></p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+root@chkry1 ~ # nano /etc/shorewall/params
+MY_PROXYWEB_IP=10.10.10.11</p>
+
+<p>#LAST LINE – DO NOT REMOVE</p>
+
+<p>[/sourcecode]</p>
+
+<p><strong>10) Validar y habilitar la configuración de ShoreWall</strong></p>
+
+<p>Es muy útil para probar antes de aplicarlo permanentemente.</p>
+<ul>
+  <li>Verificar la configuración</li>
+</ul>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+root@chkry1 ~ # shorewall check</p>
+
+<p>[/sourcecode]</p>
+<ul>
+  <li>Habilitar la configuración de ShoreWall por 120 segundos</li>
+</ul>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+root@chkry1 ~ # shorewall try /etc/shorewall 120s</p>
+
+<p>[/sourcecode]</p>
+
+<p><strong>11) Si todo está OK, reiniciar el servidor o Shorewall</strong></p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+root@chkry1 ~ # shorewall stop<br />
+root@chkry1 ~ # shorewall start<br />
+root@chkry1 ~ # shorewall restart</p>
+
+<p>[/sourcecode]</p>
+
+<h1 id="viii-virtualizando-con-proxmox-ve">VIII. Virtualizando con Proxmox VE</h1>
+
+<h2 id="7-crear-una-primera-vm-proxy-web">7. Crear una primera VM (Proxy Web)</h2>
+<p>Previamente hay que descargar una ISO del S.O. de la VM que vamos a crear.</p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+root@chkry1 ~ # cd /var/lib/vz/template/iso/<br />
+root@chkry1 /var/lib/vz/template/iso # wget http://ftp.cica.es/CentOS/6.4/isos/x86_64/CentOS-6.4-x86_64-minimal.iso</p>
+
+<p>[/sourcecode]</p>
+
+<p><strong>1) Configurar Red de la VM</strong></p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]</p>
+
+<p>[root@chky-apache1 ~]# vi /etc/sysconfig/network-scripts/ifcfg-eth0
+DEVICE=”eth0”<br />
+HWADDR=0a:98:a1:3b:9a:48<br />
+TYPE=Ethernet<br />
+ONBOOT=yes<br />
+NM_CONTROLLED=”yes”<br />
+BOOTPROTO=none<br />
+IPADDR=10.10.10.11<br />
+PREFIX=24<br />
+GATEWAY=10.10.10.1<br />
+DNS1=213.133.99.99<br />
+IPV6INIT=no</p>
+
+<p>[/sourcecode]</p>
+
+<p><strong>2) Configure default gateway y hostname</strong></p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]</p>
+
+<p>[root@soadev1 ~]# vi /etc/sysconfig/network
+NETWORKING=yes<br />
+HOSTNAME=chky-apache1<br />
+GATEWAY=10.10.10.1</p>
+
+<p>[/sourcecode]</p>
+
+<p><strong>3) En el GUEST verificar que la MACs esté asociada a la interface eth0</strong></p>
+
+<p>por ejemplo:</p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]</p>
+
+<p>[root@chky-apache1 ~]# nano /etc/udev/rules.d/70-persistent-net.rules</p>
+
+<h1 id="pci-device-0x80860x100e-e1000-custom-name-provided-by-external-tool">PCI device 0x8086:0x100e (e1000) (custom name provided by external tool)</h1>
+
+<p>SUBSYSTEM==”net”, ACTION==”add”, DRIVERS==”? <em>” , ATTR{address}==”0a:98:a1:3b:9a:48”, ATTR{type}==”1”, KERNEL==”eth</em>”, NAME=”eth0”</p>
+
+<p>[/sourcecode]</p>
+
+<p><strong>3) Reinicie las interfases de red o la VM</strong></p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]</p>
+
+<p>[root@chky-apache1 ~]# /etc/init.d/network restart</p>
+
+<p>[/sourcecode]</p>
+
+<p><strong>4) Instalar Apache</strong></p>
+<ul>
+  <li>http://dev.antoinesolutions.com/apache-server</li>
+</ul>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+root@chky-apache1 ~]# yum install httpd</p>
+
+<p>[/sourcecode]</p>
+
+<p><strong>5) Set the apache service to start on boot</strong></p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+root@chky-apache1 ~]# chkconfig –levels 235 httpd on</p>
+
+<p>[/sourcecode]</p>
+
+<p><strong>6) Habilite name-based virtual hosting on port 80</strong></p>
+
+<p>No es necesario para proxy web:
+“Open the httpd configuration file located at /etc/httpd/conf/httpd.conf<br />
+Un-comment the line containing the text NameVirtualHost *:80<br />
+Save the file”</p>
+
+<p><strong>7) Restart the Apache HTTP Server daemon</strong></p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+root@chky-apache0 ~]# service httpd restart</p>
+
+<p>[/sourcecode]</p>
+<ul>
+  <li>Ignore the “NameVirtualHost *:80 has no VirtualHosts” warning for now.</li>
+</ul>
+
+<p><strong>8) Añadir la regla a iptables para aceptar tráfico HTTP</strong></p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]</p>
+
+<p>[root@chk-apache1 ~]# nano /etc/sysconfig/iptables</p>
+
+<p>[/sourcecode]
+…deberia quedar así:</p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]</p>
+
+<h1 id="firewall-configuration-written-by-system-config-firewall">Firewall configuration written by system-config-firewall</h1>
+
+<h1 id="manual-customization-of-this-file-is-not-recommended">Manual customization of this file is not recommended.</h1>
+<p>*filter<br />
+:INPUT ACCEPT [0:0]<br />
+:FORWARD ACCEPT [0:0]<br />
+:OUTPUT ACCEPT [0:0]<br />
+-A INPUT -m state –state ESTABLISHED,RELATED -j ACCEPT<br />
+-A INPUT -p icmp -j ACCEPT<br />
+-A INPUT -i lo -j ACCEPT<br />
+-A INPUT -m state –state NEW -m tcp -p tcp –dport 22 -j ACCEPT<br />
+-A INPUT -m state –state NEW -m tcp -p tcp –dport 80 -j ACCEPT<br />
+-A INPUT -j REJECT –reject-with icmp-host-prohibited<br />
+-A FORWARD -j REJECT –reject-with icmp-host-prohibited<br />
+COMMIT</p>
+
+<p>[/sourcecode]</p>
+
+<p><strong>9) Reiniciar iptables</strong></p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]</p>
+
+<p>[root@chk-apache1 ~]# /etc/init.d/iptables restart</p>
+
+<p>[/sourcecode]</p>
+
+<p><strong>10) Ahora desde un navegador probar lo sgte:</strong></p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+http://your-server.com</p>
+
+<p>[/sourcecode]</p>
+
+<p><strong>11) Configura Apache HTTP como Proxy Web</strong></p>
+
+<p>Finalmente, deberías configurar este Apache HTTP para que haga de Proxy Web a las otras VM que expongan una interfase HTTP</p>
+
+<h2 id="8-crear-una-segunda-vm-liferay-portal">8. Crear una segunda VM (Liferay Portal)</h2>
+
+<p>Esta segunda VM será un clone de la primera VM, es posible configurar la RAM, HD, NICs, etc. fácilmente desde la Consola Web de Proxmox.</p>
+
+<p><strong>1) Instalar Jdk</strong></p>
+<ul>
+  <li>http://wiki.centos.org/HowTos/JavaOnCentOS</li>
+</ul>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]</p>
+
+<p>[root@chk-lfry1 ~]# yum list <em>java-1</em> | grep open
+java-1.6.0-openjdk.x86_64 1:1.6.0.0-1.62.1.11.11.90.el6_4 updates<br />
+java-1.6.0-openjdk-demo.x86_64 1:1.6.0.0-1.62.1.11.11.90.el6_4 updates<br />
+java-1.6.0-openjdk-devel.x86_64 1:1.6.0.0-1.62.1.11.11.90.el6_4 updates<br />
+java-1.6.0-openjdk-javadoc.x86_64 1:1.6.0.0-1.62.1.11.11.90.el6_4 updates<br />
+java-1.6.0-openjdk-src.x86_64 1:1.6.0.0-1.62.1.11.11.90.el6_4 updates<br />
+java-1.7.0-openjdk.x86_64 1:1.7.0.25-2.3.10.4.el6_4 updates<br />
+java-1.7.0-openjdk-demo.x86_64 1:1.7.0.25-2.3.10.4.el6_4 updates<br />
+java-1.7.0-openjdk-devel.x86_64 1:1.7.0.25-2.3.10.4.el6_4 updates<br />
+java-1.7.0-openjdk-javadoc.noarch 1:1.7.0.25-2.3.10.4.el6_4 updates<br />
+java-1.7.0-openjdk-src.x86_64 1:1.7.0.25-2.3.10.4.el6_4 updates</p>
+
+<p>[root@chk-lfry1 ~]# yum install java-1.6.0-openjdk.x86_64</p>
+
+<p>[/sourcecode]</p>
+
+<p><strong>2) Verificar instalación de JDK</strong></p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]</p>
+
+<p>[root@chky-apache0 ~]# java -version<br />
+java version “1.6.0_24”<br />
+OpenJDK Runtime Environment (IcedTea6 1.11.11.90) (rhel-1.62.1.11.11.90.el6_4-x86_64)<br />
+OpenJDK 64-Bit Server VM (build 20.0-b12, mixed mode)</p>
+
+<p>[/sourcecode]</p>
+
+<p><strong>3) Instalar liferay 6.1.1ga2</strong></p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]</p>
+
+<p>[root@chk-lfry1 tempo-files]# wget http://sourceforge.net/projects/lportal/files/Liferay%20Portal/6.1.1%20GA2/liferay-portal-tomcat-6.1.1-ce-ga2-20120731132656558.zip</p>
+
+<p>[/sourcecode]</p>
+
+<p><strong>4) Añadir la regla a iptables para aceptar tráfico HTTP en el puerto 8080, 8009</strong></p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]</p>
+
+<p>[root@chk-lfry1 ~]# nano /etc/sysconfig/iptables</p>
+
+<p>[/sourcecode]
+…deberia quedar así:</p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]</p>
+
+<h1 id="firewall-configuration-written-by-system-config-firewall-1">Firewall configuration written by system-config-firewall</h1>
+
+<h1 id="manual-customization-of-this-file-is-not-recommended-1">Manual customization of this file is not recommended.</h1>
+<p>*filter<br />
+:INPUT ACCEPT [0:0]<br />
+:FORWARD ACCEPT [0:0]<br />
+:OUTPUT ACCEPT [0:0]<br />
+-A INPUT -m state –state ESTABLISHED,RELATED -j ACCEPT<br />
+-A INPUT -p icmp -j ACCEPT<br />
+-A INPUT -i lo -j ACCEPT<br />
+-A INPUT -m state –state NEW -m tcp -p tcp –dport 22 -j ACCEPT<br />
+-A INPUT -m state –state NEW -m tcp -p tcp –dport 8080 -j ACCEPT<br />
+-A INPUT -m state –state NEW -m tcp -p tcp –dport 8009 -j ACCEPT<br />
+-A INPUT -j REJECT –reject-with icmp-host-prohibited<br />
+-A FORWARD -j REJECT –reject-with icmp-host-prohibited<br />
+COMMIT</p>
+
+<p>[/sourcecode]</p>
+
+<p><strong>4) Reiniciar IPtables</strong></p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]</p>
+
+<p>[root@chk-lfry1 ~]# /etc/init.d/iptables restart</p>
+
+<p>[/sourcecode]</p>
+
+<h2 id="9-crear-una-tercera-vm-mysql-server">9. Crear una tercera VM (MySQL Server)</h2>
+
+<p>De igual forma que la segunda VM, esta tercera VM es, o podría ser, un clone de la primera VM, evidentemente con tamaño de HD diferente, RAM, CPUs/Cores, IP (privada y no en la DMZ), … unas configuraciones fácilmente de hacerlas a través de la Consola Web de Proxmox.</p>
+<ul>
+  <li>http://dev.antoinesolutions.com/mysql</li>
+</ul>
+
+<p><strong>1) Instalar MySQL</strong></p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]</p>
+
+<p>[root@chk-mysql1 ~]# yum install mysql-server mysql</p>
+
+<p>[/sourcecode]</p>
+
+<p><strong>2) Hacer que inicie cuando bootee la VM</strong></p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]</p>
+
+<p>[root@chk-mysql1 ~]# chkconfig –levels 235 mysqld on</p>
+
+<p>[/sourcecode]</p>
+
+<p><strong>3) Iniciar y acceder a MySQL</strong></p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+service mysqld start<br />
+mysql -u root</p>
+
+<p>[/sourcecode]</p>
+<ul>
+  <li>Defina un password para el usuario root para todos los dominios locales:</li>
+</ul>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+SET PASSWORD FOR ‘root’@’localhost’ = PASSWORD(‘piscosour!!’);<br />
+SET PASSWORD FOR ‘root’@’localhost.localdomain’ = PASSWORD(‘piscosour!!’);<br />
+SET PASSWORD FOR ‘root’@’127.0.0.1’ = PASSWORD(‘piscosour!!’);</p>
+
+<p>[/sourcecode]</p>
+<ul>
+  <li>Borre el “any user”:</li>
+</ul>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+DROP USER ‘’@’localhost’;<br />
+DROP USER ‘’@’localhost.localdomain’;</p>
+
+<p>[/sourcecode]</p>
+<ul>
+  <li>Salga de MySQL:</li>
+</ul>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]<br />
+exit</p>
+
+<p>[/sourcecode]</p>
+
+<p><strong>4) Añadir la regla a IPtables para aceptar tráfico MySQL desde chk-lfry1</strong></p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]</p>
+
+<p>[root@chk-mysql1 ~]# nano /etc/sysconfig/iptables</p>
+
+<p>[/sourcecode]
+…deberia quedar así:</p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]</p>
+
+<h1 id="firewall-configuration-written-by-system-config-firewall-2">Firewall configuration written by system-config-firewall</h1>
+
+<h1 id="manual-customization-of-this-file-is-not-recommended-2">Manual customization of this file is not recommended.</h1>
+<p>*filter<br />
+:INPUT ACCEPT [0:0]<br />
+:FORWARD ACCEPT [0:0]<br />
+:OUTPUT ACCEPT [0:0]<br />
+-A INPUT -m state –state ESTABLISHED,RELATED -j ACCEPT<br />
+-A INPUT -p icmp -j ACCEPT<br />
+-A INPUT -i lo -j ACCEPT<br />
+-A INPUT -m state –state NEW -m tcp -p tcp –dport 22 -j ACCEPT<br />
+-A INPUT -m state –state NEW -m tcp -p tcp –dport 3306 -j ACCEPT<br />
+-A INPUT -j REJECT –reject-with icmp-host-prohibited<br />
+-A FORWARD -j REJECT –reject-with icmp-host-prohibited<br />
+COMMIT</p>
+
+<p>[/sourcecode]</p>
+
+<p><strong>4) Reiniciar iptables</strong></p>
+
+<p>[sourcecode language=”html” gutter=”true” wraplines=”false”]</p>
+
+<p>[root@chk-mysql1 ~]# /etc/init.d/iptables restart</p>
+
+<p>[/sourcecode]</p>
+
+<h2 id="10-referencias">10. Referencias</h2>
+<ul>
+  <li>Disabilitar IPV6: http://forums.debian.net/viewtopic.php?f=16&amp;t=85551</li>
+  <li>Disabilitar SSH sobre IPV6: http://ubuntu-tutorials.com/2008/01/12/disabling-ssh-connections-on-ipv6/</li>
+  <li>Instalar Proxmox en Hetzner EX4 Server: http://www.wepoca.net/node/42</li>
+  <li>Instalar Apache HTTP: http://dev.antoinesolutions.com/apache-server</li>
+  <li>Instalar MySQL: http://dev.antoinesolutions.com/mysql</li>
+</ul>
+
+  </div><div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://holisticsecurity.io/2013/10/27/creando-nube-privada-low-cost-con-proxmox/';
+      this.page.identifier = 'https://holisticsecurity.io/2013/10/27/creando-nube-privada-low-cost-con-proxmox/';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://holosec.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript><a class="u-url" href="/2013/10/27/creando-nube-privada-low-cost-con-proxmox/" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading"><img src="/assets/img/logo-holosec.png" width="40" /> Holistic Security</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Holistic Security</li><li><a class="u-email" href="mailto:blog@holisticsecurity.io">blog@holisticsecurity.io</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.linkedin.com/in/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.twitter.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">Chilcano</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Systems Thinking, Holism, Trust, Security &amp; Usability.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

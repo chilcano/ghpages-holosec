@@ -1,0 +1,2062 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Page 7 of 10 for Blog | Holistic Security</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Blog" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Systems Thinking, Holism, Trust, Security &amp; Usability." />
+<meta property="og:description" content="Systems Thinking, Holism, Trust, Security &amp; Usability." />
+<link rel="canonical" href="http://localhost:4000/blog/pg7/" />
+<meta property="og:url" content="http://localhost:4000/blog/pg7/" />
+<meta property="og:site_name" content="Holistic Security" />
+<link rel="prev" href="http://localhost:4000/blog/pg6" />
+<link rel="next" href="http://localhost:4000/blog/pg8" />
+<script type="application/ld+json">
+{"@type":"WebPage","url":"http://localhost:4000/blog/pg7/","headline":"Blog","description":"Systems Thinking, Holism, Trust, Security &amp; Usability.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Holistic Security" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/"><img src="/assets/img/logo-holosec.png" width="100" /> Holistic Security</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/">Home</a><a class="page-link" href="/blog/">Blog</a><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Blog</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 class="post-list-heading">Posts</h2>
+<ul class="post-list"><li><span class="post-meta">MAR 12, 2011 &sim; OPEN SOURCE &sim; ECLIPSE IDE · LINUX</span>
+    <h3>
+      <a class="post-link" href="/2011/03/12/eclipse-helios-macosx-1066/">
+        Eclipse Helios in Mac OS X 10.6.6
+      </a>
+    </h3><div class="holosec-excerpts-hover"><p>I recently bought a MacBook Pro (2 GHz Intel Core i7 with 64-bit kernel and extensions enabled) to develop with Java. First thing to do was updating Java and installing Eclipse IDE, but everything about Eclipse was very slow.
+So I started googling and found the solution here:</p>
+
+<p><a href="http://www.eclipse.org/forums/index.php?t=tree&amp;th=205238">http://www.eclipse.org/forums/index.php?t=tree&amp;th=205238</a>
+The problem was related to 64-bit, Java and Eclipse are ready for working on 64-bit but you have to configure them.
+Then, open eclipse.ini and update of this way (lines updated are 12, 16, 19, 20 and 21):</p>
+
+<p>[sourcecode language=”text” gutter=”true” wraplines=”false” highlight=”12,16,19,20,21”]<br />
+-startup<br />
+../../../plugins/org.eclipse.equinox.launcher_1.1.1.R36x_v20101122_1400.jar<br />
+--launcher.library<br />
+../../../plugins/org.eclipse.equinox.launcher.cocoa.macosx.x86_64_1.1.2.R36x_v20101019_1345<br />
+-product<br />
+org.eclipse.epp.package.jee.product<br />
+--launcher.defaultAction<br />
+openFile<br />
+-showsplash<br />
+org.eclipse.platform<br />
+--launcher.XXMaxPermSize<br />
+512m<br />
+--launcher.defaultAction<br />
+openFile<br />
+-vmargs<br />
+-Dosgi.requiredJavaVersion=1.6<br />
+-XstartOnFirstThread<br />
+-Dorg.eclipse.swt.internal.carbon.smallFonts<br />
+-XX:MaxPermSize=512m<br />
+-Xms80m<br />
+-Xmx1024m<br />
+-Xdock:icon=../Resources/Eclipse.icns<br />
+-XstartOnFirstThread<br />
+-Dorg.eclipse.swt.internal.carbon.smallFonts</p>
+
+<p>[/sourcecode]
+Regards.</p>
+</div></li><li><span class="post-meta">MAR 1, 2011 &sim; PORTAL &sim; JMETER · LIFERAY</span>
+    <h3>
+      <a class="post-link" href="/2011/03/01/simple-functional-tests-of-liferay-6-0-5-ce-with-apache-jmeter/">
+        Simple functional tests of Liferay 6.0.5 CE with Apache JMeter
+      </a>
+    </h3><div class="holosec-excerpts-hover"><p>If do you want to know the health of an easy and quickly way, the current status of your Liferay Portal installation or if you want to test quickly any basic functionality from UI (quickly functional test), then you could use Apache JMeter to do it.<br />
+To do that, you should do the following:<br />
+1. Download and install Apache JMeter from here <a href="http://jakarta.apache.org/site/downloads/downloads_jmeter.cgi">http://jakarta.apache.org/site/downloads/downloads_jmeter.cgi</a><br />
+2. Identify the target to test it.<br />
+In this case we will test if Liferay Sign in portlet works.<br />
+3. Create a Test Plan.<br />
+4. Add a “Thread Group”.<br />
+5. In the before “Thread Group” to add a “HTTP Cookie Manager”. This allows to keep the liferay session open between diferents HTTP requests.</p>
+
+<p>[caption id=”” align=”alignnone”<br />
+caption=”Create a HTTP Cookie Manager in JMeter for Liferay”]<img src="/assets/20110228_1_liferayjmeter_httpcookiemanager.png" alt="Create a HTTP Cookie Manager in JMeter for Liferay" /></p>
+
+<p>[/caption]<br />
+6. Also, to add an “User Defined Variables” as shows in next figure:</p>
+
+<p>[caption id=”” align=”alignnone”<br />
+caption=”Create a User Defined Variables in JMeter for Liferay”]</p>
+
+<p><img src="/assets/20110228_2_liferayjmeter_userdefinedvariables.png" alt="Create a User Defined Variables in JMeter for Liferay" /></p>
+
+<p>[/caption]<br />
+7. In the before “Thread Group” to add a “Loop Controller” named “Sign in to Liferay”.</p>
+
+<p>[caption id=”” align=”alignnone”<br />
+caption=”Add a Loop Controller”]</p>
+
+<p><img src="/assets/20110228_3_liferayjmeter_loopcontroller.png" alt="Add a Loop Controller" /></p>
+
+<p>[/caption]<br />
+8. Add a first “HTTP Resquest” named “[Sign in - 1] Go to Welcome page”.<br />
+You have to fill out the request with the appropriate parameters, for exmaple:<br />
+- Server Name or IP<br />
+- Port Number<br />
+- Method<br />
+- Path (URL of our target to be tested)<br />
+9. Then, to add the first “Response Assertion” named “Check resp. 1 “. This will check if the result is correct. In this case only verify the existence of a message/text in the HTTP response.<br />
+10. Later, to add the second “HTTP Request” named “[Sign in - 2] Do login”. This allows to do log into liferay, in this case we will need to compose a HTML form with the following parameters:</p>
+
+<p>[caption id=”” align=”alignnone”<br />
+caption=”Create a HTTP Request to do Login from Liferay Sing in Portlet”]</p>
+
+<p><img src="/assets/20110228_4_liferayjmeter_httprequestsignin.png" alt="Create a HTTP Request to do Login from Liferay Sing in Portlet" /></p>
+
+<p>[/caption]<br />
+These parameters have been extracted from the Liferay welcome web page that contains the “Sign in” portlet, as shown in the figure below:</p>
+
+<p>[caption id=”” align=”alignnone”<br />
+caption=”Existing parameters in Liferay Sign in Portlet form”]</p>
+
+<p><img src="/assets/20110228_5_liferayjmeter_signinformparams.png" alt="Existing parameters in Liferay Sign in Portlet form" /></p>
+
+<p>[/caption]<br />
+11. Create a “Response Assertion” of similarly way to step 9 if we want to verify if login process has been successful.<br />
+In my case, I will verify the existence of a message/text “Sign Out” in the HTTP response.</p>
+
+<p>[caption id=”” align=”alignnone”<br />
+caption=”Create a Response Assertion for Liferay Login process”]</p>
+
+<p><img src="/assets/20110228_6_liferayjmeter_respassertion.png" alt="Create a Response Assertion for Liferay Login process" /></p>
+
+<p>[/caption]<br />
+12. Add a third “HTTP Request” named “[Sign in - 3] Do logout” and other “Response Assertion”.<br />
+This step is optional, it does not help us verify if the login process has been OK.<br />
+13. At level of the “Thread Group” create a “Vire Results Tree” and “Assertion Results”. Both will allow us to monitor the test results.<br />
+14. Run test plan and observe the results in the “View Result Tree”.<br />
+If everything goes “green” is that everything has been correctly. If any test is “red”, is that the test is wrong or something is wrong. Then, you should see or check you network connection, Liferay is running or if you Database is running, etc.</p>
+
+<p>[caption id=”” align=”alignnone”<br />
+caption=”View Result Tree for Liferay Sign in portlet”]</p>
+
+<p><img src="/assets/20110228_7_liferayjmeter_viewresultstree.png" alt="View Result Tree for Liferay Sign in portlet" /></p>
+
+<p>[/caption]<br />
+You can copy this test plan in Apache JMeter:</p>
+
+<p>[sourcecode language=”xml” gutter=”true” wraplines=”false”]<br />
+<?xml version="1.0" encoding="UTF-8"?></p>
+<jmeterTestPlan version="1.2" properties="2.1">  
+<hashTree>  
+<TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan - Liferay Sign in portlet" enabled="true">  
+<stringProp name="TestPlan.comments">Monitoring Liferay Portal 6.0.5 CE</stringProp>  
+<boolProp name="TestPlan.functional_mode">false</boolProp>  
+<boolProp name="TestPlan.serialize_threadgroups">false</boolProp>  
+<elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">  
+<collectionProp name="Arguments.arguments" />  
+</elementProp>  
+<stringProp name="TestPlan.user_define_classpath"></stringProp>  
+</TestPlan>  
+<hashTree>  
+<ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group" enabled="true">  
+<elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">  
+<boolProp name="LoopController.continue_forever">false</boolProp>  
+<stringProp name="LoopController.loops">1</stringProp>  
+</elementProp>  
+<stringProp name="ThreadGroup.num_threads">1</stringProp>  
+<stringProp name="ThreadGroup.ramp_time">1</stringProp>  
+<longProp name="ThreadGroup.start_time">1281132211000</longProp>  
+<longProp name="ThreadGroup.end_time">1281132211000</longProp>  
+<boolProp name="ThreadGroup.scheduler">false</boolProp>  
+<stringProp name="ThreadGroup.on_sample_error">continue</stringProp>  
+<stringProp name="ThreadGroup.duration"></stringProp>  
+<stringProp name="ThreadGroup.delay"></stringProp>  
+</ThreadGroup>  
+<hashTree>  
+<CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="true">  
+<collectionProp name="CookieManager.cookies" />  
+<stringProp name="TestPlan.comments">Enable to keep session in Liferay</stringProp>  
+<boolProp name="CookieManager.clearEachIteration">false</boolProp>  
+<stringProp name="CookieManager.policy">rfc2109</stringProp>  
+</CookieManager>  
+<hashTree />  
+<Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">  
+<collectionProp name="Arguments.arguments">  
+<elementProp name="LFRY_HOSTNAME" elementType="Argument">  
+<stringProp name="Argument.name">LFRY_HOSTNAME</stringProp>  
+<stringProp name="Argument.value">lfry01</stringProp>  
+<stringProp name="Argument.metadata">=</stringProp>  
+</elementProp>  
+<elementProp name="LFRY_PORT" elementType="Argument">  
+<stringProp name="Argument.name">LFRY_PORT</stringProp>  
+<stringProp name="Argument.value">8080</stringProp>  
+<stringProp name="Argument.metadata">=</stringProp>  
+</elementProp>  
+<elementProp name="LFRY_NON_ROOT_CTX" elementType="Argument">  
+<stringProp name="Argument.name">LFRY_NON_ROOT_CTX</stringProp>  
+<stringProp name="Argument.value">intixportal</stringProp>  
+<stringProp name="Argument.metadata">=</stringProp>  
+</elementProp>  
+<elementProp name="LFRY_TEST_USER" elementType="Argument">  
+<stringProp name="Argument.name">LFRY_TEST_USER</stringProp>  
+<stringProp name="Argument.value">test</stringProp>  
+<stringProp name="Argument.metadata">=</stringProp>  
+</elementProp>  
+<elementProp name="LFRY_TEST_PWD" elementType="Argument">  
+<stringProp name="Argument.name">LFRY_TEST_PWD</stringProp>  
+<stringProp name="Argument.value">test</stringProp>  
+<stringProp name="Argument.metadata">=</stringProp>  
+</elementProp>  
+<elementProp name="LFRY_ASSERTION_MSG_1" elementType="Argument">  
+<stringProp name="Argument.name">LFRY_ASSERTION_MSG_1</stringProp>  
+<stringProp name="Argument.value">Password</stringProp>  
+<stringProp name="Argument.metadata">=</stringProp>  
+</elementProp>  
+<elementProp name="LFRY_ASSERTION_MSG_2" elementType="Argument">  
+<stringProp name="Argument.name">LFRY_ASSERTION_MSG_2</stringProp>  
+<stringProp name="Argument.value">Sign Out</stringProp>  
+<stringProp name="Argument.metadata">=</stringProp>  
+</elementProp>  
+<elementProp name="LFRY_ASSERTION_MSG_3a" elementType="Argument">  
+<stringProp name="Argument.name">LFRY_ASSERTION_MSG_3a</stringProp>  
+<stringProp name="Argument.value">HTTP/1.1 200 OK</stringProp>  
+<stringProp name="Argument.metadata">=</stringProp>  
+</elementProp>  
+<elementProp name="LFRY_ASSERTION_MSG_3b" elementType="Argument">  
+<stringProp name="Argument.name">LFRY_ASSERTION_MSG_3b</stringProp>  
+<stringProp name="Argument.value">Liferay-Portal: Liferay Portal</stringProp>  
+<stringProp name="Argument.metadata">=</stringProp>  
+</elementProp>  
+<elementProp name="LFRY_ASSERTION_MSG_3c" elementType="Argument">  
+<stringProp name="Argument.name">LFRY_ASSERTION_MSG_3c</stringProp>  
+<stringProp name="Argument.value">Set-Cookie: JSESSIONID=</stringProp>  
+<stringProp name="Argument.metadata">=</stringProp>  
+</elementProp>  
+</collectionProp>  
+<stringProp name="TestPlan.comments">Define my liferay parameters</stringProp>  
+</Arguments>  
+<hashTree />  
+<LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="Sign in to Liferay" enabled="true">  
+<boolProp name="LoopController.continue_forever">false</boolProp>  
+<stringProp name="LoopController.loops">1</stringProp>  
+<stringProp name="TestPlan.comments">Log into Liferay Portal</stringProp>  
+</LoopController>  
+<hashTree>  
+<HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="[Sign in - 1] Go to Welcome page" enabled="true">  
+<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">  
+<collectionProp name="Arguments.arguments" />  
+</elementProp>  
+<stringProp name="HTTPSampler.domain">${LFRY_HOSTNAME}</stringProp>  
+<stringProp name="HTTPSampler.port">${LFRY_PORT}</stringProp>  
+<stringProp name="HTTPSampler.connect_timeout"></stringProp>  
+<stringProp name="HTTPSampler.response_timeout"></stringProp>  
+<stringProp name="HTTPSampler.protocol">http</stringProp>  
+<stringProp name="HTTPSampler.contentEncoding"></stringProp>  
+<stringProp name="HTTPSampler.path">/${LFRY_NON_ROOT_CTX}</stringProp>  
+<stringProp name="HTTPSampler.method">GET</stringProp>  
+<boolProp name="HTTPSampler.follow_redirects">false</boolProp>  
+<boolProp name="HTTPSampler.auto_redirects">true</boolProp>  
+<boolProp name="HTTPSampler.use_keepalive">true</boolProp>  
+<boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>  
+<boolProp name="HTTPSampler.monitor">false</boolProp>  
+<stringProp name="HTTPSampler.embedded_url_re"></stringProp>  
+<stringProp name="TestPlan.comments">[Sign in - 1] Go to Welcome page</stringProp>  
+</HTTPSampler>  
+<hashTree>  
+<ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Check resp. 1 " enabled="true">  
+<collectionProp name="Asserion.test_strings">  
+<stringProp name="-1010617650">${LFRY_ASSERTION_MSG_1}</stringProp>  
+</collectionProp>  
+<stringProp name="Assertion.test_field">Assertion.response_data</stringProp>  
+<boolProp name="Assertion.assume_success">false</boolProp>  
+<intProp name="Assertion.test_type">16</intProp>  
+<stringProp name="TestPlan.comments">Check response 1</stringProp>  
+</ResponseAssertion>  
+<hashTree />  
+</hashTree>  
+<HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="[Sign in - 2] Do login" enabled="true">  
+<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">  
+<collectionProp name="Arguments.arguments">  
+<elementProp name="p_p_id" elementType="HTTPArgument">  
+<boolProp name="HTTPArgument.always_encode">true</boolProp>  
+<stringProp name="Argument.value">58</stringProp>  
+<stringProp name="Argument.metadata">=</stringProp>  
+<boolProp name="HTTPArgument.use_equals">true</boolProp>  
+<stringProp name="Argument.name">p_p_id</stringProp>  
+</elementProp>  
+<elementProp name="p_p_lifecycle" elementType="HTTPArgument">  
+<boolProp name="HTTPArgument.always_encode">true</boolProp>  
+<stringProp name="Argument.value">1</stringProp>  
+<stringProp name="Argument.metadata">=</stringProp>  
+<boolProp name="HTTPArgument.use_equals">true</boolProp>  
+<stringProp name="Argument.name">p_p_lifecycle</stringProp>  
+</elementProp>  
+<elementProp name="p_p_state" elementType="HTTPArgument">  
+<boolProp name="HTTPArgument.always_encode">true</boolProp>  
+<stringProp name="Argument.value">normal</stringProp>  
+<stringProp name="Argument.metadata">=</stringProp>  
+<boolProp name="HTTPArgument.use_equals">true</boolProp>  
+<stringProp name="Argument.name">p_p_state</stringProp>  
+</elementProp>  
+<elementProp name="p_p_mode" elementType="HTTPArgument">  
+<boolProp name="HTTPArgument.always_encode">true</boolProp>  
+<stringProp name="Argument.value">view</stringProp>  
+<stringProp name="Argument.metadata">=</stringProp>  
+<boolProp name="HTTPArgument.use_equals">true</boolProp>  
+<stringProp name="Argument.name">p_p_mode</stringProp>  
+</elementProp>  
+<elementProp name="saveLastPath" elementType="HTTPArgument">  
+<boolProp name="HTTPArgument.always_encode">true</boolProp>  
+<stringProp name="Argument.value">0</stringProp>  
+<stringProp name="Argument.metadata">=</stringProp>  
+<boolProp name="HTTPArgument.use_equals">true</boolProp>  
+<stringProp name="Argument.name">saveLastPath</stringProp>  
+</elementProp>  
+<elementProp name="_58_struts_action" elementType="HTTPArgument">  
+<boolProp name="HTTPArgument.always_encode">true</boolProp>  
+<stringProp name="Argument.value">/login/login</stringProp>  
+<stringProp name="Argument.metadata">=</stringProp>  
+<boolProp name="HTTPArgument.use_equals">true</boolProp>  
+<stringProp name="Argument.name">_58_struts_action</stringProp>  
+</elementProp>  
+<elementProp name="_58_redirect" elementType="HTTPArgument">  
+<boolProp name="HTTPArgument.always_encode">true</boolProp>  
+<stringProp name="Argument.value"></stringProp>  
+<stringProp name="Argument.metadata">=</stringProp>  
+<boolProp name="HTTPArgument.use_equals">true</boolProp>  
+<stringProp name="Argument.name">_58_redirect</stringProp>  
+</elementProp>  
+<elementProp name="_58_login" elementType="HTTPArgument">  
+<boolProp name="HTTPArgument.always_encode">true</boolProp>  
+<stringProp name="Argument.value">${LFRY_TEST_USER}</stringProp>  
+<stringProp name="Argument.metadata">=</stringProp>  
+<boolProp name="HTTPArgument.use_equals">true</boolProp>  
+<stringProp name="Argument.name">_58_login</stringProp>  
+</elementProp>  
+<elementProp name="_58_password" elementType="HTTPArgument">  
+<boolProp name="HTTPArgument.always_encode">true</boolProp>  
+<stringProp name="Argument.value">${LFRY_TEST_PWD}</stringProp>  
+<stringProp name="Argument.metadata">=</stringProp>  
+<boolProp name="HTTPArgument.use_equals">true</boolProp>  
+<stringProp name="Argument.name">_58_password</stringProp>  
+</elementProp>  
+<elementProp name="_58_rememberMe" elementType="HTTPArgument">  
+<boolProp name="HTTPArgument.always_encode">true</boolProp>  
+<stringProp name="Argument.value">false</stringProp>  
+<stringProp name="Argument.metadata">=</stringProp>  
+<boolProp name="HTTPArgument.use_equals">true</boolProp>  
+<stringProp name="Argument.name">_58_rememberMe</stringProp>  
+</elementProp>  
+</collectionProp>  
+</elementProp>  
+<stringProp name="HTTPSampler.domain">${LFRY_HOSTNAME}</stringProp>  
+<stringProp name="HTTPSampler.port">${LFRY_PORT}</stringProp>  
+<stringProp name="HTTPSampler.connect_timeout"></stringProp>  
+<stringProp name="HTTPSampler.response_timeout"></stringProp>  
+<stringProp name="HTTPSampler.protocol">http</stringProp>  
+<stringProp name="HTTPSampler.contentEncoding"></stringProp>  
+<stringProp name="HTTPSampler.path">/${LFRY_NON_ROOT_CTX}/web/guest/home</stringProp>  
+<stringProp name="HTTPSampler.method">POST</stringProp>  
+<boolProp name="HTTPSampler.follow_redirects">false</boolProp>  
+<boolProp name="HTTPSampler.auto_redirects">true</boolProp>  
+<boolProp name="HTTPSampler.use_keepalive">true</boolProp>  
+<boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>  
+<boolProp name="HTTPSampler.monitor">false</boolProp>  
+<stringProp name="HTTPSampler.embedded_url_re"></stringProp>  
+<stringProp name="TestPlan.comments">[Sign in - 2] Do login</stringProp>  
+</HTTPSampler>  
+<hashTree>  
+<ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Check resp. 2" enabled="true">  
+<collectionProp name="Asserion.test_strings">  
+<stringProp name="-1010617619">${LFRY_ASSERTION_MSG_2}</stringProp>  
+</collectionProp>  
+<stringProp name="Assertion.test_field">Assertion.response_data</stringProp>  
+<boolProp name="Assertion.assume_success">false</boolProp>  
+<intProp name="Assertion.test_type">16</intProp>  
+<stringProp name="TestPlan.comments">Check response 2</stringProp>  
+</ResponseAssertion>  
+<hashTree />  
+</hashTree>  
+<HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="[Sign in - 3] Do logout" enabled="true">  
+<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">  
+<collectionProp name="Arguments.arguments" />  
+</elementProp>  
+<stringProp name="HTTPSampler.domain">${LFRY_HOSTNAME}</stringProp>  
+<stringProp name="HTTPSampler.port">${LFRY_PORT}</stringProp>  
+<stringProp name="HTTPSampler.connect_timeout"></stringProp>  
+<stringProp name="HTTPSampler.response_timeout"></stringProp>  
+<stringProp name="HTTPSampler.protocol">http</stringProp>  
+<stringProp name="HTTPSampler.contentEncoding"></stringProp>  
+<stringProp name="HTTPSampler.path">/${LFRY_NON_ROOT_CTX}/c/portal/logout</stringProp>  
+<stringProp name="HTTPSampler.method">GET</stringProp>  
+<boolProp name="HTTPSampler.follow_redirects">false</boolProp>  
+<boolProp name="HTTPSampler.auto_redirects">true</boolProp>  
+<boolProp name="HTTPSampler.use_keepalive">true</boolProp>  
+<boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>  
+<boolProp name="HTTPSampler.monitor">false</boolProp>  
+<stringProp name="HTTPSampler.embedded_url_re"></stringProp>  
+<stringProp name="TestPlan.comments">[Sign in - 3] Do logout</stringProp>  
+</HTTPSampler>  
+<hashTree>  
+<ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Check resp. 3 " enabled="true">  
+<collectionProp name="Asserion.test_strings">  
+<stringProp name="-1264374899">${LFRY_ASSERTION_MSG_3a}</stringProp>  
+<stringProp name="-1264374868">${LFRY_ASSERTION_MSG_3b}</stringProp>  
+</collectionProp>  
+<stringProp name="Assertion.test_field">Assertion.response_headers</stringProp>  
+<boolProp name="Assertion.assume_success">false</boolProp>  
+<intProp name="Assertion.test_type">2</intProp>  
+<stringProp name="TestPlan.comments">Check response 3 </stringProp>  
+</ResponseAssertion>  
+<hashTree />  
+</hashTree>  
+</hashTree>  
+<ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">  
+<boolProp name="ResultCollector.error_logging">false</boolProp>  
+<objProp>  
+<name>saveConfig</name>  
+<value class="SampleSaveConfiguration">  
+<time>true</time>  
+<latency>true</latency>  
+<timestamp>true</timestamp>  
+<success>true</success>  
+<label>true</label>  
+<code>true</code>  
+<message>true</message>  
+<threadName>true</threadName>  
+<dataType>true</dataType>  
+<encoding>false</encoding>  
+<assertions>true</assertions>  
+<subresults>true</subresults>  
+<responseData>false</responseData>  
+<samplerData>false</samplerData>  
+<xml>true</xml>  
+<fieldNames>false</fieldNames>  
+<responseHeaders>false</responseHeaders>  
+<requestHeaders>false</requestHeaders>  
+<responseDataOnError>false</responseDataOnError>  
+<saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>  
+<assertionsResultsToSave>0</assertionsResultsToSave>  
+<bytes>true</bytes>  
+</value>  
+</objProp>  
+<stringProp name="filename"></stringProp>  
+</ResultCollector>  
+<hashTree />  
+<ResultCollector guiclass="AssertionVisualizer" testclass="ResultCollector" testname="Assertion Results" enabled="true">  
+<boolProp name="ResultCollector.error_logging">false</boolProp>  
+<objProp>  
+<name>saveConfig</name>  
+<value class="SampleSaveConfiguration">  
+<time>true</time>  
+<latency>true</latency>  
+<timestamp>true</timestamp>  
+<success>true</success>  
+<label>true</label>  
+<code>true</code>  
+<message>true</message>  
+<threadName>true</threadName>  
+<dataType>true</dataType>  
+<encoding>false</encoding>  
+<assertions>true</assertions>  
+<subresults>true</subresults>  
+<responseData>false</responseData>  
+<samplerData>false</samplerData>  
+<xml>true</xml>  
+<fieldNames>false</fieldNames>  
+<responseHeaders>false</responseHeaders>  
+<requestHeaders>false</requestHeaders>  
+<responseDataOnError>false</responseDataOnError>  
+<saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>  
+<assertionsResultsToSave>0</assertionsResultsToSave>  
+<bytes>true</bytes>  
+</value>  
+</objProp>  
+<stringProp name="filename"></stringProp>  
+</ResultCollector>  
+<hashTree />  
+</hashTree>  
+</hashTree>  
+</hashTree>  
+</jmeterTestPlan>
+
+<p>[/sourcecode]
+Have a Liferay happy testing!.</p>
+</div></li><li><span class="post-meta">FEB 20, 2011 &sim; SECURITY &sim; VIRTUAL BOX</span>
+    <h3>
+      <a class="post-link" href="/2011/02/20/offset-clock-virtualbox-macosx-winxp/">
+        How to set back the clock of Mac OS X host in Virtual Box
+      </a>
+    </h3><div class="holosec-excerpts-hover"><p>I have a Mac OS X as host and Windows XP as guest virtualbox machine. I need to set back the clock 2 years in the guest.
+I used to use this command, but it does not work with Mac OS X as host.</p>
+
+<p>[sourcecode language=”text” gutter=”true” wraplines=”false” highlight=”1”]<br />
+VBoxManage setextradata <nameVm> “VBoxInternal/TM/UTCOffset” <nanoSeconds></nanoSeconds></nameVm></p>
+
+<p>[/sourcecode]
+I tried this and it seems that it works.</p>
+
+<p>[sourcecode language=”text” gutter=”true” wraplines=”false” highlight=”1”]<br />
+pisco:~ chilcano$ vboxmanage modifyvm intix_winxp01 –biossystemtimeoffset -63072000000<br />
+Oracle VM VirtualBox Command Line Management Interface Version 3.2.12<br />
+(C) 2005-2010 Oracle Corporation<br />
+All rights reserved.
+pisco:~ chilcano$</p>
+
+<p>[/sourcecode]
+Notes:</p>
+<ul>
+  <li>_ <strong>intix_winxp</strong>_ is the name of guest vm.</li>
+  <li>_ <strong>-63072000000</strong>_ are milisecs (365 + 365 days).</li>
+  <li>The command <em><strong>vboxmanage</strong></em> is in lowercase.<br />
+and if you want to reset time offset you have to run this:</li>
+</ul>
+
+<p>[sourcecode language=”text” gutter=”true” wraplines=”false” highlight=”1”]<br />
+pisco:~ chilcano$ vboxmanage modifyvm intix_winxp01 –biossystemtimeoffset 0<br />
+Oracle VM VirtualBox Command Line Management Interface Version 3.2.12<br />
+(C) 2005-2010 Oracle Corporation<br />
+All rights reserved.
+pisco:~ chilcano$</p>
+
+<p>[/sourcecode]</p>
+
+<p><strong>References</strong></p>
+<ol>
+  <li>About the clock of a VM (http://forum.virtualbox.org/viewtopic.php?f=7&amp;p=150430)</li>
+  <li>Detener la sincronización de tiempo/fechas entre Host y Guest en Virtual Box (http://holisticsecurity.wordpress.com/2009/11/27/detener-la-sincronizacion-de-tiempofechas-entre-host-y-guest-en-virtual-box)</li>
+</ol>
+</div></li><li><span class="post-meta">FEB 19, 2011 &sim; ECM · PORTAL &sim; ALFRESCO · LDAP · LIFERAY · SSO</span>
+    <h3>
+      <a class="post-link" href="/2011/02/19/web-sso-between-liferay-and-alfresco-with-cas-and-penrose-part-22/">
+        Web-SSO between Liferay and Alfresco with CAS and Penrose (part 2/2)
+      </a>
+    </h3><div class="holosec-excerpts-hover"><p>The aims are to do authentication and web-sso between liferay and alfresco using CAS.<br />
+In this blog post we will explain how to configure Alfresco to enable LDAP authentication and users syncronization, also we will explain how to configure CAS Authentication Filter to do Web-SSO with automatic/transparent login.
+Firstly, we will follow this technical design for authentication and sso.</p>
+
+<p>[caption id=”” align=”alignnone” width=”461” caption=”Authentication and SSO architectura”]<img src="/assets/sso_alfr_lfry-00-architectura.png" alt="Authentication and SSO architectura between Liferay, Alfresco and CAS" /></p>
+
+<p>[/caption]</p>
+
+<h2 id="requirements">Requirements</h2>
+<ol>
+  <li>Virtual Directory Server (Penrose server 2.0) and CAS-server (tested with version 3.3.5)I will use existing CentOS VirtualBox VM with CAS and Penrose Server pre-configured (Virtual Directory/LDAP) named “directorysrv1” of last blog post (<a href="http://holisticsecurity.wordpress.com/2011/01/15/sso-liferay-alfresco-cas-penrose-part-12">Web-SSO between Liferay and Alfresco with CAS and Penrose (part 1/2)</a>) but with a few changes: [sourcecode language=”text” gutter=”true” wraplines=”false”]<br />
+A sample DN:<br />
+uid=480838,ou=Employees,dc=intix,dc=info<br />
+cn=aamodwroclawski</li>
+</ol>
+
+<p>[/sourcecode]
+You can download this new Penrose partition <a href="http://dl.dropbox.com/u/2961879/blog20110215_sso_alfresco_liferay_2/intix_info_liferay.zip">here</a>.</p>
+
+<p>[caption id=”” align=”alignnone” width=”483” caption=”LDAP tree”]<img src="/assets/sso_alfr_lfry-00-LDAP-DN.png" alt="LDAP tree" />[/caption]</p>
+<ol>
+  <li>Alfresco 3.4c CE:We are using a new WinXP VirtualBox VM with Alfresco and MySQL installed named “alfr01”.</li>
+  <li>Liferay 6.0.5 with LDAP and CAS enabled:We are using a WinXP VirtualBox VM with Liferay 6.0.5 CE installed named “lfry01”. See before post <a href="http://holisticsecurity.wordpress.com/2011/01/15/sso-liferay-alfresco-cas-penrose-part-12">here</a>.</li>
+</ol>
+
+<p>[caption id=”” align=”alignnone” width=”400”<br />
+caption=”LDAP and CAS configuration in Liferay”]</p>
+
+<p><img src="/assets/sso_alfr_lfry-00-ldap1.png" alt="1" /><br />
+|</p>
+
+<p><img src="/assets/sso_alfr_lfry-00-ldap2.png" alt="2" /><br />
+—|—</p>
+
+<p><img src="/assets/sso_alfr_lfry-00-ldap3.png" alt="3" /><br />
+|</p>
+
+<p><img src="/assets/sso_alfr_lfry-00-ldap4.png" alt="4" /></p>
+
+<p><img src="/assets/sso_alfr_lfry-00-ldap5cas.png" alt="5" /></p>
+
+<p>[/caption]</p>
+<ol>
+  <li>CAS-client (3.1.10)</li>
+</ol>
+
+<h2 id="i-enable-ldap-authentication-and-ldap-users-import-in-alfresco">I. Enable LDAP Authentication and LDAP users import in Alfresco</h2>
+
+<p>To do Web-SSO is not necessary this step, but i recommend to do it because you can do users management from Alfresco Admin Console (Browser/Explorer or Share) (edit, delete, to do groups and give permissions).
+1. Create the following folders in “\subsystems\Authentication\ldap\ldap1” in ﻿${ALF_HOME}\tomcat\shared\classes\alfresco\extension
+2. Copy the file ﻿${ALF_HOME}\tomcat\webapps\alfresco\WEB-INF\classes\alfresco\subsystems\Authentication\ldap\﻿ldap-authentication.properties in the folder before created.
+3. Modify ldap-authentication.properties enabling LDAP authN and sync. For example, you can use my file (This only works for my LDAP tree with UID as RDN and authN with CN. See my LDAP tree):</p>
+
+<p>[sourcecode language=”text” gutter=”true” wraplines=”false”]<br />
+﻿# This flag enables use of this LDAP subsystem for authentication. It may be</p>
+
+<h1 id="that-this-subsytem-should-only-be-used-for-synchronization-in-which-case">that this subsytem should only be used for synchronization, in which case</h1>
+
+<h1 id="this-flag-should-be-set-to-false">this flag should be set to false.</h1>
+<p>ldap.authentication.active=true</p>
+
+<p>#</p>
+
+<h1 id="this-properties-file-brings-together-the-common-options-for-ldap-authentication-rather-than-editing-the-bean-definitions">This properties file brings together the common options for LDAP authentication rather than editing the bean definitions</h1>
+
+<p>#</p>
+
+<p>ldap.authentication.allowGuestLogin=true</p>
+
+<h1 id="how-to-map-the-user-id-entered-by-the-user-to-that-passed-through-to-ldap">How to map the user id entered by the user to that passed through to LDAP</h1>
+
+<h1 id="--simple">- simple</h1>
+
+<h1 id="--this-must-be-a-dn-and-would-be-something-like">- this must be a DN and would be something like</h1>
+
+<h1 id="uidsoupeopledccompanydccom">uid=%s,ou=People,dc=company,dc=com</h1>
+
+<h1 id="--digest">- digest</h1>
+
+<h1 id="--usually-pass-through-what-is-entered">- usually pass through what is entered</h1>
+
+<h1 id="s">%s</h1>
+
+<h1 id="if-not-set-an-ldap-query-involving-ldapsynchronizationpersonquery-and-ldapsynchronizationuseridattributename-will">If not set, an LDAP query involving ldap.synchronization.personQuery and ldap.synchronization.userIdAttributeName will</h1>
+
+<h1 id="be-performed-to-resolve-the-dn-dynamically-this-allows-directories-to-be-structured-and-doesnt-require-the-user-id-to">be performed to resolve the DN dynamically. This allows directories to be structured and doesn’t require the user ID to</h1>
+
+<h1 id="appear-in-the-dn">appear in the DN.</h1>
+
+<h3 id="intix-always-search-dn-by-rdn-attribute-in-my-case-uid-see-ldap-tree">intix: always search DN by RDN attribute, in my case uid (see ldap tree)</h3>
+
+<h3 id="ldapauthenticationusernameformatcnsouemployeesdcintixdcinfo">ldap.authentication.userNameFormat=cn=%s,ou=Employees,dc=intix,dc=info</h3>
+
+<h3 id="intix-this-config-is-better-than-above-because-i-want-to-searh-by-cn">intix: this config is better than above, because i want to searh by CN.</h3>
+
+<h3 id="it-is-necessary-set-ldapsynchronizationpersonqueryinetorgperson-and-ldapsynchronizationuseridattributenamecn">It is necessary set ldap.synchronization.personQuery=inetOrgPerson and ldap.synchronization.userIdAttributeName=cn</h3>
+<p>ldap.authentication.userNameFormat=</p>
+
+<h1 id="the-ldap-context-factory-to-use">The LDAP context factory to use</h1>
+
+<p>ldap.authentication.java.naming.factory.initial=com.sun.jndi.ldap.LdapCtxFactory</p>
+
+<h1 id="the-url-to-connect-to-the-ldap-server">The URL to connect to the LDAP server</h1>
+
+<p>ldap.authentication.java.naming.provider.url=ldap://directorysrv1:10389</p>
+
+<h1 id="the-authentication-mechanism-to-use-for-password-validation">The authentication mechanism to use for password validation</h1>
+
+<p>ldap.authentication.java.naming.security.authentication=simple</p>
+
+<h1 id="escape-commas-entered-by-the-user-at-bind-time">Escape commas entered by the user at bind time</h1>
+
+<h1 id="useful-when-using-simple-authentication-and-the-cn-is-part-of-the-dn-and-contains-commas">Useful when using simple authentication and the CN is part of the DN and contains commas</h1>
+<p>ldap.authentication.escapeCommasInBind=false</p>
+
+<h1 id="escape-commas-entered-by-the-user-when-setting-the-authenticated-user">Escape commas entered by the user when setting the authenticated user</h1>
+
+<h1 id="useful-when-using-simple-authentication-and-the-cn-is-part-of-the-dn-and-contains-commas-and-the-escaped--is">Useful when using simple authentication and the CN is part of the DN and contains commas, and the escaped \, is</h1>
+
+<h1 id="pulled-in-as-part-of-an-ldap-sync">pulled in as part of an LDAP sync</h1>
+
+<h1 id="if-this-option-is-set-to-true-it-will-break-the-default-home-folder-provider-as-space-names-can-not-contain-">If this option is set to true it will break the default home folder provider as space names can not contain \</h1>
+<p>ldap.authentication.escapeCommasInUid=false</p>
+
+<h1 id="comma-separated-list-of-user-names-who-should-be-considered-administrators-by-default">Comma separated list of user names who should be considered administrators by default</h1>
+
+<h3 id="intix-administration-user-cn-when-ldap-authn-is-enabled">intix: administration user (CN) when ldap authN is enabled.</h3>
+
+<h3 id="the-admin-user-is-valid-when-alfrescontlm-authn-is-enabled">The “admin” user is valid when alfrescoNtlm authN is enabled.</h3>
+
+<p>ldap.authentication.defaultAdministratorUserNames=aamodwroclawski</p>
+
+<h1 id="this-flag-enables-use-of-this-ldap-subsystem-for-user-and-group">This flag enables use of this LDAP subsystem for user and group</h1>
+
+<h1 id="synchronization-it-may-be-that-this-subsytem-should-only-be-used-for">synchronization. It may be that this subsytem should only be used for</h1>
+
+<h1 id="authentication-in-which-case-this-flag-should-be-set-to-false">authentication, in which case this flag should be set to false.</h1>
+
+<p>ldap.synchronization.active=true</p>
+
+<h1 id="the-authentication-mechanism-to-use-for-synchronization">The authentication mechanism to use for synchronization</h1>
+
+<p>ldap.synchronization.java.naming.security.authentication=simple</p>
+
+<h1 id="the-default-principal-to-use-only-used-for-ldap-sync">The default principal to use (only used for LDAP sync)</h1>
+
+<p>ldap.synchronization.java.naming.security.principal=uid=admin,ou=system</p>
+
+<h1 id="the-password-for-the-default-principal-only-used-for-ldap-sync">The password for the default principal (only used for LDAP sync)</h1>
+
+<p>ldap.synchronization.java.naming.security.credentials=secret</p>
+
+<h1 id="if-positive-this-property-indicates-that-rfc-2696-paged-results-should-be">If positive, this property indicates that RFC 2696 paged results should be</h1>
+
+<h1 id="used-to-split-query-results-into-batches-of-the-specified-size-this">used to split query results into batches of the specified size. This</h1>
+
+<h1 id="overcomes-any-size-limits-imposed-by-the-ldap-server">overcomes any size limits imposed by the LDAP server.</h1>
+
+<p>ldap.synchronization.queryBatchSize=0</p>
+
+<h1 id="if-positive-this-property-indicates-that-range-retrieval-should-be-used-to-fetch">If positive, this property indicates that range retrieval should be used to fetch</h1>
+
+<h1 id="multi-valued-attributes-such-as-member-in-batches-of-the-specified-size">multi-valued attributes (such as member) in batches of the specified size.</h1>
+
+<h1 id="overcomes-any-size-limits-imposed-by-active-directory">Overcomes any size limits imposed by Active Directory.</h1>
+
+<p>ldap.synchronization.attributeBatchSize=0</p>
+
+<h1 id="the-query-to-select-all-objects-that-represent-the-groups-to-import">The query to select all objects that represent the groups to import.</h1>
+
+<h3 id="ldapsynchronizationgroupqueryobjectclassgroupofnames">ldap.synchronization.groupQuery=(objectclass=groupOfNames)</h3>
+<p>ldap.synchronization.groupQuery=(objectclass=groupOfUniqueNames)</p>
+
+<h1 id="the-query-to-select-objects-that-represent-the-groups-to-import-that-have-changed-since-a-certain-time">The query to select objects that represent the groups to import that have changed since a certain time.</h1>
+
+<h3 id="ldapsynchronizationgroupdifferentialqueryobjectclassgroupofnamesmodifytimestamp0">ldap.synchronization.groupDifferentialQuery=(&amp;(objectclass=groupOfNames)(!(modifyTimestamp&lt;={0})))</h3>
+<p>ldap.synchronization.groupDifferentialQuery=(&amp;(objectclass=groupOfUniqueNames)(!(modifyTimestamp&lt;={0})))</p>
+
+<h1 id="the-query-to-select-all-objects-that-represent-the-users-to-import">The query to select all objects that represent the users to import.</h1>
+
+<p>ldap.synchronization.personQuery=(objectclass=inetOrgPerson)</p>
+
+<h1 id="the-query-to-select-objects-that-represent-the-users-to-import-that-have-changed-since-a-certain-time">The query to select objects that represent the users to import that have changed since a certain time.</h1>
+
+<p>ldap.synchronization.personDifferentialQuery=(&amp;(objectclass=inetOrgPerson)(!(modifyTimestamp&lt;={0})))</p>
+
+<h1 id="the-group-search-base-restricts-the-ldap-group-query-to-a-sub-section-of-tree-on-the-ldap-server">The group search base restricts the LDAP group query to a sub section of tree on the LDAP server.</h1>
+
+<p>ldap.synchronization.groupSearchBase=ou=Groups,dc=intix,dc=info</p>
+
+<h1 id="the-user-search-base-restricts-the-ldap-user-query-to-a-sub-section-of-tree-on-the-ldap-server">The user search base restricts the LDAP user query to a sub section of tree on the LDAP server.</h1>
+
+<p>ldap.synchronization.userSearchBase=ou=Employees,dc=intix,dc=info</p>
+
+<h1 id="the-name-of-the-operational-attribute-recording-the-last-update-time-for-a-group-or-user">The name of the operational attribute recording the last update time for a group or user.</h1>
+
+<p>ldap.synchronization.modifyTimestampAttributeName=modifyTimestamp</p>
+
+<h1 id="the-timestamp-format-unfortunately-this-varies-between-directory-servers">The timestamp format. Unfortunately, this varies between directory servers.</h1>
+
+<p>ldap.synchronization.timestampFormat=yyyyMMddHHmmss’Z’</p>
+
+<h1 id="the-attribute-name-on-people-objects-found-in-ldap-to-use-as-the-uid-in-alfresco">The attribute name on people objects found in LDAP to use as the uid in Alfresco</h1>
+
+<h3 id="ldapsynchronizationuseridattributenameuid">ldap.synchronization.userIdAttributeName=uid</h3>
+
+<h3 id="intix-cn-is-necessary-to-authn-by-this-attribute-when-searching-ldap">intix: CN is necessary to authN by this attribute when searching LDAP</h3>
+
+<p>ldap.synchronization.userIdAttributeName=cn</p>
+
+<h1 id="the-attribute-on-person-objects-in-ldap-to-map-to-the-first-name-property-in-alfresco">The attribute on person objects in LDAP to map to the first name property in Alfresco</h1>
+
+<p>ldap.synchronization.userFirstNameAttributeName=givenName</p>
+
+<h1 id="the-attribute-on-person-objects-in-ldap-to-map-to-the-last-name-property-in-alfresco">The attribute on person objects in LDAP to map to the last name property in Alfresco</h1>
+
+<p>ldap.synchronization.userLastNameAttributeName=sn</p>
+
+<h1 id="the-attribute-on-person-objects-in-ldap-to-map-to-the-email-property-in-alfresco">The attribute on person objects in LDAP to map to the email property in Alfresco</h1>
+
+<p>ldap.synchronization.userEmailAttributeName=mail</p>
+
+<h1 id="the-attribute-on-person-objects-in-ldap-to-map-to-the-organizational-id-property-in-alfresco">The attribute on person objects in LDAP to map to the organizational id property in Alfresco</h1>
+
+<p>ldap.synchronization.userOrganizationalIdAttributeName=o</p>
+
+<h1 id="the-default-home-folder-provider-to-use-for-people-created-via-ldap-import">The default home folder provider to use for people created via LDAP import</h1>
+
+<p>ldap.synchronization.defaultHomeFolderProvider=userHomesHomeFolderProvider</p>
+
+<h1 id="the-attribute-on-ldap-group-objects-to-map-to-the-authority-name-property-in-alfresco">The attribute on LDAP group objects to map to the authority name property in Alfresco</h1>
+
+<p>ldap.synchronization.groupIdAttributeName=cn</p>
+
+<h1 id="the-attribute-on-ldap-group-objects-to-map-to-the-authority-display-name-property-in-alfresco">The attribute on LDAP group objects to map to the authority display name property in Alfresco</h1>
+
+<p>ldap.synchronization.groupDisplayNameAttributeName=description</p>
+
+<h1 id="the-group-type-in-ldap">The group type in LDAP</h1>
+
+<h3 id="ldapsynchronizationgrouptypegroupofnames">ldap.synchronization.groupType=groupOfNames</h3>
+<p>ldap.synchronization.groupType=groupOfUniqueNames</p>
+
+<h1 id="the-person-type-in-ldap">The person type in LDAP</h1>
+
+<p>ldap.synchronization.personType=inetOrgPerson</p>
+
+<h1 id="the-attribute-in-ldap-on-group-objects-that-defines-the-dn-for-its-members">The attribute in LDAP on group objects that defines the DN for its members</h1>
+
+<h3 id="ldapsynchronizationgroupmemberattributenamemember">ldap.synchronization.groupMemberAttributeName=member</h3>
+<p>ldap.synchronization.groupMemberAttributeName=uniqueMember</p>
+
+<h1 id="if-true-progress-estimation-is-enabled-when-enabled-the-user-query-has-to-be-run-twice-in-order-to-count-entries">If true progress estimation is enabled. When enabled, the user query has to be run twice in order to count entries.</h1>
+
+<p>ldap.synchronization.enableProgressEstimation=true</p>
+
+<p>[/sourcecode]
+4. Re-start Alfresco.
+5. Check LDAP authN and import of users in Alfresco.</p>
+
+<p>[caption id=”” align=”alignnone” width=”517” caption=”Imported users from LDAP tree in Alfresco”]<img src="/assets/sso_alfr_lfry-04-showusers.png" alt="Imported users from LDAP tree in Alfresco" />[/caption]</p>
+
+<h2 id="ii-configure-cas-in-alfresco">II. Configure CAS in Alfresco</h2>
+
+<p>We are setting up Alfresco so that when someone log into Alfresco it is redirected to CAS for authentication.
+Through the CAS filter, Alfresco catchs any request to access and these are redirected to CAS-login.
+When you has successfully authenticated with CAS, after you will be redirected to the My Alfresco Dashboard, then Alfresco will need to retrieve the values of session which is placed there by the CAS Filter.
+If you want to do SSO and automatic redirection when login to Alfresco Explorer after authentication in CAS, you should create a CAS Authentication Filter as Aksels Architecture Blog show us <a href="http://akselsarchitecture.blogspot.com/2010/09/cas-sso-for-alfresco-33-and-share.html">here</a> and test with version 3.4c.
+To do this you have to create/modify the Java code (CasAuthenticationFilter.java) that is executed when enter to Alfresco page.
+1. Edit the alfresco web.xml to modify Authentication Filter and to add the CAS filters.</p>
+
+<p>[sourcecode language=”text” gutter=”true” wraplines=”false”]<br />
+﻿c:&gt;notepad++ C:\1bpms-demo\alfr34c_1\tomcat\webapps\alfresco\WEB-INF\web.xml</p>
+
+<p>[/sourcecode]
+… modify web.xml</p>
+
+<p>[sourcecode language=”xml” gutter=”true” wraplines=”false”]</p>
+
+<p>[…]<br />
+﻿ <context-param></context-param></p>
+<param-name>rootPath</param-name>
+<param-value>/app:company_home</param-value>
+<p>&lt;/context-param&gt;
+&lt;!–filter&gt;</p>
+<filter-name>Authentication Filter</filter-name>
+<description>Authentication filter mapped only to faces URLs. Other URLs generally use proprietary means to talk to the AuthenticationComponent</description>
+<filter-class>org.alfresco.repo.web.filter.beans.BeanProxyFilter</filter-class>
+<init-param>  
+<param-name>beanName</param-name>  
+<param-value>AuthenticationFilter</param-value>  
+</init-param>
+<p>&lt;/filter--&gt;<br />
+<!-- ******* INTIX, Step 1 of 3: Comment above 'Authentication Filter' filter and add a CAS modified filter below --></p>
+<filter>  
+<filter-name>Authentication Filter</filter-name>  
+<description>INTIX - Authentication Filter</description>  
+<filter-class>org.jasig.cas.client.authentication.AuthenticationFilter</filter-class>  
+<init-param>  
+<param-name>casServerLoginUrl</param-name>  
+<param-value>https://directorysrv1:8443/cas-server-webapp-3.3.5/login</param-value>  
+</init-param>  
+<init-param>  
+<param-name>serverName</param-name>  
+<param-value>http://alfr01:8080</param-value>  
+</init-param>  
+</filter>
+<!-- End new CAS filter -->
+<filter>  
+<filter-name>Global Authentication Filter</filter-name>  
+<description>Authentication filter mapped to all authenticated URLs. Mainly for SSO support</description>  
+<filter-class>org.alfresco.repo.web.filter.beans.BeanProxyFilter</filter-class>  
+<init-param>  
+<param-name>beanName</param-name>  
+<param-value>GlobalAuthenticationFilter</param-value>  
+</init-param>  
+</filter>
+
+<p>[…]<br />
+﻿ ﻿<!-- ******* INTIX, Step 2 of 3: Add all CAS urls --></p>
+<filter>  
+<filter-name>CAS Validation Filter</filter-name>  
+<filter-class>org.jasig.cas.client.validation.Cas20ProxyReceivingTicketValidationFilter</filter-class>  
+<init-param>  
+<param-name>casServerUrlPrefix</param-name>  
+<param-value>https://directorysrv1:8443/cas-server-webapp-3.3.5</param-value>  
+</init-param>  
+<init-param>  
+<param-name>serverName</param-name>  
+<param-value>http://alfr01:8080</param-value>  
+</init-param>  
+</filter>
+<filter>  
+<filter-name>Alfresco CAS Authentication Filter</filter-name>  
+<filter-class>info.intix.alfresco.CasAuthenticationFilter</filter-class>  
+</filter>
+<filter-mapping>  
+<filter-name>Authentication Filter</filter-name>  
+<url-pattern>/faces/*</url-pattern>  
+</filter-mapping>
+<filter-mapping>  
+<filter-name>CAS Validation Filter</filter-name>  
+<url-pattern>/faces/*</url-pattern>  
+</filter-mapping>
+<filter-mapping>  
+<filter-name>Alfresco CAS Authentication Filter</filter-name>  
+<url-pattern>/faces/*</url-pattern>  
+</filter-mapping>
+<filter-mapping>  
+<filter-name>Authentication Filter</filter-name>  
+<url-pattern>/navigate/*</url-pattern>  
+</filter-mapping>
+<filter-mapping>  
+<filter-name>CAS Validation Filter</filter-name>  
+<url-pattern>/navigate/*</url-pattern>  
+</filter-mapping>
+<filter-mapping>  
+<filter-name>Alfresco CAS Authentication Filter</filter-name>  
+<url-pattern>/navigate/*</url-pattern>  
+</filter-mapping>
+<filter-mapping>  
+<filter-name>Authentication Filter</filter-name>  
+<url-pattern>/command/*</url-pattern>  
+</filter-mapping>
+<filter-mapping>  
+<filter-name>CAS Validation Filter</filter-name>  
+<url-pattern>/command/*</url-pattern>  
+</filter-mapping>
+<filter-mapping>  
+<filter-name>Alfresco CAS Authentication Filter</filter-name>  
+<url-pattern>/command/*</url-pattern>  
+</filter-mapping>
+<filter-mapping>  
+<filter-name>Authentication Filter</filter-name>  
+<url-pattern>/download/*</url-pattern>  
+</filter-mapping>
+<filter-mapping>  
+<filter-name>CAS Validation Filter</filter-name>  
+<url-pattern>/download/*</url-pattern>  
+</filter-mapping>
+<filter-mapping>  
+<filter-name>Alfresco CAS Authentication Filter</filter-name>  
+<url-pattern>/download/*</url-pattern>  
+</filter-mapping>
+<filter-mapping>  
+<filter-name>Authentication Filter</filter-name>  
+<url-pattern>/template/*</url-pattern>  
+</filter-mapping>
+<filter-mapping>  
+<filter-name>CAS Validation Filter</filter-name>  
+<url-pattern>/template/*</url-pattern>  
+</filter-mapping>
+<filter-mapping>  
+<filter-name>Alfresco CAS Authentication Filter</filter-name>  
+<url-pattern>/template/*</url-pattern>  
+</filter-mapping>
+<filter-mapping>  
+<filter-name>Authentication Filter</filter-name>  
+<url-pattern>/n/*</url-pattern>  
+</filter-mapping>
+<filter-mapping>  
+<filter-name>CAS Validation Filter</filter-name>  
+<url-pattern>/n/*</url-pattern>  
+</filter-mapping>
+<filter-mapping>  
+<filter-name>Alfresco CAS Authentication Filter</filter-name>  
+<url-pattern>/n/*</url-pattern>  
+</filter-mapping>
+<filter-mapping>  
+<filter-name>Authentication Filter</filter-name>  
+<url-pattern>/c/*</url-pattern>  
+</filter-mapping>
+<filter-mapping>  
+<filter-name>CAS Validation Filter</filter-name>  
+<url-pattern>/c/*</url-pattern>  
+</filter-mapping>
+<filter-mapping>  
+<filter-name>Alfresco CAS Authentication Filter</filter-name>  
+<url-pattern>/c/*</url-pattern>  
+</filter-mapping>
+<filter-mapping>  
+<filter-name>Authentication Filter</filter-name>  
+<url-pattern>/t/*</url-pattern>  
+</filter-mapping>
+<filter-mapping>  
+<filter-name>CAS Validation Filter</filter-name>  
+<url-pattern>/t/*</url-pattern>  
+</filter-mapping>
+<filter-mapping>  
+<filter-name>Alfresco CAS Authentication Filter</filter-name>  
+<url-pattern>/t/*</url-pattern>  
+</filter-mapping>
+<filter-mapping>  
+<filter-name>Authentication Filter</filter-name>  
+<url-pattern>/d/*</url-pattern>  
+</filter-mapping>
+<filter-mapping>  
+<filter-name>CAS Validation Filter</filter-name>  
+<url-pattern>/d/*</url-pattern>  
+</filter-mapping>
+<filter-mapping>  
+<filter-name>Alfresco CAS Authentication Filter</filter-name>  
+<url-pattern>/d/*</url-pattern>  
+</filter-mapping>
+<!-- ******* End of CAS urls -->
+<filter-mapping>  
+<filter-name>Global Localization Filter</filter-name>  
+<url-pattern>/*</url-pattern>  
+</filter-mapping>
+
+<p>[…]<br />
+﻿ <filter-mapping></filter-mapping></p>
+<filter-name>Global Authentication Filter</filter-name>
+<url-pattern>/faces/*</url-pattern>
+<p>&lt;/filter-mapping&gt;<br />
+<!-- ******* INTIX, Step 3 of 3: Comment this, it is a duplicated --><br />
+&lt;!–filter-mapping&gt;</p>
+<filter-name>Authentication Filter</filter-name>
+<url-pattern>/faces/*</url-pattern>
+<p>&lt;/filter-mapping--&gt;</p>
+<filter-mapping>  
+<filter-name>WebDAV Authentication Filter</filter-name>  
+<url-pattern>/webdav/*</url-pattern>  
+</filter-mapping>
+
+<p>[…]</p>
+
+<p>[/sourcecode]
+2. Copy the CAS client jar file into the alfresco webapp lib folder.</p>
+
+<p>[sourcecode language=”text” gutter=”true” wraplines=”false”]<br />
+﻿c:&gt;<br />
+c:&gt;copy C:\0share1\cas-client-core-3.1.10.jar C:\1bpms-demo\alfr34c_1\tomcat\webapps\alfresco\WEB-INF\lib\cas-client-core-3.1.10.jar<br />
+1 archivos copiados.
+c:&gt;</p>
+
+<p>[/sourcecode]
+3. Modify and compile CasAuthenticationFilter.java (http://akselsarchitecture.googlegroups.com/web/CasAuthenticationFilter-Alfresco.java) and copy .jar into the alfresco webapp lib folder.</p>
+
+<p>[sourcecode language=”text” gutter=”true” wraplines=”false”]<br />
+﻿c:&gt;<br />
+c:&gt;copy C:\0share1\www.intix.info-casauthnfilter-0.1.jar c:\1bpms-demo\alfr34c_1\tomcat\webapps\alfresco\WEB-INF\lib\www.intix.info-casauthnfilter-0.1.jar<br />
+1 archivos copiados.
+c:&gt;</p>
+
+<p>[/sourcecode]
+You can download my <strong>www.intix.info-casauthnfilter-0.1.jar</strong> file from <a href="http://dl.dropbox.com/u/2961879/blog20110215_sso_alfresco_liferay_2/www.intix.info-casauthnfilter-0.1.jar"><strong>here</strong></a>.<br />
+4. Re-start Alfresco.
+5. Test CAS configuration.
+Try opening an Alfresco’s page, for example: http://alfr01:8080/alfresco in a browser. You should be redirected to the CAS login page, and when you log in (for example with aamodwroclawski/test) you should be redirected back to the My Alfresco Dashboard.
+6. If you have get this error (see figure below) is because you have not installed the CAS root SSL Cert as a trusted certificate in Alfresco (JRE’s cacert store). Alfresco 3.4c CE has JRE’s cacert store in ${ALF_HOME}/java/jre/lib/sec, then install the certificate there.</p>
+
+<p>[caption id=”” align=”alignnone” width=”468” caption=”CAS server SSL certificate no installed in Alfresco”]<img src="/assets/sso_alfr_lfry-01-Alfresco-SSL-Cert-validateProxyTicketValidator-error.png" alt="CAS server SSL certificate no installed in Alfresco" />[/caption]
+To solve it, you should import CAS server SSL public certificate in the JRE’s cacerts where Alfresco is running, in my case I have Alfresco running in WinXP box called “alfr01″.</p>
+
+<p>[sourcecode language=”text” gutter=”true” wraplines=”false”]<br />
+c:&gt;keytool -import -alias tomcat -file c:\0share1\directorysrv1_730days.crt -keystore C:\1bpms-demo\alf34c_1\java\jre\lib\sec<br />
+y\cacerts<br />
+Enter keystore password:<br />
+Owner: CN=directorysrv1, OU=”INTIX I+D”, O=INTIX.info, L=BARCELONA, ST=CATALUNYA, C=ES<br />
+Issuer: CN=directorysrv1, OU=”INTIX I+D”, O=INTIX.info, L=BARCELONA, ST=CATALUNYA, C=ES<br />
+Serial number: 4d1df9bc<br />
+Valid from: Fri Dec 31 16:41:48 GMT+01:00 2010 until: Sun Dec 30 16:41:48 GMT+01:00 2012<br />
+Certificate fingerprints:<br />
+MD5: 11:4D:72:BB:80:42:EE:F7:4A:CA:E9:EA:F6:4F:86:8D<br />
+SHA1: 7F:6B:12:64:31:8B:47:4E:11:33:D7:FE:EF:C6:D4:65:12:59:8D:2E<br />
+Signature algorithm name: SHA1withRSA<br />
+Version: 3<br />
+Trust this certificate? [no]: yes<br />
+Certificate was added to keystore</p>
+
+<p>[/sourcecode]</p>
+
+<h2 id="iii-tuning-authentication-in-alfresco">III. Tuning Authentication in Alfresco</h2>
+
+<p>Right now, we have configured Alfresco and CAS, where the user management can be done syncronizing or importing users stored in LDAP tree.
+We can do user, groups and roles management via Alfresco LDAP subsystem and Authentication-SSO via EXTERNAL subsystem. To do this, we must modify the file alfresco-global.properties.</p>
+
+<p>[sourcecode language=”text” gutter=”true” wraplines=”false”]</p>
+
+<p>[…]<br />
+﻿### authentication.chain=alfrescoNtlm1:alfrescoNtlm,ldap1:ldap<br />
+﻿authentication.chain=external1:external,ldap1:ldap</p>
+
+<p>[/sourcecode]</p>
+
+<h2 id="iv-test-web-single-sign-on-between-liferay-605-ce-and-alfresco-34c-ce">IV. Test Web Single Sign On between Liferay 6.0.5 CE and Alfresco 3.4.c CE</h2>
+
+<p>Open a browser with http://alfr01:8080/alfresco, you get redirected to CAS-login page. Enter aamodwroclawski/test, then you should be redirected to Alfresco My Dashboard page (authenticated).
+In this time you should see Logout (aamodwroclawski) in the top right of the Alfresco page indicating that you have sucessfully logged in.</p>
+
+<p>[caption id=”” align=”alignnone” width=”476” caption=”User properly authenticated in Alfresco”]<img src="/assets/sso_alfr_lfry-05-userauthenticated2.png" alt="User properly authenticated in Alfresco" />[/caption]
+Then, open other browser with http://lfry01:8080/intixportal/user/aamodwroclawski, you get redirected to Liferay private and authenticated page for the user “aamodwroclawski”.</p>
+
+<p>[caption id=”” align=”alignnone” width=”442” caption=”The same user authenticated and with SSO in Liferay”]<img src="/assets/sso_alfr_lfry-05-userauthenticated2lfry.png" alt="The same user authenticated and with SSO in Liferay" />[/caption]
+In other direction (Liferay to Alfresco) it does work too.</p>
+
+<h2 id="v-conclusions">V. Conclusions</h2>
+
+<p>1. Authentication and users sync in Alfresco 3.4c does work with authentication subsystem LDAP.
+2. SSO with CAS in Alfresco 3.4c does work by enabling authentication subsystem EXTERNAL.
+3. There is an issue when importing users from LDAP tree in Liferay. The passwords are created with random value and no with “test”.</p>
+
+<p><strong>END</strong></p>
+
+<p><strong>References:</strong>
+1. CAS in Alfresco
+http://wiki.alfresco.com/wiki/Central_Authentication_Service_Configuration
+2. CAS SSO for Alfresco 3.3 and Share
+http://akselsarchitecture.blogspot.com/2010/09/cas-sso-for-alfresco-33-and-share.html</p>
+</div></li><li><span class="post-meta">FEB 10, 2011 &sim; ECM &sim; ALFRESCO</span>
+    <h3>
+      <a class="post-link" href="/2011/02/10/install-alfresco-34c-5-minutes/">
+        Install Alfresco 3.4c CE in 5 minutes
+      </a>
+    </h3><div class="holosec-excerpts-hover"><p>Sometimes it is necessary a fresh installation of Alfresco for testing purposes and of a quickly way. In my case i want to create virtual machines with different configurations and variations of Alfresco.<br />
+Well, this post explains how to do an installation quickly of Alfresco.</p>
+
+<h2 id="i-pre-requisites">I. Pre-requisites</h2>
+<ul>
+  <li>Virtual Box machine with Windows XP SP2 as guest S.O. and 1024 MB Ram.</li>
+  <li>JDK 1.6.0_13 installed.</li>
+  <li>MySQL Server 5.1.33-community.</li>
+  <li>Alfresco 3.4c CE installer downloaded (alfresco-community-3.4.c-installer-win-x32.exe).</li>
+</ul>
+
+<h2 id="ii-installation">II. Installation</h2>
+
+<p>1. Create an empty database for Alfresco named, in my case, “alf34c_db1”.</p>
+
+<p>[sourcecode language=”text” gutter=”true” wraplines=”false”]<br />
+C:\1bpms-demo\xampplite\mysql\bin&gt;mysql -u root -p<br />
+Enter password:<br />
+Welcome to the MySQL monitor. Commands end with ; or \g.<br />
+Your MySQL connection id is 3<br />
+Server version: 5.1.33-community MySQL Community Server (GPL)
+Type ‘help;’ or ‘\h’ for help. Type ‘\c’ to clear the buffer.
+mysql&gt; CREATE DATABASE alf34c_db1 DEFAULT CHARACTER SET utf8;<br />
+mysql&gt; GRANT ALL ON alf34c_db1.* TO alf_user1@’localhost’ IDENTIFIED BY ‘demodemo’ WITH GRANT OPTION;<br />
+mysql&gt; GRANT ALL ON alf34c_db1.* TO alf_user1@’localhost.localdomain’ IDENTIFIED BY ‘demodemo’ WITH GRANT OPTION;
+Query OK, 0 rows affected (0.00 sec)
+mysql&gt; quit;<br />
+Bye</p>
+
+<p>[/sourcecode]
+2. Execute the Alfresco installer.
+3. In “Installation type” selects “Advance - Configures serve ports and service properties”, then in the “Database Installation” popup to select “I wish to use an existing database”. Then, enter the following:</p>
+
+<p>[caption id=”” align=”alignnone” width=”407” caption=”Alfresco installer - Database configuration”]<img src="/assets/1.database_install.png" alt="Alfresco installer - Database configuration" />[/caption]
+4. When finalizing installer, run ${ALF_HOME}/tomcat/bin/startup.bat.
+5. When starting you can see in the catalina out how to Alfresco create database structure and populates with initial data. Also, you can see several errors in catalina out console because you need modify JVM variables.</p>
+
+<p>[caption id=”” align=”alignnone” width=”521” caption=”OutOfMemoryError and PermGen error when starting Alfresco”]<img src="/assets/2.1st_alfresco_startup_error.png" alt="OutOfMemoryError and PermGen error when starting Alfresco" />[/caption]
+Then, add or modify JAVA_OPTS variable in Tomcat to ${ALF_HOME}/tomcat/bin/setenv.bat file. This file looks like to:</p>
+
+<p>[sourcecode language=”text” gutter=”true” wraplines=”false” highlight=”1”]<br />
+set JAVA_OPTS=-Xms256m -Xmx1024m -Xss96k -XX:MaxPermSize=256m -server<br />
+set JAVA_HOME=C:\1BPMS-~1\alf34c_1\java<br />
+set JAVA_OPTS=%JAVA_OPTS%</p>
+
+<p>[/sourcecode]
+In some case, you need to copy jaxb-api-2.1.jar from ${ALF_HOME}/tomcat/webapps/alfresco/WEB-INF/lib to ${ALF_HOME}/tomcat/endorsed.
+6. Restart.
+When finished, open browser and go to <a href="http://localhost:8080/alfresco">http://localhost:8080/alfresco</a>. You can log in to Alfresco with admin/admin.
+END.
+<strong>References</strong> :
+1) Error al arrancar el servidor alfresco 3.2</p>
+
+<p><a href="http://forums.alfresco.com/es/viewtopic.php?f=5&amp;t=1785">http://forums.alfresco.com/es/viewtopic.php?f=5&amp;t=1785</a>
+2) java.lang.OutOfMemoryError: PermGen space<br />
+<a href="http://forums.alfresco.com/en/viewtopic.php?t=14451">http://forums.alfresco.com/en/viewtopic.php?t=14451</a></p>
+</div></li><li><span class="post-meta">JAN 20, 2011 &sim; PORTAL · SECURITY &sim; AUTHENTICATION · CAS · LIFERAY</span>
+    <h3>
+      <a class="post-link" href="/2011/01/20/redirect-to-liferay-page-after-logout-in-cas/">
+        Redirect to Liferay page after logout in CAS
+      </a>
+    </h3><div class="holosec-excerpts-hover"><p>To redirect any webpage after logout in CAS, follow the instructions below:
+1. Change Liferay CAS configuration. Go to<br />
+Control Panel &gt; Settings &gt; Authentication &gt; CAS
+2. Update “Logout URL” property:</p>
+
+<p>[sourcecode language=”text” gutter=”true” wraplines=”false”]<br />
+https://directorysrv1:8443/cas-server-webapp-3.3.5/logout?service=${my-logout-page}
+Where:<br />
+${my-logout-page}: http://lfry01:8080/web/guest/lfry01-logout-page</p>
+
+<p>[/sourcecode]
+3. Change CAS configuration. Set the “followServiceRedirects” property to “true”<br />
+on the “logoutController” bean defined in the cas-servlet.xml.</p>
+
+<p>[sourcecode language=”text” gutter=”true” wraplines=”false”]</p>
+
+<p>[root@directorysrv1 ~]# vim /usr/share/tomcat5/webapps/cas-server-webapp-3.3.5/WEB-INF/cas-servlet.xml</p>
+
+<p>[/sourcecode]</p>
+
+<p>[sourcecode language=”xml” wraplines=”false” highlight=”7” padlinenumbers=”2”]</p>
+
+<p>[…]</p>
+<bean id="logoutController" class="org.jasig.cas.web.LogoutController" p:centralAuthenticationService-ref="centralAuthenticationService" p:logoutView="casLogoutView" p:warnCookieGenerator-ref="warnCookieGenerator" p:ticketGrantingTicketCookieGenerator-ref="ticketGrantingTicketCookieGenerator" p:followServiceRedirects="true" />
+
+<p>[…]</p>
+
+<p>[/sourcecode]
+4. Re-start Tomcat (CAS-server):</p>
+
+<p>[sourcecode language=”text” gutter=”true” wraplines=”false”]</p>
+
+<p>[root@directorysrv1 ~]# service tomcat5 restart<br />
+Stopping tomcat5: [ OK ]<br />
+Starting tomcat5: [ OK ]</p>
+
+<p>[root@directorysrv1 ~]#</p>
+
+<p>[/sourcecode]
+5. Test redirect.</p>
+
+<p>[caption id=”” align=”alignnone” width=”414” caption=”Page redirected by CAS”]<img src="/assets/20110120_tip_logoutcasredirect_1.png" alt="Page redirected by CAS" />[/caption]</p>
+</div></li><li><span class="post-meta">JAN 15, 2011 &sim; ECM · IAM · PORTAL · SECURITY &sim; ALFRESCO · LDAP · PENROSE · SSO</span>
+    <h3>
+      <a class="post-link" href="/2011/01/15/sso-liferay-alfresco-cas-penrose-part-12/">
+        Web-SSO between Liferay and Alfresco with CAS and Penrose (part 1/2)
+      </a>
+    </h3><div class="holosec-excerpts-hover"><p>I know it, It is nothing new. But I always encounter this situation and I have always come back to explain again and again.
+The requirements are:</p>
+<ol>
+  <li>CAS for Authentication and SSO.</li>
+  <li>Web application to do SSO between they: Liferay Portal 6.0.5 CE and Alfresco 3.2 CE.</li>
+  <li>Penrose Virtual Directory with OpenDS as backend to store user credentials and to get a LDAP interface.
+This post is based on a previous one about <a href="http://holisticsecurity.wordpress.com/2010/12/22/authentication-penrose-directory-liferay">Liferay Portal Server LDAP Authentication with Penrose Server</a>, I recommend you read it for it will be easier to follow.</li>
+</ol>
+
+<h2 id="i-install-and-configure-cas-server">I. Install and configure CAS server</h2>
+
+<p><strong>Note:</strong></p>
+<ul>
+  <li>CAS server v3.3.5 comes with appropriate libraries for Tomcat 5 and OpenJDK bundled in CentOS. Otherwise you will have to recompile and / or include some libraries more.
+1. See preview post on “Liferay Portal Server LDAP Authentication with Penrose Server” (<a href="http://holisticsecurity.wordpress.com/2010/12/22/authentication-penrose-directory-liferay">here</a>)
+2. Download CAS server (http://www.jasig.org/cas/download/cas-server-335-final) and deploy cas-server-webapp-3.3.5.war into any Java Web Server, in this case we will deploy into Tomcat server previuosly installed in CentOS box.
+In my case, CentOS has installed Penrose Virtual Directory Server and has already loaded a LDAP tree with several users/identities (see <a href="Liferay Portal Server LDAP Authentication with Penrose Server">details</a> in last blog post).
+3. Verify if Tomcat is installed into CentOS:</li>
+</ul>
+
+<p>[sourcecode language=”text” gutter=”true” wraplines=”false” highlight=”1”]</p>
+
+<p>[root@directorysrv1 /]# rpm -ql tomcat5<br />
+/etc/logrotate.d/tomcat5<br />
+/etc/rc.d/init.d/tomcat5<br />
+/etc/sysconfig/tomcat5<br />
+/etc/tomcat5<br />
+/etc/tomcat5/Catalina<br />
+/etc/tomcat5/Catalina/localhost<br />
+…<br />
+/var/log/tomcat5<br />
+/var/log/tomcat5/catalina.out</p>
+
+<p>[root@directorysrv1 /]#</p>
+
+<p>[/sourcecode]
+If tomcat is not installed, you can download RPM packages and then install it:</p>
+
+<p>[sourcecode language=”text” gutter=”true” wraplines=”false” highlight=”1”]</p>
+
+<p>[root@directorysrv1 /]# yum install tomcat5 tomcat5-webapps tomcat5-admin-webapps</p>
+
+<p>[/sourcecode]
+We are using OpenJDK (this is the CentOS Java by default):</p>
+
+<p>[sourcecode language=”text” gutter=”true” wraplines=”false” highlight=”1”]</p>
+
+<p>[root@directorysrv1 /]# java -version<br />
+java version “1.6.0”<br />
+OpenJDK Runtime Environment (build 1.6.0-b09)<br />
+OpenJDK Client VM (build 1.6.0-b09, mixed mode)</p>
+
+<p>[root@directorysrv1 /]#</p>
+
+<p>[/sourcecode]
+4. Copy CAS server (cas-server-webapp-3.3.5.war) in Tomcat and start the server:</p>
+
+<p>[sourcecode language=”text” gutter=”true” wraplines=”false” highlight=”1,10”]</p>
+
+<p>[root@directorysrv1 /]# cp /temp/cas-server-webapp-3.3.5.war /usr/share/tomcat5/webapps/</p>
+
+<p>[root@directorysrv1 /]# ll /usr/share/tomcat5/webapps/<br />
+total 19248<br />
+-rw-r–r– 1 root root 19658857 Dec 31 11:00 cas-server-webapp-3.3.5.war<br />
+drwxrwxr-x 21 root tomcat 4096 Aug 13 11:35 jsp-examples<br />
+drwxrwxr-x 4 root tomcat 4096 Aug 13 11:35 ROOT<br />
+drwxrwxr-x 4 root tomcat 4096 Aug 13 11:35 servlets-examples<br />
+drwxrwxr-x 12 root tomcat 4096 Aug 13 11:35 tomcat-docs<br />
+drwxrwxr-x 3 root tomcat 4096 Aug 13 11:35 webdav</p>
+
+<p>[root@directorysrv1 /]# service tomcat5 start<br />
+Starting tomcat5: [ OK ]</p>
+
+<p>[root@directorysrv1 /]#</p>
+
+<p>[/sourcecode]
+To have tomcat start automatically when the system boots, use “chkconfig tomcat5 on”.
+5. Verify that CAS server has been deployed successfully. Open a browser with this<br />
+url: <a href="http://directorysrv1:8080/cas-server-webapp-3.3.5">http://directorysrv1:8080/cas-server-webapp-3.3.5</a>
+6. To avoid errors, it’s vital that you ensure the Tomcat process owner (user tomcat) has write privileges to the path where cas.log and/or perfStats.log would be written.<br />
+Then, edit CAS’s log4j.xml or log4j.properties and add a valid path (for example: /usr/share/tomcat5/logs/) to these log (cas.log and/or perfStats.log) files:</p>
+
+<p>[sourcecode language=”text” gutter=”true” wraplines=”false” highlight=”2”]</p>
+
+<p>[root@directorysrv1 /]# cd /usr/share/tomcat5/webapps/cas-server-webapp-3.3.5/WEB-INF/classes</p>
+
+<p>[root@directorysrv1 /]# nano log4j.properties</p>
+
+<p>[/sourcecode]
+Add a valid path to log file.</p>
+
+<p>[sourcecode language=”text” gutter=”true” wraplines=”false” highlight=”3”]<br />
+…<br />
+log4j.appender.logfile=org.apache.log4j.RollingFileAppender<br />
+log4j.appender.logfile.File=/usr/share/tomcat5/logs/cas.log<br />
+log4j.appender.logfile.MaxFileSize=512KB</p>
+
+<h1 id="keep-three-backup-files">Keep three backup files.</h1>
+
+<p>log4j.appender.logfile.MaxBackupIndex=3</p>
+
+<h1 id="pattern-to-output-date-priority-category---message">Pattern to output: date priority [category] - message</h1>
+
+<p>…</p>
+
+<p>[/sourcecode]
+7. After the changes in log4j.xml or log4j.properties, restart the Tomcat server and open the CAS login page: http://directorysrv1:8080/cas-server-webapp-3.3.5/login
+If everything is ok, you should see the following:</p>
+
+<p>[caption id=”” align=”alignnone” width=”473” caption=”Login page in CAS Server”]<img src="/assets/01sso-cas_login.png" alt="Login page in CAS Server" />[/caption]
+8. By default, CAS server has enable basic authentication based in userid/password where any userid is equal to password, for example, test with rogerc/rogerc, you should see the message of “log in successful”.</p>
+
+<p>[caption id=”” align=”alignnone” width=”474” caption=”Successfully log into CAS with default authentication model”]<img src="/assets/02sso-cas_login-ok.png" alt="Successfully log into CAS with default authentication model" />[/caption]</p>
+
+<h2 id="ii-configure-cas-server-with-penrose-virtual-directory-server">II. Configure CAS server with Penrose Virtual Directory Server</h2>
+
+<p>Now we have to change simple test authentication (userid = pwd) model for the LDAP authentication (existing users and password stored in LDAP tree “ou=Employees,dc=intix,dc=info” previously loaded - <a href="http://holisticsecurity.wordpress.com/2010/12/22/authentication-penrose-directory-liferay/">see last blog post here </a>-).
+In other words, instead of authenticating with userid=rogerc/password=rogerc we will use<br />
+userid=roger@intix.info and password=xxxx in CAS.
+1. Edit the deployerConfigContext.xml file:</p>
+
+<p>[sourcecode language=”text” gutter=”true” wraplines=”false” highlight=”2”]</p>
+
+<p>[root@directorysrv1 /]# cd /usr/share/tomcat5/webapps/cas-server-webapp-3.3.5/WEB-INF</p>
+
+<p>[root@directorysrv1 /]# nano deployerConfigContext.xml</p>
+
+<p>[/sourcecode]
+.. comment SimpleTestUsernamePasswordAuthenticationHandler and add these lines:</p>
+
+<p>[sourcecode language=”xml” wraplines=”false” highlight=”3,6,7,8,15” padlinenumbers=”2”]<br />
+<!-- step 1 SimpleTestUsernamePasswordAuthenticationHandler disabled --><br />
+<!-- bean class="org.jasig.cas.authentication.handler.support.SimpleTestUsernamePasswordAuthenticationHandler" /-->&lt;/p&gt;</p>
+<p><!-- step 2 Add new AuthN handler for Penrose Virtual Directory Server -->  
+<bean class="org.jasig.cas.adaptors.ldap.BindLdapAuthenticationHandler">  
+<property name="filter" value="mail=%u" />  
+<property name="searchBase" value="ou=Employees,dc=intix,dc=info" />  
+<property name="contextSource" ref="contextSource" />  
+</bean>  
+&lt;/list&gt;  
+&lt;/property&gt;  
+&lt;/bean&gt;</p>
+<p><!-- step 3 Add LDAP tree of Penrose Virtual Directory server -->  
+<bean id="contextSource" class="org.springframework.ldap.core.support.LdapContextSource">  
+<property name="pooled" value="false" />  
+<property name="urls">  
+<list>  
+<value>ldap://directorysrv1:10389/</value>  
+</list>  
+</property>  
+<property name="userDn" value="uid=admin,ou=system" />  
+<property name="password" value="secret" />  
+<property name="baseEnvironmentProperties">  
+<!-- Set the LDAP connect and read timeout(in ms) for the java ldap class See http://java.sun.com/products/jndi/tutorial/ldap/connect/create.html -->  
+<map>  
+<entry>  
+<key>  
+<value>java.naming.security.authentication</value>  
+</key>  
+<value>simple</value>  
+</entry>  
+</map>  
+</property>  
+</bean>  
+
+[/sourcecode]
+You can download [deployerConfigContext.xml file from here](http://dl.dropbox.com/u/2961879/blog20101231_sso_alfresco_liferay/deployerConfigContext.xml).
+2\. Start Tomcat. You will see in catalina.out
+
+[sourcecode language="text" gutter="true" wraplines="false" highlight="14"]  
+...  
+INFO: SessionListener: contextInitialized()  
+Dec 31, 2010 2:05:16 PM org.apache.coyote.http11.Http11BaseProtocol start  
+INFO: Starting Coyote HTTP/1.1 on http-8080  
+Dec 31, 2010 2:05:16 PM org.apache.jk.common.ChannelSocket init  
+INFO: JK: ajp13 listening on /0.0.0.0:8009  
+Dec 31, 2010 2:05:16 PM org.apache.jk.server.JkMain start  
+INFO: Jk running ID=0 time=0/15 config=null  
+Dec 31, 2010 2:05:16 PM org.apache.catalina.storeconfig.StoreLoader load  
+INFO: Find registry server-registry.xml at classpath resource  
+Dec 31, 2010 2:05:16 PM org.apache.catalina.startup.Catalina start  
+INFO: Server startup in 4294 ms  
+...  
+2010...,660 INFO [org.jasig.cas.web.flow.InitialFlowSetupAction] - &lt;Setting path for ...&gt;  
+2010...,877 INFO [org.jasig.cas.ticket.registry.support.DefaultTicketRegistryCleaner] - &lt;Starting...  
+2010...,878 INFO [org.jasig.cas.ticket.registry.support.DefaultTicketRegistryCleaner] - &lt;0 found ...  
+2010...,878 INFO [org.jasig.cas.ticket.registry.support.DefaultTicketRegistryCleaner] - &lt;Finished...  
+
+[/sourcecode]
+3\. Test CAS server with BindLdapAuthenticationHandler. Open a browser, go to the CAS login page and enter any usr/pwd that exists in the LDAP tree "ou=Employees,dc=intix,dc=info", for example: userid= Aamod.Wroclawski@intix.info with password=test
+
+[caption id="" align="alignnone" width="287" caption="Successfully log into CAS with userid=Aamod.Wroclawski@intix.info with password=test"]![Successfully log into CAS with userid=Aamod.Wroclawski@intix.info with password=test](/assets/03sso-cas_login_ldap_mail.png)[/caption]
+In the catalina.out you can see the following:
+
+[sourcecode language="text" gutter="true" wraplines="false" highlight="2"]  
+...  
+2010...,575 INFO [...successfully authenticated ... [username: Aamod.Wroclawski@intix.info]&gt;  
+2010...,984 INFO [... ] - <Reloading registered="" services.="">  
+
+[/sourcecode]
+
+## III. Enable HTTPS and configure SSL Certificate on Tomcat server that contains CAS server
+
+**Note:**
+* SSL Certificate is used to enable secure channel by communication between CAS server and any Webapp that does the authentication and Web-SSO with CAS.
+* It is necessary to install the Root SSL Certificate of the CAS server for each trusted certificate repository of Web Server container (or Java Virtual Machine).
+* All certificates will be selfsigned, only for testing purposes.
+1\. Create a key pairs for the new SSL certificate for CAS server with 730 days of validity:
+
+[sourcecode language="text" gutter="true" wraplines="false" highlight="1"]  
+keytool -genkey -alias tomcat -keypass <CERT_PWD> -keyalg RSA -keystore ./<MY_KEYSTORE> -validity 730&lt;/p&gt;  
+<p>Where:  
+CERT_PWD is "changeit"  
+CAS_KEYSTORE is "cas-3_3_5.keystore"  
+
+[/sourcecode]
+.. create self signed SSL certificate:
+
+[sourcecode language="text" gutter="true" wraplines="false" highlight="1"]  
+
+[root@directorysrv1 /]# keytool -genkey -alias tomcat -keypass changeit -keyalg RSA -keystore /usr/share/tomcat5/cas-3_3_5.keystore -validity 730  
+Enter keystore password:  
+Re-enter new password:  
+What is your first and last name?  
+
+[Unknown]: directorysrv1  
+What is the name of your organizational unit?  
+
+[Unknown]: INTIX I+D  
+What is the name of your organization?  
+
+[Unknown]: INTIX.info  
+What is the name of your City or Locality?  
+
+[Unknown]: BARCELONA  
+What is the name of your State or Province?  
+
+[Unknown]: CATALUNYA  
+What is the two-letter country code for this unit?  
+
+[Unknown]: ES  
+Is CN=directorysrv1, OU="INTIX I+D", O=INTIX.info, L=BARCELONA, ST=CATALUNYA, C=ES correct?  
+
+[no]: yes</p>  
+<p>[root@directorysrv1 bin]#  
+
+[/sourcecode]
+2\. Export the SSL certificate:
+
+[sourcecode language="text" gutter="true" wraplines="false" highlight="1"]  
+
+[root@directorysrv1 /]# keytool -export -alias tomcat -keypass changeit -keystore /usr/share/tomcat5/cas-3_3_5.keystore -storepass changeit -file /usr/share/tomcat5/directorysrv1_730days.crt  
+Certificate stored in file &lt;/usr/share/tomcat5/directorysrv1_730days.crt&gt;  
+
+[root@directorysrv1 /]#  
+
+[/sourcecode]
+3\. Remove comments in /usr/share/tomcat5/conf/server.xml and enable HTTPS:
+
+[sourcecode language="xml" gutter="true" wraplines="false" highlight="4,10,11"]  
+...  
+<!-- Define a SSL HTTP/1.1 Connector on port 8443 --></p>  
+<p><!-- sept 1, SSL in CAS server -->  
+<Connector port="8443" maxHttpHeaderSize="8192" maxThreads="150" minSpareThreads="25" maxSpareThreads="75" enableLookups="false" disableUploadTimeout="true" acceptCount="100" scheme="https" secure="true" clientAuth="false" sslProtocol="TLS" keystoreFile="/usr/share/tomcat5/cas-3_3_5.keystore" keystorePass="changeit" /></p>  
+<p><!-- Define an AJP 1.3 Connector on port 8009 -->  
+...  
+
+[/sourcecode]
+You can download [server.xml from here](http://dl.dropbox.com/u/2961879/blog20101231_sso_alfresco_liferay/server.xml).
+5\. Now you can test CAS server on SSL, in this case you have to open a browser with this URL: &lt;https://directorysrv1:8443/cas-server-webapp-3.3.5/login&gt;
+
+[caption id="" align="alignnone" width="320" caption="CAS login on SSL"]![CAS login on SSL](/assets/04sso-cas_login_SSL.png)[/caption]
+
+## IV. Configure Liferay with CAS and LDAP Authentication
+
+1\. Import CAS server SSL public certificate in the JVM/JRE where Liferay is running, in my case I have Liferay running in WinXP box called "lfry01".
+
+[sourcecode language="text" gutter="true" wraplines="false" highlight="1"]  
+c:\&gt;keytool -import -alias tomcat -file c:\0share1\cas-3.3.5_cert\directorysrv1_730days.crt -keystore c:\1bpms-demo\liferay-portal-6.0.5\tomcat-6.0.26\jre1.6.0_21\win\lib\security\cacerts  
+Enter keystore password:  
+Owner: CN=directorysrv1, OU="INTIX I+D", O=INTIX.info, L=BARCELONA, ST=CATALUNYA, C=ES  
+Issuer: CN=directorysrv1, OU="INTIX I+D", O=INTIX.info, L=BARCELONA, ST=CATALUNYA, C=ES  
+Serial number: 4d1df9bc  
+Valid from: Fri Dec 31 16:41:48 GMT+01:00 2010 until: Sun Dec 30 16:41:48 GMT+01:00 2012  
+Certificate fingerprints:  
+MD5: 11:4D:72:BB:80:42:EE:F7:4A:CA:E9:EA:F6:4F:86:8D  
+SHA1: 7F:6B:12:64:31:8B:47:4E:11:33:D7:FE:EF:C6:D4:65:12:59:8D:2E  
+Signature algorithm name: SHA1withRSA<br />  
+Version: 3  
+Trust this certificate? [no]: yes  
+Certificate was added to keystore</p>  
+<p>c:\&gt;  
+
+[/sourcecode]
+2\. Configure Liferay CAS and LDAP Authentication:
+In last blog post We configured LDAP Authentication in Liferay, in this new example we just should add CAS server configuration in Liferay.
+
+[sourcecode language="text" gutter="true" wraplines="false"]  
+* Enabled: Yes  
+* Import from LDAP: Yes  
+* Login URL: https://directorysrv1:8443/cas-server-webapp-3.3.5/login  
+* Logout URL: https://directorysrv1:8443/cas-server-webapp-3.3.5/logout  
+* Server Name: lfry01:8080  
+* Server URL: https://directorysrv1:8443/cas-server-webapp-3.3.5  
+* Service URL: http://lfry01:8080/c/portal/login  
+
+[/sourcecode]
+
+[caption id="" align="alignnone" width="494" caption="CAS configuration in Liferay Control Panel"]![CAS configuration in Liferay Control Panel](/assets/05sso-liferay_ldap_cas_authn_config.png)[/caption]
+3\. Test LDAP Authentication and CAS with Liferay:
+* Go to Liferay http://lfry01:8080
+* Click on "Sign in" link located on the top right 
+
+[caption id="" align="alignnone" width="190" caption="Click on "Sign in" (top right on guest page of Liferay)"]![Click on "Sign in" \(top right on guest page of Liferay\)](/assets/06sso-liferay_ldap_cas_authn_signin.png)[/caption]
+* CAS login form appears, enter with userid=Aamod.Wroclawski@intix.info and pwd=test 
+
+[caption id="" align="alignnone" width="484" caption="Login page when requesting a protected resource in Liferay"]![Login page when requesting a protected resource in Liferay](/assets/06sso-liferay_ldap_cas_authn_signin2.png)[/caption]
+* If authentication is OK, then you will be redirected to the Aamod.Wroclawski's page within liferay 
+
+[caption id="" align="alignnone" width="466" caption="When doing a successful logon in CAS, we are redirected to the requested page in Liferay"]![When doing a successful logon in CAS, we are redirected to the requested page in Liferay](/assets/06sso-liferay_ldap_cas_authn_signin3.png)[/caption]
+
+## V. Install and configure Alfresco with CAS and LDAP Authentication
+
+In the next post will explain how to configure Alfresco with CAS to do SSO and Authentication.
+We also will see the importance of using an LDAP for supplying identidates and verify the SSO between Liferay and Alfresco.
+See you soon.
+
+**References:**
+* Alfresco Authentication Subsystems:  
+http://wiki.alfresco.com/wiki/Alfresco_Authentication_Subsystems
+* External authentication subsystem:  
+http://wiki.alfresco.com/wiki/Alfresco_Authentication_Subsystems#External
+* Alfresco With mod auth CAS:  
+http://wiki.alfresco.com/wiki/Alfresco_With_mod_auth_cas
+</p></MY_KEYSTORE></CERT_PWD></Reloading></p>
+</div></li><li><span class="post-meta">DEC 22, 2010 &sim; PORTAL · SECURITY &sim; AUTHENTICATION · LDAP · PENROSE · VIRTUAL DIRECTORY</span>
+    <h3>
+      <a class="post-link" href="/2010/12/22/authentication-penrose-directory-liferay/">
+        Liferay Portal LDAP Authentication with Penrose Server
+      </a>
+    </h3><div class="holosec-excerpts-hover"><p>We explained in a previous post <a href="http://holisticsecurity.wordpress.com/2010/11/17/identity-management-portal-ecm-bpm-projects/">Identity Management (IdM) in Portal, ECM and BPM Projects</a> how important is having a Corporate Directory (LDAP server) that serves as a repository for different types of identities and roles that will require for our business application in authentication and authorization processes.</p>
+
+<p><img src="/assets/blog20101203_virtualdirectory_portal/0_vds_penrose_server.png" alt="" /><br />
+<em>Fig 0. Penrose Server, a Java free open source Virtual Directory</em></p>
+
+<p>We also explained the importance of using a Virtual Directory as a natural evolution of the classic Directory and Meta Directory. We also highlight its functionality, scalability and ability to integrate different sources of identity information regardless of the type of source, may be other LDAP servers, Database servers, even Webservices. Well, in this post will explain how to deploy and configure Penrose Server (Virtual Directory free / open source) to store user identity information from a MySQL table so we can use them as users of Liferay Portal without having to program or modify any adapter or hook Liferay. Penrose Server has, by default, OpenDS as backend, then any LDAP objectClass that exists in OpenDS exists in Penrose Server. Said that, come on with installation.</p>
+
+<h2 id="1-pre-requisites">1. Pre-requisites</h2>
+
+<p><strong>1. Download Java Development Kit (&gt;=1.5)</strong>, for example <code class="highlighter-rouge">./jdk-1_5_0_17-linux-amd64.bin</code></p>
+
+<p><strong>2. CentOS already has OpenJDK. You can verify it:</strong></p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 /]# java <span class="nt">-version</span>
+java version <span class="s2">"1.6.0"</span>
+OpenJDK  Runtime Environment <span class="o">(</span>build 1.6.0-b09<span class="o">)</span>
+OpenJDK Client VM <span class="o">(</span>build 1.6.0-b09, mixed mode<span class="o">)</span>
+</code></pre></div></div>
+
+<h2 id="2-installing-penrose-server-virtual-directory">2. Installing Penrose Server (Virtual Directory)</h2>
+
+<p>A virtual directory maps information from disparate data sources, such as LDAP services and Database, into a single location for users to access.</p>
+
+<p><strong>1. Download the RPM</strong> from here <a href="http://penrose.redhat.com/display/PENROSE20/Penrose+2.0+Release">http://penrose.redhat.com/display/PENROSE20/Penrose+2.0+Release</a></p>
+
+<p><strong>2. Install the package(s):</strong></p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 tempo]# rpm <span class="nt">-i</span> vd-server-2.0-1.i386.rpm
+VD Server 2.0 has been installed <span class="k">in</span> /opt/vd-server-2.0.
+</code></pre></div></div>
+
+<p><strong>3. Make sure that JAVA is configured:</strong> Edit <code class="highlighter-rouge">/opt/vd-server-2.0/vd.conf</code> file.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 /]# vim /opt/vd-server-2.0/etc/vd.conf
+</code></pre></div></div>
+
+<p>Add the <code class="highlighter-rouge">JAVA_HOME</code> variable, pointing to your JDK. For example, in CentOS is:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">JAVA_HOME</span><span class="o">=</span>/usr/lib/jvm/java-1.6.0-openjdk
+</code></pre></div></div>
+
+<p>After editing the vd.conf file, copy it into the host’s /etc directory.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 /]# <span class="nb">cp</span> /opt/vd-server-2.0/etc/vd.conf /etc
+</code></pre></div></div>
+
+<p><strong>4. Run a configuration script</strong> to reset the server hostname, give the admin username and password, and set the port numbers and other information for the associated LDAP and JMX services of the Virtual Directory. For example:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 /]# <span class="nb">cd</span> /opt/vd-server-2.0/bin/
+<span class="o">[</span>root@directorysrv1 bin]# ./vd-config.sh
+Configuring VD Server:
+<span class="nt">----------------------</span>
+
+Hostname <span class="o">[</span>directorysrv1.intix.info]:
+Root DN <span class="o">[</span><span class="nv">uid</span><span class="o">=</span>admin,ou<span class="o">=</span>system]:
+Root Password <span class="o">[</span><span class="k">*****</span><span class="o">]</span>:
+User account <span class="o">[</span>root]:
+Group account <span class="o">[</span>root]: 
+
+Configuring JMX Service:
+<span class="nt">------------------------</span>
+
+RMI Port <span class="o">[</span>1099]:
+RMI Transport Port <span class="o">[</span>40888]: 
+
+Configuring OpenDS Service:
+<span class="nt">---------------------------</span>
+
+LDAP Enabled <span class="o">[</span><span class="nb">true</span><span class="o">]</span>:
+LDAP Port <span class="o">[</span>10389]:
+Secure LDAP Enabled <span class="o">[</span><span class="nb">false</span><span class="o">]</span>:
+Secure LDAP Port <span class="o">[</span>10636]:
+SSL Certificate Name <span class="o">[</span>server-cert]:
+Key Store Type <span class="o">(</span>JKS/PKCS12<span class="o">)</span> <span class="o">[</span>JKS]:
+Key Store File <span class="o">[</span>config/keystore]:
+Key Store PIN File <span class="o">[</span>config/keystore.pin]: 
+
+<span class="o">[</span>root@directorysrv1 bin]#
+</code></pre></div></div>
+
+<h2 id="3-installing-additional-libraries">3. Installing additional libraries</h2>
+
+<p>You can install on Virtual Directory Server libraries (jar files) to extend functionalities. These libraries cover a range of different functions, including JDBC drivers, custom adapters, custom modules, and other third party libraries.</p>
+
+<p><strong>1. Copy the JAR files</strong> into the <code class="highlighter-rouge">/opt/vd-server-2.0/lib/ext/</code> directory; for example:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 /]# <span class="nb">cp</span> /export/myjdbc.jar /opt/vd-server-2.0/lib/ext/myjdbc.jar
+</code></pre></div></div>
+
+<p><strong>2. Is necessary restart</strong> the Virtual Directory Server.</p>
+
+<h2 id="4-uninstalling-penrose-server">4. Uninstalling Penrose Server</h2>
+
+<p>The Virtual Directory Server packages can be uninstalled using package management tools, the same as used to install it. To remove the Server, use the -e option with rpm:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 bin]# rpm <span class="nt">-ev</span> vd-server-2.0-1.i386.rpm
+</code></pre></div></div>
+
+<h2 id="5-starting-penrose-server">5. Starting Penrose Server</h2>
+
+<p><strong>1. Virtual Directory is started by running a shell script</strong> <code class="highlighter-rouge">/opt/vd-server-2.0/bin/vd-server.sh</code>. For example:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 /]# <span class="nb">cd</span> /opt/vd-server-2.0/bin
+<span class="o">[</span>root@directorysrv1 bin]# ./vd-server.sh
+<span class="o">[</span>12/02/2010 01:40:11.693] VD Server is ready.
+</code></pre></div></div>
+
+<p><strong>2. To stop the server</strong>, simply close the script.</p>
+
+<h2 id="6-starting-penrose-server-as-a-linux-service">6. Starting Penrose Server as a linux service</h2>
+
+<p>The Virtual Directory can be stopped, started, and restarted using system tools on CentOS. Init scripts are included with the configuration files with Virtual Directory Server.</p>
+
+<p><strong>1. Log into the Virtual Directory Server</strong> host machine as root user.<br />
+<strong>2. Open the Virtual Directory init script directory</strong>.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 /]# <span class="nb">cd</span> /opt/vd-server-2.0/etc/init.d
+</code></pre></div></div>
+
+<p><strong>3. Edit the <code class="highlighter-rouge">/opt/vd-server-2.0/etc/init.d/vd-server</code> script</strong> so that the Virtual Directory Server home and script locations are correct. For example:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">VD_SERVER_HOME</span><span class="o">=</span>/opt/vd-server-2.0
+<span class="nv">VD_SERVER_SCRIPT</span><span class="o">=</span><span class="nv">$VD_SERVER_HOME</span>/bin/vd-server.sh
+</code></pre></div></div>
+
+<p><strong>4. Copy the init file to the <code class="highlighter-rouge">/etc/init.d/</code> directory</strong>.</p>
+
+<p><code class="highlighter-rouge">sh[root@directorysrv1 /]# cp /opt/vd-server-2.0/etc/init.d/vd-server /etc/init.d/</code></p>
+
+<p><strong>5. Make the init script executable</strong>.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 /]# <span class="nb">chmod</span> +x /etc/init.d/vd-server
+</code></pre></div></div>
+
+<p><strong>6. Test the new Virtual Directory service</strong>.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 /]# service vd-server start
+Starting vd-server:                                        <span class="o">[</span>  OK  <span class="o">]</span>
+<span class="o">[</span>root@directorysrv1 init.d]# <span class="o">[</span>12/03/2010 10:24:31.782] VD Server is ready.
+<span class="o">[</span>root@directorysrv1 init.d]#
+</code></pre></div></div>
+
+<p>After setting Virtual Directory Server up as a service, it can be managed using the service on CentOS:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 /]# service vd-server <span class="o">{</span>start|stop|restart<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="7-connect-to-penrose-server-ldap-interface">7. Connect to Penrose Server LDAP interface</h2>
+
+<p>It is necessary download and install any LDAP client, for example, Apache Directory Studio.</p>
+
+<p><strong>1. Execute any LDAP client</strong>, for example <a href="http://directory.apache.org/studio/">Apache Directory Studio</a>.</p>
+
+<p><strong>2. Add new LDAP connection with these values</strong>:</p>
+
+<ul>
+  <li>hostname or ip : directorysrv1 (or directorysrv1.intix.info)</li>
+  <li>port : 10389</li>
+  <li>user credentials: uid=admin,ou=system</li>
+  <li>password: secret</li>
+</ul>
+
+<p><strong>3. Now you can browse on existing LDAP entries or to create a new partition (LDAP tree)</strong>.</p>
+
+<p><img src="/assets/blog20101203_virtualdirectory_portal/1_vds_add_conn.png" alt="" title="Fig. 1\. Apache Directory Studio - Add LDAP connection" width="350" /> <img src="/assets/blog20101203_virtualdirectory_portal/2_vds_add_conn_auth.png" alt="" title="Fig. 2\. Apache Directory Studio - Add LDAP conn, authentication" width="350" /></p>
+
+<p><img src="/assets/blog20101203_virtualdirectory_portal/3_vds_explore_ldap_tree.png" alt="" title="Fig. 3\. Apache Directory Studio - Explore LDAP tree" width="500" /></p>
+
+<h2 id="8-create-a-new-virtual-ldap-tree-binding-mysql-server">8. Create a new virtual LDAP tree binding MySQL Server</h2>
+
+<p><strong>1. Install MySQL Server</strong>, in my case I will install MySQL Server in the same CentOS host where Virtual Directory has already installed. It is just for testing purposes.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 /]# yum <span class="nt">--disablerepo</span><span class="o">=</span><span class="se">\*</span> <span class="nt">--enablerepo</span><span class="o">=</span>c5-media <span class="nt">-y</span> <span class="nb">install </span>mysql-server
+Loaded plugins: fastestmirror
+<span class="o">[</span>...]
+Running Transaction
+  Installing     : perl-DBD-MySQL                       1/2
+  Installing     : mysql-server                         2/2 
+
+Installed:
+  mysql-server.i386 0:5.0.77-4.el5_4.2                                                                                        
+
+Dependency Installed:
+  perl-DBD-MySQL.i386 0:3.0007-2.el5                                                                                          
+
+Complete!
+<span class="o">[</span>root@directorysrv1 /]#
+</code></pre></div></div>
+
+<p><strong>2. Start MySQL Server as service</strong>.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 init.d]# service mysqld start
+Initializing MySQL database:  Installing MySQL system tables...
+<span class="o">[</span>...]
+                                                           <span class="o">[</span>  OK  <span class="o">]</span>
+Starting MySQL:                                            <span class="o">[</span>  OK  <span class="o">]</span>
+<span class="o">[</span>root@directorysrv1 init.d]#
+</code></pre></div></div>
+
+<p><strong>3. Update root password in MySQL Server</strong>:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 /]# mysqladmin <span class="nt">-u</span> root password <span class="s2">"demodemo"</span>
+</code></pre></div></div>
+
+<p><strong>4. Enable remote access to MySQL</strong> for root user on all database and tables. Remote access is necessary when you want to connect to your MySQL from a different computer.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 /]# mysql <span class="nt">-u</span> root <span class="nt">-p</span>
+Enter password:
+Welcome to the MySQL monitor.  Commands end with <span class="p">;</span> or <span class="se">\g</span><span class="nb">.</span>
+Your MySQL connection <span class="nb">id </span>is 5
+Server version: 5.0.77 Source distribution
+
+Type <span class="s1">'help;'</span> or <span class="s1">'\h'</span> <span class="k">for </span>help. Type <span class="s1">'\c'</span> to clear the buffer.
+
+mysql&gt; GRANT ALL ON <span class="k">*</span>.<span class="k">*</span> TO root@<span class="s1">'%'</span> IDENTIFIED BY <span class="s1">'demodemo'</span><span class="p">;</span>
+Query OK, 0 rows affected <span class="o">(</span>0.00 sec<span class="o">)</span>
+
+mysql&gt; quit<span class="p">;</span>
+Bye
+</code></pre></div></div>
+
+<p><strong>5. Create a new Database and tables that will store identities (user credentials)</strong>.</p>
+
+<p>These user credentials stored in tables will be accessible as a LDAP tree by the Virtual Directory Server. This new LDAP tree can be used to configure the login and authentication process required for different applications/products such as Liferay, Alfresco, Intalio, etc.. In this example we will explain how to do it for Liferay Portal. We will use an existing <code class="highlighter-rouge">MySQL Database (Employee DB)</code> for testing purposes. Download existing DB from here (<a href="http://datacharmer.blogspot.com/2008/07/dont-guess-test-sample-database-with.html">http://datacharmer.blogspot.com/2008/07/dont-guess-test-sample-database-with.html</a>), then install it in our current MySQL server:</p>
+
+<p><code class="highlighter-rouge">-- unzip DB</code></p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 temp]# <span class="nb">tar</span> <span class="nt">-xjf</span> /temp/employees_db-full-1.0.4.tar.bz2
+<span class="o">[</span>root@directorysrv1 temp]# <span class="nb">cd</span> /temp/employees_db/
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">-- create schema and load data</code></p>
+
+<p><code class="highlighter-rouge">sh[root@directorysrv1 temp]#  mysql -u root -p -t &lt; employees.sql</code></p>
+
+<p><code class="highlighter-rouge">-- test integrity of loaded data with SHA1</code></p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 employees_db]# <span class="nb">time </span>mysql <span class="nt">-u</span> root <span class="nt">-p</span> <span class="nt">-t</span> &lt; test_employees_sha.sql
+Enter password:
++----------------------+
+| INFO                 |
++----------------------+
+| TESTING INSTALLATION |
++----------------------+
++--------------+------------------+------------------------------------------+
+| table_name   | expected_records | expected_crc                             |
++--------------+------------------+------------------------------------------+
+| employees    |           300024 | 4d4aa689914d8fd41db7e45c2168e7dcb9697359 |
+| departments  |                9 | 4b315afa0e35ca6649df897b958345bcb3d2b764 |
+| dept_manager |               24 | 9687a7d6f93ca8847388a42a6d8d93982a841c6c |
+| dept_emp     |           331603 | d95ab9fe07df0865f592574b3b33b9c741d9fd1b |
+| titles       |           443308 | d12d5f746b88f07e69b9e36675b6067abb01b60e |
+| salaries     |          2844047 | b5a1785c27d75e33a4173aaa22ccf41ebd7d4a9f |
++--------------+------------------+------------------------------------------+
++--------------+------------------+------------------------------------------+
+| table_name   | found_records    | found_crc                                |
++--------------+------------------+------------------------------------------+
+| employees    |           300024 | 4d4aa689914d8fd41db7e45c2168e7dcb9697359 |
+| departments  |                9 | 4b315afa0e35ca6649df897b958345bcb3d2b764 |
+| dept_manager |               24 | 9687a7d6f93ca8847388a42a6d8d93982a841c6c |
+| dept_emp     |           331603 | d95ab9fe07df0865f592574b3b33b9c741d9fd1b |
+| titles       |           443308 | d12d5f746b88f07e69b9e36675b6067abb01b60e |
+| salaries     |          2844047 | b5a1785c27d75e33a4173aaa22ccf41ebd7d4a9f |
++--------------+------------------+------------------------------------------+
++--------------+---------------+-----------+
+| table_name   | records_match | crc_match |
++--------------+---------------+-----------+
+| employees    | OK            | ok        |
+| departments  | OK            | ok        |
+| dept_manager | OK            | ok        |
+| dept_emp     | OK            | ok        |
+| titles       | OK            | ok        |
+| salaries     | OK            | ok        |
++--------------+---------------+-----------+
+
+real    0m59.756s
+user    0m0.011s
+sys     0m0.057s
+</code></pre></div></div>
+
+<p>The final Employees DB schema/model that we will use to create LDAP tree is the following:  <img src="/assets/blog20101203_virtualdirectory_portal/5_vds_employees_db_model.png" alt="" title="Fig. 4\. Employees MySQL schema" /></p>
+
+<p><strong>6. Download MySQL JDBC library and copy to Virtual Directory Server</strong>, in this case to <code class="highlighter-rouge">/opt/vd-server-2.0/lib/ext/</code> folder.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 temp]# <span class="nb">cp </span>mysql-connector-java-5.1.13-bin.jar /opt/vd-server-2.0/lib/ext/
+</code></pre></div></div>
+
+<p><strong>7. Create a new Partition in our Virtual Directory Server</strong>. A Partition in our Virtual Directory contains all relationships beetwen:</p>
+
+<ul>
+  <li>Connections: data servers such as DB servers or other LDAP servers</li>
+  <li>Sources: applications such as for Liferay, for Alfresco, for Intalio, for Windows Authentication, …</li>
+  <li>Identities: individual entries and</li>
+  <li>Mappings: links between entities.</li>
+</ul>
+
+<p>It is necessary to add new namingContexts to existing <strong>Root DSE</strong> in <code class="highlighter-rouge">/opt/vd-server-2.0/conf/directory.xml</code>. This file will be like: [<PENROSE_HOME>/conf/directory.xml](/assets/blog20101203_virtualdirectory_portal/directory.xml)</PENROSE_HOME></p>
+
+<p><strong>8. Map tables-fields with attributes of the new LDAP tree in our Virtual Directory</strong>.</p>
+
+<ul>
+  <li>Liferay Portal domain: new LDAP tree/domain, in this example is “@intix.info”.</li>
+  <li>Liferay Portal Users: the employees table of MySQL DB maps to inetOrgPerson (or organizationalPerson or other similar) entries in LDAP.</li>
+  <li>Liferay Portal Groups: the departments table of MySQL DB maps to organizationalUnit (or other similar) entries in LDAP, in this example we will not use Groups.</li>
+  <li>Additional fields required for Liferay Portal such email, title will be obtained by joining fields values such employees.first_name, employees.last_name with “@intix.info”, and title will be obtained of titles.title and so on. In this example, “title” LDAP attribute of inetOrgPerson will be compose with differents values of the Employees table.</li>
+  <li>The password to log into Liferay Portal will be stored as SHA1 in a new field created in table Employees. For our convenience, all user passwords will be equal to “function_sha1(‘test’) =qUqP5cyxm6YcTAhz05Hph5gvu9M=”.</li>
+  <li>Only allow access to Liferay Portal to users (Employees) hired in August 1999. In this case we will use this sentence: SELECT emp_no FROM employees WHERE hire_date BETWEEN ‘1999-08-01’ AND ‘1999-08-31’ . This constrain will be a filter in our Virtual Directory Partition.</li>
+</ul>
+
+<p>For your convenience, I include all files that are part of the new Partition (connections, sources, mapping and constrains) created into Virtual Directory. You can download it from here: <a href="/assets/blog20101203_virtualdirectory_portal/intix_info_liferay.zip">Penrose Server partition intix.info</a></p>
+
+<p><strong>9. Create new partition (“intix_info_liferay” folder) in Virtual Directory</strong>.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 /]# <span class="nb">mkdir</span> /opt/vd-server-2.0/partitions/intix_info_liferay/DIR-INF
+</code></pre></div></div>
+
+<p><strong>10. Copy all files</strong> (connections.xml, directory.xml, mappings.xml, modules.xml, partition.xml and sources.xml) to <code class="highlighter-rouge">/opt/vd-server-2.0/partitons/intix_info_liferay/DIR-INF</code></p>
+
+<p><strong>11. Restart Virtual Directory</strong>:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 /]# service vd-server restart
+</code></pre></div></div>
+
+<p><strong>12. Browse into the new LDAP tree created (partition) in the Virtual Directory binding the new database created in MySQL Server</strong>.</p>
+
+<p><img src="/assets/blog20101203_virtualdirectory_portal/6_vds_browsing_new_ldap_tree.png" alt="" title="Fig. 5\. Browsing the new LDAP tree of Penrose Server" width="500" /></p>
+
+<h2 id="9-configure-ldap-authentication-in-liferay-portal">9. Configure LDAP Authentication in Liferay Portal</h2>
+
+<p>Now, We have a LDAP server (Penrose) with user credentials (identities) loaded. The next step is to configure Liferay Portal with these LDAP tree to do log in to Portal. If you have already a Liferay installed, you have to make sure that Liferay can resolve the Virtual Directory. To check it:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>chilcano@lfry01 /]# ping directorysrv1
+</code></pre></div></div>
+
+<p>Then, from Liferay &gt; Control Panel, configure LDAP authentication with Email Address as credentials to login.</p>
+
+<p><img src="/assets/blog20101203_virtualdirectory_portal/7_vds_liferay_ldap_authn_0.png" alt="" title="Fig 6\. Liferay LDAP AuthN: Email Address to access to Portal" width="300" /></p>
+
+<p>Add and configure a new LDAP server (Penrose Server) in Liferay.</p>
+
+<p><img src="/assets/blog20101203_virtualdirectory_portal/7_vds_liferay_ldap_authn_1.png" alt="" title="Fig 7\. Liferay LDAP AuthN: Add Penrose Server as LDAP " width="350" />. <img src="/assets/blog20101203_virtualdirectory_portal/7_vds_liferay_ldap_authn_2.png" alt="" title="Fig 8\. Liferay LDAP AuthN: User and password to connect to Penrose Server" width="350" /></p>
+
+<p><img src="/assets/blog20101203_virtualdirectory_portal/7_vds_liferay_ldap_authn_3.png" alt="" title="Fig 8\. Liferay LDAP AuthN: Map and filter user credentials" width="350" />. <img src="/assets/blog20101203_virtualdirectory_portal/7_vds_liferay_ldap_authn_4.png" alt="" title="Fig 9\. Liferay LDAP AuthN: Map group and Export with empty values" width="350" /></p>
+
+<h2 id="10-testing-ldap-authentication-from-liferay-portal">10. Testing LDAP Authentication from Liferay Portal</h2>
+
+<p>Now you can use any user credential (any value of Employee table) to login Liferay.</p>
+
+<p><img src="/assets/blog20101203_virtualdirectory_portal/8_vds_liferay_login.png" alt="" title="Fig 9\. Liferay Portal login" width="300" /> <img src="/assets/blog20101203_virtualdirectory_portal/9_vds_liferay_welcomepage.png" alt="" title="Fig 10\. Login successfully and welcome page in Liferay" width="300" /></p>
+
+<p><img src="/assets/blog20101203_virtualdirectory_portal/10_vds_liferay_myaccount.png" alt="" title="Fig 11\. Liferay My Account (User details)" width="300" /></p>
+
+<h2 id="11-testing-ldap-authentication-from-apache-directory-studio">11. Testing LDAP Authentication from Apache Directory Studio</h2>
+
+<p>The user “aamod.wroclawski@intix.info” with password “test” can be verified. You can do from apache Directory Studio. Open Apache Directory Studio, connect to Penrose Server, then go to entry “uid=480838,ou=Employees,dc=intix,dc=info”, click on password attribute, then open a windows where you can verify password. Follow the figures:</p>
+
+<p><img src="/assets/blog20101203_virtualdirectory_portal/11_vds_verify_account_apache_directory1.png" alt="" title="Fig 12\. Explore attributes of authenticated User from Apache Directory Studio" width="350" /> <img src="/assets/blog20101203_virtualdirectory_portal/11_vds_verify_account_apache_directory2.png" alt="" title="Fig 13\. Verify password (SHA1) from Apache Directory Studio" width="350" /></p>
+
+<p>If you are planning to install other product or application in your organization, you could create a new LDAP tree under Root DSE <code class="highlighter-rouge">intix.info</code> as <code class="highlighter-rouge">ou=Alfresco Users, dc=intix, dc=info</code> and to select or filter existing users from Employee table. Well, Penrose Server (Virtual Directory) has several applications and is easy adaptable to any Security User Schema. Any questions, do not hesitate to emailme. Bye.</p>
+
+<h3 id="references">References</h3>
+
+<ul>
+  <li><a href="http://www.cyberciti.biz/tips/how-do-i-enable-remote-access-to-mysql-database-server.html">Remote access to MySQL</a></li>
+  <li><a href="http://datacharmer.blogspot.com/2008/07/dont-guess-test-sample-database-with.html">Sample database with test suite for MySQL Server</a></li>
+</ul>
+</div></li><li><span class="post-meta">NOV 25, 2010 &sim; BPM &sim; BONITA · INTALIO</span>
+    <h3>
+      <a class="post-link" href="/2010/11/25/bpm-trend-agile-bpm/">
+        BPM trend: ¿Agile BPM?
+      </a>
+    </h3><div class="holosec-excerpts-hover"><p>Marco Brambilla posted on his blog “<a href="http://marcobrambi.blogspot.com/">Working @ Web and Business Process Engineering</a>” his view on<a href="http://marcobrambi.blogspot.com/2010/10/bpm-history-in-one-picture.html"> history and trend of BPM</a> and I totally agree with it.</p>
+
+<p>[caption id=”” align=”alignnone” width=”430” caption=”BPM history in one picture”]<a href="http://marcobrambi.blogspot.com/2010/10/bpm-history-in-one-picture.html"><img src="/assets/e7ef8-bpm_history.png" alt="BPM history in one picture" /></a>[/caption]
+Nowadays, companies want to develop business applications in an agile way (quickly and low cost), this does apply to any business applications and not only to BPM apps. This is called “rapid application development” (RAD) and in this escenario we should make use of 2 things mainly:</p>
+<ol>
+  <li><strong>Methodology</strong> : Best practices for proper and quick implementation and applications.</li>
+  <li><strong>Tools</strong> : a set of tools that support the “Software Development Life Cycle” (SDLC) over and obviously speeds up the entire production cycle.
+I have used 2 FOSS tools of this type:</li>
+  <li><a href="http://www.intalio.com/bpm/features">Intalio</a> (http://www.intalio.com/bpm/features)</li>
+  <li><a href="http://www.bonitasoft.com/products/Business_Process_Management_features.php">Bonita BPM</a> (http://www.bonitasoft.com/products/Business_Process_Management_features.php)<br />
+.. and yes, currently the trend is “ <strong>Model-Driven Development</strong> “ (MDD), and i can see it in BPM classic tools, they are moving towards MDD, examples:</li>
+  <li><a href="http://planet.jboss.org/post/should_you_bet_on_jbpm">jBPM5</a> (http://planet.jboss.org/post/should_you_bet_on_jbpm)</li>
+  <li><a href="http://www.activiti.org/cycle.html">Activiti and Camunda Fox</a> (http://www.activiti.org/cycle.html)<br />
+For further information, here some related links:
+    <ul>
+      <li><a href="http://holisticsecurity.wordpress.com/2010/09/10/agile-bpm-systems-development-with-camunda-fox-and-alfresco-activiti">Agile BPM Systems development with Camunda Fox and Alfresco Activiti</a> (http://holisticsecurity.wordpress.com/2010/09/10/agile-bpm-systems-development-with-camunda-fox-and-alfresco-activiti)</li>
+      <li><a href="http://www.bpm-guide.de/2010/05/27/making-the-bpmn-roundtrip-real">Making the BPMN Roundtrip real</a> (http://www.bpm-guide.de/2010/05/27/making-the-bpmn-roundtrip-real)</li>
+      <li><a href="http://community.jboss.org/thread/114133?tstart=0">Intalio vs jBPM: Zero-code</a> (http://community.jboss.org/thread/114133?tstart=0)
+Any comments?
+Bye.</li>
+    </ul>
+  </li>
+</ol>
+</div></li><li><span class="post-meta">NOV 24, 2010 &sim; SECURITY &sim; MYSQL · POSTGRES</span>
+    <h3>
+      <a class="post-link" href="/2010/11/24/comparing-mysql-and-postgres-9-0-replication/">
+        Comparing MySQL and Postgres 9.0 Replication
+      </a>
+    </h3><div class="holosec-excerpts-hover"><p>Comparing MySQL and Postgres 9.0 Replication<br />
+By By Robin Schumacher and Gary Carter, EnterpriseDB<br />
+TheServerSide.com</p>
+
+<h2 id="comparing-mysql-and-postgres-90-replication">Comparing MySQL and Postgres 9.0 Replication</h2>
+
+<p><em>By Robin Schumacher and Gary Carter, www.enterprisedb.com</em></p>
+<blockquote>
+  <p>Replication is one of the most popular features used in RDBMS’s today. Replication is used for disaster recovery purposes (i.e. backup or warm stand-by servers), reporting systems where query activity is offloaded onto another machine to conserve resources on the transactional server, and scale-out architectures that use sharding or other methods to increase overall query performance and data throughput.</p>
+
+  <p>Replication is not restricted to only the major proprietary databases; open source databases such as MySQL and PostgreSQL also offer replication as a feature. While MySQL has offered built-in replication for a number of years, PostgreSQL replication used to be accomplished via community software that was an add-on to the core Postgres Server. That all changed with the release of version 9.0 of PostgreSQL, which now offers built-in streaming replication that is based on its proven write ahead log technology.</p>
+
+  <p>With the two most popular open source databases now providing built-in replication, questions are being asked about how they differ in their replication technologies. What follows is a brief overview of both MySQL and PostgreSQL replication, with a brief compare and contrast of the implementations being performed immediately afterwards.</p>
+
+  <p><img src="/assets/postgres01.jpg" alt="mysql replication.jpg" /></p>
+
+  <p><img src="/assets/postgres02.jpg" alt="" />
+ <em>via<a href="http://www.theserverside.com/feature/Comparing-MySQL-and-Postgres-90-Replication">A Quick Comparison of MySQL and Postgres 9.0 Replication</a>.</em></p>
+</blockquote>
+</div></li></ul><br>
+
+<!-- Pagination in Blog Section -->
+
+<div class="pagination">
+  
+    <a class="previous" href="/blog/pg6">&laquo; Prev</a>
+  
+
+  <!-- List of pages -->
+  
+    
+      <a href="/blog/">1</a>
+    
+  
+    
+      <a href="/blog/pg2">2</a>
+    
+  
+    
+      <a href="/blog/pg3">3</a>
+    
+  
+    
+      <a href="/blog/pg4">4</a>
+    
+  
+    
+      <a href="/blog/pg5">5</a>
+    
+  
+    
+      <a href="/blog/pg6">6</a>
+    
+  
+    
+      <span class="page_number">7</span>
+    
+  
+    
+      <a href="/blog/pg8">8</a>
+    
+  
+    
+      <a href="/blog/pg9">9</a>
+    
+  
+    
+      <a href="/blog/pg10">10</a>
+    
+  
+
+  
+    <a class="next" href="/blog/pg8">Next &raquo;</a>
+  
+</div>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading"><img src="/assets/img/logo-holosec.png" width="40" /> Holistic Security</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Holistic Security</li><li><a class="u-email" href="mailto:blog@holisticsecurity.io">blog@holisticsecurity.io</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.linkedin.com/in/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.twitter.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">Chilcano</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Systems Thinking, Holism, Trust, Security &amp; Usability.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

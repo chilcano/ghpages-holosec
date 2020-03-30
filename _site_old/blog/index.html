@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Blog | Holistic Security</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Blog" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Systems Thinking, Holism, Trust, Security &amp; Usability." />
+<meta property="og:description" content="Systems Thinking, Holism, Trust, Security &amp; Usability." />
+<link rel="canonical" href="https://holisticsecurity.io/blog/" />
+<meta property="og:url" content="https://holisticsecurity.io/blog/" />
+<meta property="og:site_name" content="Holistic Security" />
+<link rel="next" href="https://holisticsecurity.io/blog/pg2" />
+<script type="application/ld+json">
+{"@type":"WebPage","url":"https://holisticsecurity.io/blog/","headline":"Blog","description":"Systems Thinking, Holism, Trust, Security &amp; Usability.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://holisticsecurity.io/feed.xml" title="Holistic Security" /><script>
+if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-156433649-1', 'auto');
+  ga('send', 'pageview');
+}
+</script>
+  
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/"><img src="/assets/img/logo-holosec.png" width="100" /> Holistic Security</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/">Home</a><a class="page-link" href="/blog/">Blog</a><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Blog</h1>
+  </header>
+
+  <div class="post-content">
+    <h2 class="post-list-heading">Posts</h2>
+<ul class="post-list"><li><span class="post-meta">MAR 19, 2020 &sim; CLOUD · SERVICE MESH &sim; AWS · K8S · MICROSERVICE · X509 · TLS · MVP · HTTP BASIC AUTH</span>
+    <h3>
+      <a class="post-link" href="/2020/03/19/minimum-viable-security-for-a-k8s-webapp-http-basic-auth-on-tls-part2">
+        Minimum Viable Security for a Kubernetised Webapp: HTTP Basic Auth on TLS - Part2
+      </a>
+    </h3><div class="holosec-excerpts-hover"><p>In the “<a href="/2020/03/08/minimum-viable-security-for-a-k8s-webapp-tls-everywhere-part1">Minimum Viable Security for a Kubernetised Webapp: TLS everywhere - Part1</a>” I used the <a href="https://github.com/chilcano/affordable-k8s">Affordable K8s</a>’ Terraform scripts to create a K8s Cluster with the Jetstack Cert-Manager and the NGINX Ingress Controller pre-installed, now I want to improve the security of a Webapp hosted in that Cluster according the <strong>Minimum Viable Security</strong> (MVSec) and <strong>Pareto Principle or 80/20 rule</strong>.</p>
+
+<p><a href="/assets/blog20200319/mvp-sec-part2-http-basic-auth-over-tls-for-weave-scope-with-nginx-ingress-jetstack-cert-manager-lets-encrypt.png"><img src="/assets/blog20200319/mvp-sec-part2-http-basic-auth-over-tls-for-weave-scope-with-nginx-ingress-jetstack-cert-manager-lets-encrypt.png" alt="" width="400" style="display:block;margin:auto;" /></a></p>
+
+<p>In this post I’ll explain how to enable and configure <em><a href="https://en.wikipedia.org/wiki/Basic_access_authentication">HTTP Basic Authentication</a> over TLS</em> in the <a href="https://www.weave.works/oss/scope">Weave Scope</a> webapp running in the recently created K8s Cluster.</p>
+
+</div></li><li><span class="post-meta">MAR 10, 2020 &sim; BIGDATA · DEVOPS · SDLC · DATA SCIENCE · AI · ML &sim; KUBERNETES · MLOPS · CI/CD</span>
+    <h3>
+      <a class="post-link" href="/2020/03/10/devops-is-to-sdlc-as-mlops-is-to-machine-learning-apps">
+        DevOps is to SDLC as MLOps is to Machine Learning Applications
+      </a>
+    </h3><div class="holosec-excerpts-hover"><p>If you have read the previous post about <a href="https://holisticsecurity.io/2020/02/10/security-along-the-container-based-sdlc">Security along the Container-based SDLC</a>, then you have noted that DevOps and Security practices should be applied and embeded along <a href="https://en.wikipedia.org/wiki/Systems_development_life_cycle">SDLC</a>. Before we had to understand the entire software production process and sub-processes in order to apply these DevOps and Security practices. Well, in this post I’ll explain how to apply DevOps practices along Machine Learning Software Applications Development Life Cycle (ML-SDLC) and I’ll share a set of tools focusing to implement MLOps.</p>
+
+<p><a href="/assets/blog20200309/mlops-sdlc-devsecops-comparison.png" target="_blank"><img src="/assets/blog20200309/mlops-sdlc-devsecops-comparison.png" alt="" /></a><br />
+<em><center>Data Science (&amp; ML) Life Cycle</center></em></p>
+
+</div></li><li><span class="post-meta">MAR 8, 2020 &sim; CLOUD · APAAS · SERVICE MESH &sim; AWS · KUBERNETES · MICROSERVICE · X509 · TLS · MVP</span>
+    <h3>
+      <a class="post-link" href="/2020/03/08/minimum-viable-security-for-a-k8s-webapp-tls-everywhere-part1">
+        Minimum Viable Security for a Kubernetised Webapp: TLS everywhere - Part1
+      </a>
+    </h3><div class="holosec-excerpts-hover"><p><strong>Minimum Viable Security</strong> (MVSec) is a concept borrowed from the <a href="https://en.wikipedia.org/wiki/Minimum_viable_product" target="_blank">Minimum Viable Product</a> (MVP) concept about the Product Development Strategy and from the <a href="https://en.wikipedia.org/wiki/Pareto_principle" target="_blank">Pareto Principle or 80/20 rule</a>. The MVP concept applied to IT Security means the product (application) will contain only the minimum amount (20%) of effort invested in order to prove the viability (80%) of an idea (acceptable security).</p>
+
+<p>The purpose of this post is to explain how to implement <strong>TLS everywhere</strong> to become <strong>MVSec</strong> (roughly 80% of security with 20% of working) for a <strong>Kubernetised Webapp hosted on AWS</strong>.</p>
+
+<p><a href="/assets/blog20200308/minimum-viable-security-pareto-tls-everywhere-kubernetised-webapp.png" target="_blank"><img src="/assets/blog20200308/minimum-viable-security-pareto-tls-everywhere-kubernetised-webapp.png" alt="" /></a><br />
+<em><center>Minimum Viable Security for a Kubernetised Webapp: TLS everywhere with NGINX Ingress Controller, Cert-Manager and Let's Encrypt</center></em></p>
+
+</div></li><li><span class="post-meta">FEB 10, 2020 &sim; CLOUD · SDLC · DEVSECOPS · HOLISM &sim; KUBERNETES · CONTAINER · MICROSERVICE · SCA · PENTESTING · SAST · DAST · IAST · RASP</span>
+    <h3>
+      <a class="post-link" href="/2020/02/10/security-along-the-container-based-sdlc">
+        Security along the Container-based SDLC
+      </a>
+    </h3><div class="holosec-excerpts-hover"><p>Nowadays, containers are becoming the standard deployment unit of software, and that in the Cloud-based Application Security world means 2 things:</p>
+
+<ul>
+  <li>The Software Applications are <strong>distributed</strong> into containers.</li>
+  <li>The minimum unit of <strong>deployment</strong> and <strong>shipment</strong> is the container.</li>
+</ul>
+
+<p>In other words, using containers we are adding a new element to be considered along the <a href="https://en.wikipedia.org/wiki/Systems_development_life_cycle" target="_blank">Software Development Life Cycle (SDLC)</a> as a new additional piece of software (containers), and from Architectural point of view, those new pieces of software will be distributed.</p>
+
+<p>Said that, the purpose of this post is explain you how to embed <strong>Security along the Container-based SDLC (Secure-SDLC)</strong> and how to <strong>DevOps</strong> practices will help its adoption.</p>
+
+<p><a href="/assets/blog20200210/20200210-security-along-container-based-sdlc-v2.png" target="_blank"><img src="/assets/blog20200210/20200210-security-along-container-based-sdlc-v2.png" alt="" /></a> <br />
+<em><center>Security along the Container-based SDLC - Overview</center></em></p>
+
+</div></li><li><span class="post-meta">JAN 29, 2020 &sim; CLOUD · APAAS · SERVICE MESH &sim; AWS · DOCKER · KUBERNETES · DATA PLANE · MICROSERVICE · X509 · PKI</span>
+    <h3>
+      <a class="post-link" href="/2020/01/29/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-part3-certificate-manager">
+        Building your own affordable K8s to host a Service Mesh - Part 3: Certificate Manager
+      </a>
+    </h3><div class="holosec-excerpts-hover"><p>In this blog post I’ll explain how to get a X.509 TLS Certificate from <a href="https://letsencrypt.org" target="_blank">Let’s Encrypt</a> automatically during the Terraform provision time, in this way we can now invoke the services additionally on port 443 (HTTPS/TLS).<br />
+During the Terraform execution, immediately after Kubernetes Cluster creation, the <a href="https://github.com/jetstack/cert-manager" target="_blank">JetStack Cert-Manager</a> is deployed in a Pod, it is who will request to <a href="https://letsencrypt.org" target="_blank">Let’s Encrypt</a> service a X.509 TLS Certificate, once completed, the <a href="https://github.com/jetstack/cert-manager" target="_blank">JetStack Cert-Manager</a> will inject the X.509 Certificate as a Kubernetes Secret into NGINX Ingress Controller to enbale TLS.</p>
+
+<p>At this point you must have created a Kubernetes Cluster with ExternalDNS and NGINX as Ingress Controller. If you don’t know how to achieve that, I recommend to follow these posts:</p>
+
+<ul>
+  <li><a href="http://holisticsecurity.io/2020/01/16/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-data-plane" target="_blank">Part 1 - Building your own affordable K8s to host a Service Mesh</a>.</li>
+  <li><a href="http://holisticsecurity.io/2020/01/22/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-part2-external-dns-ingress" target="_blank">Part 2 - Building your own affordable K8s - ExternalDNS and NGINX as Ingress</a>.</li>
+</ul>
+
+<p><a href="/assets/img/20200129-affordablek8s-aws-01-arch-ingress-dns-tls-cert-manager.png" target="_blank"><img src="/assets/img/20200129-affordablek8s-aws-01-arch-ingress-dns-tls-cert-manager.png" alt="K8s Cluster created using AWS Spot Instances - Cert-Manager and Let's Encrypt" title="K8s Cluster created using AWS Spot Instances - Cert-Manager and Let's Encrypt" /></a></p>
+
+</div></li><li><span class="post-meta">JAN 22, 2020 &sim; CLOUD · APAAS · SERVICE MESH &sim; AWS · DOCKER · KUBERNETES · DATA PLANE · MICROSERVICE · EXTERNAL DNS · INGRESS · NGINX</span>
+    <h3>
+      <a class="post-link" href="/2020/01/22/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-part2-external-dns-ingress">
+        Building your own affordable K8s to host a Service Mesh - Part 2: External DNS and Ingress
+      </a>
+    </h3><div class="holosec-excerpts-hover"><p>In order to get an affordable Kubernetes, every part we’re going to use should be affordable too, and ones of the expensive and tricky things are the <a href="https://aws.amazon.com/elasticloadbalancing" target="_blank">AWS Elastic Load Balancing (ELB)</a> and the <a href="https://aws.amazon.com/route53" target="_blank">AWS Route 53 (DNS)</a>. Fortunately, Kubernetes SIGs are working to address this gap with the <a href="https://github.com/kubernetes-sigs/external-dns" target="_blank">Kubernetes ExternalDNS</a>.</p>
+
+<p><strong>But what is the problem?</strong></p>
+
+<p>Apart of it is expensive, the problem is every time I deploy a <code class="highlighter-rouge">Service</code> in Kubernetes I have to update and add a new DNS entry in the Cloud Provider’s DNS manually. Yes, of course, the process can be automated, but the idea is doing it during the provisioning time. In other words, every developer can publish theirs services adding the DNS name as annotation for that services can be called over Internet.
+Yes, <a href="https://github.com/kubernetes/dns" target="_blank">Kubernetes brings by default a DNS</a> but this is an internal one and it is only to work resolving DNS names over the Kubernetes Network, not for internet facing services.</p>
+
+<p><strong>The Solution</strong></p>
+
+<p>The Kubernetes ExternalDNS will run a program in our affordable K8s which it will synchronize exposed Kubernetes Services and Ingresses with the Cloud Provider’s DNS Service, in this case with AWS Route 53. Below you can view a high level diagram and current status of my <a href="http://holisticsecurity.io/2020/01/16/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-data-plane" target="_blank">Affordable Kubernetes Data Plane, I recommend look at first post about it</a>.</p>
+
+<p><a href="/assets/img/20200122-service-mesh-01-affordablek8s-aws-arch.png" target="_blank"><img src="/assets/img/20200122-service-mesh-01-affordablek8s-aws-arch.png" alt="Service Mesh hosted using AWS Spot Instances" title="Service Mesh using AWS Spot Instances" /></a></p>
+
+</div></li><li><span class="post-meta">JAN 16, 2020 &sim; CLOUD · APAAS · SERVICE MESH &sim; AWS · DOCKER · KUBERNETES · DATA PLANE · MICROSERVICE</span>
+    <h3>
+      <a class="post-link" href="/2020/01/16/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-data-plane">
+        Building your own affordable K8s to host a Service Mesh - Part 1
+      </a>
+    </h3><div class="holosec-excerpts-hover"><p>I want to build a Container-based Cloud to deploy any kind of workload (RESTful API, Microservices, Event-Driven, Functions, etc.) but it should be affordable, ready to use, reliable, secure and productionable. This means:</p>
+
+<ul>
+  <li>Productionable: should be fully functional and ready to be used as a production environment.</li>
+  <li>Reliable and Secure: able to improve the security level by implementing more security controls, at least fully isolated secure private networking.</li>
+  <li>Affordable: cheaper.</li>
+  <li>Ready to use: able to be automated (DevOps and IaC) with a mature management API.</li>
+</ul>
+
+<p>Below a high level architecture of Container-based Cloud I want to get. I will focus on the Service Mesh Data Plane.<br />
+<a href="/assets/img/20200116-service-mesh-01-reference-arch-2.png" target="_blank"><img src="/assets/img/20200116-service-mesh-01-reference-arch-2.png" alt="" title="Service Mesh hosted in a Container-based Cloud" /></a></p>
+
+<p>These requeriments restric some options, all of them using any Public Cloud Provider, but considering the <a href="https://aws.amazon.com/ec2/spot">AWS Spot Instances</a> and <a href="https://cloud.google.com/preemptible-vms">Google Cloud Preemptible VM Instances</a>. Unfortunately Microsoft Azure only provides Low-Priority VMs to be used from Azure Batch Service. But if you are new user, you could apply for using the Free Tier in all of 3 Cloud Providers.</p>
+
+</div></li><li><span class="post-meta">DEC 10, 2019 &sim; MISC · CMS &sim; GITHUB · WORDPRESS · JEKYLL · MIGRATION · PYTHON</span>
+    <h3>
+      <a class="post-link" href="/2019/12/10/migrating-wordpress-com-blog-to-github-pages-with-jekyll-part2">
+        Migrating WordPress.com&#39;s blog to GitHub Pages with Jekyll - Part 2
+      </a>
+    </h3><div class="holosec-excerpts-hover"><p>In the first blog post <a href="/2019/10/14/migrating-wordpress-com-blog-to-github-pages-with-jekyll-part1" title="Migrating WordPress.com's blog to GitHub Pages with Jekyll - Part 1">I explained how to export your WordPress.com blog and use it to generate your static blog site to be hosted in GitHub Pages</a>. Now, in this blog post (Part 2) I will explain how to manage the look&amp;feel, theme, layouts and pagination of a previous migrated WordPress.com’s blog to GitHub Pages. 
+Also I’ll explain how to convert all HTML post files, obtained by using the <code class="highlighter-rouge">JekyllImport::Importers::WordpressDotCom</code>, to Markdown format by using a simple Python script.</p>
+
+<p><img src="/assets/img/20191210-wp-github-jekyll-python-part2-1.png" alt="Migrating WordPress.com's blog to GitHub Pages by using Jekyll Part2" width="500" /></p>
+
+</div></li><li><span class="post-meta">DEC 8, 2019 &sim; DEVELOPMENT &sim; PYTHON</span>
+    <h3>
+      <a class="post-link" href="/2019/12/08/python3-setting-a-local-env">
+        Setting a Python 3 local programming environment
+      </a>
+    </h3><div class="holosec-excerpts-hover"><p>This post will guide you through installing Python 3, and Python 2.x, on your local Linux machine and setting up a programming environment via the command line. This post will explicitly cover the installation procedures for Ubuntu 18.04 or above, but the general principles apply to any other distribution of Debian Linux.</p>
+
+<p><img src="/assets/img/20191208-python.png" alt="Python 3" title="Setting a Python 3 local programming environment" /></p>
+
+</div></li><li><span class="post-meta">OCT 27, 2019 &sim; MISC · LINUX &sim; UBUNTU · TABLET · DUAL · EXTENDED · MONITOR · SCREEN</span>
+    <h3>
+      <a class="post-link" href="/2019/10/28/android-tablet-or-ipad-as-extra-monitor-for-linux">
+        Android Tablet or iPad as extra monitor for Linux
+      </a>
+    </h3><div class="holosec-excerpts-hover"><p>There are several applications out there that help us to use a spare Android Tablet or iPad as a external monitor in Windows PC or Mac OSX Laptop over WI-FI or using a USB cable. For example:</p>
+<ul>
+  <li><a href="http://www.easynlight.com/en/twomonusb/">TwomonUSB</a></li>
+  <li><a href="https://www.duetdisplay.com/">DuetDisplay</a></li>
+  <li><a href="https://lunadisplay.com/">LunaDisplay</a></li>
+  <li><a href="https://support.apple.com/en-gb/HT210380">Apple Sidecar</a></li>
+  <li><a href="https://www.splashtop.com/wiredxdisplay">SplashTop Wired xDisplay</a></li>
+</ul>
+
+</div></li></ul><br>
+
+<!-- Pagination in Blog Section -->
+
+<div class="pagination">
+  
+    <span class="previous">&laquo; Prev</span>
+  
+
+  <!-- List of pages -->
+  
+    
+      <span class="page_number">1</span>
+    
+  
+    
+      <a href="/blog/pg2">2</a>
+    
+  
+    
+      <a href="/blog/pg3">3</a>
+    
+  
+    
+      <a href="/blog/pg4">4</a>
+    
+  
+    
+      <a href="/blog/pg5">5</a>
+    
+  
+    
+      <a href="/blog/pg6">6</a>
+    
+  
+    
+      <a href="/blog/pg7">7</a>
+    
+  
+    
+      <a href="/blog/pg8">8</a>
+    
+  
+    
+      <a href="/blog/pg9">9</a>
+    
+  
+    
+      <a href="/blog/pg10">10</a>
+    
+  
+
+  
+    <a class="next" href="/blog/pg2">Next &raquo;</a>
+  
+</div>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading"><img src="/assets/img/logo-holosec.png" width="40" /> Holistic Security</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Holistic Security</li><li><a class="u-email" href="mailto:blog@holisticsecurity.io">blog@holisticsecurity.io</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.linkedin.com/in/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.twitter.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">Chilcano</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Systems Thinking, Holism, Trust, Security &amp; Usability.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

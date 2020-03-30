@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>DevOps is to SDLC as MLOps is to Machine Learning Applications | Holistic Security</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="DevOps is to SDLC as MLOps is to Machine Learning Applications" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="If you have read the previous post about Security along the Container-based SDLC, then you have noted that DevOps and Security practices should be applied and embeded along SDLC. Before we had to understand the entire software production process and sub-processes in order to apply these DevOps and Security practices. Well, in this post I’ll explain how to apply DevOps practices along Machine Learning Software Applications Development Life Cycle (ML-SDLC) and I’ll share a set of tools focusing to implement MLOps. Data Science (&amp; ML) Life Cycle" />
+<meta property="og:description" content="If you have read the previous post about Security along the Container-based SDLC, then you have noted that DevOps and Security practices should be applied and embeded along SDLC. Before we had to understand the entire software production process and sub-processes in order to apply these DevOps and Security practices. Well, in this post I’ll explain how to apply DevOps practices along Machine Learning Software Applications Development Life Cycle (ML-SDLC) and I’ll share a set of tools focusing to implement MLOps. Data Science (&amp; ML) Life Cycle" />
+<link rel="canonical" href="https://holisticsecurity.io/2020/03/10/devops-is-to-sdlc-as-mlops-is-to-machine-learning-apps" />
+<meta property="og:url" content="https://holisticsecurity.io/2020/03/10/devops-is-to-sdlc-as-mlops-is-to-machine-learning-apps" />
+<meta property="og:site_name" content="Holistic Security" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-03-10T10:00:00+01:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://holisticsecurity.io/2020/03/10/devops-is-to-sdlc-as-mlops-is-to-machine-learning-apps"},"url":"https://holisticsecurity.io/2020/03/10/devops-is-to-sdlc-as-mlops-is-to-machine-learning-apps","headline":"DevOps is to SDLC as MLOps is to Machine Learning Applications","dateModified":"2020-03-10T10:00:00+01:00","datePublished":"2020-03-10T10:00:00+01:00","description":"If you have read the previous post about Security along the Container-based SDLC, then you have noted that DevOps and Security practices should be applied and embeded along SDLC. Before we had to understand the entire software production process and sub-processes in order to apply these DevOps and Security practices. Well, in this post I’ll explain how to apply DevOps practices along Machine Learning Software Applications Development Life Cycle (ML-SDLC) and I’ll share a set of tools focusing to implement MLOps. Data Science (&amp; ML) Life Cycle","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://holisticsecurity.io/feed.xml" title="Holistic Security" /><script>
+if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-156433649-1', 'auto');
+  ga('send', 'pageview');
+}
+</script>
+  
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/"><img src="/assets/img/logo-holosec.png" width="100" /> Holistic Security</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/">Home</a><a class="page-link" href="/blog/">Blog</a><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">DevOps is to SDLC as MLOps is to Machine Learning Applications</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2020-03-10T10:00:00+01:00" itemprop="datePublished">Mar 10, 2020 
+      </time>&sim; BIGDATA · DEVOPS · SDLC · DATA SCIENCE · AI · ML
+      &sim; KUBERNETES · MLOPS · CI/CD
+    </p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>If you have read the previous post about <a href="https://holisticsecurity.io/2020/02/10/security-along-the-container-based-sdlc">Security along the Container-based SDLC</a>, then you have noted that DevOps and Security practices should be applied and embeded along <a href="https://en.wikipedia.org/wiki/Systems_development_life_cycle">SDLC</a>. Before we had to understand the entire software production process and sub-processes in order to apply these DevOps and Security practices. Well, in this post I’ll explain how to apply DevOps practices along Machine Learning Software Applications Development Life Cycle (ML-SDLC) and I’ll share a set of tools focusing to implement MLOps.</p>
+
+<p><a href="/assets/blog20200309/mlops-sdlc-devsecops-comparison.png" target="_blank"><img src="/assets/blog20200309/mlops-sdlc-devsecops-comparison.png" alt="" /></a><br />
+<em><center>Data Science (&amp; ML) Life Cycle</center></em></p>
+
+<!-- more -->
+
+<h2 id="concepts-and-definitions">Concepts and definitions</h2>
+
+<p><strong>Artificial Intelligence</strong></p>
+<blockquote>
+  <p>Computer science defines AI research as the study of “intelligent agents”: any device that perceives its environment and takes actions that maximize its chance of successfully achieving its goals. A more elaborate definition characterizes AI as “a system’s ability to correctly interpret external data, to learn from such data, and to use those learnings to achieve specific goals and tasks through flexible adaptation.”<br />
+<a href="https://en.wikipedia.org/wiki/Artificial_intelligence">https://en.wikipedia.org/wiki/Artificial_intelligence</a></p>
+</blockquote>
+
+<p><strong>Machine Learning</strong></p>
+<blockquote>
+  <p>Machine learning (ML) is the scientific study of algorithms and statistical models that computer systems use to perform a specific task without using explicit instructions, relying on patterns and inference instead.
+<a href="https://en.wikipedia.org/wiki/Machine_learning">https://en.wikipedia.org/wiki/Machine_learning</a></p>
+</blockquote>
+
+<p><strong>Inference</strong></p>
+<blockquote>
+  <p>Inferences are steps in reasoning, moving from premises to logical consequences; etymologically, the word infer means to “carry forward”. Inference is theoretically traditionally divided into deduction and induction.
+<a href="https://en.wikipedia.org/wiki/Inference">https://en.wikipedia.org/wiki/Inference</a></p>
+</blockquote>
+
+<p><strong>Data Science</strong></p>
+<blockquote>
+  <p>Data science is an inter-disciplinary field that uses scientific methods, processes, algorithms and systems to extract knowledge and insights from many structural and unstructured data. Data science is related to data mining and big data.<br />
+Data science is a “concept to unify statistics, data analysis, machine learning and their related methods” in order to “understand and analyze actual phenomena” with data.<br />
+<a href="https://en.wikipedia.org/wiki/Data_science">https://en.wikipedia.org/wiki/Data_science</a></p>
+</blockquote>
+
+<h2 id="data-science--ml-challenges">Data Science (&amp; ML) challenges</h2>
+
+<p>Undoubtedly this era belongs to Artificial Intelligence (AI), and this results in the use of Machine Learning in almost every field, trying to solve different kind of problems from healthcare, in business fields, and technical spaces, Machine Learning is everywhere. That, the Open Source Software (OSS) and Cloud-based Distributed Computing have caused the appearance of many tools, techniques, and algorithms and the <strong><em>development of Machine Learning models to solve a problem is not a challenge, the real challenge lies in the management of these models and their data at a massive scale</em></strong>.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><a href="/assets/blog20200309/PGS-Software-MLOps-2.png"><img src="/assets/blog20200309/PGS-Software-MLOps-2.png" alt="" width="800" /></a></td>
+      <td>More Effective Machine Learning Production with MLOps, December 11, 2019 Maciej Mazur (https://www.pgs-soft.com/blog/more-effective-machine-learning-production-with-mlops)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The Data Science (&amp; ML) Development Process needs to learn from SDLC (Software Engineering) in order to face these challenges, and What are these challenges?. The answer is: They are the same challenges that SDLC (Software Engineering) is facing by adopting the DevOps Practices, for example:</p>
+
+<p><strong>1. Data challenges</strong><br />
+Dataset dependencies. Data in training and in evaluation stages can vary in real-world scenarios.</p>
+
+<p><strong>2. Model challenges</strong><br />
+ML models are built in a Data scientist sandbox. It was not developed to take scalability in mind; rather, it was just developed to get good accuracies and right algorithm. <br />
+Scale ML Applications.</p>
+
+<p><strong>3. Automation</strong><br />
+Training a simple model and putting it into inference and generating prediction is a simple and manual task. In real-world cases (at scale) that must be automated everything and anywhere. <br />
+Automation is the only way to achieve scalability in the different stages of ML-SDLC.</p>
+
+<p><strong>4. Observability</strong><br />
+Monitoring, Alerting, Visualization and Metrics.</p>
+
+<p><strong>5. The MLOps Tool Scene</strong><br />
+The effort involved in solving MLOps challenges can be reduced by leveraging a platform and applying it to the particular case.<br />
+The AI (&amp; ML) tool landscape is complex with different tools specialising in different niches and in some cases there are competing tools approaching similar problems in different ways (see the below Linux Foundation’s AI project for a categorised lists of tools).</p>
+
+<p><a href="/assets/blog20200309/202003109-linux-foundation-ai-landscape.png" target="_blank"><img src="/assets/blog20200309/202003109-linux-foundation-ai-landscape.png" alt="" /></a><br />
+<em><center>The Linux Foundation's AI (&amp; ML) tool landscape - 2020/03/09</center></em></p>
+
+<h2 id="what-is-mlops">What is MLOps?</h2>
+
+<blockquote>
+  <p>MLOps (a compound of “machine learning” and “operations”) is a practice for collaboration and communication between data scientists and operations professionals to help manage production ML (or deep learning) lifecycle.[1] Similar to the DevOps or DataOps approaches, MLOps looks to increase automation and improve the quality of production ML while also focusing on business and regulatory requirements. While MLOps also started as a set of best practices, it is slowly evolving into an independent approach to ML lifecycle management. MLOps applies to the entire lifecycle - from integrating with model generation (software development lifecycle, continuous integration/continuous delivery), orchestration, and deployment, to health, diagnostics, governance, and business metrics. 
+<a href="https://en.wikipedia.org/wiki/MLOps">https://en.wikipedia.org/wiki/MLOps</a></p>
+</blockquote>
+
+<h2 id="selected-tools-to-support-mlops-and-criteria-used">Selected tools to support MLOps and criteria used</h2>
+
+<p>If you have reviewed above <a href="https://landscape.lfai.foundation/images/landscape.png">The Linux Foundation’s AI project landscape (categorised lists of tools)</a>, you have realized that there a plenty of different tools, commercial and opensource. Well, the next list of products is a subset of products that follow this criteria:</p>
+
+<p><strong>1. Open Source</strong><br />
+Perfect for early adopters, also suitable to implement easily Proof-of-concepts or starting your own personal project.</p>
+
+<p><strong>2. Kubernetes-based</strong><br />
+Kubernetes and Containers are the new platform where our Applications are going to run and live, even the ML Applications.</p>
+
+<p><strong>3. Platform</strong><br />
+I don’t want to waste efforts integrating heterogeneous tools, I want a stack or platform with mature tools already integrated seamlessly.</p>
+
+<p><a href="" name="oss-doc-link"></a></p>
+
+<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTXcNBZjmHMfFHGmwizy_olJ0WP3aOA_lax4lRe9Y1DjG7XARstwm53ovFaovkirt7ybeyq8ybr9Tck/pubhtml?widget=true&amp;headers=false" width="800" height="800"></iframe>
+<p><em><center>Open Source Tools (Platforms) to support the MLOps</center></em></p>
+
+<h2 id="references">References</h2>
+
+<ul>
+  <li><a href="https://www.theregister.co.uk/2020/03/07/devops_machine_learning_mlops">What would machine learning look like if you mixed in DevOps? Wonder no more, we lift the lid on MLOps - By Ryan Dawson, 7 Mar 2020</a></li>
+  <li><a href="https://www.xenonstack.com/blog/mlops">MLOps Platform: Productionizing Machine Learning Models - By Navdeep Singh Gill, 2 Sep 2019</a></li>
+  <li><a href="https://towardsdatascience.com/ml-ops-machine-learning-as-an-engineering-discipline-b86ca4874a3f">ML Ops: Machine Learning as an Engineering Discipline - By Cristiano Breuel, 3 Jan 2020</a></li>
+  <li><a href="https://growingdata.com.au/mlops-ci-cd-for-machine-learning-pipelines-model-deployment-with-kubeflow">MLOps: CI/CD for Machine Learning Pipelines &amp; Model Deployment with Kubeflow - 25 Oct 2019</a></li>
+  <li><a href="https://landscape.lfai.foundation/images/landscape.png">The Linux Foundation’s AI project landscape (categorised lists of tools)</a></li>
+  <li><a href="https://github.com/EthicalML/awesome-production-machine-learning">The Institute for Ethical AI &amp; Machine Learning - Awesome production machine learning</a></li>
+</ul>
+
+  </div><div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://holisticsecurity.io/2020/03/10/devops-is-to-sdlc-as-mlops-is-to-machine-learning-apps';
+      this.page.identifier = 'https://holisticsecurity.io/2020/03/10/devops-is-to-sdlc-as-mlops-is-to-machine-learning-apps';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://holosec.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript><a class="u-url" href="/2020/03/10/devops-is-to-sdlc-as-mlops-is-to-machine-learning-apps" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading"><img src="/assets/img/logo-holosec.png" width="40" /> Holistic Security</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Holistic Security</li><li><a class="u-email" href="mailto:blog@holisticsecurity.io">blog@holisticsecurity.io</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.linkedin.com/in/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.twitter.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">Chilcano</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Systems Thinking, Holism, Trust, Security &amp; Usability.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

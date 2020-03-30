@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Gestión de Identidades y Accesos en las Organizaciones con WSO2 IS | Holistic Security</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Gestión de Identidades y Accesos en las Organizaciones con WSO2 IS" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="La Gestión de Usuarios siempre es una funcionalidad requerida en las Aplicaciones Empresariales, el objetivo es crear, renovar, borrar, actualizar las credenciales con el cual un usuario puede acceder a la Aplicación y ejecutar o realizar ciertas acciones que quizás otros usuario no puedan hacer (gestión de privilegios). Estas funcionalidades son siempre requeridas por cada Aplicación a menos que no exista tal restricción y uso sea completamente abierto. En el fondo, no sólo se trata de un única funcionalidad, se trata de un conjunto de funcionalidades: Gestión del ciclo de vida de usuarios: Nos permitirá crear, borrar, bloquear, actualizar credenciales de usuarios. Definir un modelo jerárquico de usuario que plasme la jerarquía real de la organización, es decir, jefes, empleados, externos, etc. Gestión de privilegios. Autenticación Proceso por el cual se validan las credenciales. Autorización Proceso por el cual se da acceso a un recurso después del proceso de Autenticación. Otras funcionalidades que suelen incluir en los IAM son: Single Sign-On (SSO) Single Sign-Off Federated Identity (*) Para mayor información remitirse a Wikipedia - Identity Management." />
+<meta property="og:description" content="La Gestión de Usuarios siempre es una funcionalidad requerida en las Aplicaciones Empresariales, el objetivo es crear, renovar, borrar, actualizar las credenciales con el cual un usuario puede acceder a la Aplicación y ejecutar o realizar ciertas acciones que quizás otros usuario no puedan hacer (gestión de privilegios). Estas funcionalidades son siempre requeridas por cada Aplicación a menos que no exista tal restricción y uso sea completamente abierto. En el fondo, no sólo se trata de un única funcionalidad, se trata de un conjunto de funcionalidades: Gestión del ciclo de vida de usuarios: Nos permitirá crear, borrar, bloquear, actualizar credenciales de usuarios. Definir un modelo jerárquico de usuario que plasme la jerarquía real de la organización, es decir, jefes, empleados, externos, etc. Gestión de privilegios. Autenticación Proceso por el cual se validan las credenciales. Autorización Proceso por el cual se da acceso a un recurso después del proceso de Autenticación. Otras funcionalidades que suelen incluir en los IAM son: Single Sign-On (SSO) Single Sign-Off Federated Identity (*) Para mayor información remitirse a Wikipedia - Identity Management." />
+<link rel="canonical" href="https://holisticsecurity.io/2014/01/13/iam-organizaciones-con-wso2is/" />
+<meta property="og:url" content="https://holisticsecurity.io/2014/01/13/iam-organizaciones-con-wso2is/" />
+<meta property="og:site_name" content="Holistic Security" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2014-01-13T12:51:46+01:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://holisticsecurity.io/2014/01/13/iam-organizaciones-con-wso2is/"},"url":"https://holisticsecurity.io/2014/01/13/iam-organizaciones-con-wso2is/","headline":"Gestión de Identidades y Accesos en las Organizaciones con WSO2 IS","dateModified":"2014-01-13T12:51:46+01:00","datePublished":"2014-01-13T12:51:46+01:00","description":"La Gestión de Usuarios siempre es una funcionalidad requerida en las Aplicaciones Empresariales, el objetivo es crear, renovar, borrar, actualizar las credenciales con el cual un usuario puede acceder a la Aplicación y ejecutar o realizar ciertas acciones que quizás otros usuario no puedan hacer (gestión de privilegios). Estas funcionalidades son siempre requeridas por cada Aplicación a menos que no exista tal restricción y uso sea completamente abierto. En el fondo, no sólo se trata de un única funcionalidad, se trata de un conjunto de funcionalidades: Gestión del ciclo de vida de usuarios: Nos permitirá crear, borrar, bloquear, actualizar credenciales de usuarios. Definir un modelo jerárquico de usuario que plasme la jerarquía real de la organización, es decir, jefes, empleados, externos, etc. Gestión de privilegios. Autenticación Proceso por el cual se validan las credenciales. Autorización Proceso por el cual se da acceso a un recurso después del proceso de Autenticación. Otras funcionalidades que suelen incluir en los IAM son: Single Sign-On (SSO) Single Sign-Off Federated Identity (*) Para mayor información remitirse a Wikipedia - Identity Management.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://holisticsecurity.io/feed.xml" title="Holistic Security" /><script>
+if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-156433649-1', 'auto');
+  ga('send', 'pageview');
+}
+</script>
+  
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/"><img src="/assets/img/logo-holosec.png" width="100" /> Holistic Security</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/">Home</a><a class="page-link" href="/blog/">Blog</a><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Gestión de Identidades y Accesos en las Organizaciones con WSO2 IS</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2014-01-13T12:51:46+01:00" itemprop="datePublished">Jan 13, 2014 
+      </time>&sim; BPM · CRM · ECM · ERP · IAM · PORTAL · SECURITY · SOA
+      &sim; AUTHENTICATION · AUTHORIZATION · LDAP · SSO · WSO2
+    </p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>La Gestión de Usuarios siempre es una funcionalidad requerida en las Aplicaciones Empresariales, el objetivo es crear, renovar, borrar, actualizar las credenciales con el cual un usuario puede acceder a la Aplicación y ejecutar o realizar ciertas acciones que quizás otros usuario no puedan hacer (gestión de privilegios). 
+Estas funcionalidades son siempre requeridas por cada Aplicación a menos que no exista tal restricción y uso sea completamente abierto. En el fondo, no sólo se trata de un única funcionalidad, se trata de un conjunto de funcionalidades:</p>
+
+<ol>
+  <li>Gestión del ciclo de vida de usuarios:
+    <ul>
+      <li>Nos permitirá crear, borrar, bloquear, actualizar credenciales de usuarios.</li>
+      <li>Definir un modelo jerárquico de usuario que plasme la jerarquía real de la organización, es decir, jefes, empleados, externos, etc.</li>
+      <li>Gestión de privilegios.</li>
+    </ul>
+  </li>
+  <li>Autenticación
+    <ul>
+      <li>Proceso por el cual se validan las credenciales.</li>
+    </ul>
+  </li>
+  <li>Autorización
+    <ul>
+      <li>Proceso por el cual se da acceso a un recurso después del proceso de Autenticación.</li>
+    </ul>
+  </li>
+</ol>
+
+<p>Otras funcionalidades que suelen incluir en los IAM son:</p>
+<ol>
+  <li>Single Sign-On (SSO)</li>
+  <li>Single Sign-Off</li>
+  <li>Federated Identity</li>
+</ol>
+
+<p>(*) Para mayor información remitirse a <a href="http://en.wikipedia.org/wiki/Identity_management" title="Wikipedia - Identity Management">Wikipedia - Identity Management</a>.</p>
+
+<!-- more -->
+
+<h2 id="identity-and-access-management-con-wso2-is"><em>“Identity and Access Management”</em> con WSO2 IS</h2>
+
+<p>Ya hemos hablado de <a href="http://holisticsecurity.wordpress.com/2013/11/28/starting-wso2-identity-server/" title="STARTING WITH WSO2 IDENTITY SERVER \(SECURITY AS SERVICE\)">WSO2 IS y qué ofrece</a>, aquí básicamente listaremos las estrategias de integración que seguiremos cuando queremos hacer autenticación o autorización con el ERP, CRM, ECM, etc.</p>
+
+<p>[caption id=”” align=”aligncenter” width=”396”]<a href="https://dl.dropboxusercontent.com/u/2961879/blog.sec/blog20131231_iam_wso2is/1-wso2is-penrose-iam.png"><img src="/assets/1-wso2is-penrose-iam.png" alt="Identity and Access Management with WSO2 IS and Penrose Virtual Directory" /></a> Identity and Access Management with WSO2 IS and Penrose Virtual Directory[/caption]</p>
+
+<h2 id="un-completo-escenario-con-identity-and-access-management">Un completo Escenario con <em>“Identity and Access Management”</em></h2>
+
+<p>Parto de un escenario hipotético que solemos encontrarnos en las Organizaciones, en dicho escenario trasladamos los productos y tecnologías que nos ayudarán a aplicar seguridad, principalmente WSO2 IS y <a href="https://github.com/Chilcano/penrose-server" title="Penrose Virtual Directory">Penrose Virtual Directory</a>.</p>
+
+<p>[caption id=”” align=”aligncenter” width=”726”]<a href="https://dl.dropboxusercontent.com/u/2961879/blog.sec/blog20131231_iam_wso2is/2-soi-iam.png"><img src="/assets/2-soi-iam.png" alt="A complete Enterprise Ecosystem - Business Applications and IAM" /></a> A complete Enterprise Ecosystem - Business Applications and IAM[/caption]</p>
+
+<h2 id="identity-and-access-management-es-integración-soi"><em>“Identity and Access Management”</em> es Integración (SOI)</h2>
+
+<p>SOI es “Integración basado en Servicio”, es un término muy usado en los modernos ESB cuando las interfases a conectar son ofrecidos como “servicios” y por lo general los conectores implementan SOAP y/o REST interfaces. Más información sobre SOA/SOI <a href="http://en.wikipedia.org/wiki/Service-oriented_architecture_implementation_framework#Service-oriented_integration" title="SOA and SOI">aquí</a>.
+Como véis en el escenario anterior, añadir Autenticación y Autorización es hacer integración a través de la interfase existente basada en “servicio” de WSO2 IS. Es esto la realmente una de las funcionalidades más importantes de WSO2 IS, muy alineado a los principios SOA (desacoplamiento, multi-layer, etc.), además que nos permite integrar aplicaciones existente tan variadas gracias a que WSO2 IS expone las funcionalidades de IAM como API.</p>
+
+<p>[caption id=”” align=”aligncenter” width=”726”]<a href="https://dl.dropboxusercontent.com/u/2961879/blog.sec/blog20131231_iam_wso2is/3-spreading-security-using-soi.png"><img src="/assets/3-spreading-security-using-soi.png" alt="Spreading Security (WSO2IS and Penrose) in the Organization using SOI" /></a> Spreading Security (WSO2IS and Penrose) in the Organization using SOI[/caption]
+Pues os dejo con el listado de las estrategias de integración usadas para cada caso:</p>
+
+<p>[slideshare id=29953609&amp;doc=chakray-enterprise-security-soi-portunoidm-140113053031-phpapp01]
+Espero que os haya servido.
+-Fin</p>
+
+  </div><div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://holisticsecurity.io/2014/01/13/iam-organizaciones-con-wso2is/';
+      this.page.identifier = 'https://holisticsecurity.io/2014/01/13/iam-organizaciones-con-wso2is/';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://holosec.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript><a class="u-url" href="/2014/01/13/iam-organizaciones-con-wso2is/" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading"><img src="/assets/img/logo-holosec.png" width="40" /> Holistic Security</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Holistic Security</li><li><a class="u-email" href="mailto:blog@holisticsecurity.io">blog@holisticsecurity.io</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.linkedin.com/in/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.twitter.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">Chilcano</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Systems Thinking, Holism, Trust, Security &amp; Usability.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

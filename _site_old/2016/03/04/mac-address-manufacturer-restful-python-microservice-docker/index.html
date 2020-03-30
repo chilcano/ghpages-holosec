@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>A MAC Address Manufacturer DB and RESTful Python Microservice in a Docker Container | Holistic Security</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="A MAC Address Manufacturer DB and RESTful Python Microservice in a Docker Container" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A MAC address, also called physical address, is a unique identifier assigned to every network interfaces for communications on the physical network segment. In other words, you can identify the manufacturer of your device through your pyshical address. There are different tools on the Internet that allow you to identify the manufacturer from the MAC Address. I previous post I wrote about how to capture the wireless traffic and all MAC Address, now in this post I will explain how to implement a Docker container exposing a Rest API to get the Manufacturer from the captured MAC Address." />
+<meta property="og:description" content="A MAC address, also called physical address, is a unique identifier assigned to every network interfaces for communications on the physical network segment. In other words, you can identify the manufacturer of your device through your pyshical address. There are different tools on the Internet that allow you to identify the manufacturer from the MAC Address. I previous post I wrote about how to capture the wireless traffic and all MAC Address, now in this post I will explain how to implement a Docker container exposing a Rest API to get the Manufacturer from the captured MAC Address." />
+<link rel="canonical" href="https://holisticsecurity.io/2016/03/04/mac-address-manufacturer-restful-python-microservice-docker/" />
+<meta property="og:url" content="https://holisticsecurity.io/2016/03/04/mac-address-manufacturer-restful-python-microservice-docker/" />
+<meta property="og:site_name" content="Holistic Security" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-03-04T12:06:14+01:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://holisticsecurity.io/2016/03/04/mac-address-manufacturer-restful-python-microservice-docker/"},"url":"https://holisticsecurity.io/2016/03/04/mac-address-manufacturer-restful-python-microservice-docker/","headline":"A MAC Address Manufacturer DB and RESTful Python Microservice in a Docker Container","dateModified":"2016-03-04T12:06:14+01:00","datePublished":"2016-03-04T12:06:14+01:00","description":"A MAC address, also called physical address, is a unique identifier assigned to every network interfaces for communications on the physical network segment. In other words, you can identify the manufacturer of your device through your pyshical address. There are different tools on the Internet that allow you to identify the manufacturer from the MAC Address. I previous post I wrote about how to capture the wireless traffic and all MAC Address, now in this post I will explain how to implement a Docker container exposing a Rest API to get the Manufacturer from the captured MAC Address.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://holisticsecurity.io/feed.xml" title="Holistic Security" /><script>
+if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-156433649-1', 'auto');
+  ga('send', 'pageview');
+}
+</script>
+  
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/"><img src="/assets/img/logo-holosec.png" width="100" /> Holistic Security</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/">Home</a><a class="page-link" href="/blog/">Blog</a><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">A MAC Address Manufacturer DB and RESTful Python Microservice in a Docker Container</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2016-03-04T12:06:14+01:00" itemprop="datePublished">Mar 4, 2016 
+      </time>&sim; BAM · BIG DATA · MICROSERVICES · SECURITY · SOA
+      &sim; DOCKER · FLASK · KISMET · PYTHON · WSO2
+    </p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>A MAC address, also called physical address, is a unique identifier assigned to every network interfaces for communications on the physical network segment. In other words, you can identify the manufacturer of your device through your pyshical address.<br />
+There are different tools on the Internet that allow you to identify the manufacturer from the MAC Address. I previous post I wrote about how to capture the wireless traffic and all MAC Address, now in this post I will explain how to implement a Docker container exposing a Rest API to get the Manufacturer from the captured MAC Address.</p>
+
+<p><a href="/assets/chilcano_docker_microservice_mac_address_manuf_lookup_2.png" target="_blank"><img src="/assets/chilcano_docker_microservice_mac_address_manuf_lookup_2.png" alt="The MAC Address Manufacturer Lookup Docker Container" width="70%" /></a></p>
+
+<!-- more -->
+
+<p>As everything should be lightweight, minimalist, easy to use and auto-contained, I’m going to use the next:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">Python</code> as lightweight and powerful programming language.</li>
+  <li><code class="highlighter-rouge">Flask</code> (http://flask.pocoo.org) is a microframework for Python based on Werkzeug and Jinja 2. I will use <code class="highlighter-rouge">Flask</code> to implement a mini-web application.</li>
+  <li><code class="highlighter-rouge">SQLAlchemy</code> (http://www.sqlalchemy.org/) is a Python SQL toolkit and ORM.</li>
+  <li><code class="highlighter-rouge">SQLite3</code> (https://www.sqlite.org) is a software library that implements a self-contained, serverless, zero-configuration, transactional SQL database engine.</li>
+  <li><code class="highlighter-rouge">pyOpenSSL</code> library to work with X.509 certificates. Required to start the embedded Webserver on HTTPS (TLS).</li>
+  <li><code class="highlighter-rouge">CORS extension for Flask</code> (https://flask-cors.readthedocs.org) useful to solve cross-domain Ajax request issues.</li>
+</ul>
+
+<p>This Docker container provides a Microservice (API Rest) to MAC Address Manufacturer resolution. This Docker container is part of the “Everything generates Data: Capturing WIFI Anonymous Traffic using Raspberry Pi and WSO2 BAM” blog serie (<a href="https://holisticsecurity.io/2016/02/02/everything-generates-data-capturing-wifi-anonymous-traffic-raspberrypi-wso2-part-i/">Part I</a>, <a href="https://holisticsecurity.io/2016/02/04/everything-generates-data-capturing-wifi-anonymous-traffic-using-raspberry-pi-and-wso2-bam-part-ii/">Part II</a> &amp; <a href="https://holisticsecurity.io/2016/02/09/everything-generates-data-capturing-wifi-anonymous-traffic-raspberrypi-wso2-part-iii/">Part III</a>), but you can use it independently as part of other set of Docker containers.</p>
+
+<p>This Docker Container will work in this scenario, as shown above image. Then, let’s do it.</p>
+
+<h2 id="i-preparing-the-python-development-environment-in-mac-osx">I. Preparing the Python development environment in Mac OSX</h2>
+
+<p>Follow this guide to setup your Python Development Environment in your Mac OSX: https://github.com/chilcano/how-tos/blob/master/Preparing-Python-Dev-Env-Mac-OSX.md</p>
+
+<h2 id="ii-creating-a-mac-address-manufacturer-db">II. Creating a MAC Address Manufacturer DB</h2>
+
+<p>Exist in Internet several MAC Address Lookup Tools, in fact, the OUI’s prefix used to identify the MAC Address are public available.
+But, in this case I am going to use the MAC Address List of Wireshark (https://www.wireshark.org/tools/oui-lookup.html).<br />
+Wireshark is a popular network protocol analyzer a.k.a. <code class="highlighter-rouge">network sniffer</code>, the Wireshark tool uses internally the MAC Address list to identity the Manufacturer of a NIC.<br />
+I’m going to download and create a API Rest for you. Below the steps.</p>
+
+<p><strong>1) Downloading the Wireshark MAC Addresses Manufacturer file and loading into a DB</strong></p>
+
+<p>Using the below Python script I will download the Wireshark MAC Address list into a file and to get the hash. The idea is to parse the file and load it into a minimalist DB.<br />
+I will use SQLite Database where I will create an unique table and all information will be loaded there. The Table structure will be:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mac String <span class="c"># The original MAC Address  </span>
+manuf String <span class="c"># The original Manufacturer name  </span>
+manuf_desc String <span class="c"># The Manufacturer description, if exists.  </span>
+</code></pre></div></div>
+
+<p>Here the Python script used to do that: <a href="https://github.com/chilcano/docker-mac-address-manuf-lookup/blob/master/python/latest/mac_manuf_wireshark_file.py">mac_manuf_wireshark_file.py</a></p>
+
+<h2 id="iii-exposing-the-mac-address-manufacturer-db-as-an-api-rest">III. Exposing the MAC Address Manufacturer DB as an API Rest</h2>
+
+<p>After creating the database, the next step is to expose the data through a simple API Rest. The idea is to make a call <code class="highlighter-rouge">GET</code> to the API Rest with a <code class="highlighter-rouge">MAC Address</code> and get the <code class="highlighter-rouge">Manufacturer</code> as response.</p>
+
+<p><strong>1) Defining the API</strong></p>
+
+<p>The best way to define an API Rest and the <code class="highlighter-rouge">contract</code> is using the <code class="highlighter-rouge">Swagger</code> language (http://swagger.io). The idea is to create documentation about the API Rest and explain what resources are available or exposed, writte a request and response sample, etc.<br />
+In this scenario I’m going to define in a simple way the API, also I’m going to use JSON to define the request and response.<br />
+Then, below the API definition.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /chilcano/api/manuf <span class="c"># Add a new Manufacturer  </span>
+PUT /chilcano/api/manuf <span class="c"># Update an existing Manufacturer  </span>
+GET /chilcano/api/manuf/<span class="o">{</span>macAddress<span class="o">}</span> <span class="c"># Find Manufacturer by MAC Address  </span>
+</code></pre></div></div>
+
+<p>In this Proof-of-Concept I will implement only the <code class="highlighter-rouge">GET</code> resource for the API.</p>
+
+<p><strong>2) Implementing the API Rest</strong></p>
+
+<p>I have created 2 Python scripts to implement the API Rest.<br />
+The first one (<a href="https://github.com/chilcano/docker-mac-address-manuf-lookup/blob/master/python/latest/mac_manuf_table_def.py"><code class="highlighter-rouge">mac_manuf_table_def.py</code></a>) is just a <code class="highlighter-rouge">Model</code> of the <code class="highlighter-rouge">MacAddressManuf</code> table.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/python  
+# -*- coding: utf-8 -*-  
+#  
+# file name: mac_manuf_table_def.py  
+#
+</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">create_engine</span><span class="p">,</span> <span class="n">ForeignKey</span>  
+<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">Column</span><span class="p">,</span> <span class="n">Date</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">String</span>  
+<span class="kn">from</span> <span class="nn">sqlalchemy.ext.declarative</span> <span class="kn">import</span> <span class="n">declarative_base</span>
+<span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="s">'sqlite:///mymusic.db'</span><span class="p">,</span> <span class="n">echo</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>  
+<span class="n">Base</span> <span class="o">=</span> <span class="n">declarative_base</span><span class="p">()</span>
+
+<span class="c1">#  
+# Model for 'MacAddressManuf':  
+# used for API Rest to get access to data from DB  
+#  
+</span><span class="k">class</span> <span class="nc">MacAddressManuf</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>  
+<span class="s">""""""</span>  
+<span class="n">__tablename__</span> <span class="o">=</span> <span class="s">"MacAddressManuf"</span>
+<span class="n">mac</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>  
+<span class="n">manuf</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>  
+<span class="n">manuf_desc</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">manuf</span><span class="p">,</span> <span class="n">manuf_desc</span><span class="p">):</span>  
+<span class="s">""""""</span>  
+<span class="bp">self</span><span class="o">.</span><span class="n">manuf</span> <span class="o">=</span> <span class="n">manuf</span>  
+<span class="bp">self</span><span class="o">.</span><span class="n">manuf_desc</span> <span class="o">=</span> <span class="n">manuf_desc</span>  
+</code></pre></div></div>
+
+<p>And second Python script (<a href="https://github.com/chilcano/docker-mac-address-manuf-lookup/blob/master/python/latest/mac_manuf_api_rest.py"><code class="highlighter-rouge">mac_manuf_api_rest.py</code></a>) implements the API Rest. You can review the</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/python  
+# -*- coding: utf-8 -*-  
+#  
+# file name: mac_manuf_api_rest.py  
+#
+</span>
+<span class="kn">import</span> <span class="nn">os</span><span class="p">,</span> <span class="n">re</span>  
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">jsonify</span>  
+<span class="kn">from</span> <span class="nn">flask.ext.cors</span> <span class="kn">import</span> <span class="n">CORS</span>  
+<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">create_engine</span>  
+<span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="kn">import</span> <span class="n">sessionmaker</span>  
+<span class="kn">from</span> <span class="nn">mac_manuf_table_def</span> <span class="kn">import</span> <span class="n">MacAddressManuf</span>
+<span class="n">ROOT_DIR</span> <span class="o">=</span> <span class="s">"manuf"</span>  
+<span class="n">FINAL_MANUF_DB_FILENAME</span> <span class="o">=</span> <span class="s">"mac_address_manuf.db"</span>  
+<span class="n">HTTPS_ENABLED</span> <span class="o">=</span> <span class="s">"true"</span>
+<span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="s">"sqlite:///"</span> \<span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ROOT_DIR</span><span class="p">,</span> <span class="n">FINAL_MANUF_DB_FILENAME</span><span class="p">))</span>  
+<span class="n">Session</span> <span class="o">=</span> <span class="n">sessionmaker</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="n">engine</span><span class="p">)</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>  
+<span class="n">cors</span> <span class="o">=</span> <span class="n">CORS</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">resources</span><span class="o">=</span><span class="p">{</span><span class="s">r"/chilcano/api/*"</span><span class="p">:</span> <span class="p">{</span><span class="s">"origins"</span><span class="p">:</span> <span class="s">"*"</span><span class="p">}})</span>
+
+<span class="c1">#  
+# API Rest:  
+# i.e. curl -i http://localhost:5000/chilcano/api/manuf/00:50:5a:e5:6e:cf  
+# i.e. curl -ik https://localhost:5443/chilcano/api/manuf/00:50:5a:e5:6e:cf  
+#  
+</span>
+<span class="o">@</span><span class="n">app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s">"/chilcano/api/manuf/&lt;string:macAddress&gt;"</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s">"GET"</span><span class="p">])</span>  
+<span class="k">def</span> <span class="nf">get_manuf</span><span class="p">(</span><span class="n">macAddress</span><span class="p">):</span>  
+<span class="k">try</span><span class="p">:</span>  
+<span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">r'^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$'</span><span class="p">,</span> <span class="n">macAddress</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="n">re</span><span class="o">.</span><span class="n">I</span><span class="p">)</span><span class="o">.</span><span class="n">group</span><span class="p">():</span>  
+
+<span class="c1"># expected MAC formats : a1-b2-c3-p4-q5-r6, a1:b2:c3:p4:q5:r6, A1:B2:C3:P4:Q5:R6, A1-B2-C3-P4-Q5-R6  
+</span>
+<span class="n">mac1</span> <span class="o">=</span> <span class="n">macAddress</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="s">":"</span> \<span class="o">+</span> <span class="n">macAddress</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span> <span class="o">+</span> <span class="s">":"</span> \<span class="o">+</span> <span class="n">macAddress</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="mi">8</span><span class="p">]</span>  
+<span class="n">mac2</span> <span class="o">=</span> <span class="n">macAddress</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="s">"-"</span> \<span class="o">+</span> <span class="n">macAddress</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span> <span class="o">+</span> <span class="s">"-"</span> \<span class="o">+</span> <span class="n">macAddress</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="mi">8</span><span class="p">]</span>  
+<span class="n">mac3</span> <span class="o">=</span> <span class="n">mac1</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>  
+<span class="n">mac4</span> <span class="o">=</span> <span class="n">mac2</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>  
+<span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">()</span>  
+<span class="n">result</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">MacAddressManuf</span><span class="p">)</span><span class="o">.</span><span class="nb">filter</span><span class="p">(</span><span class="n">MacAddressManuf</span><span class="o">.</span><span class="n">mac</span><span class="o">.</span><span class="n">in_</span><span class="p">([</span><span class="n">mac1</span><span class="p">,</span> <span class="n">mac2</span><span class="p">,</span> <span class="n">mac3</span><span class="p">,</span> <span class="n">mac4</span><span class="p">]))</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>  
+<span class="k">try</span><span class="p">:</span>  
+<span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">mac</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">mac</span><span class="p">,</span> <span class="n">manuf</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">manuf</span><span class="p">,</span> <span class="n">manuf_desc</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">manuf_desc</span><span class="p">)</span>  
+<span class="k">except</span><span class="p">:</span>  
+<span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">error</span><span class="o">=</span><span class="s">"The MAC Address '"</span> \<span class="o">+</span> <span class="n">macAddress</span> <span class="o">+</span> <span class="s">"' does not exist"</span><span class="p">),</span> <span class="mi">404</span>  
+<span class="k">else</span><span class="p">:</span>  
+<span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">mac</span><span class="o">=</span><span class="n">macAddress</span><span class="p">,</span> <span class="n">manuf</span><span class="o">=</span><span class="s">"Unknown"</span><span class="p">,</span> <span class="n">manuf_desc</span><span class="o">=</span><span class="s">"Unknown"</span><span class="p">),</span> <span class="mi">404</span>  
+<span class="k">except</span><span class="p">:</span>  
+<span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">error</span><span class="o">=</span><span class="s">"The MAC Address '"</span> \<span class="o">+</span> <span class="n">macAddress</span> <span class="o">+</span> <span class="s">"' is malformed"</span><span class="p">),</span> <span class="mi">400</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>  
+<span class="k">if</span> <span class="n">HTTPS_ENABLED</span> <span class="o">==</span> <span class="s">"true"</span><span class="p">:</span>  
+
+<span class="c1"># 'adhoc' means auto-generate the certificate and keypair  
+</span><span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s">"0.0.0.0"</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">5443</span><span class="p">,</span> <span class="n">ssl_context</span><span class="o">=</span><span class="s">"adhoc"</span><span class="p">,</span> <span class="n">threaded</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>  
+<span class="k">else</span><span class="p">:</span>  
+<span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s">"0.0.0.0"</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">threaded</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>  
+</code></pre></div></div>
+
+<p>This second Python script performs the next tasks:</p>
+<ul>
+  <li>Calls the Model (<code class="highlighter-rouge">mac_manuf_table_def.py</code>).</li>
+  <li>Connects to SQLite Database and creates a Session.</li>
+  <li>Runs a query by using <code class="highlighter-rouge">macAddress</code> as parameter.</li>
+  <li>And creates a JSON response with the query’s result.</li>
+</ul>
+
+<p><strong>3) Running and Testing the API Rest</strong></p>
+
+<p>We could use the <code class="highlighter-rouge">Flask</code> buit-in HTTP server just for testing and debugging. To run the above Python Web Application (API Rest) just execute the Python script. Note that actually I have 3 versions (py-1.0, py-1.1 and py-latest)</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Chilcano@Pisc0 : ~/1github-repo/docker-mac-address-manuf-lookup/python/1.0  
+<span class="nv">$ </span>python mac_manuf_api_rest.py  
+<span class="k">*</span> Running on http://0.0.0.0:5000/ <span class="o">(</span>Press CTRL+C to quit<span class="o">)</span>  
+<span class="k">*</span> Restarting with <span class="nb">stat</span>  
+<span class="k">*</span> Debugger is active!  
+<span class="k">*</span> Debugger pin code: 258-876-642
+Chilcano@Pisc0 : ~/1github-repo/docker-mac-address-manuf-lookup/python/1.1  
+<span class="nv">$ </span>python mac_manuf_api_rest.py  
+<span class="k">*</span> Running on https://0.0.0.0:5443/ <span class="o">(</span>Press CTRL+C to quit<span class="o">)</span>  
+<span class="k">*</span> Restarting with <span class="nb">stat</span>  
+<span class="k">*</span> Debugger is active!  
+<span class="k">*</span> Debugger pin code: 258-876-642
+Chilcano@Pisc0 : ~/1github-repo/docker-mac-address-manuf-lookup/python/latest  
+<span class="nv">$ </span>python mac_manuf_api_rest.py  
+<span class="k">*</span> Running on https://0.0.0.0:5443/ <span class="o">(</span>Press CTRL+C to quit<span class="o">)</span>  
+<span class="k">*</span> Restarting with <span class="nb">stat</span>  
+<span class="k">*</span> Debugger is active!  
+<span class="k">*</span> Debugger pin code: 258-876-642  
+</code></pre></div></div>
+
+<p>Now, from other Terminal call the API Rest using <code class="highlighter-rouge">curl</code>, I’m going to use only the <code class="highlighter-rouge">python-lates</code> version:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>curl <span class="nt">-ik</span> https://127.0.0.1:5443/chilcano/api/manuf/00-50:Ca-Fe-Ca-Fe  
+HTTP/1.0 200 OK  
+Content-Type: application/json  
+Content-Length: 93  
+Server: Werkzeug/0.11.4 Python/2.7.11  
+Date: Thu, 03 Mar 2016 17:37:45 GMT
+<span class="o">{</span>  
+<span class="s2">"mac"</span>: <span class="s2">"00:50:CA"</span>,  
+<span class="s2">"manuf"</span>: <span class="s2">"NetToNet"</span>,  
+<span class="s2">"manuf_desc"</span>: <span class="s2">"# NET TO NET TECHNOLOGIES"</span>  
+<span class="o">}</span>
+<span class="nv">$ </span>curl <span class="nt">-ik</span> https://127.0.0.1:5443/chilcano/api/manuf/11-50:Ca-Fe-Ca-Fe  
+HTTP/1.0 404 NOT FOUND  
+Content-Type: application/json  
+Content-Length: 67  
+Server: Werkzeug/0.11.4 Python/2.7.11  
+Date: Thu, 03 Mar 2016 17:38:49 GMT
+<span class="o">{</span>  
+<span class="s2">"error"</span>: <span class="s2">"The MAC Address '11-50:Ca-Fe-Ca-Fe' does not exist"</span>  
+<span class="o">}</span>
+curl <span class="nt">-ik</span> https://127.0.0.1:5443/chilcano/api/manuf/00-50:Ca-Fe-Ca-Fe---  
+HTTP/1.0 400 BAD REQUEST  
+Content-Type: application/json  
+Content-Length: 68  
+Server: Werkzeug/0.11.4 Python/2.7.11  
+Date: Thu, 03 Mar 2016 17:39:23 GMT
+<span class="o">{</span>  
+<span class="s2">"error"</span>: <span class="s2">"The MAC Address '00-50:Ca-Fe-Ca-Fe---' is malformed"</span>  
+<span class="o">}</span>  
+</code></pre></div></div>
+
+<p>But if you want to run in Production. In the <code class="highlighter-rouge">Flask</code> webpage (http://flask.pocoo.org/docs/0.10/deploying/wsgi-standalone) recommends these HTTP servers (Standalone WSGI Containers):</p>
+<ul>
+  <li>Gunicorn</li>
+  <li>Tornado</li>
+  <li>Gevent</li>
+  <li>Twisted Web</li>
+</ul>
+
+<h2 id="iv-putting-everything-in-a-docker-container">IV. Putting everything in a Docker Container</h2>
+
+<p><strong>1) The Dockerfile</strong></p>
+
+<p>The latest version of the MAC Address Manufacturer lookup Docker container is the <code class="highlighter-rouge">python-latest</code> (aka <code class="highlighter-rouge">Docker MAC Manuf</code>) and has the next Dockerfile:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Dockerfile to MAC Address Manufacturer Lookup container.</span>
+FROM python:2.7
+MAINTAINER Roger CARHUATOCTO &lt;chilcano at intix dot info&gt;
+RUN pip <span class="nb">install</span> <span class="nt">--upgrade</span> pip  
+RUN pip <span class="nb">install </span>unicodecsv  
+RUN pip <span class="nb">install </span>Flask  
+RUN pip <span class="nb">install </span>sqlalchemy  
+RUN pip <span class="nb">install </span>pyOpenSSL  
+RUN pip <span class="nb">install</span> <span class="nt">-U</span> flask-cors
+
+<span class="c"># Allocate the 5000/5443 to run a HTTP/HTTPS server  </span>
+EXPOSE 5000 5443
+COPY mac_manuf_wireshark_file.py /  
+COPY mac_manuf_table_def.py /  
+COPY mac_manuf_api_rest.py /
+RUN python mac_manuf_wireshark_file.py  
+CMD python mac_manuf_api_rest.py  
+</code></pre></div></div>
+
+<p><strong>2) Using the Docker Container</strong></p>
+
+<p>Clone the Github repository and build it.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git clone https://github.com/chilcano/docker-mac-address-manuf-lookup.git  
+<span class="nv">$ </span><span class="nb">cd </span>docker-mac-address-manuf-lookup  
+<span class="nv">$ </span>docker build <span class="nt">--rm</span> <span class="nt">-t</span> chilcano/mac-manuf:py-latest python/latest/.  
+</code></pre></div></div>
+
+<p>Or Pull from Docker Hub.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker login  
+<span class="nv">$ </span>docker pull chilcano/mac-manuf-lookup:py-latest  
+<span class="nv">$ </span>docker images  
+REPOSITORY TAG IMAGE ID CREATED VIRTUAL SIZE  
+chilcano/mac-manuf-lookup py-latest 19d33a4f3ec1 16 minutes ago 714.8 MB  
+</code></pre></div></div>
+
+<p>Run and check the container.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker run <span class="nt">-dt</span> <span class="nt">--name</span><span class="o">=</span>mac-manuf-py-latest <span class="nt">-p</span> 5443:5443/tcp chilcano/mac-manuf-lookup:py-latest
+<span class="nv">$ </span>docker ps  
+CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES  
+4b0bb0b5b518 chilcano/mac-manuf-lookup:py-latest <span class="s2">"/bin/sh -c 'python m"</span> 2 minutes ago Up 2 minutes 5000/tcp, 0.0.0.0:5443-&gt;5443/tcp mac-manuf-py-latest  
+</code></pre></div></div>
+
+<p>Gettting SSH access to the Container to check if SQLite DB exists.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker <span class="nb">exec</span> <span class="nt">-ti</span> mac-manuf-py-latest bash  
+</code></pre></div></div>
+
+<p>Getting the Docker Machine IP Address.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker-machine <span class="nb">ls  
+</span>NAME ACTIVE DRIVER STATE URL SWARM ERRORS  
+default <span class="k">*</span> virtualbox Running tcp://192.168.99.100:2376  
+machine-dev - virtualbox Stopped  
+machine-test - virtualbox Stopped  
+</code></pre></div></div>
+
+<p>Testing/Calling the Microservice (API Rest).</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>curl <span class="nt">-i</span> http://192.168.99.100:5000/chilcano/api/manuf/00-50:Ca-ca-fe-ca  
+HTTP/1.0 200 OK  
+Content-Type: application/json  
+Content-Length: 93  
+Server: Werkzeug/0.11.4 Python/2.7.11  
+Date: Sat, 20 Feb 2016 09:01:38 GMT
+<span class="o">{</span>  
+<span class="s2">"mac"</span>: <span class="s2">"00:50:CA"</span>,  
+<span class="s2">"manuf"</span>: <span class="s2">"NetToNet"</span>,  
+<span class="s2">"manuf_desc"</span>: <span class="s2">"# NET TO NET TECHNOLOGIES"</span>  
+<span class="o">}</span>  
+</code></pre></div></div>
+
+<p>If the embedded server was started on HTTPS, you could test it as shown below.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>curl <span class="nt">-ik</span> https://192.168.99.100:5443/chilcano/api/manuf/00-50:Ca-ca-fe-ca  
+HTTP/1.0 200 OK  
+Content-Type: application/json  
+Content-Length: 93  
+Server: Werkzeug/0.11.4 Python/2.7.11  
+Date: Mon, 29 Feb 2016 15:58:21 GMT
+<span class="o">{</span>  
+<span class="s2">"mac"</span>: <span class="s2">"00:50:CA"</span>,  
+<span class="s2">"manuf"</span>: <span class="s2">"NetToNet"</span>,  
+<span class="s2">"manuf_desc"</span>: <span class="s2">"# NET TO NET TECHNOLOGIES"</span>  
+<span class="o">}</span>  
+</code></pre></div></div>
+
+<h2 id="v-and-now-what-how-to-use-the-mac-manuf-docker-with-the-wso2-bam-docker">V. And now what?, How to use the MAC Manuf Docker with the WSO2 BAM Docker?</h2>
+
+<p><em>Visualizing Captured WIFI Traffic in Realtime from WSO2 BAM Dashboard</em></p>
+
+<p><img src="/assets/chilcano-wso2bam-wifi-thrift-cassandra-4-kismet.png" alt="Visualizing Captured WIFI Traffic in Realtime" /></p>
+
+<p>As you can see in above image, when capturing WIFI traffic the information is shown in the WSO2 BAM Dashboard but not the MAC Address Manufaturer.<br />
+In this scenario, our <code class="highlighter-rouge">Docker MAC Manuf</code> will be useful because It will provide the Manufacturer information via a RESTful Microservice. Then, the idea is configure the WSO2 BAM Dashboard (the prepared Kismet Toolbox) to point to the <code class="highlighter-rouge">Docker MAC Manuf</code> RESTful Microservice. In other words, the WSO2 BAM will call to the <code class="highlighter-rouge">Docker MAC Manuf</code> Microservice to get the Manufacturer information.
+The next blog post I will explain how to connect the MAC Address Manufacturer Docker Container with the WSO2 BAM Docker Container by using <a href="https://docs.docker.com/compose">Docker Compose</a> to do a minimal orchestration.</p>
+
+<h2 id="vi-conclusions">VI. Conclusions</h2>
+
+<p><code class="highlighter-rouge">Python</code> and a few modules (as Flask, SQLAlchemy, CORS, pyOpenssl, …) more you can create quickly any kind of Applications (Business Applications, Web Applications, Mobile Applications, Microservices, …). The development of this <code class="highlighter-rouge">(Micro)service</code> and put It into a Docker container was a smooth experience. It was possible to implement the older scripts to automatize some task while at the same time implement modern layered web applications as a microservice, and everything in a few lines of code.
+See you soon.</p>
+
+<h2 id="inspirational-reference">Inspirational reference</h2>
+<ul>
+  <li><a href="http://www.skybert.net/python/developing-a-restful-micro-service-in-python">A great blogpost explaining the “Developing a RESTful micro service in Python” - http://www.skybert.net/python/developing-a-restful-micro-service-in-python</a></li>
+</ul>
+
+<h2 id="mac-address-references">MAC Address references</h2>
+<ul>
+  <li><a href="https://en.wikipedia.org/wiki/MAC_address">Wikipedia - MAC Address</a></li>
+  <li><a href="https://www.wireshark.org/tools/oui-lookup.html">The Wireshark OUI lookup tool</a></li>
+  <li><a href="https://regauth.standards.ieee.org/standards-ra-web/pub/view.html">IEEE MAC Address Registration Authority</a></li>
+</ul>
+
+  </div><div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://holisticsecurity.io/2016/03/04/mac-address-manufacturer-restful-python-microservice-docker/';
+      this.page.identifier = 'https://holisticsecurity.io/2016/03/04/mac-address-manufacturer-restful-python-microservice-docker/';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://holosec.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript><a class="u-url" href="/2016/03/04/mac-address-manufacturer-restful-python-microservice-docker/" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading"><img src="/assets/img/logo-holosec.png" width="40" /> Holistic Security</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Holistic Security</li><li><a class="u-email" href="mailto:blog@holisticsecurity.io">blog@holisticsecurity.io</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.linkedin.com/in/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.twitter.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">Chilcano</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Systems Thinking, Holism, Trust, Security &amp; Usability.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

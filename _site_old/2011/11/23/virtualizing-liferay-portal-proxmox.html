@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Virtualizing Liferay Portal with Proxmox VE | Holistic Security</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Virtualizing Liferay Portal with Proxmox VE" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Some days ago I had to deploy a Liferay Portal in a hosting provider where Proxmox Virtual Environment (PVE) was necessary to use. Proxmox Virtual Environment is a Debian distro with pre-installed packages ready to use when you want to create virtualization platform for running Virtual Appliances and Virtual Machines based on OpenVZ and KVM. But, What is difference between tradicional hosting and hosting based on Proxmox VE?, really does not exist differences because with Proxmox VE you can virtualize all (network, server, vlan, etc.). Then, I did create a virtualized network with 2 servers based on Proxmox, the first server runs a Linux Debian with Apache HTTP server as web-proxy, the second server will be a private server with Liferay Portal. The architecture final is as follow: ](http://dl.dropbox.com/u/2961879/blog20111108proxmoxliferay/www.intix.info_proxmox_liferay_arquitectura.png) _Architecture - Liferay in an environment virtualized with Proxmox" />
+<meta property="og:description" content="Some days ago I had to deploy a Liferay Portal in a hosting provider where Proxmox Virtual Environment (PVE) was necessary to use. Proxmox Virtual Environment is a Debian distro with pre-installed packages ready to use when you want to create virtualization platform for running Virtual Appliances and Virtual Machines based on OpenVZ and KVM. But, What is difference between tradicional hosting and hosting based on Proxmox VE?, really does not exist differences because with Proxmox VE you can virtualize all (network, server, vlan, etc.). Then, I did create a virtualized network with 2 servers based on Proxmox, the first server runs a Linux Debian with Apache HTTP server as web-proxy, the second server will be a private server with Liferay Portal. The architecture final is as follow: ](http://dl.dropbox.com/u/2961879/blog20111108proxmoxliferay/www.intix.info_proxmox_liferay_arquitectura.png) _Architecture - Liferay in an environment virtualized with Proxmox" />
+<link rel="canonical" href="https://holisticsecurity.io/2011/11/23/virtualizing-liferay-portal-proxmox" />
+<meta property="og:url" content="https://holisticsecurity.io/2011/11/23/virtualizing-liferay-portal-proxmox" />
+<meta property="og:site_name" content="Holistic Security" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2011-11-23T18:50:25+01:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://holisticsecurity.io/2011/11/23/virtualizing-liferay-portal-proxmox"},"url":"https://holisticsecurity.io/2011/11/23/virtualizing-liferay-portal-proxmox","headline":"Virtualizing Liferay Portal with Proxmox VE","dateModified":"2011-11-23T18:50:25+01:00","datePublished":"2011-11-23T18:50:25+01:00","description":"Some days ago I had to deploy a Liferay Portal in a hosting provider where Proxmox Virtual Environment (PVE) was necessary to use. Proxmox Virtual Environment is a Debian distro with pre-installed packages ready to use when you want to create virtualization platform for running Virtual Appliances and Virtual Machines based on OpenVZ and KVM. But, What is difference between tradicional hosting and hosting based on Proxmox VE?, really does not exist differences because with Proxmox VE you can virtualize all (network, server, vlan, etc.). Then, I did create a virtualized network with 2 servers based on Proxmox, the first server runs a Linux Debian with Apache HTTP server as web-proxy, the second server will be a private server with Liferay Portal. The architecture final is as follow: ](http://dl.dropbox.com/u/2961879/blog20111108proxmoxliferay/www.intix.info_proxmox_liferay_arquitectura.png) _Architecture - Liferay in an environment virtualized with Proxmox","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://holisticsecurity.io/feed.xml" title="Holistic Security" /><script>
+if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-156433649-1', 'auto');
+  ga('send', 'pageview');
+}
+</script>
+  
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/"><img src="/assets/img/logo-holosec.png" width="100" /> Holistic Security</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/">Home</a><a class="page-link" href="/blog/">Blog</a><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Virtualizing Liferay Portal with Proxmox VE</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2011-11-23T18:50:25+01:00" itemprop="datePublished">Nov 23, 2011 
+      </time>&sim; SECURITY
+      &sim; VIRTUAL BOX
+    </p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Some days ago I had to deploy a Liferay Portal in a hosting provider where Proxmox Virtual Environment (PVE) was necessary to use.</p>
+
+<p><a href="http://pve.proxmox.com/wiki/Network_Model">Proxmox Virtual Environment</a> is a Debian distro with pre-installed packages ready to use when you want to create virtualization platform for running Virtual Appliances and Virtual Machines based on OpenVZ and KVM.
+But, What is difference between tradicional hosting and hosting based on Proxmox VE?, really does not exist differences because with Proxmox VE you can virtualize all (network, server, vlan, etc.).
+Then, I did create a virtualized network with 2 servers based on Proxmox, the first server runs a Linux Debian with Apache HTTP server as web-proxy, the second server will be a private server with Liferay Portal.
+The architecture final is as follow:</p>
+
+<p><img src="/assets/www.intix.info_proxmox_liferay_arquitectura.png" alt="Architecture - Liferay in an environment virtualized with Proxmox" />](http://dl.dropbox.com/u/2961879/blog20111108<em>proxmoxliferay/www.intix.info_proxmox_liferay_arquitectura.png) _Architecture - Liferay in an environment virtualized with Proxmox</em></p>
+
+<!-- more -->
+
+<h2 id="1-installation-first-server-with-proxmox--apache2-http-server-in-host">1. Installation first server with Proxmox / Apache2 HTTP Server (In Host)</h2>
+
+<p>When installing Proxmox in your hosting provider you will have as principal public server a first server with Debian Linux,<br />
+its initial configuration is as follow:</p>
+
+<p>[sourcecode language=”text” gutter=”true” wraplines=”false” highlight=”1”]<br />
+root@kns ~ # nano /etc/network/interfaces</p>
+
+<h3 id="hetzner-online-ag---installimage">Hetzner Online AG - installimage</h3>
+
+<h1 id="loopback-device">Loopback device:</h1>
+<p>auto lo<br />
+iface lo inet loopback</p>
+
+<h1 id="device-eth0">device: eth0</h1>
+
+<p>auto eth0<br />
+iface eth0 inet static<br />
+address 176.9.30.36<br />
+broadcast 176.9.30.63<br />
+netmask 255.255.255.224<br />
+gateway 176.9.30.33<br />
+pointopoint 176.9.30.33<br />
+post-up mii-tool -F 100baseTx-FD eth0</p>
+
+<h1 id="default-route-to-access-subnet">default route to access subnet</h1>
+
+<p>up route add -net 176.9.30.32 netmask 255.255.255.224 gw 176.9.30.33 eth0</p>
+
+<p>[/sourcecode]</p>
+
+<p>[sourcecode language=”text” gutter=”true” wraplines=”false” highlight=”1”]<br />
+root@kns ~ # more /etc/resolv.conf
+search<br />
+nameserver 213.133.100.100<br />
+nameserver 213.133.98.98<br />
+nameserver 213.133.99.99</p>
+
+<p>[/sourcecode]
+After of installing Proxmox, you have to create virtual network with a private IP range, in this case I will use 10.10.10.x.</p>
+
+<h3 id="11-creating-virtual-network-with-proxmox">1.1. Creating Virtual Network with Proxmox</h3>
+
+<p>[sourcecode language=”text” gutter=”true” wraplines=”false” highlight=”1”]<br />
+root@kns ~ # nano /etc/network/interfaces</p>
+
+<h1 id="loopback-device-1">Loopback device:</h1>
+
+<p>auto lo<br />
+iface lo inet loopback</p>
+
+<h1 id="device-eth0-1">device: eth0</h1>
+
+<p>auto eth0<br />
+iface eth0 inet static<br />
+address 176.9.30.36<br />
+broadcast 176.9.30.63<br />
+netmask 255.255.255.224<br />
+gateway 176.9.30.33<br />
+pointopoint 176.9.30.33<br />
+post-up mii-tool -F 100baseTx-FD eth0<br />
+post-up echo 1 &gt; /proc/sys/net/ipv4/conf/eth0/proxy_arp</p>
+
+<h4 id="my-new-virtual-network">my new virtual network</h4>
+
+<p>auto vmbr0<br />
+iface vmbr0 inet static<br />
+address 10.10.10.1<br />
+netmask 255.255.255.0<br />
+bridge_ports none<br />
+bridge_stp off<br />
+bridge_fd 0<br />
+post-up echo 1 &gt; /proc/sys/net/ipv4/ip_forward<br />
+post-up iptables -t nat -A POSTROUTING -s ‘10.10.10.0/24’ -o eth0 -j MASQUERADE<br />
+post-down iptables -t nat -D POSTROUTING -s ‘10.10.10.0/24’ -o eth0 -j MASQUERADE</p>
+
+<p>[/sourcecode]</p>
+
+<p>[sourcecode language=”text” gutter=”true” wraplines=”false” highlight=”1”]<br />
+root@kns ~ # nano /etc/sysctl.d/10-no-icmp-redirects.conf</p>
+
+<h4 id="my-bridge-to-vm">my bridge to VM</h4>
+
+<p>net.ipv4.conf.all.send_redirects = 0</p>
+
+<p>[/sourcecode]</p>
+
+<p>[sourcecode language=”text” gutter=”true” wraplines=”false” highlight=”1”]<br />
+root@kns ~ # nano /etc/sysctl.conf</p>
+
+<h3 id="hetzner-online-ag-installimage">Hetzner Online AG installimage</h3>
+
+<h1 id="sysctl-config">sysctl config</h1>
+<p>net.ipv4.conf.all.rp_filter=1<br />
+net.ipv4.icmp_echo_ignore_broadcasts=1<br />
+net.ipv4.ip_forward=1</p>
+
+<p>[/sourcecode]</p>
+
+<h2 id="2-installation-of-second-server-with-liferay-606-ce-a-guest-vm">2. Installation of second server with Liferay 6.0.6 CE (a Guest VM)</h2>
+
+<h3 id="21-install-your-prefered-linux-distro-in-your-new-vm">2.1. Install your prefered Linux distro in your new VM</h3>
+<p>With Proxmox VE is easy and quickly to create VM from ISO image.<br />
+You can change VM parameters as RAM, HD, type of Network interface, MAC, etc. all from Proxmox VE web interface, or if you know Proxmox’s commands you could do from SSH terminal.</p>
+
+<h3 id="22-configure-eth0-in-guest">2.2. Configure eth0 in Guest</h3>
+
+<p>After of creating your VM with Proxmox, you will need to asign private IP or customize your VM, in this case you will need a VNC terminal to apply these changes.<br />
+With Proxmox you can get a shell/terminal to Guest VM without connection to virtualized network.
+Then, from Proxmox VE (interface web) go to your recently VM created and open a VNC terminal, then here runs following commands:</p>
+
+<p>[sourcecode language=”text” gutter=”true” wraplines=”false” highlight=”1”]</p>
+
+<p>[root@pisco ~]# nano /etc/sysconfig/network-scripts/ifcfg-eth0
+DEVICE=”eth0”<br />
+NM_CONTROLLED=”yes”<br />
+ONBOOT=yes<br />
+HWADDR=3E:DB:61:48:63:88<br />
+TYPE=Ethernet<br />
+BOOTPROTO=none<br />
+IPADDR=10.10.10.12<br />
+PREFIX=24<br />
+GATEWAY=10.10.10.1<br />
+DNS1=213.133.99.99<br />
+DEFROUTE=yes<br />
+IPV4_FAILURE_FATAL=yes<br />
+IPV6INIT=no<br />
+NAME=”System eth0”<br />
+UUID=5fb06bd0-0bb0-7ffb-45f1-d6edd65f3e03</p>
+
+<p>[/sourcecode]</p>
+
+<p>[sourcecode language=”text” gutter=”true” wraplines=”false” highlight=”1”]</p>
+
+<p>[root@pisco ~]# more /etc/resolv.conf
+search local<br />
+nameserver 213.133.99.99</p>
+
+<p>[/sourcecode]
+…add gateway</p>
+
+<p>[sourcecode language=”text” gutter=”true” wraplines=”false” highlight=”1”]</p>
+
+<p>[root@pisco ~]# ip route add 176.9.30.36 dev eth0</p>
+
+<p>[/sourcecode]
+..add default path</p>
+
+<p>[sourcecode language=”text” gutter=”true” wraplines=”false” highlight=”1”]</p>
+
+<p>[root@pisco ~]# ip route add default via 176.9.30.36</p>
+
+<p>[/sourcecode]</p>
+
+<h3 id="23-re-start-vm-and-test-configuration">2.3. Re-start VM and test configuration</h3>
+
+<p>[sourcecode language=”text” gutter=”true” wraplines=”false” highlight=”1”]</p>
+
+<p>[root@pisco ~]# ping www.google.com
+PING www.l.google.com (74.125.39.103) 56(84) bytes of data.<br />
+64 bytes from fx-in-f103.1e100.net (74.125.39.103): icmp_seq=1 ttl=55 time=6.77 ms<br />
+64 bytes from fx-in-f103.1e100.net (74.125.39.103): icmp_seq=2 ttl=53 time=6.81 ms</p>
+
+<p>[/sourcecode]</p>
+
+<h3 id="24-install-liferay-then-move-liferay-to-non-root-context">2.4. Install Liferay, then move Liferay to non-root context</h3>
+
+<p>Liferay will be running with this URL: http://10.10.10.12:8080/kns</p>
+
+<h2 id="3-move-proxmox-virtual-environment-19-proxmoxs-website-from-80-port-to-8080-port">3. Move Proxmox Virtual Environment 1.9 (proxmox’s website) from 80 port to 8080 port.</h2>
+
+<p>Next blog post.</p>
+
+<h2 id="4-configure-first-server-as-reverse-web-proxy">4. Configure first server as Reverse Web Proxy</h2>
+
+<p>Next blog post.</p>
+
+<h2 id="5-test-installation">5. Test installation</h2>
+
+<p>From Internet you can call this URL: <strong>http://myliferay.intix.info/kns</strong> , <strong>http://176.9.30.36/kns</strong> or http://${YOUR-PUBLIC-IP}/kns
+Bye.</p>
+
+<h2 id="references">References</h2>
+<ul>
+  <li>Proxmox - Network model:</li>
+</ul>
+<p><a href="http://pve.proxmox.com/wiki/Network_Model">http://pve.proxmox.com/wiki/Network_Model</a></p>
+
+  </div><div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://holisticsecurity.io/2011/11/23/virtualizing-liferay-portal-proxmox';
+      this.page.identifier = 'https://holisticsecurity.io/2011/11/23/virtualizing-liferay-portal-proxmox';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://holosec.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript><a class="u-url" href="/2011/11/23/virtualizing-liferay-portal-proxmox" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading"><img src="/assets/img/logo-holosec.png" width="40" /> Holistic Security</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Holistic Security</li><li><a class="u-email" href="mailto:blog@holisticsecurity.io">blog@holisticsecurity.io</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.linkedin.com/in/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.twitter.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">Chilcano</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Systems Thinking, Holism, Trust, Security &amp; Usability.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

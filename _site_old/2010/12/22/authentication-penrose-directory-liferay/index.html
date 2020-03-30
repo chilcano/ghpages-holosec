@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Liferay Portal LDAP Authentication with Penrose Server | Holistic Security</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Liferay Portal LDAP Authentication with Penrose Server" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="We explained in a previous post Identity Management (IdM) in Portal, ECM and BPM Projects how important is having a Corporate Directory (LDAP server) that serves as a repository for different types of identities and roles that will require for our business application in authentication and authorization processes. Fig 0. Penrose Server, a Java free open source Virtual Directory We also explained the importance of using a Virtual Directory as a natural evolution of the classic Directory and Meta Directory. We also highlight its functionality, scalability and ability to integrate different sources of identity information regardless of the type of source, may be other LDAP servers, Database servers, even Webservices. Well, in this post will explain how to deploy and configure Penrose Server (Virtual Directory free / open source) to store user identity information from a MySQL table so we can use them as users of Liferay Portal without having to program or modify any adapter or hook Liferay. Penrose Server has, by default, OpenDS as backend, then any LDAP objectClass that exists in OpenDS exists in Penrose Server. Said that, come on with installation. 1. Pre-requisites 1. Download Java Development Kit (&gt;=1.5), for example ./jdk-1_5_0_17-linux-amd64.bin 2. CentOS already has OpenJDK. You can verify it: [root@directorysrv1 /]# java -version java version &quot;1.6.0&quot; OpenJDK Runtime Environment (build 1.6.0-b09) OpenJDK Client VM (build 1.6.0-b09, mixed mode) 2. Installing Penrose Server (Virtual Directory) A virtual directory maps information from disparate data sources, such as LDAP services and Database, into a single location for users to access. 1. Download the RPM from here http://penrose.redhat.com/display/PENROSE20/Penrose+2.0+Release 2. Install the package(s): [root@directorysrv1 tempo]# rpm -i vd-server-2.0-1.i386.rpm VD Server 2.0 has been installed in /opt/vd-server-2.0. 3. Make sure that JAVA is configured: Edit /opt/vd-server-2.0/vd.conf file. [root@directorysrv1 /]# vim /opt/vd-server-2.0/etc/vd.conf Add the JAVA_HOME variable, pointing to your JDK. For example, in CentOS is: JAVA_HOME=/usr/lib/jvm/java-1.6.0-openjdk After editing the vd.conf file, copy it into the host’s /etc directory. [root@directorysrv1 /]# cp /opt/vd-server-2.0/etc/vd.conf /etc 4. Run a configuration script to reset the server hostname, give the admin username and password, and set the port numbers and other information for the associated LDAP and JMX services of the Virtual Directory. For example: [root@directorysrv1 /]# cd /opt/vd-server-2.0/bin/ [root@directorysrv1 bin]# ./vd-config.sh Configuring VD Server: ---------------------- Hostname [directorysrv1.intix.info]: Root DN [uid=admin,ou=system]: Root Password [*****]: User account [root]: Group account [root]: Configuring JMX Service: ------------------------ RMI Port [1099]: RMI Transport Port [40888]: Configuring OpenDS Service: --------------------------- LDAP Enabled [true]: LDAP Port [10389]: Secure LDAP Enabled [false]: Secure LDAP Port [10636]: SSL Certificate Name [server-cert]: Key Store Type (JKS/PKCS12) [JKS]: Key Store File [config/keystore]: Key Store PIN File [config/keystore.pin]: [root@directorysrv1 bin]# 3. Installing additional libraries You can install on Virtual Directory Server libraries (jar files) to extend functionalities. These libraries cover a range of different functions, including JDBC drivers, custom adapters, custom modules, and other third party libraries. 1. Copy the JAR files into the /opt/vd-server-2.0/lib/ext/ directory; for example: [root@directorysrv1 /]# cp /export/myjdbc.jar /opt/vd-server-2.0/lib/ext/myjdbc.jar 2. Is necessary restart the Virtual Directory Server. 4. Uninstalling Penrose Server The Virtual Directory Server packages can be uninstalled using package management tools, the same as used to install it. To remove the Server, use the -e option with rpm: [root@directorysrv1 bin]# rpm -ev vd-server-2.0-1.i386.rpm 5. Starting Penrose Server 1. Virtual Directory is started by running a shell script /opt/vd-server-2.0/bin/vd-server.sh. For example: [root@directorysrv1 /]# cd /opt/vd-server-2.0/bin [root@directorysrv1 bin]# ./vd-server.sh [12/02/2010 01:40:11.693] VD Server is ready. 2. To stop the server, simply close the script. 6. Starting Penrose Server as a linux service The Virtual Directory can be stopped, started, and restarted using system tools on CentOS. Init scripts are included with the configuration files with Virtual Directory Server. 1. Log into the Virtual Directory Server host machine as root user. 2. Open the Virtual Directory init script directory. [root@directorysrv1 /]# cd /opt/vd-server-2.0/etc/init.d 3. Edit the /opt/vd-server-2.0/etc/init.d/vd-server script so that the Virtual Directory Server home and script locations are correct. For example: VD_SERVER_HOME=/opt/vd-server-2.0 VD_SERVER_SCRIPT=$VD_SERVER_HOME/bin/vd-server.sh 4. Copy the init file to the /etc/init.d/ directory. sh[root@directorysrv1 /]# cp /opt/vd-server-2.0/etc/init.d/vd-server /etc/init.d/ 5. Make the init script executable. [root@directorysrv1 /]# chmod +x /etc/init.d/vd-server 6. Test the new Virtual Directory service. [root@directorysrv1 /]# service vd-server start Starting vd-server: [ OK ] [root@directorysrv1 init.d]# [12/03/2010 10:24:31.782] VD Server is ready. [root@directorysrv1 init.d]# After setting Virtual Directory Server up as a service, it can be managed using the service on CentOS: [root@directorysrv1 /]# service vd-server {start|stop|restart} 7. Connect to Penrose Server LDAP interface It is necessary download and install any LDAP client, for example, Apache Directory Studio. 1. Execute any LDAP client, for example Apache Directory Studio. 2. Add new LDAP connection with these values: hostname or ip : directorysrv1 (or directorysrv1.intix.info) port : 10389 user credentials: uid=admin,ou=system password: secret 3. Now you can browse on existing LDAP entries or to create a new partition (LDAP tree). 8. Create a new virtual LDAP tree binding MySQL Server 1. Install MySQL Server, in my case I will install MySQL Server in the same CentOS host where Virtual Directory has already installed. It is just for testing purposes. [root@directorysrv1 /]# yum --disablerepo=\* --enablerepo=c5-media -y install mysql-server Loaded plugins: fastestmirror [...] Running Transaction Installing : perl-DBD-MySQL 1/2 Installing : mysql-server 2/2 Installed: mysql-server.i386 0:5.0.77-4.el5_4.2 Dependency Installed: perl-DBD-MySQL.i386 0:3.0007-2.el5 Complete! [root@directorysrv1 /]# 2. Start MySQL Server as service. [root@directorysrv1 init.d]# service mysqld start Initializing MySQL database: Installing MySQL system tables... [...] [ OK ] Starting MySQL: [ OK ] [root@directorysrv1 init.d]# 3. Update root password in MySQL Server: [root@directorysrv1 /]# mysqladmin -u root password &quot;demodemo&quot; 4. Enable remote access to MySQL for root user on all database and tables. Remote access is necessary when you want to connect to your MySQL from a different computer. [root@directorysrv1 /]# mysql -u root -p Enter password: Welcome to the MySQL monitor. Commands end with ; or \g. Your MySQL connection id is 5 Server version: 5.0.77 Source distribution Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the buffer. mysql&gt; GRANT ALL ON *.* TO root@&#39;%&#39; IDENTIFIED BY &#39;demodemo&#39;; Query OK, 0 rows affected (0.00 sec) mysql&gt; quit; Bye 5. Create a new Database and tables that will store identities (user credentials). These user credentials stored in tables will be accessible as a LDAP tree by the Virtual Directory Server. This new LDAP tree can be used to configure the login and authentication process required for different applications/products such as Liferay, Alfresco, Intalio, etc.. In this example we will explain how to do it for Liferay Portal. We will use an existing MySQL Database (Employee DB) for testing purposes. Download existing DB from here (http://datacharmer.blogspot.com/2008/07/dont-guess-test-sample-database-with.html), then install it in our current MySQL server: -- unzip DB [root@directorysrv1 temp]# tar -xjf /temp/employees_db-full-1.0.4.tar.bz2 [root@directorysrv1 temp]# cd /temp/employees_db/ -- create schema and load data sh[root@directorysrv1 temp]# mysql -u root -p -t &lt; employees.sql -- test integrity of loaded data with SHA1 [root@directorysrv1 employees_db]# time mysql -u root -p -t &lt; test_employees_sha.sql Enter password: +----------------------+ | INFO | +----------------------+ | TESTING INSTALLATION | +----------------------+ +--------------+------------------+------------------------------------------+ | table_name | expected_records | expected_crc | +--------------+------------------+------------------------------------------+ | employees | 300024 | 4d4aa689914d8fd41db7e45c2168e7dcb9697359 | | departments | 9 | 4b315afa0e35ca6649df897b958345bcb3d2b764 | | dept_manager | 24 | 9687a7d6f93ca8847388a42a6d8d93982a841c6c | | dept_emp | 331603 | d95ab9fe07df0865f592574b3b33b9c741d9fd1b | | titles | 443308 | d12d5f746b88f07e69b9e36675b6067abb01b60e | | salaries | 2844047 | b5a1785c27d75e33a4173aaa22ccf41ebd7d4a9f | +--------------+------------------+------------------------------------------+ +--------------+------------------+------------------------------------------+ | table_name | found_records | found_crc | +--------------+------------------+------------------------------------------+ | employees | 300024 | 4d4aa689914d8fd41db7e45c2168e7dcb9697359 | | departments | 9 | 4b315afa0e35ca6649df897b958345bcb3d2b764 | | dept_manager | 24 | 9687a7d6f93ca8847388a42a6d8d93982a841c6c | | dept_emp | 331603 | d95ab9fe07df0865f592574b3b33b9c741d9fd1b | | titles | 443308 | d12d5f746b88f07e69b9e36675b6067abb01b60e | | salaries | 2844047 | b5a1785c27d75e33a4173aaa22ccf41ebd7d4a9f | +--------------+------------------+------------------------------------------+ +--------------+---------------+-----------+ | table_name | records_match | crc_match | +--------------+---------------+-----------+ | employees | OK | ok | | departments | OK | ok | | dept_manager | OK | ok | | dept_emp | OK | ok | | titles | OK | ok | | salaries | OK | ok | +--------------+---------------+-----------+ real 0m59.756s user 0m0.011s sys 0m0.057s The final Employees DB schema/model that we will use to create LDAP tree is the following: 6. Download MySQL JDBC library and copy to Virtual Directory Server, in this case to /opt/vd-server-2.0/lib/ext/ folder. [root@directorysrv1 temp]# cp mysql-connector-java-5.1.13-bin.jar /opt/vd-server-2.0/lib/ext/ 7. Create a new Partition in our Virtual Directory Server. A Partition in our Virtual Directory contains all relationships beetwen: Connections: data servers such as DB servers or other LDAP servers Sources: applications such as for Liferay, for Alfresco, for Intalio, for Windows Authentication, … Identities: individual entries and Mappings: links between entities. It is necessary to add new namingContexts to existing Root DSE in /opt/vd-server-2.0/conf/directory.xml. This file will be like: [/conf/directory.xml](/assets/blog20101203_virtualdirectory_portal/directory.xml) 8. Map tables-fields with attributes of the new LDAP tree in our Virtual Directory. Liferay Portal domain: new LDAP tree/domain, in this example is “@intix.info”. Liferay Portal Users: the employees table of MySQL DB maps to inetOrgPerson (or organizationalPerson or other similar) entries in LDAP. Liferay Portal Groups: the departments table of MySQL DB maps to organizationalUnit (or other similar) entries in LDAP, in this example we will not use Groups. Additional fields required for Liferay Portal such email, title will be obtained by joining fields values such employees.first_name, employees.last_name with “@intix.info”, and title will be obtained of titles.title and so on. In this example, “title” LDAP attribute of inetOrgPerson will be compose with differents values of the Employees table. The password to log into Liferay Portal will be stored as SHA1 in a new field created in table Employees. For our convenience, all user passwords will be equal to “function_sha1(‘test’) =qUqP5cyxm6YcTAhz05Hph5gvu9M=”. Only allow access to Liferay Portal to users (Employees) hired in August 1999. In this case we will use this sentence: SELECT emp_no FROM employees WHERE hire_date BETWEEN ‘1999-08-01’ AND ‘1999-08-31’ . This constrain will be a filter in our Virtual Directory Partition. For your convenience, I include all files that are part of the new Partition (connections, sources, mapping and constrains) created into Virtual Directory. You can download it from here: Penrose Server partition intix.info 9. Create new partition (“intix_info_liferay” folder) in Virtual Directory. [root@directorysrv1 /]# mkdir /opt/vd-server-2.0/partitions/intix_info_liferay/DIR-INF 10. Copy all files (connections.xml, directory.xml, mappings.xml, modules.xml, partition.xml and sources.xml) to /opt/vd-server-2.0/partitons/intix_info_liferay/DIR-INF 11. Restart Virtual Directory: [root@directorysrv1 /]# service vd-server restart 12. Browse into the new LDAP tree created (partition) in the Virtual Directory binding the new database created in MySQL Server. 9. Configure LDAP Authentication in Liferay Portal Now, We have a LDAP server (Penrose) with user credentials (identities) loaded. The next step is to configure Liferay Portal with these LDAP tree to do log in to Portal. If you have already a Liferay installed, you have to make sure that Liferay can resolve the Virtual Directory. To check it: [chilcano@lfry01 /]# ping directorysrv1 Then, from Liferay &gt; Control Panel, configure LDAP authentication with Email Address as credentials to login. Add and configure a new LDAP server (Penrose Server) in Liferay. . . 10. Testing LDAP Authentication from Liferay Portal Now you can use any user credential (any value of Employee table) to login Liferay. 11. Testing LDAP Authentication from Apache Directory Studio The user “aamod.wroclawski@intix.info” with password “test” can be verified. You can do from apache Directory Studio. Open Apache Directory Studio, connect to Penrose Server, then go to entry “uid=480838,ou=Employees,dc=intix,dc=info”, click on password attribute, then open a windows where you can verify password. Follow the figures: If you are planning to install other product or application in your organization, you could create a new LDAP tree under Root DSE intix.info as ou=Alfresco Users, dc=intix, dc=info and to select or filter existing users from Employee table. Well, Penrose Server (Virtual Directory) has several applications and is easy adaptable to any Security User Schema. Any questions, do not hesitate to emailme. Bye. References Remote access to MySQL Sample database with test suite for MySQL Server" />
+<meta property="og:description" content="We explained in a previous post Identity Management (IdM) in Portal, ECM and BPM Projects how important is having a Corporate Directory (LDAP server) that serves as a repository for different types of identities and roles that will require for our business application in authentication and authorization processes. Fig 0. Penrose Server, a Java free open source Virtual Directory We also explained the importance of using a Virtual Directory as a natural evolution of the classic Directory and Meta Directory. We also highlight its functionality, scalability and ability to integrate different sources of identity information regardless of the type of source, may be other LDAP servers, Database servers, even Webservices. Well, in this post will explain how to deploy and configure Penrose Server (Virtual Directory free / open source) to store user identity information from a MySQL table so we can use them as users of Liferay Portal without having to program or modify any adapter or hook Liferay. Penrose Server has, by default, OpenDS as backend, then any LDAP objectClass that exists in OpenDS exists in Penrose Server. Said that, come on with installation. 1. Pre-requisites 1. Download Java Development Kit (&gt;=1.5), for example ./jdk-1_5_0_17-linux-amd64.bin 2. CentOS already has OpenJDK. You can verify it: [root@directorysrv1 /]# java -version java version &quot;1.6.0&quot; OpenJDK Runtime Environment (build 1.6.0-b09) OpenJDK Client VM (build 1.6.0-b09, mixed mode) 2. Installing Penrose Server (Virtual Directory) A virtual directory maps information from disparate data sources, such as LDAP services and Database, into a single location for users to access. 1. Download the RPM from here http://penrose.redhat.com/display/PENROSE20/Penrose+2.0+Release 2. Install the package(s): [root@directorysrv1 tempo]# rpm -i vd-server-2.0-1.i386.rpm VD Server 2.0 has been installed in /opt/vd-server-2.0. 3. Make sure that JAVA is configured: Edit /opt/vd-server-2.0/vd.conf file. [root@directorysrv1 /]# vim /opt/vd-server-2.0/etc/vd.conf Add the JAVA_HOME variable, pointing to your JDK. For example, in CentOS is: JAVA_HOME=/usr/lib/jvm/java-1.6.0-openjdk After editing the vd.conf file, copy it into the host’s /etc directory. [root@directorysrv1 /]# cp /opt/vd-server-2.0/etc/vd.conf /etc 4. Run a configuration script to reset the server hostname, give the admin username and password, and set the port numbers and other information for the associated LDAP and JMX services of the Virtual Directory. For example: [root@directorysrv1 /]# cd /opt/vd-server-2.0/bin/ [root@directorysrv1 bin]# ./vd-config.sh Configuring VD Server: ---------------------- Hostname [directorysrv1.intix.info]: Root DN [uid=admin,ou=system]: Root Password [*****]: User account [root]: Group account [root]: Configuring JMX Service: ------------------------ RMI Port [1099]: RMI Transport Port [40888]: Configuring OpenDS Service: --------------------------- LDAP Enabled [true]: LDAP Port [10389]: Secure LDAP Enabled [false]: Secure LDAP Port [10636]: SSL Certificate Name [server-cert]: Key Store Type (JKS/PKCS12) [JKS]: Key Store File [config/keystore]: Key Store PIN File [config/keystore.pin]: [root@directorysrv1 bin]# 3. Installing additional libraries You can install on Virtual Directory Server libraries (jar files) to extend functionalities. These libraries cover a range of different functions, including JDBC drivers, custom adapters, custom modules, and other third party libraries. 1. Copy the JAR files into the /opt/vd-server-2.0/lib/ext/ directory; for example: [root@directorysrv1 /]# cp /export/myjdbc.jar /opt/vd-server-2.0/lib/ext/myjdbc.jar 2. Is necessary restart the Virtual Directory Server. 4. Uninstalling Penrose Server The Virtual Directory Server packages can be uninstalled using package management tools, the same as used to install it. To remove the Server, use the -e option with rpm: [root@directorysrv1 bin]# rpm -ev vd-server-2.0-1.i386.rpm 5. Starting Penrose Server 1. Virtual Directory is started by running a shell script /opt/vd-server-2.0/bin/vd-server.sh. For example: [root@directorysrv1 /]# cd /opt/vd-server-2.0/bin [root@directorysrv1 bin]# ./vd-server.sh [12/02/2010 01:40:11.693] VD Server is ready. 2. To stop the server, simply close the script. 6. Starting Penrose Server as a linux service The Virtual Directory can be stopped, started, and restarted using system tools on CentOS. Init scripts are included with the configuration files with Virtual Directory Server. 1. Log into the Virtual Directory Server host machine as root user. 2. Open the Virtual Directory init script directory. [root@directorysrv1 /]# cd /opt/vd-server-2.0/etc/init.d 3. Edit the /opt/vd-server-2.0/etc/init.d/vd-server script so that the Virtual Directory Server home and script locations are correct. For example: VD_SERVER_HOME=/opt/vd-server-2.0 VD_SERVER_SCRIPT=$VD_SERVER_HOME/bin/vd-server.sh 4. Copy the init file to the /etc/init.d/ directory. sh[root@directorysrv1 /]# cp /opt/vd-server-2.0/etc/init.d/vd-server /etc/init.d/ 5. Make the init script executable. [root@directorysrv1 /]# chmod +x /etc/init.d/vd-server 6. Test the new Virtual Directory service. [root@directorysrv1 /]# service vd-server start Starting vd-server: [ OK ] [root@directorysrv1 init.d]# [12/03/2010 10:24:31.782] VD Server is ready. [root@directorysrv1 init.d]# After setting Virtual Directory Server up as a service, it can be managed using the service on CentOS: [root@directorysrv1 /]# service vd-server {start|stop|restart} 7. Connect to Penrose Server LDAP interface It is necessary download and install any LDAP client, for example, Apache Directory Studio. 1. Execute any LDAP client, for example Apache Directory Studio. 2. Add new LDAP connection with these values: hostname or ip : directorysrv1 (or directorysrv1.intix.info) port : 10389 user credentials: uid=admin,ou=system password: secret 3. Now you can browse on existing LDAP entries or to create a new partition (LDAP tree). 8. Create a new virtual LDAP tree binding MySQL Server 1. Install MySQL Server, in my case I will install MySQL Server in the same CentOS host where Virtual Directory has already installed. It is just for testing purposes. [root@directorysrv1 /]# yum --disablerepo=\* --enablerepo=c5-media -y install mysql-server Loaded plugins: fastestmirror [...] Running Transaction Installing : perl-DBD-MySQL 1/2 Installing : mysql-server 2/2 Installed: mysql-server.i386 0:5.0.77-4.el5_4.2 Dependency Installed: perl-DBD-MySQL.i386 0:3.0007-2.el5 Complete! [root@directorysrv1 /]# 2. Start MySQL Server as service. [root@directorysrv1 init.d]# service mysqld start Initializing MySQL database: Installing MySQL system tables... [...] [ OK ] Starting MySQL: [ OK ] [root@directorysrv1 init.d]# 3. Update root password in MySQL Server: [root@directorysrv1 /]# mysqladmin -u root password &quot;demodemo&quot; 4. Enable remote access to MySQL for root user on all database and tables. Remote access is necessary when you want to connect to your MySQL from a different computer. [root@directorysrv1 /]# mysql -u root -p Enter password: Welcome to the MySQL monitor. Commands end with ; or \g. Your MySQL connection id is 5 Server version: 5.0.77 Source distribution Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the buffer. mysql&gt; GRANT ALL ON *.* TO root@&#39;%&#39; IDENTIFIED BY &#39;demodemo&#39;; Query OK, 0 rows affected (0.00 sec) mysql&gt; quit; Bye 5. Create a new Database and tables that will store identities (user credentials). These user credentials stored in tables will be accessible as a LDAP tree by the Virtual Directory Server. This new LDAP tree can be used to configure the login and authentication process required for different applications/products such as Liferay, Alfresco, Intalio, etc.. In this example we will explain how to do it for Liferay Portal. We will use an existing MySQL Database (Employee DB) for testing purposes. Download existing DB from here (http://datacharmer.blogspot.com/2008/07/dont-guess-test-sample-database-with.html), then install it in our current MySQL server: -- unzip DB [root@directorysrv1 temp]# tar -xjf /temp/employees_db-full-1.0.4.tar.bz2 [root@directorysrv1 temp]# cd /temp/employees_db/ -- create schema and load data sh[root@directorysrv1 temp]# mysql -u root -p -t &lt; employees.sql -- test integrity of loaded data with SHA1 [root@directorysrv1 employees_db]# time mysql -u root -p -t &lt; test_employees_sha.sql Enter password: +----------------------+ | INFO | +----------------------+ | TESTING INSTALLATION | +----------------------+ +--------------+------------------+------------------------------------------+ | table_name | expected_records | expected_crc | +--------------+------------------+------------------------------------------+ | employees | 300024 | 4d4aa689914d8fd41db7e45c2168e7dcb9697359 | | departments | 9 | 4b315afa0e35ca6649df897b958345bcb3d2b764 | | dept_manager | 24 | 9687a7d6f93ca8847388a42a6d8d93982a841c6c | | dept_emp | 331603 | d95ab9fe07df0865f592574b3b33b9c741d9fd1b | | titles | 443308 | d12d5f746b88f07e69b9e36675b6067abb01b60e | | salaries | 2844047 | b5a1785c27d75e33a4173aaa22ccf41ebd7d4a9f | +--------------+------------------+------------------------------------------+ +--------------+------------------+------------------------------------------+ | table_name | found_records | found_crc | +--------------+------------------+------------------------------------------+ | employees | 300024 | 4d4aa689914d8fd41db7e45c2168e7dcb9697359 | | departments | 9 | 4b315afa0e35ca6649df897b958345bcb3d2b764 | | dept_manager | 24 | 9687a7d6f93ca8847388a42a6d8d93982a841c6c | | dept_emp | 331603 | d95ab9fe07df0865f592574b3b33b9c741d9fd1b | | titles | 443308 | d12d5f746b88f07e69b9e36675b6067abb01b60e | | salaries | 2844047 | b5a1785c27d75e33a4173aaa22ccf41ebd7d4a9f | +--------------+------------------+------------------------------------------+ +--------------+---------------+-----------+ | table_name | records_match | crc_match | +--------------+---------------+-----------+ | employees | OK | ok | | departments | OK | ok | | dept_manager | OK | ok | | dept_emp | OK | ok | | titles | OK | ok | | salaries | OK | ok | +--------------+---------------+-----------+ real 0m59.756s user 0m0.011s sys 0m0.057s The final Employees DB schema/model that we will use to create LDAP tree is the following: 6. Download MySQL JDBC library and copy to Virtual Directory Server, in this case to /opt/vd-server-2.0/lib/ext/ folder. [root@directorysrv1 temp]# cp mysql-connector-java-5.1.13-bin.jar /opt/vd-server-2.0/lib/ext/ 7. Create a new Partition in our Virtual Directory Server. A Partition in our Virtual Directory contains all relationships beetwen: Connections: data servers such as DB servers or other LDAP servers Sources: applications such as for Liferay, for Alfresco, for Intalio, for Windows Authentication, … Identities: individual entries and Mappings: links between entities. It is necessary to add new namingContexts to existing Root DSE in /opt/vd-server-2.0/conf/directory.xml. This file will be like: [/conf/directory.xml](/assets/blog20101203_virtualdirectory_portal/directory.xml) 8. Map tables-fields with attributes of the new LDAP tree in our Virtual Directory. Liferay Portal domain: new LDAP tree/domain, in this example is “@intix.info”. Liferay Portal Users: the employees table of MySQL DB maps to inetOrgPerson (or organizationalPerson or other similar) entries in LDAP. Liferay Portal Groups: the departments table of MySQL DB maps to organizationalUnit (or other similar) entries in LDAP, in this example we will not use Groups. Additional fields required for Liferay Portal such email, title will be obtained by joining fields values such employees.first_name, employees.last_name with “@intix.info”, and title will be obtained of titles.title and so on. In this example, “title” LDAP attribute of inetOrgPerson will be compose with differents values of the Employees table. The password to log into Liferay Portal will be stored as SHA1 in a new field created in table Employees. For our convenience, all user passwords will be equal to “function_sha1(‘test’) =qUqP5cyxm6YcTAhz05Hph5gvu9M=”. Only allow access to Liferay Portal to users (Employees) hired in August 1999. In this case we will use this sentence: SELECT emp_no FROM employees WHERE hire_date BETWEEN ‘1999-08-01’ AND ‘1999-08-31’ . This constrain will be a filter in our Virtual Directory Partition. For your convenience, I include all files that are part of the new Partition (connections, sources, mapping and constrains) created into Virtual Directory. You can download it from here: Penrose Server partition intix.info 9. Create new partition (“intix_info_liferay” folder) in Virtual Directory. [root@directorysrv1 /]# mkdir /opt/vd-server-2.0/partitions/intix_info_liferay/DIR-INF 10. Copy all files (connections.xml, directory.xml, mappings.xml, modules.xml, partition.xml and sources.xml) to /opt/vd-server-2.0/partitons/intix_info_liferay/DIR-INF 11. Restart Virtual Directory: [root@directorysrv1 /]# service vd-server restart 12. Browse into the new LDAP tree created (partition) in the Virtual Directory binding the new database created in MySQL Server. 9. Configure LDAP Authentication in Liferay Portal Now, We have a LDAP server (Penrose) with user credentials (identities) loaded. The next step is to configure Liferay Portal with these LDAP tree to do log in to Portal. If you have already a Liferay installed, you have to make sure that Liferay can resolve the Virtual Directory. To check it: [chilcano@lfry01 /]# ping directorysrv1 Then, from Liferay &gt; Control Panel, configure LDAP authentication with Email Address as credentials to login. Add and configure a new LDAP server (Penrose Server) in Liferay. . . 10. Testing LDAP Authentication from Liferay Portal Now you can use any user credential (any value of Employee table) to login Liferay. 11. Testing LDAP Authentication from Apache Directory Studio The user “aamod.wroclawski@intix.info” with password “test” can be verified. You can do from apache Directory Studio. Open Apache Directory Studio, connect to Penrose Server, then go to entry “uid=480838,ou=Employees,dc=intix,dc=info”, click on password attribute, then open a windows where you can verify password. Follow the figures: If you are planning to install other product or application in your organization, you could create a new LDAP tree under Root DSE intix.info as ou=Alfresco Users, dc=intix, dc=info and to select or filter existing users from Employee table. Well, Penrose Server (Virtual Directory) has several applications and is easy adaptable to any Security User Schema. Any questions, do not hesitate to emailme. Bye. References Remote access to MySQL Sample database with test suite for MySQL Server" />
+<link rel="canonical" href="https://holisticsecurity.io/2010/12/22/authentication-penrose-directory-liferay/" />
+<meta property="og:url" content="https://holisticsecurity.io/2010/12/22/authentication-penrose-directory-liferay/" />
+<meta property="og:site_name" content="Holistic Security" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2010-12-22T12:11:11+01:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://holisticsecurity.io/2010/12/22/authentication-penrose-directory-liferay/"},"url":"https://holisticsecurity.io/2010/12/22/authentication-penrose-directory-liferay/","headline":"Liferay Portal LDAP Authentication with Penrose Server","dateModified":"2010-12-22T12:11:11+01:00","datePublished":"2010-12-22T12:11:11+01:00","description":"We explained in a previous post Identity Management (IdM) in Portal, ECM and BPM Projects how important is having a Corporate Directory (LDAP server) that serves as a repository for different types of identities and roles that will require for our business application in authentication and authorization processes. Fig 0. Penrose Server, a Java free open source Virtual Directory We also explained the importance of using a Virtual Directory as a natural evolution of the classic Directory and Meta Directory. We also highlight its functionality, scalability and ability to integrate different sources of identity information regardless of the type of source, may be other LDAP servers, Database servers, even Webservices. Well, in this post will explain how to deploy and configure Penrose Server (Virtual Directory free / open source) to store user identity information from a MySQL table so we can use them as users of Liferay Portal without having to program or modify any adapter or hook Liferay. Penrose Server has, by default, OpenDS as backend, then any LDAP objectClass that exists in OpenDS exists in Penrose Server. Said that, come on with installation. 1. Pre-requisites 1. Download Java Development Kit (&gt;=1.5), for example ./jdk-1_5_0_17-linux-amd64.bin 2. CentOS already has OpenJDK. You can verify it: [root@directorysrv1 /]# java -version java version &quot;1.6.0&quot; OpenJDK Runtime Environment (build 1.6.0-b09) OpenJDK Client VM (build 1.6.0-b09, mixed mode) 2. Installing Penrose Server (Virtual Directory) A virtual directory maps information from disparate data sources, such as LDAP services and Database, into a single location for users to access. 1. Download the RPM from here http://penrose.redhat.com/display/PENROSE20/Penrose+2.0+Release 2. Install the package(s): [root@directorysrv1 tempo]# rpm -i vd-server-2.0-1.i386.rpm VD Server 2.0 has been installed in /opt/vd-server-2.0. 3. Make sure that JAVA is configured: Edit /opt/vd-server-2.0/vd.conf file. [root@directorysrv1 /]# vim /opt/vd-server-2.0/etc/vd.conf Add the JAVA_HOME variable, pointing to your JDK. For example, in CentOS is: JAVA_HOME=/usr/lib/jvm/java-1.6.0-openjdk After editing the vd.conf file, copy it into the host’s /etc directory. [root@directorysrv1 /]# cp /opt/vd-server-2.0/etc/vd.conf /etc 4. Run a configuration script to reset the server hostname, give the admin username and password, and set the port numbers and other information for the associated LDAP and JMX services of the Virtual Directory. For example: [root@directorysrv1 /]# cd /opt/vd-server-2.0/bin/ [root@directorysrv1 bin]# ./vd-config.sh Configuring VD Server: ---------------------- Hostname [directorysrv1.intix.info]: Root DN [uid=admin,ou=system]: Root Password [*****]: User account [root]: Group account [root]: Configuring JMX Service: ------------------------ RMI Port [1099]: RMI Transport Port [40888]: Configuring OpenDS Service: --------------------------- LDAP Enabled [true]: LDAP Port [10389]: Secure LDAP Enabled [false]: Secure LDAP Port [10636]: SSL Certificate Name [server-cert]: Key Store Type (JKS/PKCS12) [JKS]: Key Store File [config/keystore]: Key Store PIN File [config/keystore.pin]: [root@directorysrv1 bin]# 3. Installing additional libraries You can install on Virtual Directory Server libraries (jar files) to extend functionalities. These libraries cover a range of different functions, including JDBC drivers, custom adapters, custom modules, and other third party libraries. 1. Copy the JAR files into the /opt/vd-server-2.0/lib/ext/ directory; for example: [root@directorysrv1 /]# cp /export/myjdbc.jar /opt/vd-server-2.0/lib/ext/myjdbc.jar 2. Is necessary restart the Virtual Directory Server. 4. Uninstalling Penrose Server The Virtual Directory Server packages can be uninstalled using package management tools, the same as used to install it. To remove the Server, use the -e option with rpm: [root@directorysrv1 bin]# rpm -ev vd-server-2.0-1.i386.rpm 5. Starting Penrose Server 1. Virtual Directory is started by running a shell script /opt/vd-server-2.0/bin/vd-server.sh. For example: [root@directorysrv1 /]# cd /opt/vd-server-2.0/bin [root@directorysrv1 bin]# ./vd-server.sh [12/02/2010 01:40:11.693] VD Server is ready. 2. To stop the server, simply close the script. 6. Starting Penrose Server as a linux service The Virtual Directory can be stopped, started, and restarted using system tools on CentOS. Init scripts are included with the configuration files with Virtual Directory Server. 1. Log into the Virtual Directory Server host machine as root user. 2. Open the Virtual Directory init script directory. [root@directorysrv1 /]# cd /opt/vd-server-2.0/etc/init.d 3. Edit the /opt/vd-server-2.0/etc/init.d/vd-server script so that the Virtual Directory Server home and script locations are correct. For example: VD_SERVER_HOME=/opt/vd-server-2.0 VD_SERVER_SCRIPT=$VD_SERVER_HOME/bin/vd-server.sh 4. Copy the init file to the /etc/init.d/ directory. sh[root@directorysrv1 /]# cp /opt/vd-server-2.0/etc/init.d/vd-server /etc/init.d/ 5. Make the init script executable. [root@directorysrv1 /]# chmod +x /etc/init.d/vd-server 6. Test the new Virtual Directory service. [root@directorysrv1 /]# service vd-server start Starting vd-server: [ OK ] [root@directorysrv1 init.d]# [12/03/2010 10:24:31.782] VD Server is ready. [root@directorysrv1 init.d]# After setting Virtual Directory Server up as a service, it can be managed using the service on CentOS: [root@directorysrv1 /]# service vd-server {start|stop|restart} 7. Connect to Penrose Server LDAP interface It is necessary download and install any LDAP client, for example, Apache Directory Studio. 1. Execute any LDAP client, for example Apache Directory Studio. 2. Add new LDAP connection with these values: hostname or ip : directorysrv1 (or directorysrv1.intix.info) port : 10389 user credentials: uid=admin,ou=system password: secret 3. Now you can browse on existing LDAP entries or to create a new partition (LDAP tree). 8. Create a new virtual LDAP tree binding MySQL Server 1. Install MySQL Server, in my case I will install MySQL Server in the same CentOS host where Virtual Directory has already installed. It is just for testing purposes. [root@directorysrv1 /]# yum --disablerepo=\\* --enablerepo=c5-media -y install mysql-server Loaded plugins: fastestmirror [...] Running Transaction Installing : perl-DBD-MySQL 1/2 Installing : mysql-server 2/2 Installed: mysql-server.i386 0:5.0.77-4.el5_4.2 Dependency Installed: perl-DBD-MySQL.i386 0:3.0007-2.el5 Complete! [root@directorysrv1 /]# 2. Start MySQL Server as service. [root@directorysrv1 init.d]# service mysqld start Initializing MySQL database: Installing MySQL system tables... [...] [ OK ] Starting MySQL: [ OK ] [root@directorysrv1 init.d]# 3. Update root password in MySQL Server: [root@directorysrv1 /]# mysqladmin -u root password &quot;demodemo&quot; 4. Enable remote access to MySQL for root user on all database and tables. Remote access is necessary when you want to connect to your MySQL from a different computer. [root@directorysrv1 /]# mysql -u root -p Enter password: Welcome to the MySQL monitor. Commands end with ; or \\g. Your MySQL connection id is 5 Server version: 5.0.77 Source distribution Type &#39;help;&#39; or &#39;\\h&#39; for help. Type &#39;\\c&#39; to clear the buffer. mysql&gt; GRANT ALL ON *.* TO root@&#39;%&#39; IDENTIFIED BY &#39;demodemo&#39;; Query OK, 0 rows affected (0.00 sec) mysql&gt; quit; Bye 5. Create a new Database and tables that will store identities (user credentials). These user credentials stored in tables will be accessible as a LDAP tree by the Virtual Directory Server. This new LDAP tree can be used to configure the login and authentication process required for different applications/products such as Liferay, Alfresco, Intalio, etc.. In this example we will explain how to do it for Liferay Portal. We will use an existing MySQL Database (Employee DB) for testing purposes. Download existing DB from here (http://datacharmer.blogspot.com/2008/07/dont-guess-test-sample-database-with.html), then install it in our current MySQL server: -- unzip DB [root@directorysrv1 temp]# tar -xjf /temp/employees_db-full-1.0.4.tar.bz2 [root@directorysrv1 temp]# cd /temp/employees_db/ -- create schema and load data sh[root@directorysrv1 temp]# mysql -u root -p -t &lt; employees.sql -- test integrity of loaded data with SHA1 [root@directorysrv1 employees_db]# time mysql -u root -p -t &lt; test_employees_sha.sql Enter password: +----------------------+ | INFO | +----------------------+ | TESTING INSTALLATION | +----------------------+ +--------------+------------------+------------------------------------------+ | table_name | expected_records | expected_crc | +--------------+------------------+------------------------------------------+ | employees | 300024 | 4d4aa689914d8fd41db7e45c2168e7dcb9697359 | | departments | 9 | 4b315afa0e35ca6649df897b958345bcb3d2b764 | | dept_manager | 24 | 9687a7d6f93ca8847388a42a6d8d93982a841c6c | | dept_emp | 331603 | d95ab9fe07df0865f592574b3b33b9c741d9fd1b | | titles | 443308 | d12d5f746b88f07e69b9e36675b6067abb01b60e | | salaries | 2844047 | b5a1785c27d75e33a4173aaa22ccf41ebd7d4a9f | +--------------+------------------+------------------------------------------+ +--------------+------------------+------------------------------------------+ | table_name | found_records | found_crc | +--------------+------------------+------------------------------------------+ | employees | 300024 | 4d4aa689914d8fd41db7e45c2168e7dcb9697359 | | departments | 9 | 4b315afa0e35ca6649df897b958345bcb3d2b764 | | dept_manager | 24 | 9687a7d6f93ca8847388a42a6d8d93982a841c6c | | dept_emp | 331603 | d95ab9fe07df0865f592574b3b33b9c741d9fd1b | | titles | 443308 | d12d5f746b88f07e69b9e36675b6067abb01b60e | | salaries | 2844047 | b5a1785c27d75e33a4173aaa22ccf41ebd7d4a9f | +--------------+------------------+------------------------------------------+ +--------------+---------------+-----------+ | table_name | records_match | crc_match | +--------------+---------------+-----------+ | employees | OK | ok | | departments | OK | ok | | dept_manager | OK | ok | | dept_emp | OK | ok | | titles | OK | ok | | salaries | OK | ok | +--------------+---------------+-----------+ real 0m59.756s user 0m0.011s sys 0m0.057s The final Employees DB schema/model that we will use to create LDAP tree is the following: 6. Download MySQL JDBC library and copy to Virtual Directory Server, in this case to /opt/vd-server-2.0/lib/ext/ folder. [root@directorysrv1 temp]# cp mysql-connector-java-5.1.13-bin.jar /opt/vd-server-2.0/lib/ext/ 7. Create a new Partition in our Virtual Directory Server. A Partition in our Virtual Directory contains all relationships beetwen: Connections: data servers such as DB servers or other LDAP servers Sources: applications such as for Liferay, for Alfresco, for Intalio, for Windows Authentication, … Identities: individual entries and Mappings: links between entities. It is necessary to add new namingContexts to existing Root DSE in /opt/vd-server-2.0/conf/directory.xml. This file will be like: [/conf/directory.xml](/assets/blog20101203_virtualdirectory_portal/directory.xml) 8. Map tables-fields with attributes of the new LDAP tree in our Virtual Directory. Liferay Portal domain: new LDAP tree/domain, in this example is “@intix.info”. Liferay Portal Users: the employees table of MySQL DB maps to inetOrgPerson (or organizationalPerson or other similar) entries in LDAP. Liferay Portal Groups: the departments table of MySQL DB maps to organizationalUnit (or other similar) entries in LDAP, in this example we will not use Groups. Additional fields required for Liferay Portal such email, title will be obtained by joining fields values such employees.first_name, employees.last_name with “@intix.info”, and title will be obtained of titles.title and so on. In this example, “title” LDAP attribute of inetOrgPerson will be compose with differents values of the Employees table. The password to log into Liferay Portal will be stored as SHA1 in a new field created in table Employees. For our convenience, all user passwords will be equal to “function_sha1(‘test’) =qUqP5cyxm6YcTAhz05Hph5gvu9M=”. Only allow access to Liferay Portal to users (Employees) hired in August 1999. In this case we will use this sentence: SELECT emp_no FROM employees WHERE hire_date BETWEEN ‘1999-08-01’ AND ‘1999-08-31’ . This constrain will be a filter in our Virtual Directory Partition. For your convenience, I include all files that are part of the new Partition (connections, sources, mapping and constrains) created into Virtual Directory. You can download it from here: Penrose Server partition intix.info 9. Create new partition (“intix_info_liferay” folder) in Virtual Directory. [root@directorysrv1 /]# mkdir /opt/vd-server-2.0/partitions/intix_info_liferay/DIR-INF 10. Copy all files (connections.xml, directory.xml, mappings.xml, modules.xml, partition.xml and sources.xml) to /opt/vd-server-2.0/partitons/intix_info_liferay/DIR-INF 11. Restart Virtual Directory: [root@directorysrv1 /]# service vd-server restart 12. Browse into the new LDAP tree created (partition) in the Virtual Directory binding the new database created in MySQL Server. 9. Configure LDAP Authentication in Liferay Portal Now, We have a LDAP server (Penrose) with user credentials (identities) loaded. The next step is to configure Liferay Portal with these LDAP tree to do log in to Portal. If you have already a Liferay installed, you have to make sure that Liferay can resolve the Virtual Directory. To check it: [chilcano@lfry01 /]# ping directorysrv1 Then, from Liferay &gt; Control Panel, configure LDAP authentication with Email Address as credentials to login. Add and configure a new LDAP server (Penrose Server) in Liferay. . . 10. Testing LDAP Authentication from Liferay Portal Now you can use any user credential (any value of Employee table) to login Liferay. 11. Testing LDAP Authentication from Apache Directory Studio The user “aamod.wroclawski@intix.info” with password “test” can be verified. You can do from apache Directory Studio. Open Apache Directory Studio, connect to Penrose Server, then go to entry “uid=480838,ou=Employees,dc=intix,dc=info”, click on password attribute, then open a windows where you can verify password. Follow the figures: If you are planning to install other product or application in your organization, you could create a new LDAP tree under Root DSE intix.info as ou=Alfresco Users, dc=intix, dc=info and to select or filter existing users from Employee table. Well, Penrose Server (Virtual Directory) has several applications and is easy adaptable to any Security User Schema. Any questions, do not hesitate to emailme. Bye. References Remote access to MySQL Sample database with test suite for MySQL Server","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://holisticsecurity.io/feed.xml" title="Holistic Security" /><script>
+if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-156433649-1', 'auto');
+  ga('send', 'pageview');
+}
+</script>
+  
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/"><img src="/assets/img/logo-holosec.png" width="100" /> Holistic Security</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/">Home</a><a class="page-link" href="/blog/">Blog</a><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Liferay Portal LDAP Authentication with Penrose Server</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2010-12-22T12:11:11+01:00" itemprop="datePublished">Dec 22, 2010 
+      </time>&sim; PORTAL · SECURITY
+      &sim; AUTHENTICATION · LDAP · PENROSE · VIRTUAL DIRECTORY
+    </p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>We explained in a previous post <a href="http://holisticsecurity.wordpress.com/2010/11/17/identity-management-portal-ecm-bpm-projects/">Identity Management (IdM) in Portal, ECM and BPM Projects</a> how important is having a Corporate Directory (LDAP server) that serves as a repository for different types of identities and roles that will require for our business application in authentication and authorization processes.</p>
+
+<p><img src="/assets/blog20101203_virtualdirectory_portal/0_vds_penrose_server.png" alt="" /><br />
+<em>Fig 0. Penrose Server, a Java free open source Virtual Directory</em></p>
+
+<p>We also explained the importance of using a Virtual Directory as a natural evolution of the classic Directory and Meta Directory. We also highlight its functionality, scalability and ability to integrate different sources of identity information regardless of the type of source, may be other LDAP servers, Database servers, even Webservices. Well, in this post will explain how to deploy and configure Penrose Server (Virtual Directory free / open source) to store user identity information from a MySQL table so we can use them as users of Liferay Portal without having to program or modify any adapter or hook Liferay. Penrose Server has, by default, OpenDS as backend, then any LDAP objectClass that exists in OpenDS exists in Penrose Server. Said that, come on with installation.</p>
+
+<h2 id="1-pre-requisites">1. Pre-requisites</h2>
+
+<p><strong>1. Download Java Development Kit (&gt;=1.5)</strong>, for example <code class="highlighter-rouge">./jdk-1_5_0_17-linux-amd64.bin</code></p>
+
+<p><strong>2. CentOS already has OpenJDK. You can verify it:</strong></p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 /]# java <span class="nt">-version</span>
+java version <span class="s2">"1.6.0"</span>
+OpenJDK  Runtime Environment <span class="o">(</span>build 1.6.0-b09<span class="o">)</span>
+OpenJDK Client VM <span class="o">(</span>build 1.6.0-b09, mixed mode<span class="o">)</span>
+</code></pre></div></div>
+
+<h2 id="2-installing-penrose-server-virtual-directory">2. Installing Penrose Server (Virtual Directory)</h2>
+
+<p>A virtual directory maps information from disparate data sources, such as LDAP services and Database, into a single location for users to access.</p>
+
+<p><strong>1. Download the RPM</strong> from here <a href="http://penrose.redhat.com/display/PENROSE20/Penrose+2.0+Release">http://penrose.redhat.com/display/PENROSE20/Penrose+2.0+Release</a></p>
+
+<p><strong>2. Install the package(s):</strong></p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 tempo]# rpm <span class="nt">-i</span> vd-server-2.0-1.i386.rpm
+VD Server 2.0 has been installed <span class="k">in</span> /opt/vd-server-2.0.
+</code></pre></div></div>
+
+<p><strong>3. Make sure that JAVA is configured:</strong> Edit <code class="highlighter-rouge">/opt/vd-server-2.0/vd.conf</code> file.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 /]# vim /opt/vd-server-2.0/etc/vd.conf
+</code></pre></div></div>
+
+<p>Add the <code class="highlighter-rouge">JAVA_HOME</code> variable, pointing to your JDK. For example, in CentOS is:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">JAVA_HOME</span><span class="o">=</span>/usr/lib/jvm/java-1.6.0-openjdk
+</code></pre></div></div>
+
+<p>After editing the vd.conf file, copy it into the host’s /etc directory.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 /]# <span class="nb">cp</span> /opt/vd-server-2.0/etc/vd.conf /etc
+</code></pre></div></div>
+
+<p><strong>4. Run a configuration script</strong> to reset the server hostname, give the admin username and password, and set the port numbers and other information for the associated LDAP and JMX services of the Virtual Directory. For example:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 /]# <span class="nb">cd</span> /opt/vd-server-2.0/bin/
+<span class="o">[</span>root@directorysrv1 bin]# ./vd-config.sh
+Configuring VD Server:
+<span class="nt">----------------------</span>
+
+Hostname <span class="o">[</span>directorysrv1.intix.info]:
+Root DN <span class="o">[</span><span class="nv">uid</span><span class="o">=</span>admin,ou<span class="o">=</span>system]:
+Root Password <span class="o">[</span><span class="k">*****</span><span class="o">]</span>:
+User account <span class="o">[</span>root]:
+Group account <span class="o">[</span>root]: 
+
+Configuring JMX Service:
+<span class="nt">------------------------</span>
+
+RMI Port <span class="o">[</span>1099]:
+RMI Transport Port <span class="o">[</span>40888]: 
+
+Configuring OpenDS Service:
+<span class="nt">---------------------------</span>
+
+LDAP Enabled <span class="o">[</span><span class="nb">true</span><span class="o">]</span>:
+LDAP Port <span class="o">[</span>10389]:
+Secure LDAP Enabled <span class="o">[</span><span class="nb">false</span><span class="o">]</span>:
+Secure LDAP Port <span class="o">[</span>10636]:
+SSL Certificate Name <span class="o">[</span>server-cert]:
+Key Store Type <span class="o">(</span>JKS/PKCS12<span class="o">)</span> <span class="o">[</span>JKS]:
+Key Store File <span class="o">[</span>config/keystore]:
+Key Store PIN File <span class="o">[</span>config/keystore.pin]: 
+
+<span class="o">[</span>root@directorysrv1 bin]#
+</code></pre></div></div>
+
+<h2 id="3-installing-additional-libraries">3. Installing additional libraries</h2>
+
+<p>You can install on Virtual Directory Server libraries (jar files) to extend functionalities. These libraries cover a range of different functions, including JDBC drivers, custom adapters, custom modules, and other third party libraries.</p>
+
+<p><strong>1. Copy the JAR files</strong> into the <code class="highlighter-rouge">/opt/vd-server-2.0/lib/ext/</code> directory; for example:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 /]# <span class="nb">cp</span> /export/myjdbc.jar /opt/vd-server-2.0/lib/ext/myjdbc.jar
+</code></pre></div></div>
+
+<p><strong>2. Is necessary restart</strong> the Virtual Directory Server.</p>
+
+<h2 id="4-uninstalling-penrose-server">4. Uninstalling Penrose Server</h2>
+
+<p>The Virtual Directory Server packages can be uninstalled using package management tools, the same as used to install it. To remove the Server, use the -e option with rpm:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 bin]# rpm <span class="nt">-ev</span> vd-server-2.0-1.i386.rpm
+</code></pre></div></div>
+
+<h2 id="5-starting-penrose-server">5. Starting Penrose Server</h2>
+
+<p><strong>1. Virtual Directory is started by running a shell script</strong> <code class="highlighter-rouge">/opt/vd-server-2.0/bin/vd-server.sh</code>. For example:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 /]# <span class="nb">cd</span> /opt/vd-server-2.0/bin
+<span class="o">[</span>root@directorysrv1 bin]# ./vd-server.sh
+<span class="o">[</span>12/02/2010 01:40:11.693] VD Server is ready.
+</code></pre></div></div>
+
+<p><strong>2. To stop the server</strong>, simply close the script.</p>
+
+<h2 id="6-starting-penrose-server-as-a-linux-service">6. Starting Penrose Server as a linux service</h2>
+
+<p>The Virtual Directory can be stopped, started, and restarted using system tools on CentOS. Init scripts are included with the configuration files with Virtual Directory Server.</p>
+
+<p><strong>1. Log into the Virtual Directory Server</strong> host machine as root user.<br />
+<strong>2. Open the Virtual Directory init script directory</strong>.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 /]# <span class="nb">cd</span> /opt/vd-server-2.0/etc/init.d
+</code></pre></div></div>
+
+<p><strong>3. Edit the <code class="highlighter-rouge">/opt/vd-server-2.0/etc/init.d/vd-server</code> script</strong> so that the Virtual Directory Server home and script locations are correct. For example:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">VD_SERVER_HOME</span><span class="o">=</span>/opt/vd-server-2.0
+<span class="nv">VD_SERVER_SCRIPT</span><span class="o">=</span><span class="nv">$VD_SERVER_HOME</span>/bin/vd-server.sh
+</code></pre></div></div>
+
+<p><strong>4. Copy the init file to the <code class="highlighter-rouge">/etc/init.d/</code> directory</strong>.</p>
+
+<p><code class="highlighter-rouge">sh[root@directorysrv1 /]# cp /opt/vd-server-2.0/etc/init.d/vd-server /etc/init.d/</code></p>
+
+<p><strong>5. Make the init script executable</strong>.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 /]# <span class="nb">chmod</span> +x /etc/init.d/vd-server
+</code></pre></div></div>
+
+<p><strong>6. Test the new Virtual Directory service</strong>.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 /]# service vd-server start
+Starting vd-server:                                        <span class="o">[</span>  OK  <span class="o">]</span>
+<span class="o">[</span>root@directorysrv1 init.d]# <span class="o">[</span>12/03/2010 10:24:31.782] VD Server is ready.
+<span class="o">[</span>root@directorysrv1 init.d]#
+</code></pre></div></div>
+
+<p>After setting Virtual Directory Server up as a service, it can be managed using the service on CentOS:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 /]# service vd-server <span class="o">{</span>start|stop|restart<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="7-connect-to-penrose-server-ldap-interface">7. Connect to Penrose Server LDAP interface</h2>
+
+<p>It is necessary download and install any LDAP client, for example, Apache Directory Studio.</p>
+
+<p><strong>1. Execute any LDAP client</strong>, for example <a href="http://directory.apache.org/studio/">Apache Directory Studio</a>.</p>
+
+<p><strong>2. Add new LDAP connection with these values</strong>:</p>
+
+<ul>
+  <li>hostname or ip : directorysrv1 (or directorysrv1.intix.info)</li>
+  <li>port : 10389</li>
+  <li>user credentials: uid=admin,ou=system</li>
+  <li>password: secret</li>
+</ul>
+
+<p><strong>3. Now you can browse on existing LDAP entries or to create a new partition (LDAP tree)</strong>.</p>
+
+<p><img src="/assets/blog20101203_virtualdirectory_portal/1_vds_add_conn.png" alt="" title="Fig. 1\. Apache Directory Studio - Add LDAP connection" width="350" /> <img src="/assets/blog20101203_virtualdirectory_portal/2_vds_add_conn_auth.png" alt="" title="Fig. 2\. Apache Directory Studio - Add LDAP conn, authentication" width="350" /></p>
+
+<p><img src="/assets/blog20101203_virtualdirectory_portal/3_vds_explore_ldap_tree.png" alt="" title="Fig. 3\. Apache Directory Studio - Explore LDAP tree" width="500" /></p>
+
+<h2 id="8-create-a-new-virtual-ldap-tree-binding-mysql-server">8. Create a new virtual LDAP tree binding MySQL Server</h2>
+
+<p><strong>1. Install MySQL Server</strong>, in my case I will install MySQL Server in the same CentOS host where Virtual Directory has already installed. It is just for testing purposes.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 /]# yum <span class="nt">--disablerepo</span><span class="o">=</span><span class="se">\*</span> <span class="nt">--enablerepo</span><span class="o">=</span>c5-media <span class="nt">-y</span> <span class="nb">install </span>mysql-server
+Loaded plugins: fastestmirror
+<span class="o">[</span>...]
+Running Transaction
+  Installing     : perl-DBD-MySQL                       1/2
+  Installing     : mysql-server                         2/2 
+
+Installed:
+  mysql-server.i386 0:5.0.77-4.el5_4.2                                                                                        
+
+Dependency Installed:
+  perl-DBD-MySQL.i386 0:3.0007-2.el5                                                                                          
+
+Complete!
+<span class="o">[</span>root@directorysrv1 /]#
+</code></pre></div></div>
+
+<p><strong>2. Start MySQL Server as service</strong>.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 init.d]# service mysqld start
+Initializing MySQL database:  Installing MySQL system tables...
+<span class="o">[</span>...]
+                                                           <span class="o">[</span>  OK  <span class="o">]</span>
+Starting MySQL:                                            <span class="o">[</span>  OK  <span class="o">]</span>
+<span class="o">[</span>root@directorysrv1 init.d]#
+</code></pre></div></div>
+
+<p><strong>3. Update root password in MySQL Server</strong>:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 /]# mysqladmin <span class="nt">-u</span> root password <span class="s2">"demodemo"</span>
+</code></pre></div></div>
+
+<p><strong>4. Enable remote access to MySQL</strong> for root user on all database and tables. Remote access is necessary when you want to connect to your MySQL from a different computer.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 /]# mysql <span class="nt">-u</span> root <span class="nt">-p</span>
+Enter password:
+Welcome to the MySQL monitor.  Commands end with <span class="p">;</span> or <span class="se">\g</span><span class="nb">.</span>
+Your MySQL connection <span class="nb">id </span>is 5
+Server version: 5.0.77 Source distribution
+
+Type <span class="s1">'help;'</span> or <span class="s1">'\h'</span> <span class="k">for </span>help. Type <span class="s1">'\c'</span> to clear the buffer.
+
+mysql&gt; GRANT ALL ON <span class="k">*</span>.<span class="k">*</span> TO root@<span class="s1">'%'</span> IDENTIFIED BY <span class="s1">'demodemo'</span><span class="p">;</span>
+Query OK, 0 rows affected <span class="o">(</span>0.00 sec<span class="o">)</span>
+
+mysql&gt; quit<span class="p">;</span>
+Bye
+</code></pre></div></div>
+
+<p><strong>5. Create a new Database and tables that will store identities (user credentials)</strong>.</p>
+
+<p>These user credentials stored in tables will be accessible as a LDAP tree by the Virtual Directory Server. This new LDAP tree can be used to configure the login and authentication process required for different applications/products such as Liferay, Alfresco, Intalio, etc.. In this example we will explain how to do it for Liferay Portal. We will use an existing <code class="highlighter-rouge">MySQL Database (Employee DB)</code> for testing purposes. Download existing DB from here (<a href="http://datacharmer.blogspot.com/2008/07/dont-guess-test-sample-database-with.html">http://datacharmer.blogspot.com/2008/07/dont-guess-test-sample-database-with.html</a>), then install it in our current MySQL server:</p>
+
+<p><code class="highlighter-rouge">-- unzip DB</code></p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 temp]# <span class="nb">tar</span> <span class="nt">-xjf</span> /temp/employees_db-full-1.0.4.tar.bz2
+<span class="o">[</span>root@directorysrv1 temp]# <span class="nb">cd</span> /temp/employees_db/
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">-- create schema and load data</code></p>
+
+<p><code class="highlighter-rouge">sh[root@directorysrv1 temp]#  mysql -u root -p -t &lt; employees.sql</code></p>
+
+<p><code class="highlighter-rouge">-- test integrity of loaded data with SHA1</code></p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 employees_db]# <span class="nb">time </span>mysql <span class="nt">-u</span> root <span class="nt">-p</span> <span class="nt">-t</span> &lt; test_employees_sha.sql
+Enter password:
++----------------------+
+| INFO                 |
++----------------------+
+| TESTING INSTALLATION |
++----------------------+
++--------------+------------------+------------------------------------------+
+| table_name   | expected_records | expected_crc                             |
++--------------+------------------+------------------------------------------+
+| employees    |           300024 | 4d4aa689914d8fd41db7e45c2168e7dcb9697359 |
+| departments  |                9 | 4b315afa0e35ca6649df897b958345bcb3d2b764 |
+| dept_manager |               24 | 9687a7d6f93ca8847388a42a6d8d93982a841c6c |
+| dept_emp     |           331603 | d95ab9fe07df0865f592574b3b33b9c741d9fd1b |
+| titles       |           443308 | d12d5f746b88f07e69b9e36675b6067abb01b60e |
+| salaries     |          2844047 | b5a1785c27d75e33a4173aaa22ccf41ebd7d4a9f |
++--------------+------------------+------------------------------------------+
++--------------+------------------+------------------------------------------+
+| table_name   | found_records    | found_crc                                |
++--------------+------------------+------------------------------------------+
+| employees    |           300024 | 4d4aa689914d8fd41db7e45c2168e7dcb9697359 |
+| departments  |                9 | 4b315afa0e35ca6649df897b958345bcb3d2b764 |
+| dept_manager |               24 | 9687a7d6f93ca8847388a42a6d8d93982a841c6c |
+| dept_emp     |           331603 | d95ab9fe07df0865f592574b3b33b9c741d9fd1b |
+| titles       |           443308 | d12d5f746b88f07e69b9e36675b6067abb01b60e |
+| salaries     |          2844047 | b5a1785c27d75e33a4173aaa22ccf41ebd7d4a9f |
++--------------+------------------+------------------------------------------+
++--------------+---------------+-----------+
+| table_name   | records_match | crc_match |
++--------------+---------------+-----------+
+| employees    | OK            | ok        |
+| departments  | OK            | ok        |
+| dept_manager | OK            | ok        |
+| dept_emp     | OK            | ok        |
+| titles       | OK            | ok        |
+| salaries     | OK            | ok        |
++--------------+---------------+-----------+
+
+real    0m59.756s
+user    0m0.011s
+sys     0m0.057s
+</code></pre></div></div>
+
+<p>The final Employees DB schema/model that we will use to create LDAP tree is the following:  <img src="/assets/blog20101203_virtualdirectory_portal/5_vds_employees_db_model.png" alt="" title="Fig. 4\. Employees MySQL schema" /></p>
+
+<p><strong>6. Download MySQL JDBC library and copy to Virtual Directory Server</strong>, in this case to <code class="highlighter-rouge">/opt/vd-server-2.0/lib/ext/</code> folder.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 temp]# <span class="nb">cp </span>mysql-connector-java-5.1.13-bin.jar /opt/vd-server-2.0/lib/ext/
+</code></pre></div></div>
+
+<p><strong>7. Create a new Partition in our Virtual Directory Server</strong>. A Partition in our Virtual Directory contains all relationships beetwen:</p>
+
+<ul>
+  <li>Connections: data servers such as DB servers or other LDAP servers</li>
+  <li>Sources: applications such as for Liferay, for Alfresco, for Intalio, for Windows Authentication, …</li>
+  <li>Identities: individual entries and</li>
+  <li>Mappings: links between entities.</li>
+</ul>
+
+<p>It is necessary to add new namingContexts to existing <strong>Root DSE</strong> in <code class="highlighter-rouge">/opt/vd-server-2.0/conf/directory.xml</code>. This file will be like: [<PENROSE_HOME>/conf/directory.xml](/assets/blog20101203_virtualdirectory_portal/directory.xml)</PENROSE_HOME></p>
+
+<p><strong>8. Map tables-fields with attributes of the new LDAP tree in our Virtual Directory</strong>.</p>
+
+<ul>
+  <li>Liferay Portal domain: new LDAP tree/domain, in this example is “@intix.info”.</li>
+  <li>Liferay Portal Users: the employees table of MySQL DB maps to inetOrgPerson (or organizationalPerson or other similar) entries in LDAP.</li>
+  <li>Liferay Portal Groups: the departments table of MySQL DB maps to organizationalUnit (or other similar) entries in LDAP, in this example we will not use Groups.</li>
+  <li>Additional fields required for Liferay Portal such email, title will be obtained by joining fields values such employees.first_name, employees.last_name with “@intix.info”, and title will be obtained of titles.title and so on. In this example, “title” LDAP attribute of inetOrgPerson will be compose with differents values of the Employees table.</li>
+  <li>The password to log into Liferay Portal will be stored as SHA1 in a new field created in table Employees. For our convenience, all user passwords will be equal to “function_sha1(‘test’) =qUqP5cyxm6YcTAhz05Hph5gvu9M=”.</li>
+  <li>Only allow access to Liferay Portal to users (Employees) hired in August 1999. In this case we will use this sentence: SELECT emp_no FROM employees WHERE hire_date BETWEEN ‘1999-08-01’ AND ‘1999-08-31’ . This constrain will be a filter in our Virtual Directory Partition.</li>
+</ul>
+
+<p>For your convenience, I include all files that are part of the new Partition (connections, sources, mapping and constrains) created into Virtual Directory. You can download it from here: <a href="/assets/blog20101203_virtualdirectory_portal/intix_info_liferay.zip">Penrose Server partition intix.info</a></p>
+
+<p><strong>9. Create new partition (“intix_info_liferay” folder) in Virtual Directory</strong>.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 /]# <span class="nb">mkdir</span> /opt/vd-server-2.0/partitions/intix_info_liferay/DIR-INF
+</code></pre></div></div>
+
+<p><strong>10. Copy all files</strong> (connections.xml, directory.xml, mappings.xml, modules.xml, partition.xml and sources.xml) to <code class="highlighter-rouge">/opt/vd-server-2.0/partitons/intix_info_liferay/DIR-INF</code></p>
+
+<p><strong>11. Restart Virtual Directory</strong>:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>root@directorysrv1 /]# service vd-server restart
+</code></pre></div></div>
+
+<p><strong>12. Browse into the new LDAP tree created (partition) in the Virtual Directory binding the new database created in MySQL Server</strong>.</p>
+
+<p><img src="/assets/blog20101203_virtualdirectory_portal/6_vds_browsing_new_ldap_tree.png" alt="" title="Fig. 5\. Browsing the new LDAP tree of Penrose Server" width="500" /></p>
+
+<h2 id="9-configure-ldap-authentication-in-liferay-portal">9. Configure LDAP Authentication in Liferay Portal</h2>
+
+<p>Now, We have a LDAP server (Penrose) with user credentials (identities) loaded. The next step is to configure Liferay Portal with these LDAP tree to do log in to Portal. If you have already a Liferay installed, you have to make sure that Liferay can resolve the Virtual Directory. To check it:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>chilcano@lfry01 /]# ping directorysrv1
+</code></pre></div></div>
+
+<p>Then, from Liferay &gt; Control Panel, configure LDAP authentication with Email Address as credentials to login.</p>
+
+<p><img src="/assets/blog20101203_virtualdirectory_portal/7_vds_liferay_ldap_authn_0.png" alt="" title="Fig 6\. Liferay LDAP AuthN: Email Address to access to Portal" width="300" /></p>
+
+<p>Add and configure a new LDAP server (Penrose Server) in Liferay.</p>
+
+<p><img src="/assets/blog20101203_virtualdirectory_portal/7_vds_liferay_ldap_authn_1.png" alt="" title="Fig 7\. Liferay LDAP AuthN: Add Penrose Server as LDAP " width="350" />. <img src="/assets/blog20101203_virtualdirectory_portal/7_vds_liferay_ldap_authn_2.png" alt="" title="Fig 8\. Liferay LDAP AuthN: User and password to connect to Penrose Server" width="350" /></p>
+
+<p><img src="/assets/blog20101203_virtualdirectory_portal/7_vds_liferay_ldap_authn_3.png" alt="" title="Fig 8\. Liferay LDAP AuthN: Map and filter user credentials" width="350" />. <img src="/assets/blog20101203_virtualdirectory_portal/7_vds_liferay_ldap_authn_4.png" alt="" title="Fig 9\. Liferay LDAP AuthN: Map group and Export with empty values" width="350" /></p>
+
+<h2 id="10-testing-ldap-authentication-from-liferay-portal">10. Testing LDAP Authentication from Liferay Portal</h2>
+
+<p>Now you can use any user credential (any value of Employee table) to login Liferay.</p>
+
+<p><img src="/assets/blog20101203_virtualdirectory_portal/8_vds_liferay_login.png" alt="" title="Fig 9\. Liferay Portal login" width="300" /> <img src="/assets/blog20101203_virtualdirectory_portal/9_vds_liferay_welcomepage.png" alt="" title="Fig 10\. Login successfully and welcome page in Liferay" width="300" /></p>
+
+<p><img src="/assets/blog20101203_virtualdirectory_portal/10_vds_liferay_myaccount.png" alt="" title="Fig 11\. Liferay My Account (User details)" width="300" /></p>
+
+<h2 id="11-testing-ldap-authentication-from-apache-directory-studio">11. Testing LDAP Authentication from Apache Directory Studio</h2>
+
+<p>The user “aamod.wroclawski@intix.info” with password “test” can be verified. You can do from apache Directory Studio. Open Apache Directory Studio, connect to Penrose Server, then go to entry “uid=480838,ou=Employees,dc=intix,dc=info”, click on password attribute, then open a windows where you can verify password. Follow the figures:</p>
+
+<p><img src="/assets/blog20101203_virtualdirectory_portal/11_vds_verify_account_apache_directory1.png" alt="" title="Fig 12\. Explore attributes of authenticated User from Apache Directory Studio" width="350" /> <img src="/assets/blog20101203_virtualdirectory_portal/11_vds_verify_account_apache_directory2.png" alt="" title="Fig 13\. Verify password (SHA1) from Apache Directory Studio" width="350" /></p>
+
+<p>If you are planning to install other product or application in your organization, you could create a new LDAP tree under Root DSE <code class="highlighter-rouge">intix.info</code> as <code class="highlighter-rouge">ou=Alfresco Users, dc=intix, dc=info</code> and to select or filter existing users from Employee table. Well, Penrose Server (Virtual Directory) has several applications and is easy adaptable to any Security User Schema. Any questions, do not hesitate to emailme. Bye.</p>
+
+<h3 id="references">References</h3>
+
+<ul>
+  <li><a href="http://www.cyberciti.biz/tips/how-do-i-enable-remote-access-to-mysql-database-server.html">Remote access to MySQL</a></li>
+  <li><a href="http://datacharmer.blogspot.com/2008/07/dont-guess-test-sample-database-with.html">Sample database with test suite for MySQL Server</a></li>
+</ul>
+
+  </div><div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://holisticsecurity.io/2010/12/22/authentication-penrose-directory-liferay/';
+      this.page.identifier = 'https://holisticsecurity.io/2010/12/22/authentication-penrose-directory-liferay/';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://holosec.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript><a class="u-url" href="/2010/12/22/authentication-penrose-directory-liferay/" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading"><img src="/assets/img/logo-holosec.png" width="40" /> Holistic Security</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Holistic Security</li><li><a class="u-email" href="mailto:blog@holisticsecurity.io">blog@holisticsecurity.io</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.linkedin.com/in/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.twitter.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">Chilcano</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Systems Thinking, Holism, Trust, Security &amp; Usability.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

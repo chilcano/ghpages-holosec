@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Business Activity Monitoring aplicado a Openbravo ERP usando WSO2 ESB y WSO2 BAM | Holistic Security</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Business Activity Monitoring aplicado a Openbravo ERP usando WSO2 ESB y WSO2 BAM" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Mi colega Luis Peñarrubia ha publicado un detallado post de cómo usar WSO2 BAM, WSO2 ESB para monitorizar la capa de servicio de Openbravo ERP (Data Access Layer). Aquí os dejo el documento que explica cómo hacerlo paso a paso: [slideshare id=32323468&amp;doc=chakray-monitorizacion-kpi-service-wso2esb-wso2bam-201403141-140314124059-phpapp02&amp;type=d]" />
+<meta property="og:description" content="Mi colega Luis Peñarrubia ha publicado un detallado post de cómo usar WSO2 BAM, WSO2 ESB para monitorizar la capa de servicio de Openbravo ERP (Data Access Layer). Aquí os dejo el documento que explica cómo hacerlo paso a paso: [slideshare id=32323468&amp;doc=chakray-monitorizacion-kpi-service-wso2esb-wso2bam-201403141-140314124059-phpapp02&amp;type=d]" />
+<link rel="canonical" href="https://holisticsecurity.io/2014/03/20/business-activity-monitoring-aplicado-a-openbravo-erp-usando-wso2-esb-y-wso2-bam/" />
+<meta property="og:url" content="https://holisticsecurity.io/2014/03/20/business-activity-monitoring-aplicado-a-openbravo-erp-usando-wso2-esb-y-wso2-bam/" />
+<meta property="og:site_name" content="Holistic Security" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2014-03-20T18:16:03+01:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://holisticsecurity.io/2014/03/20/business-activity-monitoring-aplicado-a-openbravo-erp-usando-wso2-esb-y-wso2-bam/"},"url":"https://holisticsecurity.io/2014/03/20/business-activity-monitoring-aplicado-a-openbravo-erp-usando-wso2-esb-y-wso2-bam/","headline":"Business Activity Monitoring aplicado a Openbravo ERP usando WSO2 ESB y WSO2 BAM","dateModified":"2014-03-20T18:16:03+01:00","datePublished":"2014-03-20T18:16:03+01:00","description":"Mi colega Luis Peñarrubia ha publicado un detallado post de cómo usar WSO2 BAM, WSO2 ESB para monitorizar la capa de servicio de Openbravo ERP (Data Access Layer). Aquí os dejo el documento que explica cómo hacerlo paso a paso: [slideshare id=32323468&amp;doc=chakray-monitorizacion-kpi-service-wso2esb-wso2bam-201403141-140314124059-phpapp02&amp;type=d]","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://holisticsecurity.io/feed.xml" title="Holistic Security" /><script>
+if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-156433649-1', 'auto');
+  ga('send', 'pageview');
+}
+</script>
+  
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/"><img src="/assets/img/logo-holosec.png" width="100" /> Holistic Security</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/">Home</a><a class="page-link" href="/blog/">Blog</a><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Business Activity Monitoring aplicado a Openbravo ERP usando WSO2 ESB y WSO2 BAM</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2014-03-20T18:16:03+01:00" itemprop="datePublished">Mar 20, 2014 
+      </time>&sim; BAM · ERP · OBSERVABILITY · SOA
+      &sim; WSO2
+    </p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Mi colega <a href="http://www.linkedin.com/in/luispenarrubia" title="Luis Peñarrubia @ LinkedIn">Luis Peñarrubia</a> ha publicado un detallado <a href="http://luispenarrubia.wordpress.com/2014/03/15/monitorizar-business-services-usando-wso2-esb-y-wso2-bam/" title="Monitorizar Business Services usando WSO2 ESB y WSO2 BAM">post de cómo usar WSO2 BAM, WSO2 ESB para monitorizar la capa de servicio de Openbravo ERP</a> (Data Access Layer).
+Aquí os dejo el documento que explica cómo hacerlo paso a paso:</p>
+
+<p>[slideshare id=32323468&amp;doc=chakray-monitorizacion-kpi-service-wso2esb-wso2bam-201403141-140314124059-phpapp02&amp;type=d]</p>
+
+<!-- more -->
+
+<p>Por otro lado, al desplegarlo en mi entorno, WSO2 BAM mostraba errores de autenticación de Apache Thrift con Apache Cassandra, como este:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>2014-03-20 17:31:16,112] INFO <span class="o">{</span>org.wso2.carbon.ntask.core.service.impl.TaskServiceImpl<span class="o">}</span> - Task service starting <span class="k">in </span>STANDALONE mode...  
+<span class="o">[</span>2014-03-20 17:31:16,285] ERROR <span class="o">{</span>org.wso2.carbon.bam.notification.task.internal.NotificationDispatchComponent<span class="o">}</span> - InvalidRequestException<span class="o">(</span>why:You have not logged <span class="k">in</span><span class="o">)</span>  
+me.prettyprint.hector.api.exceptions.HInvalidRequestException: InvalidRequestException<span class="o">(</span>why:You have not logged <span class="k">in</span><span class="o">)</span>  
+at me.prettyprint.cassandra.service.ExceptionsTranslatorImpl.translate<span class="o">(</span>ExceptionsTranslatorImpl.java:45<span class="o">)</span>  
+at me.prettyprint.cassandra.service.ThriftCluster<span class="nv">$6</span>.execute<span class="o">(</span>ThriftCluster.java:164<span class="o">)</span>  
+at me.prettyprint.cassandra.service.ThriftCluster<span class="nv">$6</span>.execute<span class="o">(</span>ThriftCluster.java:151<span class="o">)</span>  
+at me.prettyprint.cassandra.service.Operation.executeAndSetResult<span class="o">(</span>Operation.java:103<span class="o">)</span>  
+at me.prettyprint.cassandra.connection.HConnectionManager.operateWithFailover<span class="o">(</span>HConnectionManager.java:258<span class="o">)</span>  
+at me.prettyprint.cassandra.service.ThriftCluster.addKeyspace<span class="o">(</span>ThriftCluster.java:168<span class="o">)</span>
+<span class="o">[</span>...]
+<span class="o">[</span>2014-03-20 17:31:16,471] INFO <span class="o">{</span>org.wso2.carbon.databridge.core.DataBridge<span class="o">}</span> - admin connected  
+<span class="o">[</span>2014-03-20 17:31:16,473] ERROR <span class="o">{</span>org.wso2.carbon.databridge.core.internal.authentication.Authenticator<span class="o">}</span> - wrong userName or password  
+<span class="o">[</span>2014-03-20 17:31:16,475] ERROR <span class="o">{</span>org.wso2.carbon.bam.notification.task.NotificationDispatchTask<span class="o">}</span> - Error executing notification dispatch task: Cannot borrow client <span class="k">for </span>TCP,10.10.10.24:7613,TCP,10.10.10.24:7713  
+org.wso2.carbon.databridge.agent.thrift.exception.AgentException: Cannot borrow client <span class="k">for </span>TCP,10.10.10.24:7613,TCP,10.10.10.24:7713  
+at org.wso2.carbon.databridge.agent.thrift.internal.publisher.authenticator.AgentAuthenticator.connect<span class="o">(</span>AgentAuthenticator.java:58<span class="o">)</span>  
+at org.wso2.carbon.databridge.agent.thrift.DataPublisher.start<span class="o">(</span>DataPublisher.java:273<span class="o">)</span>  
+at org.wso2.carbon.databridge.agent.thrift.DataPublisher.&lt;init&gt;<span class="o">(</span>DataPublisher.java:211<span class="o">)</span>  
+at org.wso2.carbon.bam.notification.task.NotificationDispatchTask.initPublisherKS<span class="o">(</span>NotificationDispatchTask.java:103<span class="o">)</span>  
+at org.wso2.carbon.bam.notification.task.NotificationDispatchTask.execute<span class="o">(</span>NotificationDispatchTask.java:188<span class="o">)</span>  
+at org.wso2.carbon.ntask.core.impl.TaskQuartzJobAdapter.execute<span class="o">(</span>TaskQuartzJobAdapter.java:67<span class="o">)</span>  
+at org.quartz.core.JobRunShell.run<span class="o">(</span>JobRunShell.java:213<span class="o">)</span>  
+at java.util.concurrent.Executors<span class="nv">$RunnableAdapter</span>.call<span class="o">(</span>Executors.java:471<span class="o">)</span>  
+at java.util.concurrent.FutureTask<span class="nv">$Sync</span>.innerRun<span class="o">(</span>FutureTask.java:334<span class="o">)</span>  
+at java.util.concurrent.FutureTask.run<span class="o">(</span>FutureTask.java:166<span class="o">)</span>  
+at java.util.concurrent.ThreadPoolExecutor.runWorker<span class="o">(</span>ThreadPoolExecutor.java:1146<span class="o">)</span>  
+at java.util.concurrent.ThreadPoolExecutor<span class="nv">$Worker</span>.run<span class="o">(</span>ThreadPoolExecutor.java:615<span class="o">)</span>  
+at java.lang.Thread.run<span class="o">(</span>Thread.java:679<span class="o">)</span>  
+Caused by: org.wso2.carbon.databridge.commons.exception.AuthenticationException: Thrift Authentication Exception  
+at org.wso2.carbon.databridge.agent.thrift.internal.publisher.authenticator.ThriftAgentAuthenticator.connect<span class="o">(</span>ThriftAgentAuthenticator.java:49<span class="o">)</span>  
+<span class="o">[</span>...]  
+</code></pre></div></div>
+
+<p>Esto se debe a que no he actualizado los ficheros de conexión con Apache Cassandra con las nuevas credenciales de WSO2 BAM, en mi caso no es admin/admin. Entonces, hay actualizar los siguientes ficheros:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>nano /opt/wso2bam-2.4.0/repository/conf/etc/cassandra-auth.xml  
+<span class="nv">$ </span>nano /opt/wso2bam-2.4.0/repository/conf/datasources/master-datasources.xml  
+</code></pre></div></div>
+
+<p>Saludos.</p>
+
+  </div><div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://holisticsecurity.io/2014/03/20/business-activity-monitoring-aplicado-a-openbravo-erp-usando-wso2-esb-y-wso2-bam/';
+      this.page.identifier = 'https://holisticsecurity.io/2014/03/20/business-activity-monitoring-aplicado-a-openbravo-erp-usando-wso2-esb-y-wso2-bam/';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://holosec.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript><a class="u-url" href="/2014/03/20/business-activity-monitoring-aplicado-a-openbravo-erp-usando-wso2-esb-y-wso2-bam/" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading"><img src="/assets/img/logo-holosec.png" width="40" /> Holistic Security</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Holistic Security</li><li><a class="u-email" href="mailto:blog@holisticsecurity.io">blog@holisticsecurity.io</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.linkedin.com/in/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.twitter.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">Chilcano</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Systems Thinking, Holism, Trust, Security &amp; Usability.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>WSO2 ESB MessageStore and MessageProcessor implementation for RabbitMQ | Holistic Security</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="WSO2 ESB MessageStore and MessageProcessor implementation for RabbitMQ" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="In this post I evaluated the level of integration of WSO2 ESB with different opensource message brokers such as Qpid, RabbitMQ, ActiveMQ and WSO2 Message Broker. At the end, we got the conclusion that RabbitMQ is / was the most used message broker, poorly integrated and not easily integrable with WSO2 ESB. WSO2 MessageStore and MessageProcessor approach for resilient messaging" />
+<meta property="og:description" content="In this post I evaluated the level of integration of WSO2 ESB with different opensource message brokers such as Qpid, RabbitMQ, ActiveMQ and WSO2 Message Broker. At the end, we got the conclusion that RabbitMQ is / was the most used message broker, poorly integrated and not easily integrable with WSO2 ESB. WSO2 MessageStore and MessageProcessor approach for resilient messaging" />
+<link rel="canonical" href="https://holisticsecurity.io/2015/07/14/wso2-esb-messagestore-messageprocessor-rabbitmq/" />
+<meta property="og:url" content="https://holisticsecurity.io/2015/07/14/wso2-esb-messagestore-messageprocessor-rabbitmq/" />
+<meta property="og:site_name" content="Holistic Security" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2015-07-14T06:51:58+02:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://holisticsecurity.io/2015/07/14/wso2-esb-messagestore-messageprocessor-rabbitmq/"},"url":"https://holisticsecurity.io/2015/07/14/wso2-esb-messagestore-messageprocessor-rabbitmq/","headline":"WSO2 ESB MessageStore and MessageProcessor implementation for RabbitMQ","dateModified":"2015-07-14T06:51:58+02:00","datePublished":"2015-07-14T06:51:58+02:00","description":"In this post I evaluated the level of integration of WSO2 ESB with different opensource message brokers such as Qpid, RabbitMQ, ActiveMQ and WSO2 Message Broker. At the end, we got the conclusion that RabbitMQ is / was the most used message broker, poorly integrated and not easily integrable with WSO2 ESB. WSO2 MessageStore and MessageProcessor approach for resilient messaging","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://holisticsecurity.io/feed.xml" title="Holistic Security" /><script>
+if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-156433649-1', 'auto');
+  ga('send', 'pageview');
+}
+</script>
+  
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/"><img src="/assets/img/logo-holosec.png" width="100" /> Holistic Security</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/">Home</a><a class="page-link" href="/blog/">Blog</a><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">WSO2 ESB MessageStore and MessageProcessor implementation for RabbitMQ</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2015-07-14T06:51:58+02:00" itemprop="datePublished">Jul 14, 2015 
+      </time>&sim; EIP · MIDDLEWARE · SOA
+      &sim; RABBITMQ · WSO2 ESB
+    </p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>In this <a href="/2015/01/25/evaluacion-nivel-madurez-integracion-message-brokers-opensource-wso2-esb/">post</a> I evaluated the level of integration of WSO2 ESB with different opensource message brokers such as Qpid, RabbitMQ, ActiveMQ and WSO2 Message Broker. At the end, we got the conclusion that RabbitMQ is / was the most used message broker, poorly integrated and not easily integrable with WSO2 ESB.</p>
+
+<p><a href="/assets/blog20150430_wso2esb_rabbitmq_msmp_impl/wso2esb-rabbitmq-message-store-architecture-jms-amqp.png"><img src="/assets/blog20150430_wso2esb_rabbitmq_msmp_impl/wso2esb-rabbitmq-message-store-architecture-jms-amqp.png" alt="" /></a><br />
+ <em>WSO2 MessageStore and MessageProcessor approach for resilient messaging</em></p>
+
+<!-- more -->
+
+<p>I ask myself, why is not RabbitMQ integrated to WSO2 ESB?. 
+The answer is simple, RabbitMQ is a Message Broker with strong focus in <a href="https://www.amqp.org">AMQP (Advanced Message Queuing Protocol)</a> and not in the JMS (Java Messaging Service). 
+JMS as a reference protocol in the Message Brokers is not “complete”; AMQP tries to cover that gap what JMS does not cover. Also, RabbitMQ, by default uses <code class="highlighter-rouge">AMQP 0-9-1</code> and not the latest version <code class="highlighter-rouge">AMQP 1.0</code>. Yes, there is an experimental <a href="http://www.rabbitmq.com/plugins.html">AMQP 1.0 pluging</a> for RabbitMQ and is not suitable for production, also I do not see that it will change soon.</p>
+
+<p>There is an <code class="highlighter-rouge">Axis2</code> Transport Module available what implements the <code class="highlighter-rouge">AMQP 0-9-1</code> protocol for RabbitMQ. This is a “beta” version because is not included as an official Axis2 Transport Module for <code class="highlighter-rouge">WSO2 ESB 4.8.1</code>. 
+But, if you want to install and use it, I highly recommend the serie (<a href="https://luispenarrubia.wordpress.com/2014/12/10/integrate-wso2-esb-and-rabbitmq-using-amqp-transport/">post 1</a> and <a href="https://luispenarrubia.wordpress.com/2015/05/04/how-to-integrate-wso2-esb-and-rabbitmq-using-amqp-transport-part-2/">post 2</a>) about of Axis2 AMQP Transport published in the Luis Peñarrubia’s blog. 
+In that blog is explained how to patch, deploy and use the Axis2 AMQP transport module in your WSO2 ESB <code class="highlighter-rouge">4.8.1</code>:</p>
+
+<h2 id="i-scope-and-objetives">I. Scope and objetives</h2>
+
+<p>The idea of this post is to explain how to integrate WSO2 ESB with RabbitMQ to work together in a “resilient” way and implementing the Enterprise Integration Patterns (EIPs - https://docs.wso2.com/display/IntegrationPatterns/Enterprise+Integration+Patterns+with+WSO2+ESB) related to messaging. Then, I would like to implement different messaging integration patterns as:</p>
+<ul>
+  <li>Dead Letter Queue</li>
+  <li>Wire Tap</li>
+  <li>Retry Queue</li>
+  <li>Throttling</li>
+</ul>
+
+<p>For more information about Messaging Advanced EIPs, check this link: <a href="https://docs.wso2.com/display/IntegrationPatterns/Messaging+Channels">https://docs.wso2.com/display/IntegrationPatterns/Messaging+Channels</a></p>
+
+<h2 id="ii-implementation">II. Implementation</h2>
+
+<p><strong>II.1. The strategia: WSO2 ESB Message Store &amp; Message Processor</strong></p>
+
+<p>The Message Store &amp; Message Processor is the way as the integration between WSO2 ESB and RabbitMQ should be realized. If you want to know what is WSO2 ESB Message Store &amp; Message Processor, I invite you to read my <a href="/2014/12/03/wso2-message-broker-vs-apache-qpid-messaging-eip">blog post about this subject</a>.</p>
+
+<p><strong>II.2. The strategia: Apache Qpid client library as bridge between JMS 1.1 and AMQP 0-9-1</strong></p>
+
+<p>The strategia is to improve the existing implementation of WSO2 ESB Message Store &amp; Message Processor (MS&amp;MP) to make it compatible with RabbitMQ (AMQP 0-9-1). Create the WSO2 ESB MS&amp;MP for RabbitMQ from scratch is not viable, because the current WSO2 ESB MS&amp;MP implementation uses JMS and is not ready to be extended to AMQP 0-9-1. Then, We need some magical library that can resolve the problem of translating the JMS (WSO2 ESB) protocol to AMQP 0-9-1 (RabbitMQ), I tried different libraries to solve this issue such as:</p>
+
+<ol>
+  <li><a href="https://spring.io/guides/gs/messaging-jms">Spring JMS library</a>.
+    <ul>
+      <li>This requires to refactor big part of the WSO2 MS&amp;MP’s source code.</li>
+    </ul>
+  </li>
+  <li><a href="http://blog.pivotal.io/pivotal/products/messaging-with-jms-and-rabbitmq">Spring JMS and RabbitMQ’s JMS connector</a>.
+    <ul>
+      <li>This avoids to refactor part of the source code, but the RabbitMQ’s JMS connector (<a href="https://www.vmware.com/support/vfabric-rabbitmq/doc/vfabric-rabbitmq-jms-client-compatibility.html">vFabric RabbitMQ’s JMS</a>) is not available for my purposes because It is commercial.</li>
+    </ul>
+  </li>
+  <li><a href="http://www.openamq.org">OpenAMQ JMS client library</a>.
+    <ul>
+      <li>This library implements AMQP and JMS, but <a href="https://github.com/pieterh/openamq-jms/tree/master">sadly is not available any more in GitHub</a> and <a href="http://www.openamq.org/forum/t-7591/openamq-jms-released">OpenAMQ web</a>. After digging in internet I think <a href="https://github.com/imatix/openamq-jms">found the new GitHub repository</a>. The source code has more than 6 years without being updated.</li>
+    </ul>
+  </li>
+  <li><a href="http://qpid.apache.org/download.html">Apache Qpid client library</a>.
+    <ul>
+      <li>Was a great surprise found Qpid library, great documentation and great support in their forums. Apache Qpid has 2 client libraries, the firt one (<code class="highlighter-rouge">apache-qpid-jms-0.1.0-bin.tar.gz</code>) gives <code class="highlighter-rouge">JMS 1.1</code> and <code class="highlighter-rouge">AMQP 1.0</code> support and the second one (<code class="highlighter-rouge">qpid-client-0.32-bin.tar.gz</code>) gives support to <code class="highlighter-rouge">JMS 1.1</code> and AMQP <code class="highlighter-rouge">0-10</code>, <code class="highlighter-rouge">0-9-1</code>, <code class="highlighter-rouge">0-9</code>, and <code class="highlighter-rouge">0-8</code>.</li>
+    </ul>
+  </li>
+</ol>
+
+<p>At the end, I used the <code class="highlighter-rouge">Apache Qpid</code> client library for its compatibility with <code class="highlighter-rouge">JMS 1.1</code> and <code class="highlighter-rouge">AMQP 0-9-1</code>, this is very important because <code class="highlighter-rouge">WSO2 ESB MS&amp;MP</code> follow the JMS and this solves the compatibility with <code class="highlighter-rouge">RabbitMQ</code>.</p>
+
+<p><strong>II.3. Understanding how to work Apache Qpid library with RabbitMQ</strong></p>
+
+<p>The idea is to create a simple sender(JMS publisher) and receiver(JMS consumer) client using Apache Qpid library for a RabbitMQ’s queue (AMQP). After the great support in the <a href="http://mail-archives.apache.org/mod_mbox/qpid-users/">Apache Qpid’s forum</a>, the conclusions were:</p>
+
+<ol>
+  <li>This sample works if sender(JMS publisher) and receiver(JMS consumer) share the same connection with RabbitMQ but using different URI string definitions. Check below my JNDI configuration file.</li>
+  <li>JMS Publisher and Consumer should declare the server, virtual host, queue, exchange and routing key following this definition. Why?. After of several definitions, this combination worked !!. Remember, RabbitMQ adds <code class="highlighter-rouge">/</code> if your Virtual Host is “empty”, for this reason I define my Virtual Host as <code class="highlighter-rouge">/</code> or <code class="highlighter-rouge">/my_virtual_host</code>.</li>
+</ol>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java.naming.factory.initial = org.apache.qpid.jndi.PropertiesFileInitialContextFactory  
+# RabbitMQ v3.4.4  
+connectionfactory.myRabbitMQConnectionFactory1 = amqp://usr_chk:CHANGE_ME@clientid/CHAKRAY_POC?brokerlist='tcp://your.rabbitmq.host.name:5672' destination.myJndiDestQueuePublisher1 = BURL:direct://chk.direct//?routingkey='rk.hello_1'  
+destination.myJndiDestQueueConsumer1 = BURL:direct://chk.direct/rk.hello_1/q.hello_1  
+</code></pre></div></div>
+
+<p>Now If runs this sample JMS client, you should see a message created in RabbitMQ and after 10 seconds this message will be consumed.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>X:\@chilcano\\_workspace\wso2esb-rabbitmq-message-store&gt;mvn exec:java -Dexec.mainClass="com.chakray.chilcano.wso2.rabbitmq.sample.HelloRabbitMQ"  
+
+[INFO] Scanning for projects...  
+[INFO]  
+[INFO] ------------------------------------------------------------------------  
+[INFO] Building wso2esb-rabbitmq-msmp 0.1  
+[INFO] ------------------------------------------------------------------------  
+[INFO]  
+[INFO] --- exec-maven-plugin:1.4.0:java (default-cli) @ wso2esb-rabbitmq-msmp ---  
+SLF4J: The requested version 1.5.6 by your slf4j binding is not compatible with [1.6]  
+SLF4J: See http://www.slf4j.org/codes.html#version_mismatch for further details.  
+log4j:WARN No appenders could be found for logger (org.apache.qpid.jndi.PropertiesFileInitialContextFactory).  
+log4j:WARN Please initialize the log4j system properly.  
+Hello RabbitMQ 3.4.4 !!  
+
+[INFO] ------------------------------------------------------------------------  
+[INFO] BUILD SUCCESS  
+[INFO] ------------------------------------------------------------------------  
+[INFO] Total time: 21.290 s  
+[INFO] Finished at: 2015-07-05T16:56:31+01:00  
+[INFO] Final Memory: 16M/177M  
+[INFO] ------------------------------------------------------------------------  
+</code></pre></div></div>
+
+<p><a href="/assets/blog20150430_wso2esb_rabbitmq_msmp_impl/wso2esb-rabbitmq-publish-consume-sample-message.png"><img src="/assets/blog20150430_wso2esb_rabbitmq_msmp_impl/wso2esb-rabbitmq-publish-consume-sample-message.png" alt="" /></a><em>Publishing and consuming message to/from RabbitMQ from a JMS client</em></p>
+
+<p><strong>II.4. First contact with the current WSO2 ESB MS&amp;MP implementation source code</strong></p>
+
+<p>We will use the current source code of the MS&amp;MP for WSO2 ESB 4.8.1. This MS&amp;MP uses JMS and works with JMS MEssage Brokers (ActiveMQ, Qpid, etc.) You can review/download from here <a href="https://svn.wso2.org/repos/wso2/carbon/platform/branches/turing/dependencies/synapse/2.1.2-wso2v6">https://svn.wso2.org/repos/wso2/carbon/platform/branches/turing/dependencies/synapse/2.1.2-wso2v6</a>. I have cloned the current sourcecode of the <code class="highlighter-rouge">JMS MessageStore&amp;MessageProcessor</code> implementation, the java classes cloned are:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>synapse/2.1.2-wso2v6/modules/core/src/main/java/org/apache/synapse/message/store/impl/jms/JmsStore.java  
+synapse/2.1.2-wso2v6/modules/core/src/main/java/org/apache/synapse/message/store/impl/jms/JmsProducer.java  
+synapse/2.1.2-wso2v6/modules/core/src/main/java/org/apache/synapse/message/store/impl/jms/JmsConsumer.java  
+</code></pre></div></div>
+
+<p><strong>II.5. The new WSO2 ESB MS&amp;MP implementation for RabbitMQ</strong></p>
+
+<p>After of download the Apache Qpid library, I used the above sample source code to publish and consume a messages to/from RabbitMQ. This exercise Was necessary to do for a simple reason, because similar changes on the sample will be applied again in the new implementation of WSO2 ESB MS&amp;MP for RabbitMQ. Was necessary to modify just one class (org.apache.synapse.message.store.impl.jms.JmsStore) and at the end, to do easily, I added a Publisher and Consumer instead of using only a Publisher in the new Message Store. I have uploaded my implementation in GitHub, you can use from here <a href="https://github.com/Chilcano/wso2esb-rabbitmq-message-store">https://github.com/Chilcano/wso2esb-rabbitmq-message-store</a>. Remember, this implementation is valid for:</p>
+
+<ul>
+  <li>WSO2 ESB 4.8.1</li>
+  <li>RabbitMQ 3.4.4</li>
+  <li>Java 1.7.0_75 / OpenJDK Runtime Environment (rhel-2.5.4.0.el6_6-x86_64 u75-b13)</li>
+  <li>All stuff are installed on CentOS 6.x</li>
+</ul>
+
+<p><strong>** Disclaimer: This implementation is not suitable for Production. This is just a PoC. **</strong></p>
+
+<p>I have created a Synapse MessageStore and Synapse API, they are the best way to test this MS&amp;MP implementation. Obviously you need a RabbitMQ configured, do not worry, I have included a json file with the queue, routing keys and exchanges definition required to run this code(<a href="https://gist.github.com/4b51ef6b4421328ccc9f">https://gist.github.com/4b51ef6b4421328ccc9f</a>)</p>
+
+<h2 id="iii-todo">III. ToDo</h2>
+
+<p>Yes, there are somethings to be improved.</p>
+
+<ul>
+  <li>This code needs be reviewed. This is not suitable to be used in Production.</li>
+  <li>Is very imporant to implement stress testing and load testing.</li>
+  <li>Documentation.</li>
+  <li>The messages stored in RabbitMQ via WSO2 ESB MessageStore mediator will be encoded in “application/java-object-stream”.</li>
+  <li>User/password used to connect to RabbitMQ should be kept in safe place. Here, WSO2 SecureVault is the perfect tool.</li>
+</ul>
+
+<h2 id="iv-conclusions">IV. Conclusions</h2>
+
+<ul>
+  <li>The Apache Qpid project provides, IMHO, of a good, robust and open source Message Broker, where is possible implements the different integration patterns based messaging, also, Apache Qpid compatible with JMS and AMQP standard, everything in a lightweight bundle and easy to install it.</li>
+  <li>Also, The Apache Qpid project provide of mature client libraries for JMS and different versions of AMQP.</li>
+  <li>The MessageStore &amp; MessageProcessor approach is the best way to integrate WSO2 ESB and any Message Broker because with this is possible to implement different integration patterns, suitable for reliable and resilient Critical Messaging Systems.</li>
+</ul>
+
+  </div><div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://holisticsecurity.io/2015/07/14/wso2-esb-messagestore-messageprocessor-rabbitmq/';
+      this.page.identifier = 'https://holisticsecurity.io/2015/07/14/wso2-esb-messagestore-messageprocessor-rabbitmq/';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://holosec.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript><a class="u-url" href="/2015/07/14/wso2-esb-messagestore-messageprocessor-rabbitmq/" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading"><img src="/assets/img/logo-holosec.png" width="40" /> Holistic Security</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Holistic Security</li><li><a class="u-email" href="mailto:blog@holisticsecurity.io">blog@holisticsecurity.io</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.linkedin.com/in/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.twitter.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">Chilcano</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Systems Thinking, Holism, Trust, Security &amp; Usability.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

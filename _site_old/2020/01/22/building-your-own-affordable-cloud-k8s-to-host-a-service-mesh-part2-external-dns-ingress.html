@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Building your own affordable K8s to host a Service Mesh - Part 2: External DNS and Ingress | Holistic Security</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Building your own affordable K8s to host a Service Mesh - Part 2: External DNS and Ingress" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="In order to get an affordable Kubernetes, every part we’re going to use should be affordable too, and ones of the expensive and tricky things are the AWS Elastic Load Balancing (ELB) and the AWS Route 53 (DNS). Fortunately, Kubernetes SIGs are working to address this gap with the Kubernetes ExternalDNS. But what is the problem? Apart of it is expensive, the problem is every time I deploy a Service in Kubernetes I have to update and add a new DNS entry in the Cloud Provider’s DNS manually. Yes, of course, the process can be automated, but the idea is doing it during the provisioning time. In other words, every developer can publish theirs services adding the DNS name as annotation for that services can be called over Internet. Yes, Kubernetes brings by default a DNS but this is an internal one and it is only to work resolving DNS names over the Kubernetes Network, not for internet facing services. The Solution The Kubernetes ExternalDNS will run a program in our affordable K8s which it will synchronize exposed Kubernetes Services and Ingresses with the Cloud Provider’s DNS Service, in this case with AWS Route 53. Below you can view a high level diagram and current status of my Affordable Kubernetes Data Plane, I recommend look at first post about it." />
+<meta property="og:description" content="In order to get an affordable Kubernetes, every part we’re going to use should be affordable too, and ones of the expensive and tricky things are the AWS Elastic Load Balancing (ELB) and the AWS Route 53 (DNS). Fortunately, Kubernetes SIGs are working to address this gap with the Kubernetes ExternalDNS. But what is the problem? Apart of it is expensive, the problem is every time I deploy a Service in Kubernetes I have to update and add a new DNS entry in the Cloud Provider’s DNS manually. Yes, of course, the process can be automated, but the idea is doing it during the provisioning time. In other words, every developer can publish theirs services adding the DNS name as annotation for that services can be called over Internet. Yes, Kubernetes brings by default a DNS but this is an internal one and it is only to work resolving DNS names over the Kubernetes Network, not for internet facing services. The Solution The Kubernetes ExternalDNS will run a program in our affordable K8s which it will synchronize exposed Kubernetes Services and Ingresses with the Cloud Provider’s DNS Service, in this case with AWS Route 53. Below you can view a high level diagram and current status of my Affordable Kubernetes Data Plane, I recommend look at first post about it." />
+<link rel="canonical" href="https://holisticsecurity.io/2020/01/22/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-part2-external-dns-ingress" />
+<meta property="og:url" content="https://holisticsecurity.io/2020/01/22/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-part2-external-dns-ingress" />
+<meta property="og:site_name" content="Holistic Security" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-01-22T10:00:00+01:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://holisticsecurity.io/2020/01/22/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-part2-external-dns-ingress"},"url":"https://holisticsecurity.io/2020/01/22/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-part2-external-dns-ingress","headline":"Building your own affordable K8s to host a Service Mesh - Part 2: External DNS and Ingress","dateModified":"2020-01-22T10:00:00+01:00","datePublished":"2020-01-22T10:00:00+01:00","description":"In order to get an affordable Kubernetes, every part we’re going to use should be affordable too, and ones of the expensive and tricky things are the AWS Elastic Load Balancing (ELB) and the AWS Route 53 (DNS). Fortunately, Kubernetes SIGs are working to address this gap with the Kubernetes ExternalDNS. But what is the problem? Apart of it is expensive, the problem is every time I deploy a Service in Kubernetes I have to update and add a new DNS entry in the Cloud Provider’s DNS manually. Yes, of course, the process can be automated, but the idea is doing it during the provisioning time. In other words, every developer can publish theirs services adding the DNS name as annotation for that services can be called over Internet. Yes, Kubernetes brings by default a DNS but this is an internal one and it is only to work resolving DNS names over the Kubernetes Network, not for internet facing services. The Solution The Kubernetes ExternalDNS will run a program in our affordable K8s which it will synchronize exposed Kubernetes Services and Ingresses with the Cloud Provider’s DNS Service, in this case with AWS Route 53. Below you can view a high level diagram and current status of my Affordable Kubernetes Data Plane, I recommend look at first post about it.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://holisticsecurity.io/feed.xml" title="Holistic Security" /><script>
+if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-156433649-1', 'auto');
+  ga('send', 'pageview');
+}
+</script>
+  
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/"><img src="/assets/img/logo-holosec.png" width="100" /> Holistic Security</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/">Home</a><a class="page-link" href="/blog/">Blog</a><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Building your own affordable K8s to host a Service Mesh - Part 2: External DNS and Ingress</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2020-01-22T10:00:00+01:00" itemprop="datePublished">Jan 22, 2020 
+      </time>&sim; CLOUD · APAAS · SERVICE MESH
+      &sim; AWS · DOCKER · KUBERNETES · DATA PLANE · MICROSERVICE · EXTERNAL DNS · INGRESS · NGINX
+    </p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>In order to get an affordable Kubernetes, every part we’re going to use should be affordable too, and ones of the expensive and tricky things are the <a href="https://aws.amazon.com/elasticloadbalancing" target="_blank">AWS Elastic Load Balancing (ELB)</a> and the <a href="https://aws.amazon.com/route53" target="_blank">AWS Route 53 (DNS)</a>. Fortunately, Kubernetes SIGs are working to address this gap with the <a href="https://github.com/kubernetes-sigs/external-dns" target="_blank">Kubernetes ExternalDNS</a>.</p>
+
+<p><strong>But what is the problem?</strong></p>
+
+<p>Apart of it is expensive, the problem is every time I deploy a <code class="highlighter-rouge">Service</code> in Kubernetes I have to update and add a new DNS entry in the Cloud Provider’s DNS manually. Yes, of course, the process can be automated, but the idea is doing it during the provisioning time. In other words, every developer can publish theirs services adding the DNS name as annotation for that services can be called over Internet.
+Yes, <a href="https://github.com/kubernetes/dns" target="_blank">Kubernetes brings by default a DNS</a> but this is an internal one and it is only to work resolving DNS names over the Kubernetes Network, not for internet facing services.</p>
+
+<p><strong>The Solution</strong></p>
+
+<p>The Kubernetes ExternalDNS will run a program in our affordable K8s which it will synchronize exposed Kubernetes Services and Ingresses with the Cloud Provider’s DNS Service, in this case with AWS Route 53. Below you can view a high level diagram and current status of my <a href="http://holisticsecurity.io/2020/01/16/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-data-plane" target="_blank">Affordable Kubernetes Data Plane, I recommend look at first post about it</a>.</p>
+
+<p><a href="/assets/img/20200122-service-mesh-01-affordablek8s-aws-arch.png" target="_blank"><img src="/assets/img/20200122-service-mesh-01-affordablek8s-aws-arch.png" alt="Service Mesh hosted using AWS Spot Instances" title="Service Mesh using AWS Spot Instances" /></a></p>
+
+<!-- more -->
+
+<p>Then, let’s do it.</p>
+
+<h2 id="steps">Steps</h2>
+
+<h3 id="1-create-a-hosted-zone-in-aws-route-53">1. Create a Hosted Zone in AWS Route 53</h3>
+
+<p>I’m going to register the subdomain <code class="highlighter-rouge">cloud.holisticsecurity.io</code> of existing Root domain name <code class="highlighter-rouge">holisticsecurity.io</code> into AWS Route 53. I’ll follow the below AWS Route 53 explanation.</p>
+
+<ul>
+  <li><a href="https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/creating-migrating.html" target="_blank">Using Amazon Route 53 as the DNS Service for Subdomains Without Migrating the Parent Domain</a></li>
+</ul>
+
+<p>You can create subdomain records using either the Amazon Route 53 console or the Route 53 API. Since I have already <code class="highlighter-rouge">AWS CLI</code> configured in my PC, then let’s use it.</p>
+
+<p><strong>1) Create a Hosted Zone in AWS 53 for the Subdomain</strong></p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Create a DNS zone which will contain the managed DNS records.</span>
+<span class="nv">$ </span>aws route53 create-hosted-zone <span class="nt">--name</span> <span class="s2">"cloud.holisticsecurity.io."</span> <span class="nt">--caller-reference</span> <span class="s2">"cloud-holosec-io-</span><span class="si">$(</span><span class="nb">date</span> +%s<span class="si">)</span><span class="s2">"</span> <span class="nt">--hosted-zone-config</span> <span class="s2">"Comment='HostedZone for subdomain',PrivateZone=false"</span>
+
+<span class="c"># Get the Hosted Zone ID (HZ_ID) of the hosted zone I just created, which will serve as the value for my-hostedzone-identifier.</span>
+<span class="nv">$ </span><span class="nb">export </span><span class="nv">HZ_ID</span><span class="o">=</span><span class="si">$(</span>aws route53 list-hosted-zones-by-name <span class="nt">--output</span> json <span class="nt">--dns-name</span> <span class="s2">"cloud.holisticsecurity.io."</span> | jq <span class="nt">-r</span> <span class="s1">'.HostedZones[0].Id'</span><span class="si">)</span>
+
+<span class="c"># Make a note of the nameservers that were assigned to my new zone.</span>
+<span class="nv">$ </span>aws route53 list-resource-record-sets <span class="nt">--output</span> json <span class="nt">--hosted-zone-id</span> <span class="s2">"</span><span class="k">${</span><span class="nv">HZ_ID</span><span class="k">}</span><span class="s2">"</span> <span class="nt">--query</span> <span class="s2">"ResourceRecordSets[?Type == 'NS']"</span> | jq <span class="nt">-r</span> <span class="s1">'.[0].ResourceRecords[].Value'</span>
+ns-1954.awsdns-52.co.uk.
+ns-157.awsdns-19.com.
+ns-1053.awsdns-03.org.
+ns-789.awsdns-34.net.
+</code></pre></div></div>
+
+<p><strong>2) Add <code class="highlighter-rouge">Name Server Records</code> for the specified Subdomain in the DNS Service Provider Console</strong></p>
+
+<p>After changes to Amazon Route 53 records have propagated, the next step is to update the DNS service for the parent domain by adding <code class="highlighter-rouge">NS</code> type records for the specified subdomain. This is known as delegating responsibility for the subdomain to Route 53.</p>
+
+<p>I will need the above four nameserver that I got querying with <code class="highlighter-rouge">AWSCLI</code>. Note that those nameservers are for my subdomain, likely you got others.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ns-1954.awsdns-52.co.uk.
+ns-157.awsdns-19.com.
+ns-1053.awsdns-03.org.
+ns-789.awsdns-34.net.
+</code></pre></div></div>
+<p>Finally, for my subdomain <code class="highlighter-rouge">cloud.holisticsecurity.io</code>, you should have as shown below:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[...]
+cloud 1800 IN NS ns-1053.awsdns-03.org.
+cloud 1800 IN NS ns-157.awsdns-19.com.
+cloud 1800 IN NS ns-1954.awsdns-52.co.uk.
+cloud 1800 IN NS ns-789.awsdns-34.net.
+[...]
+</code></pre></div></div>
+
+<p>Ah, also you should wait some minutes or hours to propagate these changes. That depends on your DNS Service Provider.</p>
+
+<h3 id="2-provision-of-kubernetes-cluster-with-externaldns-through-terraform">2. Provision of Kubernetes Cluster with ExternalDNS through Terraform</h3>
+
+<p>If you have read the first post about how to create an affordable Kubernetes Data Plane, then you will know that I used Terraform to provision it. I’m using the <a href="https://github.com/cablespaghetti/kubeadm-aws" target="_blank">Really cheap Kubernetes cluster on AWS with kubeadm</a> Guide’s <a href="https://cablespaghetti.github.io" target="_blank">Sam Weston</a> which already uses Kubernetes ExternalDNS, then I’m going to re-apply the Terraform scripts activating the installation of ExternalDNS.</p>
+
+<p><strong>1) Create a fresh affordable Kubernetes Cluster</strong></p>
+
+<ol>
+  <li>
+    <p>Clone the Affordable K8s Cluster Github repo</p>
+
+    <blockquote>
+      <p>If you want a cheap K8s Infrastructure on AWS, I recommend to clone this GitHub repo I’ve updated for you.</p>
+
+      <p><a href="https://github.com/chilcano/kubeadm-aws/tree/0.2.1-chilcano" target="_blank">https://github.com/chilcano/kubeadm-aws/tree/0.2.1-chilcano</a></p>
+
+    </blockquote>
+
+    <p>Once cloned, first of all run <code class="highlighter-rouge">terraform destroy</code> to remove all AWS resources provisioned previously. TThat will avoid increasing your bill.
+After cleaning up, reprovision a fresh Kubernetes Cluster.</p>
+
+    <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>terraform plan <span class="se">\</span>
+  <span class="nt">-var</span> cluster-name<span class="o">=</span><span class="s2">"cheapk8s"</span> <span class="se">\</span>
+  <span class="nt">-var</span> k8s-ssh-key<span class="o">=</span><span class="s2">"ssh-key-for-us-east-1"</span> <span class="se">\</span>
+  <span class="nt">-var</span> admin-cidr-blocks<span class="o">=</span><span class="s2">"83.50.9.220/32"</span> <span class="se">\</span>
+  <span class="nt">-var</span> <span class="nv">region</span><span class="o">=</span><span class="s2">"us-east-1"</span> <span class="se">\</span>
+  <span class="nt">-var</span> kubernetes-version<span class="o">=</span><span class="s2">"1.14.3"</span> <span class="se">\</span>
+  <span class="nt">-var</span> external-dns-enabled<span class="o">=</span><span class="s2">"1"</span> <span class="se">\</span>
+  <span class="nt">-var</span> nginx-ingress-enabled<span class="o">=</span><span class="s2">"1"</span> <span class="se">\</span>
+  <span class="nt">-var</span> nginx-ingress-domain<span class="o">=</span><span class="s2">"ingress-nginx.cloud.holisticsecurity.io"</span> 
+   
+<span class="nv">$ </span>terraform apply <span class="se">\</span>
+  <span class="nt">-var</span> cluster-name<span class="o">=</span><span class="s2">"cheapk8s"</span> <span class="se">\</span>
+  <span class="nt">-var</span> k8s-ssh-key<span class="o">=</span><span class="s2">"ssh-key-for-us-east-1"</span> <span class="se">\</span>
+  <span class="nt">-var</span> admin-cidr-blocks<span class="o">=</span><span class="s2">"83.50.9.220/32"</span> <span class="se">\</span>
+  <span class="nt">-var</span> <span class="nv">region</span><span class="o">=</span><span class="s2">"us-east-1"</span> <span class="se">\</span>
+  <span class="nt">-var</span> kubernetes-version<span class="o">=</span><span class="s2">"1.14.3"</span> <span class="se">\</span>
+  <span class="nt">-var</span> external-dns-enabled<span class="o">=</span><span class="s2">"1"</span> <span class="se">\</span>
+  <span class="nt">-var</span> nginx-ingress-enabled<span class="o">=</span><span class="s2">"1"</span> <span class="se">\</span>
+  <span class="nt">-var</span> nginx-ingress-domain<span class="o">=</span><span class="s2">"ingress-nginx.cloud.holisticsecurity.io"</span> 
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Clean up unwanted Name Server Records under the AWS Route 53 Hosted Zone for the specified Subdomain.</p>
+
+    <p>If you have been playing with AWS Route 53 Hosted Zone for the specified Subdomain (<code class="highlighter-rouge">cloud.holisticsecurity.io</code>), it’s likely you have added records and require removing them before creating fresh records. Then, below I explain you how to do:</p>
+
+    <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># A fresh AWS Route 53 Hosted Zone has 2 records: Record Type NS and Record Type SOA.</span>
+<span class="nv">$ </span><span class="nb">export </span><span class="nv">MY_SUBDOMAIN</span><span class="o">=</span><span class="s2">"cloud.holisticsecurity.io"</span>
+<span class="nv">$ </span><span class="nb">export </span><span class="nv">HZ_ID</span><span class="o">=</span><span class="si">$(</span>aws route53 list-hosted-zones-by-name <span class="nt">--dns-name</span> <span class="s2">"</span><span class="k">${</span><span class="nv">MY_SUBDOMAIN</span><span class="k">}</span><span class="s2">."</span> | jq <span class="nt">-r</span> <span class="s1">'.HostedZones[0].Id'</span><span class="si">)</span>
+<span class="nv">$ </span>aws route53 list-resource-record-sets <span class="nt">--hosted-zone-id</span> <span class="nv">$HZ_ID</span> <span class="nt">--query</span> <span class="s2">"ResourceRecordSets[?Name == '</span><span class="k">${</span><span class="nv">MY_SUBDOMAIN</span><span class="k">}</span><span class="s2">.'].{Name:Name,Type:Type}"</span> | jq <span class="nt">-c</span> <span class="s1">'.[]'</span>
+<span class="o">{</span><span class="s2">"Name"</span>:<span class="s2">"cloud.holisticsecurity.io."</span>,<span class="s2">"Type"</span>:<span class="s2">"NS"</span><span class="o">}</span>
+<span class="o">{</span><span class="s2">"Name"</span>:<span class="s2">"cloud.holisticsecurity.io."</span>,<span class="s2">"Type"</span>:<span class="s2">"SOA"</span><span class="o">}</span>
+   
+<span class="c"># I should remove those 10 records (of type A, TXT and SRV) </span>
+<span class="nv">$ </span>aws route53 list-resource-record-sets <span class="nt">--hosted-zone-id</span> <span class="nv">$HZ_ID</span> <span class="nt">--query</span> <span class="s2">"ResourceRecordSets[?Name != '</span><span class="k">${</span><span class="nv">MY_SUBDOMAIN</span><span class="k">}</span><span class="s2">.'].{Name:Name,Type:Type}"</span> | jq <span class="nt">-c</span> <span class="s1">'.[]'</span>
+<span class="o">{</span><span class="s2">"Name"</span>:<span class="s2">"hello-svc-np.cloud.holisticsecurity.io."</span>,<span class="s2">"Type"</span>:<span class="s2">"A"</span><span class="o">}</span>
+<span class="o">{</span><span class="s2">"Name"</span>:<span class="s2">"hello-svc-np.cloud.holisticsecurity.io."</span>,<span class="s2">"Type"</span>:<span class="s2">"TXT"</span><span class="o">}</span>
+<span class="o">{</span><span class="s2">"Name"</span>:<span class="s2">"_http._tcp.hello-svc-np.cloud.holisticsecurity.io."</span>,<span class="s2">"Type"</span>:<span class="s2">"SRV"</span><span class="o">}</span>
+<span class="o">{</span><span class="s2">"Name"</span>:<span class="s2">"_http._tcp.hello-svc-np.cloud.holisticsecurity.io."</span>,<span class="s2">"Type"</span>:<span class="s2">"TXT"</span><span class="o">}</span>
+<span class="o">{</span><span class="s2">"Name"</span>:<span class="s2">"ingress-nginx.cloud.holisticsecurity.io."</span>,<span class="s2">"Type"</span>:<span class="s2">"A"</span><span class="o">}</span>
+<span class="o">{</span><span class="s2">"Name"</span>:<span class="s2">"ingress-nginx.cloud.holisticsecurity.io."</span>,<span class="s2">"Type"</span>:<span class="s2">"TXT"</span><span class="o">}</span>
+<span class="o">{</span><span class="s2">"Name"</span>:<span class="s2">"_http._tcp.ingress-nginx.cloud.holisticsecurity.io."</span>,<span class="s2">"Type"</span>:<span class="s2">"SRV"</span><span class="o">}</span>
+<span class="o">{</span><span class="s2">"Name"</span>:<span class="s2">"_http._tcp.ingress-nginx.cloud.holisticsecurity.io."</span>,<span class="s2">"Type"</span>:<span class="s2">"TXT"</span><span class="o">}</span>
+<span class="o">{</span><span class="s2">"Name"</span>:<span class="s2">"_https._tcp.ingress-nginx.cloud.holisticsecurity.io."</span>,<span class="s2">"Type"</span>:<span class="s2">"SRV"</span><span class="o">}</span>
+<span class="o">{</span><span class="s2">"Name"</span>:<span class="s2">"_https._tcp.ingress-nginx.cloud.holisticsecurity.io."</span>,<span class="s2">"Type"</span>:<span class="s2">"TXT"</span><span class="o">}</span>
+   
+<span class="c"># Removing those unwanted records.</span>
+<span class="nv">$ </span>aws route53 list-resource-record-sets <span class="nt">--hosted-zone-id</span> <span class="nv">$HZ_ID</span> <span class="nt">--query</span> <span class="s2">"ResourceRecordSets[?Name != '</span><span class="k">${</span><span class="nv">MY_SUBDOMAIN</span><span class="k">}</span><span class="s2">.']"</span> | jq <span class="nt">-c</span> <span class="s1">'.[]'</span> |
+  <span class="k">while </span><span class="nb">read</span> <span class="nt">-r</span> RRS<span class="p">;</span> <span class="k">do
+    </span><span class="nb">read</span> <span class="nt">-r</span> name <span class="nb">type</span> <span class="o">&lt;&lt;&lt;</span> <span class="si">$(</span>jq <span class="nt">-jr</span> <span class="s1">'.Name, " ", .Type'</span> <span class="o">&lt;&lt;&lt;</span> <span class="s2">"</span><span class="nv">$RRS</span><span class="s2">"</span><span class="si">)</span> 
+    <span class="nv">CHG_ID</span><span class="o">=</span><span class="si">$(</span>aws route53 change-resource-record-sets <span class="nt">--hosted-zone-id</span> <span class="nv">$HZ_ID</span> <span class="nt">--change-batch</span> <span class="s1">'{"Changes":[{"Action":"DELETE","ResourceRecordSet": '</span><span class="s2">"</span><span class="nv">$RRS</span><span class="s2">"</span><span class="s1">' }]}'</span> <span class="nt">--output</span> text <span class="nt">--query</span> <span class="s1">'ChangeInfo.Id'</span><span class="si">)</span>
+    <span class="nb">echo</span> <span class="s2">" - DELETING: </span><span class="nv">$type</span><span class="s2"> </span><span class="nv">$name</span><span class="s2"> - CHANGE ID: </span><span class="nv">$CHG_ID</span><span class="s2">"</span>    
+  <span class="k">done</span>
+   
+ - DELETING: TXT ccc.cloud.holisticsecurity.io. - CHANGE ID: /change/CMCJ8CXRBIZ7M
+ - DELETING: SRV ddd.cloud.holisticsecurity.io. - CHANGE ID: /change/C2KU4TEHWEDV2Y
+</code></pre></div>    </div>
+
+    <p>Only if it is required, you can delete the AWS Hosted Zone in this way:</p>
+    <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>aws route53 delete-hosted-zone <span class="nt">--id</span> <span class="nv">$HZ_ID</span> <span class="nt">--output</span> text <span class="nt">--query</span> <span class="s1">'ChangeInfo.Id'</span>
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<p><strong>2) Verify ExternalDNS has synchronized the Ingress’ subdomain with AWS Route 53</strong></p>
+
+<p>The domain name that the Ingress’ subdomain will request is <code class="highlighter-rouge">ingress-nginx.cloud.holisticsecurity.io</code>, that domain name has been created during the Affordable K8s Cluster creation. Then, let’s check it.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">export </span><span class="nv">MY_SUBDOMAIN</span><span class="o">=</span><span class="s2">"cloud.holisticsecurity.io"</span>
+<span class="nv">$ </span><span class="nb">export </span><span class="nv">INGRESS_NS</span><span class="o">=</span><span class="s2">"ingress-nginx.</span><span class="k">${</span><span class="nv">MY_SUBDOMAIN</span><span class="k">}</span><span class="s2">"</span>
+
+<span class="c"># Get the Hosted Zone (HZ_ID) ID of the hosted zone I just created.</span>
+<span class="nv">$ </span><span class="nb">export </span><span class="nv">HZ_ID</span><span class="o">=</span><span class="si">$(</span>aws route53 list-hosted-zones-by-name <span class="nt">--dns-name</span> <span class="s2">"</span><span class="k">${</span><span class="nv">MY_SUBDOMAIN</span><span class="k">}</span><span class="s2">."</span> | jq <span class="nt">-r</span> <span class="s1">'.HostedZones[0].Id'</span><span class="si">)</span>
+
+<span class="c"># Get all nameservers that were assigned initially and recently synchronized by ExternalDNS to my new zone.</span>
+<span class="nv">$ </span>aws route53 list-resource-record-sets <span class="nt">--output</span> text <span class="nt">--hosted-zone-id</span> <span class="s2">"</span><span class="k">${</span><span class="nv">HZ_ID</span><span class="k">}</span><span class="s2">"</span> <span class="nt">--query</span> <span class="s2">"ResourceRecordSets[?Name == '</span><span class="k">${</span><span class="nv">INGRESS_NS</span><span class="k">}</span><span class="s2">.'].{Name:Name,Type:Type}"</span>
+
+ingress-nginx.cloud.holisticsecurity.io.	A
+ingress-nginx.cloud.holisticsecurity.io.	TXT
+</code></pre></div></div>
+
+<p>Or if you are of the old-school, you can ask to any of four AWS Route 53’s DNS server if the subdomain has been created and updated.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>dig +short @ns-1954.awsdns-52.co.uk. ingress-nginx.cloud.holisticsecurity.io.
+174.129.123.159
+54.159.75.179
+
+<span class="nv">$ </span>dig +short @ns-157.awsdns-19.com. ingress-nginx.cloud.holisticsecurity.io.
+174.129.123.159
+54.159.75.179
+
+<span class="nv">$ </span>dig +short @ns-1053.awsdns-03.org. ingress-nginx.cloud.holisticsecurity.io.
+174.129.123.159
+54.159.75.179
+
+<span class="nv">$ </span>dig +short @ns-789.awsdns-34.net. ingress-nginx.cloud.holisticsecurity.io.
+174.129.123.159
+54.159.75.179
+</code></pre></div></div>
+
+<p>Both above IP addresses are the <code class="highlighter-rouge">IPv4 Public IP</code> addresses assigned to Kubernetes Master Node and Kubernetes Worker Node. If I add a new Node to existing Kubernetes Cluster, the <code class="highlighter-rouge">NGINX Ingress Controller</code> will be installed in the new Node and its new <code class="highlighter-rouge">IPv4 Public IP</code> address will resolve to <code class="highlighter-rouge">ingress-nginx.cloud.holisticsecurity.io</code>, that is why the <code class="highlighter-rouge">NGINX Ingress Controller</code> was deployed into Kubernetes as a <a href="https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/" target="_blank"><code class="highlighter-rouge">DaemonSet</code></a>. Let’s to verify it.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Get SSH access to K8s master node</span>
+<span class="nv">$ </span>ssh ubuntu@<span class="si">$(</span>terraform output master_dns<span class="si">)</span> <span class="nt">-i</span> ~/Downloads/ssh-key-for-us-east-1.pem
+
+ubuntu@ip-10-0-100-4:~<span class="nv">$ </span>kubectl get daemonset <span class="nt">-n</span> ingress-nginx
+NAME                       DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
+nginx-ingress-controller   2         2         2       2            2           &lt;none&gt;          14h
+
+ubuntu@ip-10-0-100-4:~<span class="nv">$ </span>kubectl get pods <span class="nt">-n</span> ingress-nginx <span class="nt">-o</span> wide
+NAME                                    READY   STATUS    RESTARTS   AGE   IP            NODE                          NOMINATED NODE   READINESS GATES
+default-http-backend-5c9bb94849-pf5pj   1/1     Running   0          14h   10.244.1.3    ip-10-0-100-22.ec2.internal   &lt;none&gt;           &lt;none&gt;
+nginx-ingress-controller-bwhdp          1/1     Running   0          14h   10.0.100.22   ip-10-0-100-22.ec2.internal   &lt;none&gt;           &lt;none&gt;
+nginx-ingress-controller-q4bgh          1/1     Running   0          14h   10.0.100.4    ip-10-0-100-4.ec2.internal    &lt;none&gt;           &lt;none&gt;
+</code></pre></div></div>
+
+<p><strong>3) Verify ExternalDNS and NGINX Ingress work together (Health Check example)</strong></p>
+
+<p>Since the <code class="highlighter-rouge">CheapK8s</code> only exposes RESTful services over <code class="highlighter-rouge">80</code> and <code class="highlighter-rouge">443</code> ports, then to verify that I need to call the <code class="highlighter-rouge">Health Check</code> service of my <a href="https://github.com/chilcano/kubeadm-aws/blob/0.2.1-chilcano/manifests/nginx-ingress-mandatory.yaml" target="_blank">NGINX Ingress Controller</a> deployed through Terraform in previous step. This procedure also verify that the <code class="highlighter-rouge">NGINX Ingress Controller</code> has got a DNS name (subdomain <code class="highlighter-rouge">ingress-nginx.cloud.holisticsecurity.io</code>) from <code class="highlighter-rouge">ExternalDNS</code> successfully. This part has been configured in the file <a href="https://github.com/chilcano/kubeadm-aws/blob/0.2.1-chilcano/manifests/nginx-ingress-nodeport.yaml.tmpl" target="_blank"><code class="highlighter-rouge">manifests/nginx-ingress-nodeport.yaml.tmpl</code></a>.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>curl <span class="nt">-X</span> GET http://ingress-nginx.cloud.holisticsecurity.io/healthz <span class="nt">-v</span>
+
+Note: Unnecessary use of <span class="nt">-X</span> or <span class="nt">--request</span>, GET is already inferred.
+<span class="k">*</span>   Trying 174.129.123.159:80...
+<span class="k">*</span> TCP_NODELAY <span class="nb">set</span>
+<span class="k">*</span> Connected to ingress-nginx.cloud.holisticsecurity.io <span class="o">(</span>174.129.123.159<span class="o">)</span> port 80 <span class="o">(</span><span class="c">#0)</span>
+<span class="o">&gt;</span> GET /healthz HTTP/1.1
+<span class="o">&gt;</span> Host: ingress-nginx.cloud.holisticsecurity.io
+<span class="o">&gt;</span> User-Agent: curl/7.65.3
+<span class="o">&gt;</span> Accept: <span class="k">*</span>/<span class="k">*</span>
+<span class="o">&gt;</span> 
+<span class="k">*</span> Mark bundle as not supporting multiuse
+&lt; HTTP/1.1 200 OK
+&lt; Server: nginx/1.15.5
+&lt; Date: Tue, 21 Jan 2020 21:24:45 GMT
+&lt; Content-Type: text/html
+&lt; Content-Length: 0
+&lt; Connection: keep-alive
+&lt; 
+<span class="k">*</span> Connection <span class="c">#0 to host ingress-nginx.cloud.holisticsecurity.io left intact</span>
+</code></pre></div></div>
+
+<p><strong>4) Verify ExternalDNS and NGINX Ingress work together (Service example)</strong></p>
+
+<ol>
+  <li>
+    <p>Deploy Hello Microservice and check the deployment status</p>
+
+    <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Get SSH access to K8s master node</span>
+<span class="nv">$ </span>ssh ubuntu@<span class="si">$(</span>terraform output master_dns<span class="si">)</span> <span class="nt">-i</span> ~/Downloads/ssh-key-for-us-east-1.pem
+   
+<span class="c"># Deploy Hello microservices</span>
+ubuntu@ip-10-0-100-4:~<span class="nv">$ </span>kubectl apply <span class="nt">-f</span> https://raw.githubusercontent.com/chilcano/kubeadm-aws/0.2.1-chilcano/examples/hello-cheapk8s-app.yaml
+namespace/hello created
+serviceaccount/hello-sa created
+deployment.extensions/hello-v1 created
+deployment.extensions/hello-v2 created
+   
+<span class="c"># Create ClusterIP, LoadBalancer and NodePort Services for above Hello microservices</span>
+ubuntu@ip-10-0-100-4:~<span class="nv">$ </span>kubectl apply <span class="nt">-f</span> https://raw.githubusercontent.com/chilcano/kubeadm-aws/0.2.1-chilcano/examples/hello-cheapk8s-svc.yaml
+service/hello-svc-cip created
+service/hello-svc-lb created
+service/hello-svc-np created
+   
+<span class="c"># Create 2 Ingress Resources for above ClusterIP and NodePort Services</span>
+ubuntu@ip-10-0-100-4:~<span class="nv">$ </span>kubectl apply <span class="nt">-f</span> https://raw.githubusercontent.com/chilcano/kubeadm-aws/0.2.1-chilcano/examples/hello-cheapk8s-ingress.yaml
+ingress.extensions/hello-ingress-cip created
+ingress.extensions/hello-ingress-np created
+   
+<span class="c"># Get status</span>
+ubuntu@ip-10-0-100-4:~<span class="nv">$ </span>kubectl get pod,svc,ingress <span class="nt">-n</span> hello <span class="nt">-o</span> wide
+NAME                            READY   STATUS    RESTARTS   AGE   IP            NODE                          NOMINATED NODE   READINESS GATES
+pod/hello-v1-66fc9c7d98-7b4b5   1/1     Running   0          32m   10.244.1.16   ip-10-0-100-22.ec2.internal   &lt;none&gt;           &lt;none&gt;
+pod/hello-v1-66fc9c7d98-kb2kn   1/1     Running   0          32m   10.244.1.17   ip-10-0-100-22.ec2.internal   &lt;none&gt;           &lt;none&gt;
+pod/hello-v2-845749f774-fzg5f   1/1     Running   0          32m   10.244.1.18   ip-10-0-100-22.ec2.internal   &lt;none&gt;           &lt;none&gt;
+pod/hello-v2-845749f774-q9bk5   1/1     Running   0          31m   10.244.1.19   ip-10-0-100-22.ec2.internal   &lt;none&gt;           &lt;none&gt;
+   
+NAME                    TYPE           CLUSTER-IP      EXTERNAL-IP   PORT<span class="o">(</span>S<span class="o">)</span>          AGE   SELECTOR
+service/hello-svc-cip   ClusterIP      10.108.175.6    &lt;none&gt;        5080/TCP         22m   <span class="nv">app</span><span class="o">=</span>hello
+service/hello-svc-lb    LoadBalancer   10.102.10.180   &lt;pending&gt;     5080:32379/TCP   22m   <span class="nv">app</span><span class="o">=</span>hello
+service/hello-svc-np    NodePort       10.105.22.106   &lt;none&gt;        5080:31002/TCP   22m   <span class="nv">app</span><span class="o">=</span>hello
+   
+NAME                                   HOSTS                                     ADDRESS   PORTS   AGE
+ingress.extensions/hello-ingress-cip   ingress-nginx.cloud.holisticsecurity.io             80      17m
+ingress.extensions/hello-ingress-np    hello-svc-np.cloud.holisticsecurity.io              80      17m
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Understanding how works microservice exposition and how they should be called</p>
+
+    <p>Since the <code class="highlighter-rouge">ExternalDNS</code> and <code class="highlighter-rouge">NGINX Ingress Controller</code> have been configured in the <code class="highlighter-rouge">CheapK8s</code> Cluster, the only way to call the <a href="https://github.com/chilcano/kubeadm-aws/blob/0.2.1-chilcano/examples/hello-cheapk8s-app.yaml" target="_blank">Hello Microservices</a> is through their <a href="https://github.com/chilcano/kubeadm-aws/blob/0.2.1-chilcano/examples/hello-cheapk8s-ingress.yaml" target="_blank"><code class="highlighter-rouge">Ingress Resources</code></a> and their <a href="https://github.com/chilcano/kubeadm-aws/blob/0.2.1-chilcano/examples/hello-cheapk8s-svc.yaml" target="_blank"><code class="highlighter-rouge">Services</code></a>.</p>
+
+    <p>It is very important to understand how Kubernetes exposes our microservices. Next, I copy some concepts (Kubernetes’ primitives) and references to understand the whole operation.</p>
+
+    <blockquote>
+
+      <ul>
+        <li><code class="highlighter-rouge">ClusterIP</code>: Exposes the Service on a cluster-internal IP. Choosing this value makes the Service only reachable from within the cluster. This is the default <code class="highlighter-rouge">ServiceType</code>.</li>
+        <li><code class="highlighter-rouge">LoadBalancer</code>: Exposes the Service externally using a cloud provider’s load balancer. <code class="highlighter-rouge">NodePort</code> and <code class="highlighter-rouge">ClusterIP</code> Services, to which the external load balancer routes, are automatically created.</li>
+        <li><code class="highlighter-rouge">NodePort</code>: Exposes the Service on each Node’s IP at a static port (the <code class="highlighter-rouge">NodePort</code>). A <code class="highlighter-rouge">ClusterIP</code> Service, to which the <code class="highlighter-rouge">NodePort</code> Service routes, is automatically created. You’ll be able to contact the <code class="highlighter-rouge">NodePort</code> Service, from outside the cluster, by requesting <code class="highlighter-rouge">&lt;NodeIP&gt;:&lt;NodePort&gt;</code>.</li>
+      </ul>
+
+      <p>Info: <a href="https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types" target="_blank">Kubernetes - Publishing Services (ServiceTypes)</a></p>
+
+    </blockquote>
+
+    <p>And this is my favorite one.</p>
+    <blockquote>
+
+      <p><a href="https://blog.christianposta.com/microservices/the-hardest-part-of-microservices-calling-your-services" target="_blank">The Hardest Part of Microservices: Calling Your Services by Christian Posta, 2017/April/25</a></p>
+
+    </blockquote>
+  </li>
+  <li>
+    <p>Calling Hello Microservices</p>
+
+    <p>Calling through Services (ClusterIP, LoadBalancer and NodePort) from inside of Kubernetes Cluster. Although below I’m using <code class="highlighter-rouge">ClusterIP</code>, you can repeat similar process using the <code class="highlighter-rouge">LoadBalancer</code> and <code class="highlighter-rouge">NodePort</code>.</p>
+
+    <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>kubectl get svc/hello-svc-cip <span class="nt">-o</span> <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.spec.clusterIP}'</span>
+<span class="nv">$ </span>kubectl get svc/hello-svc-cip <span class="nt">-o</span> <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.spec.ports[0].port}'</span>
+<span class="nv">$ </span><span class="nb">export </span><span class="nv">HELLO_SVC_CIP</span><span class="o">=</span><span class="si">$(</span>kubectl get svc/hello-svc-cip <span class="nt">-n</span> hello <span class="nt">-o</span> <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.spec.clusterIP}'</span><span class="si">)</span>:<span class="si">$(</span>kubectl get svc/hello-svc-cip <span class="nt">-n</span> hello <span class="nt">-o</span> <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.spec.ports[0].port}'</span><span class="si">)</span>
+<span class="nv">$ </span><span class="nb">echo</span> <span class="nv">$HELLO_SVC_CIP</span>
+   
+<span class="nv">$ </span>curl http://<span class="k">${</span><span class="nv">HELLO_SVC_CIP</span><span class="k">}</span>/hello
+Hello version: v1, instance: hello-v1-5cb886df9d-k7rcq
+   
+<span class="nv">$ </span>curl http://<span class="k">${</span><span class="nv">HELLO_SVC_CIP</span><span class="k">}</span>/hello
+Hello version: v2, instance: hello-v2-6c7fbbb654-kq6sq
+   
+<span class="nv">$ </span>curl http://<span class="k">${</span><span class="nv">HELLO_SVC_CIP</span><span class="k">}</span>/hello
+Hello version: v1, instance: hello-v1-5cb886df9d-k7rcq
+   
+<span class="nv">$ </span>kubectl logs <span class="nt">-f</span> <span class="nt">-l</span> <span class="nv">app</span><span class="o">=</span>hello <span class="nt">-n</span> hello
+ <span class="k">*</span> Running on http://0.0.0.0:5000/ <span class="o">(</span>Press CTRL+C to quit<span class="o">)</span>
+ <span class="k">*</span> Running on http://0.0.0.0:5000/ <span class="o">(</span>Press CTRL+C to quit<span class="o">)</span>
+10.244.0.0 - - <span class="o">[</span>22/Jan/2020 11:20:45] <span class="s2">"GET /hello HTTP/1.1"</span> 200 -
+10.244.0.0 - - <span class="o">[</span>22/Jan/2020 11:22:27] <span class="s2">"GET /hello HTTP/1.1"</span> 200 -
+10.244.0.0 - - <span class="o">[</span>22/Jan/2020 11:22:33] <span class="s2">"GET /hello HTTP/1.1"</span> 200 -
+</code></pre></div>    </div>
+
+    <p>Calling from Internet through Kubernetes Ingress Controller and its Fully Qualified Domain Name (<code class="highlighter-rouge">FQDN</code>).</p>
+
+    <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>curl http://ingress-nginx.cloud.holisticsecurity.io/hello
+Hello version: v2, instance: hello-v2-845749f774-q9bk5
+   
+<span class="nv">$ </span>curl http://hello-svc-np.cloud.holisticsecurity.io/hello
+Hello version: v1, instance: hello-v1-66fc9c7d98-7b4b5
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h2 id="references">References</h2>
+
+<ol>
+  <li><a href="https://github.com/kubernetes-sigs/external-dns" target="_blank">Kubernetes SIGs ExternalDNS’s github repo</a></li>
+  <li><a href="https://www.youtube.com/watch?v=9HQ2XgL9YVI" target="_blank">The missing piece - Kubernetes ExternalDNS by Lachlan Evenson, 2017/Aug/09</a></li>
+  <li><a href="https://github.com/kubernetes/ingress-nginx" target="_blank">The NGINX Ingress Controller</a></li>
+  <li><a href="https://kubernetes.io/docs/concepts/services-networking/service/" target="_blank">Kubernetes concepts - Service</a></li>
+  <li><a href="https://kubernetes.io/docs/concepts/services-networking/ingress/" target="_blank">Kubernetes concepts - Ingress</a></li>
+  <li><a href="https://blog.christianposta.com/microservices/the-hardest-part-of-microservices-calling-your-services" target="_blank">The Hardest Part of Microservices: Calling Your Services by Christian Posta, 2017/April/25</a></li>
+</ol>
+
+<p>In the next blog post I’ll explain how to generate TLS Certificates for your Microservices.
+Stay tuned.</p>
+
+  </div><div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://holisticsecurity.io/2020/01/22/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-part2-external-dns-ingress';
+      this.page.identifier = 'https://holisticsecurity.io/2020/01/22/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-part2-external-dns-ingress';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://holosec.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript><a class="u-url" href="/2020/01/22/building-your-own-affordable-cloud-k8s-to-host-a-service-mesh-part2-external-dns-ingress" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading"><img src="/assets/img/logo-holosec.png" width="40" /> Holistic Security</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Holistic Security</li><li><a class="u-email" href="mailto:blog@holisticsecurity.io">blog@holisticsecurity.io</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.linkedin.com/in/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.twitter.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">Chilcano</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Systems Thinking, Holism, Trust, Security &amp; Usability.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

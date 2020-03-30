@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Web-SSO between a CAS-ified Java webapp and Liferay using CAS | Holistic Security</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Web-SSO between a CAS-ified Java webapp and Liferay using CAS" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="When working a Liferay Portal in Organizations with existing web applications, generally new web applications will need to be integrated in current Authentication and Web-SSO service. This document explains how to create new java web applications knowing that they will use the AuthN service and will Web-SSO with Liferay. Although, this document is for new java web applications, existing web applications (based in java, php,. net, ruby, …) can also use it as this document explains the most important steps to perform. This document can be taken as a set of best practices (including source code) when you want to integrate with CAS. Note: This document does not say how to do Single-Sign Out or logout, only Single-Sign On or login." />
+<meta property="og:description" content="When working a Liferay Portal in Organizations with existing web applications, generally new web applications will need to be integrated in current Authentication and Web-SSO service. This document explains how to create new java web applications knowing that they will use the AuthN service and will Web-SSO with Liferay. Although, this document is for new java web applications, existing web applications (based in java, php,. net, ruby, …) can also use it as this document explains the most important steps to perform. This document can be taken as a set of best practices (including source code) when you want to integrate with CAS. Note: This document does not say how to do Single-Sign Out or logout, only Single-Sign On or login." />
+<link rel="canonical" href="https://holisticsecurity.io/2011/07/29/sso-cas-ified-java-webapp-liferay/" />
+<meta property="og:url" content="https://holisticsecurity.io/2011/07/29/sso-cas-ified-java-webapp-liferay/" />
+<meta property="og:site_name" content="Holistic Security" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2011-07-29T00:12:48+02:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://holisticsecurity.io/2011/07/29/sso-cas-ified-java-webapp-liferay/"},"url":"https://holisticsecurity.io/2011/07/29/sso-cas-ified-java-webapp-liferay/","headline":"Web-SSO between a CAS-ified Java webapp and Liferay using CAS","dateModified":"2011-07-29T00:12:48+02:00","datePublished":"2011-07-29T00:12:48+02:00","description":"When working a Liferay Portal in Organizations with existing web applications, generally new web applications will need to be integrated in current Authentication and Web-SSO service. This document explains how to create new java web applications knowing that they will use the AuthN service and will Web-SSO with Liferay. Although, this document is for new java web applications, existing web applications (based in java, php,. net, ruby, …) can also use it as this document explains the most important steps to perform. This document can be taken as a set of best practices (including source code) when you want to integrate with CAS. Note: This document does not say how to do Single-Sign Out or logout, only Single-Sign On or login.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://holisticsecurity.io/feed.xml" title="Holistic Security" /><script>
+if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-156433649-1', 'auto');
+  ga('send', 'pageview');
+}
+</script>
+  
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/"><img src="/assets/img/logo-holosec.png" width="100" /> Holistic Security</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/">Home</a><a class="page-link" href="/blog/">Blog</a><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Web-SSO between a CAS-ified Java webapp and Liferay using CAS</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2011-07-29T00:12:48+02:00" itemprop="datePublished">Jul 29, 2011 
+      </time>&sim; PORTAL · SECURITY
+      &sim; CAS · LIFERAY · SSO
+    </p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>When working a Liferay Portal in Organizations with existing web applications, generally new web applications will need to be integrated in current Authentication and Web-SSO service.
+This document explains how to create new java web applications knowing that they will use the AuthN service and will Web-SSO with Liferay.
+Although, this document is for new java web applications, existing web applications (based in java, php,. net, ruby, …) can also use it as this document explains the most important steps to perform.<br />
+This document can be taken as a set of best practices (including source code) when you want to integrate with CAS.</p>
+
+<blockquote>
+  <p><strong>Note:</strong></p>
+  <ul>
+    <li>This document does not say how to do Single-Sign Out or logout, only Single-Sign On or login.</li>
+  </ul>
+</blockquote>
+
+<!-- more -->
+
+<h2 id="use-cases-when-cas-ifying-web-applications">Use cases when CAS-ifying web applications</h2>
+
+<h3 id="use-case-1-authentication">Use case #1: Authentication</h3>
+
+<p>[caption id=”” align=”alignnone” width=”487” caption=”Use case #1: Authentication”]<a href="http://dl.dropbox.com/u/2961879/blog20110728_sso_liferay_cas_ified_javawebapps/sso-liferay-casified-webapp_1usecaseauth.png"><img src="/assets/sso-liferay-casified-webapp_1usecaseauth.png" alt="Use case #1: Authentication" /></a>[/caption]</p>
+
+<h3 id="use-case-2-web-sso">Use case #2: Web-SSO</h3>
+
+<p>To perform Web-SSO, we will need 2 webapps, the first one is Liferay, and the second one is webappA. Both should be authenticated with CAS-server.<br />
+The main difference between authentication and web-sso processes is that CAS shares authenticated session through CAS Service Manager.</p>
+
+<h3 id="use-case-3-web-single-sign-off-or-single-log-out">Use case #3: Web Single Sign Off or Single Log Out</h3>
+
+<p>Single Sign Out or Single Log Out means that CAS-server contacts each webapp and notifies them that you have logged out. Then you should invalidate or delete all cookies stored in your web browser.<br />
+This protocol is implemented in Java CAS client library only.</p>
+
+<h3 id="use-case-4-logout">Use case #4: Logout</h3>
+
+<p>To perform a logout means (involves) to close authenticated session in CAS-server side. Afterwards, you will need to make sure that the cookie does not exist in your web browser.</p>
+
+<h2 id="process-of-installation-and-deployment-of-a-cas-ified-webapp">Process of installation and deployment of a CAS-ified webapp</h2>
+
+<p>When you install and deploy any web application in an environment where Web-SSO is enabled, you should to following steps.</p>
+
+<p>[caption id=”” align=”alignnone” width=”507” caption=”Task to do with/in CAS-ified webapp”]<a href="http://dl.dropbox.com/u/2961879/blog20110728_sso_liferay_cas_ified_javawebapps/sso-liferay-casified-webapp_2process.png"><img src="/assets/sso-liferay-casified-webapp_2process.png" alt="Task to do with/in CAS-ified webapp" /></a>[/caption]<br />
+Generally, the steps 1, 2 and 3 have already been made and it is only pending to how to configure CAS-client, CAS-service manager, java webapp, etc.</p>
+
+<h3 id="cas-service-manager">CAS service manager</h3>
+
+<p>It is necessary to define an URL for identify the new web application. This URL will be called the “URL Service”:</p>
+<ul>
+  <li>Identify the CAS-ified webapp trying to authenticate in CAS-server. In almost all cases, this will be the URL of the web application.</li>
+  <li>In a successfully login process is used to redirect web browser to URL specified.</li>
+  <li>It is used as filter for CAS Services Management in Web-SSO process allowing to do SSO between webapps registered.</li>
+</ul>
+
+<p>[caption id=”” align=”alignnone” width=”511” caption=”Define URL for CAS-ified webapp”]<a href="http://dl.dropbox.com/u/2961879/blog20110728_sso_liferay_cas_ified_javawebapps/sso-liferay-casified-webapp_3cassrvmngr.png"><img src="/assets/sso-liferay-casified-webapp_3cassrvmngr.png" alt="Define URL for CAS-ified webapp" /></a>[/caption]
+To replace the URL/IP for yours.</p>
+
+<p>[caption id=”” align=”alignnone” width=”590” caption=”Define URL to filter webapp to perform SSO”]<a href="http://dl.dropbox.com/u/2961879/blog20110728_sso_liferay_cas_ified_javawebapps/sso-liferay-casified-webapp_4cassrvmngr.png"><img src="/assets/sso-liferay-casified-webapp_4cassrvmngr.png" alt="Define URL to filter webapp to perform SSO" /></a>[/caption]</p>
+
+<h3 id="develop-your-java-webapp-and-configure-tomcat">Develop your Java Webapp and configure Tomcat</h3>
+
+<p>Firstly, you have to design your scenario to do Web-SSO. In this case, We have 3 servers:</p>
+<ul>
+  <li>lfry01 or svdapp85 (IP 192.168.56.101, HTTP port 6060): Liferay Portal</li>
+  <li>lfry02 (IP 192.168.56.102 or IP 10.16.111.135, HTTP port 8080): Tomcat server hosting new CAS-ified Java Web App</li>
+  <li>blcr00 or svdapp85 (IP 192.168.56.103, SSL port 6443): Tomcat server hosting CAS server and CAS service manager 
+Our scenario will look like to following diagram.</li>
+</ul>
+
+<p><a href="http://dl.dropbox.com/u/2961879/blog20110728_sso_liferay_cas_ified_javawebapps/sso-liferay-casified-webapp_5scenarioauthn.png"><img src="/assets/sso-liferay-casified-webapp_5scenarioauthn.png" alt="Scenario where we will deploy our CAS-ified webapp." /></a> <em>Scenario where we will deploy our CAS-ified webapp.</em></p>
+
+<ol>
+  <li>
+    <p>Install Tomcat, enable SSL ( <strong>lfry02</strong> ) using <em>server.xml</em> sample:</p>
+
+    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version='1.0' encoding='utf-8'?&gt;</span>  
+<span class="nt">&lt;Server</span> <span class="na">port=</span><span class="s">"8005"</span> <span class="na">shutdown=</span><span class="s">"SHUTDOWN"</span><span class="nt">&gt;</span>  
+<span class="nt">&lt;Listener</span> <span class="na">className=</span><span class="s">"org.apache.catalina.core.AprLifecycleListener"</span> <span class="na">SSLEngine=</span><span class="s">"on"</span> <span class="nt">/&gt;</span>  
+<span class="nt">&lt;Listener</span> <span class="na">className=</span><span class="s">"org.apache.catalina.core.JasperListener"</span> <span class="nt">/&gt;</span>  
+<span class="nt">&lt;Listener</span> <span class="na">className=</span><span class="s">"org.apache.catalina.core.JreMemoryLeakPreventionListener"</span> <span class="nt">/&gt;</span>  
+<span class="nt">&lt;Listener</span> <span class="na">className=</span><span class="s">"org.apache.catalina.mbeans.ServerLifecycleListener"</span> <span class="nt">/&gt;</span>  
+<span class="nt">&lt;Listener</span> <span class="na">className=</span><span class="s">"org.apache.catalina.mbeans.GlobalResourcesLifecycleListener"</span> <span class="nt">/&gt;</span>  
+<span class="nt">&lt;GlobalNamingResources&gt;</span>  
+<span class="nt">&lt;Resource</span> <span class="na">name=</span><span class="s">"UserDatabase"</span> <span class="na">auth=</span><span class="s">"Container"</span>  
+<span class="na">type=</span><span class="s">"org.apache.catalina.UserDatabase"</span>  
+<span class="na">description=</span><span class="s">"User database that can be updated and saved"</span>  
+<span class="na">factory=</span><span class="s">"org.apache.catalina.users.MemoryUserDatabaseFactory"</span>  
+<span class="na">pathname=</span><span class="s">"conf/tomcat-users.xml"</span> <span class="nt">/&gt;</span>  
+<span class="nt">&lt;/GlobalNamingResources&gt;</span>  
+<span class="nt">&lt;Service</span> <span class="na">name=</span><span class="s">"Catalina"</span><span class="nt">&gt;</span>  
+<span class="nt">&lt;Connector</span> <span class="na">port=</span><span class="s">"8080"</span> <span class="na">protocol=</span><span class="s">"HTTP/1.1"</span>  
+<span class="na">connectionTimeout=</span><span class="s">"20000"</span>  
+<span class="na">redirectPort=</span><span class="s">"8443"</span> <span class="nt">/&gt;</span>  
+<span class="nt">&lt;Connector</span> <span class="na">protocol=</span><span class="s">"org.apache.coyote.http11.Http11NioProtocol"</span>  
+<span class="na">port=</span><span class="s">"8443"</span> <span class="na">maxHttpHeaderSize=</span><span class="s">"8192"</span> <span class="na">SSLEnabled=</span><span class="s">"true"</span>  
+<span class="na">maxThreads=</span><span class="s">"150"</span>  
+<span class="na">enableLookups=</span><span class="s">"false"</span> <span class="na">disableUploadTimeout=</span><span class="s">"true"</span>  
+<span class="na">acceptCount=</span><span class="s">"100"</span> <span class="na">scheme=</span><span class="s">"https"</span> <span class="na">secure=</span><span class="s">"true"</span>  
+<span class="na">clientAuth=</span><span class="s">"false"</span> <span class="na">sslProtocol=</span><span class="s">"TLS"</span>  
+<span class="na">keystoreFile=</span><span class="s">"D:\devel\usr-dev\apache-tomcat-6.0.29\webapps\mywebappssotest1.jks"</span>  
+<span class="na">keystorePass=</span><span class="s">"changeit"</span>  
+<span class="na">truststoreFile=</span><span class="s">"D:\devel\usr-dev\jdk_6u21\Java\lib\security\cacerts"</span> <span class="nt">/&gt;</span>  
+<span class="c">&lt;!-- My CAS URL service = https://localhost:8443/webssotest1/protected/ --&gt;</span>  
+<span class="nt">&lt;Connector</span> <span class="na">port=</span><span class="s">"8009"</span> <span class="na">protocol=</span><span class="s">"AJP/1.3"</span> <span class="na">redirectPort=</span><span class="s">"8443"</span> <span class="nt">/&gt;</span>  
+<span class="nt">&lt;Engine</span> <span class="na">name=</span><span class="s">"Catalina"</span> <span class="na">defaultHost=</span><span class="s">"localhost"</span><span class="nt">&gt;</span>  
+<span class="nt">&lt;Realm</span> <span class="na">className=</span><span class="s">"org.apache.catalina.realm.UserDatabaseRealm"</span>  
+<span class="na">resourceName=</span><span class="s">"UserDatabase"</span><span class="nt">/&gt;</span>  
+<span class="nt">&lt;Host</span> <span class="na">name=</span><span class="s">"localhost"</span> <span class="na">appBase=</span><span class="s">"webapps"</span>  
+<span class="na">unpackWARs=</span><span class="s">"true"</span> <span class="na">autoDeploy=</span><span class="s">"true"</span>  
+<span class="na">xmlValidation=</span><span class="s">"false"</span> <span class="na">xmlNamespaceAware=</span><span class="s">"false"</span><span class="nt">&gt;</span>  
+<span class="nt">&lt;/Host&gt;</span>  
+<span class="nt">&lt;/Engine&gt;</span>  
+<span class="nt">&lt;/Service&gt;</span>  
+<span class="nt">&lt;/Server&gt;</span>  
+</code></pre></div>    </div>
+  </li>
+  <li>Generate key pair and export certificate SSL of this Tomcat ( <strong>lfry02</strong> ).</li>
+  <li>Install CAS root certificate ( <strong>blcr00</strong> ) as trusted cert into JVM cacert repository of Tomcat ( <strong>lfry02</strong> ).</li>
+  <li>Use this Java webapp ( <strong><a href="http://dl.dropbox.com/u/2961879/blog20110728_sso_liferay_cas_ified_javawebapps/webssotest1.war">webssotest1.war</a></strong> ), deploy this webapp into Java Web Server ( <strong>lfry02</strong> ).</li>
+  <li>Test this web application in HTTP and HTTPS mode.</li>
+</ol>
+
+<h3 id="connect-your-java-webapp-to-cas">Connect your Java Webapp to CAS</h3>
+
+<blockquote>
+  <p>We have created a basic sample of java web application based in JSP ( <strong>webssptest1.war</strong> ). We recommend that you try to deploy and configure this web application before trying something more complex.</p>
+</blockquote>
+
+<ol>
+  <li>In <strong>blcr00</strong> use existing standard model of authentication based on usr/pwd where both are equals. If Liferay has already used this model, this webapp should follow too.</li>
+  <li>
+    <p>In <strong>lfry02</strong> (tomcat <strong>web.xml</strong> ) configure CAS server, to use this sample file:</p>
+
+    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>  
+<span class="nt">&lt;web-app</span> <span class="na">id=</span><span class="s">"webssotest1"</span>  
+<span class="na">version=</span><span class="s">"2.4"</span>  
+<span class="na">xmlns=</span><span class="s">"http://java.sun.com/xml/ns/j2ee"</span>  
+<span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span>  
+<span class="na">xsi:schemaLocation=</span><span class="s">"http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"</span><span class="nt">&gt;</span>  
+<span class="nt">&lt;display-name&gt;</span>webssotest1<span class="nt">&lt;/display-name&gt;</span>  
+<span class="nt">&lt;description&gt;</span>  
+WebSSO sample, how to use CAS Java Client 3.x.  
+In this sample exists a public area (/)  
+and a private area (/protected/*).  
+<span class="nt">&lt;/description&gt;</span>
+<span class="nt">&lt;filter&gt;</span>  
+<span class="nt">&lt;filter-name&gt;</span>CAS Authentication Filter<span class="nt">&lt;/filter-name&gt;</span>  
+<span class="nt">&lt;filter-class&gt;</span>org.jasig.cas.client.authentication.AuthenticationFilter<span class="nt">&lt;/filter-class&gt;</span>  
+<span class="nt">&lt;init-param&gt;</span>  
+<span class="nt">&lt;param-name&gt;</span>casServerLoginUrl<span class="nt">&lt;/param-name&gt;</span>  
+<span class="nt">&lt;param-value&gt;</span>https://svdapp85:6443/cas-server-webapp-3.3.5/login<span class="nt">&lt;/param-value&gt;</span>  
+<span class="nt">&lt;/init-param&gt;</span>  
+<span class="nt">&lt;init-param&gt;</span>  
+<span class="nt">&lt;param-name&gt;</span>serverName<span class="nt">&lt;/param-name&gt;</span>  
+<span class="nt">&lt;param-value&gt;</span>https://10.16.111.135:8443<span class="nt">&lt;/param-value&gt;</span>  
+<span class="nt">&lt;/init-param&gt;</span>  
+<span class="nt">&lt;init-param&gt;</span>  
+<span class="nt">&lt;param-name&gt;</span>renew<span class="nt">&lt;/param-name&gt;</span>  
+<span class="nt">&lt;param-value&gt;</span>false<span class="nt">&lt;/param-value&gt;</span>  
+<span class="nt">&lt;/init-param&gt;</span>  
+<span class="nt">&lt;init-param&gt;</span>  
+<span class="nt">&lt;param-name&gt;</span>gateway<span class="nt">&lt;/param-name&gt;</span>  
+<span class="nt">&lt;param-value&gt;</span>false<span class="nt">&lt;/param-value&gt;</span>  
+<span class="nt">&lt;/init-param&gt;</span>  
+<span class="nt">&lt;/filter&gt;</span>  
+<span class="nt">&lt;filter&gt;</span>  
+<span class="nt">&lt;filter-name&gt;</span>CAS Validation Filter<span class="nt">&lt;/filter-name&gt;</span>  
+<span class="nt">&lt;filter-class&gt;</span>org.jasig.cas.client.validation.Cas20ProxyReceivingTicketValidationFilter<span class="nt">&lt;/filter-class&gt;</span>  
+<span class="nt">&lt;init-param&gt;</span>  
+<span class="nt">&lt;param-name&gt;</span>casServerUrlPrefix<span class="nt">&lt;/param-name&gt;</span>  
+<span class="nt">&lt;param-value&gt;</span>https://svdapp85:6443/cas-server-webapp-3.3.5/<span class="nt">&lt;/param-value&gt;</span>  
+<span class="nt">&lt;/init-param&gt;</span>  
+<span class="nt">&lt;init-param&gt;</span>  
+<span class="nt">&lt;param-name&gt;</span>serverName<span class="nt">&lt;/param-name&gt;</span>  
+<span class="nt">&lt;param-value&gt;</span>https://10.16.111.135:8443<span class="nt">&lt;/param-value&gt;</span>  
+<span class="nt">&lt;/init-param&gt;</span>  
+<span class="nt">&lt;init-param&gt;</span>  
+<span class="nt">&lt;param-name&gt;</span>proxyCallbackUrl<span class="nt">&lt;/param-name&gt;</span>  
+<span class="nt">&lt;param-value&gt;</span>https://svdapp85:6443/cas-server-webapp-3.3.5/proxyCallback<span class="nt">&lt;/param-value&gt;</span>  
+<span class="nt">&lt;/init-param&gt;</span>  
+<span class="nt">&lt;init-param&gt;</span>  
+<span class="nt">&lt;param-name&gt;</span>proxyReceptorUrl<span class="nt">&lt;/param-name&gt;</span>  
+<span class="nt">&lt;param-value&gt;</span>/mywebappssotest1/proxyCallback<span class="nt">&lt;/param-value&gt;</span>  
+<span class="nt">&lt;/init-param&gt;</span>  
+<span class="nt">&lt;/filter&gt;</span>  
+<span class="nt">&lt;filter&gt;</span>  
+<span class="nt">&lt;filter-name&gt;</span>CAS HttpServletRequest Wrapper Filter<span class="nt">&lt;/filter-name&gt;</span>  
+<span class="nt">&lt;filter-class&gt;</span>org.jasig.cas.client.util.HttpServletRequestWrapperFilter<span class="nt">&lt;/filter-class&gt;</span>  
+<span class="nt">&lt;/filter&gt;</span>  
+<span class="nt">&lt;filter&gt;</span>  
+<span class="nt">&lt;filter-name&gt;</span>CAS Assertion Thread Local Filter<span class="nt">&lt;/filter-name&gt;</span>  
+<span class="nt">&lt;filter-class&gt;</span>org.jasig.cas.client.util.AssertionThreadLocalFilter<span class="nt">&lt;/filter-class&gt;</span>  
+<span class="nt">&lt;/filter&gt;</span>  
+<span class="nt">&lt;filter-mapping&gt;</span>  
+<span class="nt">&lt;filter-name&gt;</span>CAS Authentication Filter<span class="nt">&lt;/filter-name&gt;</span>  
+<span class="nt">&lt;url-pattern&gt;</span>/protected/*<span class="nt">&lt;/url-pattern&gt;</span>  
+<span class="nt">&lt;/filter-mapping&gt;</span>  
+<span class="nt">&lt;filter-mapping&gt;</span>  
+<span class="nt">&lt;filter-name&gt;</span>CAS Validation Filter<span class="nt">&lt;/filter-name&gt;</span>  
+<span class="nt">&lt;url-pattern&gt;</span>/*<span class="nt">&lt;/url-pattern&gt;</span>  
+<span class="nt">&lt;/filter-mapping&gt;</span>  
+<span class="nt">&lt;filter-mapping&gt;</span>  
+<span class="nt">&lt;filter-name&gt;</span>CAS HttpServletRequest Wrapper Filter<span class="nt">&lt;/filter-name&gt;</span>  
+<span class="nt">&lt;url-pattern&gt;</span>/*<span class="nt">&lt;/url-pattern&gt;</span>  
+<span class="nt">&lt;/filter-mapping&gt;</span>  
+<span class="nt">&lt;filter-mapping&gt;</span>  
+<span class="nt">&lt;filter-name&gt;</span>CAS Assertion Thread Local Filter<span class="nt">&lt;/filter-name&gt;</span>  
+<span class="nt">&lt;url-pattern&gt;</span>/*<span class="nt">&lt;/url-pattern&gt;</span>  
+<span class="nt">&lt;/filter-mapping&gt;</span>  
+<span class="nt">&lt;filter-mapping&gt;</span>  
+<span class="nt">&lt;filter-name&gt;</span>CAS Validation Filter<span class="nt">&lt;/filter-name&gt;</span>  
+<span class="nt">&lt;url-pattern&gt;</span>/proxyCallback<span class="nt">&lt;/url-pattern&gt;</span>  
+<span class="nt">&lt;/filter-mapping&gt;</span>
+<span class="nt">&lt;welcome-file-list&gt;</span>  
+<span class="nt">&lt;welcome-file&gt;</span>index.jsp<span class="nt">&lt;/welcome-file&gt;</span>  
+<span class="nt">&lt;/welcome-file-list&gt;</span>  
+<span class="nt">&lt;/web-app&gt;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>Make sure that exists CAS-client java libraries into <strong>WEB-INF/lib</strong> directory, as follow:</li>
+</ol>
+
+<p><a href="http://dl.dropbox.com/u/2961879/blog20110728_sso_liferay_cas_ified_javawebapps/sso-liferay-casified-webapp_6caslibs.png"><img src="/assets/sso-liferay-casified-webapp_6caslibs.png" alt="CAS-client java libraries to be included in webssotest1.war" /></a> <em>CAS-client java libraries to be included in webssotest1.war</em></p>
+
+<ol>
+  <li>Test login and SSO with liferay.</li>
+</ol>
+
+<p>Login to Liferay (lfry01), go to following URL, for example: http://svdapp85:6060/en/group/intix/home<br />
+  You will be redirected to CAS login form, to entry an user/password valid in CAS-server.</p>
+
+<p><a href="http://dl.dropbox.com/u/2961879/blog20110728_sso_liferay_cas_ified_javawebapps/sso-liferay-casified-webapp_7caslogin.png"><img src="/assets/sso-liferay-casified-webapp_7caslogin.png" alt="First login (CAS) when trying log into Liferay" /></a> <em>First login (CAS) when trying log into Liferay</em></p>
+
+<p>Now, from same opened browser, switch to the CAS-ified webapp. Open following protected URL: http://10.16.111.135:8080/webssotest1/protected/<br />
+If all is OK, then you can see URL without user/pwd prompted.</p>
+
+<p><a href="http://dl.dropbox.com/u/2961879/blog20110728_sso_liferay_cas_ified_javawebapps/sso-liferay-casified-webapp_8ssook.png"><img src="/assets/sso-liferay-casified-webapp_8ssook.png" alt="Successfully Web-SSO in CAS-ified webapp (webssotest1.war)" /></a> <em>Successfully Web-SSO in CAS-ified webapp (webssotest1.war)</em></p>
+
+<p>The same applies if you do log into webssotest1.war first and then go to liferay.<br />
+The CAS login form is the first page displayed when trying to login from any application. This form is shared by any web application you want to do Web-SSO.
+END.</p>
+
+<p><strong>Reference:</strong></p>
+<ul>
+  <li><a href="https://wiki.jasig.org/display/CASC/JA-SIG+Java+Client+Simple+WebApp+Sample">JA-SIG Java Client Simple WebApp Sample</a></li>
+  <li>Web-SSO between Liferay and Alfresco with CAS and Penrose <a href="http://holisticsecurity.wordpress.com/2011/01/15/sso-liferay-alfresco-cas-penrose-part-12/">part 1</a> and <a href="http://holisticsecurity.wordpress.com/2011/02/19/web-sso-between-liferay-and-alfresco-with-cas-and-penrose-part-22/">part 2</a></li>
+</ul>
+
+  </div><div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://holisticsecurity.io/2011/07/29/sso-cas-ified-java-webapp-liferay/';
+      this.page.identifier = 'https://holisticsecurity.io/2011/07/29/sso-cas-ified-java-webapp-liferay/';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://holosec.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript><a class="u-url" href="/2011/07/29/sso-cas-ified-java-webapp-liferay/" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading"><img src="/assets/img/logo-holosec.png" width="40" /> Holistic Security</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Holistic Security</li><li><a class="u-email" href="mailto:blog@holisticsecurity.io">blog@holisticsecurity.io</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.linkedin.com/in/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.twitter.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">Chilcano</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Systems Thinking, Holism, Trust, Security &amp; Usability.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

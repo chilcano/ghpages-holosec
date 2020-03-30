@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>MTOM en WSO2 ESB para optimizar la transferencia de datos binarios sobre SOAP (Parte 2/2) | Holistic Security</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="MTOM en WSO2 ESB para optimizar la transferencia de datos binarios sobre SOAP (Parte 2/2)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="En la anterior entrada explorábamos los beneficios del uso de MTOM en WSO2 ESB, ahora explicaremos cómo integrar esta funcionalidad en nuestras aplicaciones web, es decir, cómo invocar el mismo servicio desde una página web tradicional." />
+<meta property="og:description" content="En la anterior entrada explorábamos los beneficios del uso de MTOM en WSO2 ESB, ahora explicaremos cómo integrar esta funcionalidad en nuestras aplicaciones web, es decir, cómo invocar el mismo servicio desde una página web tradicional." />
+<link rel="canonical" href="https://holisticsecurity.io/2014/05/26/mtom-en-wso2-esb-para-optimizar-la-transferencia-de-datos-binarios-sobre-soap-parte-22" />
+<meta property="og:url" content="https://holisticsecurity.io/2014/05/26/mtom-en-wso2-esb-para-optimizar-la-transferencia-de-datos-binarios-sobre-soap-parte-22" />
+<meta property="og:site_name" content="Holistic Security" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2014-05-26T22:02:00+02:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://holisticsecurity.io/2014/05/26/mtom-en-wso2-esb-para-optimizar-la-transferencia-de-datos-binarios-sobre-soap-parte-22"},"url":"https://holisticsecurity.io/2014/05/26/mtom-en-wso2-esb-para-optimizar-la-transferencia-de-datos-binarios-sobre-soap-parte-22","headline":"MTOM en WSO2 ESB para optimizar la transferencia de datos binarios sobre SOAP (Parte 2/2)","dateModified":"2014-05-26T22:02:00+02:00","datePublished":"2014-05-26T22:02:00+02:00","description":"En la anterior entrada explorábamos los beneficios del uso de MTOM en WSO2 ESB, ahora explicaremos cómo integrar esta funcionalidad en nuestras aplicaciones web, es decir, cómo invocar el mismo servicio desde una página web tradicional.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://holisticsecurity.io/feed.xml" title="Holistic Security" /><script>
+if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-156433649-1', 'auto');
+  ga('send', 'pageview');
+}
+</script>
+  
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/"><img src="/assets/img/logo-holosec.png" width="100" /> Holistic Security</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/">Home</a><a class="page-link" href="/blog/">Blog</a><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">MTOM en WSO2 ESB para optimizar la transferencia de datos binarios sobre SOAP (Parte 2/2)</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2014-05-26T22:02:00+02:00" itemprop="datePublished">May 26, 2014 
+      </time>&sim; MIDDLEWARE · SOA
+      &sim; APACHE AXIOM · AXIS2 · MTOM · SOAP · SOAPUI · SWA · WSO2 ESB
+    </p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p><a href="/2014/05/14/mtom-en-wso2-esb-para-optimizar-la-transferencia-de-datos-binarios-sobre-soap-parte1/" title="MTOM en WSO2 ESB para optimizar la transferencia de datos binarios sobre SOAP (Parte 1/2)">En la anterior entrada</a> explorábamos los beneficios del uso de MTOM en WSO2 ESB, ahora explicaremos cómo integrar esta funcionalidad en nuestras aplicaciones web, es decir, cómo invocar el mismo servicio desde una página web tradicional.</p>
+
+<p><img src="/assets/blog20140526_wso2_mtom_2/wso2-esb.jpg" alt="" /></p>
+
+<!-- more -->
+
+<h2 id="i-escenario">I. Escenario.</h2>
+
+<p>Una vez implementado MTOM sobre SOAP empleando WSO2, subir ficheros es sumamente fácil desde SoapUI, pero lo sería también desde un formulario HTML?. Pues, en principio no lo es debido a que ambos implementan maneras diferentes de hacerlo, a pesar de que ambos envían información sobre el mismo protocolo HTTP.
+Un formulario HTML envía ficheros sobre HTTP codificándolo en “multipart/form-data”, mientras que en el servidor se decodifica. Hay que decirlo, “multipart/form-data” es una especificación nada reciente, es la forma de envio de ficheros más usada equiparable al FTP.
+MTOM sobre SOAP, es una especificación relativamente joven, cubre la necesidad de envio de fichero sobre el protocolo SOAP, pero el valor añadido es que el envio es optimizado, esto requiere implementar un cliente SOAP que use MTOM. SoapUI es una buena herramienta de prueba para estos fines, pero dentro de tu proyecto tarde o temprano tendrás que implementar un cliente SOAP con MTOM.
+Entonces, sacando ventaja de los mecanismos de mediación que WSO2 ESB ofrece, podríamos crear un Proxy_01 que exponga un servicio de transferencia de fichero usando MTOM y SOAP, luego podríamos crear otro Proxy_02 que nos facilite enviar ficheros desde un formulario HTML. En el fondo el Proxy_02 haría la traducción de “multipart/form-data” a “MTOM”.
+Si tenemos un cliente MTOM/SOAP que nos permita subir ficheros, lo enviaremos a Proxy_01, pero si tenemos un formulario HTML para subir ficheros, éste apuntará a Proxy_02, que hará la traducción y que luego lo enviará a Proxy_01.</p>
+
+<p><img src="/assets/blog20140526_wso2_mtom_2/wso2esb-mtom-part2-http2soap-01.png" alt="" />
+<em>HTTP Multipart/form-data a MTOM SOAP en WSO2 ESB</em></p>
+
+<h2 id="ii-implementando-el-escenario">II. Implementando el escenario.</h2>
+
+<p>Para implementar este escenario necesitamos lo siguiente:</p>
+<ol>
+  <li><a href="http://wso2.com/products/enterprise-service-bus">WSO2 ESB 4.8.1</a></li>
+  <li>Proxy_01, similar al “Sample 51” (<a href="https://docs.wso2.org/pages/viewpage.action?pageId=33136025">MTOM and SwA Optimizations and Request/Response Correlation</a>) desplegado en WSO2 ESB.</li>
+  <li>Proxy_02 que reciba la petición de envio de fichero codificada en “multipart/form-data” realizada desde un formulario HTML.</li>
+  <li>El formulario HTML para enviar el fichero.</li>
+  <li>Modificar la implementación del servicio MTOM SOAP en el lado del Axis2 Server.</li>
+</ol>
+
+<h3 id="ii1-proxy_01-para-el-envio-de-ficheros-usando-mtom-y-soap">II.1. Proxy_01 para el envio de ficheros usando MTOM y SOAP.</h3>
+
+<p>En la anterior entrada implementamos un proxy para el envio de ficheros usando MTOM y SOAP. Entonces, vamos a reutilizar el mismo proxy y añadiremos unos pequeños cambios.Este proxy es un proxy actualizado a partir del proxy publicado en la entrada anterior “<a href="/2014/05/14/mtom-en-wso2-esb-para-optimizar-la-transferencia-de-datos-binarios-sobre-soap-parte1/" title="MTOM en WSO2 ESB para optimizar la transferencia de datos binarios sobre SOAP (Parte 1/2)">MTOM en WSO2 ESB para optimizar la transferencia de datos binarios sobre SOAP (Parte 1/2)</a>”. Sabemos que en el lado servidor tenemos que desplegar la implementación de este servicio para que todo funcione. Más adelante explicaré que es necesario tocar algunas líneas de código.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;proxy</span>
+	<span class="na">xmlns=</span><span class="s">"http://ws.apache.org/ns/synapse"</span>  
+    <span class="na">name=</span><span class="s">"MTOMSwASampleService_proxy"</span>  
+    <span class="na">transports=</span><span class="s">"https,http"</span>  
+    <span class="na">statistics=</span><span class="s">"disable"</span>  
+    <span class="na">trace=</span><span class="s">"disable"</span>  
+    <span class="na">startOnLoad=</span><span class="s">"true"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;target&gt;</span>
+		<span class="nt">&lt;inSequence&gt;</span>
+			<span class="nt">&lt;log</span> <span class="na">level=</span><span class="s">"custom"</span><span class="nt">&gt;</span>
+				<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"======== Proxy-MTOMSwASampleService"</span> <span class="na">value=</span><span class="s">"====== inSeq - ini"</span><span class="nt">/&gt;</span>
+			<span class="nt">&lt;/log&gt;</span>
+			<span class="nt">&lt;filter</span> <span class="na">source=</span><span class="s">"get-property('Action')"</span> <span class="na">regex=</span><span class="s">"urn:oneWayUploadUsingHTTP"</span><span class="nt">&gt;</span>
+				<span class="nt">&lt;then&gt;</span>
+					<span class="nt">&lt;log</span> <span class="na">level=</span><span class="s">"custom"</span><span class="nt">&gt;</span>
+						<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"...calling "</span> <span class="na">value=</span><span class="s">"oneWayUploadUsingHTTP"</span><span class="nt">/&gt;</span>
+					<span class="nt">&lt;/log&gt;</span>
+					<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"OUT_ONLY"</span> <span class="na">value=</span><span class="s">"true"</span><span class="nt">/&gt;</span>
+					<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"FORCE_SC_ACCEPTED"</span> <span class="na">value=</span><span class="s">"true"</span> <span class="na">scope=</span><span class="s">"axis2"</span><span class="nt">/&gt;</span>
+					<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"example"</span> <span class="na">value=</span><span class="s">"onewayhttp"</span><span class="nt">/&gt;</span>
+					<span class="nt">&lt;send&gt;</span>
+						<span class="nt">&lt;endpoint&gt;</span>
+							<span class="nt">&lt;address</span> <span class="na">uri=</span><span class="s">"http://localhost:9000/services/MTOMSwASampleService"</span><span class="nt">/&gt;</span>
+						<span class="nt">&lt;/endpoint&gt;</span>
+					<span class="nt">&lt;/send&gt;</span>
+				<span class="nt">&lt;/then&gt;</span>
+				<span class="nt">&lt;else/&gt;</span>
+			<span class="nt">&lt;/filter&gt;</span>
+			<span class="nt">&lt;filter</span> <span class="na">source=</span><span class="s">"get-property('Action')"</span> <span class="na">regex=</span><span class="s">"urn:uploadFileUsingMTOM"</span><span class="nt">&gt;</span>
+				<span class="nt">&lt;then&gt;</span>
+					<span class="nt">&lt;log</span> <span class="na">level=</span><span class="s">"custom"</span><span class="nt">&gt;</span>
+						<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"...calling "</span> <span class="na">value=</span><span class="s">"uploadFileUsingMTOM"</span><span class="nt">/&gt;</span>
+					<span class="nt">&lt;/log&gt;</span>
+					<span class="nt">&lt;header</span> <span class="na">name=</span><span class="s">"Action"</span> <span class="na">scope=</span><span class="s">"default"</span> <span class="na">action=</span><span class="s">"remove"</span><span class="nt">/&gt;</span>
+					<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"SOAPAction"</span> <span class="na">scope=</span><span class="s">"default"</span> <span class="na">action=</span><span class="s">"remove"</span><span class="nt">/&gt;</span>
+					<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"example"</span> <span class="na">value=</span><span class="s">"mtom"</span><span class="nt">/&gt;</span>
+					<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"Action"</span> <span class="na">value=</span><span class="s">"urn:uploadFileUsingMTOM"</span> <span class="na">scope=</span><span class="s">"default"</span><span class="nt">/&gt;</span>
+					<span class="nt">&lt;header</span> <span class="na">name=</span><span class="s">"Action"</span> <span class="na">scope=</span><span class="s">"default"</span> <span class="na">value=</span><span class="s">"urn:uploadFileUsingMTOM"</span><span class="nt">/&gt;</span>
+					<span class="nt">&lt;send&gt;</span>
+						<span class="nt">&lt;endpoint&gt;</span>
+							<span class="nt">&lt;address</span> <span class="na">uri=</span><span class="s">"http://localhost:9000/services/MTOMSwASampleService"</span> <span class="na">optimize=</span><span class="s">"mtom"</span><span class="nt">/&gt;</span>
+						<span class="nt">&lt;/endpoint&gt;</span>
+					<span class="nt">&lt;/send&gt;</span>
+				<span class="nt">&lt;/then&gt;</span>
+				<span class="nt">&lt;else/&gt;</span>
+			<span class="nt">&lt;/filter&gt;</span>
+			<span class="nt">&lt;filter</span> <span class="na">source=</span><span class="s">"get-property('Action')"</span> <span class="na">regex=</span><span class="s">"urn:uploadFileUsingSwA"</span><span class="nt">&gt;</span>
+				<span class="nt">&lt;then&gt;</span>
+					<span class="nt">&lt;log</span> <span class="na">level=</span><span class="s">"custom"</span><span class="nt">&gt;</span>
+						<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"...calling "</span> <span class="na">value=</span><span class="s">"uploadFileUsingSwA"</span><span class="nt">/&gt;</span>
+					<span class="nt">&lt;/log&gt;</span>
+					<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"example"</span> <span class="na">value=</span><span class="s">"swa"</span><span class="nt">/&gt;</span>
+					<span class="nt">&lt;send&gt;</span>
+						<span class="nt">&lt;endpoint&gt;</span>
+							<span class="nt">&lt;address</span> <span class="na">uri=</span><span class="s">"http://localhost:9000/services/MTOMSwASampleService"</span> <span class="na">optimize=</span><span class="s">"swa"</span><span class="nt">/&gt;</span>
+						<span class="nt">&lt;/endpoint&gt;</span>
+					<span class="nt">&lt;/send&gt;</span>
+				<span class="nt">&lt;/then&gt;</span>
+				<span class="nt">&lt;else/&gt;</span>
+			<span class="nt">&lt;/filter&gt;</span>
+			<span class="nt">&lt;filter</span> <span class="na">source=</span><span class="s">"get-property('Action')"</span> <span class="na">regex=</span><span class="s">"urn:oneWayUploadUsingMTOM"</span><span class="nt">&gt;</span>
+				<span class="nt">&lt;then&gt;</span>
+					<span class="nt">&lt;log</span> <span class="na">level=</span><span class="s">"custom"</span><span class="nt">&gt;</span>
+						<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"...calling "</span> <span class="na">value=</span><span class="s">"oneWayUploadUsingMTOM"</span><span class="nt">/&gt;</span>
+					<span class="nt">&lt;/log&gt;</span>
+					<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"OUT_ONLY"</span> <span class="na">value=</span><span class="s">"true"</span><span class="nt">/&gt;</span>
+					<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"FORCE_SC_ACCEPTED"</span> <span class="na">value=</span><span class="s">"true"</span> <span class="na">scope=</span><span class="s">"axis2"</span><span class="nt">/&gt;</span>
+					<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"example"</span> <span class="na">value=</span><span class="s">"onewaymtom"</span><span class="nt">/&gt;</span>
+					<span class="nt">&lt;send&gt;</span>
+						<span class="nt">&lt;endpoint&gt;</span>
+							<span class="nt">&lt;address</span> <span class="na">uri=</span><span class="s">"http://localhost:9000/services/MTOMSwASampleService"</span> <span class="na">optimize=</span><span class="s">"mtom"</span><span class="nt">/&gt;</span>
+						<span class="nt">&lt;/endpoint&gt;</span>
+					<span class="nt">&lt;/send&gt;</span>
+				<span class="nt">&lt;/then&gt;</span>
+				<span class="nt">&lt;else/&gt;</span>
+			<span class="nt">&lt;/filter&gt;</span>
+			<span class="nt">&lt;log</span> <span class="na">level=</span><span class="s">"custom"</span><span class="nt">&gt;</span>
+				<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"======== Proxy MTOMSwASampleService"</span> <span class="na">value=</span><span class="s">"====== inSeq - fin"</span><span class="nt">/&gt;</span>
+			<span class="nt">&lt;/log&gt;</span>
+		<span class="nt">&lt;/inSequence&gt;</span>
+		<span class="nt">&lt;outSequence&gt;</span>
+			<span class="nt">&lt;log</span> <span class="na">level=</span><span class="s">"custom"</span><span class="nt">&gt;</span>
+				<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"======== Proxy MTOMSwASampleService"</span> <span class="na">value=</span><span class="s">"====== outSeq - ini"</span><span class="nt">/&gt;</span>
+			<span class="nt">&lt;/log&gt;</span>
+			<span class="nt">&lt;filter</span> <span class="na">source=</span><span class="s">"get-property('example')"</span> <span class="na">regex=</span><span class="s">"onewayhttp"</span><span class="nt">&gt;</span>
+				<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"enableMTOM"</span> <span class="na">value=</span><span class="s">"true"</span> <span class="na">scope=</span><span class="s">"axis2"</span><span class="nt">/&gt;</span>
+			<span class="nt">&lt;/filter&gt;</span>
+			<span class="nt">&lt;filter</span> <span class="na">source=</span><span class="s">"get-property('example')"</span> <span class="na">regex=</span><span class="s">"onewaymtom"</span><span class="nt">&gt;</span>
+				<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"enableMTOM"</span> <span class="na">value=</span><span class="s">"true"</span> <span class="na">scope=</span><span class="s">"axis2"</span><span class="nt">/&gt;</span>
+			<span class="nt">&lt;/filter&gt;</span>
+			<span class="nt">&lt;filter</span> <span class="na">source=</span><span class="s">"get-property('example')"</span> <span class="na">regex=</span><span class="s">"mtom"</span><span class="nt">&gt;</span>
+				<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"enableMTOM"</span> <span class="na">value=</span><span class="s">"true"</span> <span class="na">scope=</span><span class="s">"axis2"</span><span class="nt">/&gt;</span>
+			<span class="nt">&lt;/filter&gt;</span>
+			<span class="nt">&lt;filter</span> <span class="na">source=</span><span class="s">"get-property('example')"</span> <span class="na">regex=</span><span class="s">"swa"</span><span class="nt">&gt;</span>
+				<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"enableSwA"</span> <span class="na">value=</span><span class="s">"true"</span> <span class="na">scope=</span><span class="s">"axis2"</span><span class="nt">/&gt;</span>
+			<span class="nt">&lt;/filter&gt;</span>
+			<span class="nt">&lt;send/&gt;</span>
+			<span class="nt">&lt;log</span> <span class="na">level=</span><span class="s">"custom"</span><span class="nt">&gt;</span>
+				<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"======== Proxy MTOMSwASampleService"</span> <span class="na">value=</span><span class="s">"====== outSeq - fin"</span><span class="nt">/&gt;</span>
+			<span class="nt">&lt;/log&gt;</span>
+		<span class="nt">&lt;/outSequence&gt;</span>
+	<span class="nt">&lt;/target&gt;</span>
+	<span class="nt">&lt;publishWSDL</span> <span class="na">uri=</span><span class="s">"http://localhost:9000/services/MTOMSwASampleService?wsdl"</span><span class="nt">/&gt;</span>
+	<span class="nt">&lt;parameter</span> <span class="na">name=</span><span class="s">"enableMTOM"</span><span class="nt">&gt;</span>true<span class="nt">&lt;/parameter&gt;</span>
+	<span class="nt">&lt;description&gt;</span>MTOMSwASampleService (Sample 51) updated<span class="nt">&lt;/description&gt;</span>
+<span class="nt">&lt;/proxy&gt;</span>  
+</code></pre></div></div>
+
+<p>La URL <code class="highlighter-rouge">http://localhost:9000</code> representa al Axis2 server, donde desplegamos el servicio. Es Axis2 server que auto-genera el <code class="highlighter-rouge">WSDL</code> asociado al backend service.<br />
+Es importante iniciar primero el Axis2 server, luego iniciar WSO2 ESB ya que desde el ESB hacemos referencia al <code class="highlighter-rouge">WSDL</code> alojado en Axis2 server. Esto es lo que en WSO2 ESB se llamada “WSDL inline”.</p>
+
+<h3 id="ii2-proxy_02-que-reciba-el-fichero-en-multipartform-data-y-lo-envie-a-proxy_01">II.2. Proxy_02 que reciba el fichero en “multipart/form-data” y lo envie a Proxy_01.</h3>
+
+<p>Aquí básicamente, el Proxy_02 transformará la cabecera y el cuerpo del mensaje para adaptarlo al formato que el Proxy_01 lo necesita.<br />
+Evidentemente, deberás conocer cómo “multipart/form-data” y MTOM codifican para implementar este proxy.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;proxy</span>
+	<span class="na">xmlns=</span><span class="s">"http://ws.apache.org/ns/synapse"</span>  
+    <span class="na">name=</span><span class="s">"MTOMSwASampleService_http"</span>  
+    <span class="na">transports=</span><span class="s">"https,http"</span>  
+    <span class="na">statistics=</span><span class="s">"disable"</span>  
+    <span class="na">trace=</span><span class="s">"disable"</span>  
+    <span class="na">startOnLoad=</span><span class="s">"true"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;target&gt;</span>
+		<span class="nt">&lt;inSequence&gt;</span>
+			<span class="nt">&lt;log</span> <span class="na">level=</span><span class="s">"custom"</span><span class="nt">&gt;</span>
+				<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"****** MTOMSwASampleService - HTTP"</span> <span class="na">value=</span><span class="s">"***** inSeq - ini"</span><span class="nt">/&gt;</span>
+			<span class="nt">&lt;/log&gt;</span>
+			<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"DISABLE_CHUNKING"</span> <span class="na">value=</span><span class="s">"true"</span><span class="nt">/&gt;</span>
+			<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"Action"</span> <span class="na">value=</span><span class="s">"urn:oneWayUploadUsingHTTP"</span> <span class="na">scope=</span><span class="s">"default"</span><span class="nt">/&gt;</span>
+			<span class="nt">&lt;header</span> <span class="na">name=</span><span class="s">"Action"</span> <span class="na">scope=</span><span class="s">"default"</span> <span class="na">value=</span><span class="s">"urn:oneWayUploadUsingHTTP"</span><span class="nt">/&gt;</span>
+			<span class="nt">&lt;send&gt;</span>
+				<span class="nt">&lt;endpoint&gt;</span>
+					<span class="nt">&lt;address</span> <span class="na">uri=</span><span class="s">"http://localhost:8281/services/MTOMSwASampleService_proxy"</span>  <span class="na">format=</span><span class="s">"soap11"</span><span class="nt">/&gt;</span>
+				<span class="nt">&lt;/endpoint&gt;</span>
+			<span class="nt">&lt;/send&gt;</span>
+			<span class="nt">&lt;log</span> <span class="na">level=</span><span class="s">"custom"</span><span class="nt">&gt;</span>
+				<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"****** MTOMSwASampleService - HTTP"</span> <span class="na">value=</span><span class="s">"***** inSeq - fin"</span><span class="nt">/&gt;</span>
+			<span class="nt">&lt;/log&gt;</span>
+		<span class="nt">&lt;/inSequence&gt;</span>
+		<span class="nt">&lt;outSequence&gt;</span>
+			<span class="nt">&lt;log</span> <span class="na">level=</span><span class="s">"custom"</span><span class="nt">&gt;</span>
+				<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"******* MTOMSwASampleService - HTTP"</span> <span class="na">value=</span><span class="s">"***** outSeq - ini"</span><span class="nt">/&gt;</span>
+			<span class="nt">&lt;/log&gt;</span>
+			<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"OUT_ONLY"</span> <span class="na">value=</span><span class="s">"true"</span><span class="nt">/&gt;</span>
+			<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"FORCE_SC_ACCEPTED"</span> <span class="na">value=</span><span class="s">"true"</span><span class="nt">/&gt;</span>
+			<span class="nt">&lt;send/&gt;</span>
+			<span class="nt">&lt;log</span> <span class="na">level=</span><span class="s">"custom"</span><span class="nt">&gt;</span>
+				<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"******* MTOMSwASampleService - HTTP"</span> <span class="na">value=</span><span class="s">"***** outSeq - fin"</span><span class="nt">/&gt;</span>
+			<span class="nt">&lt;/log&gt;</span>
+		<span class="nt">&lt;/outSequence&gt;</span>
+	<span class="nt">&lt;/target&gt;</span>
+	<span class="nt">&lt;description&gt;</span>Proxy Upload File using Multipart Form Data<span class="nt">&lt;/description&gt;</span>
+<span class="nt">&lt;/proxy&gt;</span>  
+</code></pre></div></div>
+
+<h3 id="ii3-formulario-html-para-el-envio-de-ficheros">II.3. Formulario HTML para el envio de ficheros.</h3>
+
+<p>Implementar un formulario de este tipo es muy fácil, sólo hay que usar <code class="highlighter-rouge">enctype</code> con el siguiente valor <code class="highlighter-rouge">"multipart/form-data"</code>. Tal como se muestra a continuación:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;html&gt;</span>  
+  <span class="nt">&lt;head&gt;</span>  
+    <span class="nt">&lt;title&gt;</span>Sending Binary Data by SOAP with MTOM using WSO2 ESB<span class="nt">&lt;/title&gt;</span>  
+  <span class="nt">&lt;/head&gt;</span>  
+  <span class="nt">&lt;body&gt;</span>  
+    <span class="nt">&lt;h2&gt;</span>Sending Binary Data by SOAP with MTOM using WSO2 ESB<span class="nt">&lt;/h2&gt;</span>
+    <span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"http://localhost:8283/services/MTOMSwASampleService_http"</span> <span class="na">method=</span><span class="s">"POST"</span> <span class="na">enctype=</span><span class="s">"multipart/form-data"</span><span class="nt">&gt;</span>  
+      Binary file: <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"file"</span> <span class="na">name=</span><span class="s">"myimagefile"</span> <span class="na">size=</span><span class="s">"50"</span> <span class="err">multiple</span><span class="nt">&gt;</span>  
+      <span class="nt">&lt;br/&gt;</span>  
+      <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">value=</span><span class="s">"Submit"</span><span class="nt">&gt;</span>  
+    <span class="nt">&lt;/form&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>  
+<span class="nt">&lt;/html&gt;</span>  
+</code></pre></div></div>
+
+<p>Las 3 partes a prestar atención aquí son:</p>
+<ol>
+  <li>El <code class="highlighter-rouge">Action</code> del form apunta al <code class="highlighter-rouge">Proxy_02</code>, asegurarse que el puerto sea el correcto y corresponda al del WSO2 ESB.</li>
+  <li>El <code class="highlighter-rouge">enctype</code> debe indicar la codificación con el que se enviará el fichero.</li>
+  <li>El <code class="highlighter-rouge">input</code> del form es de tipo <code class="highlighter-rouge">file</code> y debe tener un nombre, como en este caso <code class="highlighter-rouge">myimagefile</code>, con el que podamos luego leerlo para hacer la transformación.
+Finalmente, recordar que no será necesario un Servidor Web para invocar este formulario HTML, basta con abrir el formulario desde cualquier navegador y elegir el fichero que queremos enviar desde nuestro disco duro.</li>
+</ol>
+
+<h3 id="ii4-modificar-el-servicio-de-backend-que-implementa-el-envio-y-recepción-de-ficheros">II.4. Modificar el servicio de backend que implementa el envio y recepción de ficheros.</h3>
+
+<p>Como indiqué líneas arriba, será necesario actualizar la implementación del servicio de backend del “Sample 51” para nuestro escenario, ya que en principio sólo está preparado para trabajar con MTOM y SwA sobre SOAP.
+Lo que haremos es básicamente añadir una nueva operación SOAP que recoja el mensaje y sepa decodificarlo para guardarlo en el lado servidor.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">samples</span><span class="o">.</span><span class="na">services</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.axiom.om.OMText</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.axiom.om.OMElement</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.axiom.om.OMFactory</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.axiom.om.OMNamespace</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.axiom.util.base64.Base64Utils</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.axiom.attachments.Attachments</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.axis2.context.MessageContext</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.axis2.wsdl.WSDLConstants</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.activation.DataHandler</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.activation.FileDataSource</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.xml.namespace.QName</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.*</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MTOMSwASampleService</span> <span class="o">{</span>
+ <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="no">BUFFER</span> <span class="o">=</span> <span class="mi">2048</span><span class="o">;</span>
+ <span class="kd">public</span> <span class="nc">OMElement</span> <span class="nf">uploadFileUsingMTOM</span><span class="o">(</span><span class="nc">OMElement</span> <span class="n">request</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+  <span class="cm">/*  
+  &lt;soapenv:Envelope  
+  xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"  
+  xmlns:ser="http://services.samples"&gt;  
+  &lt;soapenv:Header/&gt;  
+  &lt;soapenv:Body&gt;  
+  &lt;ser:uploadFileUsingMTOM&gt;  
+  &lt;ser:request&gt;  
+  &lt;ser:image&gt;cid:tux-grenade.png&lt;/ser:image&gt;  
+  &lt;/ser:request&gt;  
+  &lt;/ser:uploadFileUsingMTOM&gt;  
+  &lt;/soapenv:Body&gt;  
+  &lt;/soapenv:Envelope&gt;  
+  */</span>
+  <span class="nc">OMText</span> <span class="n">binaryNode</span> <span class="o">=</span> <span class="o">(</span><span class="nc">OMText</span><span class="o">)</span> <span class="n">request</span><span class="o">.</span>
+  <span class="nf">getFirstChildWithName</span><span class="o">(</span><span class="k">new</span> <span class="nc">QName</span><span class="o">(</span><span class="s">"http://services.samples"</span><span class="o">,</span> <span class="s">"request"</span><span class="o">)).</span>
+  <span class="n">getFirstChildWithName</span><span class="o">(</span><span class="k">new</span> <span class="nc">QName</span><span class="o">(</span><span class="s">"http://services.samples"</span><span class="o">,</span> <span class="s">"image"</span><span class="o">)).</span>
+  <span class="n">getFirstOMChild</span><span class="o">();</span>
+  <span class="nc">DataHandler</span> <span class="n">dataHandler</span> <span class="o">=</span> <span class="o">(</span><span class="nc">DataHandler</span><span class="o">)</span> <span class="n">binaryNode</span><span class="o">.</span><span class="na">getDataHandler</span><span class="o">();</span>
+  <span class="nc">InputStream</span> <span class="n">is</span> <span class="o">=</span> <span class="n">dataHandler</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">();</span>
+  <span class="nc">File</span> <span class="n">tempFile</span> <span class="o">=</span> <span class="nc">File</span><span class="o">.</span><span class="na">createTempFile</span><span class="o">(</span><span class="s">"mtom-"</span><span class="o">,</span> <span class="s">".gif"</span><span class="o">);</span>
+  <span class="nc">FileOutputStream</span> <span class="n">fos</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FileOutputStream</span><span class="o">(</span><span class="n">tempFile</span><span class="o">);</span>
+  <span class="nc">BufferedOutputStream</span> <span class="n">dest</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BufferedOutputStream</span><span class="o">(</span><span class="n">fos</span><span class="o">,</span> <span class="no">BUFFER</span><span class="o">);</span>
+  <span class="kt">byte</span> <span class="n">data</span><span class="o">[]</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="no">BUFFER</span><span class="o">];</span>
+  <span class="kt">int</span> <span class="n">count</span><span class="o">;</span>
+  <span class="k">while</span> <span class="o">((</span><span class="n">count</span> <span class="o">=</span> <span class="n">is</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">data</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="no">BUFFER</span><span class="o">))</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+   <span class="n">dest</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">data</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">count</span><span class="o">);</span>
+  <span class="o">}</span>
+  <span class="n">dest</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
+  <span class="n">dest</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+  <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Wrote MTOM content to temp file : "</span><span class="err">\</span> <span class="o">+</span> <span class="n">tempFile</span><span class="o">.</span><span class="na">getAbsolutePath</span><span class="o">());</span>
+  <span class="nc">OMFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getOMFactory</span><span class="o">();</span>
+  <span class="nc">OMNamespace</span> <span class="n">ns</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">createOMNamespace</span><span class="o">(</span><span class="s">"http://services.samples"</span><span class="o">,</span> <span class="s">"m0"</span><span class="o">);</span>
+  <span class="nc">OMElement</span> <span class="n">payload</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">createOMElement</span><span class="o">(</span><span class="s">"uploadFileUsingMTOMResponse"</span><span class="o">,</span> <span class="n">ns</span><span class="o">);</span>
+  <span class="nc">OMElement</span> <span class="n">response</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">createOMElement</span><span class="o">(</span><span class="s">"response"</span><span class="o">,</span> <span class="n">ns</span><span class="o">);</span>
+  <span class="nc">OMElement</span> <span class="n">image</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">createOMElement</span><span class="o">(</span><span class="s">"image"</span><span class="o">,</span> <span class="n">ns</span><span class="o">);</span>
+  <span class="nc">FileDataSource</span> <span class="n">fileDataSource</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FileDataSource</span><span class="o">(</span><span class="n">tempFile</span><span class="o">);</span>
+  <span class="n">dataHandler</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DataHandler</span><span class="o">(</span><span class="n">fileDataSource</span><span class="o">);</span>
+  <span class="nc">OMText</span> <span class="n">textData</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">createOMText</span><span class="o">(</span><span class="n">dataHandler</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+  <span class="n">image</span><span class="o">.</span><span class="na">addChild</span><span class="o">(</span><span class="n">textData</span><span class="o">);</span>
+  <span class="n">response</span><span class="o">.</span><span class="na">addChild</span><span class="o">(</span><span class="n">image</span><span class="o">);</span>
+  <span class="n">payload</span><span class="o">.</span><span class="na">addChild</span><span class="o">(</span><span class="n">response</span><span class="o">);</span>
+  <span class="nc">MessageContext</span> <span class="n">outMsgCtx</span> <span class="o">=</span> <span class="nc">MessageContext</span><span class="o">.</span><span class="na">getCurrentMessageContext</span><span class="o">().</span><span class="na">getOperationContext</span><span class="o">().</span><span class="na">getMessageContext</span><span class="o">(</span><span class="nc">WSDLConstants</span><span class="o">.</span><span class="na">MESSAGE_LABEL_OUT_VALUE</span><span class="o">);</span>
+  <span class="n">outMsgCtx</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span>
+   <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">axis2</span><span class="o">.</span><span class="na">Constants</span><span class="o">.</span><span class="na">Configuration</span><span class="o">.</span><span class="na">ENABLE_MTOM</span><span class="o">,</span>
+   <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">axis2</span><span class="o">.</span><span class="na">Constants</span><span class="o">.</span><span class="na">VALUE_TRUE</span><span class="o">);</span>
+  <span class="k">return</span> <span class="n">payload</span><span class="o">;</span>
+ <span class="o">}</span>
+ <span class="kd">public</span> <span class="nc">OMElement</span> <span class="nf">uploadFileUsingSwA</span><span class="o">(</span><span class="nc">OMElement</span> <span class="n">request</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+  <span class="nc">String</span> <span class="n">imageContentId</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span>
+  <span class="nf">getFirstChildWithName</span><span class="o">(</span><span class="k">new</span> <span class="nc">QName</span><span class="o">(</span><span class="s">"http://services.samples"</span><span class="o">,</span> <span class="s">"request"</span><span class="o">)).</span>
+  <span class="n">getFirstChildWithName</span><span class="o">(</span><span class="k">new</span> <span class="nc">QName</span><span class="o">(</span><span class="s">"http://services.samples"</span><span class="o">,</span> <span class="s">"imageId"</span><span class="o">)).</span>
+  <span class="n">getText</span><span class="o">();</span>
+  <span class="nc">MessageContext</span> <span class="n">msgCtx</span> <span class="o">=</span> <span class="nc">MessageContext</span><span class="o">.</span><span class="na">getCurrentMessageContext</span><span class="o">();</span>
+  <span class="nc">Attachments</span> <span class="n">attachment</span> <span class="o">=</span> <span class="n">msgCtx</span><span class="o">.</span><span class="na">getAttachmentMap</span><span class="o">();</span>
+  <span class="nc">DataHandler</span> <span class="n">dataHandler</span> <span class="o">=</span> <span class="n">attachment</span><span class="o">.</span><span class="na">getDataHandler</span><span class="o">(</span><span class="n">imageContentId</span><span class="o">);</span>
+  <span class="nc">File</span> <span class="n">tempFile</span> <span class="o">=</span> <span class="nc">File</span><span class="o">.</span><span class="na">createTempFile</span><span class="o">(</span><span class="s">"swa-"</span><span class="o">,</span> <span class="s">".gif"</span><span class="o">);</span>
+  <span class="nc">FileOutputStream</span> <span class="n">fos</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FileOutputStream</span><span class="o">(</span><span class="n">tempFile</span><span class="o">);</span>
+  <span class="n">dataHandler</span><span class="o">.</span><span class="na">writeTo</span><span class="o">(</span><span class="n">fos</span><span class="o">);</span>
+  <span class="n">fos</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
+  <span class="n">fos</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+  <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Wrote SwA attachment to temp file : "</span><span class="err">\</span> <span class="o">+</span> <span class="n">tempFile</span><span class="o">.</span><span class="na">getAbsolutePath</span><span class="o">());</span>
+  <span class="nc">MessageContext</span> <span class="n">outMsgCtx</span> <span class="o">=</span> <span class="n">msgCtx</span><span class="o">.</span><span class="na">getOperationContext</span><span class="o">().</span><span class="na">getMessageContext</span><span class="o">(</span><span class="nc">WSDLConstants</span><span class="o">.</span><span class="na">MESSAGE_LABEL_OUT_VALUE</span><span class="o">);</span>
+  <span class="n">outMsgCtx</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span>
+   <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">axis2</span><span class="o">.</span><span class="na">Constants</span><span class="o">.</span><span class="na">Configuration</span><span class="o">.</span><span class="na">ENABLE_SWA</span><span class="o">,</span>
+   <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">axis2</span><span class="o">.</span><span class="na">Constants</span><span class="o">.</span><span class="na">VALUE_TRUE</span><span class="o">);</span>
+  <span class="nc">OMFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="na">getOMFactory</span><span class="o">();</span>
+  <span class="nc">OMNamespace</span> <span class="n">ns</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">createOMNamespace</span><span class="o">(</span><span class="s">"http://services.samples"</span><span class="o">,</span> <span class="s">"m0"</span><span class="o">);</span>
+  <span class="nc">OMElement</span> <span class="n">payload</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">createOMElement</span><span class="o">(</span><span class="s">"uploadFileUsingSwAResponse"</span><span class="o">,</span> <span class="n">ns</span><span class="o">);</span>
+  <span class="nc">OMElement</span> <span class="n">response</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">createOMElement</span><span class="o">(</span><span class="s">"response"</span><span class="o">,</span> <span class="n">ns</span><span class="o">);</span>
+  <span class="nc">OMElement</span> <span class="n">imageId</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">createOMElement</span><span class="o">(</span><span class="s">"imageId"</span><span class="o">,</span> <span class="n">ns</span><span class="o">);</span>
+  <span class="nc">FileDataSource</span> <span class="n">fileDataSource</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FileDataSource</span><span class="o">(</span><span class="n">tempFile</span><span class="o">);</span>
+  <span class="n">dataHandler</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DataHandler</span><span class="o">(</span><span class="n">fileDataSource</span><span class="o">);</span>
+  <span class="n">imageContentId</span> <span class="o">=</span> <span class="n">outMsgCtx</span><span class="o">.</span><span class="na">addAttachment</span><span class="o">(</span><span class="n">dataHandler</span><span class="o">);</span>
+  <span class="n">imageId</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">imageContentId</span><span class="o">);</span>
+  <span class="n">response</span><span class="o">.</span><span class="na">addChild</span><span class="o">(</span><span class="n">imageId</span><span class="o">);</span>
+  <span class="n">payload</span><span class="o">.</span><span class="na">addChild</span><span class="o">(</span><span class="n">response</span><span class="o">);</span>
+  <span class="k">return</span> <span class="n">payload</span><span class="o">;</span>
+ <span class="o">}</span>
+ <span class="kd">public</span> <span class="kt">void</span> <span class="nf">oneWayUploadUsingMTOM</span><span class="o">(</span><span class="nc">OMElement</span> <span class="n">element</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+  <span class="cm">/*  
+  &lt;soapenv:Envelope  
+  xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"  
+  xmlns:ser="http://services.samples"&gt;  
+  &lt;soapenv:Header/&gt;  
+  &lt;soapenv:Body&gt;  
+  &lt;ser:oneWayUploadUsingMTOM&gt;cid:chilcano.jpg&lt;/ser:oneWayUploadUsingMTOM&gt;  
+  &lt;/soapenv:Body&gt;  
+  &lt;/soapenv:Envelope&gt;  
+  */</span>
+  <span class="nc">OMText</span> <span class="n">binaryNode</span> <span class="o">=</span> <span class="o">(</span><span class="nc">OMText</span><span class="o">)</span> <span class="n">element</span><span class="o">.</span><span class="na">getFirstOMChild</span><span class="o">();</span>
+  <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"contentID : "</span><span class="err">\</span> <span class="o">+</span> <span class="n">binaryNode</span><span class="o">.</span><span class="na">getContentID</span><span class="o">());</span>
+  <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"isBinary :"</span><span class="err">\</span> <span class="o">+</span> <span class="n">binaryNode</span><span class="o">.</span><span class="na">isBinary</span><span class="o">());</span>
+  <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"isOptimized :"</span><span class="err">\</span> <span class="o">+</span> <span class="n">binaryNode</span><span class="o">.</span><span class="na">isOptimized</span><span class="o">());</span>
+  <span class="nc">DataHandler</span> <span class="n">dataHandler</span> <span class="o">=</span> <span class="o">(</span><span class="nc">DataHandler</span><span class="o">)</span> <span class="n">binaryNode</span><span class="o">.</span><span class="na">getDataHandler</span><span class="o">();</span>
+  <span class="nc">InputStream</span> <span class="n">is</span> <span class="o">=</span> <span class="n">dataHandler</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">();</span>
+  <span class="nc">File</span> <span class="n">tempFile</span> <span class="o">=</span> <span class="nc">File</span><span class="o">.</span><span class="na">createTempFile</span><span class="o">(</span><span class="s">"mtom-"</span><span class="o">,</span> <span class="s">".gif"</span><span class="o">);</span>
+  <span class="nc">FileOutputStream</span> <span class="n">fos</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FileOutputStream</span><span class="o">(</span><span class="n">tempFile</span><span class="o">);</span>
+  <span class="nc">BufferedOutputStream</span> <span class="n">dest</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BufferedOutputStream</span><span class="o">(</span><span class="n">fos</span><span class="o">,</span> <span class="no">BUFFER</span><span class="o">);</span>
+  <span class="kt">byte</span> <span class="n">data</span><span class="o">[]</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="no">BUFFER</span><span class="o">];</span>
+  <span class="kt">int</span> <span class="n">count</span><span class="o">;</span>
+  <span class="k">while</span> <span class="o">((</span><span class="n">count</span> <span class="o">=</span> <span class="n">is</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">data</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="no">BUFFER</span><span class="o">))</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+   <span class="n">dest</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">data</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">count</span><span class="o">);</span>
+  <span class="o">}</span>
+  <span class="n">dest</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
+  <span class="n">dest</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+  <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Wrote to file : "</span><span class="err">\</span> <span class="o">+</span> <span class="n">tempFile</span><span class="o">.</span><span class="na">getAbsolutePath</span><span class="o">());</span>
+ <span class="o">}</span>
+ <span class="kd">public</span> <span class="kt">void</span> <span class="nf">oneWayUploadUsingHTTP</span><span class="o">(</span><span class="nc">OMElement</span> <span class="n">element</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+  <span class="cm">/*  
+  &lt;?xml version="1.0" encoding="UTF-8"?&gt;  
+  &lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"&gt;  
+  &lt;soapenv:Body&gt;  
+  &lt;mediate&gt;  
+  &lt;myimagefile&gt;...content in base64...&lt;/myimagefile&gt;  
+  &lt;/mediate&gt;  
+  &lt;/soapenv:Body&gt;  
+  &lt;/soapenv:Envelope&gt;  
+  */</span>
+  <span class="nc">String</span> <span class="n">imageContentB64</span> <span class="o">=</span> <span class="n">element</span><span class="o">.</span><span class="na">getFirstElement</span><span class="o">().</span><span class="na">getText</span><span class="o">();</span>
+  <span class="nc">File</span> <span class="n">tempFile</span> <span class="o">=</span> <span class="nc">File</span><span class="o">.</span><span class="na">createTempFile</span><span class="o">(</span><span class="s">"1wayhttp-"</span><span class="o">,</span> <span class="s">".gif"</span><span class="o">);</span>
+  <span class="kt">byte</span><span class="o">[]</span> <span class="n">byteImageContent</span> <span class="o">=</span> <span class="nc">Base64Utils</span><span class="o">.</span><span class="na">decode</span><span class="o">(</span><span class="n">imageContentB64</span><span class="o">);</span>
+  <span class="k">try</span> <span class="o">(</span><span class="nc">OutputStream</span> <span class="n">ostream</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FileOutputStream</span><span class="o">(</span><span class="n">tempFile</span><span class="o">))</span> <span class="o">{</span>
+   <span class="n">ostream</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">byteImageContent</span><span class="o">);</span>
+  <span class="o">}</span>
+  <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Wrote 1WayHTTP attachment to temp file : "</span><span class="err">\</span> <span class="o">+</span> <span class="n">tempFile</span><span class="o">.</span><span class="na">getAbsolutePath</span><span class="o">());</span>
+ <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>Veréis que he implementado una nueva operación al servicio (método java) llamada <code class="highlighter-rouge">oneWayUploadUsingHTTP</code> que recibe como un parámetro de tipo <code class="highlighter-rouge">OMElement</code>.
+Si deseas añadir más código para efectuar acciones más complejas te recomiendo que crees un proyecto nuevo desde WSO2 Studio haciendo uso de Maven, luego importes esta clase.
+Una vez actualizado, debemos compilarlo y desplegarlo en Axis2 Server. El <code class="highlighter-rouge">WSDL</code> será actualizado automáticamente.<br />
+Sólo seguir los siguientes pasos:</p>
+<ol>
+  <li>Editar el fichero <code class="highlighter-rouge">%ESB_HOME%/samples/axis2Server/src/MTOMSwASampleService/src/samples/servicesMTOMSwASampleService.java</code>, dejarlo como se indica líneas arriba.</li>
+  <li>Grabar <code class="highlighter-rouge">servicesMTOMSwASampleService.java</code> para preservar los cambios.</li>
+  <li>Desde la línea de comandos, ejecutar ANT para compilar el servicio y desplegarlo en el Axis2 server.</li>
+  <li>Si todo ha ido bien, iniciemos Axis2 server.</li>
+  <li>Para verificar que hemos implementado una nueva operación, podemos consultar el actualizado <code class="highlighter-rouge">WSDL</code> en la siguiente dirección: <a href="http://localhost:9000/services/MTOMSwASampleService?wsdl">http://localhost:9000/services/MTOMSwASampleService?wsdl</a></li>
+</ol>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Chilcano@Pisc0 <span class="nv">$ </span><span class="nb">cd</span> ~/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/src/MTOMSwASampleService  
+Chilcano@Pisc0 <span class="nv">$ </span>ant  
+Buildfile: /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/src/MTOMSwASampleService/build.xml
+clean:  
+<span class="o">[</span>delete] Deleting directory /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/src/MTOMSwASampleService/temp
+init:  
+<span class="o">[</span><span class="nb">mkdir</span><span class="o">]</span> Created <span class="nb">dir</span>: /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/src/MTOMSwASampleService/temp  
+<span class="o">[</span><span class="nb">mkdir</span><span class="o">]</span> Created <span class="nb">dir</span>: /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/src/MTOMSwASampleService/temp/classes
+compile-all:  
+<span class="o">[</span>javac] /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/src/MTOMSwASampleService/build.xml:47: warning: <span class="s1">'includeantruntime'</span> was not <span class="nb">set</span>, defaulting to build.sysclasspath<span class="o">=</span>last<span class="p">;</span> <span class="nb">set </span>to <span class="nb">false </span><span class="k">for </span>repeatable builds  
+<span class="o">[</span>javac] Compiling 1 <span class="nb">source </span>file to /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/src/MTOMSwASampleService/temp/classes
+build-service:  
+<span class="o">[</span><span class="nb">mkdir</span><span class="o">]</span> Created <span class="nb">dir</span>: /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/src/MTOMSwASampleService/temp/MTOMSwASampleService  
+<span class="o">[</span><span class="nb">mkdir</span><span class="o">]</span> Created <span class="nb">dir</span>: /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/src/MTOMSwASampleService/temp/MTOMSwASampleService/META-INF  
+<span class="o">[</span>copy] Copying 1 file to /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/src/MTOMSwASampleService/temp/MTOMSwASampleService/META-INF  
+<span class="o">[</span>copy] Copying 1 file to /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/src/MTOMSwASampleService/temp/MTOMSwASampleService  
+<span class="o">[</span>jar] Building jar: /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/repository/services/MTOMSwASampleService.aar
+BUILD SUCCESSFUL  
+Total <span class="nb">time</span>: 2 seconds  
+</code></pre></div></div>
+
+<h2 id="iii-ejecutando-todo-esto">III. Ejecutando todo esto.</h2>
+
+<p>Finalmente, después de desplegar satisfactoriamente el servicio de backend, iniciar Axis2 server, iniciar WSO2 ESB, crear Proxy_01 y Proxy_02, estamos a punto de poder ejecutar el form HTML para hacer el upload de un fichero.</p>
+
+<p><img src="/assets/blog20140526_wso2_mtom_2/wso2esb-mtom-part2-http2soap-02form.png" alt="" /></p>
+
+<p>Después del envío de un fichero a través del form HTML, tu verás que en el lado de Axis2 server se recuperará el fichero enviado para guardarlo en el disco del servidor.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>...]  
+14/05/26 22:43:07 INFO nhttp.HttpCoreNIOSender: HTTPS Sender starting  
+14/05/26 22:43:07 INFO nhttp.HttpCoreNIOSender: HTTP Sender starting  
+14/05/26 22:43:07 INFO jms.JMSSender: JMS Sender started  
+14/05/26 22:43:07 INFO jms.JMSSender: JMS Transport Sender initialized...  
+14/05/26 22:43:07 INFO deployment.DeploymentEngine: Deploying Web service: FastStockQuoteService.aar - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/repository/services/FastStockQuoteService.aar  
+14/05/26 22:43:07 INFO deployment.DeploymentEngine: Deploying Web service: LBService1.aar - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/repository/services/LBService1.aar  
+14/05/26 22:43:07 INFO deployment.DeploymentEngine: Deploying Web service: LBService2.aar - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/repository/services/LBService2.aar  
+14/05/26 22:43:07 INFO deployment.DeploymentEngine: Deploying Web service: MTOMSwASampleService.aar - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/repository/services/MTOMSwASampleService.aar  
+14/05/26 22:43:07 INFO deployment.DeploymentEngine: Deploying Web service: ReliableStockQuoteService.aar - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/repository/services/ReliableStockQuoteService.aar  
+14/05/26 22:43:07 INFO deployment.DeploymentEngine: Deploying Web service: SecureStockQuoteService.aar - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/repository/services/SecureStockQuoteService.aar  
+14/05/26 22:43:07 INFO deployment.DeploymentEngine: Deploying Web service: SimpleStockQuoteService.aar - file:/Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/repository/services/SimpleStockQuoteService.aar  
+14/05/26 22:43:08 INFO nhttp.HttpCoreNIOListener: HTTPS Listener started on 0:0:0:0:0:0:0:0:9002  
+14/05/26 22:43:08 INFO nhttp.HttpCoreNIOListener: HTTP Listener started on 0:0:0:0:0:0:0:0:9000  
+14/05/26 22:43:08 INFO util.SampleAxis2ServerManager: <span class="o">[</span>SimpleAxisServer] Started
+Wrote 1WayHTTP attachment to temp file : /Users/Chilcano/0dev-env/2srv/wso2esb-4.8.1/samples/axis2Server/../../tmp/sampleServer/1wayhttp-1767851362396795349.gif  
+</code></pre></div></div>
+
+<p>En el lado de WSO2 ESB verás las siguientes trazas:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>...]  
+<span class="o">[</span>2014-05-25 11:48:59,110] INFO - PassThroughHttpSSLListener Pass-through HTTPS Listener started on 0:0:0:0:0:0:0:0:8246  
+<span class="o">[</span>2014-05-25 11:48:59,110] INFO - PassThroughHttpListener Starting Pass-through HTTP Listener...  
+<span class="o">[</span>2014-05-25 11:48:59,112] INFO - PassThroughHttpListener Pass-through HTTP Listener started on 0:0:0:0:0:0:0:0:8283  
+<span class="o">[</span>2014-05-25 11:48:59,114] INFO - NioSelectorPool Using a shared selector <span class="k">for </span>servlet write/read  
+<span class="o">[</span>2014-05-25 11:48:59,328] INFO - NioSelectorPool Using a shared selector <span class="k">for </span>servlet write/read  
+<span class="o">[</span>2014-05-25 11:48:59,343] INFO - RegistryEventingServiceComponent Successfully Initialized Eventing on Registry  
+<span class="o">[</span>2014-05-25 11:48:59,379] INFO - JMXServerManager JMX Service URL : service:jmx:rmi://localhost:11114/jndi/rmi://localhost:10002/jmxrmi  
+<span class="o">[</span>2014-05-25 11:48:59,379] INFO - StartupFinalizerServiceComponent Server : WSO2 Enterprise Service Bus-4.8.1  
+<span class="o">[</span>2014-05-25 11:48:59,380] INFO - StartupFinalizerServiceComponent WSO2 Carbon started <span class="k">in </span>22 sec  
+<span class="o">[</span>2014-05-25 11:48:59,599] INFO - CarbonUIServiceComponent Mgt Console URL : https://192.168.56.1:9446/carbon/  
+<span class="o">[</span>2014-05-25 11:49:06,594] INFO - CarbonAuthenticationUtil <span class="s1">'admin@carbon.super [-1234]'</span> logged <span class="k">in </span>at <span class="o">[</span>2014-05-25 11:49:06,594+0200]  
+<span class="o">[</span>2014-05-25 11:51:28,952] INFO - ProxyService Building Axis service <span class="k">for </span>Proxy service : MTOMSwASampleService_http  
+<span class="o">[</span>2014-05-25 11:51:28,952] INFO - ProxyService Adding service MTOMSwASampleService_http to the Axis2 configuration  
+<span class="o">[</span>2014-05-25 11:51:28,954] INFO - DeploymentInterceptor Deploying Axis2 service: MTOMSwASampleService_http <span class="o">{</span>super-tenant<span class="o">}</span>  
+<span class="o">[</span>2014-05-25 11:51:28,978] INFO - ProxyService Successfully created the Axis2 service <span class="k">for </span>Proxy service : MTOMSwASampleService_http  
+<span class="o">[</span>2014-05-26 22:43:51,296] INFO - CarbonAuthenticationUtil <span class="s1">'admin@carbon.super [-1234]'</span> logged <span class="k">in </span>at <span class="o">[</span>2014-05-26 22:43:51,296+0200]
+<span class="o">[</span>2014-05-26 22:47:15,938] INFO - LogMediator <span class="k">******</span> MTOMSwASampleService - HTTP <span class="o">=</span> <span class="k">*****</span> inSeq - ini  
+<span class="o">[</span>2014-05-26 22:47:15,945] INFO - LogMediator <span class="o">========</span> Proxy-MTOMSwASampleService <span class="o">=</span> <span class="o">======</span> inSeq - ini  
+<span class="o">[</span>2014-05-26 22:47:15,945] INFO - LogMediator ...calling <span class="o">=</span> oneWayUploadUsingHTTP  
+<span class="o">[</span>2014-05-26 22:47:15,946] INFO - LogMediator <span class="o">========</span> Proxy MTOMSwASampleService <span class="o">=</span> <span class="o">======</span> inSeq - fin  
+<span class="o">[</span>2014-05-26 22:47:15,954] INFO - LogMediator <span class="k">******</span> MTOMSwASampleService - HTTP <span class="o">=</span> <span class="k">*****</span> inSeq - fin  
+</code></pre></div></div>
+
+<h2 id="iv-conclusiones">IV. Conclusiones.</h2>
+
+<ul>
+  <li>Hemos demostrado que WSO2 ESB nos permite transformar tanto la estructura del mensaje como el protocolo de transporte (de HTTP a SOAP) de manera fácil creando únicamente 2 Proxies.</li>
+  <li>Hemos implementado un patrón de integración llamado <a href="https://docs.wso2.org/display/IntegrationPatterns/Content-Based+Router">Content-Based Router (CBR)</a> todo ello gracias a la capacidades de <code class="highlighter-rouge">Mediation</code> de WSO2 ESB.</li>
+  <li>El uso de MTOM directamente desde un form HTML no es posible, es necesario usar otro proxy que transforme la petición <code class="highlighter-rouge">multipart/form-data</code> a MTOM.</li>
+</ul>
+
+<p>Espero que os haya servido!.</p>
+
+  </div><div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://holisticsecurity.io/2014/05/26/mtom-en-wso2-esb-para-optimizar-la-transferencia-de-datos-binarios-sobre-soap-parte-22';
+      this.page.identifier = 'https://holisticsecurity.io/2014/05/26/mtom-en-wso2-esb-para-optimizar-la-transferencia-de-datos-binarios-sobre-soap-parte-22';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://holosec.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript><a class="u-url" href="/2014/05/26/mtom-en-wso2-esb-para-optimizar-la-transferencia-de-datos-binarios-sobre-soap-parte-22" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading"><img src="/assets/img/logo-holosec.png" width="40" /> Holistic Security</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Holistic Security</li><li><a class="u-email" href="mailto:blog@holisticsecurity.io">blog@holisticsecurity.io</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.linkedin.com/in/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.twitter.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">Chilcano</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Systems Thinking, Holism, Trust, Security &amp; Usability.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

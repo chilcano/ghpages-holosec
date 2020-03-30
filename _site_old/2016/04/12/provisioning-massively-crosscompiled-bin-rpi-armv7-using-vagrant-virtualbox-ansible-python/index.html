@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Provisioning massively cross-compiled binaries to Raspberry Pi (arm) using Vagrant, VirtualBox, Ansible and Python | Holistic Security</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Provisioning massively cross-compiled binaries to Raspberry Pi (arm) using Vagrant, VirtualBox, Ansible and Python" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="If you are involved in an IoT or Mobile Application provisioning Project you probably need build a mechanism to spread your application binaries to all Devices on stock and to all the rolled out Devices. With this Proof-of-concept I will shown you how to build the app binary provisioning system for your custom platform, in this case I’m going to use Raspberry Pi (ARM processor) quickly avoiding perform unnecessary tasks and providing also an ARM cross-compiling platform." />
+<meta property="og:description" content="If you are involved in an IoT or Mobile Application provisioning Project you probably need build a mechanism to spread your application binaries to all Devices on stock and to all the rolled out Devices. With this Proof-of-concept I will shown you how to build the app binary provisioning system for your custom platform, in this case I’m going to use Raspberry Pi (ARM processor) quickly avoiding perform unnecessary tasks and providing also an ARM cross-compiling platform." />
+<link rel="canonical" href="https://holisticsecurity.io/2016/04/12/provisioning-massively-crosscompiled-bin-rpi-armv7-using-vagrant-virtualbox-ansible-python/" />
+<meta property="og:url" content="https://holisticsecurity.io/2016/04/12/provisioning-massively-crosscompiled-bin-rpi-armv7-using-vagrant-virtualbox-ansible-python/" />
+<meta property="og:site_name" content="Holistic Security" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-04-12T17:46:31+02:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://holisticsecurity.io/2016/04/12/provisioning-massively-crosscompiled-bin-rpi-armv7-using-vagrant-virtualbox-ansible-python/"},"url":"https://holisticsecurity.io/2016/04/12/provisioning-massively-crosscompiled-bin-rpi-armv7-using-vagrant-virtualbox-ansible-python/","headline":"Provisioning massively cross-compiled binaries to Raspberry Pi (arm) using Vagrant, VirtualBox, Ansible and Python","dateModified":"2016-04-12T17:46:31+02:00","datePublished":"2016-04-12T17:46:31+02:00","description":"If you are involved in an IoT or Mobile Application provisioning Project you probably need build a mechanism to spread your application binaries to all Devices on stock and to all the rolled out Devices. With this Proof-of-concept I will shown you how to build the app binary provisioning system for your custom platform, in this case I’m going to use Raspberry Pi (ARM processor) quickly avoiding perform unnecessary tasks and providing also an ARM cross-compiling platform.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://holisticsecurity.io/feed.xml" title="Holistic Security" /><script>
+if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-156433649-1', 'auto');
+  ga('send', 'pageview');
+}
+</script>
+  
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/"><img src="/assets/img/logo-holosec.png" width="100" /> Holistic Security</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/">Home</a><a class="page-link" href="/blog/">Blog</a><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Provisioning massively cross-compiled binaries to Raspberry Pi (arm) using Vagrant, VirtualBox, Ansible and Python</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2016-04-12T17:46:31+02:00" itemprop="datePublished">Apr 12, 2016 
+      </time>&sim; DEVOPS · IOT · OPEN SOURCE
+      &sim; ANSIBLE · ARM · LINUX · PYTHON · RASPBERRY PI · VAGRANT
+    </p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>If you are involved in an IoT or Mobile Application provisioning Project you probably need build a mechanism to spread your application binaries to all Devices on stock and to all the rolled out Devices.
+With this Proof-of-concept I will shown you how to build the app binary provisioning system for your custom platform, in this case I’m going to use Raspberry Pi (ARM processor) quickly avoiding perform unnecessary tasks and providing also an ARM cross-compiling platform.</p>
+
+<p><a href="/assets/blog-cross-compiling-kismet-raspberrypi-arm.png" target="_blank"><img src="/assets/blog-cross-compiling-kismet-raspberrypi-arm.png" alt="" width="70%" /></a></p>
+
+<!-- more -->
+
+<p>To implement this I will use Vagrant to create an Ubuntu VM mounts the Raspbian OS image internally ready to be used for ARM cross-compiling. There is a special part in this blog post where explains how to NFS mount to provide remote booting for all Raspberry Pi’s connected to same network.
+I provide a new Github repository with all the updated scripts required for this PoC. You can download from here:<br />
+I would like to mention that this work is based on <code class="highlighter-rouge">https://github.com/twobitcircus/rpi-build-and-boot</code> where I’ve created a Vagrantfile for VirtualBox, tweaked the Ansible Playbook and I have documented the process I’ve followed to make it work successfully in my environment (VirtualBox instead of Parallels and booting from NFS).</p>
+
+<h2 id="requirements">Requirements:</h2>
+
+<p>I’m using a Mac OS X (El Capitan - Version 10.11.3) with the next tools:</p>
+<ul>
+  <li>VirtualBox 5.0.16</li>
+  <li>Vagrant 1.8.1</li>
+  <li>Ansible 2.0.1.0 (installed via Pip)</li>
+  <li>Python 2.7.11</li>
+  <li>Raspberry Pi 2 Model B</li>
+  <li>Raspbian OS (2015-09-24-raspbian-jessie.img)</li>
+  <li>OpenFramework for cross-compiling (http://openframeworks.cc)</li>
+</ul>
+
+<h3 id="why-ansible-instead-of-other-configuration-management-tools-">Why <em>Ansible</em> instead of other configuration management tools ?</h3>
+
+<p>Why Ansible (http://docs.ansible.com/ansible/intro_installation.html) instead of other configuration management tools as Puppet, Chef, …?. Because, Ansible is simple and agentless; you can use it with just with a simple SSH terminal, nothing special is required to be installed in the Host, also because it is written in Python and as you have seen in my previous post, I’m using intensively Python and it is becoming my favorite programming language. You can install Ansible using the same Python installation tools and obviously, you can <code class="highlighter-rouge">import ansible</code> from your Python scripts.<br />
+To install Ansible on Mac OS X (El Capitan - Version 10.11.3) is easy, just follow these steps:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo </span>easy_install pip  
+<span class="nv">$ </span><span class="nb">sudo </span>pip <span class="nb">install </span>ansible <span class="nt">--quiet</span>
+// upgrading Ansible and Pip  
+<span class="nv">$ </span><span class="nb">sudo </span>pip <span class="nb">install </span>ansible <span class="nt">--upgrade</span>  
+<span class="nv">$ </span><span class="nb">sudo </span>pip <span class="nb">install</span> <span class="nt">--upgrade</span> pip  
+</code></pre></div></div>
+
+<h2 id="preparing-the-raspberry-pi">Preparing the Raspberry Pi</h2>
+
+<p><strong>1. Copy RPi image to SD</strong></p>
+
+<p>Identify the disk (not partition) of your SD card, unmount and copy the image there:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>diskutil list  
+<span class="nv">$ </span>diskutil unmountDisk /dev/disk2  
+<span class="nv">$ </span><span class="nb">cd</span> /Users/Chilcano/Downloads/@isos_vms/raspberrypi-imgs  
+<span class="nv">$ </span><span class="nb">sudo dd </span><span class="nv">bs</span><span class="o">=</span>1m <span class="k">if</span><span class="o">=</span>2015-09-24-raspbian-jessie.img <span class="nv">of</span><span class="o">=</span>/dev/rdisk2  
+</code></pre></div></div>
+
+<p><strong>2. Connect the Raspberry Pi directly to your Host (MAC OS X)</strong></p>
+
+<p>Using an ethernet cable, connect your Raspberry Pi to your Host, in my case I’ve a MAC OS X and I’m going to share my WIFI Network connection.<br />
+Then, enabling <code class="highlighter-rouge">Internet Sharing</code> and the “Thunderbolt Ethernet” an IP address will be assigned to the Raspberry Pi, also Raspberry Pi will have Internet access/Network access and the MAC OS X can connect via SSH to the Raspberry Pi.<br />
+All that will be possible without a hub, switch, router, screen or keyboard, etc. This will be useful, because we are going to install new software in Raspberry Pi.
+After connect your Raspberry Pi to your MAC OS X, turn on by connecting an USB cable, in your MAC OS X open a Terminal and issue a SSH command, before re-generate the SSH keys.
+Note that the default hostname of any Raspberry Pi is <code class="highlighter-rouge">raspberrypi.local</code>.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// cleaning existing keys  
+<span class="nv">$ </span>ssh-keygen <span class="nt">-R</span> raspberrypi.local
+// connect to RPi using <span class="sb">`</span>raspberry<span class="sb">`</span> as default password  
+<span class="nv">$ </span>ssh pi@raspberrypi.local  
+</code></pre></div></div>
+
+<p>After connecting, you will check the assigned IP address and the shared Internet Connection. Now, check out your connection.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pi@raspberrypi:~ <span class="nv">$ </span>ping www.docker.com  
+PING www.docker.com <span class="o">(</span>104.239.220.248<span class="o">)</span> 56<span class="o">(</span>84<span class="o">)</span> bytes of data.  
+64 bytes from 104.239.220.248: <span class="nv">icmp_seq</span><span class="o">=</span>1 <span class="nv">ttl</span><span class="o">=</span>49 <span class="nb">time</span><span class="o">=</span>212 ms  
+64 bytes from 104.239.220.248: <span class="nv">icmp_seq</span><span class="o">=</span>2 <span class="nv">ttl</span><span class="o">=</span>49 <span class="nb">time</span><span class="o">=</span>214 ms  
+^C  
+<span class="se">\-</span><span class="nt">--</span> www.docker.com ping statistics <span class="nt">---</span>  
+2 packets transmitted, 2 received, 0% packet loss, <span class="nb">time </span>6970ms  
+rtt min/avg/max/mdev <span class="o">=</span> 207.205/213.294/217.893/3.513 ms  
+</code></pre></div></div>
+
+<p><strong>3. Configure your RPi</strong></p>
+
+<p>Boot your RPi and open a shell. Then enter:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pi@raspberrypi:~ <span class="nv">$ </span><span class="nb">sudo </span>raspi-config  
+</code></pre></div></div>
+
+<p>In the <code class="highlighter-rouge">raspi-config</code> menu, select <code class="highlighter-rouge">Option 1 Expand Filesystem</code>, change Keyboard layout, etc. and reboot.
+Just if <code class="highlighter-rouge">mirrordirector.raspbian.org</code> mirror is not available, remove <code class="highlighter-rouge">http://mirrordirector.raspbian.org/raspbian/</code> repository and add a newest.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pi@raspberrypi ~ <span class="nv">$ </span><span class="nb">sudo </span>nano /etc/apt/sources.list
+
+<span class="c">#deb http://mirrordirector.raspbian.org/raspbian/ jessie main contrib non-free rpi  </span>
+
+deb http://ftp.cica.es/mirrors/Linux/raspbian/raspbian/ jessie main contrib non-free rpi
+
+<span class="c"># Uncomment line below then 'apt-get update' to enable 'apt-get source'  </span>
+
+<span class="c">#deb-src http://archive.raspbian.org/raspbian/ jessie main contrib non-free rpi  </span>
+</code></pre></div></div>
+
+<p><strong>4. Install OpenFrameworks tools and dependencies into Raspberry Pi</strong></p>
+
+<p>Download and unzip OpenFrameworks into RPi under <code class="highlighter-rouge">/opt</code>.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pi@raspberrypi:~ <span class="nv">$ </span><span class="nb">cd</span> /opt  
+pi@raspberrypi:/opt <span class="nv">$ </span><span class="nb">sudo </span>wget http://openframeworks.cc/versions/v0.9.0/of_v0.9.0_linuxarmv7l_release.tar.gz  
+pi@raspberrypi:/opt <span class="nv">$ </span><span class="nb">sudo tar</span> <span class="nt">-zxf</span> of_v0.9.0_linuxarmv7l_release.tar.gz  
+pi@raspberrypi:/opt <span class="nv">$ </span><span class="nb">sudo rm </span>of_v0.9.0_linuxarmv7l_release.tar.gz  
+</code></pre></div></div>
+
+<p>Now, update the dependencies required when cross-compiling by running <code class="highlighter-rouge">install_dependencies.sh</code>.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pi@raspberrypi:~ <span class="nv">$ </span><span class="nb">sudo</span> /opt/of_v0.9.0_linuxarmv7l_release/scripts/linux/debian/install_dependencies.sh  
+</code></pre></div></div>
+
+<p>Now, compile oF, compile and execute an oF example.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// compiling oF  
+pi@raspberrypi:~ <span class="nv">$ </span><span class="nb">sudo </span>make Release <span class="nt">-C</span> /opt/of_v0.9.0_linuxarmv7l_release/libs/openFrameworksCompiled/project  
+...  
+se/libs/openFrameworksCompiled/lib/linuxarmv7l/obj/Release/libs/openFrameworks/math/ofMatrix4x4.o /opt/of_v0.9.0_linuxarmv7l_release/libs/openFrameworksCompiled/lib/linuxarmv7l/obj/Release/libs/openFrameworks/math/ofQuaternion.o /opt/of_v0.9.0_linuxarmv7l_release/libs/openFrameworksCompiled/lib/linuxarmv7l/obj/Release/libs/openFrameworks/math/ofVec2f.o  
+<span class="nv">HOST_OS</span><span class="o">=</span>Linux  
+<span class="nv">HOST_ARCH</span><span class="o">=</span>armv7l  
+checking pkg-config libraries: cairo zlib gstreamer-app-1.0 gstreamer-1.0 gstreamer-video-1.0 gstreamer-base-1.0 libudev freetype2 fontconfig sndfile openal openssl libpulse-simple alsa gtk+-3.0  
+Done!  
+make: Leaving directory <span class="s1">'/opt/of_v0.9.0_linuxarmv7l_release/libs/openFrameworksCompiled/project'</span>
+// executing an example  
+pi@raspberrypi:~ <span class="nv">$ </span><span class="nb">sudo </span>make <span class="nt">-C</span> /opt/of_v0.9.0_linuxarmv7l_release/apps/myApps/emptyExample  
+pi@raspberrypi:~ <span class="nv">$ </span><span class="nb">cd</span> /opt/of_v0.9.0_linuxarmv7l_release/apps/myApps/emptyExample  
+pi@raspberrypi /opt/of_v0.9.0_linuxarmv7l_release/apps/myApps/emptyExample <span class="nv">$ </span>bin/emptyExample  
+</code></pre></div></div>
+
+<p><strong>5. Make an new image file from the existing and updated Raspberry Pi</strong></p>
+
+<p>Remove the SD card from the Raspberry Pi, insert the SD card in your Host (in my case is MAC OS X) and use <code class="highlighter-rouge">dd</code> to make an new image file.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>diskutil list  
+<span class="nv">$ </span>diskutil unmountDisk /dev/disk2  
+<span class="nv">$ </span><span class="nb">sudo dd </span><span class="nv">bs</span><span class="o">=</span>1m <span class="k">if</span><span class="o">=</span>/dev/rdisk2 <span class="nv">of</span><span class="o">=</span>2015-09-24-raspbian-jessie-of2.img
+15279+0 records <span class="k">in  
+</span>15279+0 records out  
+16021192704 bytes transferred <span class="k">in </span>381.968084 secs <span class="o">(</span>41943799 bytes/sec<span class="o">)</span>  
+</code></pre></div></div>
+
+<p><em>Very important</em> :</p>
+<ul>
+  <li>The <code class="highlighter-rouge">2015-09-24-raspbian-jessie-of.img</code> will be <code class="highlighter-rouge">shared</code> and after <code class="highlighter-rouge">mounted</code> from the guest VM, for that, set the user and permissions to <code class="highlighter-rouge">2015-09-24-raspbian-jessie-of.img</code> as shown below:</li>
+</ul>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">sudo chmod</span> +x 2015-09-24-raspbian-jessie-of2.img  
+<span class="nv">$ </span><span class="nb">sudo chown </span>Chilcano 2015-09-24-raspbian-jessie-of2.img
+<span class="nv">$ </span><span class="nb">ls</span> <span class="nt">-la</span>  
+total 110439056  
+drwxr-xr-x 33 Chilcano staff 1122 Apr 11 19:12 ./  
+drwxr-xr-x 35 Chilcano staff 1190 Mar 23 19:26 ../  
+<span class="nt">-rwxr-xr-x</span> 1 Chilcano staff 16021192704 Apr 11 17:29 2015-09-24-raspbian-jessie-of1.img<span class="k">*</span>  
+<span class="nt">-rwxr-xr-x</span> 1 Chilcano staff 16021192704 Apr 11 19:19 2015-09-24-raspbian-jessie-of2.img<span class="k">*</span>  
+<span class="nt">-rwxr-xr-x</span> 1 Chilcano staff 4325376000 Apr 11 17:02 2015-09-24-raspbian-jessie.img<span class="k">*</span>  
+<span class="nt">-rwxr-xr-x</span> 1 Chilcano staff 16021192704 Mar 31 12:31 2016-03-18-raspbian-jessie-of1.img<span class="k">*</span>  
+<span class="nt">-rwxr-xr-x</span> 1 Chilcano staff 4033871872 Apr 5 16:31 2016-03-18-raspbian-jessie.img<span class="k">*</span>  
+...  
+</code></pre></div></div>
+
+<h2 id="building-the-vagrant-box">Building the Vagrant box</h2>
+
+<p><strong>1. In your MAC OS X, to clone the<code class="highlighter-rouge">rpi-build-and-boot</code> github repository</strong></p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git clone https://github.com/twobitcircus/rpi-build-and-boot  
+<span class="nv">$ </span><span class="nb">cd </span>rpi-build-and-boot  
+</code></pre></div></div>
+
+<p>Copy/Move the newest RPi image created above into <code class="highlighter-rouge">rpi-build-and-boot</code> folder.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">mv</span> /Users/Chilcano/Downloads/@isos_vms/raspberrypi-imgs/2015-09-24-raspbian-jessie-of2.img <span class="nb">.</span>  
+</code></pre></div></div>
+
+<p><strong>2. Install Vagrant and vbguest plugin into MAC OS X</strong></p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>wget https://releases.hashicorp.com/vagrant/1.8.1/vagrant_1.8.1.dmg  
+<span class="nv">$ </span>vagrant plugin <span class="nb">install </span>vagrant-vbguest  
+</code></pre></div></div>
+
+<p><strong>3. Create a new<code class="highlighter-rouge">Vagrantfile</code> with VirtualBox as provider in the same folder <code class="highlighter-rouge">rpi-build-and-boot</code></strong></p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="c1"># -*- mode: ruby -*-  </span>
+
+<span class="c1"># vi: set ft=ruby :</span>
+<span class="no">Vagrant</span><span class="p">.</span><span class="nf">configure</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>  
+
+<span class="c1"># https://atlas.hashicorp.com/ubuntu/boxes/trusty64 [Official Ubuntu Server 14.04 LTS (Trusty Tahr) builds]  </span>
+
+<span class="n">config</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">box</span> <span class="o">=</span> <span class="s2">"ubuntu/trusty64"</span>  
+<span class="n">config</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">provider</span> <span class="s2">"virtualbox"</span> <span class="k">do</span> <span class="o">|</span><span class="n">vb</span><span class="o">|</span>  
+<span class="n">config</span><span class="p">.</span><span class="nf">vbguest</span><span class="p">.</span><span class="nf">auto_update</span> <span class="o">=</span> <span class="kp">true</span>  
+<span class="n">vb</span><span class="p">.</span><span class="nf">customize</span> <span class="p">[</span><span class="s2">"modifyvm"</span><span class="p">,</span> <span class="ss">:id</span><span class="p">,</span> <span class="s2">"</span><span class="se">\-</span><span class="s2">-memory"</span><span class="p">,</span> <span class="s2">"6144"</span><span class="p">]</span>  
+<span class="n">vb</span><span class="p">.</span><span class="nf">customize</span> <span class="p">[</span><span class="s2">"modifyvm"</span><span class="p">,</span> <span class="ss">:id</span><span class="p">,</span> <span class="s2">"</span><span class="se">\-</span><span class="s2">-cpus"</span><span class="p">,</span> <span class="s2">"4"</span><span class="p">]</span>  
+<span class="k">end</span>  
+
+<span class="c1"># If you want to use this system to netboot Raspberry Pi, then uncomment this line  </span>
+
+<span class="c1">#config.vm.network "public_network", bridge: "en4: mac-eth0", ip: "10.0.0.1"  </span>
+<span class="n">config</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">network</span> <span class="s2">"public_network"</span><span class="p">,</span> <span class="ss">bridge: </span><span class="s2">"ask"</span><span class="p">,</span> <span class="ss">ip: </span><span class="s2">"10.0.0.1"</span>  
+<span class="n">config</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">provision</span> <span class="s2">"ansible"</span> <span class="k">do</span> <span class="o">|</span><span class="n">ansible</span><span class="o">|</span>  
+<span class="n">ansible</span><span class="p">.</span><span class="nf">playbook</span> <span class="o">=</span> <span class="s2">"playbook.yml"</span>  
+<span class="k">end</span>  
+<span class="k">end</span>  
+</code></pre></div></div>
+
+<p><strong>4. Getting<code class="highlighter-rouge">boot</code> and <code class="highlighter-rouge">root</code> partitions offsets to do loop mounting in Vagrant</strong></p>
+
+<p>Using <code class="highlighter-rouge">./tool.py offsets</code> I will get the offsets of the <code class="highlighter-rouge">boot</code> and <code class="highlighter-rouge">root</code> partitions, after getting offset, copy the output of this tool to the top of <code class="highlighter-rouge">playbook.yml</code>.<br />
+To run <code class="highlighter-rouge">tool.py</code> in MAC OS X, you will need <code class="highlighter-rouge">Python</code> configured.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>./tool.py offsets 2015-09-24-raspbian-jessie-of2.img
+image: 2015-09-24-raspbian-jessie-of2.img  
+offset_boot: 4194304  
+offset_root: 62914560  
+</code></pre></div></div>
+
+<p>The idea to loop-mount the RPi image is to create a full structure of directories and files of a Raspberry Pi distribution under a mounting-point in a Vagrant box. This structure is required to do <code class="highlighter-rouge">cross-compiling</code> and move/copy new binaries and ARM cross-compiled binaries.</p>
+
+<p><strong>5. Mounting Raspberry Pi image and booting from Vagrant using NFS</strong></p>
+
+<p>Using <code class="highlighter-rouge">./tool.py netboot image.img /dev/rdiskX [--ip=10.0.0.Y]</code> you will copy just the <code class="highlighter-rouge">boot</code> partition in a new and tiny SD card.<br />
+This new SD card with a fresh <code class="highlighter-rouge">boot</code> partition will be useful to boot from the network/remotely. The RPi will download the <code class="highlighter-rouge">root</code> partition from Vagrant, in fact, Vagrant will be sharing the custom RPi image (<code class="highlighter-rouge">2015-09-24-raspbian-jessie-of2.img</code>) via NFS to any Raspberry Pi connected to same network and having a pre-loaded <code class="highlighter-rouge">boot</code> partition.
+The idea behind is to provision a custom RPi image massively avoiding to waste time copying and creating SD card for each Raspberry Pi. Also, this method is useful to provision software, configuration, packages, or in my case, provide cross-compiled software for ARM architectures massively.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>diskutil list
+// a new SD on disk3 will be used  
+<span class="nv">$ </span>diskutil unmountDisk /dev/disk3
+<span class="nv">$ </span>./tool.py netboot 2015-09-24-raspbian-jessie-of2.img /dev/rdisk3
+2015-09-24-raspbian-jessie-of2.img /dev/rdisk3 10.0.0.101  
+The following partitions will be destroyed  
+/dev/disk3 <span class="o">(</span>external, physical<span class="o">)</span>:  
+
+<span class="c">#: TYPE NAME SIZE IDENTIFIER  </span>
+
+0: FDisk_partition_scheme <span class="k">*</span>4.0 GB disk3  
+1: Windows_FAT_32 boot 58.7 MB disk3s1  
+2: Linux 3.9 GB disk3s2
+are you sure? y  
+OK  
+Unmount of all volumes on disk3 was successful  
+<span class="nb">sudo dd </span><span class="k">if</span><span class="o">=</span>2015-09-24-raspbian-jessie-of2.img <span class="nv">of</span><span class="o">=</span>/dev/rdisk3 <span class="nv">bs</span><span class="o">=</span>62914560 <span class="nv">count</span><span class="o">=</span>1  
+Password:  
+1+0 records <span class="k">in  
+</span>1+0 records out  
+62914560 bytes transferred <span class="k">in </span>6.846875 secs <span class="o">(</span>9188799 bytes/sec<span class="o">)</span>  
+Disk /dev/rdisk3 ejected  
+</code></pre></div></div>
+
+<p>Note that <code class="highlighter-rouge">tool.py netboot</code> automatically will assigns to RPi the <code class="highlighter-rouge">10.0.0.101</code> as IP address and <code class="highlighter-rouge">8.8.8.8</code> and <code class="highlighter-rouge">8.8.4.4</code> as DNS servers to <code class="highlighter-rouge">eth0</code>.<br />
+You can check or modify previously these values by editing the <code class="highlighter-rouge">cmdline.txt</code> file placed in the <code class="highlighter-rouge">boot</code> RPi partition. You can edit it from a running Raspberry Pi or from a mounted partition.</p>
+
+<p><strong>6. Download and unzip oF (OpenFramework) into<code class="highlighter-rouge">rpi-build-and-boot</code> folder</strong></p>
+
+<p>If you forgot copy OpenFramework in your RPi, you can do now. Using the Ansible <code class="highlighter-rouge">playbook.yml</code>, the <code class="highlighter-rouge">oF</code> will be copied to your RPi.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd </span>rpi-build-and-boot  
+<span class="nv">$ </span>wget http://openframeworks.cc/versions/v0.9.0/of_v0.9.0_linuxarmv7l_release.tar.gz  
+<span class="nv">$ </span><span class="nb">tar</span> <span class="nt">-zxf</span> of_v0.9.0_linuxarmv7l_release.tar.gz  
+</code></pre></div></div>
+
+<p><strong>7. Update the Ansible<code class="highlighter-rouge">playbook.yml</code></strong></p>
+
+<p>I’ve had to tweak the <code class="highlighter-rouge">playbook.yml</code> to avoid warnings, add DNS to <code class="highlighter-rouge">cmdline.txt</code> and add <code class="highlighter-rouge">iptables</code> filters to get Internet access on RPi using Host shared NIC. Here the updated Ansible <code class="highlighter-rouge">playbook.yml</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\<span class="o">---</span>  
+\<span class="o">-</span> <span class="n">hosts</span><span class="p">:</span> <span class="nb">all</span>  
+<span class="n">remote_user</span><span class="p">:</span> <span class="n">vagrant</span>  
+<span class="n">become</span><span class="p">:</span> <span class="n">yes</span>  
+<span class="n">become_method</span><span class="p">:</span> <span class="n">sudo</span>  
+<span class="nb">vars</span><span class="p">:</span>  
+<span class="n">of_version</span><span class="p">:</span> <span class="n">of_v0</span><span class="mf">.9.0</span><span class="n">_linuxarmv7l_release</span>  
+<span class="n">raspbian_image</span><span class="p">:</span> <span class="mi">2015</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">24</span><span class="o">-</span><span class="n">raspbian</span><span class="o">-</span><span class="n">jessie</span><span class="o">-</span><span class="n">of2</span><span class="o">.</span><span class="n">img</span>  
+<span class="n">offset_boot</span><span class="p">:</span> <span class="mi">4194304</span>  
+<span class="n">offset_root</span><span class="p">:</span> <span class="mi">62914560</span>  
+<span class="n">tasks</span><span class="p">:</span>  
+\<span class="o">-</span> <span class="n">apt</span><span class="p">:</span> <span class="n">upgrade</span><span class="o">=</span><span class="n">dist</span> <span class="n">update_cache</span><span class="o">=</span><span class="n">yes</span>  
+\<span class="o">-</span> <span class="nb">file</span><span class="p">:</span> <span class="n">path</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span> <span class="n">state</span><span class="o">=</span><span class="n">directory</span>
+\<span class="o">-</span> <span class="n">apt</span><span class="p">:</span> <span class="n">name</span><span class="o">=</span><span class="n">nfs</span><span class="o">-</span><span class="n">kernel</span><span class="o">-</span><span class="n">server</span>  
+\<span class="o">-</span> <span class="n">lineinfile</span><span class="p">:</span> <span class="n">dest</span><span class="o">=/</span><span class="n">etc</span><span class="o">/</span><span class="n">exports</span> <span class="n">line</span><span class="o">=</span><span class="s">"/opt/raspberrypi/root 10.0.0.0/24(rw,sync,no_root_squash,no_subtree_check)"</span>
+\<span class="o">-</span> <span class="n">lineinfile</span><span class="p">:</span> <span class="n">dest</span><span class="o">=/</span><span class="n">etc</span><span class="o">/</span><span class="n">cron</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">opt_raspberrypi_root</span> <span class="n">line</span><span class="o">=</span><span class="s">"* * * * * root /bin/mount /opt/raspberrypi/root"</span> <span class="n">create</span><span class="o">=</span><span class="n">yes</span>
+\<span class="o">-</span> <span class="n">service</span><span class="p">:</span> <span class="n">name</span><span class="o">=</span><span class="n">nfs</span><span class="o">-</span><span class="n">kernel</span><span class="o">-</span><span class="n">server</span> <span class="n">state</span><span class="o">=</span><span class="n">restarted</span>
+\<span class="o">-</span> <span class="n">apt</span><span class="p">:</span> <span class="n">name</span><span class="o">=</span><span class="n">build</span><span class="o">-</span><span class="n">essential</span>  
+\<span class="o">-</span> <span class="n">apt</span><span class="p">:</span> <span class="n">name</span><span class="o">=</span><span class="n">pkg</span><span class="o">-</span><span class="n">config</span>  
+\<span class="o">-</span> <span class="n">apt</span><span class="p">:</span> <span class="n">name</span><span class="o">=</span><span class="n">git</span>  
+\<span class="o">-</span> <span class="n">apt</span><span class="p">:</span> <span class="n">name</span><span class="o">=</span><span class="n">python</span><span class="o">-</span><span class="n">pip</span>  
+\<span class="o">-</span> <span class="n">apt</span><span class="p">:</span> <span class="n">name</span><span class="o">=</span><span class="n">python</span><span class="o">-</span><span class="n">dev</span>  
+\<span class="o">-</span> <span class="n">apt</span><span class="p">:</span> <span class="n">name</span><span class="o">=</span><span class="n">unzip</span>  
+\<span class="o">-</span> <span class="n">apt</span><span class="p">:</span> <span class="n">name</span><span class="o">=</span><span class="n">gawk</span>  
+\<span class="o">-</span> <span class="n">apt</span><span class="p">:</span> <span class="n">name</span><span class="o">=</span><span class="n">libudev</span><span class="o">-</span><span class="n">dev</span>
+\<span class="o">-</span> <span class="n">apt</span><span class="p">:</span> <span class="n">name</span><span class="o">=</span><span class="n">sshpass</span>
+\<span class="o">-</span> <span class="n">pip</span><span class="p">:</span> <span class="n">name</span><span class="o">=</span><span class="n">ansible</span>  
+\<span class="o">-</span> <span class="n">pip</span><span class="p">:</span> <span class="n">name</span><span class="o">=</span><span class="n">paramiko</span>  
+\<span class="o">-</span> <span class="n">pip</span><span class="p">:</span> <span class="n">name</span><span class="o">=</span><span class="n">PyYAML</span>  
+\<span class="o">-</span> <span class="n">pip</span><span class="p">:</span> <span class="n">name</span><span class="o">=</span><span class="n">jinja2</span>  
+\<span class="o">-</span> <span class="n">pip</span><span class="p">:</span> <span class="n">name</span><span class="o">=</span><span class="n">httplib2</span>
+\<span class="o">-</span> <span class="n">apt</span><span class="p">:</span> <span class="n">name</span><span class="o">=</span><span class="n">tinyproxy</span>  
+\<span class="o">-</span> <span class="n">lineinfile</span><span class="p">:</span> <span class="n">dest</span><span class="o">=</span><span class="s">"/etc/tinyproxy.conf"</span> <span class="n">line</span><span class="o">=</span><span class="s">"Allow 10.0.0.0/8"</span>  
+\<span class="o">-</span> <span class="n">service</span><span class="p">:</span> <span class="n">name</span><span class="o">=</span><span class="n">tinyproxy</span> <span class="n">state</span><span class="o">=</span><span class="n">restarted</span>
+\<span class="o">-</span> <span class="nb">file</span><span class="p">:</span> <span class="n">path</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">boot</span> <span class="n">state</span><span class="o">=</span><span class="n">directory</span>  
+\<span class="o">-</span> <span class="nb">file</span><span class="p">:</span> <span class="n">path</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span> <span class="n">state</span><span class="o">=</span><span class="n">directory</span>
+\<span class="o">-</span> <span class="n">mount</span><span class="p">:</span> <span class="n">src</span><span class="o">=</span><span class="s">"/vagrant/"</span> <span class="n">name</span><span class="o">=</span><span class="s">"/opt/raspberrypi/boot"</span> <span class="n">fstype</span><span class="o">=</span><span class="s">"auto"</span> <span class="n">opts</span><span class="o">=</span><span class="s">"loop,offset=,noauto"</span> <span class="n">state</span><span class="o">=</span><span class="s">"mounted"</span>  
+\<span class="o">-</span> <span class="n">mount</span><span class="p">:</span> <span class="n">src</span><span class="o">=</span><span class="s">"/vagrant/"</span> <span class="n">name</span><span class="o">=</span><span class="s">"/opt/raspberrypi/root"</span> <span class="n">fstype</span><span class="o">=</span><span class="s">"auto"</span> <span class="n">opts</span><span class="o">=</span><span class="s">"loop,offset=,noauto"</span> <span class="n">state</span><span class="o">=</span><span class="s">"mounted"</span>  
+\<span class="o">-</span> <span class="n">lineinfile</span><span class="p">:</span> <span class="n">dest</span><span class="o">=/</span><span class="n">etc</span><span class="o">/</span><span class="n">rc</span><span class="o">.</span><span class="n">local</span> <span class="n">line</span><span class="o">=</span><span class="s">"mount /opt/raspberrypi/root"</span> <span class="n">insertbefore</span><span class="o">=</span><span class="s">"exit 0"</span>  
+\<span class="o">-</span> <span class="n">lineinfile</span><span class="p">:</span> <span class="n">dest</span><span class="o">=/</span><span class="n">etc</span><span class="o">/</span><span class="n">rc</span><span class="o">.</span><span class="n">local</span> <span class="n">line</span><span class="o">=</span><span class="s">"mount /opt/raspberrypi/boot"</span> <span class="n">insertbefore</span><span class="o">=</span><span class="s">"exit 0"</span>
+
+<span class="c1"># the rpi is unbootable unless it is told not to mount the root filesystem from the card!. also added dns to cmdline.txt and iptables filter.  
+</span>
+\<span class="o">-</span> <span class="n">lineinfile</span><span class="p">:</span> <span class="n">dest</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">fstab</span> <span class="n">regexp</span><span class="o">=</span><span class="s">"^</span><span class="err">\</span><span class="s">/dev</span><span class="err">\</span><span class="s">/mmcblk0p2"</span> <span class="n">state</span><span class="o">=</span><span class="s">"absent"</span>  
+\<span class="o">-</span> <span class="n">replace</span><span class="p">:</span> <span class="n">dest</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">cmdline</span><span class="o">.</span><span class="n">txt</span> <span class="n">regexp</span><span class="o">=</span><span class="s">"rootwait$"</span> <span class="n">replace</span><span class="o">=</span><span class="s">"dwc_otg.lpm_enable=0 console=ttyAMA0,115200 kgdboc=ttyAMA0,115200 console=tty1 elevator=deadline root=/dev/nfs rootfstype=nfs nfsroot=10.0.0.1:/opt/raspberrypi/root,udp,vers=3 rw fsck.repair=no rootwait ip=10.0.0.101:10.0.0.1:10.0.0.1:255.255.255.0:rpi:eth0:off:8.8.4.4:8.8.8.8 smsc95xx.turbo_mode=N"</span> <span class="n">backup</span><span class="o">=</span><span class="s">"no"</span>
+
+<span class="c1"># build helpies  
+</span>
+\<span class="o">-</span> <span class="nb">file</span><span class="p">:</span> <span class="n">path</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">RPI_BUILD_ROOT</span> <span class="n">state</span><span class="o">=</span><span class="n">directory</span>  
+\<span class="o">-</span> <span class="nb">file</span><span class="p">:</span> <span class="n">src</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">etc</span> <span class="n">dest</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">RPI_BUILD_ROOT</span><span class="o">/</span><span class="n">etc</span> <span class="n">state</span><span class="o">=</span><span class="n">link</span>  
+\<span class="o">-</span> <span class="nb">file</span><span class="p">:</span> <span class="n">src</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">lib</span> <span class="n">dest</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">RPI_BUILD_ROOT</span><span class="o">/</span><span class="n">lib</span> <span class="n">state</span><span class="o">=</span><span class="n">link</span>  
+\<span class="o">-</span> <span class="nb">file</span><span class="p">:</span> <span class="n">src</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">opt</span> <span class="n">dest</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">RPI_BUILD_ROOT</span><span class="o">/</span><span class="n">opt</span> <span class="n">state</span><span class="o">=</span><span class="n">link</span>  
+\<span class="o">-</span> <span class="n">command</span><span class="p">:</span> <span class="n">rsync</span> <span class="o">-</span><span class="n">avz</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">RPI_BUILD_ROOT</span><span class="o">/</span><span class="n">usr</span>
+\<span class="o">-</span> <span class="nb">file</span><span class="p">:</span> <span class="n">src</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libanl</span><span class="o">.</span><span class="n">so</span><span class="mf">.1</span> <span class="n">dest</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libanl</span><span class="o">.</span><span class="n">so</span> <span class="n">state</span><span class="o">=</span><span class="n">link</span>  
+\<span class="o">-</span> <span class="nb">file</span><span class="p">:</span> <span class="n">src</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libBrokenLocale</span><span class="o">.</span><span class="n">so</span><span class="mf">.1</span> <span class="n">dest</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libBrokenLocale</span><span class="o">.</span><span class="n">so</span> <span class="n">state</span><span class="o">=</span><span class="n">link</span>  
+\<span class="o">-</span> <span class="nb">file</span><span class="p">:</span> <span class="n">src</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libcidn</span><span class="o">.</span><span class="n">so</span><span class="mf">.1</span> <span class="n">dest</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libcidn</span><span class="o">.</span><span class="n">so</span> <span class="n">state</span><span class="o">=</span><span class="n">link</span>  
+\<span class="o">-</span> <span class="nb">file</span><span class="p">:</span> <span class="n">src</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libcrypt</span><span class="o">.</span><span class="n">so</span><span class="mf">.1</span> <span class="n">dest</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libcrypt</span><span class="o">.</span><span class="n">so</span> <span class="n">state</span><span class="o">=</span><span class="n">link</span>  
+\<span class="o">-</span> <span class="nb">file</span><span class="p">:</span> <span class="n">src</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libdbus</span><span class="o">-</span><span class="mf">1.</span><span class="n">so</span><span class="mf">.3.8.13</span> <span class="n">dest</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libdbus</span><span class="o">-</span><span class="mf">1.</span><span class="n">so</span> <span class="n">state</span><span class="o">=</span><span class="n">link</span>  
+\<span class="o">-</span> <span class="nb">file</span><span class="p">:</span> <span class="n">src</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libdl</span><span class="o">.</span><span class="n">so</span><span class="mf">.2</span> <span class="n">dest</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libdl</span><span class="o">.</span><span class="n">so</span> <span class="n">state</span><span class="o">=</span><span class="n">link</span>  
+\<span class="o">-</span> <span class="nb">file</span><span class="p">:</span> <span class="n">src</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libexpat</span><span class="o">.</span><span class="n">so</span><span class="mf">.1.6.0</span> <span class="n">dest</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libexpat</span><span class="o">.</span><span class="n">so</span> <span class="n">state</span><span class="o">=</span><span class="n">link</span>  
+\<span class="o">-</span> <span class="nb">file</span><span class="p">:</span> <span class="n">src</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libglib</span><span class="o">-</span><span class="mf">2.0</span><span class="o">.</span><span class="n">so</span><span class="mf">.0</span> <span class="n">dest</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libglib</span><span class="o">-</span><span class="mf">2.0</span><span class="o">.</span><span class="n">so</span> <span class="n">state</span><span class="o">=</span><span class="n">link</span>  
+\<span class="o">-</span> <span class="nb">file</span><span class="p">:</span> <span class="n">src</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">liblzma</span><span class="o">.</span><span class="n">so</span><span class="mf">.5.0.0</span> <span class="n">dest</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">liblzma</span><span class="o">.</span><span class="n">so</span> <span class="n">state</span><span class="o">=</span><span class="n">link</span>  
+\<span class="o">-</span> <span class="nb">file</span><span class="p">:</span> <span class="n">src</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libm</span><span class="o">.</span><span class="n">so</span><span class="mf">.6</span> <span class="n">dest</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libm</span><span class="o">.</span><span class="n">so</span> <span class="n">state</span><span class="o">=</span><span class="n">link</span>  
+\<span class="o">-</span> <span class="nb">file</span><span class="p">:</span> <span class="n">src</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libnsl</span><span class="o">.</span><span class="n">so</span><span class="mf">.1</span> <span class="n">dest</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libnsl</span><span class="o">.</span><span class="n">so</span> <span class="n">state</span><span class="o">=</span><span class="n">link</span>  
+\<span class="o">-</span> <span class="nb">file</span><span class="p">:</span> <span class="n">src</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libnss_compat</span><span class="o">.</span><span class="n">so</span><span class="mf">.2</span> <span class="n">dest</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libnss_compat</span><span class="o">.</span><span class="n">so</span> <span class="n">state</span><span class="o">=</span><span class="n">link</span>  
+\<span class="o">-</span> <span class="nb">file</span><span class="p">:</span> <span class="n">src</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libnss_dns</span><span class="o">.</span><span class="n">so</span><span class="mf">.2</span> <span class="n">dest</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libnss_dns</span><span class="o">.</span><span class="n">so</span> <span class="n">state</span><span class="o">=</span><span class="n">link</span>  
+\<span class="o">-</span> <span class="nb">file</span><span class="p">:</span> <span class="n">src</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libnss_files</span><span class="o">.</span><span class="n">so</span><span class="mf">.2</span> <span class="n">dest</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libnss_files</span><span class="o">.</span><span class="n">so</span> <span class="n">state</span><span class="o">=</span><span class="n">link</span>  
+\<span class="o">-</span> <span class="nb">file</span><span class="p">:</span> <span class="n">src</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libnss_hesiod</span><span class="o">.</span><span class="n">so</span><span class="mf">.2</span> <span class="n">dest</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libnss_hesiod</span><span class="o">.</span><span class="n">so</span> <span class="n">state</span><span class="o">=</span><span class="n">link</span>  
+\<span class="o">-</span> <span class="nb">file</span><span class="p">:</span> <span class="n">src</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libnss_nisplus</span><span class="o">.</span><span class="n">so</span><span class="mf">.2</span> <span class="n">dest</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libnss_nisplus</span><span class="o">.</span><span class="n">so</span> <span class="n">state</span><span class="o">=</span><span class="n">link</span>  
+\<span class="o">-</span> <span class="nb">file</span><span class="p">:</span> <span class="n">src</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libnss_nis</span><span class="o">.</span><span class="n">so</span><span class="mf">.2</span> <span class="n">dest</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libnss_nis</span><span class="o">.</span><span class="n">so</span> <span class="n">state</span><span class="o">=</span><span class="n">link</span>  
+\<span class="o">-</span> <span class="nb">file</span><span class="p">:</span> <span class="n">src</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libpcre</span><span class="o">.</span><span class="n">so</span><span class="mf">.3</span> <span class="n">dest</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libpcre</span><span class="o">.</span><span class="n">so</span> <span class="n">state</span><span class="o">=</span><span class="n">link</span>  
+\<span class="o">-</span> <span class="nb">file</span><span class="p">:</span> <span class="n">src</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libpng12</span><span class="o">.</span><span class="n">so</span><span class="mf">.0</span> <span class="n">dest</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libpng12</span><span class="o">.</span><span class="n">so</span><span class="mf">.0</span> <span class="n">state</span><span class="o">=</span><span class="n">link</span>  
+\<span class="o">-</span> <span class="nb">file</span><span class="p">:</span> <span class="n">src</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libresolv</span><span class="o">.</span><span class="n">so</span><span class="mf">.2</span> <span class="n">dest</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libresolv</span><span class="o">.</span><span class="n">so</span> <span class="n">state</span><span class="o">=</span><span class="n">link</span>  
+\<span class="o">-</span> <span class="nb">file</span><span class="p">:</span> <span class="n">src</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libthread_db</span><span class="o">.</span><span class="n">so</span><span class="mf">.1</span> <span class="n">dest</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libthread_db</span><span class="o">.</span><span class="n">so</span> <span class="n">state</span><span class="o">=</span><span class="n">link</span>  
+\<span class="o">-</span> <span class="nb">file</span><span class="p">:</span> <span class="n">src</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libusb</span><span class="o">-</span><span class="mf">0.1</span><span class="o">.</span><span class="n">so</span><span class="mf">.4</span> <span class="n">dest</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libusb</span><span class="o">-</span><span class="mf">0.1</span><span class="o">.</span><span class="n">so</span><span class="mf">.4</span> <span class="n">state</span><span class="o">=</span><span class="n">link</span>  
+\<span class="o">-</span> <span class="nb">file</span><span class="p">:</span> <span class="n">src</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libusb</span><span class="o">-</span><span class="mf">1.0</span><span class="o">.</span><span class="n">so</span><span class="mf">.0.1.0</span> <span class="n">dest</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libusb</span><span class="o">-</span><span class="mf">1.0</span><span class="o">.</span><span class="n">so</span> <span class="n">state</span><span class="o">=</span><span class="n">link</span>  
+\<span class="o">-</span> <span class="nb">file</span><span class="p">:</span> <span class="n">src</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libutil</span><span class="o">.</span><span class="n">so</span><span class="mf">.1</span> <span class="n">dest</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libutil</span><span class="o">.</span><span class="n">so</span> <span class="n">state</span><span class="o">=</span><span class="n">link</span>  
+\<span class="o">-</span> <span class="nb">file</span><span class="p">:</span> <span class="n">src</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libz</span><span class="o">.</span><span class="n">so</span><span class="mf">.1.2.8</span> <span class="n">dest</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libz</span><span class="o">.</span><span class="n">so</span> <span class="n">state</span><span class="o">=</span><span class="n">link</span>  
+\<span class="o">-</span> <span class="nb">file</span><span class="p">:</span> <span class="n">src</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libudev</span><span class="o">.</span><span class="n">so</span><span class="mf">.1.5.0</span> <span class="n">dest</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">/</span><span class="n">libudev</span><span class="o">.</span><span class="n">so</span> <span class="n">state</span><span class="o">=</span><span class="n">link</span>
+\<span class="o">-</span> <span class="nb">file</span><span class="p">:</span> <span class="n">path</span><span class="o">=/</span><span class="n">tmp</span><span class="o">/</span><span class="n">CROSS_BUILD_TOOLS</span> <span class="n">state</span><span class="o">=</span><span class="n">directory</span>  
+\<span class="o">-</span> <span class="n">copy</span><span class="p">:</span> <span class="n">src</span><span class="o">=</span><span class="n">build_cross_gcc</span><span class="o">.</span><span class="n">sh</span> <span class="n">dest</span><span class="o">=/</span><span class="n">tmp</span><span class="o">/</span><span class="n">CROSS_BUILD_TOOLS</span><span class="o">/</span><span class="n">build_cross_gcc</span><span class="o">.</span><span class="n">sh</span> <span class="n">mode</span><span class="o">=</span><span class="mi">0744</span>  
+\<span class="o">-</span> <span class="n">shell</span><span class="p">:</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">CROSS_BUILD_TOOLS</span><span class="o">/</span><span class="n">build_cross_gcc</span><span class="o">.</span><span class="n">sh</span> <span class="n">chdir</span><span class="o">=/</span><span class="n">tmp</span><span class="o">/</span><span class="n">CROSS_BUILD_TOOLS</span> <span class="n">creates</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">cross</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">arm</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnueabihf</span><span class="o">-</span><span class="n">g</span><span class="o">++</span>
+\<span class="o">-</span> <span class="n">lineinfile</span><span class="p">:</span> <span class="n">dest</span><span class="o">=</span><span class="s">"/home/vagrant/.profile"</span> <span class="n">line</span><span class="o">=</span><span class="s">"export GST_VERSION=1.0"</span>  
+\<span class="o">-</span> <span class="n">lineinfile</span><span class="p">:</span> <span class="n">dest</span><span class="o">=</span><span class="s">"/home/vagrant/.profile"</span> <span class="n">line</span><span class="o">=</span><span class="s">"export RPI_ROOT=/opt/raspberrypi/root"</span>  
+
+<span class="c1">#######- lineinfile: dest="/home/vagrant/.profile" line="export RPI_BUILD_ROOT=/opt/RPI_BUILD_ROOT"  
+</span>
+\<span class="o">-</span> <span class="n">lineinfile</span><span class="p">:</span> <span class="n">dest</span><span class="o">=</span><span class="s">"/home/vagrant/.profile"</span> <span class="n">line</span><span class="o">=</span><span class="s">"export TOOLCHAIN_ROOT=/opt/cross/bin"</span>  
+\<span class="o">-</span> <span class="n">lineinfile</span><span class="p">:</span> <span class="n">dest</span><span class="o">=</span><span class="s">"/home/vagrant/.profile"</span> <span class="n">line</span><span class="o">=</span><span class="s">"export PLATFORM_OS=Linux"</span>  
+\<span class="o">-</span> <span class="n">lineinfile</span><span class="p">:</span> <span class="n">dest</span><span class="o">=</span><span class="s">"/home/vagrant/.profile"</span> <span class="n">line</span><span class="o">=</span><span class="s">"export PLATFORM_ARCH=armv7l"</span>  
+\<span class="o">-</span> <span class="n">lineinfile</span><span class="p">:</span> <span class="n">dest</span><span class="o">=</span><span class="s">"/home/vagrant/.profile"</span> <span class="n">line</span><span class="o">=</span><span class="s">"export PKG_CONFIG_PATH=$RPI_ROOT/usr/lib/arm-linux-gnueabihf/pkgconfig:$RPI_ROOT/usr/share/pkgconfig:$RPI_ROOT/usr/lib/pkgconfig"</span>
+\<span class="o">-</span> <span class="n">unarchive</span><span class="p">:</span> <span class="n">src</span><span class="o">=.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span> <span class="n">dest</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">opt</span> <span class="n">creates</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span>  
+\<span class="o">-</span> <span class="nb">file</span><span class="p">:</span> <span class="n">src</span><span class="o">=</span> <span class="n">dest</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">openframeworks</span> <span class="n">state</span><span class="o">=</span><span class="n">link</span>  
+\<span class="o">-</span> <span class="nb">file</span><span class="p">:</span> <span class="n">src</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">openframeworks</span> <span class="n">dest</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">openframeworks</span> <span class="n">state</span><span class="o">=</span><span class="n">link</span>  
+\<span class="o">-</span> <span class="n">command</span><span class="p">:</span> <span class="n">chown</span> <span class="o">-</span><span class="n">R</span> <span class="n">vagrant</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">raspberrypi</span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span>
+
+<span class="c1"># forwarding traffic from eth0 (internet) to eth1 (rpi connection) with iptables  
+</span>
+\<span class="o">-</span> <span class="n">replace</span><span class="p">:</span> <span class="n">dest</span><span class="o">=/</span><span class="n">etc</span><span class="o">/</span><span class="n">sysctl</span><span class="o">.</span><span class="n">conf</span> <span class="n">regexp</span><span class="o">=</span><span class="s">"^#net.ipv4.ip_forward=1$"</span> <span class="n">replace</span><span class="o">=</span><span class="s">"net.ipv4.ip_forward=1"</span>  
+\<span class="o">-</span> <span class="n">shell</span><span class="p">:</span> <span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">echo</span> <span class="mi">1</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">proc</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">net</span><span class="o">/</span><span class="n">ipv4</span><span class="o">/</span><span class="n">ip_forward</span>  
+\<span class="o">-</span> <span class="n">command</span><span class="p">:</span> <span class="n">iptables</span> <span class="o">-</span><span class="n">A</span> <span class="n">FORWARD</span> <span class="o">-</span><span class="n">o</span> <span class="n">eth0</span> <span class="o">-</span><span class="n">i</span> <span class="n">eth1</span> <span class="o">-</span><span class="n">m</span> <span class="n">conntrack</span> <span class="o">--</span><span class="n">ctstate</span> <span class="n">NEW</span> <span class="o">-</span><span class="n">j</span> <span class="n">ACCEPT</span>  
+\<span class="o">-</span> <span class="n">command</span><span class="p">:</span> <span class="n">iptables</span> <span class="o">-</span><span class="n">A</span> <span class="n">FORWARD</span> <span class="o">-</span><span class="n">m</span> <span class="n">conntrack</span> <span class="o">--</span><span class="n">ctstate</span> <span class="n">ESTABLISHED</span><span class="p">,</span><span class="n">RELATED</span> <span class="o">-</span><span class="n">j</span> <span class="n">ACCEPT</span>  
+\<span class="o">-</span> <span class="n">command</span><span class="p">:</span> <span class="n">iptables</span> <span class="o">-</span><span class="n">A</span> <span class="n">POSTROUTING</span> <span class="o">-</span><span class="n">t</span> <span class="n">nat</span> <span class="o">-</span><span class="n">j</span> <span class="n">MASQUERADE</span>  
+\<span class="o">-</span> <span class="n">shell</span><span class="p">:</span> <span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="n">iptables</span><span class="o">-</span><span class="n">save</span> <span class="o">|</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">tee</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">iptables</span><span class="o">.</span><span class="n">backup</span>  
+\<span class="o">-</span> <span class="n">service</span><span class="p">:</span> <span class="n">name</span><span class="o">=</span><span class="n">ufw</span> <span class="n">state</span><span class="o">=</span><span class="n">restarted</span>  
+<span class="n">handlers</span><span class="p">:</span>
+</code></pre></div></div>
+
+<p><strong>8. Create the Vagrant box</strong></p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd </span>rpi-build-and-boot  
+<span class="nv">$ </span>vagrant up <span class="nt">--provider</span> virtualbox
+Bringing machine <span class="s1">'default'</span> up with <span class="s1">'virtualbox'</span> provider...  
+<span class="o">==&gt;</span> default: Importing base box <span class="s1">'ubuntu/trusty64'</span>...  
+<span class="o">==&gt;</span> default: Matching MAC address <span class="k">for </span>NAT networking...  
+<span class="o">==&gt;</span> default: Checking <span class="k">if </span>box <span class="s1">'ubuntu/trusty64'</span> is up to date...  
+<span class="o">==&gt;</span> default: A newer version of the box <span class="s1">'ubuntu/trusty64'</span> is available! You currently  
+<span class="o">==&gt;</span> default: have version <span class="s1">'20160311.0.0'</span><span class="nb">.</span> The latest is version <span class="s1">'20160406.0.0'</span><span class="nb">.</span> Run  
+<span class="o">==&gt;</span> default: <span class="sb">`</span>vagrant box update<span class="sb">`</span> to update.  
+<span class="o">==&gt;</span> default: Setting the name of the VM: rpi-build-and-boot_default_1460455393206_79951  
+<span class="o">==&gt;</span> default: Clearing any previously <span class="nb">set </span>forwarded ports...  
+<span class="o">==&gt;</span> default: Clearing any previously <span class="nb">set </span>network interfaces...  
+<span class="o">==&gt;</span> default: Preparing network interfaces based on configuration...  
+default: Adapter 1: nat  
+default: Adapter 2: bridged  
+<span class="o">==&gt;</span> default: Forwarding ports...  
+default: 22 <span class="o">(</span>guest<span class="o">)</span> <span class="o">=&gt;</span> 2222 <span class="o">(</span>host<span class="o">)</span> <span class="o">(</span>adapter 1<span class="o">)</span>  
+...  
+TASK <span class="o">[</span>service] <span class="k">*****************************************************************</span>  
+changed: <span class="o">[</span>default]
+PLAY RECAP <span class="k">*********************************************************************</span>  
+default : <span class="nv">ok</span><span class="o">=</span>82 <span class="nv">changed</span><span class="o">=</span>76 <span class="nv">unreachable</span><span class="o">=</span>0 <span class="nv">failed</span><span class="o">=</span>0  
+</code></pre></div></div>
+
+<p>… let’s have coffee ;)
+After that, restart the Vagrant box recently created.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>vagrant halt  
+<span class="o">==&gt;</span> default: Attempting graceful shutdown of VM...
+<span class="nv">$ </span>vagrant up  
+Bringing machine <span class="s1">'default'</span> up with <span class="s1">'virtualbox'</span> provider...  
+<span class="o">==&gt;</span> default: Checking <span class="k">if </span>box <span class="s1">'ubuntu/trusty64'</span> is up to date...  
+<span class="o">==&gt;</span> default: A newer version of the box <span class="s1">'ubuntu/trusty64'</span> is available! You currently  
+<span class="o">==&gt;</span> default: have version <span class="s1">'20160311.0.0'</span><span class="nb">.</span> The latest is version <span class="s1">'20160406.0.0'</span><span class="nb">.</span> Run  
+<span class="o">==&gt;</span> default: <span class="sb">`</span>vagrant box update<span class="sb">`</span> to update.  
+<span class="o">==&gt;</span> default: Clearing any previously <span class="nb">set </span>forwarded ports...  
+<span class="o">==&gt;</span> default: Clearing any previously <span class="nb">set </span>network interfaces...  
+<span class="o">==&gt;</span> default: Specific bridge <span class="s1">'ask'</span> not found. You may be asked to specify  
+<span class="o">==&gt;</span> default: which network to bridge to.  
+<span class="o">==&gt;</span> default: Available bridged network interfaces:  
+1<span class="o">)</span> en0: Wi-Fi <span class="o">(</span>AirPort<span class="o">)</span>  
+2<span class="o">)</span> en1: Thunderbolt 1  
+3<span class="o">)</span> en2: Thunderbolt 2  
+4<span class="o">)</span> p2p0  
+5<span class="o">)</span> awdl0  
+6<span class="o">)</span> en4: mac-eth0  
+<span class="o">==&gt;</span> default: When choosing an interface, it is usually the one that is  
+<span class="o">==&gt;</span> default: being used to connect to the internet.  
+default: Which interface should the network bridge to? 6  
+<span class="o">==&gt;</span> default: Preparing network interfaces based on configuration...  
+default: Adapter 1: nat  
+default: Adapter 2: bridged  
+<span class="o">==&gt;</span> default: Forwarding ports...  
+default: 22 <span class="o">(</span>guest<span class="o">)</span> <span class="o">=&gt;</span> 2222 <span class="o">(</span>host<span class="o">)</span> <span class="o">(</span>adapter 1<span class="o">)</span>  
+<span class="o">==&gt;</span> default: Running <span class="s1">'pre-boot'</span> VM customizations...  
+<span class="o">==&gt;</span> default: Booting VM...  
+<span class="o">==&gt;</span> default: Waiting <span class="k">for </span>machine to boot. This may take a few minutes...  
+default: SSH address: 127.0.0.1:2222  
+default: SSH username: vagrant  
+default: SSH auth method: private key  
+<span class="o">==&gt;</span> default: Machine booted and ready!  
+GuestAdditions 5.0.16 running <span class="nt">---</span> OK.  
+<span class="o">==&gt;</span> default: Checking <span class="k">for </span>guest additions <span class="k">in </span>VM...  
+<span class="o">==&gt;</span> default: Configuring and enabling network interfaces...  
+<span class="o">==&gt;</span> default: Mounting shared folders...  
+default: /vagrant <span class="o">=&gt;</span> /Users/Chilcano/1github-repo/rpi-build-and-boot  
+<span class="o">==&gt;</span> default: Machine already provisioned. Run <span class="sb">`</span>vagrant provision<span class="sb">`</span> or use the <span class="sb">`</span><span class="nt">--provision</span><span class="sb">`</span>  
+<span class="o">==&gt;</span> default: flag to force provisioning. Provisioners marked to run always will still run.  
+</code></pre></div></div>
+
+<p>Connect your Raspberry Pi -with the SD card and boot partition copied- using ethernet clable to your Host PC (in my case is a Mac OS X), wait some seconds and check if Raspberry Pi has started from the <code class="highlighter-rouge">root</code> partition shared by NFS from the Vagrant box.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>ping raspberrypi.local  
+PING raspberrypi.local <span class="o">(</span>10.0.0.101<span class="o">)</span>: 56 data bytes  
+64 bytes from 10.0.0.101: <span class="nv">icmp_seq</span><span class="o">=</span>0 <span class="nv">ttl</span><span class="o">=</span>64 <span class="nb">time</span><span class="o">=</span>0.386 ms  
+64 bytes from 10.0.0.101: <span class="nv">icmp_seq</span><span class="o">=</span>1 <span class="nv">ttl</span><span class="o">=</span>64 <span class="nb">time</span><span class="o">=</span>0.471 ms  
+^C  
+<span class="se">\-</span><span class="nt">--</span> raspberrypi.local ping statistics <span class="nt">---</span>  
+2 packets transmitted, 2 packets received, 0.0% packet loss  
+round-trip min/avg/max/stddev <span class="o">=</span> 0.386/0.428/0.471/0.042 ms
+Chilcano@Pisc0 : ~/1github-repo/rpi-build-and-boot  
+<span class="nv">$ </span>ping 10.0.0.101  
+PING 10.0.0.101 <span class="o">(</span>10.0.0.101<span class="o">)</span>: 56 data bytes  
+64 bytes from 10.0.0.101: <span class="nv">icmp_seq</span><span class="o">=</span>0 <span class="nv">ttl</span><span class="o">=</span>64 <span class="nb">time</span><span class="o">=</span>0.450 ms  
+64 bytes from 10.0.0.101: <span class="nv">icmp_seq</span><span class="o">=</span>1 <span class="nv">ttl</span><span class="o">=</span>64 <span class="nb">time</span><span class="o">=</span>0.591 ms  
+^C  
+<span class="se">\-</span><span class="nt">--</span> 10.0.0.101 ping statistics <span class="nt">---</span>  
+2 packets transmitted, 2 packets received, 0.0% packet loss  
+round-trip min/avg/max/stddev <span class="o">=</span> 0.450/0.520/0.591/0.071 ms  
+</code></pre></div></div>
+
+<p>And check if Raspberry Pi is running but from Vagrant box.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>vagrant ssh  
+Welcome to Ubuntu 14.04.4 LTS <span class="o">(</span>GNU/Linux 3.13.0-85-generic x86_64<span class="o">)</span>
+<span class="k">*</span> Documentation: https://help.ubuntu.com/
+System information as of Tue Apr 12 10:55:29 UTC 2016
+System load: 0.07 Processes: 129  
+Usage of /: 11.8% of 39.34GB Users logged <span class="k">in</span>: 0  
+Memory usage: 2% IP address <span class="k">for </span>eth0: 10.0.2.15  
+Swap usage: 0% IP address <span class="k">for </span>eth1: 10.0.0.1
+Graph this data and manage this system at:  
+https://landscape.canonical.com/
+Get cloud support with Ubuntu Advantage Cloud Guest:  
+http://www.ubuntu.com/business/services/cloud
+Last login: Tue Apr 12 10:27:47 2016 from 10.0.2.2
+vagrant@vagrant-ubuntu-trusty-64:~<span class="nv">$ </span>ifconfig  
+eth0 Link encap:Ethernet HWaddr 08:00:27:c9:24:d6  
+inet addr:10.0.2.15 Bcast:10.0.2.255 Mask:255.255.255.0  
+inet6 addr: fe80::a00:27ff:fec9:24d6/64 Scope:Link  
+UP BROADCAST RUNNING MULTICAST MTU:1500 Metric:1  
+RX packets:665 errors:0 dropped:0 overruns:0 frame:0  
+TX packets:427 errors:0 dropped:0 overruns:0 carrier:0  
+collisions:0 txqueuelen:1000  
+RX bytes:67162 <span class="o">(</span>67.1 KB<span class="o">)</span> TX bytes:54225 <span class="o">(</span>54.2 KB<span class="o">)</span>
+eth1 Link encap:Ethernet HWaddr 08:00:27:b3:e9:a4  
+inet addr:10.0.0.1 Bcast:10.0.0.255 Mask:255.255.255.0  
+inet6 addr: fe80::a00:27ff:feb3:e9a4/64 Scope:Link  
+UP BROADCAST RUNNING MULTICAST MTU:1500 Metric:1  
+RX packets:29474 errors:0 dropped:0 overruns:0 frame:0  
+TX packets:60947 errors:0 dropped:0 overruns:0 carrier:0  
+collisions:0 txqueuelen:1000  
+RX bytes:5247033 <span class="o">(</span>5.2 MB<span class="o">)</span> TX bytes:70887820 <span class="o">(</span>70.8 MB<span class="o">)</span>
+lo Link encap:Local Loopback  
+inet addr:127.0.0.1 Mask:255.0.0.0  
+inet6 addr: ::1/128 Scope:Host  
+UP LOOPBACK RUNNING MTU:65536 Metric:1  
+RX packets:0 errors:0 dropped:0 overruns:0 frame:0  
+TX packets:0 errors:0 dropped:0 overruns:0 carrier:0  
+collisions:0 txqueuelen:0  
+RX bytes:0 <span class="o">(</span>0.0 B<span class="o">)</span> TX bytes:0 <span class="o">(</span>0.0 B<span class="o">)</span>
+vagrant@vagrant-ubuntu-trusty-64:~<span class="nv">$ </span>ping 10.0.0.101  
+PING 10.0.0.101 <span class="o">(</span>10.0.0.101<span class="o">)</span> 56<span class="o">(</span>84<span class="o">)</span> bytes of data.  
+64 bytes from 10.0.0.101: <span class="nv">icmp_seq</span><span class="o">=</span>1 <span class="nv">ttl</span><span class="o">=</span>64 <span class="nb">time</span><span class="o">=</span>0.536 ms  
+64 bytes from 10.0.0.101: <span class="nv">icmp_seq</span><span class="o">=</span>2 <span class="nv">ttl</span><span class="o">=</span>64 <span class="nb">time</span><span class="o">=</span>0.745 ms  
+64 bytes from 10.0.0.101: <span class="nv">icmp_seq</span><span class="o">=</span>3 <span class="nv">ttl</span><span class="o">=</span>64 <span class="nb">time</span><span class="o">=</span>0.910 ms  
+^C  
+<span class="se">\-</span><span class="nt">--</span> 10.0.0.101 ping statistics <span class="nt">---</span>  
+3 packets transmitted, 3 received, 0% packet loss, <span class="nb">time </span>1999ms  
+rtt min/avg/max/mdev <span class="o">=</span> 0.536/0.730/0.910/0.154 ms  
+vagrant@vagrant-ubuntu-trusty-64:~<span class="nv">$ </span>ping google.com  
+PING google.com <span class="o">(</span>216.58.211.206<span class="o">)</span> 56<span class="o">(</span>84<span class="o">)</span> bytes of data.  
+64 bytes from mad01s25-in-f14.1e100.net <span class="o">(</span>216.58.211.206<span class="o">)</span>: <span class="nv">icmp_seq</span><span class="o">=</span>1 <span class="nv">ttl</span><span class="o">=</span>63 <span class="nb">time</span><span class="o">=</span>14.1 ms  
+64 bytes from mad01s25-in-f14.1e100.net <span class="o">(</span>216.58.211.206<span class="o">)</span>: <span class="nv">icmp_seq</span><span class="o">=</span>2 <span class="nv">ttl</span><span class="o">=</span>63 <span class="nb">time</span><span class="o">=</span>13.5 ms  
+64 bytes from mad01s25-in-f14.1e100.net <span class="o">(</span>216.58.211.206<span class="o">)</span>: <span class="nv">icmp_seq</span><span class="o">=</span>3 <span class="nv">ttl</span><span class="o">=</span>63 <span class="nb">time</span><span class="o">=</span>13.9 ms  
+^C  
+<span class="se">\-</span><span class="nt">--</span> google.com ping statistics <span class="nt">---</span>  
+3 packets transmitted, 3 received, 0% packet loss, <span class="nb">time </span>2008ms  
+rtt min/avg/max/mdev <span class="o">=</span> 13.521/13.883/14.137/0.296 ms  
+</code></pre></div></div>
+
+<p><strong>9. Check if ARM cross-compiling works in the VirtualBox guest</strong></p>
+
+<p>Check if the cross-compiling Variables have been defined.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vagrant@vagrant-ubuntu-trusty-64:~<span class="nv">$ </span><span class="nb">cat</span> /home/vagrant/.profile
+...  
+<span class="nb">export </span><span class="nv">GST_VERSION</span><span class="o">=</span>1.0  
+<span class="nb">export </span><span class="nv">RPI_ROOT</span><span class="o">=</span>/opt/raspberrypi/root  
+<span class="nb">export </span><span class="nv">TOOLCHAIN_ROOT</span><span class="o">=</span>/opt/cross/bin  
+<span class="nb">export </span><span class="nv">PLATFORM_OS</span><span class="o">=</span>Linux  
+<span class="nb">export </span><span class="nv">PLATFORM_ARCH</span><span class="o">=</span>armv7l  
+<span class="nb">export </span><span class="nv">PKG_CONFIG_PATH</span><span class="o">=</span><span class="nv">$RPI_ROOT</span>/usr/lib/arm-linux-gnueabihf/pkgconfig:<span class="nv">$RPI_ROOT</span>/usr/share/pkgconfig:<span class="nv">$RPI_ROOT</span>/usr/lib/pkgconfig  
+</code></pre></div></div>
+
+<p>Check if RPi has been mounted.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vagrant@vagrant-ubuntu-trusty-64:~<span class="nv">$ </span>ll /opt/raspberrypi/boot/  
+vagrant@vagrant-ubuntu-trusty-64:~<span class="nv">$ </span>ll /opt/raspberrypi/root/  
+</code></pre></div></div>
+
+<p>And check if oF works by compiling an example.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>make <span class="nt">-C</span> /opt/openframeworks/apps/myApps/emptyExample  
+</code></pre></div></div>
+
+<h2 id="conclusions">Conclusions</h2>
+<ul>
+  <li>As you have seen above, using Vagrant, Ansible and Python you can build easily a Provisioning system for massive delivery of binaries/packages for Raspberry Pi or Mobile Devices.</li>
+  <li>Also, you could replace OpenFramework tool (http://openframeworks.cc) used for ARM cross-compiling for other similar Tool if you have different target Device, to do that, just modify the part related to that in the Ansible Playbook.
+Finally, in the next blog post, I will explain how to cross-compile the Kismet tool (https://www.kismetwireless.net/download.shtml) from source for Raspberry Pi (ARM).
+I hope you have enjoyed.<br />
+See you soon.</li>
+</ul>
+
+<h2 id="references">References:</h2>
+<ol>
+  <li>Loop-mounting partitions from a disk image:
+    <ul>
+      <li>http://www.andremiller.net/content/mounting-hard-disk-image-including-partitions-using-linux</li>
+      <li>http://madduck.net/blog/2006.10.20:loop-mounting-partitions-from-a-disk-image</li>
+    </ul>
+  </li>
+  <li>Ansible documentation:
+    <ul>
+      <li>http://docs.ansible.com/ansible</li>
+    </ul>
+  </li>
+  <li>TCPDump cross-compiling for Android:
+    <ul>
+      <li>http://www.androidtcpdump.com/android-tcpdump/compile</li>
+    </ul>
+  </li>
+  <li>ARM Cross Compiling with Mac OS X:
+    <ul>
+      <li>http://www.welzels.de/blog/en/arm-cross-compiling-with-mac-os-x</li>
+    </ul>
+  </li>
+  <li>Pre-built environment for Raspberry Pi cross-compiling and NFS booting:
+    <ul>
+      <li>https://forum.openframeworks.cc/t/pre-built-environment-for-raspberry-pi-cross-compiling-and-nfs-booting/16206/26</li>
+      <li>https://github.com/twobitcircus/rpi-build-and-boot</li>
+    </ul>
+  </li>
+  <li>How to Build a GCC Cross-Compiler:
+    <ul>
+      <li>http://preshing.com/20141119/how-to-build-a-gcc-cross-compiler</li>
+    </ul>
+  </li>
+  <li>A Vagrant plugin to keep your VirtualBox Guest Additions up to date:
+    <ul>
+      <li>https://github.com/dotless-de/vagrant-vbguest</li>
+    </ul>
+  </li>
+  <li>openFrameworks - an open source C++ toolkit:
+    <ul>
+      <li>http://openframeworks.cc/download</li>
+    </ul>
+  </li>
+  <li>Vboxvfs lacks support for symbolic / hard links
+    <ul>
+      <li>https://www.virtualbox.org/ticket/818</li>
+    </ul>
+  </li>
+  <li>Cross compiler for OF 0.9.0/Jessie/arm6/RPi1
+    <ul>
+      <li>https://forum.openframeworks.cc/t/cross-compiler-for-of-0-9-0-jessie-arm6-rpi1/21336</li>
+    </ul>
+  </li>
+  <li>How to cross compile an application for OpenWRT
+    <ul>
+      <li>https://blog.netbeast.co/app-openwrt</li>
+    </ul>
+  </li>
+  <li>Cross-Compiling or Building Android tcpdump?
+    <ul>
+      <li>http://www.androidtcpdump.com/android-tcpdump/compile</li>
+    </ul>
+  </li>
+</ol>
+
+  </div><div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://holisticsecurity.io/2016/04/12/provisioning-massively-crosscompiled-bin-rpi-armv7-using-vagrant-virtualbox-ansible-python/';
+      this.page.identifier = 'https://holisticsecurity.io/2016/04/12/provisioning-massively-crosscompiled-bin-rpi-armv7-using-vagrant-virtualbox-ansible-python/';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://holosec.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript><a class="u-url" href="/2016/04/12/provisioning-massively-crosscompiled-bin-rpi-armv7-using-vagrant-virtualbox-ansible-python/" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading"><img src="/assets/img/logo-holosec.png" width="40" /> Holistic Security</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Holistic Security</li><li><a class="u-email" href="mailto:blog@holisticsecurity.io">blog@holisticsecurity.io</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.linkedin.com/in/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.twitter.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">Chilcano</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Systems Thinking, Holism, Trust, Security &amp; Usability.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

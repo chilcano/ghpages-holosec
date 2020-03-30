@@ -1,0 +1,76 @@
+Evaluación del nivel y madurez de integración de Message Brokers opensource con WSO2 ESB
+
+<h2>I. Introducción</h2>
+
+En mi anterior post expliqué como usar Apache Qpid junto con WSO2 ESB (https://holisticsecurity.wordpress.com/2014/12/03/wso2-message-broker-vs-apache-qpid-messaging-eip), un message broker ligero, potente y compatible con JMS y AMQP, en lugar de WSO2 Message Broker, un message broker potente, rápido, estándar y perfectamente integrable a WSO2 ESB. Pues ahora, me gustaría compartir la comparación que hice previamente para seleccionar Apache Qpid.
+
+Claro, vosotros preguntaréis, porqué no usar Apache ActiveMQ sabiendo que es un producto opensource, maduro, muy bien integrado a WSO2 ESB y a otros ESB y Mediators Engines como Apache Camel?, pues, en base a mis requerimientos en proyectos, buscaba por algún message broker fiel a los estándares y con una arquitectura capáz de crear complejos y críticos escenarios, pero muy orientado a los usos clásicos del message broker (comunicación asíncrona, desacoplamiento, integrable con legacy systems), y en este caso Apache Qpid y Apache ActiveMQ lo son, sin embargo me incliné por Apache Qpid porque pude integrarlo en poco minutos con WSO2 ESB e implementar los EIPs otros minutos más.
+
+[caption id="" align="alignnone" width="1020"]<img class="" src="https://dl.dropboxusercontent.com/u/2961879/blog.sec/blog20150125_foss_messagebrokers_comparison/00-foss-brokers-wso2-esb-activemq-qpid-rabbitmq-hornetq.png" alt="Integración de Message Brokers opensource con WSO2 ESB" width="1020" height="485" /> Integración de Message Brokers opensource con WSO2 ESB[/caption]
+
+Revisando alguna información de Apache ActiveMQ, me encontré con algunos comentarios indicando que su arquitectura estaba quedando rezagada imposibilitando su uso en escenarios complejos como BigData e IoT, sofisticados brokers como Apache Kafka y ZeroMQ, por ejemplo. Aquí unos comentarios.
+
+<blockquote>Disadvantages in ActiveMQ:
+* Complex algorithmic architecture for design and implement. Large cluster configuration for invoking simple message passing services.
+* Message blocks happens when the duplex network connected in between two JMS Borker.
+* When we want to set up interoperable network we should have to do alot of configuration due to heavy traffic flow.<br/>
+Referencia: http://bipinkunjumon.blogspot.co.uk/2013/05/zeromq-and-activemq-comparison.html</blockquote>
+Y
+<blockquote>
+ActiveMQ is still a very good choice for Enterprise Messaging. But ActiveMQ has gotten some competition, which is arriving with newer architectures, better performance, and with the support of standardized protocols in the area of the space deer.<br/>
+Referencia: http://predic8.com/activemq-hornetq-rabbitmq-apollo-qpid-comparison.htm</blockquote>
+
+
+<h2>II. Message Brokers</h2>
+
+La lista de Message Brokers opensource a considerar son los siguientes:
+
+xxxxxxx
+
+<h2>III. Criterios de evaluación</h2>
+
+Dentro de los criterios de evaluación considero el nivel de integración con WSO2 ESB. Para mi fue de vital importancial su facilidad de integración. No quería "matar moscas a cañonazos", usar WSO2 Message Broker o Apache ActiveMQ lo eran.
+
+A continuación listo los criterios de evaluación.
+xxxxx
+
+<h2>IV. Conclusiones</h2>
+
+* Resultado de la comparación, en la introducción ya os adelanté, Apache Qpid fue el broker ideal con el que cumplía con mis requerimientos: facilidad de integración con WSO2 ESB y facilidad de implementar los EIP relacionados a mensajería.
+
+* Apache Kafka, ZeroMQ y WSO2 Message Broker, son message brokers de "alto rendimiento", cada uno resuelve la complejidad a su manera, ellos fueron sacados de esta lista. Están pensados para escenarios complejos, críticos y de grandes volúmenes de mensajes y grandes tamaños. Más adelante escribiré sobre Apache Kafka.
+
+* Apache ActiveMQ sigue siendo el message broker más usado, sin embargo su uso ha decrecido mucho en el último año, parece que RabbitMQ, aunque sólo implemente AMQP y no JMS, tiene más demanda. El gráfico de Google Trends lo corrobora.
+
+* RabbitMQ tiene un gran interés y realmente es muy robusto, pero para mis requerimientos de integrabilidad con WSO2 ESB no está al nivel de Apache ActiveMQ y Apache Qpid, además el que no implemente AMQP 1.0 o JMS 1.1 dificulta mucho más su integración con WSO2 ESB. En un posterior artículo os explicaré cómo lo resolví y liberaré el código fuente resultado de esa integración. Ah, no me refiero a una integración como lo explica Luis en su entrada (https://luispenarrubia.wordpress.com/2014/12/10/integrate-wso2-esb-and-rabbitmq-using-amqp-transport/), me refiero a una integración siguiendo los EIPs (Dead Letter Queue, Retry Queue, Wire Tap, Throttling, etc.).
+
+* Apache Qpid tiene un buen nivel de soporte, lo viví en carne propia, los foros son bien activos, para mi fue una sorpresa muy grata. Por otro lado también pude comprobar que el producto y los clientes son muy buenos, ellos son usados por otros proyectos, desde el mismo Apache ActiveMQ, WSO2 Message Broker y RedHat Enterprise MRTG.
+
+* Sobre HornetQ, pues muy poco tengo que decir, su interés según Google Trends es muy bajo, sin embargo tiene mucha información, incluso he visto un libro sobre él, pero por otro lado, RedHat usa Apache ActiveMQ en lugar de HornetQ, a pensar de ser un proyecto patrocinado por ellos.
+
+* La integración de Apache Qpid y WSO2 ESB sería total si desde WSO2 ESB pudiese también gestionar las colas y los mensajes, pero esto no es posible ni con Apache ActiveMQ, hay algunos "work arounds" pero no va bien completamente (http://stackoverflow.com/questions/21761265/cant-browse-messages-in-an-activemq-based-message-store-with-wso2-esb-console). En otro artículo escribiré sobre ello y también compartiré el código.
+
+<h2>V. Referencias</h2>
+
+Broker wars: ActiveMQ, Qpid, HornetQ and RabbitMQ in Comparison
+http://predic8.com/activemq-hornetq-rabbitmq-apollo-qpid-comparison.htm
+
+A quick message queue benchmark: ActiveMQ, RabbitMQ, HornetQ, QPID, Apollo…
+http://blog.x-aeon.com/2013/04/10/a-quick-message-queue-benchmark-activemq-rabbitmq-hornetq-qpid-apollo
+
+JMS speed test: ActiveMQ vs HornetQ
+http://integr8consulting.blogspot.co.uk/2011/02/jms-speed-test-activemq-vs-hornetq.html
+
+Middleware trends and market leaders 2011
+http://zeromq.wdfiles.com/local--files/intro%3Aread-the-manual/Middleware%20Trends%20and%20Market%20Leaders%202011.pdf
+https://www-acc.gsi.de/wiki/pub/Frontend/MeetingCMW130425/CHEP-2012-NewCERNcontrolsMiddleware.pdf
+
+Apache Kafka: Next Generation Distributed Messaging System (comparison with RabbitMQ and ActiveMQ)
+http://www.infoq.com/articles/apache-kafka
+
+Apache Kafka: powered by
+https://cwiki.apache.org/confluence/display/KAFKA/Powered+By
+
+
+
+

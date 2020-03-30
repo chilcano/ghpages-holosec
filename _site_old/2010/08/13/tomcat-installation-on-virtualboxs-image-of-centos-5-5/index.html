@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Tomcat installation on VirtualBox’s image of CentOS 5.5 | Holistic Security</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Tomcat installation on VirtualBox’s image of CentOS 5.5" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="It is very difficult to install services on servers that are not connected to the Internet directly or through a proxy (critical servers), for example It happens in production environments, in this case we have to previously download the packages, transport them on USB flash drive and repeat this process as many times as packages and dependencies we have forgotten. The situation is compounded when these critical servers are virtualized. If this is your case, I recommend you use the DVD / CD ISO images and mount them as your CentOS repositories." />
+<meta property="og:description" content="It is very difficult to install services on servers that are not connected to the Internet directly or through a proxy (critical servers), for example It happens in production environments, in this case we have to previously download the packages, transport them on USB flash drive and repeat this process as many times as packages and dependencies we have forgotten. The situation is compounded when these critical servers are virtualized. If this is your case, I recommend you use the DVD / CD ISO images and mount them as your CentOS repositories." />
+<link rel="canonical" href="https://holisticsecurity.io/2010/08/13/tomcat-installation-on-virtualboxs-image-of-centos-5-5/" />
+<meta property="og:url" content="https://holisticsecurity.io/2010/08/13/tomcat-installation-on-virtualboxs-image-of-centos-5-5/" />
+<meta property="og:site_name" content="Holistic Security" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2010-08-13T11:41:05+02:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://holisticsecurity.io/2010/08/13/tomcat-installation-on-virtualboxs-image-of-centos-5-5/"},"url":"https://holisticsecurity.io/2010/08/13/tomcat-installation-on-virtualboxs-image-of-centos-5-5/","headline":"Tomcat installation on VirtualBox’s image of CentOS 5.5","dateModified":"2010-08-13T11:41:05+02:00","datePublished":"2010-08-13T11:41:05+02:00","description":"It is very difficult to install services on servers that are not connected to the Internet directly or through a proxy (critical servers), for example It happens in production environments, in this case we have to previously download the packages, transport them on USB flash drive and repeat this process as many times as packages and dependencies we have forgotten. The situation is compounded when these critical servers are virtualized. If this is your case, I recommend you use the DVD / CD ISO images and mount them as your CentOS repositories.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://holisticsecurity.io/feed.xml" title="Holistic Security" /><script>
+if(!(window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-156433649-1', 'auto');
+  ga('send', 'pageview');
+}
+</script>
+  
+</head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/"><img src="/assets/img/logo-holosec.png" width="100" /> Holistic Security</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/">Home</a><a class="page-link" href="/blog/">Blog</a><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Tomcat installation on VirtualBox&#39;s image of CentOS 5.5</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2010-08-13T11:41:05+02:00" itemprop="datePublished">Aug 13, 2010 
+      </time>&sim; DEVELOPMENT · OPEN SOURCE · SECURITY
+      &sim; JAVA · LINUX · TOMCAT
+    </p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>It is very difficult to install services on servers that are not connected to the Internet directly or through a proxy (critical servers), for example It happens in production environments, in this case we have to previously download the packages, transport them on USB flash drive and repeat this process as many times as packages and dependencies we have forgotten.<br />
+The situation is compounded when these critical servers are virtualized. If this is your case, I recommend you use the DVD / CD ISO images and mount them as your CentOS repositories.</p>
+
+<!-- more -->
+
+<p>If you are in doubt, follow this example for Tomcat:</p>
+<ol>
+  <li>Mount DVD Iso image as a media-repo in your CentOS Guest Virtual Box</li>
+</ol>
+
+<p><img src="/assets/tomcat5centos55-1-mount_dvd_iso.png" alt="" /></p>
+<ol>
+  <li>Verify if you have Java installed in your Guest
+ [root@svdapp95 ~]# java -version<br />
+ java version “1.6.0”<br />
+ OpenJDK  Runtime Environment (build 1.6.0-b09)<br />
+ OpenJDK Client VM (build 1.6.0-b09, mixed mode)</li>
+  <li>Install Tomcat5 from your media-repo already mounted
+ _Note:
+    <ul>
+      <li>It is not recommended to install Tomcat as ROOT, especially if It is for production environments._
+ [root@svdapp95 ~]# yum –disablerepo=* –enablerepo=c5-media -y install tomcat5 tomcat5-webapps tomcat5-admin-webapps</li>
+    </ul>
+  </li>
+  <li>Verify Tomcat5’s packages installed
+ [root@svdapp95 ~]# rpm -ql tomcat5<br />
+ /etc/logrotate.d/tomcat5<br />
+ /etc/rc.d/init.d/tomcat5<br />
+ /etc/sysconfig/tomcat5<br />
+ /etc/tomcat5<br />
+ […]<br />
+ /var/log/tomcat5<br />
+ /var/log/tomcat5/catalina.out</li>
+  <li>Start Tomcat5’s service
+ [root@svdapp95 ~]# service tomcat5 start
+ Starting tomcat5:                                          [  OK  ]</li>
+  <li>Put follow URL http://localhost:8080, now you can see Tomcat’s welcomepage.</li>
+</ol>
+
+<p><img src="/assets/tomcat5centos55-2-openbrowsertomcat5.png" alt="" /></p>
+<ol>
+  <li>You can see Tomcat’s log with:
+ [root@svdapp95 ~]# tail -f /var/log/tomcat5/catalina.out</li>
+  <li>End.</li>
+</ol>
+
+  </div><div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'https://holisticsecurity.io/2010/08/13/tomcat-installation-on-virtualboxs-image-of-centos-5-5/';
+      this.page.identifier = 'https://holisticsecurity.io/2010/08/13/tomcat-installation-on-virtualboxs-image-of-centos-5-5/';
+    };
+
+    (function() {
+      var d = document, s = d.createElement('script');
+
+      s.src = 'https://holosec.disqus.com/embed.js';
+
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript><a class="u-url" href="/2010/08/13/tomcat-installation-on-virtualboxs-image-of-centos-5-5/" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading"><img src="/assets/img/logo-holosec.png" width="40" /> Holistic Security</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Holistic Security</li><li><a class="u-email" href="mailto:blog@holisticsecurity.io">blog@holisticsecurity.io</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.linkedin.com/in/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#linkedin"></use></svg> <span class="username">Chilcano</span></a></li><li><a href="https://www.twitter.com/Chilcano"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">Chilcano</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Systems Thinking, Holism, Trust, Security &amp; Usability.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
