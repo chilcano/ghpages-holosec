@@ -19,14 +19,14 @@ To do that I'm going to follow the [Jekyll on Windows](https://jekyllrb.com/docs
 
 Once downloaded and installed Ruby+Devkit, open a CMD as standard user and check the installed version:
 
-```sh
+```ps
 C:\Users\rmce> ruby --version
 ruby 2.6.5p114 (2019-10-01 revision 67812) [x64-mingw32]
 ```
  
 Download existing the Github Pages site:
 
-```sh
+```ps
 C:\Users\rmce> y:
 Y:\> cd __gitrepos
 Y:\__gitrepos> git clone https://github.com/chilcano/ghpages-holosec
@@ -35,33 +35,33 @@ Y:\__gitrepos> cd ghpages-holosec
 
 Install Bundler:
 
-```sh
+```ps
 Y:\__gitrepos\ghpages-holosec> gem install bundler
 Y:\__gitrepos\ghpages-holosec> bundle config set path 'vendor/bundle'
 ```
 
 Install Jekyll and all Gems via Bundler:
 
-```sh
+```ps
 Y:\__gitrepos\ghpages-holosec> bundle 
 ```
 
 Check if Jekyll was installed properly:
 
-```sh
+```ps
 Y:\__gitrepos\ghpages-holosec> bundle exec jekyll -v
 jekyll 4.0.0
 ```
 
 Now we are ready to serve the site in our computer:
 
-```sh
+```ps
 Y:\__gitrepos\ghpages-holosec> bundle exec jekyll serve
 ```
 
 If you are using Google Analytics plugin configured, you can try this:
 
-```sh
+```ps
 Y:\__gitrepos\ghpages-holosec> set JEKYLL_ENV=production 
 Y:\__gitrepos\ghpages-holosec> bundle exec jekyll serve --incremental --watch 
 Configuration file: Y:/__gitrepos/ghpages-holosec/_config.yml
