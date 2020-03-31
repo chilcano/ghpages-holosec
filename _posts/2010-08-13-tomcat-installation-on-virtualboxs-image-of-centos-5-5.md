@@ -15,7 +15,7 @@ The situation is compounded when these critical servers are virtualized. If this
 If you are in doubt, follow this example for Tomcat:
 
 1. Mount DVD Iso image as a media-repo in your CentOS Guest Virtual Box
-![](/assets/20100813/tomcat5centos55-1-mount_dvd_iso.png)
+![](/assets/blog20100813/tomcat5centos55-1-mount_dvd_iso.png)
 2. Verify if you have Java installed in your Guest
 ```
 [root@svdapp95 ~]# java -version  
@@ -46,7 +46,7 @@ Note:
 Starting tomcat5:                                          [  OK  ]
 ```
 5. Put follow URL http://localhost:8080, now you can see Tomcat's welcomepage.
-![](/assets/20100813/tomcat5centos55-2-openbrowsertomcat5.png)
+![](/assets/blog20100813/tomcat5centos55-2-openbrowsertomcat5.png)
 6. You can see Tomcat's log with:
 ```
 [root@svdapp95 ~]# tail -f /var/log/tomcat5/catalina.out
