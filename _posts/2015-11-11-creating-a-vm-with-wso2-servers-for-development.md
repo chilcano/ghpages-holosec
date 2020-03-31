@@ -9,7 +9,7 @@ permalink:  "/2015/11/11/creating-a-vm-with-wso2-servers-for-development/"
 ---
 This VM is suitable to develop with WSO2 products and puts focus only in the _server side_ (WSO2 servers, mock server and different tools to host our microservices) and not in _desktop side_ (Eclipse, SoapUI, Maven, etc.).
 
-![](/assets/chilcano-box-vagrant-wso2-dev-srv-map1.png)
+![](/assets/20151111-chilcano-box-vagrant-wso2-dev-srv-map1.png)   
 _Vagrant box - WSO2 Development Server Map_
 
 <!-- more -->

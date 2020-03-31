@@ -9,7 +9,7 @@ permalink:  "/2016/12/02/data-routing-transformation-and-system-mediation-in-big
 ---
 So a few months ago I published a serie of post explaining how to capture WIFI traffic and process it near to real time by using [WSO2 BAM](http://wso2.com/more-downloads/business-activity-monitor/), [CEP Siddhi](https://github.com/wso2/siddhi), Apache Cassandra, [Apache Thrift](https://thrift.apache.org/), [Kismet](https://www.kismetwireless.net) running on a Raspberry Pi and Docker.
 
-[![](/assets/01-wifi-traffic-capture-wso2-bam.png){:width="70%"}](/assets/01-wifi-traffic-capture-wso2-bam.png){:target="_blank"}
+[![](/assets/blog20161202/01-wifi-traffic-capture-wso2-bam.png){:width="70%"}](/assets/blog20161202/01-wifi-traffic-capture-wso2-bam.png){:target="_blank"}
 
 Now, after several Big Data and Security projects, I can add to previous solution, fresh air and improve the technological approach.
 
@@ -20,7 +20,7 @@ Now, after several Big Data and Security projects, I can add to previous solutio
 
 Well, the first approach I considered was starting with [ELK stack](https://www.elastic.co) (Elasticsearch, Logstash and Kibana), that is the natural way to follow.
 
-![](/assets/02-wifi-traffic-capture-elasticsearch-logstash-kibana.png){:width="70%"}
+![](/assets/blog20161202/02-wifi-traffic-capture-elasticsearch-logstash-kibana.png){:width="70%"}
 
 But, there are still some issues to face:
 * Deal with the resilience.  
@@ -40,7 +40,7 @@ Then, what can I do ?....
 ## Apache NiFi to the rescue!
 
 
-![](/assets/03-apache-nifi-logo.png){:width="300"}
+![](/assets/blog20161202/03-apache-nifi-logo.png){:width="300"}
 
 I was involved in several Integration Project where I frequently used [WSO2 ESB](http://wso2.com/products/enterprise-service-bus/).
 WSO2 ESB is based on [Apache Synapse](https://synapse.apache.org/), it is a lightweight and high-performance Enterprise Service Bus (ESB). Powered by a fast and asynchronous mediation engine, It provides support for XML, SOAP and REST. It supports HTTP/S, Mail (POP3, IMAP, SMTP), JMS, TCP, UDP, VFS, SMS, XMPP and FIX through "mediators".
@@ -65,14 +65,14 @@ Taken from Apache NiFi webpage:
 >  _\- Multi-tenant authorization and internal authorization/policy management._
 What do you think about that? Do you think that Apache NiFi can help me ?. Yes, It does. The new approach would be as follows:
 
-![](/assets/04-wifi-traffic-capture-apache-nifi-minifi.png){:width="70%"}
+![](/assets/blog20161202/04-wifi-traffic-capture-apache-nifi-minifi.png){:width="70%"}
 
 The above choice covers basically all gaps above explained. In the side of Raspberry Pi we could use [Apache MiNiFi](https://cwiki.apache.org/confluence/display/MINIFI/MiNiFi), a subproject of NiFi suitable for constrained resources. The specific goals comprise:
 * small and lightweight footprint
 * central management of agents
 * generation of data provenanceFor other side, the below choice is also a valid alternative. Even as PoC that demonstrates the ease and the power of using Apache NiFi, this approach is enough.
 
-![](/assets/05-wifi-traffic-capture-apache-nifi.png){:width="70%"}
+![](/assets/blog20161202/05-wifi-traffic-capture-apache-nifi.png){:width="70%"}
 
 In the next post I will share technical details and code to implement the above approach. Meanwhile I share four great resources:
 * [When SysOps need workflow.... Introducing Apache NiFi](https://www.linkedin.com/pulse/when-sysops-need-workflow-introducing-apache-nifi-jeroen-jacobs)

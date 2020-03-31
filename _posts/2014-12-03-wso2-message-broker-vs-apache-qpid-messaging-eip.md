@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      'WSO2 Message Broker vs. Apache Qpid - Messaging Integration Patterns'
-date:       2014-12-02 23:17:51
+date:       2014-12-03 10:10:10
 categories: ['Big Data', 'EIP', 'Middleware', 'SOA']
 tags:       ['ActiveMQ', 'Apache Qpid', 'RabbitMQ', 'WSO2 ESB', 'WSO2 Message Broker']
 status:     publish 
@@ -9,7 +9,7 @@ permalink:  "/2014/12/03/wso2-message-broker-vs-apache-qpid-messaging-eip/"
 ---
 If you want to define an Integration Architecture based on Messaging with WSO2, the only alternative you have is to do with WSO2 Message Broker and possibly also with Apache ActiveMQ. In earlier versions of WSO2 ESB, the WSO2 web had official information on how to integrate WSO2 ESB and Apache ActiveMQ, integrate both always was a common pattern, now it has been left in place of WSO2 Message Broker.
 
-![Enabling JMS Transport](/assets/blog20141122-qpid-01-jms-transport-wso2esb.png)  
+![Enabling JMS Transport](/assets/blog20141203/qpid-01-jms-transport-wso2esb.png)  
  _Enabling JMS Transport_
 
 Initially to use WSO2 ESB and Apache ActiveMQ was the de-facto solution to implement the Messaging Integration Architecture, but now all the focus are on WSO2 Message Broker. The product strategy for WSO2 Message Broker is being used in big and critical projects, for example, below some use cases:
@@ -85,7 +85,7 @@ export QPID_WORK=$HOME/0dev-env/2srv/qpid-work-std
 
 ## III. Enabling JMS transport in WSO2 ESB for Apache Qpid
 
-![Enabling JMS Transport](/assets/blog20141122-qpid-01-jms-transport-wso2esb.png)  
+![Enabling JMS Transport](/assets/blog20141203/qpid-01-jms-transport-wso2esb.png)  
 _Enabling JMS Transport_
 
 1.- After of installation of WSO2 ESB, to edit the file %WSO2ESB_HOME%/repository/conf/axis2/axis2.xml and add the JMSSender and JMSListener for Apache Qpid as follow:
@@ -159,7 +159,7 @@ Send a message to Apache Qpid queue (QPID_QUEUE_01)
 
 Now we can send messages using this Proxy and in the Apache Qpid side are as shown:
 
-![inspecting the store messages in Apache Qpid](/assets/blog20141122-qpid-02-message-in-broker.png)  
+![inspecting the store messages in Apache Qpid](/assets/blog20141203/qpid-02-message-in-broker.png)  
 _Inspecting the store messages in Apache Qpid_
 5.- Create a Synapse Proxy in WSO2 ESB to listen for messages from Apache Qpid.
 
@@ -216,7 +216,7 @@ Store the message in the WSO2 ESB Message Store (MsgStoreQpid02)
 
 ### IV.2. Creating Message Sampling Processor in WSO2 ESB
 
-![Message Sampling Processor with WSO2 ESB and Apache Qpid](/assets/blog20141122-qpid-03-msg-sampling-processor.png)  
+![Message Sampling Processor with WSO2 ESB and Apache Qpid](/assets/blog20141203/qpid-03-msg-sampling-processor.png)  
 _Message Sampling Processor with WSO2 ESB and Apache Qpid_
 
 1.- Create a Sequence for the Sampling Processor
@@ -253,7 +253,7 @@ true
 
 In this case, if the backend service processes very well the request, then the message processor will delete the message from message store.
 
-![Message Forwarding Processor with OUT-ONLY implemented](/assets/blog20141122-qpid-04-msg-forwarding-processor-out-only.png)  
+![Message Forwarding Processor with OUT-ONLY implemented](/assets/blog20141203/qpid-04-msg-forwarding-processor-out-only.png)  
 _Message Forwarding Processor with OUT-ONLY implemented_
 
 Before, we have to disable the below MessageProcessor (MsgProcessorQpidSampling), just for testing purposes. Also, we have to create a new Proxy to send messages well formated to MsgStoreQpid02.
@@ -304,7 +304,7 @@ true
 
 The only difference with the above is that it requires two Synapse Sequences (Reply and Fault sequences) that will post-process the SOAP response of Backend Service in a blocking-mode as It is a succesfully response or unseccsfully response, in other words, if everything goes well, the message processor will send an ACK to message store to consume (delete) the stored message and the message processor will trigger the reply sequence, otherwise the message processor will trigger the fault squence (the message is not consumed/deleted of message store).
 
-![Message Forwarding Processor with IN-OUT implemented](/assets/blog20141122-qpid-05-msg-forwarding-processor-in-out.png)  
+![Message Forwarding Processor with IN-OUT implemented](/assets/blog20141203/qpid-05-msg-forwarding-processor-in-out.png)  
 _Message Forwarding Processor with IN-OUT implemented_
 
 Before, disable the above message processor, just for testing purporses.

@@ -25,7 +25,8 @@ For further information, you can see my [post on Identity Management (http://hol
 
 Well, now developing projects related to identity management or authentication and authorization services to business applications is easier thanks to many of the security and management of identities features that are required are included in an unique product called WSO2 Identity Server.
 
-[caption id="attachment_1038" align="aligncenter" width="150"][![WSO2 Identity Server]({{ site.baseurl }}/assets/wso2-identity-server-2.png?w=150)](http://wso2.com/products/identity-server/) WSO2 Identity Server[/caption]
+[![WSO2 Identity Server](/assets/wso2-identity-server-2.png)](http://wso2.com/products/identity-server/) 
+
 The [WSO2 Identity Server ](http://wso2.com/products/identity-server/ "WSO2 Identity Server")(aka WSO2 IS) is a WSO2's product oriented to Identity Management (IdM) perfectly suitable for SOA/BPM projects, SaaS and PaaS projects.
 WSO2 IS is a free and open source product and helps us to manage all life cycle of IdM's projects, its main functionalities for the current version ([4.5.0](http://dist.wso2.org/products/identity-server/4.5.0/release-notes-is.html "WSO2 IS 4.5.0 release notes")) are:
 
@@ -50,10 +51,8 @@ WSO2 IS is a free and open source product and helps us to manage all life cycle 
 
 Well, WSO2 IS is constantly evolving, although still is in the version 4.5.0, many of its attractive features are 1-2 years old. The big advantage is that WSO2's engineers are working hard and WSO2 has an active community supporting it. In this blog we will be publishing a series of articles related to WSO2IS for anyone interested in IdM and security can begin rapidly.
 Then I leave the official source WSO2 IS resources:
-* WSO2 IS - Product Documentation  
-http://docs.wso2.org/display/IS450/WSO2+Identity+Server+Documentation
-* WSO2 IS - Support in StackOverflow  
-http://stackoverflow.com/questions/tagged/wso2is
-* WSO2 IS - Source code  
-https://svn.wso2.org/repos/wso2/carbon
+* [WSO2 IS - Product Documentation](http://docs.wso2.org/display/IS450/WSO2+Identity+Server+Documentation)  
+* [WSO2 IS - Support in StackOverflow](http://stackoverflow.com/questions/tagged/wso2is)  
+* [WSO2 IS - Source code](https://svn.wso2.org/repos/wso2/carbon)
+
 I hope you have been useful.
