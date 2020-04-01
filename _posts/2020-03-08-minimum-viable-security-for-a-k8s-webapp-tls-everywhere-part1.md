@@ -213,11 +213,10 @@ Now open your favorite browser and enter this url [http://localhost:4002](http:/
 Since I'm using the [Affordable K8s](https://github.com/chilcano/affordable-k8s)' Terraform scripts to build a K8s Cluster with the Jetstack Cert-Manager, to get, renew, revoke any kind of X.509 Certificates, and the NGINX Ingress Controller, to manage the traffic, now i would be able to improve security according the __Minimum Viable Security__ (MVSec) and __Pareto Principle or 80/20 rule__ both explained above.  
 In next posts I'll explain how to:
 
-* **Part 1 - Minimum Viable Security for a Kubernetised Webapp: TLS everywhere** (this post)
-* **Part 2 - Enable and configure [HTTP Basic Authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) over TLS in Weave Scope**
-* **Part 3 - Enable and configure [Mutual TLS Authentication](https://en.wikipedia.org/wiki/Mutual_authentication) in Weave Scope**
-* **Part 4 - Use Hashicorp Vault as PKI and Secrets Management in a Kubernetised Webapp**
-* **Part 4 - Integrating an IAM (Identity Access Management - see [Security along Container-based SDLC - OSS Tools List](https://holisticsecurity.io/2020/02/10/security-along-the-container-based-sdlc#oss-doc-link)) solution in a Kubernetised Webapp**
+* Part 1 - Minimum Viable Security for a Kubernetised Webapp: TLS everywhere (this post)
+* [Part 2 - Enable and configure [HTTP Basic Authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) over TLS in Weave Scope](/2020/03/19/minimum-viable-security-for-a-k8s-webapp-http-basic-auth-on-tls-part2)
+* Part 3 - Enable and configure [Mutual TLS Authentication](https://en.wikipedia.org/wiki/Mutual_authentication) in Weave Scope (Hashicorp Vault as PKI and Secrets Mngmt will be integrated)
+* Part 4 - Integrating an IAM (Identity Access Management - see [Security along Container-based SDLC - OSS Tools List](https://holisticsecurity.io/2020/02/10/security-along-the-container-based-sdlc#oss-doc-link)) solution in a Kubernetised Webapp
 
 
 ## Troubleshooting
