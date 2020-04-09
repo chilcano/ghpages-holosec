@@ -85,7 +85,7 @@ Below some screenshots if you want to know how looks like in Ubuntu 19.10 and if
 Before lets get the FQDN of your EC2 instance.  
 
 ```sh
-chilcano@inti:~/git-repos/affordable-remote-devenv$ terraform output remotedevenv_fqdn
+chilcano@inti:~/git-repos/affordable-remote-desktop$ terraform output remotedevenv_fqdn
 ec2-100-26-48-80.compute-1.amazonaws.com
 ```
 [![](https://raw.githubusercontent.com/chilcano/affordable-remote-desktop/master/imgs/remote-devops-desktop-x2go-client-1.png){:width="300"}](https://raw.githubusercontent.com/chilcano/affordable-remote-desktop/master/imgs/remote-devops-desktop-x2go-client-1.png)[![](https://raw.githubusercontent.com/chilcano/affordable-remote-desktop/master/imgs/remote-devops-desktop-x2go-client-2.png){:width="300"}](https://raw.githubusercontent.com/chilcano/affordable-remote-desktop/master/imgs/remote-devops-desktop-x2go-client-2.png)
