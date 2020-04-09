@@ -11,7 +11,7 @@ If you're going to work 100% remotely or are just tired of carrying a heavy lapt
 So, if you like the idea, this post for you.
 In this post I'll explain you how to build your own Remote DevOps Desktop on AWS and configure your thinner Local PC to connect to remote one. 
 
-![](https://raw.githubusercontent.com/chilcano/affordable-remote-desktop/master/imgs/remote-devops-desktop-x2go-client-0-arch.png)
+[![](https://raw.githubusercontent.com/chilcano/affordable-remote-desktop/master/imgs/remote-devops-desktop-x2go-client-0-arch.png)](https://raw.githubusercontent.com/chilcano/affordable-remote-desktop/master/imgs/remote-devops-desktop-x2go-client-0-arch.png)
 
 <!-- more -->
 
