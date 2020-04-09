@@ -98,7 +98,7 @@ And finally here below the Remote DevOps Desktop.
 
 And here the configuration of a great feature: Sharing files between local and remote instance over SSH using X2Go Client.   
 
-![](https://raw.githubusercontent.com/chilcano/affordable-remote-desktop/master/imgs/remote-devops-desktop-x2go-client-7.png){:width="300"}[![](https://raw.githubusercontent.com/chilcano/affordable-remote-desktop/master/imgs/remote-devops-desktop-x2go-client-7b.png){:width="400"}](https://raw.githubusercontent.com/chilcano/affordable-remote-desktop/master/imgs/remote-devops-desktop-x2go-client-7b.png)
+[![](https://raw.githubusercontent.com/chilcano/affordable-remote-desktop/master/imgs/remote-devops-desktop-x2go-client-7.png){:width="300"}](https://raw.githubusercontent.com/chilcano/affordable-remote-desktop/master/imgs/remote-devops-desktop-x2go-client-7.png)[![](https://raw.githubusercontent.com/chilcano/affordable-remote-desktop/master/imgs/remote-devops-desktop-x2go-client-7b.png){:width="400"}](https://raw.githubusercontent.com/chilcano/affordable-remote-desktop/master/imgs/remote-devops-desktop-x2go-client-7b.png)
 
 
 ## Conclusions
