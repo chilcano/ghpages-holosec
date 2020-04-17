@@ -30,7 +30,7 @@ This step must be executed once in the computer.
 First of all, install Ruby.
 
 ```sh
-$ sudo apt-get install ruby-full build-essential zlib1g-dev
+$ sudo apt -y install ruby ruby-dev build-essential zlib1g-dev
 ```
 
 Now, configure Ruby for my Linux's user.
@@ -47,30 +47,33 @@ $ gem install bundler
 ## Install Jekyll with Bundler
 
 This step and next ones must be executed per website or ruby project. In this point your configured custom DNS should be working.
-I will download my empty created GitHub Page repository into `~/git-repos/ghpages-holosec/` directory.
+I will download my empty created GitHub Page repository into `~/gitrepos/ghpages-holosec/` directory.
+
 ```sh
-$ git clone https://github.com/chilcano/ghpages-holosec ~/git-repos/ghpages-holosec/
+$ mkdir -p $HOME/gitrepos/ghpages-holosec/; cd $HOME/gitrepos/ghpages-holosec/ 
+$ git clone https://github.com/chilcano/ghpages-holosec 
 ```
 
-But if you haven't created any GitHub Page repository, you can create it in your computer and after push it to GitHub.
+> __Creating a Jekyll project from scratch__
+> 
+> In this case the `ghpages-holosec` is an empty project, then run next commands.
+> ```sh
+> $ bundle init
+> $ bundle add jekyll
+> ```
+> 
+> Once Jekyll is installed, we can use it to create the scaffolding for our site.
+> ```sh
+> $ bundle exec jekyll new --force --skip-bundle .
+> ```
+
+If `ghpages-holosec` is already a Jekyll project, then run next commands:
 ```sh
-$ mkdir ~/git-repos/ghpages-holosec/
-```
+// This installs Jekyll and all gems present in Gemfile
+$ bundle config set path vendor/bundle
 
-```sh
-$ cd ~/git-repos/ghpages-holosec/
-$ bundle init
-$ bundle install --path vendor/bundle
-$ bundle add jekyll	// this installs jekyll and update Gemfile
-```
-
-## Create a Jekyll scaffold
-
-Once Jekyll is installed, we can use it to create the scaffolding for our site. We need the `--force` parameter because our folder isn't empty, there are some Bundler files in it.
-
-```sh
-$ bundle exec jekyll new --force --skip-bundle .
-$ bundle install
+// This installs jekyll and update Gemfile
+$ bundle install	
 ```
 
 ## Serving the site for first time
@@ -80,12 +83,12 @@ Yes, I'll tweak the `_config.yml` file to apply new design later.
 Now, you will see only `Welcome to Jekyll!` sample post.
 
 ```sh
-$ bundle exec jekyll serve
+$ bundle exec jekyll serve --incremental --watch
 ```
 
 ## Importing a WordPress.com's blog into GitHub Pages site
 
-Go to `https://your-user-name.wordpress.com/wp-admin/export.php` and export your blog's content into a XML, place the xml file in `~/git-repos/ghpages-holosec/wp_export/`, once completed, execute `jekyll-import` to convert WordPress' XML format into GitHub's MarkDown format.
+Go to `https://your-user-name.wordpress.com/wp-admin/export.php` and export your blog's content into a XML, place the xml file in `~/gitrepos/ghpages-holosec/wp_export/`, once completed, execute `jekyll-import` to convert WordPress' XML format into GitHub's MarkDown format.
 
 Install jekyll-import and its dependencies.
 ```sh
@@ -113,14 +116,17 @@ If you are using Google Analytics plugin configured, you can try this:
 $ JEKYLL_ENV=production bundle exec jekyll serve --incremental --watch
 ```
 
+If you have posts in draft (place your posts in `<site>\_drafts\` folder without `date` and `permalink` in the front-matter.
+```sh
+$ JEKYLL_ENV=production bundle exec jekyll serve --watch --drafts
+```
 
 You will see that all posts were imported.
 ![Holistic Security About page](/assets/img/2019-10-14-wp-to-github-holosec-1st.png)
 
 ## References
 
-- [Jekyll, Installation on Ubuntu](https://jekyllrb.com/docs/installation/ubuntu/)
-- [Jekyll, Using with Bundler](https://jekyllrb.com/tutorials/using-jekyll-with-bundler/)
-- [Jekyll, Using the Importers Gems](https://import.jekyllrb.com/docs/installation/)
-- [WordPress.com Jekyll Importer](https://import.jekyllrb.com/docs/wordpressdotcom/)
+- [Bash Script to install Jekyll in Ubuntu](https://github.com/chilcano/how-tos/blob/master/resources/setting_jekyll_in_ubuntu.sh)
+- [HolisticSecurity.io - GitHub Pages and Jekyll on Windows 10](https://holisticsecurity.io/2020/03/30/github-pages-and-jekyll-on-windows-10)
+- [Installation of Jekyll on Ubuntu](https://jekyllrb.com/docs/installation/ubuntu/)
 

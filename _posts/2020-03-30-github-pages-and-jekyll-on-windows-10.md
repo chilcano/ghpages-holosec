@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "Github Pages and Jekyll on Windows 10"
+title:      "GitHub Pages and Jekyll on Windows 10"
 categories: ['misc', 'cms'] 
 tags:       ['github', 'jekyll', 'ruby']
 date:       2020-03-30 00:10:00 +0100
