@@ -19,6 +19,12 @@ If you are working as a DevOps Engineer and want to automate the creation of you
 
 Download and install VS Code manually from here [https://code.visualstudio.com/download](https://code.visualstudio.com/download).
 
+__Recommended extensions:__
+1. [https://github.com/oderwat/vscode-indent-rainbow](https://github.com/oderwat/vscode-indent-rainbow)
+2. [https://github.com/usernamehw/vscode-indent-one-space](https://github.com/usernamehw/vscode-indent-one-space)
+3. [https://github.com/mauve/vscode-terraform](https://github.com/mauve/vscode-terraform)
+4. [https://github.com/yzhang-gh/vscode-markdown](https://github.com/yzhang-gh/vscode-markdown)
+
 #### 2. Install GIT, AWS Client and Terraform
 
 Open CMD as Admin user and execute below commands.
