@@ -61,8 +61,8 @@ aws-cli/2.0.5 Python/3.7.5 Windows/10 botocore/2.0.0dev9
 Open CMD and run the following commands.
 
 ```ps
-C:\Users\rmce> git config -–global user.email "you@example.com"
-C:\Users\rmce> git config -–global user.name "Your Name"
+C:\Users\rmce> git config --global user.email "you@example.com"
+C:\Users\rmce> git config --global user.name "Your Name"
 ```
 
 This optional. Make Git store the username and password and it will never ask for them.
