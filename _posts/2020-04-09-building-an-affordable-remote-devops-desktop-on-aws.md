@@ -15,7 +15,7 @@ In this post I'll explain you how to build your own Remote DevOps Desktop on AWS
 
 <!-- more -->
 
-This article uses Terraform to provision a cheap AWS EC2 Spot instance. The approximate cost will be less of 10 euros/month for a `m1.small` instance located in `us-east-1` region. Also I'll share the Github repository with all Terraform scripts where you will be able to change the configuration.
+This article uses Terraform to provision a cheap AWS EC2 Spot instance. The approximate cost will be less of 10 euros/month for a `m1.small` instance located in `us-east-1` region. Also I’ll share the Github repository with all Terraform scripts where you will be able to change the configuration.
 
 ## Getting started
 
@@ -73,7 +73,7 @@ X2Go is a X-windows remote access software that has clients for Windows, Mac, an
 
 ## Things to improve
 
-1. Instead of using a standard Ubuntu AMI, prepare a custom AMI with pre-installed XFCE4 and X2Go (getting this EC2 instance created takes 25 minutes!), and moving all DevOps Tooling installation to other separate script.
+1. ~~Instead of using a standard Ubuntu AMI, prepare a custom AMI with pre-installed XFCE4 and X2Go (getting this EC2 instance created takes 25 minutes!), and moving all DevOps Tooling installation to other separate script.~~ ([see post part2](/2020/04/20/building-an-affordable-remote-devops-desktop-on-aws-part2))
 2. Use Ansible instead of Bash script to provision the DevOps tools such as VS Code, Java, Terraform, Git, etc.
 3. Backup and restoring of critical, sensitive information and custom configuration into AWS S3 or X2Go capabilities to mount remote disks over SSH.
 4. Vertical Autoscaling (increase RAM, CPU or change type of instance).
