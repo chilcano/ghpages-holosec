@@ -7,7 +7,7 @@ tags: ['remote', 'aws', 'docker', 'git', 'vs code', 'terraform', 'packer']
 permalink: "/2020/04/20/building-an-affordable-remote-devops-desktop-on-aws-part2"
 comments: true
 ---
-In the previous post [Building an affordable remote DevOps desktop on AWS](/2020/04/09/building-an-affordable-remote-devops-desktop-on-aws) I shown you how to build a cheaper remote DevOps Desktop on AWS, now I'll explain you how to do that in approximatelly 3 minutes, instead of 25 minutes, using [Hashicorp Packer](https://www.packer.io) to use a pre-baked AWS AMI. 
+In the previous post [Building an affordable remote DevOps desktop on AWS](/2020/04/09/building-an-affordable-remote-devops-desktop-on-aws) I shown you how to build a cheaper remote DevOps Desktop on AWS, now I'll explain you how to do that in approximately 3 minutes, instead of 25 minutes, using [Hashicorp Packer](https://www.packer.io) to use a pre-baked AWS AMI. 
 
 [![](https://raw.githubusercontent.com/chilcano/affordable-remote-desktop/master/imgs/remote-devops-desktop-x2go-client-1-arch-packer.png)](https://raw.githubusercontent.com/chilcano/affordable-remote-desktop/master/imgs/remote-devops-desktop-x2go-client-1-arch-packer.png)
 
