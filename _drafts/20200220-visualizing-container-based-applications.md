@@ -4,7 +4,7 @@ title:      "Visualizing Container-based Applications"
 #date:       2020-02-20 10:00:00 +0100
 categories: ['cloud', 'apaas', 'service mesh', 'observability'] 
 tags:       ['kubernetes', 'docker', 'microservice', 'visualizing']
-permalink:  "/2020/02/20/visualizing-container-based-applications"
+#permalink:  "/2020/02/20/visualizing-container-based-applications"
 ---
 
 Application performance monitor tool for distributed systems, especially designed for microservices, cloud native and container-based (Docker, K8s, Mesos) architectures.
@@ -39,3 +39,9 @@ https://blog.alexellis.io/k9s-the-kubernetes-cui-comes-to-openfaas/
 
 SPEKT8 is a new visualization tool for your Kubernetes clusters.
 https://github.com/spekt8/spekt8
+
+
+https://github.com/containership/konstellate
+
+
+https://jimmysong.io/awesome-cloud-native
