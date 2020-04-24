@@ -45,3 +45,9 @@ https://github.com/containership/konstellate
 
 
 https://jimmysong.io/awesome-cloud-native
+
+Visualize K8s state and its security (RBAC, Roles, users, .. )
+También está dentro de IAM tools
+https://kubevious.io/
+https://github.com/kubevious/kubevious
+https://www.youtube.com/watch?v=0Gd6VRTigoE

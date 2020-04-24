@@ -35,3 +35,9 @@ https://zeroshell.org/kerberos/Kerberos-operation/
 https://github.com/dexidp/dex
 
 <!-- more -->
+
+RBAC Simplified. See permissions on App level. "SPY" workloads on Namespace level.
+También está en Visualización
+https://kubevious.io/
+https://github.com/kubevious/kubevious
+https://www.youtube.com/watch?v=0Gd6VRTigoE

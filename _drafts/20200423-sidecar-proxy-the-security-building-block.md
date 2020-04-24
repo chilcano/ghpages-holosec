@@ -1,18 +1,28 @@
 ---
 layout:     post
-title:      "The Proxy: a pattern with muliple use cases"
-#date:       2020-04-24 10:00:00 +0100
+title:      "Sidecar Proxy: The Security Building Block"
+#date:       2020-04-23 10:00:00 +0100
 categories: ['cloud', 'apaas', 'service mesh','patterns'] 
-tags:       ['microservice', 'api', 'proxy', 'ingress', 'gateway', 'sidecar']
-#permalink:  "/2020/04/24/the-proxy-pattern-multiple-use-cases"
+tags:       ['sidecar', 'proxy', 'ingress', 'gateway', 'load balancer']
+#permalink:  "/2020/04/3/sidecar-proxy-the-security-building-block"
 comments:   true
 ---
+A Sidecar Proxy is an application design pattern which abstracts certain features, such as inter-service communications, monitoring and security, away from the main architecture to ease the tracking and maintenance of the application as a whole. 
+
+https://searchitoperations.techtarget.com/definition/sidecar-proxy
+
+Just as a sidecar is attached to a motorcycle, a sidecar proxy is attached to a parent application to extend or add functionality. Sidecar proxies are typically used within the service mesh control plane (CP), microservices or containers. 
+
+
 
 The Proxy Pattern and its importance in the Cloud Security world.
 
 Proxy Pattern, multiple use cases even in Security.
 
 Proxy: a single pattern with multiple use cases even in Security.
+
+Proxy, Load Balancer, Ingress Controller, Sidecar or API Gateway?
+
 
 <!-- more --> 
 
@@ -66,4 +76,13 @@ https://blog.envoyproxy.io/the-universal-data-plane-api-d15cec7a
 Sidecar Proxy a Silent Partner for Better Security
 About this webinar
 https://www.brighttalk.com/webcast/18009/383304/sidecar-proxy-a-silent-partner-for-better-security
+
+
+
+
+
+How to write WASM filters for Envoy and deploy it with Istio
+https://banzaicloud.com/blog/envoy-wasm-filter
+https://github.com/solo-io/wasme
+
 
