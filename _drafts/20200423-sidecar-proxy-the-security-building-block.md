@@ -2,59 +2,74 @@
 layout:     post
 title:      "Sidecar Proxy: The Security Building Block"
 #date:       2020-04-23 10:00:00 +0100
-categories: ['cloud', 'apaas', 'service mesh','patterns'] 
+categories: ['cloud', 'apaas', 'security','patterns'] 
 tags:       ['sidecar', 'proxy', 'ingress', 'gateway', 'load balancer']
 #permalink:  "/2020/04/3/sidecar-proxy-the-security-building-block"
 comments:   true
 ---
-A Sidecar Proxy is an application design pattern which abstracts certain features, such as inter-service communications, monitoring and security, away from the main architecture to ease the tracking and maintenance of the application as a whole. 
+Just as a HTTP reverse proxy is sitting in front of a web application, a sidecar is attached to a motorcycle, a sidecar proxy is attached to a main application to extend or add functionality. A Sidecar Proxy is an application design pattern which abstracts certain features, such as inter-service communications, monitoring and *security*, away from the main application to ease its maintainability, resilience and scalability of the application as a whole. 
 
-https://searchitoperations.techtarget.com/definition/sidecar-proxy
+In this post I will show you how to use the Sidecar Pattern to address security challenges in the Cloud Native Applications. 
 
-Just as a sidecar is attached to a motorcycle, a sidecar proxy is attached to a parent application to extend or add functionality. Sidecar proxies are typically used within the service mesh control plane (CP), microservices or containers. 
-
-
-
-The Proxy Pattern and its importance in the Cloud Security world.
-
-Proxy Pattern, multiple use cases even in Security.
-
-Proxy: a single pattern with multiple use cases even in Security.
-
-Proxy, Load Balancer, Ingress Controller, Sidecar or API Gateway?
+imagen xxxxxxxxxxxxxxxxxxxxx
 
 
 <!-- more --> 
 
-## What is the Proxy Pattern?
+### The Proxy Pattern
 
-> In computer programming, the proxy pattern is a software design pattern. A proxy, in its most general form, is a class functioning as an interface to something else. The proxy could interface to anything: a network connection, a large object in memory, a file, or some other resource that is expensive or impossible to duplicate. In short, a proxy is a wrapper or agent object that is being called by the client to access the real serving object behind the scenes. Use of the proxy can simply be forwarding to the real object, or can provide additional logic. In the proxy, extra functionality can be provided, for example caching when operations on the real object are resource intensive, or checking preconditions before operations on the real object are invoked. For the client, usage of a proxy object is similar to using the real object, because both implement the same interface. 
+Wikipedia gives us a good detailed definition.
+
+> In computer programming, the proxy pattern is a software design pattern. A proxy, in its most general form, is a class functioning as an interface to something else. The proxy could interface to anything: a network connection, a large object in memory, a file, or some other resource that is expensive or impossible to duplicate. In short, a proxy is a wrapper or agent object that is being called by the client to access the real serving object behind the scenes [...]
 >  
 > [https://en.wikipedia.org/wiki/Proxy_pattern](https://en.wikipedia.org/wiki/Proxy_pattern)
 
-### Common uses
+In brief, a Proxy is:
 
-#### 1. Reverse Proxy
+1. A software design pattern.
+2. An interface to something. 
+3. Agnostic, because It could interface to anything.
+4. A wrapper or agent.
+
+> [...] Use of the proxy can simply be forwarding to the real object, or can provide additional logic. In the proxy, extra functionality can be provided, for example caching when operations on the real object are resource intensive, or checking preconditions before operations on the real object are invoked. For the client, usage of a proxy object is similar to using the real object, because both implement the same interface. 
+>  
+> [https://en.wikipedia.org/wiki/Proxy_pattern](https://en.wikipedia.org/wiki/Proxy_pattern)
+
+And a proxy can:
+
+1. Forward the load.
+2. Provide additional logic.
+
+
+### A single pattern with multiple uses
+
+There are several products that implements the proxy pattern, between them we have:
+
+#### 1. HTTP Reverse Proxy
+
+The most used are Apache HTTP server and NGINX HTTP server.
 
 #### 2. Mediator
+
+Frequently used in the SOA world, the Mediator Pattern is one of [the 23 Design Patterns](https://en.wikipedia.org/wiki/Design_Patterns) and tries to solve tight coupling. The products family most known are SOA and Message-Oriented Middleware (Message Brokers) products such as:
+- Apache ActiveMQ, Apache Qpid, etc.
+- Apache Synapse, Apache Camel, etc.
 
 #### 3. API Gateway
 
 #### 4. Ingress Controller
 
-#### 5. Sidecar Proxy
+#### 5. Load Balancer & Traffic Router
 
-#### 6. Load Balancer & Traffic Router
-
-#### 7. 
+#### 6. Sidecar Proxy
 
 
-## xxxxxxxxxx
+### Security use cases addressed by Sidecar Proxy
 
 xxxxxx
 
 
-## Comparison
+### Comparison
 
 [](){:name="proxy-doc-link"}
 
@@ -63,7 +78,7 @@ xxxxxx
 
 _<center>Proxies, LB, Gateway and Sidecar Tools</center>_
 
-## References
+### References
 
 https://servicemesh.es
 
@@ -86,3 +101,11 @@ https://banzaicloud.com/blog/envoy-wasm-filter
 https://github.com/solo-io/wasme
 
 
+
+
+https://docs.microsoft.com/en-us/azure/architecture/patterns/sidecar
+
+https://www.infoq.com/articles/data-gateways-cloud-native/
+
+
+https://searchitoperations.techtarget.com/definition/sidecar-proxy

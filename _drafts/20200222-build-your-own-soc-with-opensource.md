@@ -15,3 +15,15 @@ AWS Guard Duty
 https://aws.amazon.com/guardduty/
 
 <!-- more -->
+
+
+
+Suricata
+
+The Inbox for your Suricata Events
+https://evebox.org
+
+Scirius is a web application for Suricata ruleset management. 
+https://github.com/StamusNetworks/scirius
+
+
