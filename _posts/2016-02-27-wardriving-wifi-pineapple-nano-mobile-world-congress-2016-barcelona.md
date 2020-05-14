@@ -33,7 +33,7 @@ _<center>The arsenal used at Mobile World Congress 2016 Barcelona</center>_
 
 ## Configuration
 
-Obviously I have initialised my Pineapple Nano previously and have updated the firmware. But if you haven't already done so, I recommend the next [guide](https://www.wifipineapple.com/pages/setup). 
+Obviously I have initialised my Pineapple Nano previously and have updated the firmware. But if you haven't already done so, I recommend the next [guide](https://www.wifipineapple.com/pages/setup).  
 The next steps are if you have initialised Pineapple Nano.
 
 **1) Connect to WIFI Pineapple and prepare everything**
