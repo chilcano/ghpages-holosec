@@ -11,8 +11,8 @@ permalink:  "/2016/02/27/wardriving-wifi-pineapple-nano-mobile-world-congress-20
 
 The idea of this post is to do a quick wardriving around of the [Mobile World Congress at Barcelona](https://www.mobileworldcongress.com) to check if the attendants are aware about their Mobile Devices with the leak of information.  
 
-[![](/assets/blog20160227_wardriving_at_scale/chilcano-00-android-gps-kismet-pineapple-adb.png){:width="70%" height="70%"}](/assets/blog20160227_wardriving_at_scale/chilcano-00-android-gps-kismet-pineapple-adb.png){:target="_blank"}
-_Wardriving at Scale with WIFI Pineapple Nano, Android & Kismet_
+[![](/assets/blog20160227_wardriving_at_scale/chilcano-00-android-gps-kismet-pineapple-adb.png){:width="70%"}{:style="display:block;margin:auto;"}](/assets/blog20160227_wardriving_at_scale/chilcano-00-android-gps-kismet-pineapple-adb.png){:target="_blank"}
+_<center>Wardriving at Scale with WIFI Pineapple Nano, Android & Kismet</center>_
 
 <!-- more -->
 
@@ -28,8 +28,8 @@ The software and devices I've used are the following:
 * [Kismet (Client and Server) installed in WIFI Pineapple Nano](https://www.kismetwireless.net)
 * [Aukey 20000mAh Portable External Battery](http://www.amazon.es/dp/B00RJK8SH6)
 
-![](/assets/blog20160227_wardriving_at_scale/blog-chilcano-01-android-mobile-pineapple-kismet.png){:width="70%"}
-_The arsenal used at Mobile World Congress 2016 Barcelona_
+![](/assets/blog20160227_wardriving_at_scale/blog-chilcano-01-android-mobile-pineapple-kismet.png){:width="70%"}{:style="display:block;margin:auto;"}
+_<center>The arsenal used at Mobile World Congress 2016 Barcelona</center>_
 
 ## Configuration
 
@@ -61,8 +61,8 @@ tmpfs 512.0K 0 512.0K 0% /dev
 
 Now, open other Kali Linux terminal and get SSH access to Pineapple Nano and update the packages.
 
-![](/assets/blog20160227_wardriving_at_scale/blog-chilcano-02-config-2-connect-pineapple-ssh.png){:width="70%"}
-_Kali Linux terminal and get SSH access to Pineapple Nano_
+![](/assets/blog20160227_wardriving_at_scale/blog-chilcano-02-config-2-connect-pineapple-ssh.png){:width="70%"}{:style="display:block;margin:auto;"}
+_<center>Kali Linux terminal and get SSH access to Pineapple Nano</center>_
 
 ```sh
 root@Pineapple:~# opkg update
