@@ -38,7 +38,7 @@ I would like to mention 2 forked projects based on VSCode, they are:
 
 I've been playing with __Code-Server__ for a while, it is mature and ready to use, and in this blog post I will explain you how to get running easily it in less than 5 minutes. In fact, it is as easy and friendly as VSCode that I'm writting this blog post using Code-Server and [Jekyll](https://jekyllrb.com).
 
-![](/assets/blog20200805_cloud_ide/cloud-ide-2-using-code-server-and-jekyll-on-wsl2.png){:width="400"}{:style="display:block;margin:auto;"}
+[![](/assets/blog20200805_cloud_ide/cloud-ide-2-using-code-server-and-jekyll-on-wsl2.png){:width="400"}{:style="display:block;margin:auto;"}](/assets/blog20200805_cloud_ide/cloud-ide-2-using-code-server-and-jekyll-on-wsl2.png)
 
 #### Installing and running Code-Server in Linux, FreeBSD and Mac OSX
 
@@ -78,7 +78,7 @@ $ . code_server_remove_wsl2.sh
 ```
 Again, this script will install Code-Server, an extension called [`Shan.code-settings-sync`](https://marketplace.visualstudio.com/items?itemName=Shan.code-settings-sync) and it will suggest you to use my shared [Gist ID b5f88127bd2d89289dc2cd36032ce856](https://gist.github.com/chilcano/b5f88127bd2d89289dc2cd36032ce856). Also, this script will install [`mkcert`](https://github.com/FiloSottile/mkcert) to issue a TLS certificate for the Code-Server.
 
-![](/assets/blog20200805_cloud_ide/cloud-ide-3-code-server-settings-sync-ext-mkcert-tls.png){:width="400"}{:style="display:block;margin:auto;"}
+[![](/assets/blog20200805_cloud_ide/cloud-ide-3-code-server-settings-sync-ext-mkcert-tls.png){:width="400"}{:style="display:block;margin:auto;"}](/assets/blog20200805_cloud_ide/cloud-ide-3-code-server-settings-sync-ext-mkcert-tls.png)
 
 Removing Code-Server installation in WSL2 (Ubuntu 20.04).
 ```sh
