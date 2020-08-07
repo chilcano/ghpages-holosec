@@ -48,7 +48,7 @@ Installing Code-Server in Linux (Debian, Ubuntu, Fedora, CentOS, RHEL, SUSE and 
 
 The ARM64 package available in [Code-Server - Releases](https://github.com/cdr/code-server/releases) didn't work in my Raspberry Pi 3 Model B+ with Raspbian 10 (buster), I had to install it via `npm`. No worries, I've prepared a bash script to do that.
 
-__Installing Code-Server in Raspberry Pi (arm).__
+__Installing Code-Server in Raspberry Pi (arm).__   
 ```sh
 $ wget -q https://raw.githubusercontent.com/chilcano/how-tos/master/resources/code_server_install_rpi.sh
 $ chmod +x code_server_install_rpi.sh
@@ -56,7 +56,7 @@ $ . code_server_install_rpi.sh
 ```
 This process will install Code-Server and only one VSCode Extension called [`Shan.code-settings-sync`](https://marketplace.visualstudio.com/items?itemName=Shan.code-settings-sync). This extension will allow us to sync configuration, themes, extensions between multiple IDEs using GitHub Gist.  
 
-__Removing Code-Server installation in Raspberry Pi (arm).__
+__Removing Code-Server installation in Raspberry Pi (arm).__   
 ```sh
 $ wget -q https://raw.githubusercontent.com/chilcano/how-tos/master/resources/code_server_remove_rpi.sh
 $ chmod +x code_server_remove_rpi.sh
@@ -65,10 +65,10 @@ $ . code_server_remove_rpi.sh
 
 #### Installing and running Code-Server in Windows 10 with [WSL 2](https://docs.microsoft.com/en-us/windows/wsl/) (Ubuntu 20.04)
 
-Unfortunately Code-Server doesn't have a native installation for Windows 10. In my case I'm using __Windows Subsystem for Linux (WSL 2)__ to get running Linux in Windows 10 and finally get Code-Server installed.
+Unfortunately Code-Server doesn't have a native installation for Windows 10. In my case I'm using __[Windows Subsystem for Linux (WSL 2)](https://docs.microsoft.com/en-us/windows/wsl/)__ to get running Linux in Windows 10 and finally get Code-Server installed.
 A Linux running through WSL 2 has a few limitations like no `systemd` and so on. No worries again, I've prepared a bash script to go through the installation process smoothly. 
 
-__Installing Code-Server in [WSL 2](https://docs.microsoft.com/en-us/windows/wsl/) (Ubuntu 20.04).__
+__Installing Code-Server in WSL 2 (Ubuntu 20.04).__   
 ```sh
 $ wget -q https://raw.githubusercontent.com/chilcano/how-tos/master/resources/code_server_install_wsl2.sh
 $ chmod +x code_server_install_wsl2.sh 
@@ -78,7 +78,7 @@ Again, this script will install Code-Server, an extension called [`Shan.code-set
 
 [![](/assets/blog20200805_cloud_ide/cloud-ide-3-code-server-settings-sync-ext-mkcert-tls.png){:width="400"}{:style="display:block;margin:auto;"}](/assets/blog20200805_cloud_ide/cloud-ide-3-code-server-settings-sync-ext-mkcert-tls.png)
 
-__Removing Code-Server installation in WSL2 (Ubuntu 20.04).__
+__Removing Code-Server installation in WSL2 (Ubuntu 20.04).__   
 ```sh
 $ wget -q https://raw.githubusercontent.com/chilcano/how-tos/master/resources/code_server_remove_wsl2.sh
 $ chmod +x code_server_remove_wsl2.sh
