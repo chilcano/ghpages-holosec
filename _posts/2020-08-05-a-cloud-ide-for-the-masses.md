@@ -36,7 +36,7 @@ I would like to mention 2 forked projects based on VSCode, they are:
 1. [VSCodium](https://vscodium.com): VSCodium is a community-driven, freely-licensed binary distribution of Microsoft’s editor VSCode. Microsoft’s vscode source code is open source (MIT-licensed), but the product available for download (Visual Studio Code) is licensed under this not-FLOSS license and contains telemetry/tracking. 
 2. [Code-Server](https://github.com/cdr/code-server): It runs VSCode on any machine anywhere and access it in the browser.
 
-I've been playing with __Code-Server__ for a while, it is mature and ready to use, and in this blog post I will explain you how to get running easily it in less than 5 minutes. In fact, it is as easy and friendly as VSCode that I'm writting this blog post using Code-Server and [Jekyll](https://jekyllrb.com).
+I've been playing with __Code-Server__ for a while, it is mature and ready to use, and in this blog post I will explain you how to get running easily it in less than 5 minutes. In fact, it is so easy and friendly as VSCode that I'm using to write this blog post using Code-Server and [Jekyll](https://jekyllrb.com).
 
 [![](/assets/blog20200805_cloud_ide/cloud-ide-2-using-code-server-and-jekyll-on-wsl2.png){:width="400"}{:style="display:block;margin:auto;"}](/assets/blog20200805_cloud_ide/cloud-ide-2-using-code-server-and-jekyll-on-wsl2.png)
 
@@ -48,7 +48,7 @@ Installing Code-Server in Linux (Debian, Ubuntu, Fedora, CentOS, RHEL, SUSE and 
 
 The ARM64 package available in [Code-Server - Releases](https://github.com/cdr/code-server/releases) didn't work in my Raspberry Pi 3 Model B+ with Raspbian 10 (buster), I had to install it via `npm`. No worries, I've prepared a bash script to do that.
 
-Installing Code-Server in Raspberry Pi (arm).
+__Installing Code-Server in Raspberry Pi (arm).__
 ```sh
 $ wget -q https://raw.githubusercontent.com/chilcano/how-tos/master/resources/code_server_install_rpi.sh
 $ chmod +x code_server_install_rpi.sh
@@ -56,7 +56,7 @@ $ . code_server_install_rpi.sh
 ```
 This process will install Code-Server and only one VSCode Extension called [`Shan.code-settings-sync`](https://marketplace.visualstudio.com/items?itemName=Shan.code-settings-sync). This extension will allow us to sync configuration, themes, extensions between multiple IDEs using GitHub Gist.  
 
-Removing Code-Server installation in Raspberry Pi (arm).
+__Removing Code-Server installation in Raspberry Pi (arm).__
 ```sh
 $ wget -q https://raw.githubusercontent.com/chilcano/how-tos/master/resources/code_server_remove_rpi.sh
 $ chmod +x code_server_remove_rpi.sh
@@ -68,24 +68,20 @@ $ . code_server_remove_rpi.sh
 Unfortunately Code-Server doesn't have a native installation for Windows 10. In my case I'm using __Windows Subsystem for Linux (WSL 2)__ to get running Linux in Windows 10 and finally get Code-Server installed.
 A Linux running through WSL 2 has a few limitations like no `systemd` and so on. No worries again, I've prepared a bash script to go through the installation process smoothly. 
 
-Installing Code-Server in [WSL 2](https://docs.microsoft.com/en-us/windows/wsl/) (Ubuntu 20.04).
+__Installing Code-Server in [WSL 2](https://docs.microsoft.com/en-us/windows/wsl/) (Ubuntu 20.04).__
 ```sh
 $ wget -q https://raw.githubusercontent.com/chilcano/how-tos/master/resources/code_server_install_wsl2.sh
-$ wget -q https://raw.githubusercontent.com/chilcano/how-tos/master/resources/code_server_remove_wsl2.sh
-$ chmod +x code_server_install_wsl2.sh code_server_remove_wsl2.sh
+$ chmod +x code_server_install_wsl2.sh 
 $ . code_server_install_wsl2.sh
-$ . code_server_remove_wsl2.sh
 ```
 Again, this script will install Code-Server, an extension called [`Shan.code-settings-sync`](https://marketplace.visualstudio.com/items?itemName=Shan.code-settings-sync) and it will suggest you to use my shared [Gist ID b5f88127bd2d89289dc2cd36032ce856](https://gist.github.com/chilcano/b5f88127bd2d89289dc2cd36032ce856). Also, this script will install [`mkcert`](https://github.com/FiloSottile/mkcert) to issue a TLS certificate for the Code-Server.
 
 [![](/assets/blog20200805_cloud_ide/cloud-ide-3-code-server-settings-sync-ext-mkcert-tls.png){:width="400"}{:style="display:block;margin:auto;"}](/assets/blog20200805_cloud_ide/cloud-ide-3-code-server-settings-sync-ext-mkcert-tls.png)
 
-Removing Code-Server installation in WSL2 (Ubuntu 20.04).
+__Removing Code-Server installation in WSL2 (Ubuntu 20.04).__
 ```sh
-$ wget -q https://raw.githubusercontent.com/chilcano/how-tos/master/resources/code_server_install_wsl2.sh
 $ wget -q https://raw.githubusercontent.com/chilcano/how-tos/master/resources/code_server_remove_wsl2.sh
-$ chmod +x code_server_install_wsl2.sh code_server_remove_wsl2.sh
-$ . code_server_install_wsl2.sh
+$ chmod +x code_server_remove_wsl2.sh
 $ . code_server_remove_wsl2.sh
 ```
 
