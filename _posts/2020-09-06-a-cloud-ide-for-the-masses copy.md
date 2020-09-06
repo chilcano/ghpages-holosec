@@ -12,7 +12,7 @@ As I stated in the previous post "[A Cloud IDE for the masses](/2020/09/06/a-clo
 
 We are going to deploy [Code-Server](https://github.com/cdr/code-server) (a NodeJS web app) into an EC2 instance, using Ubuntu AMI and provisioning all package through a bash scripts (UserData), as in the below diagram depict it. 
 
-![](/assets/blog20200906_cloudidecdk/0-cloud-ide-aws-arch-cdk-ec2-ami-userdata-vscode-code-server.png){:width="400"}{:style="display:block;margin:auto;"}
+![](/assets/blog20200906_cloudidecdk/0-cloud-ide-aws-arch-cdk-ec2-ami-userdata-vscode-code-server.png){:style="display:block;margin:auto;"}
 
 <!-- more -->
 
