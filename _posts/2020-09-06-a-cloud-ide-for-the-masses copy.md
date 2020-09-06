@@ -1,10 +1,10 @@
 ---
 layout:     post
-title:      "A Cloud IDE for the masses - AWS CDK implementation"
+title:      "Implementing VSCode-based (Code-Server) IDE on Cloud with AWS CDK"
 categories: ['cloud', 'devops'] 
-tags:       ['aws', 'cdk', 'docker', 'git', 'linux', 'cloudformation']
+tags:       ['aws', 'cdk', 'cloudformation','code-server', 'vscode ide']
 date:       2020-09-06 11:00:00 +0100
-permalink:  "/2020/09/06/a-cloud-ide-for-the-masses"
+permalink:  "/2020/09/06/implementing-vscode-based-ide-on-cloud-with-aws-cdk"
 comments:   true
 ---
 
