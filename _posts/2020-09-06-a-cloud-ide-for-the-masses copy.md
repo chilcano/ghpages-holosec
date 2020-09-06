@@ -119,5 +119,5 @@ Hope this helps.
 
 ### References
 
-1. [Building an affordable remote DevOps desktop on AWS | Apr 9, 2020](https://holisticsecurity.io/2020/04/09/building-an-affordable-remote-devops-desktop-on-aws)
-2. [A Cloud IDE for the masses | Aug 5, 2020 ](https://holisticsecurity.io/2020/08/05/a-cloud-ide-for-the-masses)
+1. [Building an affordable remote DevOps desktop on AWS - Apr 9, 2020](https://holisticsecurity.io/2020/04/09/building-an-affordable-remote-devops-desktop-on-aws)
+2. [A Cloud IDE for the masses - Aug 5, 2020](https://holisticsecurity.io/2020/08/05/a-cloud-ide-for-the-masses)
