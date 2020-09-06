@@ -16,19 +16,19 @@ We are going to deploy [Code-Server](https://github.com/cdr/code-server) (a Node
 
 <!-- more -->
 
-#### Persisting the code 
+### Persisting the code 
 
 Code-Server doesn't require a Database, the only thing to persist is the code. The EC2 instance has enough room to download and persist the code and its dependencies like you do it in your local computer. If you have completed your project, then you can push your code to your Git repository. 
 
-#### On-demand computing
+### On-demand computing
 
 If you want compile, run your code, or want to process long task, then you will need processing and computing capacity and you will get from EC2 instance you choose. If you need more just run again your IaC with different `EC2 Instance Type`. This example uses a `t2.micro`.
 
-#### Security
+### Security
 
 Code-Server is a web application and will require a secure configuration like a standard web application. By default, the only security control that Code-Server is authentication. A fresh Code-Server installation will generate during its installation a password. And considering that, we need implementing extra security around the web application like TLS and/or Mutual TLS Authentication, Whitelisting IP and only open the HTTP/HTTPS port. If you have more time, you could implement a Reverse Proxy with security capabilities or using additional AWS services like AWS API Gateway, AWS CloudFront (WAF), etc.
 
-#### I already have VSCode, can share my settings, theme and extensions?
+### I already have VSCode, can share my settings, theme and extensions?
 
 Yes, you can do it.   
 This is the part that I like the most, I'm in love with [Settings Sync](https://marketplace.visualstudio.com/items?itemName=Shan.code-settings-sync) Extension, only I do configure a Gist ID and Setting Sync automatically download previous VS Code' settings (theme, style, configuration, etc.) from Gist and install all VS Code extensions for you.   
