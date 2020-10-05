@@ -5,3 +5,7 @@ _site
 .jekyll-metadata
 vendor
 *.csv
+# both will generated with 'bundle init'
+.bundle
+Gemfile.lock
+
