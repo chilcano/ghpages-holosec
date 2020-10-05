@@ -5,7 +5,8 @@ _site
 .jekyll-metadata
 vendor
 *.csv
-# both will generated with 'bundle init'
+.vscode
+# 'vendor/bundle', '.bundle' and Gemfile.lock will be generated with 'bundle init'
 .bundle
 Gemfile.lock
 
