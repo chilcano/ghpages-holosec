@@ -2,8 +2,8 @@
 layout: post
 title: "Android Tablet or iPad as extra monitor for Linux"
 date: 2019-10-28 00:00:00 +0200
-categories: misc linux
-tags: ubuntu tablet dual extended monitor screen
+categories: ['misc', 'linux'] 
+tags:       ['ubuntu', 'tablet', ' dual', 'extended', 'monitor', 'screen']
 permalink: "/2019/10/28/android-tablet-or-ipad-as-extra-monitor-for-linux"
 comments: true
 ---

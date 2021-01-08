@@ -2,8 +2,8 @@
 layout: post
 title:  "Migrating WordPress.com's blog to GitHub Pages with Jekyll - Part 2"
 date:   2019-12-10 10:00:00 +0100
-categories: misc cms 
-tags: github wordpress jekyll migration python
+categories: ['misc', 'cms'] 
+tags:       ['github', 'wordpress', 'jekyll', 'migration', 'python']
 permalink: "/2019/12/10/migrating-wordpress-com-blog-to-github-pages-with-jekyll-part2"
 comments: true
 ---
